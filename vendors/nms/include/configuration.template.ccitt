@@ -1,0 +1,148 @@
+/*
+ * Ok, time to simplify this crap.
+ *
+ * You'll need to create a version of this file,
+ * named configuration.template, customized to
+ * the settings YOU want to use to build the NMS
+ * vendor library.  Note that on UNIX this nonsense
+ * isn't necessary, because make can pull variables
+ * from the environment.
+ */
+
+/*
+ * Uncomment one of the following to choose the
+ * protocol family you want to use:
+ */
+/* #define ANSI */
+#define CCITT
+
+/*
+ * Uncomment one of the following to choose the
+ * SCCP layer (if you want a mixed family build).
+ * Otherwise, leave both commented.  If you do
+ * uncomment one of these, you must make sure the
+ * #define above is the other protocol family:
+ */
+/* #define USE_ITU_SCCP */
+/* #define USE_ANSI_SCCP */
+
+/*
+ * Choose your level of integration with the IntelliNet
+ * toolkit and stack:
+ * If you intend to use this library with the IntelliNet
+ * support library, you should choose one of either WITH_TOOLKIT
+ * or INTEGRATED.  Otherwise, if you know that you don't
+ * want to use the richer features of the support library,
+ * you can chose STANDALONE.
+ * If you are not using the IntelliNet stack, but wish
+ * to have your stack configuration information come from
+ * the resource database, use the WITH_TOOLKIT type.  If you
+ * choose this type, you had better be sure that you called
+ * ITS_GlobalStart() and that you set your application name.
+ * Choose INTEGRATED if you wish to use have the stack
+ * appear as just another border transport.
+ */
+/* #define STANDALONE */
+/* #define WITH_TOOLKIT */
+#define INTEGRATED
+
+/*
+ * You can use the IntelliNet stack in two ways.  You
+ * can either use IntelliNet TCAP, SCCP, ISUP, etc, and
+ * just use NMS MTP3 and below, or you can fix it so that
+ * all SS7 messaging be done via only NMS APIs.  The first
+ * option means that calling TCAP_SendDialogue()s implementation
+ * transmits the dialogue through IntelliNet TCAP and SCCP,
+ * and calls SS7_PutEvent() on the encoded MTP3 output of
+ * SCCP.  The second choice means that TCAP_SendDialogue()
+ * is implemented as SS7_PutEvent() directly, and the NMS
+ * TCAP API should be used to transmit.  In the second case,
+ * you should NOT include the IntelliNet vendor library in
+ * your build.  Note that this #define is useless if
+ * STANDALONE has been selected; the intent here is to
+ * support applications that use the NMS stack, but integrate
+ * it as a border transport into a multithreaded application
+ * using the support library.  Standalone NMS really implies
+ * that the stack is being used in SINGLE_USER mode (o.k.,
+ * that really means only one border transport).
+ */
+/* #define USE_HIGHEST_LAYER */
+
+/*
+ * Uncomment ONE of the following.  NMS cannot interface to
+ * multiple layers of the stack simultaneously.  Therefore
+ * applications can only use one stack layer at a time, so
+ * users of this library cannot make MTP3 calls (for example)
+ * if they are using the TCAP interface.
+ */
+#define INCLUDE_MTP2
+/* #define INCLUDE_MTP3 */
+/* #define INCLUDE_ISUP */
+/* #define INCLUDE_SCCP */
+/* #define INCLUDE_TCAP */
+
+/*
+ * now I'll check the sanity of your configuration
+ */
+#if defined(STANDALONE)
+#if defined(USE_HIGHEST_LAYER)
+#error "If you define STANDALONE, it implies that you do not wish"
+#error "to use the context routing provided by the support library."
+#error "This means that you will automatically be using the highest"
+#error "stack layer, and that SS7_PutEvent() will have the effect of"
+#error "putting an artificial event on the stack event stream."
+#endif
+#endif
+
+#if defined(STANDALONE)
+#if defined(WITH_TOOLKIT) || defined(INTEGRATED)
+#error "Choose one build type, please."
+#endif
+#endif
+
+#if defined(WITH_TOOLKIT)
+#if defined(STANDALONE) || defined(INTEGRATED)
+#error "Choose one build type, please."
+#endif
+#endif
+
+#if defined(INTEGRATED)
+#if defined(WITH_TOOLKIT) || defined(STANDALONE)
+#error "Choose one build type, please."
+#endif
+#endif
+
+#if defined(INCLUDE_MTP2)
+#if defined(INCLUDE_MTP3) || defined(INCLUDE_SCCP) || \
+    defined(INCLUDE_ISUP) || defined(INCLUDE_TCAP)
+#error "Pick one and only one stack layer to include."
+#endif
+#endif
+
+#if defined(INCLUDE_MTP3)
+#if defined(INCLUDE_MTP2) || defined(INCLUDE_SCCP) || \
+    defined(INCLUDE_ISUP) || defined(INCLUDE_TCAP)
+#error "Pick one and only one stack layer to include."
+#endif
+#endif
+
+#if defined(INCLUDE_SCCP)
+#if defined(INCLUDE_MTP2) || defined(INCLUDE_MTP3) || \
+    defined(INCLUDE_ISUP) || defined(INCLUDE_TCAP)
+#error "Pick one and only one stack layer to include."
+#endif
+#endif
+
+#if defined(INCLUDE_ISUP)
+#if defined(INCLUDE_MTP2) || defined(INCLUDE_MTP3) || \
+    defined(INCLUDE_SCCP) || defined(INCLUDE_TCAP)
+#error "Pick one and only one stack layer to include."
+#endif
+#endif
+
+#if defined(INCLUDE_TCAP)
+#if defined(INCLUDE_MTP2) || defined(INCLUDE_MTP3) || \
+    defined(INCLUDE_SCCP) || defined(INCLUDE_ISUP)
+#error "Pick one and only one stack layer to include."
+#endif
+#endif

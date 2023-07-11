@@ -1,0 +1,19 @@
+#ifndef _DTF_LOG_H_
+#define _DTF_LOG_H_
+
+#include <dia_trace.h>
+
+#define DTF_DBG DIA_TRACE_DEBUG
+#define DTF_ERR DIA_TRACE_ERROR
+#define DTF_WRN DIA_TRACE_WARNING
+#define DTF_CRT DIA_TRACE_CRITICAL
+
+#define TRANSFORM_SUCCESS 0
+#define TRANSFORM_FAILURE 1
+#define TRANSFORM_NOT_DONE 2
+#define TRANSFORM_INVALID_IN_MSG 3
+#define TRANSFORM_DECODE_ERR 4
+#define TRANSFORM_PLUGIN_NOT_FOUND 5
+
+
+#endif

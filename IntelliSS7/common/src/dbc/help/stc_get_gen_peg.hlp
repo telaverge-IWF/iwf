@@ -1,0 +1,39 @@
+
+ITU STC Command
+
+SYNOPSIS
+    stc_get_gen_peg <pg>
+
+DESCRIPTION
+    This command displays peg value based on the peg id.
+
+PARAMETERS
+
+   #peg      - The peg id to get the value 
+
+             - ALL/all for All STC PEGS Values
+
+NOTE
+    The STC pegs ids are:
+
+    PEG_STC_IN_SERVICE                       0
+    PEG_STC_OUT_OF_SERVICE                   1
+    PEG_STC_CONGESTION                       2
+    PEG_STC_TRANSFER_REQ                     3
+    PEG_STC_TRANSFER_IND                     4
+
+    ALL_STC_PEGS                            99
+
+
+EXAMPLE
+     >> stc_get_gen_peg 4
+     Getting the Peg for PEG_STC_TRANSFER_IND Now
+     value is 0
+
+     >> stc_get_gen_peg all
+     **************** ALCAP Pegs ****************
+     PEG_STC_IN_SERVICE                       :0
+     PEG_STC_OUT_OF_SERVICE                   :0 
+     PEG_STC_CONGESTION                       :0 
+     PEG_STC_TRANSFER_REQ                     :0 
+     PEG_STC_TRANSFER_IND                     :0 

@@ -1,0 +1,28 @@
+{
+        "patch-details": [
+	   {    
+            	"patch-type" : "static",
+                "patch-number": 1,
+                "dre-release": "iwf-3.3.4-Release",
+		"pre-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.4-Release/patch1/pre_patch.sh",
+		"post-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.4-Release/patch1/post_patch.sh",
+		"pre-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.4-Release/patch1/pre_uninstall_patch.sh",
+		"post-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.4-Release/patch1/post_uninstall_patch.sh",
+                "files": [
+		    {
+			"source": "$EACC_ROOT/scripts/ha/standalone_to_ha.sh",
+                        "target": "/opt/diametriq/iwf/scripts/standalone_to_ha.sh"
+
+		    }
+
+
+
+
+
+                ]
+            }    
+        
+      ]
+}
+
+

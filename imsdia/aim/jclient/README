@@ -1,0 +1,190 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: README,v 3.1 2008/03/31 10:33:03 nvijikumar Exp $
+#
+# LOG: $Log: README,v $
+# LOG: Revision 3.1  2008/03/31 10:33:03  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.4  2007/05/18 13:13:28  sumag
+# LOG: Modified Makefile to run the MFGenerator.sh scripts
+# LOG:
+# LOG: Revision 2.3  2007/03/08 07:28:16  sumag
+# LOG: Updated for ITS Diameter Changes.
+# LOG:
+# LOG: Revision 2.2  2006/09/26 09:01:21  sumag
+# LOG: The demo applications for gx, rx, tx, ty and wx interfaces have been
+# LOG: implemented
+# LOG: The jclient/Makefile has been modified to contain new targets gx, gxclean,
+# LOG: rx, rxclean, tx, txclean, ty, tyclean, wx and wxclean
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:22:39  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.2  2006/08/28 15:10:40  sumag
+# LOG: Added SubsProfile detail
+# LOG:
+# LOG: Revision 1.1  2006/07/27 13:25:55  sumag
+# LOG: Modified to include javolution in $IMS_TOOLS and other required info
+# LOG:
+#
+#ident "$Id: README,v 3.1 2008/03/31 10:33:03 nvijikumar Exp $"
+#
+############################################################################
+
+# File: $IMSROOT/jclient/README
+
+============================================================
+This Readme file contains the environment variable settings,
+installation, compilation and executing procedures for the
+demo java distributed client application
+============================================================
+
+******** Confirm that following is completed successfully
+* Run make from 
+* $IMS_ROOT/mag. 
+* $IMS_ROOT/val/java/src, 
+* $IMS_ROOT/val/java/native and
+* from $IMS_ROOT/api/java/src        
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+1) Add the following Java related configurations 
+in the .bash_profile file
+Note1: The following contents can be stored in a shell script
+which will be executed initially.
+Note2: The paths mentioned are only those which have 
+to be added for the java application
+Assumption: The paths and other configuration are already
+present for the c++ aim client
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# Java Configurations
+
+export JAVA_HOME=/usr/java/jdk1.5.0_06/
+
+PATH=$PATH:$JAVA_HOME/bin
+export PATH
+export JAPI_JARS=$HOME/cvsroot/imsdia/api/java/lib
+export JIDC_JARS=$IMS_ROOT/aim/jclient/jar
+
+#This a general CLASSPATH containing all the jars.
+#For each interface the CLASSPATH must contain only the required jars
+CLASSPATH=.:$IMS_ROOT/val/java/lib/diameter.jar:$JAPI_JARS/diabaseapi.jar:$JAPI_JARS/diacxdxapi.jar:$JAPI_JARS/diadccaapi.jar:$JAPI_JARS/diae2api.jar:$JAPI_JARS/diae4api.jar:$JAPI_JARS/diaeapapi.jar:$JAPI_JARS/diagqgqprimeapi.jar:$JAPI_JARS/diagxapi.jar:$JAPI_JARS/diaimsapi.jar:$JAPI_JARS/diamipapi.jar:$JAPI_JARS/dianasreqapi.jar:$JAPI_JARS/diarfroapi.jar:$JAPI_JARS/diarqapi.jar:$JAPI_JARS/diarxapi.jar:$JAPI_JARS/diash3gpp2api.jar:$JAPI_JARS/diashapi.jar:$JAPI_JARS/diatxapi.jar:$JAPI_JARS/diatyapi.jar:$JAPI_JARS/diawdapi.jar:$JAPI_JARS/diawmapi.jar:$JAPI_JARS/diawxapi.jar:$IMS_ROOT/aim/jclient/jar/JIDC.jar
+
+export CLASSPATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/java/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/aim/jclient/lib
+
+export LD_LIBRARY_PATH
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+2) Run the .bash_profile
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3) Check out the $IMS_ROOT/aim/jclient from the cvs
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+4) cd $IMS_ROOT/aim/jclient/src
+   make
+   ** This creates the prot/jidc directory and the prot files
+   ** as well as the JIDC.jar
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5)
+  cd $IMS_ROOT/aim/jclient/native
+  make
+  ** This creates the libJIDCD.a and libJIDCD.so files
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+6)
+  cd $IMS_ROOT/aim/jclient/demo
+  sh MFGenerator.sh
+  ** This creates the META-INF/MANIFEST.MF file required
+  ** to create the executable jar
+                     OR
+  cd $IMS_ROOT/aim/jclient
+  make clean;make script
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+7)
+  cd $IMS_ROOT/aim/jclient
+  make
+  ** This creates the JSampleApp.jar
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+*************************************************************
+
+This completes the creation of jar files in the jar directory
+and C++ library files in the lib directory
+which are created in $IMS_ROOT/aim/jclient
+The application creation is completed and can be executed.
+*************************************************************
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+8)
+  cd $IMS_ROOT/aim/jclient/bin
+  copy the mag generated dictionary.xml, the dictionary.dtd
+  and the SubsProfile.xml files into the bin directory
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9)
+  Execute Run to bring up the application
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+*************************************************************
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10) cd $IMS_ROOT/aim/jclient/src
+    make doc
+    ** This creates the docs directory and creates the
+    ** documentation files in html format
+    cd ..
+    make doc
+    ** This creates the documentation files in html format
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+11) For the following interfaces,
+    e2, e4, gx, rq, rx, tx,ty and wx,
+    cd $IMS_ROOT/aim/jclient/mtest
+    make clean;make script;make
+    The executables are present in the bin directory of each
+    interface directory.
+****************************++++******************************
+
+THE Makefile in $IMS_ROOT compiles the entire aplication
+To use $IMS_ROOT/Makefile,
+
+1) make clean
+2) make script
+3) make
+
+***************************++++*******************************

@@ -1,0 +1,7 @@
+WinINAPlib    WinINAPlib.mak    debug   "WinINAPlib - Win32 Debug"
+WinINAPlib    WinINAPlib.mak    release "WinINAPlib - Win32 Release"
+inap_cs1_c    inap_cs1_c.mak    debug   "inap_cs1_c - Win32 Debug"
+inap_cs1_c    inap_cs1_c.mak    release "inap_cs1_c - Win32 Release"
+inap_cs1_cpp  inap_cs1_cpp.mak  debug   "inap_cs1_cpp - Win32 Debug"
+inap_cs1_cpp  inap_cs1_cpp.mak  release "inap_cs1_cpp - Win32 Release"
+

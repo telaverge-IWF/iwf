@@ -1,0 +1,23 @@
+#!/bin/sh
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/cvsroot/imsdia/aim/client/lib:$HOME/cvsroot/IntelliSS7/common/lib:$IMS_ROOT/vendors/IntelliNet/lib:$IMS_ROOT/apps/lib:../../lib
+
+export LD_LIBRARY_PATH
+rm core.*
+
+# USAGE
+#sampleRqClientD  -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost)
+#        -dr (DestinationRealm) -sp (Server Port) -srvip ( Server IP Address)
+#        [ -bksp (Backup Server Port) -bksrvip (Backup Server IP Address) ]
+#        -contype (Connection Type: primary / backup )
+
+#
+#     -bksp -bksrvip are Optional parameters and used only with redundant IDS.
+
+sampleRqClientD -oh nemo -or india.internal.net -dh nemocl -dr india.internal.net -sp 9999 -srvip "172.16.3.1" -bksp 9999 -bksrvip "172.16.3.50" -contype primary
+
+#gdb sampleRqClientD
+
+exit 0
+
+

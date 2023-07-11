@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    setHMIRetry  <rtime>
+
+DESCRIPTION
+    This command is used to set HMI Retry Interval.
+
+PARAMETERS
+    <rtime>    HMI Retry Interval
+
+EXAMPLE
+    >> setHMIRetry 5
+       HMI Retry Interval Set
+

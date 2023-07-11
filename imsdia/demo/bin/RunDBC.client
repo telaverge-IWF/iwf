@@ -1,0 +1,17 @@
+#! /bin/bash
+#
+# Set this to particular user home dir
+###############################################################################
+USER_ROOT=$HOME
+ITS_ROOT=$USER_ROOT/cvsroot/IntelliSS7
+VENDOR_ROOT=$USER_ROOT/cvsroot/vendors
+###############################################################################
+
+export DLL_LIBS=$ITS_ROOT/common/lib
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DLL_LIBS
+
+$ITS_ROOT/common/bin/DBGConsoleD -socket -configFile dbc_console.ini.client
+
+exit 0
+

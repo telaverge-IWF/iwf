@@ -1,0 +1,37 @@
+/ANNOUNCE/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/AUTHORS/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/INSTALL/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/MANIFEST/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/Makefile.in/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/Makefile.os2/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/NEWS/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/README/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/README.emx/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/TO-DO/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/aclocal.m4/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/announce.html.in/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/config.guess/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/config.sub/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/configure/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/configure.in/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/convert_configure.pl/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/dist.mk/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/install-sh/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/mk-0th.awk/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/mk-1st.awk/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/mk-2nd.awk/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/mk-hdr.awk/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/mkdirs.sh/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+/tar-copy.sh/1.1.2.1/Fri Oct  5 16:14:18 2012//TB-IWF-HP-0400-00
+D/Ada95////
+D/c++////
+D/doc////
+D/form////
+D/include////
+D/man////
+D/menu////
+D/misc////
+D/ncurses////
+D/panel////
+D/progs////
+D/test////

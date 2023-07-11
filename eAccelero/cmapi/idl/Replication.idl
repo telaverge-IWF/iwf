@@ -1,0 +1,76 @@
+%PB{
+
+import "Common.proto";
+
+    message Header {
+        required uint32 componentId = 1;
+        required uint32 subComponentId = 2;
+        required uint32 replicaID = 3;
+        optional uint32 sequenceID = 4;
+    }
+    message Data {
+        optional uint32 offset = 1;
+        optional uint32 length = 2;
+        optional bytes data = 3;
+    }
+    message ReplicationEntry {
+        required Header header = 1;
+        optional Data data = 2;
+    }
+    message ReplicateEntryRequest {
+        required uint32 requestID = 1;
+        repeated ReplicationEntry repEntry = 2;
+    }
+    message ReplicateEntryResponse {
+        required uint32 responseID = 1;
+        required uint32 status = 2;
+        optional ErrorDetails errorDetails = 3;
+        repeated ReplicationEntry repEntry = 4;
+    }
+    message FetchReplicationEntriesRequest {
+        required uint32 requestID = 1;
+        repeated uint32 replicaID = 2;
+        optional uint32 numRecs = 3;
+        optional bool isDataRequired = 4;
+    }
+
+    message replicaDetails {
+        required uint32 componentID = 1;
+        required uint32 subComponentID = 2;
+        required uint32 replicaID = 3;
+        required uint64 replicaSize = 4;
+        required uint32 timeToLive = 5;
+    }
+    message InitiateReplicationRequest {
+        required uint32 requestID = 1;
+        repeated replicaDetails replicas = 2;
+    }
+    message InitiateReplicationResponse {
+        required uint32 responseID = 1;
+        required uint32 status = 2;
+        optional ErrorDetails errorDetails = 3;
+        optional uint32 key = 4;
+    }
+%PB}
+
+interface RepMgrReplicationInterface 
+{
+    InitiateReplication(InitiateReplicationRequest Request, InitiateReplicationResponse Response)uses_PB;
+    ReplicateNewCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    ReplicateUpdatedCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    ReplicateDeletedCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+}
+interface ApplicationReplicationInterface 
+{
+    ReplicateNewCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    ReplicateUpdatedCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    ReplicateDeletedCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+}
+interface RepMgrInterface 
+{
+    CreateCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    UpdateCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    DeleteCacheEntry(ReplicateEntryRequest Request, ReplicateEntryResponse Response)uses_PB;
+    FetchCacheEntries(FetchReplicationEntriesRequest Request, ReplicateEntryResponse Response)uses_PB;
+}
+

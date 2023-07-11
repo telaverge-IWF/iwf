@@ -1,0 +1,33 @@
+echo " Checking for  Patches installed on this machine ";
+
+export PATCH_DIR=$IMS_ROOT/patches;
+
+
+if [ ! -d $PATCH_DIR ]
+then
+   echo " NO imsdia Patches found on this machine ";
+else
+   /bin/ls -l $PATCH_DIR | grep 2.2 > /dev/null;
+   if [ $? = 1 ]
+   then
+       echo " NO imsdia Patches found on this machine ";
+   else
+       for d in `ls -1 $PATCH_DIR | grep 2.2`; do
+          echo " Patch ID : $d ";
+          echo " *****************************";
+          /bin/cat $PATCH_DIR/$d/README;
+          echo "";
+       done
+   fi
+fi
+
+echo "-------------------------------------------------------";
+
+#echo "Checking for Solaris Patches installed on this machine ";
+
+#/bin/showrev -p;
+
+echo "DONE";
+exit 0;
+
+

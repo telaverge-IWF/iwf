@@ -1,0 +1,467 @@
+<?xml version="1.0"?>
+
+<!-- Sample XML file for application configuration (INI). -->
+ 
+<Application name           = "App"
+             type           = "console-application"
+             globalStart    = "ANSI-TCAP"
+             binding        = "CPP"
+             library        = ""
+             appSelector    = "RouteNoneToApp"
+             preFunc        = "AppPreFunc">
+ 
+    <AppOptions name = "traceFlushAfterWrite"         value = "yes"/>
+    <AppOptions name = "routeUniqueLinkCodesRequired" value = "yes"/>
+    <AppOptions name = "memPoolChecksOn"              value = "no"/>
+
+    <AppOptions name = "redundancyType"               value = "active-backup"/>
+    <AppOptions name = "nodeState"                    value = "backup"/>
+
+    <Feature
+         name        = "Redundancy-Type"
+         library     = "ITS-REDUNDANCYD.dll"
+        classRec     = "itsREDUNDANCY_Class"
+     />
+
+    <Feature
+        name        = "DBC Server Class"
+        library     = "ENGINED.dll"
+        classRec    = "itsDBC_ServerClass"
+    />
+
+    <Feature
+        name        = "Vendor Framework ANSI"
+        library     = "VFrameD.dll"
+        classRec    = "itsSS7STACK_ClassANSI"
+    />
+
+    <Feature
+        name        = "IntelliNet stack ANSI"
+        library     = "ANSIVENDORD.dll"
+        classRec    = "itsINTELLISS7_ClassANSI"
+    />
+
+    <Feature
+        name        = "DSM Data Class - STUB"
+        library     = "DSM-STUBD.dll"
+        classRec    = "itsDSM_StubImplClass"
+    />
+
+    <Feature
+        name        = "DSM  - GCS"
+        library     = "DSM-GCSD.dll"
+        classRec    = "itsDSM_GcsImplClass"
+    />
+
+    <Feature       
+        name        = "Keepalive manager"
+        library     = "ENGINED.dll"
+        classRec    = "itsKEEPALIVE_Class"
+    />
+
+     <Feature
+        name                = "IMAL"
+        library             = "ANSI-IMALD.dll"
+        classRec            = "itsIMAL_Class_ANSI">
+
+        <FeatureOption name = "imalTraceKeepAlives" value = "yes"/>
+        <FeatureOption name = "imalTracePayload"    value = "yes"/>
+
+    </Feature>
+
+    <ParserExtension
+        library         = "DSM-GCSD.dll"
+        elementName     = "DsmGcsConfig"
+        startFunc       = "DSM_GCS_ConfigParseStart"
+        stopFunc        = "DSM_GCS_ConfigParseStop"
+        xlateFunc       = "DSM_GCS_ConfigConvertParserData"
+        diffFunc        = "DSM_GCS_ConfigDiff"
+    />
+
+    <FaultTolerance
+        maxNumFtGroups      = "32"
+        maxNumProcesses     = "10"
+        maxNumNodes         = "4"
+        nodeId              = "2"
+        processId           = "5"
+        tcapFtGroupId       = "1"
+        sccpFtGroupId       = "1"
+        mtp3FtGroupId       = "0"
+        isupFtGroupId       = "0"
+        routingFtGroupId    = "0"
+        timersFtGroupId     = "1"
+        mgmtDataFtGroupId   = "0"
+    >
+
+        <Procedures>
+
+        </Procedures>
+
+        <Callbacks>
+
+        </Callbacks>
+
+        <FtGroups>
+
+            <FtGroup
+                ftGroupId      = "1"
+                ftGroupName    = "FtGroup1"
+            >
+
+              <DsmConfig
+                     dsmSize         = "20971520"
+                     dsmBaseAddress  = "0x80000000"
+                     dsmMaxNumTables = "256"
+                     dsmType         = "STUB"
+              />
+
+              <FtGroupMembers>
+                    <FtGroupMember
+                        nodeId      = "2"
+                        processId   = "5"
+                    />
+
+              </FtGroupMembers>
+
+                <MasterFtGroupMembers>
+
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+
+                </Callbacks>
+
+            </FtGroup>
+
+            <FtGroup
+                ftGroupId      = "0"
+                ftGroupName    = "FtGroup0"
+            >
+
+                <DsmConfig
+                     dsmSize         = "20971520"
+                     dsmBaseAddress  = "0x80000000"
+                     dsmMaxNumTables = "256"
+                     dsmType         = "GCS"
+                />
+
+                <DsmGcsConfig
+                     gcsFtGroupId        = "0"
+                     gcsDaemonName       = "4811@172.16.5.47"
+                     gcsSyncMemUseTcp    = "1"
+                     gcsSyncMemIpAddress = "172.16.5.47"
+                     gcsSyncMemIpPort    = "4806"
+                />
+
+             <!-- Note: MUST include itself. -->
+             <!-- Note: nodeName and processName are optional attributes. -->
+
+                <FtGroupMembers>
+                    <FtGroupMember
+                        nodeId      = "1"
+                        nodeName    = "Node1"
+                        processId   = "5"
+                        processName = "Node1Process5"
+                    />
+
+                    <FtGroupMember
+                        nodeId      = "2"
+                        nodeName    = "Node2"
+                        processId   = "5"
+                        processName = "Node2Process5"
+                    />
+
+                </FtGroupMembers>
+
+                <!-- Note: MUST NOT include itself. -->
+                <!-- Note: Master FtGroupMembers are tried in order. -->
+
+                <MasterFtGroupMembers>
+
+                    <MasterFtGroupMember
+                        nodeId    = "1"
+                        processId = "5"
+                    />
+
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+
+                    <MembershipChangeCallback
+                        library     = ""
+                        function    = "SL_MembershipChangeCb"
+                    />
+
+                </Callbacks>
+
+            </FtGroup>
+
+        </FtGroups>
+
+    </FaultTolerance>
+
+    <LinkSet id           = "0"
+             family       = "ANSI"
+             adjacentSTP  = "no"
+             numToStart   = "0">
+        <NI     value = "0x80"/>
+        <APC    value = "0"/>
+        <LPC    value = "1"/>
+    </LinkSet>
+
+    <LinkSet id           = "1"
+             family       = "ANSI"
+             adjacentSTP  = "yes"
+             numToStart   = "1">
+        <NI     value = "0x80"/>
+        <APC    value = "2"/>
+        <LPC    value = "1"/>
+
+    </LinkSet>
+
+    <Route  type     = "localRoute"
+            style    = "dpc-sio-ssn"
+             family       = "ANSI"
+            linkSet  = "0"
+            priority = "0">
+        <DPC    value = "1"/>
+        <SIO    value = "0x83"/>
+        <SSN    value = "2"/>
+    </Route>
+
+    <Route  type     = "remoteRoute"
+            style    = "dpc-sio-ssn"
+             family       = "ANSI"
+            linkSet  = "1"
+            priority = "0">
+        <DPC        value = "2"/>
+        <SIO        value = "0x83"/>
+        <SSN        value = "2"/>
+    </Route>
+
+    <ApplicationTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </ApplicationTrace>
+
+
+    <ToolkitTrace>
+        <Critical  output = ""/>
+        <Error     output = ""/>
+        <Warning   output = ""/>
+        <Debug     output = ""/>
+    </ToolkitTrace>
+
+    <BorderPool stackSize = "0">
+
+        <Transport  name    = "Debug Console Dispatcher"
+                   type    = "ServerSocket"
+                   family  = "">
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "172.16.5.47"
+                        serverPort      = "2013"
+            />
+
+            <Callbacks
+                type        = "debug-console"
+            />
+
+        </Transport>
+
+         <Transport  name    = "AppServer1"
+                    type     = "IterativeServerSocket"
+                    count = "50">
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "172.16.5.47"
+                        serverPort      = "6616"
+            />
+
+            <Callbacks
+                library         = ""
+                type            = "blocking"
+                postNextEvent   = "SL_PostNextEvent"
+                nextEventFailed = "SL_NextEventFailed"
+            />
+
+            <Link   id       = "0"
+             family       = "ANSI"
+             linkSet         = "1"
+             initiallyActive = "yes"
+             terminalFixed   = "yes"
+             dataLinkFixed   = "yes"
+             priority        = "0"
+             terminal        = "0"
+             dataLink        = "0"
+            />
+
+        </Transport>
+<!--
+         <Transport  name    = "AppServer"
+                    type     = "ServerSocket"
+                    family   = "ANSI">
+
+             <Modifier value = "IMAL"/>
+             <Modifier value = "MTP3"/>
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "172.16.5.47"
+                        serverPort      = "6605"
+            />
+
+            <IMAL    imalLocalPC             = "0x01"
+                     imalAdjacentPC          = "0x02"
+                     imalKeepAliveTimer      = "60"
+            />
+
+            <Link   id       = "0"
+               family        = "ANSI"
+               linkSet         = "1"
+               initiallyActive = "yes"
+               terminalFixed   = "yes"
+               dataLinkFixed   = "yes"
+               priority        = "0"
+               terminal        = "0"
+               dataLink        = "0"
+            />
+
+        </Transport>
+-->
+    </BorderPool>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <SS7-Stacks>
+
+        <ManagementCallbacks
+            library = ""
+            MTP3ManagementCallbackANSI     = "MTP3ManagementCallback"
+        />
+
+        <IntelliNet>
+
+            <ANSI-MTP3 variant = "TestName">
+
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/>
+                    <Debug    output = "stdout"/>
+                    <Event     output = "stdout"/>
+                </StackTrace>
+
+                <BehaviorControl
+                    STPFunction = "no"
+                />
+
+                <Timers
+                     T1 = "800"
+                     T2 = "1400"
+                     T3 = "800"
+                     T4 = "800"
+                     T5 = "800"
+                     T6 = "800"
+                     T7 = "800"
+                     T8 = "800"
+                     T9 = "0"
+                    T10 = "30000"
+                    T11 = "30000"
+                    T12 = "800"
+                    T13 = "800"
+                    T14 = "2000"
+                    T15 = "2000"
+                    T16 = "1400"
+                    T17 = "800"
+                    T18 = "0"
+                    T19 = "480000"
+                    T20 = "3000"
+                    T21 = "3000"
+                    T22 = "30000"
+                    T23 = "30000"
+                    T24 = "30000"
+                    T25 = "30000"
+                    T26 = "12000"
+                    T27 = "2000"
+                    T28 = "3000"
+                    T29 = "60000"
+                    T30 = "30000"
+                    T31 = "10000"
+                    T32 = "5000"
+                    T33 = "60000"
+                    T34 = "5000"
+                    SLT-T1 = "5000"
+                    SLT-T2 = "30000"
+                />
+
+            </ANSI-MTP3>
+
+            <ANSI-SCCP variant = "WhiteBook">
+  
+                <Variant value = "WhiteBook"/>
+  
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/>
+                    <Event     output = "stdout"/>
+                </StackTrace>
+  
+                <Timers
+                    TstatInfo    = "30"
+                    TcoordChg    = "30"
+                    TignoreSST   = "30"
+                    TrtgStatInfo = "30"
+                    Tconnect     = "30"
+                    Trelease     = "10"
+                    Treset       = "20"
+                    Tias         = "300"
+                    Tiar         = "660"
+                    Tguard       = "240"
+                />
+  
+                <BehaviorControl
+                    PropagateIT   = "no"
+                    PropagateERR  = "no"
+                    PropagateSCMG = "no"
+                />
+  
+            </ANSI-SCCP>
+  
+            <!--///////////////////////////////////////////////////////////////-->
+  
+            <ANSI-TCAP variant = "ANSI_96">
+  
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                    <Event     output = "stdout"/>
+                </StackTrace>
+
+                
+            <Link   id       = "1"
+             family        = "ANSI"
+             linkSet         = "0"
+             initiallyActive = "yes"
+             terminalFixed   = "yes"
+             dataLinkFixed   = "yes"
+             isSAAL          = "yes"
+             isLocal         = "yes"
+             priority        = "0"
+             terminal        = "0"
+             dataLink        = "0"
+            />
+
+  
+            </ANSI-TCAP>
+
+        </IntelliNet>
+
+    </SS7-Stacks>
+
+ </Application>

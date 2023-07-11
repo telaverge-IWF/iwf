@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -O2 -g -DNDEBUG -DDBUG_OFF   -shared -Wl,-soname,auth_test_plugin.so -o auth_test_plugin.so CMakeFiles/auth_test_plugin.dir/test_plugin.c.o -lpthread ../../probes_mysql.o ../../libservices/libmysqlservices.a -lpthread 

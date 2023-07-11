@@ -1,0 +1,48 @@
+Porting_Notes.txt
+=================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com>.
+
+
+Porting Notes
+-------------
+SSLRef was written to be in simple and portable ANSI C. Wherever
+possible, platform-specific functionality was segregated into callback
+functions which can be provided by the user of the library. SSLRef is
+not dependant on any particular network layer or memory allocation
+scheme. SSLRef makes calls to these library functions:
+
+  - various cryptographic functionality provided by RSAREF or BSAFE
+  - memcpy()
+  - memcmp()
+  - memset()
+  - fprintf() - Only when the compile-time macro DEBUG is given a value
+                greater than zero. Used only in ssldebug.c
+
+Capabilities provided by the user include:
+  - Memory allocation
+  - Network access
+  - The current time in seconds since 1/1/1970
+
+The only other known portability issue is the size of size-dependant
+variables: in ssl.h these lines appear:
+
+   typedef unsigned char       uint8;
+   typedef unsigned short      uint16;
+   typedef unsigned long       uint32;
+   typedef signed long         sint32;
+
+Should your platform define the char, short, or long types with lengths
+different from these, the types should be adjusted to match the expected
+lengths.
+
+SSLRef should require no changes to compile on platforms of different
+endian-ness.

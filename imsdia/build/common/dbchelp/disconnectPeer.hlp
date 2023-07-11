@@ -1,0 +1,24 @@
+Diameter Command
+ 
+SYNOPSIS
+    disconnectPeer <hostName> <realmName> <disCause>
+ 
+DESCRIPTION
+    This command send disconnect when peer is I-OPEN or R-OPEN state.
+    After peer come into CLOSED state we can remove its entry from
+    peer table by using removePeer MML.
+ 
+PARAMETERS
+ 
+    hostName      Host Name
+ 
+    realmName     Realm Name.
+ 
+    disCause      Disconnect Cause(Values are  0:Rebooting, 1:Busy,
+                                       2:Do not want to talk you )
+EXAMPLE
+    >> disconnectPeer nemo india.internal.net 2
+ 
+       Successfully Disconnected Peer
+ 
+NOTE: We can't disconnect Statically added Peer.

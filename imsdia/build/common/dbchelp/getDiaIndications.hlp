@@ -1,0 +1,29 @@
+Diameter Command
+
+SYNOPSIS
+    getDiaIndications <clearFlag>
+
+DESCRIPTION
+    Prints All Diameter Indications and if clear flag is set,
+    statistics will be reset.
+
+PARAMETERS
+    clearFlag     0 - don't reset
+                  1 - will reset statistics
+
+EXAMPLE
+
+>> getDiaIndications
+-----------------------------------------------------------
+-- Dia Indication Stats --  
+-----------------------------------------------------------
+Num of Disconnect Indications       0
+Num of Timeout Indications          0
+Num of AuthLifeTimeout Indications  0
+Num of AuthGraceTimeout Indications 0
+Num of Abort Indications            0
+Num of Corrupt Indications          0
+Num of Unknown Indications          0
+Num of FailOver Indications         0
+Num of FailBack Indications         0
+

@@ -1,0 +1,198 @@
+############################################################################
+#                                                                          #
+#     Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+#  ID: $Id: Makefile.mag,v 1.1 2011/04/08 08:52:04 vnagender Exp $
+#
+#  LOG: $Log: Makefile.mag,v $
+#  LOG: Revision 1.1  2011/04/08 08:52:04  vnagender
+#  LOG: Makfile for mag in source package
+#  LOG:
+#  LOG:
+#
+############################################################################
+
+include $(IMS_ROOT)/make.dirs
+
+BASEDIR=base
+SHDIR=sh
+CXDXDIR=cxdx
+GQGQDIR=gqgqprime
+RFRODIR=rfro
+S6ADIR = s6a
+
+APIDIR=../api
+CAPIDIR=$(APIDIR)/c++
+JAPIDIR=$(APIDIR)/java
+
+APIINC=$(APIDIR)/c++/include/diameter
+APISRC=$(APIDIR)/c++/src/diameter
+
+ABNFSPECDIR=$(APIDIR)/abnf/ITS
+
+.PHONY: all 
+
+all: disp base cxdx sh gqgq rfro_standalone rx gx dcca \
+     nasreq s6a rx_ts29214
+
+disp:
+	@echo "Generating for ITSDiameter"
+
+base:
+	@echo "Generating the code for Base Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol 
+
+cxdx:
+	@echo "Generating the code for CxDx Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx.protocol
+
+sh:
+	@echo "Generating the code for Sh Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx.protocol \
+        $(ABNFSPECDIR)/sh.protocol \
+
+gqgq:
+	@echo "Generating the code for GqGq' Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/gqgqprime.protocol 
+
+rfro_standalone:	
+	@echo "Generating the code using RfRo standalone Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/rfro_standalone_v8.protocol
+
+rx:	
+	@echo "Generating the code using Rx Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/rx.protocol
+
+rx_ts29214:	
+	@echo "Generating the code using Rx Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/rx_ts29214.protocol
+
+gx:	
+	@echo "Generating the code using Gx Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/gx.protocol
+
+dcca:	
+	@echo "Generating the code using DCCA Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/rfc4006.protocol
+
+cxdx_v5:
+	@echo "Generating the code using CXDX-V5 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v5.protocol
+
+cxdx_v6:
+	@echo "Generating the code using CXDX-V6 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v6.protocol
+
+cxdx_v7:
+	@echo "Generating the code using CXDX-V7 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v7.protocol
+
+sh_v5:	
+	@echo "Generating the code using SH-V5 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v5.protocol \
+        $(ABNFSPECDIR)/sh_v5.protocol
+	
+sh_v6:	
+	@echo "Generating the code using SH-V6 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v6.protocol \
+        $(ABNFSPECDIR)/sh_v6.protocol
+	
+sh_v7:	
+	@echo "Generating the code using SH-V7 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx_v7.protocol \
+        $(ABNFSPECDIR)/sh_v7.protocol
+	
+gqgq_v6:
+	@echo "Generating the code using GQGQ' V6 Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/gqprime.protocol \
+        $(ABNFSPECDIR)/gqgqprime_v6_gqprime.protocol
+
+nasreq: 
+	@echo "Generating the code for NASREQ Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+	$(ABNFSPECDIR)/rfc3588.protocol \
+	$(ABNFSPECDIR)/nasreq.protocol
+
+s6a:
+	@echo "Generating the code for s6a Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) --java:$(JAPIDIR) \
+	$(ABNFSPECDIR)/rfc3588.protocol \
+	$(ABNFSPECDIR)/s6a.protocol
+
+clean:
+	$(RM) -rf $(APIINC)/*; \
+	$(RM) -rf $(APISRC)/*; \
+        $(RM) -rf $(JAPIDIR)/*; \
+

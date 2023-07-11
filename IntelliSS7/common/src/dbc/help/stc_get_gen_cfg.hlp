@@ -1,0 +1,28 @@
+
+ITU STC Command
+
+SYNOPSIS
+    stc_get_gen_cfg
+
+DESCRIPTION
+    This command displays ITU STC general configuration. This include STC 
+    Alarm Level and STC Trace Level. Alarm level controls STC alarms sent
+    to Accelero application. Trace level controls generation of STC execution
+    traces.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> stc_get_gen_cfg
+    *********** STC General Config *************
+        Alarm Level = OFF 
+        STC Trace -
+            Debug     =  null 
+            Critical  =  stdout file syslog 
+            Warning   =  stdout file syslog
+            Error     =  stdout file syslog
+    *********** End of STC General Config *************
+
+
+

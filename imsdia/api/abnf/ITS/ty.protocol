@@ -1,0 +1,570 @@
+/**
+ * 3GPP2 X.S0013-014-0 Version 1.0 - Ty interface --Diameter Based Protocol
+ * Ty interface between an AGW(Application GateWay) and the 
+ *                         PCRF(Policy and Charging Rules Function).
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 and RFC 4005
+ * Ty Re-used AVPs - from Diameter Credit Control and NAS Application
+ */
+protocol diameter.ty < 55559 5535: "X.S0013-014-0 " >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * CC-Request-Type AVP (AVP Code 416) is of type enumerated and contains 
+ * the reason for sending the Credit-Control request message.
+*/
+    CC-Request-Type                 ::= 416  0 /* 8.3 */ Enumerated  M|P| |  V  |Y;  /* RFC4006 */
+                                                                                
+/**
+ * CC-Request-Number AVP (AVP Code 415) is of type Unsigned32 and 
+ * identifies this request within one session. As Session-Id AVPs are 
+ * globally unique,the combination of Session-Id and CC-Request-Number is
+ * also globally unique and can be used in matching credit-control messages
+ * with confirmations.
+*/
+    CC-Request-Number               ::= 415  0 /* 8.2 */ Unsigned32  M|P| |  V  |Y;  /* RFC4006 */
+
+/**
+ * Subscription-Id AVP(AVP Code 443) is of type Grouped and is used to 
+ * identity the end user's subscription.
+*/
+    Subscription-Id                 ::= 443  0 /*8.46 */ Grouped     M|P| |  V  |Y;  /* RFC4006 */
+                                                                                
+/**
+ * Subscription-Id-Type AVP (AVP Code 450) is of type Enumerated and it is
+ * used to determine which type of identifier is carried by the 
+ * Subscription-Id AVP.
+*/
+    Subscription-Id-Type            ::= 450  0 /*8.47 */ Enumerated  M|P| |  V  |Y;  /* RFC4006 */                                                                                 
+
+/**
+ * Subscription-Id-Data AVP (AVP Code 444) is of type UTF8String and is 
+ * used to identify the end user.
+ */
+    Subscription-Id-Data            ::= 444  0 /*8.48 */ UTF8String  M|P| |  V  |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info AVP (AVP Code 458) is of type Grouped and allows
+ * the credit-control client to indicate the identity and capability of the 
+ * terminal the subscriber is using for the connection to network.
+*/
+    User-Equipment-Info             ::= 458  0 /* 8.49*/ Grouped      |P,M| | V |Y;  /* RFC4006 */
+                                                                                
+/**
+ * The User-Equipment-Info-Type AVP (AVP Code 459) is of type Enumerated 
+ * and defines the type of user equipment information contained in the 
+ * User-Equipment-Info-Value AVP.
+*/
+    User-Equipment-Info-Type        ::= 459  0 /* 8.50*/ Enumerated   |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info-Value AVP (AVP Code 460) is of type OctetString.
+ * The User-Equipment-Info-Type AVP defines which type of identifier is 
+ * used.
+*/
+    User-Equipment-Info-Value       ::= 460  0 /* 8.51*/ OctetString  |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The CC-Sub-Session-Id AVP (AVP Code 419) is of type Unsigned64 and contains
+ * the credit-control sub-session identifier. The combination of the Session-Id
+ * and this AVP MUST be unique per sub-session, and the value of this AVP MUST
+ * be monotonically increased by one for all new sub-sessions. The absence of
+ * this AVP implies that no subsessions are in use.
+ */
+    CC-Sub-Session-Id               ::= 419  0 /* 8.5 */ Unsigned64    M|P| |  V  |Y; /*RFC4006*/
+
+/**
+ * The Service-Identifier AVP is of type Unsigned32 (AVP Code 439) and contains
+ * the identifier of a service. The specific service the request relates to is
+ * uniquely identified by the combination of Service-Context-Id and 
+ * Service-Identifier AVPs.
+ */
+    Service-Identifier              ::= 439  0 /* 8.28*/ Unsigned32    M|P| |  V  |Y; /*RFC4006*/
+
+/**
+ * The Rating-Group AVP is of type Unsigned32 (AVP Code 432) and contains the
+ * identifier of a rating group. All the services subject to the same rating 
+ * type are part of the same rating group. The specific rating group the 
+ * request relates to is uniquely identified by the combination of 
+ * Service-Context-Id and Rating-Group AVPs.
+ */
+    Rating-Group                    ::= 432  0 /* 8.29*/ Unsigned32    M|P| |  V  |Y; /*RFC4006*/
+
+/**
+ * The Bearer-Usage AVP (AVP code 1000) is of type Enumerated, and it shall 
+ * indicate how the bearer is being used. If the Bearer-Usage AVP has not been
+ * previously provided, its absence shall indicate that no specific information
+ * is available. If the Bearer-Usage AVP has been provided, its value shall 
+ * remain valid until it is provided the next time.
+ */
+    Bearer-Usage                               ::= 1000 /*5.2.2.1 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Install AVP (AVP code 1001) is of type Grouped, and it is
+ * used for installing or modifying charging rules for a bearer as instructed 
+ * from the PCRF to AGW. Charging-Rule-Name AVP is a reference for activating a
+ * specific charging rule predefined at the AGW.The Charging-Rule-Base-Name AVP
+ * is a reference for activating a group of charging rules predefined at AGW.
+ * The Charging-Rule-Definition AVP is used for installing or modifying 
+ * charging rules provisioned over the Ty interface.
+ */
+    Charging-Rule-Install                      ::= 1001 /*5.2.2.2 */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Remove AVP (AVP code 1002) is of type Grouped, and it is 
+ * used for removing charging rules from a bearer. Charging-Rule-Name AVP is a 
+ * reference for a specific charging rule at the AGW to be removed or for a 
+ * specific charging rule predefined at the AGW to be deactivated. The 
+ * Charging-Rule-Base-Name AVP is a reference for a group of charging rules 
+ * predefined at the AGW to be deactivated.
+ */
+    Charging-Rule-Remove                       ::= 1002 /*5.2.2.3 */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Definition AVP (AVP code 1003) is of type Grouped, and it
+ * defines the charging rule for a service flow sent by the PCRF to the AGW.The
+ * Charging-Rule-Name AVP uniquely identifies the charging rule for a bearer 
+ * and it is used to reference to a charging rule in communication between the 
+ * AGW and the PCRF. The Flow-Description AVP(s) determines the traffic that 
+ * belongs to the service flow. 
+ * If optional AVP(s) within a Charging-Rule-Definition AVP are omitted, but 
+ * corresponding information has been provided in previous Ty messages, the 
+ * previous information remains valid. If Flow-Description AVP(s) are supplied,  * they replace all previous Flow-Description AVP(s). If Flows AVP(s) are 
+ * supplied, they replace all previous Flows AVP(s).
+ */
+    Charging-Rule-Definition                   ::= 1003 /*5.2.2.4 */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Base-Name AVP (AVP code 1004) is of type OctetString, and 
+ * it indicates the name of a pre‑defined group of charging rules residing at 
+ * the AGW.
+ */
+    Charging-Rule-Base-Name                    ::= 1004 /*5.2.2.5 */ OctetString   M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Name AVP (AVP code 1005) is of type OctetString.  For 
+ * charging rules provided by the PCRF it uniquely identifies a charging rule 
+ * for a bearer. For charging rules pre-defined at the AGW it uniquely 
+ * identifies a charging rule within the AGW.
+ */
+    Charging-Rule-Name                         ::= 1005 /*5.2.2.6 */ OctetString   M,V|P| |   |Y; 
+
+/**
+ * The Event-Trigger AVP (AVP code 1006) is of type Enumerated,and it indicates
+ * an event that shall cause a re-request of charging rules.
+ */
+    Event-Trigger                              ::= 1006 /*5.2.2.7 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Metering-Method AVP (AVP code 1007) is of type Enumerated, and it 
+ * defines what parameters shall be metered for offline charging.
+ */
+    Metering-Method                            ::= 1007 /*5.2.2.8 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Offline AVP (AVP code 1008) is of type Enumerated,and it defines whether
+ * the offline charging interface from the AGW for the associated charging rule
+ * shall be enabled. The absence of this AVP indicates that the default 
+ * configuration shall be used.
+ */
+    Offline                                    ::= 1008 /*5.2.2.9 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Online AVP (AVP code 1009) is of type Enumerated, and it defines whether
+ * the online charging interface from the AGW for the associated charging rule 
+ * shall be enabled. The absence of this AVP indicates that the default 
+ * configuration shall be used.
+ */
+    Online                                     ::= 1009 /*5.2.2.10*/ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Precedence AVP (AVP code 1010) is of type Unsigned32, and it defines the
+ * precedence of a charging rule in case of overlapping charging rules. A 
+ * charging rule with the Precedence AVP with lower value shall take the 
+ * priority over a charging rule with the Precedence AVP with higher value. The
+ * Precedence AVP is also used to indicate the evaluation precedence of the TFT
+ * packet filters.
+ */
+    Precedence                                 ::= 1010 /*5.2.2.11*/ Unsigned32    M,V|P| |   |Y; 
+
+/**
+ * The Primary-CCF-Address AVP (AVP code 1011) is of type DiameterURI, and it 
+ * defines the address of the primary offline charging system for the bearer. 
+ * The absence of the protocol definition in the DiameterURI shall indicate the
+ * default protocol defined for the XX interface for offline charging data 
+ * collection.
+ */
+    Primary-CCF-Address                        ::= 1011 /*5.2.2.12*/ DiamURI       M,V|P| |   |Y; 
+
+/**
+ * The Primary-OCS-Address AVP (AVP code 1012) is of type DiameterURI, and it 
+ * defines the address of the primary online charging system for the bearer. 
+ * The absence of the protocol definition in the DiameterURI shall indicate the
+ * default protocol defined for the XX interface for online charging control.
+ */
+    Primary-OCS-Address                        ::= 1012 /*5.2.2.13*/ DiamURI       M,V|P| |   |Y; 
+
+/**
+ * The Reporting-Level AVP (AVP code 1014) is of type Enumerated,and it defines
+ * on what level the AGW reports the usage for the related charging rule.
+ */
+    Reporting-Level                            ::= 1014 /*5.2.2.15*/ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Secondary-CCF-Address AVP (AVP code 1015) is of type DiameterURI, and it
+ * defines the address of the secondary offline charging system for the bearer.
+ * The absence of the protocol definition in the DiameterURI shall indicate the
+ * default protocol defined for the XX interface for offline charging data 
+ * collection.
+ */
+    Secondary-CCF-Address                      ::= 1015 /*5.2.2.16*/ DiamURI       M,V|P| |   |Y; 
+
+/**
+ * The Secondary-OCS-Address AVP (AVP code 1016) is of type DiameterURI, and it
+ * defines the address of the secondary online charging system for the bearer. 
+ * The absence of the protocol definition in the DiameterURI shall indicate the
+ * default protocol defined for the XX interface for online charging control.
+ */
+    Secondary-OCS-Address                      ::= 1016 /*5.2.2.17*/ DiamURI       M,V|P| |   |Y; 
+
+/**
+ * The TFT-Filter AVP (AVP code 1017) is of type IPFilterRule, and it contains i
+ * the flow filter for one TFT packet filter.The TFT-Filter AVP is derived from
+ * the Traffic Flow Template (TFT) defined in [XX]. The following information 
+ * shall be sent:
+ *  -Action shall be set to "permit".
+ *  -Direction shall be set to "out".
+ *  -Protocol shall be set to the value provided within the TFT packet filter 
+ *    parameter "Protocol Identifier/Next Header Type".If the TFT packet filter 
+ *    parameter "Protocol Identifier/Next Header Type" is not provided within
+ *    the TFT packet filter, Protocol shall be set to "IP".
+ *  -Source IP address (possibly masked). The source IP address shall be 
+ *    derived from TFT packet filter parameters "Source address" and "Subnet 
+ *    Mask". The source IP address shall be set to "any", if no such 
+ *    information is provided in the TFT packet filter.
+ *  -Source and destination port (single value, list or ranges).The information
+ *    shall be derived from the corresponding TFT packet filter parameters.
+ *    Source and/or destination port(s) shall be omitted if such information is
+ *    not provided in the TFT packet filter.
+ *  -The Destination IP address shall be set to "assigned".
+ * The IPFilterRule type shall be used with the following restrictions:
+ *  -No options shall be used
+ *  -Destination IP address shall be wildcarded
+ *  -The invert modifier "!" for addresses shall not be used.
+ * The direction "out" refers to downlink direction.
+ */
+    TFT-Filter                                 ::= 1017 /*5.2.2.18*/ IPFilterRule  M,V|P| |   |Y; 
+
+/**
+ * The TFT-Packet-Filter-Information AVP (AVP code 1018) is of type Grouped,and
+ * it contains the information from a single TFT packet filter including the 
+ * evaluation precedence, the filter and the Type-of-Service/Traffic Class sent
+ * from the AGW to the PCRF. The AGW shall include one TFT-Packet-Filter-
+ * Information AVP for each TFT packet filters applicable at a service instance
+ * in separate TFT-Packet-Filter-Information AVPs within each charging rule
+ * request. corresponding to that service instance. TFT-Packet-Filter-
+ * Information AVPs are derived from the Traffic Flow Template (TFT) defined in
+ * 3GPP TS 24.008. When SBLP is used the packet filters shall be omitted.
+ */
+    TFT-Packet-Filter-Information              ::= 1018 /*5.2.2.19*/ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The ToS-Traffic-Class AVP (AVP code 1019) is of type OctetString, and it 
+ * contains the Type-of-Service/Traffic-Class of a TFT packet filter.
+ */
+    ToS-Traffic-Class                          ::= 1019 /*5.2.2.20*/ OctetString   M,V|P| |   |Y; 
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505)is of type OctetString,contains
+ * the AF Charging Identifier that is sent by the AF. This information may be 
+ * used for charging correlation with bearer layer.
+ */
+    AF-Charging-Identifier                     ::= 505  /* 5.5.6  */ OctetString   M,V|P| |   |Y;
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines
+ * a packet filter for an IP flow with the following information:
+ * Direction (in or out).
+ * Source and destination IP address (possibly masked).
+ * Protocol.
+ * Source and destination port (list or ranges).
+ * The IPFilterRule type shall be used with the following restrictions:
+ *  Only the Action "permit" shall be used.
+ *  No "options" shall be used.
+ *  The invert modifier "!" for addresses shall not be used.
+ *  The keyword "assigned" shall not be used.
+ * If any of these restrictions is not observed by the AF,the server shall send
+ * an error response to the AF containing the Experimental-Result-Code AVP with
+ * value FILTER_RESTRICTIONS.
+ * The Flow description AVP shall be used to describe a single IP flow.
+ * The direction "in" refers to uplink IP flows, and the direction "out" refers
+ * to downlink IP flows.
+ */
+    Flow-Description                           ::= 507  /* 5.5.8  */ IPFilterRule  M,V|P| |   |Y;
+
+/**
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32,and it contains the
+ * ordinal number of the IP flow(s), assigned according to the rules in annex A
+ * of 3GPP2 X.S0013-013-0.
+ */
+    Flow-Number                                ::= 509  /* 5.5.10 */ Unsigned32    M,V|P| |   |Y;
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows 
+ * via their flow identifiers.
+ * If no Flow-Number AVP(s) are supplied, the Flows AVP refers to all Flows 
+ * matching the media component number.
+ */
+    Flows                                      ::= 510  /* 5.5.11 */ Grouped       M,V|P| |   |Y;
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it
+ * contains the ordinal number of the media component, assigned according to 
+ * the rules in annex A of 3GPP2 X.S0013-013-0.
+ */
+    Media-Component-Number                     ::= 518  /* 5.5.19 */ Unsigned32    M,V|P| |   |Y;
+
+/**
+ * 3GPP-GPRS-Negotiated-QoS-Profile AVP (AVP Code 5) is of type UTF8String. It 
+ * is the QoS Profile applied by GGSN.
+ */
+    Negotiated-QoS-Profile                     ::= 5   /* 16.4.7  */ UTF8String    M,V|P| |   |Y; /* 3GPP TS 29.061 V6.7*/
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+    CC-Request-Type ::= < Enumerated: 416 >
+                INITIAL_REQUEST       1
+                UPDATE_REQUEST        2
+                TERMINATION_REQUEST   3
+                EVENT_REQUEST         4
+                ;  
+
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                END_USER_E164             0
+                END_USER_IMSI             1
+                END_USER_SIP_URI          2
+                END_USER_NAI              3
+                END_USER_PRIVATE          4
+                ;
+
+    User-Equipment-Info-Type ::= < Enumerated: 459 >
+                IMEISV         0
+                MAC            1
+                EUI64          2
+                MODIFIED_EUI64 3
+                ;
+
+  Bearer-Usage ::= < Enumerated: 1000 >
+        GENERAL           0
+        IMS_SIGNALLING    1
+        ;
+
+  Event-Trigger ::= < Enumerated: 1006 >
+        SGSN_CHANGE       0
+        QOS_CHANGE        1
+        RAT_CHANGE        2
+        TFT_CHANGE        3
+        ;
+
+  Metering-Method ::= < Enumerated: 1007 >
+        DURATION           0
+        VOLUME             1
+        DURATION_VOLUME    2
+        ;
+
+  Offline ::= < Enumerated: 1008 >
+        DISABLE_OFFLINE    0
+        ENABLE_OFFLINE     1
+        ;
+
+  Online ::= < Enumerated: 1009 >
+        DISABLE_ONLINE     0
+        ENABLE_ONLINE      1
+        ;
+
+  Reporting-Level ::= < Enumerated: 1014 >
+        CHARGING_RULE_LEVEL   0
+        RATING_GROUP_LEVEL    1
+        ;
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+    Subscription-Id ::= < AVP Header: 443 0 >
+                { Subscription-Id-Type }
+                { Subscription-Id-Data }
+                ;
+
+    User-Equipment-Info ::= < AVP Header: 458 0 >
+                { User-Equipment-Info-Type }
+                { User-Equipment-Info-Value }
+                ;
+
+  Flows ::= < AVP Header: 510 5535 >
+        { Media-Component-Number}
+        *[ Flow-Number]
+        ;
+
+  TFT-Packet-Filter-Information ::= < AVP Header: 1018 5535 >
+        [ Precedence ]
+        [ TFT-Filter ]
+        [ ToS-Traffic-Class ]
+        ;
+  Charging-Rule-Install ::= < AVP Header: 1001 5535 >
+        *[ Charging-Rule-Definition ]
+        *[ Charging-Rule-Name ]
+        *[ Charging-Rule-Base-Name ]
+        *[ AVP ]
+        ;
+
+  Charging-Rule-Remove ::= < AVP Header: 1002 5535 >
+        *[ Charging-Rule-Name ]
+        *[ Charging-Rule-Base-Name ]
+        *[ AVP ]
+        ;
+ 
+  Charging-Rule-Definition ::= < AVP Header: 1003 5535 >
+        { Charging-Rule-Name }
+        [ Service-Identifier ]
+        [ Rating-Group ]
+        *[ Flow-Description ]
+        [ Reporting-Level ]
+        [ Online ]
+        [ Offline ]
+        [ Metering-Method ]
+        [ Precedence ]
+        [ AF-Charging-Identifier ]
+        *[ Flows ]
+        *[ AVP ]
+        ;
+
+    //////////////
+    // Commands //
+    //////////////
+
+/*
+ * The CCR command, indicated by the Command-Code field set to xxx (IETF i
+ * suggested value 272) and the 'R' bit set in the Command Flags field, is sent
+ * by the AGW to the PCRF in order to request charging rules for a bearer. The 
+ * CCR command is also sent by the AGW to the PCRF in order to indicate the 
+ * termination of the bearer.
+ */
+
+ CC-Request<CCR> ::= < Diameter Header: 272, REQ, PXY, 55559 >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        { CC-Request-Type }
+        { CC-Request-Number }
+        [ Destination-Host ]
+        [ CC-Sub-Session-Id ]
+        [ Origin-State-Id ]
+        *[ Subscription-Id ]
+        [ Framed-IP-Address ]
+        [ Framed-IPv6-Prefix ]
+        [ Termination-Cause ]
+        [ User-Equipment-Info ]
+        [ Negotiated-QoS-Profile ]
+//        [ AGW-Address ]  /* not found */
+//        [ AGW-IPv6-Address ]  /* not found */
+        [ Called-Station-Id ]  /* ID changed to Id */
+        [ Bearer-Usage ]
+        *[ TFT-Packet-Filter-Information ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The CCA command, indicated by the Command-Code field set to xxx (IETF 
+ * suggested value 272) and the 'R' bit cleared in the Command Flags field, is 
+ * sent by the PCRF to the AGW in response to the CCR command. It is used to 
+ * provision charging rules and event triggers for the bearer. The primary and 
+ * secondary CCF and/or primary and secondary OSC addresses may be included in 
+ * the initial provisioning. Either the Result-Code AVP or the Experimental
+ * -Result AVP MUST be present to indicate the disposition of the request.
+ */
+
+ CC-Answer<CCA> ::= < Diameter Header: 272, PXY, 55559 >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        { CC-Request-Type }
+        { CC-Request-Number }
+        [ Result-Code ]
+        [ Experimental-Result ] 	
+        [ CC-Sub-Session-Id ]
+        *[ Event-Trigger ]
+        [ Origin-State-Id ]
+        *[ Charging-Rule-Remove ]
+        *[ Charging-Rule-Install ]
+        [ Primary-CCF-Address ]
+        [ Secondary-CCF-Address ]
+        [ Primary-OCS-Address ]
+        [ Secondary-OCS-Address ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The RAR command, indicated by the Command-Code field set to 258 and the 'R'
+ * bit set in the Command Flags field, is sent by the PCRF to the AGW in order
+ * to indicate the provision of unsolicited charging rules for an existing
+ * bearer. The RAR command shall be followed by a CCR command from the AGW 
+ * requesting charging rules for the bearer in question.
+ */
+
+ RA-Request<RAR> ::= < Diameter Header: 258, REQ, PXY, 55559 >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        { Destination-Host }
+        { Re-Auth-Request-Type }
+        [ CC-Sub-Session-Id ]
+        [ Origin-State-Id ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The RAA command, indicated by the Command-Code field set to 258 and the 'R' 
+ * bit cleared in the Command Flags field, is sent by the AGW to the PCRF in 
+ * response to the RAR command. Either the Result-Code AVP or the Experimental
+ * -Result AVP MUST be present to indicate the disposition of the request.
+ */
+
+ RA-Answer<RAA> ::= < Diameter Header: 258, PXY, 55559 >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        [ CC-Sub-Session-Id ]
+        [ Origin-State-Id ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        *[ Proxy-Info ]
+        *[ AVP ]
+        ;
+

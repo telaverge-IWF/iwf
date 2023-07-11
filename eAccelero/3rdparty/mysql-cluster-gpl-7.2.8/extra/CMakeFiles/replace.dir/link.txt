@@ -1,0 +1,1 @@
+/usr/bin/cc  -O2 -g -DNDEBUG -DDBUG_OFF    CMakeFiles/replace.dir/replace.c.o  -o replace  -lpthread ../mysys/libmysys.a ../dbug/libdbug.a ../mysys/libmysys.a ../dbug/libdbug.a ../strings/libstrings.a -lz -lm ../probes_mysql.o -lpthread 

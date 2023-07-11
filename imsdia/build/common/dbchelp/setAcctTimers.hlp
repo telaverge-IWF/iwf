@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    setAcctTimers  <interim> <timeout>
+
+DESCRIPTION
+    This command will set the Accounting timers.
+
+PARAMETERS
+    <interim>   Interim Timer value
+    <timeout>   Timeout value
+
+EXAMPLE
+    >> setAcctTimers 60 120
+
+       Successfully Acc Session Timers set
+

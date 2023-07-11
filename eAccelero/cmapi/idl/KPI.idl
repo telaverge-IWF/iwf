@@ -1,0 +1,174 @@
+%PB{
+
+    option java_package = "com.diametriq.webagent";
+    option java_outer_classname = "ManageKPIConfig";
+
+
+    import "Common.proto";
+
+    //Request sent to Resource Manager for fetching cpu,memory for system level and process level
+    message SystemResourceReq {
+        required fixed32 requestId = 1;
+        optional string hostname = 2;
+    }
+
+    message SystemResource {
+        optional fixed32 responseId   = 1;
+        optional float physicalMemory = 3;
+        optional float virtualMemory = 4;
+        optional float cpuUsage = 5;
+    }
+
+    message SystemResourceResp {
+        required fixed32 responseId   = 1;
+        optional string hostname = 2;
+        repeated SystemResource systemResourceInfo = 3;
+        repeated ErrorDetails ErrorDetails = 4;
+
+    }
+
+    message NodeInfo{
+        optional string hostname = 1;
+        enum states
+        {
+             INDETERMINATE = 0;
+             ACTIVE = 1;
+             STANDBY = 2;
+        }
+        optional states nodeState = 2;
+        optional uint64 lastGoActiveTime = 3;
+    }
+    //This request is multcasted to Availability manager
+    message ClusterInfoReq {
+        required fixed32 requestId = 1;
+        optional string hostname = 2;
+    }
+
+
+    //Response will include whether its active or standby, last Go active Time, its state.
+
+    message ClusterInfoResp {
+        required fixed32 responseId = 1;
+        repeated NodeInfo nodesInfo = 2;
+        repeated ErrorDetails ErrorDetails = 3;
+    };
+
+    message ProcessState {
+        optional string  processName = 1;
+        enum state
+        {
+             INDETERMINATE = 0;
+             INITIALIZED = 1;
+        }
+        optional state processState = 2;
+    }
+
+    message ProcessStateReq
+    {
+          required fixed32 requestId = 1;
+          optional string hostname = 2;
+          optional string processName = 3;
+    }
+
+    message ProcessStateResp
+    {
+          required fixed32 responseId = 1;
+          optional string hostname = 2;
+          repeated ProcessState processStateInfo = 3;
+          repeated ErrorDetails ErrorDetails = 4;
+    }
+
+
+    message DiaGeneralKPIReq {
+          required fixed32 requestId = 1;
+          optional string hostname = 2;
+    }
+
+    message DiaGeneralKPIResp {
+          required fixed32 responseId       = 1;
+          optional string hostname          = 2;
+          optional uint64 requestLatency    = 4;
+          optional uint64 responseLatency   = 5;
+          optional uint64 maxReqLatency     = 6;
+          optional uint64 maxRespLatency    = 7;
+          optional uint64 curReqLatency     = 8;
+          optional uint64 curRespLatency    = 9;
+          optional uint64 overAllLatency    = 10;
+          optional uint64 overAllTPS        = 11;
+          optional uint64 currentActiveSessions = 12;
+          repeated ErrorDetails ErrorDetails    = 13;
+    }
+
+    message DiaApplicationTPS {
+          optional fixed32 applicationId = 1;
+          optional uint64   tpsValue = 2;
+    }
+
+    message DiaPeerTPS {
+          optional string peerName = 1;
+          optional string realmName = 2;
+          optional uint64   tpsValue = 3;
+    }
+
+    message TPSReq {
+          required fixed32 requestId = 1;
+          optional string hostname = 2;
+          repeated string peerName = 3;
+          repeated string applicationId = 4;
+    }
+
+    message TPSResp {
+          required fixed32 responseId = 1;
+          optional string hostname = 2;
+          optional uint64 overAllTPS = 3;
+          repeated DiaApplicationTPS appTPS= 4;
+          repeated DiaPeerTPS peerTPS = 5;
+          repeated ErrorDetails ErrorDetails = 6;
+    }
+
+
+    message DiaApplicationCAS {
+          optional fixed32 applicationId = 1;
+          optional uint64   casValue = 2;
+    }
+
+    message DiaPeerCAS {
+          optional string peerName = 1;
+          optional uint64   casValue = 2;
+    }
+
+    message DiaCASReq {
+          optional fixed32 requestId = 1;
+          optional string hostname = 2;
+          repeated string peerName = 3;
+          repeated string applicationId = 4;
+    }
+
+    message DiaCASResp {
+          required fixed32 responseId = 1;
+          optional string hostname = 2;
+          optional uint64 overAllCAS = 3;
+          repeated DiaApplicationCAS appCAS= 4;
+          repeated DiaPeerCAS peerCAS = 5;
+          repeated ErrorDetails ErrorDetails = 6;
+    }
+
+%PB}
+
+interface AvaMgrKPIInterface
+{
+    FetchClusterInfo (ClusterInfoReq Req,ClusterInfoResp Resp)uses_PB;
+    FetchProcessState(ProcessStateReq Req, ProcessStateResp Resp)uses_PB;
+}
+
+interface DreKPIInterface
+{
+    FetchApplicationKPI(DiaGeneralKPIReq Req, DiaGeneralKPIResp Resp)uses_PB;
+    FetchTPS(TPSReq Req, TPSResp Resp)uses_PB;
+    FetchCAS(DiaCASReq Req, DiaCASResp Resp)uses_PB;
+}
+
+interface ResourceUsageStat
+{
+    FetchSystemResourceUsage(SystemResourceReq Req,    SystemResourceResp Resp)uses_PB;
+}

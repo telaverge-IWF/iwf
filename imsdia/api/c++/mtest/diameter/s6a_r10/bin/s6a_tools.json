@@ -1,0 +1,89 @@
+{
+    "s6a_r10" : {
+        "UpdateLocationRequest" : {
+            "Supported_Features" : {
+                "Enabled"  : true,
+                    "Vendor_Id" : {
+                        "Value" : 34
+                    },
+                    "Feature_List_ID" : {   
+                        "Value" : 1
+                    },
+                    "Feature_List" : {
+                        "Value"  : 513
+                    }
+                },
+                "VPLMN_Id" : {
+                    "Value" : "40412"
+                }
+        },
+        "AuthenticationInformationRequest" : {
+            "VPLMN_Id" : {
+                "Value" : "40412"
+            }
+        },
+
+        "Do_not_send_AIA" : {
+            "Enabled" : false 
+            },
+
+        "DeleteSubscriberAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            },
+            "Supported_Features" : {
+                "Enabled"  : false,
+                    "Vendor_Id" : {
+                        "Value" : 34
+                    },
+                    "Feature_List_ID" : {   
+                        "Value" : 231
+                    },
+                    "Feature_List" : {
+                        "Value"  : 23
+                    }
+            }
+        },
+        "CancelLocationAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            }
+        },
+        "InsertSubscriberDataAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            },
+            "Supported_Features" : {
+                "Enabled"  : true,
+                    "Vendor_Id" : {
+                        "Value" : 34
+                    },
+                    "Feature_List_ID" : {   
+                        "Value" : 231
+                    },
+                    "Feature_List" : {
+                        "Value"  : 23
+                    }
+            },
+            "IDA_Flags" : {
+                "Enabled"  : true,
+                "Value" : 1
+            }
+        },
+        "UpdateLocationAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            }
+        },
+        "AuthenticationInformationAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            }
+        },
+        "PurgeAnswer" : {
+            "ResultCode" : {
+                "Value" : 2001
+            }
+        }
+    }
+}

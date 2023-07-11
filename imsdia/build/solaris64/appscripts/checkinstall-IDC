@@ -1,0 +1,53 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+expected_release="5.10"
+expected_platform="sparc"
+#
+release=`uname -r`
+platform=`uname -p`
+#Check Solaris Platform and Release (sparc & 5.10)
+if [ ${platform} != ${expected_platform} ]; then
+    echo "\n\n\n\tIMS package must be installed on a ${expected_platform} architecture\n"
+    echo "\tAborting installation.\n\n\n"
+    exit 1
+fi
+
+if [ ${release} != ${expected_release} ]; then
+     echo "\n\n\n\tDIA package must be installed on a ${expected_release} machine\n"
+     echo "\tAborting installation.\n\n\n"
+     exit 1
+fi
+
+#
+# Warn user if they are installing on 64-bit Solaris
+#
+if [ `type isainfo >/dev/null 2>&1` ]
+then
+    if [ `isainfo -b` = 64 ]
+    then
+        echo ""
+        echo "*** WARNING: You are running Solaris in 64-bit mode."
+    fi
+fi
+
+# Check if package is already installed
+# $PKG is set by the pkgadd utility.
+echo "Checking for pre-existing installation... "
+pkginfo | grep IDC 
+if [ $? -eq 0 ]
+then
+    echo ""
+else
+    echo "Pls first install base IDC and then install $PKG"
+    exit 3
+fi
+echo "OK."
+
+exit 0

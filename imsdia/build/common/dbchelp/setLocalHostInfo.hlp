@@ -1,0 +1,18 @@
+Diameter Command
+
+SYNOPSIS
+    setLocalHostInfo  <hostName> <realmName> <publicServIp>
+
+DESCRIPTION
+    This command will set the Local host Information.
+
+PARAMETERS
+    <hostName>       Local Host Peer Name
+    <realmName>      Local Host Realm Name
+    <publicServIp>   Local Host Public server IP 
+
+EXAMPLE
+    >> setLocalHostInfo Alice india.internal.net 172.16.3.1 
+
+       Successfully Local Information set
+

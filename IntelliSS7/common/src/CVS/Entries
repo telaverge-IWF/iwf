@@ -1,0 +1,26 @@
+/.cvsignore/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/Makefile/9.2.10.1.6.1/Wed Apr 13 07:37:33 2011//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/bsubs/9.2/Wed Jun  4 06:32:05 2008//TB-IWF-HP-0400-00
+/dsubs/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/lsubs/1.1.6.1/Wed Apr 13 07:41:12 2011//TB-IWF-HP-0400-00
+/ssubs/9.4.6.1.4.2/Wed Apr 28 10:41:44 2010//TB-IWF-HP-0400-00
+D/M3UA////
+D/asn-c////
+D/asn-cpp////
+D/dbc////
+D/dispatch////
+D/domxmlparser////
+D/dsm-gcs////
+D/dsm-stub////
+D/expat////
+D/gcs-client////
+D/itscore////
+D/lksctp////
+D/mnt////
+D/parse////
+D/redundancy////
+D/sctp-cm////
+D/sksctp////
+D/support////
+D/ual////

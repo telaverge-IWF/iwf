@@ -1,0 +1,24 @@
+#!/bin/bash
+PRODUCT=iwf
+source /opt/diametriq/${PRODUCT}/scripts/package_functions.sh
+
+#Wrapper script for starting and stopping couchbase-server
+#update the state file on start and stop of couchbase
+#couchbase_state file is used in a cron job to decide if user has 
+#stopped the couchbase or couchbase has gone down for some other 
+#reason
+#if its not brought down by the user, the cron job will try to restart the services
+
+if [ "$1" == "start" ];then
+    #start the couchbase node
+    check_and_start_couchbase
+elif [ "$1" == "stop" ];then
+    #stop the couchbase node
+    check_and_stop_couchbase
+elif [ "$1" == "restart" ];then
+    check_and_stop_couchbase
+    check_and_start_couchbase
+else
+    PLOG_INFO "Usage $0 start/stop" $LINENO
+    
+fi

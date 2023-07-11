@@ -1,0 +1,229 @@
+==============================================================================
+	       DIAMETRIQ INTERFACE DEFINITION LANGUAGE PARSER 
+==============================================================================
+
+IDL parser is coded in python language. It is used to generate server skeleton
+for implementators (request handlers) and client stubs for the callers
+(requests)
+
+REQUIREMENTS
+------------
+
+1) compiling *.py files we need python command, hence python should be 
+   installed
+
+2) "dq_abnf_parser" module is internally used for parsing IDL files and 
+   generating tokens, so this module should be there along with actual IDL 
+   parser application. This is actuall committed to the CVS.
+
+3) To process the IDL parsed tokens in to C++ code, some modules are used,  
+	re      --->Regular expression for searching and matching a strings 
+	sys     --->To process command line arguments 
+All the modules said above should be installed before compiling idl parser 
+application.
+
+IDL FILE DEFINITION
+-------------------
+An idl file typically has three sections
+    1) Flat structures definitions
+    2) Google Protocol Buffer definitions
+    3) Interface definitions
+        - Method definitions
+
+Flat structures are sent directly as is through MeSS transport as is. This
+leads to superior performance for fixed size structures since no encoding or
+decoding is required. But the down side is that is difficult to support 
+variable element structures (optinal fields) and variable field sizes (like
+variable string, repeated fields etc...). For this purpose protocol buffers can
+be used. These flat structure defines start with %{ and ends with %}. The code
+inside this is generated into the common _def.h file as is. Hence if a structure
+uses another structure defined in another file, just put a #include.
+
+As mentioned in the previous section, the flat structures has some limitations
+related to variable fields. This can be overcome with the use of protocol
+buffers. But since encoding and decoding is involved, it should be judiciously
+used for communications where performance is a main criteria. This section
+starts with %{PB and ends with %PB}. The contents will be generated into a
+.proto file.
+
+Interface definitions, provides the methods that are exposed by interfaces.
+Each method definitions defines the input parameter and the output parameter.
+Based on the interface definitions server skeletons and client stubs are
+generated.
+
+SAMPLE IDL FILE
+-------------------------------------------------------------------------------
+//
+// Sample.idl
+//
+%{
+  ////////////////////////////////////////////////////////////
+  // Flat structure definitions
+  ////////////////////////////////////////////////////////////
+  #include "DEF_def.h"
+  struct ABC
+  {
+    int a;
+    char b[100];
+    DEF c;
+  };
+%}
+
+%PB{
+  ////////////////////////////////////////////////////////////
+  // Google Protocol Buffer definitions 
+  ////////////////////////////////////////////////////////////
+  import "DEF.proto"
+  option optimize_for = SPEED
+  message ABC_pb
+  {
+    required int32  a;
+    optional string b;
+    optional DEF_pb d;
+  }
+%PB}
+
+////////////////////////////////////////////////////////////
+// Interface definitions. Multiple interfaces can be defined
+////////////////////////////////////////////////////////////
+interface Example
+{
+    GetRequest(ABC req, DEF resp);
+    SetRequest(ABC_pb req, DEF_pb resp)uses_pb;
+}
+// Note the uses_pb at the end of the method. This denotes that the given 
+// method uses protocol buffer for communication
+-------------------------------------------------------------------------------
+
+GENERATED FILES
+----------------
+IDL parser generates files that can be categorized as follows
+
+    - Server skeleton (which provides the request handler callbacks)
+        
+        For the above sample a Sample.h and Sample.cpp will be generated.
+        The Sample.h will contain an 'abstract class Example', having pure
+        virtual methods 'GetRequest' and 'SetRequest'. The implementation code
+        should derive from this Example class and implement these methods. The
+        incoming request will be ABC* and outgoing response shall be filled into
+        the DEF*. For protocol buffers, these in param and out param will be a
+        protobuf Message object. (no need to create the in/out structures or
+        objects)
+
+    - Client stubs (provides the request stubs and the response handlers)
+
+        For each interface a XXX_caller.h and XXX_caller.cpp will be generated.
+        A stub class for invoking requests will be generated and an abstract
+        class for response handlers will also be generated. Optionally, if only
+        a few methods are used, then instead of implementing all the response
+        handlers, only the required method response handlers can be set using
+        the SetMethodRespHandler functions.
+
+        For the above sample, Example_caller.h and Example_caller.cpp will be
+        generated. The header file would have class declarations for
+        ExampleRespCbk (the response handlers) and Example stub which would have
+        apis to invoke GetRequest and SetRequest. Both these classes are under
+        the namespace 'Stub'.
+
+    - common def file (provides the interface id and method id defs, in addition
+                       to flat structure definitions)
+
+        For the above sample a Sample_def.h file will be generated.
+
+    - proto file (Google protocol buffer definitions go here)
+        For the above sample 'Sample.proto' will be generated
+
+GUIDELINES
+-----------
+ - Place all the idl files belonging to a particular project in a single dir.
+   This is required to generate unique Interface IDs to the interfaces.
+
+ - If an idl file is not being used but has been used in a previous release,
+   DO NOT remove the unused idl file. This is to maintain compatiblity across
+   releases
+
+ - DO NOT delete any methods across releases. This would break the backward
+   compatibility
+
+ - Please follow the guidelines for defining Google Protobuf Messages
+    https://developers.google.com/protocol-buffers/docs/proto#updating
+
+ - The interface names should start with a Upper case letter followed by lower
+   case. 
+
+USAGE
+------
+
+Usage: dq_idl_parser.py [options] [idl-files]
+
+Options:
+  -h, --help            show this help message and exit
+
+  -s SRC, --src=SRC     IDL files directory location
+                        IDL files are picked from this location. If not 
+                        specified, the files are picked from current dir.
+                        Optionally the idl-files that needs to parsed can be
+                        given in the command line after options.
+
+  -d DEST, --dest=DEST  Destination directory for all generated files
+                        Default will be the current directory. If the dir is
+                        not present it will be created.
+
+  -x CPP, --cpp=CPP     Destination directory for CPP header and src files
+                        The Stub code and the server code will be generated in
+                        the given directory. Only the protocol files will not
+                        be present in the given dir. (dir will be created if
+                        not present)
+
+  -c STUB, --stub=STUB  Destination directory for Client/Caller stub
+                        All stub files (header/src) will be placed here.
+                        The stub files start with the interface name and ends 
+                        with _caller.h and _caller.cpp. For example if Foo is
+                        the interface name, the Foo_caller.h and Foo_caller.cpp
+                        will be generated in the given directory.
+
+  -i SERVER, --server=SERVER
+                        Destination directory for server/implementor code
+                        All server related generated code will be placed here.
+                        If XXX.idl is the idl file name, then XXX.h and XXX.cpp
+                        will be generated for server skeleton.
+
+  -a COMMON, --common=COMMON
+                        Destination directory for common headers
+                        The interface related #defines goes here and also the
+                        flat structures common to both stub and server goes 
+                        here. If XXX is the idl file name, then the common file
+                        name will be of the form XXX_def.h
+
+  -p PROTO, --proto=PROTO
+                        Destination directory for generated proto files.
+                        If XXX.idl is the idl file name, then the protocol
+                        filename will be XXX.proto
+
+  -b, --sep             Put cpp files in src and headers in include dir.
+                        If this flag is enabled, puts header files into
+                        'include' directory and source files into 'src' dir.
+                        The base dir for these will be governed by the options
+                        above. Application for stub, sever and common generated
+                        code.
+
+TEST CODE
+---------
+There is example code for idl and its usage. This includes defining flat
+structures and protocol buffers. The code for server is present in
+MeSSServer.cpp and client code is present in MeSSClient.cpp.
+
+ - From the parser dir in eAcclereo run 'make'.
+ (../eAcclereo/parser)$ make
+
+ - Then go to test dir inside parser dir and run the server sample
+ (../eAcclereo/parser/test)$ bin/debug/testserver -i 10 -l 6
+
+   Here 10 is the instance id of the server and 6 is the debug log level
+
+ - Open another terminal and go the the same lcoation and run the testclient
+ (../eAcclereo/parser/test)$ bin/debug/testclient -c 400 -s 10 -i 11 -l 6
+
+   Here -c 400 is the server component ID, -s 10 is the server instance id, 
+   -i 11 is the self instance id and -l 6 is the log level.
+	

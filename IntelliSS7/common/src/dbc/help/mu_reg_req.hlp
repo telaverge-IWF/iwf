@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    u_reg_req  <ls> <lc> <asso> 
+
+DESCRIPTION
+    This command is used by ASP to register a linkKey with SGP.
+
+PARAMETERS
+    ls      Link Set 
+    lc      Link Code
+    asso    SCTP Association name 
+
+EXAMPLE
+  >>mu_reg_req 1 0 ASP-1 
+
+    *********** M2UA REG LINK KEY *************
+

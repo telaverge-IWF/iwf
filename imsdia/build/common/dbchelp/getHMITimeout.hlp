@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    getHMITimeout
+
+DESCRIPTION
+    This command is used to get HMI Timeout.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getHMITimeout
+       HMI Timeout = 1
+

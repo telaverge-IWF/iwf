@@ -1,0 +1,12 @@
+/README/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_condvar.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_dlsym.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_fifo.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_ipc_mutex.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_ipc_semaphore.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_mutex-generic.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_serv.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_sockets.c/9.1.176.1/Tue Sep 16 09:34:54 2014//TB-IWF-HP-0400-00
+/its_spinlock.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+/its_thread.c/9.1/Wed Mar 23 12:53:42 2005//TB-IWF-HP-0400-00
+D

@@ -1,0 +1,17 @@
+
+PRC TCAP Command
+
+SYNOPSIS
+    tp_get_tmr
+
+DESCRIPTION
+    This command displays PRC TCAP timers and their values. 
+    PRC TCAP has only one configurable timer.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> tp_get_tmr
+
+

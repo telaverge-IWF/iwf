@@ -1,0 +1,150 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+# FILE: Makefile                                                           #
+#                                                                          #
+############################################################################
+#                                                                          #
+# ID: $Id: Makefile.stat,v 3.6 2011/03/23 03:50:41 mdinesh Exp $
+#
+# LOG: $Log: Makefile.stat,v $
+# LOG: Revision 3.6  2011/03/23 03:50:41  mdinesh
+# LOG: DNSLIB included
+# LOG:
+# LOG: Revision 3.5  2010/07/07 08:28:22  nvijikumar
+# LOG: TCS compilation flags support
+# LOG:
+# LOG: Revision 3.4  2008/09/12 13:33:16  gdalawai
+# LOG: Modified if stat for TLS flag. gdalawai
+# LOG:
+# LOG: Revision 3.3  2008/09/12 13:26:18  gdalawai
+# LOG: Modified if stat for TLS flag.
+# LOG:
+# LOG: Revision 3.2  2008/09/12 13:15:15  gdalawai
+# LOG: Added TLS flag. gdalawai
+# LOG:
+# LOG: Revision 3.1  2008/03/31 10:33:09  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 1.4  2008/03/27 11:31:37  hbhatnagar
+# LOG: Converting 2.1 branch to CURRENT
+# LOG:
+# LOG: Revision 1.2.4.1  2007/03/13 05:53:58  rrath
+# LOG: Changes for clean-up
+# LOG:
+# LOG: Revision 1.2  2007/01/11 06:03:44  kamakshilk
+# LOG: IMS_ROOT/api/include path added
+# LOG:
+# LOG: Revision 1.1  2007/01/04 12:54:27  hbhatnagar
+# LOG: baseline demo application for e2 interface
+# LOG:
+# LOG:
+#
+############################################################################
+#ident "$Id: Makefile.stat,v 3.6 2011/03/23 03:50:41 mdinesh Exp $"
+
+#
+# Include the standard definitions
+#
+include $(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) $(ITS_DEFINES) 
+
+INCLS:=$(INCLS) $(ITS_INCLS) \
+        -I../include \
+        -I../../app_stat/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I$(IMS_ROOT)/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I../../api/include \
+        -I$(IMS_ROOT)/common/include \
+        -I$(IMS_ROOT)/dframe/include \
+        -I$(IMS_ROOT)/vendors/IntelliNet/include
+         
+OBJS:= UserDataTest.o \
+       sample_e2.o e2_stats.o
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+          -le2api$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+ifeq ($(TLS),yes)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastackt$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX) 
+else
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX)
+endif
+endif
+ifeq ($(PLATFORM),solaris64)
+ifeq ($(TLS),yes)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastackt$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX) 
+else
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX)
+endif
+endif
+ifeq ($(PLATFORM),linux)
+ifeq ($(TLS),yes)
+LIBS_OS:=-ldiastackt$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -lstatdiaapp$(DBGSUFFIX) 
+else
+LIBS_OS:=-ldiastack$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -lstatdiaapp$(DBGSUFFIX)
+endif
+endif
+
+LIBS:=-L$(ITS_ROOT)/common/lib \
+      -L$(IMS_ROOT)/lib \
+      -L../../app_stat/lib \
+      -L$(IMS_ROOT)/apps/lib \
+      -L../../lib \
+      -L$(IMS_ROOT)/api/c++/lib \
+      -L$(IMS_ROOT)/dframe/lib \
+      -L$(IMS_ROOT)/vendors/IntelliNet/lib \
+      -lENGINE$(DBGSUFFIX) \
+      -lDRIVER++$(DBGSUFFIX) \
+      $(LIBS_OS)
+
+all: ../bin/sampleE2App$(DBGSUFFIX) 
+
+clean:
+	rm -f $(OBJS) $(APP_OBJS) \
+      	../bin/sampleE2App$(DBGSUFFIX) 
+
+../bin/sampleE2App$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) \
+        $(SOCKLIBS) $(THREADLIBS) $(SYSLIBS) $(LIBS) $(DNSLIB_S) 

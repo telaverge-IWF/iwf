@@ -1,0 +1,40 @@
+#!/bin/ksh
+#set -x
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+proc1='DiaServerD'
+proc2='DIAMon'
+proc_str="$proc1 $proc2"
+tmp_file='/tmp/ids.sho.000.001'
+
+ps -e -o 'pid user tty etime time comm' | fgrep "PID 
+$proc1
+$proc2
+" | grep -v grep | tee $tmp_file
+
+echo ""
+typeset -i count=0;
+for i in $proc_str
+do
+	count=`fgrep -c $i $tmp_file`
+	if [ $count -ge 1 ]
+	then
+		if [ $count -gt 1 ]
+		then
+			echo "There are $count instances of \"$i\" running"
+		fi
+	else
+		echo "** $i not running"
+	fi
+done
+usr=`id | awk -F'(' '{print $2}' | awk -F')' '{print $1}'`
+echo "-> Current user id: $usr"
+echo ""
+rm -f $tmp_file
+exit 0
+

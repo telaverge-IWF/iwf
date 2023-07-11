@@ -1,0 +1,20 @@
+Diameter Command
+
+SYNOPSIS
+    modifyPriority  <realmName> <peerName> <peerRealm> <appId> <vendorId> <priority>
+
+DESCRIPTION
+    This command is used to modify Destination Priority.
+
+PARAMETERS
+    realmName  Realm Name
+    peerName   Peer Name
+    peerRealm  Peer Realm
+    appId      Application Id
+    vendorId   Vendor Id
+    priority   New Priority
+
+EXAMPLE
+    >> modifyPriority india.internal.net Alice india.net 16777216 10415 10
+       Successfully Modified Destination Priority 
+

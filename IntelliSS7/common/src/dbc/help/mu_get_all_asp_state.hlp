@@ -1,0 +1,32 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_get_all_asp_state <null>
+
+DESCRIPTION
+    This command displays ALL ASP's current State at SG. 
+
+PARAMETERS
+    None
+
+EXAMPLE
+
+     >> mu_get_all_asp_state
+
+        ********* M2UA ASP STATE *********
+
+        ASP ID  : 1001
+
+        ASP STATE  : M2UA_ASP_ACTIVE
+
+        ***********************************
+
+        ASP ID  : 1002
+
+        ASP STATE  : M2UA_ASP_DOWN
+
+        ***********************************
+
+>> 
+

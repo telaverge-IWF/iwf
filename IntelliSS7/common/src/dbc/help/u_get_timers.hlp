@@ -1,0 +1,22 @@
+M3UA Command
+
+SYNOPSIS
+    u_get_timers
+
+DESCRIPTION
+    DESCRIPTION
+    This command sets UAL timers.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+     >> u_get_timers
+    ---------------------------------------------------
+    Dump of UAL Config:
+        Interworking Mode    <aspMode> 
+        Ack Timer            <2> 
+        Pending Timer        <2> 
+        Heart Beat Interval  <5> 
+        Aud Timer            <10> 
+        Alarm Level          <OFF>

@@ -1,0 +1,64 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+# Get system information
+
+sysdef       1>sysconfig/sysdef.out     2>&1
+sysdef  -d   1>sysconfig/sysdef-d.out   2>&1
+prtconf -v   1>sysconfig/prtconf-v.out  2>&1
+prtconf -vp  1>sysconfig/prtconf-vp.out 2>&1
+uptime       1>sysconfig/uptime.out     2>&1
+psrinfo -v   1>sysconfig/psrinfo-v.out  2>&1
+ifconfig -a  1>sysconfig/ifconfig-a.out 2>&1
+eeprom       1>sysconfig/eeprom.out     2>&1
+
+if [ -x /usr/sbin/dumpadm ]
+then
+    # dumpadm exists only on Solaris 2.7 and above
+    dumpadm  1>sysconfig/dumpadm.out    2>&1
+fi
+
+# Don't execute prtconf -V if it returns error, i.e. illegal option.
+# -V option works only on Solaris 2.5 and higher. It reports OBP rev level.
+if [ -z "`prtconf -V 2>&1|grep 'illegal option`" ]
+then
+    prtconf -V 1>sysconfig/prtconf-V.out     2>&1
+fi
+
+
+
+# Get prtdiag info if it exists, also there has been a change to
+# where prtdiag is located in Solaris 2.5 and later.
+
+# SUNW - is for Sun HW
+# CYRS - is for Cray HW
+
+SYSNAME="`prtconf|grep '^SUNW,'`"
+if [ -z "$SYSNAME" ]
+then
+    SYSNAME="`prtconf|grep '^CYRS,'`"
+fi
+
+# /platform exist only on Solaris 2.5 and above, for 2.3&2.4 use /kernel
+if [ -d /platform ]
+then
+    ls -l /platform/"$SYSNAME"/kernel 1>sysconfig/kernel_ls-l.out 2>&1
+elif [ -d /kernel ]
+then
+    ls -l /kernel 1>sysconfig/kernel_ls-l.out 2>&1
+fi
+
+if [ -x /usr/platform/"$SYSNAME"/sbin/prtdiag ]
+then
+    /usr/platform/"$SYSNAME"/sbin/prtdiag -v 1>sysconfig/prtdiag-v.out 2>&1
+elif [ -x /usr/kvm/prtdiag ]
+then
+    /usr/kvm/prtdiag -v 1>sysconfig/prtdiag-v.out 2>&1
+fi

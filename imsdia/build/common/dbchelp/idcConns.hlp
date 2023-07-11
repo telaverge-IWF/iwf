@@ -1,0 +1,32 @@
+Diameter Command
+
+SYNOPSIS
+    idcConns 
+
+DESCRIPTION
+    This command will Print the IDC Connection Status.
+
+PARAMETERS
+    none.
+
+EXAMPLE
+    >> idcConns 
+
+       -----------------------------------------------------------
+       -- Connection Table Begin --
+       -----------------------------------------------------------
+
+       Size: <1>
+
+       Entries:
+       --------------------------------------------------
+       Client Id               : 12
+       Transport Instance      : 16
+       Transport Type          : TCP
+       Establishment Time      : 24 March 2009 01:37:54
+       Status                  : Connected
+       --------------------------------------------------
+       -----------------------------------------------------------
+       -- Connection Table End --
+       -----------------------------------------------------------
+

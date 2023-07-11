@@ -1,0 +1,350 @@
+/**
+ * 3GPP2 X.S0013-011-A -- Version 1.0 -- Version Date: November, 2005 
+ * Sh Interface Based on Diameter Protocol;  Protocol Details - Stage 3
+ * The Sh interface between an SIP AS and the AAA.
+ * The Sh interface between an SCS and the AAA.
+ */
+protocol diameter.sh_3gpp2 < 16777217 10415: "3GPP2 X.S0013-011-A V1.0 Nov,2005" >;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * The User-Data AVP is of type OctetString. This AVP contains the user data 
+ * requested in the UDR and SNR operations and the data to be modified in the
+ * PUR operation. The exact content and format of this AVP is described in 
+ * "IP Multimedia (IM) Subsystem Sh interface; signalling flows and 
+ * message contents" 
+ */
+   Sh-User-Data                                   ::=  702 /*6.3.3*/  OctetString M,V| | |    |N;
+
+/**
+ * The User-Identity AVP is of type Grouped. This AVP contains either a user
+ * Public-Identity AVP or an MSISDN AVP.
+ */
+   User-Identity                                  ::=  700 /*6.3.1*/  Grouped     M,V| | |    |N;
+
+/**
+ * The MSISDN AVP is of type OctetString. This AVP contains an MSISDN, in 
+ * international number format as described in ITU-T Rec E.164 "The
+ * international public telecommunication numbering plan", encoded as
+ * a TBCD-string, i.e. digits from 0 through 9 are encoded 0000 to 1001; 1111
+ * is used as a filler when there is an odd number of digits; bits 8 to 5 of
+ * octet n encode digit 2n; bits 4 to 1 of octet n encode digit 2(n-1)+1.
+ */
+   MSISDN                                          ::=  701 /*6.3.2*/ OctetString M,V| | |    |N;
+
+/**
+ * The Data-Reference AVP is of type Enumerated, and indicates the type of the 
+ * requested user data in the operation UDR and SNR. Its exact values and 
+ * meaning is defined in IP Multimedia (IM) Subsystem Sh interface; signalling
+ * flows and message contents".
+ */
+   Data-Reference                                  ::=  703 /*6.3.4*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Service-Indication AVP is of type OctetString. This AVP contains the 
+ * Service Indication that identifies a service in an AS.
+ */
+   Service-Indication                              ::=  704 /*6.3.5*/ OctetString M,V| | |    |N;
+
+/**
+ * The Subs-Req-Type AVP is of type Enumerated, and indicates the type of the
+ * subscription-to-notifications request. The following values are defined:
+ * Subscribe (0)
+ * This value is used by an AS to subscribe to notifications of changes in data.
+ * Unsubscribe (1)
+ * This value is used by an AS to unsubscribe to notifications of changes in
+ * data
+ */
+   Subs-Req-Type                                   ::=  705 /*6.3.6*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Requested-Domain AVP is of type Enumerated, and indicates the access
+ * domain for which certain data (e.g. user state) are requested. The following
+ * values are defined:
+ * CS-Domain (0) The requested data apply to the CS domain.
+ * PS-Domain (1) The requested data apply to the PS domain.
+ */
+   Requested-Domain                                ::=  706 /*6.3.7*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Current-Location AVP is of type Enumerated, and indicates whether an
+ * active location retrieval has to be initiated or not:
+ * DoNotNeedInitiateActiveLocationRetrieval (0) The request indicates that the
+ * initiation of an active location retrieval is not required.
+ * InitiateActiveLocationRetrieval (1)
+ */
+   Current-Location                                ::=  707 /*6.3.8*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Identity-Set AVP is of type Enumerated and indicates the requested set
+ * of IMS Public Identities. The following values are defined:-
+ * ALL_IDENTITIES (0)
+ * REGISTERED_IDENTITIES (1)
+ * IMPLICIT_IDENTITIES (2)
+ */
+   Identity-Set                                    ::=  708/*6.3.10*/ Enumerated  V | | | M  |N;
+
+
+/**
+ * The Server-Name contains a SIP-URL used to identify an AS. See "Cx Interface
+ * based on Diameter protocol; protocol details". for further description of
+ * this AVP.
+ */
+   Server-Name                                     ::=  602 /*6.3.9*/ UTF8String  M,V| | |    |N;
+
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+
+Data-Reference ::= < Enumerated: 703 >
+                REPOSITORYDATA          0
+                IMSPUBLICIDENTITY       10
+                IMSUSERSTATE            11
+                SCSCFNAME               12
+                INITIALFILTERCRITERIA   13
+                LOCATIONINFORMATION     14
+                USERSTATE               15
+                CHARGINGINFORMATION     16
+                MSISDN                  17
+                ;
+
+
+Subs-Req-Type ::= < Enumerated: 705 >
+                SUBSCRIBE               0
+                UNSUBSCRIBE             1
+                ;
+
+
+Requested-Domain ::= < Enumerated: 706 >
+                CSDOMAIN               0
+                PSDOMAIN               1
+                ;
+
+Current-Location ::= < Enumerated: 707 >
+                DoNotNeedInitiateActiveLocationRetrieval        0
+                InitiateActiveLocationRetrieval                 1
+                ;
+
+Identity-Set ::= < Enumerated: 708 >
+                ALL_IDENTITIES          0
+                REGISTERED_IDENTITIES   1
+                IMPLICIT_IDENTITIES     2
+                ;
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+User-Identity ::= < AVP Header: 700 10415 >
+                [Public-Identity]
+                [MSISDN]
+                *[AVP]
+                ;
+
+
+    //////////////////
+    //   Commands   //
+    //////////////////
+
+/**
+ * The User-Data-Request (UDR) command, indicated by the Command-Code field set
+ * to 306 and the 'R' bit set in the Command Flags field, is sent by a Diameter
+ * client to a Diameter server in order to request user data.
+ */
+
+User-Data-Request ::= < Diameter Header: 306, REQ, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { User-Identity }
+                  { Data-Reference } 
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  [ Service-Indication ]
+                  [Server-Name]
+                  [Identity-Set] 
+                  [ Requested-Domain ]
+                  [ Current-Location ]
+                  *[ AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ; 
+
+/**
+ * The User-Data-Answer (UDA) command, indicated by the Command-Code field set
+ * to 306 and the 'R' bit cleared in the Command Flags field, is sent by a
+ * server in response to the User-Data-Request command.
+ * The Experimental-Result AVP may contain one of the values defined in section
+ * 6.2 or in "Cx Interface based on Diameter protocol; protocol details".
+ */
+
+User-Data-Answer  ::= < Diameter Header: 306, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State } 
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  *[ Supported-Features ]
+                  [ Sh-User-Data ]
+                  *[ AVP ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+/**
+ * The Profile-Update-Request (PUR) command, indicated by the Command-Code
+ * field set to 307 and the 'R' bit set in the Command Flags field, is sent by
+ * a Diameter client to a Diameter server in order to update user data in the
+ * server.
+ */
+
+Profile-Update-Request  ::= < Diameter Header: 307, REQ, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { User-Identity }
+                  { Data-Reference }
+                  { Sh-User-Data }
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  *[ AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+/**
+ * The Profile-Update-Answer (PUA) command, indicated by the Command-Code field
+ * set to 307 and the 'R' bit cleared in the Command Flags field, is sent by a
+ * server in response to the Profile-Update-Request command.
+ * The Experimental-Result AVP may contain one of the values defined in section
+ * 6.2 or in "Cx Interface based on Diameter protocol; protocol details".
+ */
+
+Profile-Update-Answer  ::= < Diameter Header: 307, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  *[ Supported-Features ]
+                  *[ AVP ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+/**
+ * The Subscribe-Notifications-Request (SNR) command, indicated by the
+ * Command-Code field set to 308 and the 'R' bit set in the Command Flags
+ * field, is sent by a Diameter client to a Diameter server in order to
+ * request notifications of changes in user data.
+ */
+
+Subscribe-Notifications-Request ::= < Diameter Header: 308, REQ, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { User-Identity }
+                  { Subs-Req-Type }
+                  { Data-Reference }
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  [ Service-Indication]
+                  [Server-Name]
+                  *[ AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+/**
+ * The Subscribe-Notifications-Answer (SNA) command, indicated by the
+ * Command-Code field set to 308 and the 'R' bit cleared in the Command Flags
+ * field, is sent by a server in response to the Subscribe-Notifications-
+ * Request command. The Experimental-Result AVP may contain one of the values
+ * defined in section 6.2 or in "Cx Interface based on Diameter protocol;
+ * protocol details".
+ */
+
+Subscribe-Notifications-Answer  ::= < Diameter Header: 308, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  *[ Supported-Features ]
+                  *[ AVP ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+/**
+ * The Push-Notification-Request (PNR) command, indicated by the Command-Code
+ * field set to 309 and the 'R' bit set in the Command Flags field, is sent by
+ * a Diameter server to a Diameter client in order to notify changes in the
+ * user data in the server.
+ */
+
+Push-Notification-Request  ::= < Diameter Header: 309, REQ, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Host }
+                  { Destination-Realm }
+                  { User-Identity }
+                  { Sh-User-Data }
+                  *[ Supported-Features ]
+                  *[ AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+
+
+/**
+ * The Push-Notifications-Answer (PNA) command, indicated by the Command-Code 
+ * field set to 309 and the 'R' bit cleared in the Command Flags field, is sent
+ * by a client in response to the Push-Notification-Request command.
+ * The Experimental-Result AVP may contain one of the values defined in section
+ * 6.2 or in "Cx Interface based on Diameter protocol; protocol details".
+ */
+
+Push-Notification-Answer  ::= < Diameter Header: 309, PXY, 16777217 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  *[ Supported-Features ]
+                  *[ AVP ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  ;
+

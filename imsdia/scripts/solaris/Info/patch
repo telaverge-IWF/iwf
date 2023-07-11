@@ -1,0 +1,22 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+showrev    1>patch+pkg/showrev.out   2>&1
+showrev -p 1>patch+pkg/showrev-p.out 2>&1
+showrev -p | grep \^Patch | nawk '{print $2}'|sort 1>patch+pkg/patch-list 2>&1
+
+if test -d /var/sadm/patch
+then
+    ls -l /var/sadm/patch > patch+pkg/patch_date.out
+fi
+
+modinfo 1>patch+pkg/modinfo.out 2>&1
+
+../imsdiaPatchInfo 1>patch+pkg/imsdiaPatchInfo.out 2>&1

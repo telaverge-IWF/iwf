@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    setDscpValue  <hostName> <realmName> <val>
+
+DESCRIPTION
+    This command will set the Dscp Value to Peer Configuration.
+    Dscp value range is from 0 - 255 on solaris.
+
+PARAMETERS
+    <hostName>       Peer Host Peer Name
+    <realmName>      Peer Host Realm Name
+    <val>            Dscp Value (0-255). 
+
+EXAMPLE
+	>> setDscpValue nemocl india.internal.net 20
+ 	Dscp value set to : 20

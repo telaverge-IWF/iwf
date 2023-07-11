@@ -1,0 +1,21 @@
+/**
+  * RfRo AVPs imported from NASREQ draft
+  */
+
+protocol diameter.rfro.ietf < 0: "draft-ietf-aaa-diameter-nasreq-17.txt" >;
+
+
+/**
+ * The Called-Station-Id AVP is of type UTF8String and allows the NAS to send in the request,the
+ * ASCII string describing the layer 2 address that the user contacted to. For dialup access,this
+ * can be a phone number,obtained using Dialed Number identification (DNIS) or a similar
+ * technology. For the use with IEEE 802 access, the Called-Station-Id MAY contain a MAC address.
+ * formatted as described in RAD802.1X.
+ */
+    Called-Station-Id                          ::= 30   /*4.5,NASREQ*/ UTF8String       M|P| |  V  |Y; /*draft-ietf-aaa-diameter-nasreq-17.txt */
+
+/**
+ * The Filter-Id AVP is of type UTF8String and contains the name of the filter list for this user.
+ * Zero or more Filter-Id AVPs MAY be sent in an authorisation answer.
+ */
+    Filter-Id                                  ::= 11 /*6.7,NASREQ*/ UTF8String    M|P| |  V  |Y; /*draft-ietf-aaa-diameter-nasreq-17.txt */

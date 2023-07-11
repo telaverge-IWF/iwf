@@ -1,0 +1,606 @@
+{
+    "ro_r10" : {
+        "CreditControlAnswer" : {
+            "CCA_I" : {
+                "DiscardRequest" : {
+                    "Enabled" : false
+                },
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                },
+                "ResultCode" : {
+                    "Value" : 2001
+                },
+                "CCSessionFailover" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                },
+                "CreditControlFailureHandling" : {
+                    "Enabled" : false,
+                    "Value" : 2
+                },
+                "OriginStateId" : {
+                    "Enabled" : true,
+                    "Value" : 3
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 1
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : true,
+                            "Value" : 10
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        },
+                        "CCServiceSpecificUnits" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                },
+                "ServiceControl" : {
+                    "FollowOnCallFlow" : {
+                        "Enabled" : false, // Values for Second CCA-I for simulating Follow-On-Cases
+                        "SCPAction" : {
+                            "Enabled" : true,
+                            "Value" : 12 //values allowed 11 to 16
+                        },
+                        "CAPControlMode" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        }
+                    },
+                    "SCPAction" : {
+                        "Enabled" : true,
+                        "Value" : 12 //values allowed 11 to 16
+                    },
+                    "CAPInformation" : {
+                        "CAPControlMode" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        },
+                        "CAPRRBInformation" : {
+                            "CAPRRBNoAnswerTimeOut" : {
+                                "Enabled" : true,
+                                "Value" : 30
+                            }
+                        },
+                        "CAPReleaseCause" : {
+                            "Enabled" : true,
+                            "Value"   : 27
+                        },
+                        "CAPACHInformation" : {
+                            "CAPACHBeepTone" : {
+                                "Enabled" : true,
+                                "Value" : 0 //Boolean either 1 or 0
+                            }
+                        },
+                        "CAPConnectInformation" : {
+                            "Enabled" : true,
+                            "CAPConnectDestinationNumber" : {
+                                "Enabled" : true,
+                                "Value" : "2345543267"
+                            },
+                            "CAPConnectDestinationNumberNature" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectDestinationNumberNPI" : {
+                                "Enabled" : false,
+                                "Value" : 3
+                            },
+                            "CAPConnectDestinationNumberINN" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectGenericNumber" : {
+                                "Enabled" : true,
+                                "Value" : "54678965"
+                            },
+                            "CAPConnectGenericNumberNOA" : {
+                                "Enabled" : false,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNPI" : {
+                                "Enabled" : false,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNII" : {
+                                "Enabled" : false,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberNQI" : {
+                                "Enabled" : false,
+                                "Value" : 17
+                            },
+                            "CAPConnectGenericNumberARI" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectGenericNumberSCI" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectCallingCategory" : {
+                                "Enabled" : false,
+                                "Value" : 2
+                            },
+                            "CAPConnectRedirectingNumber" : {
+                                "Enabled" : true,
+                                "Value" : "123456789"
+                            },
+                            "CAPConnectRedirectingNumberNOA" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberNPI" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberARI" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingIndicator" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectOriginalRedirectionReason" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectionCounter" : {
+                                "Enabled" : false,
+                                "Value" : 4
+                            },
+                            "CAPConnectRedirectingReason" : {
+                                "Enabled" : false,
+                                "Value" : 3
+                            },
+                            "CAPConnectoCSIApplicable" : {
+                                "Enabled" : true,
+                                "Value" : 11
+                            },
+                            "CAPConnectSuppressionOfAnnouncement" : {
+                                "Enabled" : false,
+                                "Value" : 12
+                            },
+                            "CAPAnnouncementAccessNumber" : {
+                                "Enabled" : true,
+                                "Value" : "123445768"
+                            },
+                            "CAPAnnouncementAccessNumberNOA" : {
+                                "Enabled" : false,
+                                "Value" : 4
+                            },
+                            "CAPConnectOriginalCalledNumber" : {
+                                "Enabled" : true,
+                                "Value"   : "123456789"
+                            },
+                            "CAPConnectOriginalCalledNumberNOA" : {
+                                "Enabled" : false,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberNPI" : {
+                                "Enabled" : false,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberARI" : {
+                                "Enabled" : false,
+                                "Value"   : 1
+                            },
+                            "CAPConnectMaxDuration" : {
+                                "Enabled" : false,
+                                "Value" : 80 
+                            }
+                       }
+                    }
+                }
+            },
+            "CCA_U" : {
+                "DiscardRequest" : {
+                    "Enabled" : false
+                },
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 90
+                },
+                "ResultCode" : {
+                    "Value" : 2001
+                },
+                "CCSessionFailover" : {
+                    "Enabled" : false,
+                    "Value" : 0
+                },
+                "CreditControlFailureHandling" : {
+                    "Enabled" : false,
+                    "Value" : 0
+                },
+                "OriginStateId" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 1
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : true,
+                            "Value" : 10
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        },
+                        "CCServiceSpecificUnits" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                },
+                "ServiceControl" : {
+                    "SCPAction" : {
+                        "Enabled" : false,
+                        "Value" : 13 //values allowed 11 to 16
+                    },
+                    "CAPInformation" : {
+                        "CAPControlMode" : {
+                            "Enabled" : false,
+                            "Value" : 1
+                        },
+                        "CAPRRBInformation" : {
+                            "CAPRRBNoAnswerTimeOut" : {
+                                "Enabled" : true,
+                                "Value" : 10
+                            }
+                        },
+                        "CAPACHInformation" : {
+                            "CAPACHBeepTone" : {
+                                "Enabled" : true,
+                                "Value" : 0 //Boolean either 1 or 0
+                            }
+                        },
+                        "CAPConnectInformation" : {
+                            "Enabled" : false,
+                            "CAPConnectDestinationNumber" : {
+                                "Enabled" : true,
+                                "Value" : "2345543267"
+                            },
+                            "CAPConnectDestinationNumberNature" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectDestinationNumberNPI" : {
+                                "Enabled" : true,
+                                "Value" : 3
+                            },
+                            "CAPConnectDestinationNumberINN" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectGenericNumber" : {
+                                "Enabled" : true,
+                                "Value" : "5467896534"
+                            },
+                            "CAPConnectGenericNumberNOA" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNPI" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNII" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberNQI" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberARI" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberSCI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectCallingCategory" : {
+                                "Enabled" : true,
+                                "Value" : 2
+                            },
+                            "CAPConnectRedirectingNumber" : {
+                                "Enabled" : true,
+                                "Value" : "123456789"
+                            },
+                            "CAPConnectRedirectingNumberNOA" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberNPI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberARI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingIndicator" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectOriginalRedirectionReason" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectionCounter" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectRedirectingReason" : {
+                                "Enabled" : true,
+                                "Value" : 3
+                            },
+                            "CAPConnectoCSIApplicable" : {
+                                "Enabled" : true,
+                                "Value" : 11
+                            },
+                            "CAPConnectSuppressionOfAnnouncement" : {
+                                "Enabled" : true,
+                                "Value" : 12
+                            },
+                            "CAPAnnouncementAccessNumber" : {
+                                "Enabled" : true,
+                                "Value" : "1234"
+                            },
+                            "CAPAnnouncementAccessNumberNOA" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectOriginalCalledNumber" : {
+                                "Enabled" : true,
+                                "Value"   : "123456789"
+                            },
+                            "CAPConnectOriginalCalledNumberNOA" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberNPI" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberARI" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectMaxDuration" : {
+                                "Enabled" : true,
+                                "Value" : 80 
+                            }
+                       }
+                    }
+                }
+            },
+            "CCA_T" : {
+                "DiscardRequest" : {
+                    "Enabled" : false
+                },
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 100
+                },
+                "ResultCode" : {
+                    "Value" : 5001
+                },
+                "CCSessionFailover" : {
+                    "Enabled" : true,
+                    "Value" : 1
+                },
+                "CreditControlFailureHandling" : {
+                    "Enabled" : true,
+                    "Value" : 2
+                },
+                "OriginStateId" : {
+                    "Enabled" : true,
+                    "Value" : 3
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 0
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : false,
+                            "Value" : 23
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        },
+                        "CCServiceSpecificUnits" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false, 
+                    "Value" : 1
+                },
+                "ServiceControl" : {
+                    "SCPAction" : {
+                        "Enabled" : false,
+                        "Value" : 13 //values allowed 11 to 16
+                    },
+                    "CAPInformation" : {
+                        "CAPControlMode" : {
+                            "Enabled" : false,
+                            "Value" : 2
+                        },
+                        "CAPRRBInformation" : {
+                            "CAPRRBNoAnswerTimeOut" : {
+                                "Enabled" : true,
+                                "Value" : 10
+                            }
+                        },
+                        "CAPACHInformation" : {
+                            "CAPACHBeepTone" : {
+                                "Enabled" : true,
+                                "Value" : 0 //Boolean either 1 or 0
+                            }
+                        },
+                        "CAPConnectInformation" : {
+                            "Enabled" : true,
+                            "CAPConnectDestinationNumber" : {
+                                "Enabled" : true,
+                                "Value" : "2345543267"
+                            },
+                            "CAPConnectDestinationNumberNature" : {
+                                "Enabled" : false,
+                                "Value" : 1
+                            },
+                            "CAPConnectDestinationNumberNPI" : {
+                                "Enabled" : false,
+                                "Value" : 3
+                            },
+                            "CAPConnectDestinationNumberINN" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectGenericNumber" : {
+                                "Enabled" : true,
+                                "Value" : "5467896534"
+                            },
+                            "CAPConnectGenericNumberNOA" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNPI" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectGenericNumberNII" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberNQI" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberARI" : {
+                                "Enabled" : true,
+                                "Value" : 0
+                            },
+                            "CAPConnectGenericNumberSCI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectCallingCategory" : {
+                                "Enabled" : true,
+                                "Value" : 2
+                            },
+                            "CAPConnectRedirectingNumber" : {
+                                "Enabled" : true,
+                                "Value" : "123456789"
+                            },
+                            "CAPConnectRedirectingNumberNOA" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberNPI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingNumberARI" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectingIndicator" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectOriginalRedirectionReason" : {
+                                "Enabled" : true,
+                                "Value" : 1
+                            },
+                            "CAPConnectRedirectionCounter" : {
+                                "Enabled" : true,
+                                "Value" : 4
+                            },
+                            "CAPConnectRedirectingReason" : {
+                                "Enabled" : true,
+                                "Value" : 3
+                            },
+                            "CAPConnectoCSIApplicable" : {
+                                "Enabled" : true,
+                                "Value" : 11
+                            },
+                            "CAPConnectSuppressionOfAnnouncement" : {
+                                "Enabled" : true,
+                                "Value" : 12
+                            },
+                            "CAPAnnouncementAccessNumber" : {
+                                "Enabled" : true,
+                                "Value" : "1234"
+                            },
+                            "CAPAnnouncementAccessNumberNOA" : {
+                                "Enabled" : false,
+                                "Value" : 4
+                            },
+                            "CAPConnectOriginalCalledNumber" : {
+                                "Enabled" : true,
+                                "Value"   : "123456789"
+                            },
+                            "CAPConnectOriginalCalledNumberNOA" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberNPI" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectOriginalCalledNumberARI" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "CAPConnectMaxDuration" : {
+                                "Enabled" : true,
+                                "Value" : 80 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

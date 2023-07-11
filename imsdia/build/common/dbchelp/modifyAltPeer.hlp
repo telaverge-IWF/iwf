@@ -1,0 +1,36 @@
+Diameter Command
+
+SYNOPSIS
+    modifyAltPeer <hostName> <realmName> <altHostName> <altRealmName> <foEna> <fbEna> <isMate> 
+
+DESCRIPTION
+    This command modify modifys alternate peer entry for a peer.
+
+PARAMETERS
+    hostName      Peer Host Name.
+
+    realmName     Realm Name served for peer.
+
+    altHostName   Alternate Peer Name
+
+    altRealmName  Alternate Peer Realm Name
+
+    foEna         Failover Enable
+                  Possible Values
+                  - yes - For Failover
+                  - no - For Normal 
+
+    fbEna         Failback Enable
+                  Possible Values
+                  - yes - For Failback
+                  - no - For Normal
+
+    isMate        Redundant mate
+                  Possible Values
+                  yes - For Redundant nodes
+                  no - For normal node.
+
+EXAMPLE
+    >> modifyAltPeer nemo india.internal.net nemo1 india.internal.net no no no
+
+       Successfully Modified Alternate PeerConfiguration

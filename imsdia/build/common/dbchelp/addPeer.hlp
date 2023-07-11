@@ -1,0 +1,27 @@
+Diameter Command
+
+SYNOPSIS
+    addPeer <hostName> <realmName> <transType> <peerIP> <peerPort>
+
+DESCRIPTION
+    This command sets and modify peer table entry for dynamically added peer.
+
+PARAMETERS
+    hostName      Peer Host Name.
+
+    realmName     Realm Name served for peer.
+
+    transType     Transport Type
+                  Possible Values
+                  - TCP
+                  - SCTP
+
+    peerIP        IP Address of the Peer
+
+    peerPort      Port No of Peer
+
+
+EXAMPLE
+    >> addPeer nemo india.internal.net TCP 172.16.3.1 9912 
+
+Successfully PeerConfiguration added

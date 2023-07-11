@@ -1,0 +1,14 @@
+net-snmp
+apache-tomcat-7.0.20-1.x86_64
+mysql-server
+pcre
+memcached
+lksctp-tools
+jre-1.7.0
+libevent
+libaio
+ncurses
+openssl-perl
+expect-devel
+ndisc6-[1-9]
+arptables

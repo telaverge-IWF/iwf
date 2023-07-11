@@ -1,0 +1,16 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_dereg_req  <iid>
+
+DESCRIPTION
+    This command is used by ASP to send de-register request for IID to SGP.
+
+PARAMETERS
+    iid  -  Interface Identifier. 
+
+EXAMPLE
+  >>mu_dereg_req  11
+
+    *********** M2UA DEREG IID *************

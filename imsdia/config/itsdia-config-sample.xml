@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+
+<!-- Sample Diameter Stack configuration file for ITS-Diameter Version 1.1 -->
+
+<!-- Product Version and Location of dictionary (optional) must
+     be specified here -->
+
+<!-- Product Name can be set using "productName" optional parameter -->
+
+<!-- "enableDefaultRouting" is an optional parameter 
+     "1" To allow  realm based routing even if DestinationHost Avp exists
+         and failed to do peer based routing 
+     "0" To dont allow realm based routing if estinationHost Avp exists  
+-->
+
+<!-- "peerNotificationsToApp" is an optional parameter
+     "1" Gives  peer based messages to application.
+     "0" Peer based messaged will not be given to application.  
+-->
+
+<!-- "addOriginStateIdOpt" is an optional parameter
+     "1" Add Origin State Id to all outgoing Request Message.
+     "0" Dont Add Origin State Id.
+-->
+
+<ITS-Diameter  version                = "1"
+               dictionaryFile         = "dictionary.xml" >
+<!--
+               productName            = "IntelliNet Diameter"
+               enableDefaultRouting   = "1"
+               addOriginStateIdOpt    = "1"
+               peerNotificationsToApp = "1" -->
+
+   <!-- LocalConfig == Local Node configuration. 
+        All the information is used in exchanging
+        Capabilities with the Peers specified in the PeerTable
+        Configuration --> 
+   <LocalConfig>
+
+       <!-- Multiple Id's can be specified -->
+
+       <!-- Inband Security Id -->
+       <InbandSecurityId  value = "0"/>
+
+       <!-- Vendor id of broadcast to peers in the CER -->
+       <VendorId          value = "0"/>
+
+       <!-- List of locally supported vendor id's. -->
+       <SupportedVendorId value = "10415"/>
+
+       <!-- List of locally supported auth application id's. -->
+       <AuthAppId         value = "0"/>
+       <AuthAppId         value = "16777216"/>
+       <AuthAppId         value = "16777217"/>
+       <AuthAppId         value = "16777222"/>
+
+       <!-- List of locally supported acct application id's -->
+       <AccountingAppId   value = "3"/>
+
+       <!-- AuthAppId "0xffffffff" is required only for Relay Agent Support-->
+       <AuthAppId         value = "0xffffffff"/>
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "0"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+         <!-- Exactly one of Auth or Accounting should be present -->
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+       <!-- LocalHost Configuration -->
+
+       <!-- Single LocalHost Only 1 Origin-Host/Origin-Realm in CER -->
+
+       <!-- mateHostName is an optional parameter, it is required only 
+            incase of redundancy here the value for mateHostName should be 
+            serverHostName of its Mate -->
+
+       <LocalHost  serverHostName = "nemo"
+                   realmName      = "india.internal.net" >
+<!--               mateHostName   = "nemoServer1"     -->
+
+           <!-- Transport Configuration -->
+           <!-- Transport Type can be TCP or SCTP. 
+                Simultaneous support is not available
+                IP-Address/Port Number Should be specified.
+           -->
+          
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+           </Transport>
+
+          <!-- Example to configure SCTP Style Transports
+           <Transport   type         = "SCTP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+           </Transport>
+         -->
+
+       </LocalHost>
+
+       <!-- Session Configuration: Max Sessions supported are 65534 
+            ITS-Diameter provides the flexibility to the application
+            to act as a Diameter Client or a Diameter Server. For
+            all new Application Initiated Session related Requests, 
+            a Client Session is started by the stack, for
+            that session. For a new inbound session related request
+            from a peer, a Server Session is started by the stack.
+
+            Stateful or Statelss Sessions are initiated based on
+            the Auth-Session-State AVP in a message. If the AVP is
+            absent or contains STATE_MAINTAINED, Stateful Sessions 
+            are maintained by the stack. 
+            If the AVP is present and contains NO_STATE_MAINTAINED, then
+            Stateless Sessions are maintained by the stack.
+
+            In the case of Stateless Sessions, on receipt of a succesful
+            answer, the Session context is cleared by the stack.
+
+            The following Timeouts apply to only Stateful Sessions.
+       -->
+       <SessionConfig>
+              <!-- Authorization Session Timer Configuration -->
+              <!-- Timeout in seconds: SessionTimeout
+                   lifetime in seconds: Authorization LifeTimeout
+                   gracePeriod in seconds: GracePeriod Timeout
+                   For all the above timeouts, an Indication is sent
+                   by the stack to the application, that provides
+                   the particular session details. It is recommended
+                   that SessionTimeout > Lifetime + GracePeriod
+                   On LifeTime timeout, an application (server) may decide
+                   to send a RAR to the client. This flexibility and capability
+                   is left best with the application intentionally.
+                   On SessionTimeout or GracePeriod Timeout, the stack will
+                   clear the SessionContext, and if Client Sessions
+                   then will appropriately issue a STR to the Server
+              -->
+              <AuthSession  
+                        timeout        = "40"
+                        lifetime       = "20"
+                        gracePeriod    = "10" >
+             
+              </AuthSession>
+
+              <!-- Accounting Session Timer Configuration -->
+              <AcctSession  
+                        timeout         = "30"
+                        interimInterval = "30">
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <!-- Tracing Configuration.
+         4 Levels of Tracing are supported. Traces can be turned on/off
+         To turn off tracing, output should be specified to "none" -->
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+   </LocalConfig>
+                           
+   <!-- Peer Table Configuration Should be specified only once 
+        The Diameter stack on initialization will attempt connections 
+        with all the Peer's that are specified. Statically configured 
+        peers are supported. Dynamic Peer Discovery is not supported.  --> 
+   <PeerConfig>
+
+       <!-- Timers applicable/common to all peer's that are configured
+            Tc Timer:In seconds:The Tc timer controls the frequency that 
+            transport connection attempts are done to a peer with whom 
+            no active transport connection exists.  The recommended value 
+            is 30 seconds.
+ 
+            Watchdog Timer: In seconds: DeviceWatchdog Timer The Watchdog
+            timer controls the frequency that DWR's are exchanged with the
+            Peer when there is no activity on the transports with that 
+            particular peer.
+            
+            Expire Timer: This defines an application defined timer while 
+            waiting for some event.
+      -->
+
+       <Timer    name = "Tc"             value = "30" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "60" />
+ 
+       <!-- Peer Configuration: The Peer Section should be repeated
+            for each peer that needs to be configured.
+        -->
+       <!-- -->
+       <Peer    serverHostName = "nemocl"
+                realmName      = "india.internal.net" >
+
+           <!-- Transport Configuration -->
+           <!-- Transport Type can be TCP or SCTP. 
+                Simultaneous support is not available
+                IP-Address/Port Number Should be specified.
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1911">
+           </Transport>
+
+           <!-- Failover and Alternate peer configuration -->
+           <!-- enableFailback is applicable only when Failover is enabled -->
+           <Failover          enable         = "no"
+                              enableFailback = "no">
+
+               <!-- AlternatePeer can be used either for Failover or
+                    Redundant mate (Ex:- nemocl and nemo1 are redundant mates) -->
+
+               <!-- Set isMate parameter "yes" only if peer and alternate
+                peers are redundant nodes -->
+               <AlternatePeer serverHostName = "nemo1"
+                              realmName      = "india.internal.net"
+                              isMate         = "no">
+
+               </AlternatePeer>
+
+           </Failover>
+
+       </Peer>
+
+   </PeerConfig>
+
+   <!-- Realm-Based Routing Table Configuration -->
+   <RealmConfig>
+
+        <!-- Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+
+        -->
+
+        <!-- proxyInfoAvpEnabled is required for Relay Support
+             Values: yes/no
+        -->
+
+
+        <!-- This is the field that is typically used as a primary key in the
+        routing table lookups. -->
+        <Route     realmName        = "india.internal.net"
+                   localAction      = "local" > 
+                   <!-- proxyInfoAvpEnabled = "yes" -->
+
+             <!-- An application is identified by a vendor id and an application id.
+                For all IETF standards track Diameter applications, the vendor id
+                is zero.  A route entry can have a different destination based on
+                the application identification AVP of the message.  This field
+                MUST be used as a secondary key field in routing table lookups. -->
+
+             <!-- Priority value for this server entry.  
+                0 is the highest priority, 1 will be less than 0 and 2 will be
+                less than 1 and so on.
+                Destinations will need to be kept *ordered* on priority basis
+                for correct routing 
+                Destinations with equal value will resolve in the order they are 
+                defined in this configuration file -->
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "0"
+                         vendorId       = "10415"
+                         priority       = "0" >
+            </Destination>
+   
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777222"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+   
+        </Route>
+
+        <!-- Default Route: If none matches, default route will be used for routing -->
+	<Route     realmName        = "india.internal.net"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "nemocl" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig>
+
+</ITS-Diameter>

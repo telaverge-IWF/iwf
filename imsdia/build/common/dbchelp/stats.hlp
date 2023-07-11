@@ -1,0 +1,48 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+   stats 
+                                                                                
+DESCRIPTION
+    This command displays the current counters maintained by
+    the sample application. 
+ 
+    Please NOTE: that not all application level counters are 
+    maintained, and is primarily for illustration purpose, 
+    asto how applications can maintain application level 
+    pegs/statistics.                                                                              
+
+PARAMETERS
+                                                                               
+    None
+                                                                                
+EXAMPLE
+    >> stats   
+    -----------------------------------------------------------
+    -- APP Stats -- at Mon May  8 16:02:04 2006
+    -----------------------------------------------------------
+ 
+    Total Num of Request Msgs Sent      0
+    Total Num of Answer Msgs Sent       0
+    Total Num of Request Msgs Received  0
+    Total Num of Answer Msgs Received   0
+ 
+    Num of RAR Sent                     0
+    Num of RAA Sent                     0
+    Num of RAR Received                 0
+    Num of RAA Received                 0
+ 
+    Num of PUR Sent                     0
+    Num of PUA Sent                     0
+    Num of PUR Received                 0
+    Num of PUA Received                 0
+ 
+    Num of Disconnect Indications       0
+    Num of Timeout Indications          0
+    Num of AuthLifeTimeout Indications  0
+    Num of AuthGraceTimeout Indications 0
+    Num of Abort Indications            0
+    Num of Corrupt Indications          0
+    Num of Unknown Indications          0
+
+

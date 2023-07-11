@@ -1,0 +1,2208 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--      Copyright 1998 IntelliNet Technologies, Inc. All Rights Reserved.     --
+--              Manufactured in the United States of America.                 --
+--        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        --
+--                                                                            --
+--    This product and related documentation is protected by copyright and    --
+--    distributed under licenses restricting its use, copying, distribution   --
+--    and decompilation.  No part of this product or related documentation    --
+--    may be reproduced in any form by any means without prior written        --
+--    authorization of IntelliNet Technologies and its licensors, if any.     --
+--                                                                            --
+--    RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the       --
+--    government is subject to restrictions as set forth in subparagraph      --
+--    (c)(1)(ii) of the Rights in Technical Data and Computer Software        --
+--    clause at DFARS 252.227-7013 and FAR 52.227-19.                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--                                                                            --
+-- CONTRACT: INTERNAL                                                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--
+--  $Id: GSMMAPvn.asn,v 9.1 2005/03/23 12:51:25 cvsadmin Exp $
+--
+-- $Log: GSMMAPvn.asn,v $
+-- Revision 9.1  2005/03/23 12:51:25  cvsadmin
+-- Begin PR6.5
+--
+-- Revision 8.2  2005/03/21 13:49:25  cvsadmin
+-- PR6.4.2 Source Propagated to Current
+--
+-- Revision 7.1  2002/08/26 22:08:45  mmiers
+-- Begin PR6.2
+--
+-- Revision 6.1  2002/02/28 16:13:19  mmiers
+-- Begin PR7.
+--
+-- Revision 5.1  2001/08/16 20:45:17  mmiers
+-- Start PR6.
+--
+-- Revision 4.1  2001/05/01 00:53:03  mmiers
+-- Begin PR5
+--
+-- Revision 3.1  2000/08/15 23:56:41  mmiers
+--
+-- Begin round 4.
+--
+-- Revision 1.9  2000/04/27 16:42:14  npopov
+-- Added all the values for regression testing.
+--
+-- Revision 1.8  2000/04/26 18:14:18  npopov
+-- Added more PDU values for regression testing.
+--
+-- Revision 1.7  2000/04/25 17:06:45  npopov
+-- Added more PDU values for regression testing.
+--
+-- Revision 1.5  2000/04/20 16:09:40  npopov
+-- Added more PDU values for regression testing.
+--
+-- Revision 1.4  2000/04/19 15:31:40  npopov
+-- Added new GSMMAP PDUs for regression testing.
+--
+-- Revision 1.3  2000/04/18 15:32:32  npopov
+-- Changes related to cross-encoding/decoding testing.
+--
+-- Revision 1.2  2000/04/17 14:15:28  npopov
+-- Changes related to cross-encoding/decoding regression testing.
+--
+-- Revision 1.1  2000/04/12 15:59:55  npopov
+-- Version of GSMMAP.asn with value notation for regression testing.
+--
+--
+--------------------------------------------------------------------------------
+
+-- Expanded ASN.1 Module 'MAP-Protocol'
+-- MAP-Protocol { 0 identified-organization (4) etsi (0) mobileDomain 
+-- (0) gsm-Network (1) modules (3) map-Protocol (4) version2 (2) }
+
+GSMMAP DEFINITIONS ::= BEGIN
+
+UpdateLocationArg ::= SEQUENCE {
+    imsi OCTET STRING (SIZE(3..8)),
+    locationInfo CHOICE {
+        roamingNumber [0] IMPLICIT OCTET STRING (SIZE(1..9)),
+        msc-Number [1] IMPLICIT OCTET STRING (SIZE(1..9)) 
+    },
+    vlr-Number OCTET STRING (SIZE(1..9)),
+    lmsi [10] IMPLICIT OCTET STRING (SIZE(4)) OPTIONAL
+}
+
+
+updateLocationArg UpdateLocationArg ::= {
+    imsi '1122334455667788'H,
+    locationInfo roamingNumber: '112233445566778899'H,
+    vlr-Number '11'H,
+    lmsi '11223344'H
+}
+
+
+-- RESULT
+UpdateLocationRes ::= CHOICE {
+    hlr-Number OCTET STRING (SIZE(1..9)),
+    extensibleUpdateLocationRes SEQUENCE {
+        hlr-Number OCTET STRING (SIZE(1..9))
+    } 
+}
+
+
+updateLocationRes UpdateLocationRes ::= extensibleUpdateLocationRes: {
+    hlr-Number '112233445566778899'H
+}
+
+
+CancelLocationArg ::= CHOICE {
+    imsi OCTET STRING (SIZE(3..8)),
+    imsi-WithLMSI SEQUENCE {
+        imsi OCTET STRING (SIZE(3..8)),
+        lmsi OCTET STRING (SIZE(4))
+    }
+}
+
+
+cancelLocationArg CancelLocationArg ::= imsi-WithLMSI: {
+    imsi '1122334455667788'H,
+    lmsi '11223344'H
+}
+        
+PurgeMS-Arg ::= SEQUENCE {
+    imsi OCTET STRING (SIZE(3..8)),
+    vlr-Number OCTET STRING (SIZE(1..9))
+}
+
+
+purgeMS-Arg PurgeMS-Arg ::= {
+    imsi '112233'H,
+    vlr-Number '112233445566778899'H
+}
+
+
+SendIdentificationArgTmsi ::= OCTET STRING (SIZE(1..4))
+
+
+sendIdentificationArgTmsi SendIdentificationArgTmsi ::= '11223344'H
+
+
+SendIdentificationRes ::= SEQUENCE {
+    imsi OCTET STRING (SIZE(3..8)),
+    authenticationSetList SEQUENCE SIZE(1..5) OF SEQUENCE {
+        rand OCTET STRING (SIZE(16)),
+        sres OCTET STRING (SIZE(4)),
+        kc OCTET STRING (SIZE(8))
+    } OPTIONAL
+}
+
+
+sendIdentificationRes SendIdentificationRes ::= {
+    imsi '112233'H,
+    authenticationSetList {
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc '1122334455667788'H
+	},
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc '1122334455667788'H
+	}
+    }
+}
+
+
+PerformHO-Arg ::= SEQUENCE {
+    targetCellId OCTET STRING (SIZE(5..7)),
+    servingCellId OCTET STRING (SIZE(5..7)),
+    channelType OCTET STRING (SIZE(1..10)),
+    classmarkInfo OCTET STRING (SIZE(1..2)),
+    handoverPriority [11] IMPLICIT OCTET STRING (SIZE(8)) OPTIONAL
+}
+
+
+performHO-Arg PerformHO-Arg ::= {
+    targetCellId '1122334455'H,
+    servingCellId '11223344556677'H,
+    channelType '11'H,
+    classmarkInfo '1122'H,
+    handoverPriority '1122334455667788'H
+}
+
+
+PerformHO-Res ::= SEQUENCE {
+    handoverNumber OCTET STRING (SIZE(1..9)),
+    accessSignalInfo SEQUENCE {
+        ptotocolId ENUMERATED {
+            gsm-0408 (1),
+            gsm-0806 (2),
+            gsm-BSSMAP (3),
+            ets-300102-1 (4)
+        },
+        signalInfo OCTET STRING (SIZE(1..200))
+    }
+}
+
+
+performHO-Res PerformHO-Res ::= {
+    handoverNumber '112233445566778899'H,
+    accessSignalInfo {
+	ets-300102-1,
+        signalInfo '11'H
+    }
+}
+
+
+PrepareHO-Arg ::= SEQUENCE {
+    targetCellId OCTET STRING (SIZE(5..7)) OPTIONAL,
+    ho-NumberNotRequired NULL OPTIONAL,
+    bss-APDU SEQUENCE {
+        protocolId ENUMERATED {
+            gsm-0408 (1),
+            gsm-0806 (2),
+            gsm-BSSMAP (3),
+            ets-300102-1 (4)
+        },
+        signalInfo OCTET STRING (SIZE(1..200))
+    } OPTIONAL
+}
+
+
+prepareHO-Arg PrepareHO-Arg ::= {
+    targetCellId '1122334455'H,
+    ho-NumberNotRequired NULL,
+    bss-APDU {
+	gsm-0408,
+        signalInfo '11'H
+    }
+}
+
+
+PrepareHO-Res ::= SEQUENCE {
+    handoverNumber OCTET STRING (SIZE(1..9)) OPTIONAL,
+    bss-APDU SEQUENCE {
+        protocolId ENUMERATED {
+            gsm-0408 (1),
+            gsm-0806 (2),
+            gsm-BSSMAP (3),
+            ets-300102-1 (4)
+        },
+        signalInfo OCTET STRING (SIZE(1..200))
+    } OPTIONAL
+}
+
+
+prepareHO-Res PrepareHO-Res ::= {
+    handoverNumber '11'H,
+    bss-APDU {
+	ets-300102-1,
+        signalInfo '11'H
+    }
+}
+
+
+SendEndSignalArgBss-APDU ::= SEQUENCE {
+    protocolId ENUMERATED {
+        gsm-0408 (1),
+        gsm-0806 (2),
+        gsm-BSSMAP (3),
+        ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+}
+
+
+sendEndSignalArgBss-APDU SendEndSignalArgBss-APDU ::= {
+    gsm-0408,
+    signalInfo '11'H
+}
+
+
+ProcessAccessSignallingArgBss-APDU ::= SEQUENCE {
+    protocolId ENUMERATED {
+        gsm-0408 (1),
+        gsm-0806 (2),
+        gsm-BSSMAP (3),
+        ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+}
+
+
+processAccessSignallingArgBss-APDU ProcessAccessSignallingArgBss-APDU ::= {
+    gsm-0806,
+    signalInfo '11'H
+}
+
+
+ForwardAccessSignallingArgBss-APDU ::= SEQUENCE {
+    protocolId ENUMERATED {
+        gsm-0408 (1),
+        gsm-0806 (2),
+        gsm-BSSMAP (3),
+        ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+}
+
+
+forwardAccessSignallingArgBss-APDU ForwardAccessSignallingArgBss-APDU ::= {
+    ets-300102-1,
+    signalInfo '11'H
+}
+
+
+PerformSubsequentHO-Arg ::= SEQUENCE {
+    targetCellId OCTET STRING (SIZE(5..7)),
+    servingCellId OCTET STRING (SIZE(5..7)),
+    targetMSC-Number OCTET STRING (SIZE(1..9)),
+    classmarkInfo [10] IMPLICIT OCTET STRING (SIZE(1..2)) OPTIONAL
+}
+
+
+performSubsequentHO-Arg PerformSubsequentHO-Arg ::= {
+    targetCellId '11223344556677'H,
+    servingCellId '11223344556677'H,
+    targetMSC-Number '112233445566778899'H,
+    classmarkInfo '1122'H
+}
+
+
+PerformSubsequentHOResAccessSignalInfo ::= SEQUENCE {
+    protocolId ENUMERATED {
+        gsm-0408 (1),
+        gsm-0806 (2),
+        gsm-BSSMAP (3),
+        ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+}
+
+
+performSubsequentHOResAccessSignalInfo PerformSubsequentHOResAccessSignalInfo ::= {
+    gsm-0806,
+    signalInfo '11'H
+}
+
+
+PrepareSubsequentHO-Arg ::= SEQUENCE {
+    targetCellId OCTET STRING (SIZE(5..7)),
+    servingCellId OCTET STRING (SIZE(5..7)),
+    targetMSC-Number OCTET STRING (SIZE(1..9)),
+    bss-APDU SEQUENCE {
+        protocolId ENUMERATED {
+            gsm-0408 (1),
+            gsm-0806 (2),
+            gsm-BSSMAP (3),
+            ets-300102-1 (4)
+        },
+        signalInfo OCTET STRING (SIZE(1..200))
+    }
+}
+
+
+prepareSubsequentHO-Arg PrepareSubsequentHO-Arg ::= {
+    targetCellId '11223344556677'H,
+    servingCellId '11223344556677'H,
+    targetMSC-Number '112233445566778899'H,
+    bss-APDU {
+        ets-300102-1,
+        signalInfo '11'H
+    }
+}
+
+
+PrepareSubsequentHOResBss-APDU ::= SEQUENCE {
+    protocolId ENUMERATED {
+        gsm-0408 (1),
+        gsm-0806 (2),
+        gsm-BSSMAP (3),
+        ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+}
+
+
+prepareSubsequentHOResBss-APDU PrepareSubsequentHOResBss-APDU ::= {
+    gsm-BSSMAP,
+    signalInfo '11'H
+}
+
+
+SendAuthenticationArg ::= OCTET STRING (SIZE(3..8))
+
+
+sendAuthenticationArg SendAuthenticationArg ::= '112233'H
+
+
+SendAuthenticationRes ::= SEQUENCE SIZE(1..5) OF SEQUENCE {
+    rand OCTET STRING (SIZE(16)),
+    sres OCTET STRING (SIZE(4)),
+    kc OCTET STRING (SIZE(8))
+}
+
+
+sendAuthenticationRes SendAuthenticationRes ::= {
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc '1122334455667788'H
+    },
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc '1122334455667788'H
+    }
+}
+
+
+CheckIMEIArgImei ::= OCTET STRING (SIZE(8))
+
+
+checkIMEIArgImei CheckIMEIArgImei ::= '1122334455667788'H
+
+
+CheckIMEIResEquipmentStatus ::= ENUMERATED {
+    whiteListed (0),
+    blackListed (1),
+    greyListed (2)
+}
+
+
+checkIMEIResEquipmentStatus CheckIMEIResEquipmentStatus ::= greyListed
+
+
+SendParametersArg ::= SEQUENCE {
+    subscriberId CHOICE {
+        imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)),
+        tmsi [1] IMPLICIT OCTET STRING (SIZE(1..4))
+    },
+    requestParameterList SEQUENCE SIZE(1..2) OF ENUMERATED {
+        requestIMSI (0),
+        requestAuthenticationSet (1),
+        requestSubscriberData (2),
+        requestKi (4)
+    }
+}
+
+
+sendParametersArg SendParametersArg ::= {
+    subscriberId tmsi: '11'H,
+    requestParameterList {
+	requestAuthenticationSet,
+	requestKi
+    }
+}
+
+
+SentParameterList ::= SEQUENCE SIZE(1..6) OF CHOICE 
+{
+  imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)),
+  authenticationSet [1] IMPLICIT SEQUENCE 
+  {
+    rand OCTET STRING (SIZE(16)),
+    sres OCTET STRING (SIZE(4)),
+    kc OCTET STRING (SIZE(8))
+  },
+  subscriberData [2] IMPLICIT SEQUENCE 
+  {
+    msisdn [1] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+    category [2] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    subscriberStatus [3] IMPLICIT ENUMERATED 
+    {
+      serviceGranted (0),
+      operatorDeterminedBarring (1)
+    } OPTIONAL,
+    bearerServiceList [4] IMPLICIT SEQUENCE SIZE(1..50) OF OCTET STRING (SIZE(1)) OPTIONAL,
+    teleserviceList [6] IMPLICIT SEQUENCE SIZE(1..50) OF OCTET STRING (SIZE(1)) OPTIONAL,
+    provisionedSS [7] IMPLICIT SEQUENCE SIZE(1..30) OF CHOICE 
+    {
+      forwardingInfo [0] IMPLICIT SEQUENCE 
+      {
+        ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+        forwardingFeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+        {
+          basicService CHOICE 
+          {
+            bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+            teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+          } OPTIONAL,
+          ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+          forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+          forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+          forwardedOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+          noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+        }
+      },
+      callBarringInfo [1] IMPLICIT SEQUENCE 
+      {
+        ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+        callBarringFeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+        {
+          basicService CHOICE 
+          {
+            bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+            teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+          } OPTIONAL,
+          ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+        }
+      },
+      cug-Info [2] IMPLICIT SEQUENCE 
+      {
+        cug-SubscriptionList SEQUENCE SIZE(1..10) OF SEQUENCE 
+        {
+          cug-Index INTEGER (0..32767),
+          cug-Interlock OCTET STRING (SIZE(4)),
+          intraCUG-Options ENUMERATED 
+          {
+            noCUG-Restrictions (0),
+            cugIC-CallBarred (1),
+            cugOG-CallBarred (2)
+          },
+          basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE 
+          {
+            bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+            teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+          } OPTIONAL
+        },
+        cug-FeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+        {
+          basicService CHOICE 
+          {
+            bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+            teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+          } OPTIONAL,
+          preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+          interCUG-Restrictions OCTET STRING (SIZE(1))
+        } OPTIONAL
+      },                     -- possible LINE MISSING form text here
+      ss-Data [3] IMPLICIT SEQUENCE {
+        ss-Code OCTET STRING (SIZE(1)), -- OPTIONAL,
+        ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)), -- OPTIONAL,
+        ss-SubscriptionOption CHOICE 
+        {
+          cliRestrictionOption [2] IMPLICIT ENUMERATED 
+          {
+            permanent (0),
+            temporaryDefaultRestricted (1),
+            temporaryDefaultAllowed (2)
+          },
+          overrideCategory [1] IMPLICIT ENUMERATED 
+          {
+            overrideEnabled (0),
+            pverrideDisabled (1)
+          }
+        } -- OPTIONAL,
+      },
+      basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } -- OPTIONAL
+    }
+  }, -- OPTIONAL,
+  odb-Data [8] IMPLICIT SEQUENCE 
+  {
+    odb-GeneralData BIT STRING 
+    {
+      allOG-CallsBarred (0),
+      internationalOGCallsBarred (1),
+      internationalOGCallsNotToHPLMN-CountryBarred (2),
+      premiumRateInformationOGCallsBarred (3),
+      premiumRateEntertainmentOGCallsBarred (4),
+      ss-AccessBarred (5)
+    } (SIZE(6)),
+    odb-HPLMN-Data BIT STRING {
+      plmn-SpecificBarringType1 (0),
+      plmn-SpecificBarringType2 (1),
+      plmn-SpecificBarringType3 (2),
+      plmn-SpecificBarringType4 (3)
+    } (SIZE(4)) OPTIONAL
+  }, -- OPTIONAL,
+  roamingRestrictionDueToUnsupportedFeature [9] IMPLICIT NULL, -- OPTIONAL,
+  regionalSubscriptionData [10] IMPLICIT SEQUENCE SIZE (1..10) OF OCTET STRING (SIZE(2)), -- OPTIONAL
+  -- }, extra brace, cannot account for it.
+  ki [4] IMPLICIT OCTET STRING (SIZE(16))
+}
+
+
+sentParameterList SentParameterList ::= {
+    authenticationSet: {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc '1122334455667788'H
+    },
+    odb-Data: {
+	odb-GeneralData {
+	    allOG-CallsBarred,
+	    internationalOGCallsBarred,
+	    internationalOGCallsNotToHPLMN-CountryBarred,
+	    premiumRateInformationOGCallsBarred,
+	    premiumRateEntertainmentOGCallsBarred,
+	    ss-AccessBarred
+	},
+	odb-HPLMN-Data {
+	    plmn-SpecificBarringType1,
+	    plmn-SpecificBarringType2,
+	    plmn-SpecificBarringType3,
+	    plmn-SpecificBarringType4
+	}
+    }
+}
+
+
+InsertSubscriberDataArg ::= SEQUENCE 
+{
+  imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)) OPTIONAL,
+  msisdn [1] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+  category [2] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+  subscriberStatus [3] IMPLICIT ENUMERATED 
+  {
+    serviceGranted (0),
+    operatorDeterminedBarring (1)
+  } OPTIONAL,
+  bearerServiceList [4] IMPLICIT SEQUENCE SIZE(1..50) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  teleserviceList [6] IMPLICIT SEQUENCE SIZE(1..20) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  provisionedSS [7] IMPLICIT SEQUENCE SIZE(1..30) OF CHOICE 
+  {
+    forwardingInfo [0] IMPLICIT SEQUENCE 
+    {
+      ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+      forwardingFeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+      {
+        basicService CHOICE 
+        {
+          bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+          teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+        } OPTIONAL,
+        ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+        forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+        forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+        forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+        noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+      }
+    },
+    callBarringInfo [1] IMPLICIT SEQUENCE 
+    {
+      ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+      callBarringFeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+      {
+        basicService CHOICE 
+        {
+          bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+          teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+        } OPTIONAL,
+        ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+      }
+    },
+    cug-Info [2] IMPLICIT SEQUENCE 
+    {
+      cug-SubscriptionLlist SEQUENCE SIZE (1..10) OF SEQUENCE 
+      {
+        cug-Index INTEGER (0..32767),
+        cug-Interlock OCTET STRING (SIZE(4)),
+        intraCUG-Options ENUMERATED 
+        {
+          noCUG-Restrictions (0),
+          cugIC-CallBarred (1),
+          cugOG-CallBarred (2)
+        },
+        basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE 
+        {
+          bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+          teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+        } OPTIONAL
+      },
+      cug-FeatureList SEQUENCE SIZE(1..13) OF SEQUENCE 
+      {
+        basicService CHOICE 
+        {
+          bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+          teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+        } OPTIONAL,
+        preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+        interCUG-Restrictions OCTET STRING (SIZE(1))
+      } OPTIONAL
+    },
+    ss-Data [3] IMPLICIT SEQUENCE 
+    {
+      ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      ss-SubscriptionOption CHOICE 
+      {
+        cliRestrictionOption [2] IMPLICIT ENUMERATED 
+        {
+          permanent (0),
+          temporaryDefaultRestricted (1),
+          temporaryDefaultAllowed (2)
+        },
+        overrideCategory [1] IMPLICIT ENUMERATED 
+        {
+          overrideEnabled (0),
+          overrideDisabled (1)
+        }
+      } OPTIONAL,
+      bearerServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET  STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL
+    }
+  } OPTIONAL,
+  odb-Data [8] IMPLICIT SEQUENCE 
+  {
+    odb-GeneralDataArg BIT STRING 
+    {
+      allOG-CallsBarred (0),
+      internationalOGCallBarred (1),
+      internationalOGCallsNotToHPLMN-CountryBarred (2),
+      premiumRateInformationOGCallsBarred (3),
+      premiumRateEntertainmentOGCallsBarred (4),
+      ss-AccessBarred (5)
+    } (SIZE(6)),
+    odb-HPLMN-Data BIT STRING 
+    {
+      plmn-SpecificBarringType1 (0),
+      plmn-SpecificBarringType2 (1),
+      plmn-SpecificBarringType3 (2),
+      plmn-SpecificBarringType4 (3)
+    } (SIZE(4)) OPTIONAL
+  } OPTIONAL,
+  roamingRestrictionDueToUnsupportedFeature [9] IMPLICIT NULL OPTIONAL,
+  regionalSubscriptionData [10] IMPLICIT SEQUENCE SIZE(1..10) OF OCTET STRING (SIZE(2)) OPTIONAL
+}
+
+
+insertSubscriberDataArg InsertSubscriberDataArg ::= {
+    imsi '112233'H,
+    msisdn '11'H,
+    category '11'H,
+    operatorDeterminedBarring,
+    bearerServiceList {'11'H, '22'H, '33'H, '44'H, '55'H},
+    teleserviceList {'11'H, '22'H, '33'H, '44'H, '55'H},
+    provisionedSS {
+--	forwardingInfo: {
+--	    ss-Code '11'H,
+--	    forwardingFeatureList {
+--		{
+--		    basicService bearerService: '11'H,
+--		    ss-Status '11'H,
+--		    forwardedToNumber '112233445566778899'H,
+--		    forwardedToSubaddress '11'H,
+--		    forwardingOptions '11'H,
+--		    noReplyConditionTime 30
+--		}
+--	    }
+--	},
+	callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    teleservice: '00'H,
+		    ss-Status '11'H
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionLlist {
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H,
+			teleservice: '11'H
+		    }
+		},
+		{
+		    cug-Index 0,
+		    cug-Interlock '11223344'H,
+		    cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H,
+			teleservice: '11'H
+		    }
+		}
+	    },
+	    cug-FeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		}
+	    }
+	},
+	ss-Data: {
+	    ss-Code '11'H,
+	    ss-Status '11'H,
+	    ss-SubscriptionOption overrideCategory: overrideDisabled,
+	    bearerServiceGroupList {
+		bearerService: '11'H,
+		teleservice '11'H
+	    }
+	}
+    },
+    odb-Data {
+	odb-GeneralDataArg {
+	    allOG-CallsBarred,
+	    internationalOGCallBarred,
+	    internationalOGCallsNotToHPLMN-CountryBarred,
+	    premiumRateInformationOGCallsBarred,
+	    premiumRateEntertainmentOGCallsBarred,
+	    ss-AccessBarred
+	},
+	odb-HPLMN-Data {
+	    plmn-SpecificBarringType1,
+	    plmn-SpecificBarringType2,
+	    plmn-SpecificBarringType3,
+	    plmn-SpecificBarringType4
+	}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H,
+	'3344'H
+    }
+}
+
+
+
+InsertSubscriberDataRes ::= SEQUENCE 
+{
+  teleserviceList [1] IMPLICIT SEQUENCE SIZE(1..20) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  bearerServiceList [2] IMPLICIT SEQUENCE SIZE(1..50) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  ss-List [3] IMPLICIT SEQUENCE SIZE(1..30) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  odb-GeneralDataRes [4] IMPLICIT BIT STRING 
+  {
+    allOG-CallsBarred (0),
+    internationalOGCallsBarred (1),
+    internationalOGCallsNotToHPLMN-CountryBarred (2),
+    premiumRateInformationOGCallsBarred (3),
+    premiumRateEntertainmentOGCallsBarred (4),
+    ss-AccessBarred (5) 
+  } (SIZE(6)) OPTIONAL,
+  regionalSubscriptionResponse [5] IMPLICIT ENUMERATED 
+  {
+    msc-AreaRestricted (0),
+    tooManyZoneCodes (1),
+    zoneCodesConflict (2),
+    regionalSubscNotSupported (3)
+  } OPTIONAL
+}
+
+
+insertSubscriberDataRes InsertSubscriberDataRes ::= {
+    teleserviceList {'11'H, '22'H, '33'H, '44'H, '55'H},
+    bearerServiceList {'11'H, '22'H, '33'H, '44'H, '55'H},
+    ss-List {'11'H, '22'H, '33'H, '44'H, '55'H},
+    odb-GeneralDataRes {
+	allOG-CallsBarred,
+	internationalOGCallsBarred,
+	internationalOGCallsNotToHPLMN-CountryBarred,
+	premiumRateInformationOGCallsBarred,
+	premiumRateEntertainmentOGCallsBarred,
+	ss-AccessBarred
+    },
+    regionalSubscriptionResponse regionalSubscNotSupported
+}
+
+
+DeleteSubscriberDataArg ::= SEQUENCE 
+{
+  imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)),
+  basicServiceList [1] IMPLICIT SEQUENCE SIZE (1..70) OF CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1)) 
+  } OPTIONAL,
+  ss-List [2] IMPLICIT SEQUENCE SIZE(1..30) OF OCTET STRING (SIZE(1)) OPTIONAL,
+  roamingRestrictionDueToUnsupportedFeature [4] IMPLICIT NULL OPTIONAL,
+  regionalSubscriptionIdentifier [5] IMPLICIT OCTET STRING (SIZE(2)) OPTIONAL
+}
+
+
+deleteSubscriberDataArg DeleteSubscriberDataArg ::= {
+    imsi '112233'H,
+        basicServiceList {
+        bearerService: '11'H,
+        teleservice: '22'H
+    },
+    ss-List {'11'H, '22'H, '33'H, '44'H, '55'H},
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier '1122'H
+}
+
+
+DeleteSubscriberDataRes ::= SEQUENCE 
+{
+  regionalSubscriberResponse [0] IMPLICIT ENUMERATED 
+  {
+    msc-AreaRestricted (0),
+    tooManyZoneCodes (1),
+    zoneCodesConflict (2),
+    regionalSubscNotSupported (3)
+  } OPTIONAL
+}
+
+
+deleteSubscriberDataRes DeleteSubscriberDataRes ::= {
+    regionalSubscNotSupported
+}
+
+
+ResetArg ::= SEQUENCE 
+{
+  networkResource ENUMERATED 
+  {
+    plmn (0),
+    hlr (1),
+    vlr (2),
+    pvlr (3),
+    controllingMSC (4),
+    vmsc (5),
+    eir (6),
+    rss (7)
+  } OPTIONAL,
+  hlr-Number OCTET STRING (SIZE(1..9)),
+  hlr-List SEQUENCE SIZE (1..50) OF OCTET STRING (SIZE(3..8)) OPTIONAL
+}
+
+
+resetArg ResetArg ::= {
+    networkResource controllingMSC,
+    hlr-Number '112233445566778899'H,
+    hlr-List {'112233'H, '445566'H}
+}
+
+
+RestoreDataArg ::= SEQUENCE 
+{
+  imsi OCTET STRING (SIZE(3..8)),
+  lmsi OCTET STRING (SIZE(4)) OPTIONAL
+}
+
+
+restoreDataArg RestoreDataArg ::= {
+    imsi '1122334455667788'H,
+    lmsi '11223344'H
+}
+
+
+RestoreDataRes ::= SEQUENCE 
+{
+  hlr-Number OCTET STRING (SIZE(1..9)),
+  mscNotReachable NULL OPTIONAL
+}
+
+
+restoreDataRes RestoreDataRes ::= {
+    hlr-Number '112233445566778899'H,
+    mscNotReachable NULL
+}
+
+
+ActivateTraceModeArg ::= SEQUENCE 
+{
+  imsi OCTET STRING (SIZE(3..8)) OPTIONAL,
+  traceReference [1] IMPLICIT OCTET STRING (SIZE(1..2)),
+  traceType [2] IMPLICIT INTEGER (0..255),
+  omc-ld [3] IMPLICIT OCTET STRING (SIZE(1..20)) OPTIONAL
+}
+
+
+activateTraceModeArg ActivateTraceModeArg ::= {
+    imsi '112233'H,
+    traceReference '1122'H,
+    traceType 255,
+    omc-ld '1122334455667788990011223344556677889900'H
+}
+
+
+DeactivateTraceModeArg ::= SEQUENCE 
+{
+  imsi OCTET STRING (SIZE(3..8)) OPTIONAL,
+  traceReference [1] IMPLICIT OCTET STRING (SIZE(1..2))
+}
+
+
+deactivateTraceModeArg DeactivateTraceModeArg ::= {
+    imsi '1122334455667788'H,
+    traceReference '1122'H
+}
+
+
+TraceSubscriberActivityArg ::= SEQUENCE 
+{
+  imsi OCTET STRING (SIZE(3..8)) OPTIONAL,
+  traceReference [1] IMPLICIT OCTET STRING (SIZE(1..2)),
+  traceType [2] IMPLICIT INTEGER (0..255),
+  omc-ld [3] IMPLICIT OCTET STRING (SIZE(1..20)) OPTIONAL,
+  callReference [4] IMPLICIT OCTET STRING (SIZE(1..3)) OPTIONAL
+}
+
+
+traceSubscriberActivityArg TraceSubscriberActivityArg ::= {
+    imsi '1122334455667788'H,
+    traceReference '1122'H,
+    traceType 255,
+    omc-ld '1122334455667788990011223344556677889900'H,
+    callReference '112233'H
+}
+
+
+NoteInternalHO-Arg ::= SEQUENCE 
+{
+  handoverType ENUMERATED 
+  {
+    interBSS (0),
+    intraBSS (1)
+  },
+  targetCellId [1] IMPLICIT OCTET STRING (SIZE(5..7)) OPTIONAL,
+  channelId [2] IMPLICIT SEQUENCE 
+  {
+    protocolId ENUMERATED 
+    {
+      gsm-0408 (1),
+      gsm-0806 (2),
+      gsm-BSSMAP (3),
+      ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+  } OPTIONAL
+}
+
+
+noteInternalHO-Arg NoteInternalHO-Arg ::= {
+    intraBSS,
+    targetCellId '11223344556677'H,
+    channelId {
+	protocolId ets-300102-1,
+	signalInfo '11'H
+    }
+}
+
+
+Msisdn ::= OCTET STRING (SIZE(1..9))
+
+
+msisdn Msisdn ::= '112233445566778899'H
+
+
+Imsi ::= OCTET STRING (SIZE(3..8))
+
+
+imsi Imsi ::= '1122334455667788'H
+
+
+SendRoutingInfoArg ::= SEQUENCE 
+{
+  msisdn [0] IMPLICIT OCTET STRING (SIZE(1..9)),
+  cug-CheckInfo [1] IMPLICIT SEQUENCE 
+  {
+    cug-Interlock OCTET STRING (SIZE(4)),
+    cug-OutgoingAccess NULL OPTIONAL
+  } OPTIONAL,
+  numberOfForwarding [2] IMPLICIT INTEGER (1..5) OPTIONAL,
+  networkSignalInfo [10] IMPLICIT SEQUENCE 
+  {
+    protocolId ENUMERATED 
+    {
+      gsm-0408 (1),
+      gsm-0806 (2),
+      gsm-BSSMAP (3),
+      ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+  } OPTIONAL
+}
+
+
+sendRoutingInfoArg SendRoutingInfoArg ::= {
+    msisdn '112233445566778899'H,
+    cug-CheckInfo {
+	cug-Interlock '11223344'H,
+	cug-OutgoingAccess NULL
+    },
+    numberOfForwarding 5,
+    networkSignalInfo {
+	gsm-BSSMAP,
+	signalInfo '11'H
+    }
+}
+
+
+SendRoutingInfoRes ::= SEQUENCE 
+{
+  imsi OCTET STRING (SIZE(3..8)),
+  routingInfo CHOICE 
+  {
+    roamingNumber OCTET STRING (SIZE(1..9)),
+    forwardingData SEQUENCE 
+    {
+      forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+      forwardedToSubaddress [4] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+      forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+    }
+  },
+  cug-CheckInfo SEQUENCE 
+  {
+    cug-Interlock OCTET STRING (SIZE(4)),
+    cug-OutgoingAccess NULL OPTIONAL
+  }
+}
+
+
+sendRoutingInfoRes SendRoutingInfoRes ::= {
+    imsi '1122334455667788'H,
+    routingInfo forwardingData: {
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '11'H
+    },
+    cug-CheckInfo {
+	cug-Interlock '11223344'H,
+	cug-OutgoingAccess NULL
+  }
+}
+
+
+ProvideRoamingNumberArg ::= SEQUENCE 
+{
+  imsi [0] OCTET STRING (SIZE(3..8)),
+  msc-Number [1] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+  msisdn [2] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+  previousRoamingNumber [3] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+  lmsi [4] IMPLICIT OCTET STRING (SIZE(4)) OPTIONAL,
+  gsm-BearerCapability [5] IMPLICIT SEQUENCE 
+  {
+    protocolId ENUMERATED 
+    {
+      gsm-0408 (1),
+      gsm-0806 (2),
+      gsm-BSSMAP (3),
+      ets-300102-1 (4)
+    } OPTIONAL
+  },
+  networkSignalInfo [10] IMPLICIT SEQUENCE 
+  {
+    protocolId ENUMERATED 
+    {
+      gsm-0408 (1),
+      gsm-0806 (2),
+      gsm-BSSMAP (3),
+      ets-300102-1 (4)
+    },
+    signalInfo OCTET STRING (SIZE(1..200))
+  } OPTIONAL
+}
+
+
+provideRoamingNumberArg ProvideRoamingNumberArg ::= {
+    imsi '1122334455667788'H,
+    msc-Number '112233445566778899'H,
+    msisdn '112233445566778899'H,
+    previousRoamingNumber '112233445566778899'H,
+    lmsi '11223344'H,
+    gsm-BearerCapability {
+	ets-300102-1
+    },
+    networkSignalInfo {
+	gsm-BSSMAP,
+	signalInfo '11'H
+    }
+}
+
+
+RoamingNumber ::= OCTET STRING (SIZE(1..9))
+
+
+roamingNumber RoamingNumber ::= '112233445566778899'H
+
+
+RegisterSS-Arg ::= SEQUENCE 
+{
+  ss-Code OCTET STRING (SIZE(1)),
+  basicService CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  } OPTIONAL,
+  forwardedToNumber [4] IMPLICIT OCTET STRING (SIZE(1..20)) OPTIONAL,
+  forwardedToSubaddress [6] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+  noReplyConditionTime [5] IMPLICIT INTEGER (5..30) OPTIONAL
+}
+
+
+registerSS-Arg RegisterSS-Arg ::= {
+    ss-Code '11'H,
+    basicService bearerService: '11'H,
+    forwardedToNumber '1122334455667788990011223344556677889900'H,
+    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+    noReplyConditionTime 30
+}
+
+
+RegisterSSss-Info ::= CHOICE 
+{
+  forwardingInfo [0] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    forwardingFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+      forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+      forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+    }
+  },
+  callBarringInfo [1] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    callBarringFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+    }
+  },
+  cug-Info [2] IMPLICIT SEQUENCE 
+  {
+    cug-SubscriptionList SEQUENCE SIZE(1..10) OF SEQUENCE 
+    {
+      cug-Index INTEGER (0..32767),
+      cug-Interlock OCTET STRING (SIZE(4)),
+      intraCUG-Options ENUMERATED 
+      {
+        noCUG-Restrictions (0),
+        cugIC-CallBarred (1),
+        cugOG-CallBarred (2)
+      },
+      basicServiceGroupList SEQUENCE SIZE(1..13)  OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1)) 
+      } OPTIONAL
+    },
+    cug-FeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+      interCUG-Restriction OCTET STRING (SIZE(1))
+    }  
+  },
+  ss-Data [3] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-SubscriptionOption CHOICE {
+      cliRestrictionOption [2] IMPLICIT ENUMERATED 
+      {
+        permanent (0),
+        temporaryDefaultRestricted (1),
+        temporaryDefaultAllowed (2)
+      },
+      overrideCategory [1] IMPLICIT ENUMERATED 
+      {
+        overrideEnabled (0),
+        overrideDisabled (1)
+      } 
+    } OPTIONAL,
+    basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE {
+      bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+      teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+    } OPTIONAL
+  }
+}
+
+
+registerSSss-Info RegisterSSss-Info ::= forwardingInfo: {
+    ss-Code '11'H,
+    forwardingFeatureList {
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '11'H,
+	    forwardedToNumber '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions '11'H,
+	    noReplyConditionTime 5
+	},
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '11'H,
+	    forwardedToNumber '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions '11'H,
+	    noReplyConditionTime 5
+	}
+    }
+}
+
+
+EraseSSss-ForBS ::= SEQUENCE
+{
+  ss-Code OCTET STRING (SIZE(1)),
+  basicService CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  } OPTIONAL
+}
+
+
+eraseSSss-ForBS EraseSSss-ForBS ::= {
+    ss-Code '11'H,
+    basicService bearerService: '11'H
+}
+
+
+EraseSSss-Info ::= CHOICE 
+{
+  forwardingInfo [0] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    forwardingFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+      forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+      forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+    }
+  },
+  callBarringInfo [1] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    callBarringFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+    }
+  },
+  cug-Info [2] IMPLICIT SEQUENCE 
+  {
+    cug-SubscriptionList SEQUENCE SIZE(1..10) OF SEQUENCE 
+    {
+      cug-Index INTEGER (0..32767),
+      cug-Interlock OCTET STRING (SIZE(4)),
+      intraCUG-Options ENUMERATED 
+      {
+        noCUG-Restrictions (0),
+        cugIC-CallBarred (1),
+        cugOG-CallBarred (2)
+      },
+      basicServiceGroupList SEQUENCE SIZE(1..13)  OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1)) 
+      } OPTIONAL
+    },
+    cug-FeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+      interCUG-Restriction OCTET STRING (SIZE(1))
+    }  
+  },
+  ss-Data [3] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-SubscriptionOption CHOICE {
+      cliRestrictionOption [2] IMPLICIT ENUMERATED 
+      {
+        permanent (0),
+        temporaryDefaultRestricted (1),
+        temporaryDefaultAllowed (2)
+      },
+      overrideCategory [1] IMPLICIT ENUMERATED 
+      {
+        overrideEnabled (0),
+        overrideDisabled (1)
+      } 
+    } OPTIONAL,
+    basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE {
+      bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+      teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+    } OPTIONAL
+  }
+}
+
+
+eraseSSss-Info EraseSSss-Info ::= forwardingInfo: {
+    ss-Code '11'H,
+    forwardingFeatureList {
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '11'H,
+	    forwardedToNumber '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions '11'H,
+	    noReplyConditionTime 30
+	},
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '11'H,
+	    forwardedToNumber '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions '11'H,
+	    noReplyConditionTime 30
+	}
+    }
+}
+
+
+ActivateSSss-ForBS ::= SEQUENCE
+{
+  ss-Code OCTET STRING (SIZE(1)),
+  basicService CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  } OPTIONAL
+}
+
+
+activateSSss-ForBS ActivateSSss-ForBS ::= {
+    ss-Code '11'H,
+    basicService teleservice: '11'H
+}
+
+
+ActivateSSss-Info ::= CHOICE 
+{
+  forwardingInfo [0] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    forwardingFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+      forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+      forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+    }
+  },
+  callBarringInfo [1] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    callBarringFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+    }
+  },
+  cug-Info [2] IMPLICIT SEQUENCE 
+  {
+    cug-SubscriptionList SEQUENCE SIZE(1..10) OF SEQUENCE 
+    {
+      cug-Index INTEGER (0..32767),
+      cug-Interlock OCTET STRING (SIZE(4)),
+      intraCUG-Options ENUMERATED 
+      {
+        noCUG-Restrictions (0),
+        cugIC-CallBarred (1),
+        cugOG-CallBarred (2)
+      },
+      basicServiceGroupList SEQUENCE SIZE(1..13)  OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1)) 
+      } OPTIONAL
+    },
+    cug-FeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+      interCUG-Restriction OCTET STRING (SIZE(1))
+    }  
+  },
+  ss-Data [3] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-SubscriptionOption CHOICE {
+      cliRestrictionOption [2] IMPLICIT ENUMERATED 
+      {
+        permanent (0),
+        temporaryDefaultRestricted (1),
+        temporaryDefaultAllowed (2)
+      },
+      overrideCategory [1] IMPLICIT ENUMERATED 
+      {
+        overrideEnabled (0),
+        overrideDisabled (1)
+      } 
+    } OPTIONAL,
+    basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE {
+      bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+      teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+    } OPTIONAL
+  }
+}
+
+
+activateSSss-Info ActivateSSss-Info ::= callBarringInfo: {
+    ss-Code '11'H,
+    callBarringFeatureList {
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '22'H
+	},
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '33'H
+	},
+	{
+	    basicService bearerService: '11'H,
+	    ss-Status '44'H
+	}
+    }
+}
+
+
+DeactivateSSss-ForBS ::= SEQUENCE
+{
+  ss-Code OCTET STRING (SIZE(1)),
+  basicService CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  } OPTIONAL
+}
+
+
+deactivateSSss-ForBS DeactivateSSss-ForBS ::= {
+    ss-Code '00'H,
+    basicService bearerService: '11'H
+}
+
+
+DeactivateSSss-Info ::= CHOICE 
+{
+  forwardingInfo [0] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    forwardingFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+      forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+      forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+      noReplyConditionTime [7] IMPLICIT INTEGER (5..30) OPTIONAL
+    }
+  },
+  callBarringInfo [1] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    callBarringFeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL
+    }
+  },
+  cug-Info [2] IMPLICIT SEQUENCE 
+  {
+    cug-SubscriptionList SEQUENCE SIZE(1..10) OF SEQUENCE 
+    {
+      cug-Index INTEGER (0..32767),
+      cug-Interlock OCTET STRING (SIZE(4)),
+      intraCUG-Options ENUMERATED 
+      {
+        noCUG-Restrictions (0),
+        cugIC-CallBarred (1),
+        cugOG-CallBarred (2)
+      },
+      basicServiceGroupList SEQUENCE SIZE(1..13)  OF CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1)) 
+      } OPTIONAL
+    },
+    cug-FeatureList SEQUENCE SIZE (1..13) OF SEQUENCE 
+    {
+      basicService CHOICE 
+      {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+      } OPTIONAL,
+      preferentialCUG-Indicator INTEGER (0..32767) OPTIONAL,
+      interCUG-Restriction OCTET STRING (SIZE(1))
+    }  
+  },
+  ss-Data [3] IMPLICIT SEQUENCE 
+  {
+    ss-Code OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    ss-SubscriptionOption CHOICE {
+      cliRestrictionOption [2] IMPLICIT ENUMERATED 
+      {
+        permanent (0),
+        temporaryDefaultRestricted (1),
+        temporaryDefaultAllowed (2)
+      },
+      overrideCategory [1] IMPLICIT ENUMERATED 
+      {
+        overrideEnabled (0),
+        overrideDisabled (1)
+      } 
+    } OPTIONAL,
+    basicServiceGroupList SEQUENCE SIZE(1..13) OF CHOICE {
+      bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+      teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+    } OPTIONAL
+  }
+}
+
+
+deactivateSSss-Info DeactivateSSss-Info ::= ss-Data: {
+    ss-Code '11'H,
+    ss-Status '22'H,
+    ss-SubscriptionOption cliRestrictionOption: permanent,
+    basicServiceGroupList {
+	bearerService: '11'H,
+        teleservice: '22'H
+    }
+}
+
+
+InterrogateSSss-ForBS ::= SEQUENCE 
+{
+  ss-Code OCTET STRING (SIZE(1)),
+  basicService CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  } OPTIONAL
+}
+
+
+interrogateSSss-ForBS InterrogateSSss-ForBS ::= {
+    ss-Code '11'H,
+    basicService teleservice: '22'H
+}
+
+
+InterrogateSS-Res ::= CHOICE 
+{  
+  ss-Status [0] IMPLICIT OCTET STRING (SIZE(1)),
+  forwardedToNumber [1] IMPLICIT OCTET STRING (SIZE(1..9)),
+  basicServiceGroupList [2] IMPLICIT SEQUENCE SIZE(1..13) OF CHOICE 
+  {
+    bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+    teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+  },
+  forwardingFeatureList [3] IMPLICIT SEQUENCE SIZE(1..13) OF SEQUENCE {
+    basicService CHOICE 
+    {
+        bearerService [2] IMPLICIT OCTET STRING (SIZE(1)),
+        teleservice [3] IMPLICIT OCTET STRING (SIZE(1))
+    } OPTIONAL,
+    ss-Status [4] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    forwardedToNumber [5] IMPLICIT OCTET STRING (SIZE(1..9)) OPTIONAL,
+    forwardedToSubaddress [8] IMPLICIT OCTET STRING (SIZE(1..21)) OPTIONAL,
+    forwardingOptions [6] IMPLICIT OCTET STRING (SIZE(1)) OPTIONAL,
+    noReplyCondition [7] IMPLICIT INTEGER (5..30) OPTIONAL
+  },
+  cli-RestrictionInfo [4] IMPLICIT SEQUENCE 
+  {
+    ss-Status OCTET STRING (SIZE(1)),
+    cliRestrictionOption ENUMERATED 
+    {
+      permanent (0),
+      temporaryDefaultRestricted (1),
+      temporaryDefaultAllowed (2)
+    } OPTIONAL
+  }
+}
+
+
+interrogateSS-Res InterrogateSS-Res ::= cli-RestrictionInfo: {
+    ss-Status '11'H,
+    temporaryDefaultAllowed
+}
+
+
+ProcessUnstructuredSSArgSs-UserData ::= IA5String (SIZE(1..200))
+
+
+processUnstructuredSSArgSs-UserData ProcessUnstructuredSSArgSs-UserData ::=
+    "hahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahahah"
+
+
+ProcessUnstructuredSSResSs-UserData ::= IA5String (SIZE(1..200))
+
+
+processUnstructuredSSResSs-UserData ProcessUnstructuredSSResSs-UserData ::=
+    "oopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoopsoops"
+
+
+ProcessUnstructuredSSReqUssd-Arg ::= SEQUENCE
+{
+  ussd-DataCodingScheme OCTET STRING (SIZE(1)),
+  ussd-String OCTET STRING (SIZE(1..160))
+}
+
+
+processUnstructuredSSReqUssd-Arg ProcessUnstructuredSSReqUssd-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11223344556677889900AABBCCDDEEFF'H
+}
+
+
+ProcessUnstructuredSSReqUssd-Res ::= SEQUENCE
+{
+  ussd-DataCodingScheme OCTET STRING (SIZE(1)),
+  ussd-String OCTET STRING (SIZE(1..160))
+}
+
+
+processUnstructuredSSReqUssd-Res ProcessUnstructuredSSReqUssd-Res ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11223344556677889900AABBCCDDEEFF'H
+}
+
+
+UnstructuredSSReqUssd-Arg ::= SEQUENCE
+{
+  ussd-DataCodingScheme OCTET STRING (SIZE(1)),
+  ussd-String OCTET STRING (SIZE(1..160))
+}
+
+
+unstructuredSSReqUssd-Arg UnstructuredSSReqUssd-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11223344556677889900AABBCCDDEEFF'H
+}
+
+
+UnstructuredSSReqUssd-Res ::= SEQUENCE
+{
+  ussd-DataCodingScheme OCTET STRING (SIZE(1)),
+  ussd-String OCTET STRING (SIZE(1..160))
+}
+
+
+unstructuredSSReqUssd-Res UnstructuredSSReqUssd-Res ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11223344556677889900AABBCCDDEEFF'H
+}
+
+
+UnstructuredSSNotifyUssd-Arg ::= SEQUENCE
+{
+  ussd-DataCodingScheme OCTET STRING (SIZE(1)),
+  ussd-String OCTET STRING (SIZE(1..160))
+}
+
+
+unstructuredSSNotifyUssd-Arg UnstructuredSSNotifyUssd-Arg ::= {
+    ussd-DataCodingScheme 'FF'H,
+    ussd-String '11223344556677889900AABBCCDDEEFF'H
+}
+
+
+RegisterPasswordArgSs-Code  ::= OCTET STRING (SIZE(1))
+
+
+registerPasswordArgSs-Code RegisterPasswordArgSs-Code ::= 'FF'H
+
+
+RegisterPasswordResNewPassword ::= NumericString (FROM ("0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9") | SIZE(4))
+
+
+registerPasswordResNewPassword RegisterPasswordResNewPassword ::= "1234"
+
+
+GetPasswordArgGuidanceInfo ::= ENUMERATED
+{
+  enterPW (0),
+  enterNewPW (1),
+  enterNewPW-Again (2),
+  badPW-TryAgain (3),
+  badPW-FormatTryAgain (4)
+}
+
+
+getPasswordArgGuidanceInfo GetPasswordArgGuidanceInfo ::= badPW-FormatTryAgain
+
+
+
+GetPasswordResCurrentPassword ::= NumericString (FROM ("0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9") | SIZE(4))
+
+
+getPasswordResCurrentPassword GetPasswordResCurrentPassword ::= "1234"
+
+
+BeginSubscriberActivityArg ::= SEQUENCE
+{
+  imsi OCTET STRING (SIZE(3..8)),
+  originatingEntityNumber OCTET STRING (SIZE(1..9))
+}
+
+
+beginSubscriberActivityArg BeginSubscriberActivityArg ::= {
+    imsi '1122334455667788'H,
+    originatingEntityNumber '112233445566778899'H
+}
+
+
+RoutingInfoForSM-Arg ::= SEQUENCE
+{
+  msisdn [0] IMPLICIT OCTET STRING (SIZE(1..9)),
+  sm-RP-PRI [1] IMPLICIT BOOLEAN,
+  serviceCentreAddress [2] IMPLICIT OCTET STRING (SIZE(1..20)),
+  teleservice [5] OCTET STRING (SIZE(1)) OPTIONAL
+}
+
+
+routingInfoForSM-Arg RoutingInfoForSM-Arg ::= {
+    msisdn '112233445566778899'H,
+    sm-RP-PRI TRUE,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    teleservice '11'H
+}
+
+
+RoutingInfoForSM-Res ::= SEQUENCE
+{
+  imsi OCTET STRING (SIZE(3..8)),
+  locationInfoWithLMSI [0] IMPLICIT SEQUENCE 
+  {
+    locationInfo CHOICE
+    {
+      roamingNumber [0] IMPLICIT OCTET STRING (SIZE(1..9)),
+      msc-Number [1] IMPLICIT OCTET STRING (SIZE(1..9))
+    },
+    lmsi OCTET STRING (SIZE(4)) OPTIONAL
+  },
+  mwd-Set [2] IMPLICIT BOOLEAN OPTIONAL
+}
+
+
+routingInfoForSM-Res RoutingInfoForSM-Res ::= {
+    imsi '1122334455667788'H,
+    locationInfoWithLMSI {
+	locationInfo roamingNumber: '112233445566778899'H,
+	lmsi '11223344'H
+    },
+    mwd-Set FALSE
+}
+
+
+ForwardSM-Arg ::= SEQUENCE
+{
+  sm-RP-DA CHOICE
+  {
+    imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)),
+    lmsi [1] IMPLICIT OCTET STRING (SIZE(4)),
+    roamingNumber [3] IMPLICIT OCTET STRING (SIZE(1..9)),
+    serviceCentreAddressDA [4] IMPLICIT OCTET STRING (SIZE(1..20)),
+    noSM-RP-DA [5] IMPLICIT NULL
+  },
+  sm-RP-OA CHOICE
+  {
+    msisdn [2] IMPLICIT OCTET STRING (SIZE(1..9)),
+    serviceCentreAddressOA [4] IMPLICIT OCTET STRING (SIZE(1..20)),
+    noSM-RP-OA [5] IMPLICIT NULL
+  },
+  sm-RP-UI OCTET STRING (SIZE(1..200)),
+  moreMessagesToSend NULL OPTIONAL
+}
+
+
+forwardSM-Arg ForwardSM-Arg ::= {
+    sm-RP-DA noSM-RP-DA: NULL,
+    sm-RP-OA noSM-RP-OA: NULL,
+    sm-RP-UI '11'H,
+    moreMessagesToSend NULL
+}
+
+
+ReportSM-DeliveryStatusArg ::= SEQUENCE 
+{
+ msisdn OCTET STRING (SIZE(1..9)),
+  serviceCentreAddress OCTET STRING (SIZE(1..20)),
+  sm-DeliveryOutcome ENUMERATED 
+  {
+    memoryCapacityExceeded (0),
+    absentSubscriber (1),
+    successfulTransfer (2)
+  } OPTIONAL
+}
+
+
+reportSM-DeliveryStatusArg ReportSM-DeliveryStatusArg ::= {
+    msisdn '112233445566778899'H,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    sm-DeliveryOutcome successfulTransfer
+}
+
+
+ReportSM-DeliveryStatusResStoredMSISDN ::= OCTET STRING (SIZE(1..9))
+
+
+reportSM-DeliveryStatusResStoredMSISDN ReportSM-DeliveryStatusResStoredMSISDN ::= '112233445566778899'H
+
+
+NoteSubscriberPresentImsi ::= OCTET STRING (SIZE(3..8))
+
+
+noteSubscriberPresentImsi NoteSubscriberPresentImsi ::= '112233'H
+
+
+AlertServiceCentreArg ::= SEQUENCE 
+{
+  msisdn OCTET STRING (SIZE(1..9)),
+  serviceCentreAddress OCTET STRING (SIZE(1..20))
+}
+
+
+alertServiceCentreArg AlertServiceCentreArg ::= {
+    msisdn '112233445566778899'H,
+    serviceCentreAddress '11'H
+}
+
+
+InformServiceCentreArg ::= SEQUENCE
+{
+  storedMSISDN OCTET STRING (SIZE(1..9)) OPTIONAL,
+  mw-Status BIT STRING {
+    sc-AddressNotIncluded (0),
+    mnrf-Set (1),
+    mcef-Set (2)
+  } (SIZE(6)) OPTIONAL
+}
+
+
+informServiceCentreArg InformServiceCentreArg ::= {
+    storedMSISDN '112233445566778899'H,
+    mw-Status {
+	sc-AddressNotIncluded,
+	mnrf-Set,
+	mcef-Set
+    }
+}
+
+
+ReadyForSM-Arg ::= SEQUENCE
+{
+  imsi [0] IMPLICIT OCTET STRING (SIZE(3..8)),
+  alertReason ENUMERATED
+  {
+    ms-Present (0),
+    memoryAvailable (1)
+  }
+}
+
+
+readyForSM-Arg ReadyForSM-Arg ::= {
+    imsi '1122334455667788'H,
+    alertReason memoryAvailable
+}
+
+
+--
+-- MAP Dialogue portion.  This is user info from TCAP's perspective.
+--
+MAP-DialoguePDU ::= CHOICE
+{
+	map-open [0] IMPLICIT SEQUENCE
+	{
+		destinationReference [0] IMPLICIT OCTET STRING (SIZE (1..20)) OPTIONAL,
+		originationReference [1] IMPLICIT OCTET STRING (SIZE (1..20)) OPTIONAL
+	},
+	map-accept [1] IMPLICIT SEQUENCE
+	{
+	},
+	map-close [2] IMPLICIT SEQUENCE
+	{
+	},
+	map-refuse [3] IMPLICIT SEQUENCE
+	{
+		reason ENUMERATED
+		{
+			noReasonGiven (0),
+			invalidDestinationReference (1),
+			invalidOriginatingReference (2)
+		}
+	},
+	map-userAbort [4] IMPLICIT SEQUENCE
+	{
+		map-UserAbortChoice CHOICE
+		{
+			userSpecificReason [0] IMPLICIT NULL,
+			userResourceLimitation [1] IMPLICIT NULL,
+			resourceUnavailable [2] IMPLICIT ENUMERATED
+			{
+				shortTermResourceLimitation (0),
+				longTermResourceLimitation (1)
+			},
+			applicationProcedureCancellation [3] IMPLICIT ENUMERATED
+			{
+				handoverCancellation (0),
+				radioChannelRelease (1),
+				networkPathRelease (2),
+				callRelease (3),
+				associatedProcedureFailure (4),
+				tandemDialogueRelease (5),
+				remoteOperationsFailure (6)
+			}
+		}
+	},
+	map-providerAbort [5] IMPLICIT SEQUENCE
+	{
+		map-ProviderAbortReason ENUMERATED
+		{
+			abnormalDialogue (0),
+			invalidPDU (1)
+		}
+	}
+}
+
+
+mAP-DialoguePDU MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H,
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+
+MAP-UserInfo ::= SEQUENCE OF EXTERNAL
+
+
+mAP-UserInfo MAP-UserInfo ::= {}
+
+
+--
+-- duplication of above
+--
+--MAP-OpenInfo ::= SEQUENCE
+--{
+--	destinationReference [0] IMPLICIT OCTET STRING (SIZE (1..20)) OPTIONAL,
+--	originationReference [1] IMPLICIT OCTET STRING (SIZE (1..20)) OPTIONAL,
+--	...
+--}
+--
+--MAP-AcceptInfo ::= SEQUENCE
+--{
+--	...
+--}
+--
+--MAP-CloseInfo ::= SEQUENCE
+--{
+--	...
+--}
+--
+--MAP-RefuseInfo ::= SEQUENCE
+--{
+--	reason ENUMERATED
+--	{
+--		noReasonGiven (0),
+--		invalidDestinationReference (1),
+--		invalidOriginatingReference (2)
+--	},
+--	...
+--}
+--
+--Reason ::= ENUMERATED
+--{
+--	noReasonGiven (0),
+--	invalidDestinationReference (1),
+--	invalidOriginatingReference (2)
+--}
+--
+--MAP-UserAbortInfo ::= SEQUENCE
+--{
+--	map-UserAbortChoice CHOICE
+--	{
+--		userSpecificReason [0] IMPLICIT NULL,
+--		userResourceLimitation [1] IMPLICIT NULL,
+--		resourceUnavailable [2] IMPLICIT ENUMERATED
+--		{
+--			shortTermResourceLimitation (0),
+--			longTermResourceLimitation (1)
+--		},
+--		applicationProcedureCancellation [3] IMPLICIT ENUMERATED
+--		{
+--			handoverCancellation (0),
+--			radioChannelRelease (1),
+--			networkPathRelease (2),
+--			callRelease (3),
+--			associatedProcedureFailure (4),
+--			tandemDialogueRelease (5),
+--			remoteOperationsFailure (6)
+--		}
+--	},
+--	...
+--}
+--
+--MAP-UserAbortChoice ::= CHOICE
+--{
+--	userSpecificReason [0] IMPLICIT NULL,
+--	userResourceLimitation [1] IMPLICIT NULL,
+--	resourceUnavailable [2] IMPLICIT ENUMERATED
+--	{
+--		shortTermResourceLimitation (0),
+--		longTermResourceLimitation (1)
+--	},
+--	applicationProcedureCancellation [3] IMPLICIT ENUMERATED
+--	{
+--		handoverCancellation (0),
+--		radioChannelRelease (1),
+--		networkPathRelease (2),
+--		callRelease (3),
+--		associatedProcedureFailure (4),
+--		tandemDialogueRelease (5),
+--		remoteOperationsFailure (6)
+--	}
+--}
+--
+--ResourceUnavailableReason ::= ENUMERATED
+--{
+--	shortTermResourceLimitation (0),
+--	longTermResourceLimitation (1)
+--}
+--
+--ProcedureCancellationReason ::= ENUMERATED
+--{
+--	handoverCancellation (0),
+--	radioChannelRelease (1),
+--	networkPathRelease (2),
+--	callRelease (3),
+--	associatedProcedureFailure (4),
+--	tandemDialogueRelease (5),
+--	remoteOperationsFailure (6)
+--}
+--
+--MAP-ProviderAbortInfo ::= SEQUENCE
+--{
+--	map-ProviderAbortReason ENUMERATED
+--	{
+--		abnormalDialogue (0),
+--		invalidPDU (1)
+--	},
+--	...
+--}
+--
+--MAP-ProviderAbortReason ::= ENUMERATED
+--{
+--	abnormalDialogue (0),
+--	invalidPDU (1)
+--}
+
+END

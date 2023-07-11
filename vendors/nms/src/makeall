@@ -1,0 +1,11 @@
+#!/bin/sh -x
+rm -f ../lib/*.a ../lib/*.so
+rm -f *.o */*.o
+make PROTOCOL=CCITT SCCP_PROT=CCITT DEBUG_BUILD=yes
+rm -f *.o */*.o
+make PROTOCOL=ANSI SCCP_PROT=ANSI DEBUG_BUILD=yes
+rm -f *.o */*.o
+make PROTOCOL=CCITT SCCP_PROT=CCITT DEBUG_BUILD=no
+rm -f *.o */*.o
+make PROTOCOL=ANSI SCCP_PROT=ANSI DEBUG_BUILD=no
+rm -f *.o */*.o

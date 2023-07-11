@@ -1,0 +1,35 @@
+/.cvsignore/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/StackTest.dsw/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/TCAPclient.ZIP/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/TCAPserver.ZIP/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/Testing_Configurations.doc/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/Xdsmload/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/XoliverTCAP/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/Xsccprecv/9.1/Wed Mar 23 12:55:02 2005//TB-IWF-HP-0400-00
+/Xxmlrecv/9.1/Wed Mar 23 12:55:03 2005//TB-IWF-HP-0400-00
+/Xxmlsend/9.1/Wed Mar 23 12:55:03 2005//TB-IWF-HP-0400-00
+/dsmload.ZIP/9.2/Thu Jan 11 12:43:41 2007//TB-IWF-HP-0400-00
+/loadshare_pgm1.ZIP/9.2/Thu Jan 11 12:43:41 2007//TB-IWF-HP-0400-00
+/loadshare_pgm2.ZIP/9.2/Thu Jan 11 12:43:42 2007//TB-IWF-HP-0400-00
+/oldtest.ini/9.1/Wed Mar 23 12:55:03 2005//TB-IWF-HP-0400-00
+/sccptest.ZIP/9.2/Thu Jan 11 12:43:42 2007//TB-IWF-HP-0400-00
+/sccptestpgm.ZIP/9.2/Thu Jan 11 12:43:42 2007//TB-IWF-HP-0400-00
+/stackTest.dsp/9.1/Wed Mar 23 12:55:03 2005//TB-IWF-HP-0400-00
+/tcapsendpgm.ZIP/9.2/Thu Jan 11 12:43:42 2007//TB-IWF-HP-0400-00
+/tcaptest.ZIP/9.2/Thu Jan 11 12:43:43 2007//TB-IWF-HP-0400-00
+/test.xml/9.1/Wed Mar 23 12:55:04 2005//TB-IWF-HP-0400-00
+/test.xml-adax/9.1/Wed Mar 23 12:55:04 2005//TB-IWF-HP-0400-00
+/test.xml-config-a/9.1/Wed Mar 23 12:55:04 2005//TB-IWF-HP-0400-00
+/test.xml-config-a-itu/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test.xml-config-c/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test.xml-config-d/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test.xml.concerned/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test1.c/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test2.c/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/test2.xml/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+/testitu.xml-config-a/9.1/Wed Mar 23 12:55:05 2005//TB-IWF-HP-0400-00
+D/ctf////
+D/isup////
+D/mtp3////
+D/tcap////

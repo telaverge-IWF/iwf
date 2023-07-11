@@ -1,0 +1,55 @@
+%PB{
+    import "Common.proto";
+    message StaticRoutingTableConfig
+    {
+        optional string DestionatinHost   = 1;
+        optional string DestionatinRealm  = 2;
+        optional string Peer              = 3;
+        optional string realm             = 4;
+        optional fixed32 ApplicationId    = 5;
+        optional fixed32 Priority         = 6;
+    }
+
+    message StaticRoutingTableConfigReq
+    {
+        required fixed32 RequestID     = 1;
+        repeated StaticRoutingTableConfig SRTConfig =2;
+    }
+
+    message StaticRoutingTableConfigResp
+    {
+        required fixed32 ResponseID       = 1;
+        repeated StaticRoutingTableConfig SRTConfig =2;
+        repeated ErrorDetails ErrorDetails = 3;
+    }
+
+%PB}
+
+
+
+interface DiaMgtForStaticRoutingMethods
+{
+    HandleStaticRoutingTableConfigReqs(StaticRoutingTableConfigReq req, StaticRoutingTableConfigResp resp)uses_PB;
+}
+
+interface DreStaticRoutingConfigFetch
+{
+    FetchStaticRoutingTableConfiguration(StaticRoutingTableConfigReq req, StaticRoutingTableConfigResp resp)uses_PB;
+}
+
+interface DREStaticRoutingConfigResults
+{
+    SendStaticRoutingTableConfigResult(StaticRoutingTableConfigResp Req, CMAPIRes Resp)uses_PB;
+}
+
+interface StaticRoutingTableConfigFetch
+{
+        GetStaticRoutingTableConfigReqs(StaticRoutingTableConfigReq Req, StaticRoutingTableConfigResp Resp)uses_PB;
+}
+
+interface CMgrStaticRoutingTableMethods
+{
+    HandleSetStaticRoutingTableConfigReqs(StaticRoutingTableConfigReq Req, StaticRoutingTableConfigResp Resp)uses_PB;
+    HandleGetStaticRoutingTableConfigReqs(StaticRoutingTableConfigReq Req, StaticRoutingTableConfigResp Resp)uses_PB;
+}
+

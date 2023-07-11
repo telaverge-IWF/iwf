@@ -1,0 +1,137 @@
+/**
+ * RFC 4006 and RFC 4005
+ * Gx Re-used AVPs - from Diameter Credit Control and NAS Application.
+ */
+protocol diameter.gx.ietf < 0 : "RFC 4006 and RFC 4005 " >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * CC-Request-Type AVP (AVP Code 416) is of type enumerated and contains the 
+ * reason for sending the Credit-Control request message.
+ */
+    CC-Request-Type                             ::= 416  /*  8.3  */  Enumerated    M  |P| | V |Y;  /* RFC4006 */
+                                                                                
+/**
+ * CC-Request-Number AVP (AVP Code 415) is of type Unsigned32 and identifies 
+ * this request within one session. As Session-Id AVPs are globally unique,the 
+ * combination of Session-Id and CC-Request-Number is also globally unique and 
+ * can be used in matching credit-control messages with confirmations.
+ */
+    CC-Request-Number                           ::= 415  /*  8.2  */  Unsigned32    M  |P| | V |Y;  /* RFC4006 */
+
+/**
+ * Subscription-Id AVP(AVP Code 443) is of type Grouped and is used to identity
+ * the end user's subscription.
+ */
+    Subscription-Id                             ::= 443  /* 8.46   */ Grouped       M  |P| | V |Y;  /* RFC4006 */
+                                                                                
+/**
+ * Subscription-Id-Type AVP (AVP Code 450) is of type Enumerated and it is used to
+ * determine which type of identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type                        ::= 450  /*  8.47  */ Enumerated    M  |P| | V |Y;  /* RFC4006 */                                                                                 
+
+/**
+ * Subscription-Id-Data AVP (AVP Code 444) is of type UTF8String and is used to
+ * identify the end user.
+ */
+    Subscription-Id-Data                        ::= 444  /*  8.48  */ UTF8String    M  |P| | V |Y;  /* RFC4006 */
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The value
+ * 0xFFFFFFFF indicates that the NAS should allow the user to select an address
+ * (i.e:negotiated).The value 0xFFFFFFFE indicates that NAS should select an
+ * address for the user (e.g:assigned from a pool of addresses kept by NAS).
+ */
+    Framed-IP-Address                           ::= 8   /* 6.11.1  */ OctetString   M  |P| | V |Y;  /* RFC 4005 */
+                                                                                
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and contains
+ * the IPv6 prefix to be configured for the user. One or more AVPs MAY be used
+ * in authorization requests as hint to the server that specific IPv6 prefixes
+ * are desired, but the server is not required to honor the hint in the
+ * corresponding response.
+ */
+    Framed-IPv6-Prefix                          ::= 97   /* 6.11.6 */ OctetString   M  |P| | V |Y;  /* RFC 4005 */
+
+/**
+ * The User-Equipment-Info AVP (AVP Code 458) is of type Grouped and allows the
+ * credit-control client to indicate the identity and capability of the 
+ * terminal the subscriber is using for the connection to network.
+ */
+    User-Equipment-Info                         ::= 458  /*  8.49  */ Grouped        |P,M| | V |Y;  /* RFC4006 */
+                                                                                
+/**
+ * The User-Equipment-Info-Type AVP (AVP Code 459) is of type Enumerated and 
+ * defines the type of user equipment information contained in the 
+ * User-Equipment-Info-Value AVP.
+ */
+    User-Equipment-Info-Type                    ::= 459  /*  8.50  */ Enumerated     |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info-Value AVP (AVP Code 460) is of type OctetString. The
+ * User-Equipment-Info-Type AVP defines which type of identifier is used.
+ */
+    User-Equipment-Info-Value                   ::= 460  /*  8.51  */ OctetString    |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The Called-Station-Id AVP (AVP Code 30) is of type UTF8String and allows the
+ * NAS to send the ASCII string describing the layer 2 address the user 
+ * contacted in the request. For dialup access,this can be a phone number,
+ * obtained using Dialed Number identification (DNIS) or a similar technology.
+ * Note that this may be different from the phone number the call comes in on. 
+ * For the use with IEEE 802 access, the Called-Station-Id MAY contain a MAC 
+ * address formatted as described in RAD802.1X.
+ */
+    Called-Station-Id                           ::= 30   /*  4.5   */ UTF8String    M  |P| | V |Y;  /* RFC 4005*/
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+  CC-Request-Type ::= < Enumerated: 416 >
+        INITIAL_REQUEST       1
+        UPDATE_REQUEST        2
+        TERMINATION_REQUEST   3
+        EVENT_REQUEST         4
+        ;  
+
+  Subscription-Id-Type ::= < Enumerated: 450 >
+        END_USER_E164             0
+        END_USER_IMSI             1
+        END_USER_SIP_URI          2
+        END_USER_NAI              3
+        END_USER_PRIVATE          4
+        ;
+
+  User-Equipment-Info-Type ::= < Enumerated: 459 >
+        IMEISV         0
+        MAC            1
+        EUI64          2
+        MODIFIED_EUI64 3
+        ;
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+  Subscription-Id ::= < AVP Header: 443 >
+        { Subscription-Id-Type }
+        { Subscription-Id-Data }
+        ;
+
+  User-Equipment-Info ::= < AVP Header: 458 >
+        { User-Equipment-Info-Type }
+        { User-Equipment-Info-Value }
+        ;
+

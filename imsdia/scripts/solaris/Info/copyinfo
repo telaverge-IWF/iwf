@@ -1,0 +1,77 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+mkdir etc
+cp -p /etc/auto_master ./etc
+cp -p /etc/hosts ./etc
+cp -p /etc/inetd.conf ./etc
+cp -p /etc/default/init ./etc
+cp -p /etc/defaultdomain ./etc
+cp -p /etc/defaultrouter ./etc
+cp -p /etc/dfs/sharetab ./etc
+cp -p /etc/dfs/dfstab ./etc
+cp -p /etc/ethers ./etc
+cp -p /etc/mnttab ./etc
+cp -p /etc/name_to_major ./etc
+cp -p /etc/nsswitch.conf ./etc
+cp -p /etc/path_to_inst ./etc
+cp -p /etc/rpc ./etc
+cp -p /etc/release ./etc
+cp -p /etc/resolv.conf ./etc
+cp -p /etc/services ./etc
+cp -p /etc/system ./etc
+cp -p /etc/vfstab ./etc
+
+cp -p /etc/nodename     ./etc
+cp -p /etc/notrouter     ./etc
+cp -p /etc/hostname.*   ./etc
+cp -p /etc/inittab      ./etc
+cp -p /etc/syslog.conf  ./etc
+
+mkdir etc/inet
+cp -p /etc/inet/netmasks ./etc/inet/netmasks
+cp -p /etc/inet/networks ./etc/inet/networks
+
+mkdir etc/init.d
+cp -p /etc/init.d/sysetup ./etc/init.d/sysetup
+#
+# Copy Intellinet Package info
+#
+if [ -d /opt/IntelliNet ]
+then
+    for dir in `ls -l /opt/IntelliNet`
+    do
+        if [ -d /opt/IntelliNet/$dir/config ]
+        then
+            mkdir -p IntelliNet/$dir/config 
+            cp -r /opt/IntelliNet/$dir/config/* IntelliNet/$dir/config/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/bin ]
+        then
+            mkdir -p IntelliNet/$dir/bin 
+            cp -r /opt/IntelliNet/$dir/bin/* IntelliNet/$dir/bin/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/logs ]
+        then
+            mkdir -p IntelliNet/$dir/logs 
+            cp -r /opt/IntelliNet/$dir/logs/* IntelliNet/$dir/logs/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/demo ]
+        then
+            mkdir -p IntelliNet/$dir/demo
+            cp -r /opt/IntelliNet/$dir/demo/bin IntelliNet/$dir/demo
+        fi
+        if [ -d -d /opt/IntelliNet/$dir/client ]
+        then
+            mkdir -p IntelliNet/$dir/client
+            cp -r /opt/IntelliNet/$dir/client/demo IntelliNet/$dir/client
+        fi
+
+    done
+fi

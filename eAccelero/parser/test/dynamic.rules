@@ -1,0 +1,40 @@
+targets: $(BINDIR)$(testserver_BIN) $(BINDIR)$(testclient_BIN) dirs
+
+testserver_DEPENDS := $(testserver_OFILES:%.o=$(OBJDIR)%.d)
+testserver_OFILES := $(testserver_OFILES:%.o=$(OBJDIR)%.o)
+testserver_LFLAGS := $(LFLAGS) $(testserver_LFLAGS)
+testserver_LIBS := $(LIBS) $(testserver_LIBS)
+$(BINDIR)$(testserver_BIN): $(testserver_DEPENDS) $(testserver_OFILES)
+	$(CXX) $(testserver_LFLAGS) -o $@ $(testserver_OFILES) $(testserver_LIBS)
+
+-include $(testserver_DEPENDS)
+
+
+testclient_DEPENDS := $(testclient_OFILES:%.o=$(OBJDIR)%.d)
+testclient_OFILES := $(testclient_OFILES:%.o=$(OBJDIR)%.o)
+testclient_LFLAGS := $(LFLAGS) $(testclient_LFLAGS)
+testclient_LIBS := $(LIBS) $(testclient_LIBS)
+$(BINDIR)$(testclient_BIN): $(testclient_DEPENDS) $(testclient_OFILES)
+	$(CXX) $(testclient_LFLAGS) -o $@ $(testclient_OFILES) $(testclient_LIBS)
+
+-include $(testclient_DEPENDS)
+
+
+dirs:
+	@for d in ${TARGETS_DIR}; do \
+		$(MAKE) -C $${d}; \
+	done
+
+targets.clean: testserver.clean testclient.clean dirsclean
+
+testserver.clean:
+	-rm -f $(BINDIR)$(testserver_BIN) $(testserver_OFILES) $(testserver_DEPENDS)
+
+testclient.clean:
+	-rm -f $(BINDIR)$(testclient_BIN) $(testclient_OFILES) $(testclient_DEPENDS)
+
+dirsclean:
+	@for d in ${TARGETS_DIR}; do \
+		$(MAKE) -C $${d} clean; \
+	done
+

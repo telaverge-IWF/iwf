@@ -1,0 +1,191 @@
+#!/bin/bash
+PRODUCT=iwf
+source /opt/diametriq/$PRODUCT/scripts/package_functions.sh
+iptables_rule_number=1
+ip6tables_rule_number=1
+IP_V4_RULES=/etc/sysconfig/iptables
+IP_V6_RULES=/etc/sysconfig/ip6tables
+# $1=port number
+function iptables_tcp_accept()
+{
+
+    grep "$1" $IP_V4_RULES|grep "tcp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        iptables -I INPUT $iptables_rule_number -p tcp --dport "$1" -j ACCEPT    
+    fi
+
+    grep "$1" $IP_V6_RULES|grep "tcp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        ip6tables -I INPUT $ip6tables_rule_number -p tcp --dport "$1" -j ACCEPT    
+    fi
+}
+
+
+# $1=port number
+function iptables_udp_accept()
+{
+    grep "$1" $IP_V4_RULES|grep "udp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        iptables -I INPUT $iptables_rule_number -p udp --dport "$1" -j ACCEPT
+    fi
+
+
+    grep "$1" $IP_V6_RULES|grep "udp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        ip6tables -I INPUT $ip6tables_rule_number -p udp --dport "$1" -j ACCEPT
+    fi
+}
+
+# $1=port number
+function iptables_sctp_accept()
+{
+    grep "$1" $IP_V4_RULES|grep "sctp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        iptables -I INPUT $iptables_rule_number -p sctp --dport "$1" -j ACCEPT
+    fi
+   
+    grep "$1" $IP_V6_RULES|grep "sctp"|grep "ACCEPT" >/dev/null
+    if [ $? -ne 0 ];then
+        ip6tables -I INPUT $ip6tables_rule_number -p sctp --dport "$1" -j ACCEPT
+    fi
+}
+
+if [ $# -eq 1 ];then
+    if [ "$1" == "--insert" ];then
+        echo "Inserting iptable rules..."        
+    fi
+  
+elif [ $# -eq 3 ];then
+    if [ "$1" == "--add" ];then
+        case $2 in
+	    "tcp") iptables_tcp_accept $3
+		    LOG_INFO "Add TCP $3 " $LINENO
+		    ;;
+ 	    "sctp") iptables_sctp_accept $3 
+		    LOG_INFO "Add SCTP $3" $LINENO
+		    ;;
+	    "udp") iptables_udp_accept $3
+		   LOG_INFO "Add UDP $3" $LINENO
+		    ;;
+	    *) LOG_ERROR "Invalid argument $2" $LINENO
+	       exit 1
+	       ;;
+		
+	esac
+	iptables-save > ipv4_rules
+        ip6tables-save > ipv6_rules
+
+
+        mv -f ipv4_rules /etc/sysconfig/iptables
+        mv -f ipv6_rules /etc/sysconfig/ip6tables
+        
+        if [ -d /opt/diametriq/${PRODUCT}/.syscfg ];then
+	    cp -f /etc/sysconfig/iptables /opt/diametriq/${PRODUCT}/.syscfg
+	    cp -f /etc/sysconfig/iptables /opt/diametriq/${PRODUCT}/.syscfg
+ 	fi
+    else
+	LOG_ERROR "Invalid argument $1"
+	exit 1
+
+    fi  
+    exit 0
+else
+    LOG_ERROR "Wrong usage!" $LINENO
+    exit 1    
+        
+fi
+
+
+
+service iptables restart
+
+service ip6tables restart
+iptables_rule_number=1
+ip6tables_rule_number=1
+
+#delete anykind of previous iptables command in rc.local
+sed -i /iptables/d /etc/rc.d/rc.local
+sed -i /ip6tables/d /etc/rc.d/rc.local
+
+
+#save the default ipv4 and ipv6 rules
+IPV4_DEF_BACKUP=/etc/sysconfig/ipv4_default_rules_bkp
+IPV6_DEF_BACKUP=/etc/sysconfig/ipv6_default_rules_bkp
+
+if [ ! -d $IPV4_DEF_BACKUP ];then
+    mkdir -p $IPV4_DEF_BACKUP
+    cp -f /etc/sysconfig/iptables $IPV4_DEF_BACKUP
+fi
+
+if [ ! -d $IPV6_DEF_BACKUP ];then
+    mkdir -p $IPV6_DEF_BACKUP
+    cp -f /etc/sysconfig/ip6tables $IPV6_DEF_BACKUP
+
+fi
+
+
+#enable ipv4 and ipv6 icmp
+grep "INPUT.*icmp.*ACCEPT" $IP_V4_RULES >/dev/null
+if [ $? -ne 0 ];then
+    iptables -I INPUT 1 -p icmp -j ACCEPT
+fi
+
+grep "INPUT.*ipv6-icmp.*ACCEPT" $IP_V6_RULES >/dev/null
+if [ $? -ne 0 ];then
+    ip6tables -I INPUT 1 -p ipv6-icmp -j ACCEPT
+
+fi
+
+
+#HTTP
+
+
+iptables_tcp_accept 8080
+#HTTPS
+iptables_tcp_accept 8443
+#NTP
+iptables_udp_accept 123
+iptables_tcp_accept 123
+#snmp
+iptables_udp_accept 161
+
+#mysql
+iptables_tcp_accept 3306
+
+#heartbeat
+iptables_udp_accept 694
+#ssh
+iptables_tcp_accept 22
+
+#cli/telnet
+iptables_tcp_accept 8000
+
+#diameter 
+iptables_tcp_accept 3868
+iptables_sctp_accept 3868
+
+if [ "`GetLocalPort`" != "3868" ];then
+    iptables_tcp_accept `GetLocalPort`
+    iptables_sctp_accept `GetLocalPort`
+fi
+
+
+#memcached
+iptables_tcp_accept 11211
+
+
+
+iptables-save > ipv4_rules
+ip6tables-save > ipv6_rules
+
+
+mv -f ipv4_rules /etc/sysconfig/iptables
+mv -f ipv6_rules /etc/sysconfig/ip6tables
+
+LOG_INFO "Restarting mysql after iptables" $LINENO
+
+#restart mysql to re-establish mysql connection between 2 ha nodes after ip tables configuration 
+check_and_stop_mysql
+check_and_start_mysql
+#restart heartbeat
+check_and_restart_heartbeat

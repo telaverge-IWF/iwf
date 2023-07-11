@@ -1,0 +1,10 @@
+hello
+new
+d:/cvsroot/intelliss7/gsmmap/test/regression/map_v4_cpp/test3
+d:/cvsroot/intelliss7/gsmmap/test/regression/map_v4_cpp/
+map_v4_cpp_runtime_test
+concat
+d:/cvsroot/intelliss7/gsmmap/src/map_v4_lrf.asn
+map_v4_lrf3.vn
+run test
+exit

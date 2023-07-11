@@ -1,0 +1,656 @@
+/**
+ * ETSI TS 129 229 V6.7.0 (2005-12) -- Cx & Dx interface based on Diameter Protocol
+ * <p>
+ * Cx interface between the I-CSCF/S-CSCF and the HSS<br>
+ * Dx interface between the I-CSCF/S-CSCF and the SLF<br>
+ */
+protocol diameter.cxdx.v6 < 16777216 10415: "ETSI TS 129 229 V6.7.0 (2005-12)" >;
+
+
+//////////////////
+// Derived AVPs //
+//////////////////
+
+/**
+ * The Visited-Network-Identifier AVP is of type OctetString. This AVP contains an identifier that helps the home
+ * network to identify the visited network (e.g. the visited network domain name).
+ */
+Visited-Network-Identifier                        ::=  600 /*6.3.1*/  OctetString M,V| | |    |N;
+
+/**
+ * The Public-Identity AVP is of type UTF8String. This AVP contains the public identity of a user in the IMS. The syntax
+ * of this AVP corresponds either to a SIP URL (with the format defined in IETF RFC 3261 and IETF RFC 2396)
+ * or a TEL URL (with the format defined in IETF RFC 2806).
+ */
+Public-Identity                                   ::=  601 /*6.3.2*/  UTF8String  M,V| | |    |N;
+
+/**
+ * The Server-Name 3 is of type UTF8String. This AVP contains a SIP-URL (as defined in IETF RFC 3261 and IETF
+ * RFC 2396), used to identify a SIP server (e.g. S-CSCF name).
+ */
+Server-Name                                       ::=  602 /*6.3.3*/  UTF8String  M,V| | |    |N;
+
+/**
+ * The Server-Capabilities AVP (is of type Grouped. This AVP contains information to assist the I-CSCF in the selection
+ * of an S-CSCF.
+ */
+Server-Capabilities                               ::=  603 /*6.3.4*/  Grouped     M,V| | |    |N;
+
+/**
+ * The Mandatory-Capability AVP is of type Unsigned32. The value included in this AVP can be used to represent a
+ * single determined mandatory capability of an S-CSCF. Each mandatory capability available in an individual operator¡¯s
+ * network shall be allocated a unique value. The allocation of these values to individual capabilities is an operator issue.
+ */
+Mandatory-Capability                              ::=  604 /*6.3.5*/  Unsigned32  M,V| | |    |N;
+
+/**
+ * The Optional-Capability AVP is of type Unsigned32. The value included in this AVP can be used to represent a single
+ * determined optional capability of an S-CSCF. Each optional capability available in an individual operator¡¯s network
+ * shall be allocated a unique value. The allocation of these values to individual capabilities is an operator issue.
+ */
+Optional-Capability                               ::=  605 /*6.3.6*/  Unsigned32  M,V| | |    |N;
+
+/**
+ * The User-Data AVP is of type OctetString. This AVP contains the user data required to give service to a user. The exact
+ * content and format of this AVP is described in 3GPP TS 29.228.
+ */
+CxDx-User-Data                                    ::=  606 /*6.3.7*/  OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Number-Auth-Items AVP is of type Unsigned32 and indicates the number of authentication vectors provided
+ * by the Diameter server.
+ * <p>
+ * When used in a request it indicates the number of SIP-Auth-Data-Item¡¯s the S-CSCF is requesting. This can be used, for
+ * instance, when the client is requesting several pre-calculated authentication vectors. In the answer message the SIPNumber-
+ * Auth-Items AVP indicates the actual number of items provided by the Diameter server.
+ */
+SIP-Number-Auth-Items                             ::=  607 /*6.3.8*/  Unsigned32  M,V| | |    |N;
+
+/**
+ * The Authentication-Scheme AVP is of type UTF8String and indicates the authentication scheme used in the
+ * authentication of SIP messages.
+ */
+SIP-Authentication-Scheme                         ::=  608 /*6.3.9*/  UTF8String  M,V| | |    |N;
+
+/**
+ * The SIP-Authenticate AVP is of type OctetString and contains specific parts of the data portion of the WWWAuthenticate
+ * or Proxy-Authenticate SIP headers that are to be present in a SIP response. The identification and
+ * encoding of the specific parts are defined in 3GPP TS 29.228.
+ */
+SIP-Authenticate                                  ::=  609 /*6.3.10*/ OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Authorization AVP is of type OctetString and contains specific parts of the data portion of the Authorization or
+ * Proxy-Authorization SIP headers suitable for inclusion in a SIP request. The identification and encoding of the specific
+ * parts are defined in 3GPP TS 29.228.
+ */
+SIP-Authorization                                 ::=  610 /*6.3.11*/ OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Authentication-Context AVP is of type OctectString, and contains authentication-related information relevant
+ * for performing the authentication but that is not part of the SIP authentication headers.
+ * <p>
+ * Some mechanisms (e.g. PGP, digest with quality of protection set to auth-int defined in IETF RFC 2617, digest with
+ * predictive nonces or sip access digest) request that part or the whole SIP request is passed to the entity performing the
+ * authentication. In such cases the SIP-Authentication-Context AVP would be carrying such information.
+ */
+SIP-Authentication-Context                        ::=  611 /*6.3.12*/ OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Auth-Data-Item is of type Grouped, and contains the authentication and/or authorization information for the
+ * Diameter client.
+ */
+SIP-Auth-Data-Item                                ::=  612 /*6.3.13*/ Grouped     M,V| | |    |N;
+
+/**
+ * The SIP-Item-Number AVP is of type Unsigned32, and is included in a SIP-Auth-Data-Item grouped AVP in
+ * circumstances where there are multiple occurrences of SIP-Auth-Data-Item AVPs, and the order in which they should
+ * be processed is significant. In this scenario, SIP-Auth-Data-Item AVPs with a low SIP-Item-Number value should be
+ * processed before SIP-Auth-Data-Items AVPs with a high SIP-Item-Number value.
+ */
+SIP-Item-Number                                   ::=  613 /*6.3.14*/ Unsigned32  M,V| | |    |N;
+
+/**
+ * The Server-Assignment-Type AVP is of type Enumerated, and indicates the type of server update being performed in a
+ * Server-Assignment-Request operation. The following values are defined:
+ * <ul>
+ * <li> NO_ASSIGNMENT (0)<br>
+ * This value is used to request from HSS the user profile assigned to one or more public identities, without
+ * affecting the registration state of those identities.
+ * <li> REGISTRATION (1)<br>
+ * The request is generated as a consequence of a first registration of an identity.
+ * <li> RE_REGISTRATION (2)<br>
+ * The request corresponds to the re-registration of an identity.
+ * <li> UNREGISTERED_USER (3)<br>
+ * The request is generated because the S-CSCF received an INVITE for a public identity that is not registered.
+ * <li> TIMEOUT_DEREGISTRATION (4)<br>
+ * The SIP registration timer of an identity has expired.
+ * <li> USER_DEREGISTRATION (5)<br>
+ * The S-CSCF has received a user initiated de-registration request.
+ * <li> TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME (6)<br>
+ * The SIP registration timer of an identity has expired. The S-CSCF keeps the user data stored in the S-CSCF
+ * and requests HSS to store the S-CSCF name.
+ * <li> USER_DEREGISTRATION_STORE_SERVER_NAME (7)<br>
+ * The S-CSCF has received a user initiated de-registration request. The S-CSCF keeps the user data stored in
+ * the S-CSCF and requests HSS to store the S-CSCF name.
+ * <li> ADMINISTRATIVE_DEREGISTRATION (8)<br>
+ * The S-CSCF, due to administrative reasons, has performed the de-registration of an identity.
+ * <li> AUTHENTICATION_FAILURE (9)<br>
+ * The authentication of a user has failed.
+ * <li> AUTHENTICATION_TIMEOUT (10)<br>
+ * The authentication timeout has expired.
+ * <li> DEREGISTRATION_TOO_MUCH_DATA (11)<br>
+ * The S-CSCF has requested user profile information from the HSS and has received a volume of data higher
+ * than it can accept.
+ * </ul>
+ */
+Server-Assignment-Type                            ::=  614 /*6.3.15*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Deregistration-Reason AVP is of type Grouped, and indicates the reason for a de-registration operation.
+ */
+Deregistration-Reason                             ::=  615 /*6.3.16*/ Grouped     M,V| | |    |N;
+
+/**
+ * The Reason-Code AVP is of type Enumerated, and defines the reason for the network initiated de-registration. The
+ * following values are defined:
+ * <ul>
+ * <li> PERMANENT_TERMINATION (0)
+ * <li> NEW_SERVER_ASSIGNED (1)
+ * <li> SERVER_CHANGE (2)
+ * <li> REMOVE_S-CSCF (3)
+ * </ul>
+ * The detailed behaviour of the S-CSCF is defined in 3GPP TS 29.228.
+ */
+Reason-Code                                       ::=  616 /*6.3.17*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Reason-Info AVP is of type UTF8String, and contains textual information to inform the user about the reason for a
+ * de-registration.
+ */
+Reason-Info                                       ::=  617 /*6.3.18*/ UTF8String  M,V| | |    |N;
+
+/**
+ * The Charging-Information is of type Grouped, and contains the addresses of the charging functions.
+ */
+Charging-Information                              ::=  618 /*6.3.19*/ Grouped     M,V| | |    |N;
+
+/**
+ * The Primary-Event-Charging-Function-Name AVP is of type DiameterURI. This AVP contains the address of the
+ * Primary Event Charging Function.
+ */
+Primary-Event-Charging-Function-Name              ::=  619 /*6.3.20*/ DiamURI     M,V| | |    |N;
+
+/**
+ * The Secondary-Event-Charging-Function-Name AVP is of type DiameterURI. This AVP contains the address of the
+ * Secondary Event Charging Function.
+ */
+Secondary-Event-Charging-Function-Name            ::=  620 /*6.3.21*/ DiamURI     M,V| | |    |N;
+
+/**
+ * The Primary-Charging-Collection-Function-Name AVP is of type DiameterURI. This AVP contains the address of the
+ * Primary Charging Collection Function.
+ */
+Primary-Charging-Collection-Function-Name         ::=  621 /*6.3.22*/ DiamURI     M,V| | |    |N;
+
+/**
+ * The Secondary-Charging-Collection-Function-Name AVP is of type DiameterURI. This AVP contains the address of
+ * the Secondary Charging Collection Function.
+ */
+Secondary-Charging-Collection-Function-Name       ::=  622 /*6.3.23*/ DiamURI     M,V| | |    |N;
+
+/**
+ * The User-Authorization-Type AVP is of type Enumerated, and indicates the type of user authorization being performed
+ * in a User Authorization operation, i.e. UAR command. The following values are defined:
+ * <ul>
+ * <li> REGISTRATION (0)<br>
+ * This value is used in case of the initial registration or re-registration. I-CSCF determines this from the
+ * Expires field or expires parameter in Contact field in the SIP REGISTER method if it is not equal to zero.
+ * This is the default value.
+ * <li> DE_REGISTRATION (1)<br>
+ * This value is used in case of the de-registration. I-CSCF determines this from the Expires field or expires
+ * parameter in Contact field in the SIP REGISTER method if it is equal to zero.
+ * <li> REGISTRATION_AND_CAPABILITIES (2)<br>
+ * This value is used in case of initial registration or re-registration and when the I-CSCF explicitly requests SCSCF
+ * capability information from the HSS. The I-CSCF shall use this value when the user's current S-CSCF,
+ * which is stored in the HSS, cannot be contacted and a new S-CSCF needs to be selected
+ * </ul>
+ */
+User-Authorization-Type                           ::=  623 /*6.3.24*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The User-Data-Already-Available AVP is of type Enumerated, and indicates to the HSS whether or not the S-CSCF
+ * already has the part of the user profile that it needs to serve the user. The following values are defined:
+ * <ul>
+ * <li> USER_DATA_NOT_AVAILABLE (0)<br>
+ * The S-CSCF does not have the data that it needs to serve the user.
+ * <li> USER_DATA_ALREADY_AVAILABLE (1)<br>
+ * The S-CSCF already has the data that it needs to serve the user.
+ * </ul>
+ */
+User-Data-Already-Available                       ::=  624 /*6.3.25*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The Confidentiality-Key is of type OctetString, and contains the Confidentiality Key (CK).
+ */
+Confidentiality-Key                               ::=  625 /*6.3.27*/ OctetString M,V| | |    |N;
+
+/**
+ * The Integrity-Key is of type OctetString, and contains the Integrity Key (IK).
+ */
+Integrity-Key                                     ::=  626 /*6.3.28*/ OctetString M,V| | |    |N;
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may inform the 
+ * destination host about the features that the origin host supports. he Vendor-ID AVP and
+ * the Feature-List AVP shall together identify which feature list is carried in the 
+ * Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been defined by 3GPP, 
+ * the Vendor-ID AVP shall contain the vendor ID of 3GPP. 
+ * Where the Supported-Feature AVP is used to identify features that have been defined by a vendor 
+ * other than 3GPP, it shall contain the vendor ID of the specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the Feature-List-ID AVP shall
+ * differentiate those lists from one another.
+ */
+Supported-Features                                ::=  628 /*6.3.29*/ Grouped       V|M| |    |N;
+
+/**
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity of a feature list.
+ */
+Feature-List-ID                                   ::=  629 /*6.3.30*/ Unsigned32    V| | | M  |N;
+
+/**
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask indicating the supported
+ * features of an application. For the Cx application, the meaning of the bits has been defined in 7.1.1. 
+ */
+Feature-List                                      ::=  630 /*6.3.31*/ Unsigned32    V| | | M  |N;
+
+/**
+ * The Associated-Identities AVP is of type Grouped and it contains the private user identities 
+ * associated to an IMS subscription. 
+ */
+Associated-Identities                             ::=  632 /*6.3.33*/ Grouped       V| | | M  |N;
+
+/**
+ * The Supported-Applications AVP is of type Grouped and it contains the supported application identifiers of a Diameter node.
+ */
+/* This is used as an optional AVP in ERR answer-message */
+Supported-Applications                            ::=  631 /*6.3.14*/ Grouped       V| | | M  |N;
+                                                                                                                 
+
+//////////////////
+// Enumerations //
+//////////////////
+
+Server-Assignment-Type ::= < Enumerated: 614 >
+                NO_ASSIGNMENT                                0 
+                REGISTRATION                                 1
+                RE_REGISTRATION                              2
+                UNREGISTERED_USER                            3 
+                TIMEOUT_DEREGISTRATION                       4 
+                USER_DEREGISTRATION                          5 
+                TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME     6 
+                USER_DEREGISTRATION_STORE_SERVER_NAME        7 
+                ADMINISTRATIVE_DEREGISTRATION                8 
+                AUTHENTICATION_FAILURE                       9 
+                AUTHENTICATION_TIMEOUT                       10 
+                DEREGISTRATION_TOO_MUCH_DATA                 11 
+                ;
+
+
+Reason-Code ::= < Enumerated: 616 >
+                PERMANENT_TERMINATION                        0
+                NEW_SERVER_ASSIGNED                          1
+                SERVER_CHANGE                                2
+                REMOVE_SCSCF                                 3
+                ;
+
+
+User-Authorization-Type     ::= < Enumerated: 623 >
+                REGISTRATION                        0
+                DE_REGISTRATION                     1
+                REGISTRATION_AND_CAPABILITIES       2
+                ;
+
+User-Data-Already-Available  ::= < Enumerated: 624 >
+                USER_DATA_NOT_AVAILABLE             0
+                USER_DATA_ALREADY_AVAILABLE         1
+                ;
+
+
+//////////////////
+// Grouped AVPs //
+//////////////////
+
+Server-Capabilities ::= <AVP Header: 603 10415>
+          *[Mandatory-Capability]
+          *[Optional-Capability]
+          *[Server-Name]
+          *[AVP]
+          ;
+
+SIP-Auth-Data-Item ::= < AVP Header : 612 10415>
+          [ SIP-Item-Number ]
+          [ SIP-Authentication-Scheme ]
+          [ SIP-Authenticate ]
+          [ SIP-Authorization ]
+          [ SIP-Authentication-Context ]
+          [Confidentiality-Key]
+          [Integrity-Key]
+          *[AVP]
+          ;
+
+Deregistration-Reason ::= < AVP Header : 615 10415>
+          { Reason-Code }
+          [ Reason-Info ]
+          *[AVP]
+          ;
+
+Charging-Information ::= < AVP Header : 618 10415 >
+          [ Primary-Event-Charging-Function-Name ]
+          [ Secondary-Event-Charging-Function-Name ]
+          [ Primary-Charging-Collection-Function-Name ]
+          [ Secondary-Charging-Collection-Function-Name ]
+          *[ AVP]
+          ;
+
+Supported-Features ::= < AVP Header : 628 10415 >
+          { Vendor-Id }  /* Name Vendor-ID changed to Vendor-Id as defined in rfc3588 */
+          { Feature-List-ID }
+          { Feature-List }
+          *[ AVP ]
+          ;
+
+Associated-Identities ::= < AVP Header : 632 10415 >
+          *[ User-Name ]
+          *[ AVP ]
+          ;
+
+Supported-Applications ::= < AVP Header: 631 10415 > /*3GPP TS 29.229 [6] clause 6.3.32 */
+        *[ Auth-Application-Id ]
+        *[ Acct-Application-Id ]
+        *[ Vendor-Specific-Application-Id ]
+        *[ AVP ]
+        ;
+
+
+//////////////////
+//   Commands   //
+//////////////////
+
+/**
+ * The User-Authorization-Request (UAR) command, indicated by the Command-Code field set to 300 and the <tt>R</tt> bit set
+ * in the Command Flags field, is sent by a Diameter Multimedia client to a Diameter Multimedia server in order to
+ * request the authorization of the registration of a multimedia user.
+ */
+User-Authorization-Request ::= < Diameter Header: 300, REQ, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { User-Name }
+                  { Public-Identity }
+                  { Visited-Network-Identifier }
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  [ User-Authorization-Type ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The User-Authorization-Answer (UAA) command, indicated by the Command-Code field set to 300 and the <tt>R</tt> bit
+ * cleared in the Command Flags field, is sent by a server in response to the User-Authorization-Request command. The
+ * Result-Code AVP or Experimental-Result AVP may contain one of the values defined in section 6.2 in addition to the
+ * values defined in IETF RFC 3588 [6].
+ */
+User-Authorization-Answer ::= < Diameter Header: 300, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  *[ Supported-Features ]
+                  [ Server-Name ]
+                  [ Server-Capabilities ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The Server-Assignment-Request (SAR) command, indicated by the Command-Code field set to 301 and the <tt>R</tt> bit set
+ * in the Command Flags field, is sent by a Diameter Multimedia client to a Diameter Multimedia server in order to
+ * request it to store the name of the server that is currently serving the user.
+ */
+Server-Assignment-Request ::= < Diameter Header: 301, REQ, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Server-Name }
+                  { Server-Assignment-Type }
+                  { User-Data-Already-Available }
+                  { Destination-Realm }
+                  [ Destination-Host ]
+                  [ User-Name ]
+                  *[ Supported-Features ]
+                  *[ Public-Identity ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The Server-Assignment-Answer (SAA) command, indicated by the Command-Code field set to 301 and the <tt>R</tt> bit
+ * cleared in the Command Flags field, is sent by a server in response to the Server-Assignment-Request command. The
+ * Result-Code or Experimental-Result AVP may contain one of the values defined in section 6.2 in addition to the values
+ * defined in IETF RFC 3588 [6]. If Result-Code or Experimental-Result does not inform about an error, the User-Data
+ * AVP shall contain the information that the S-CSCF needs to give service to the user.
+ */
+Server-Assignment-Answer ::= < Diameter Header: 301, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [Experimental-Result ]
+                  [ User-Name ]
+                  *[ Supported-Features ]
+                  [ CxDx-User-Data ]
+                  [ Charging-Information ]
+                  [ Associated-Identities ]
+                  *[ Failed-AVP ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The Location-Info-Request (LIR) command, indicated by the Command-Code field set to 302 and the <tt>R</tt> bit set in the
+ * Command Flags field, is sent by a Diameter Multimedia client to a Diameter Multimedia server in order to request
+ * name of the server that is currently serving the user.
+ */
+Location-Info-Request ::= < Diameter Header: 302, REQ, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { Public-Identity }
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The Location-Info-Answer (LIA) command, indicated by the Command-Code field set to 302 and the <tt>R</tt> bit cleared in
+ * the Command Flags field, is sent by a server in response to the Location-Info-Request command. The Result-Code or
+ * Experimental-Result AVP may contain one of the values defined in section 6.2 in addition to the values defined in IETF
+ * RFC 3588 [6].
+ */
+Location-Info-Answer ::= < Diameter Header: 302, PXY, 16777216 >
+                 < Session-Id >
+                 { Vendor-Specific-Application-Id }
+                 { Auth-Session-State }
+                 { Origin-Host }
+                 { Origin-Realm }
+                 [ Result-Code ]
+                 [ Experimental-Result ]
+                 *[ Supported-Features ]
+                 [ Server-Name ]
+                 [ Server-Capabilities ]
+                 *[ Failed-AVP ]
+                 *[ Proxy-Info ]
+                 *[ Route-Record ]
+                 *[ AVP ]
+                 ;
+
+/**
+ * The Multimedia-Auth-Request (MAR) command, indicated by the Command-Code field set to 303 and the <tt>R</tt> bit set in
+ * the Command Flags field, is sent by a Diameter Multimedia client to a Diameter Multimedia server in order to request
+ * security information.
+ */
+Multimedia-Auth-Request ::= < Diameter Header: 303, REQ, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  { Destination-Realm }
+                  { User-Name }
+                  { Public-Identity }
+                  { Server-Name }
+                  [ Destination-Host ]
+                  *[ Supported-Features ]
+                  [ SIP-Auth-Data-Item ]
+                  [ SIP-Number-Auth-Items ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The Multimedia-Auth-Answer (MAA) command, indicated by the Command-Code field set to 303 and the <tt>R</tt> bit
+ * cleared in the Command Flags field, is sent by a server in response to the Multimedia-Auth-Request command. The
+ * Result-Code or Experimental-Result AVP may contain one of the values defined in section 6.2 in addition to the values
+ * defined in IETF RFC 3588 [6].
+ */
+Multimedia-Auth-Answer ::= < Diameter Header: 303, PXY, 16777216 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [ Experimental-Result ]
+                  [ User-Name ]
+                  *[ Supported-Features ]
+                  [ Public-Identity ]
+                  [ SIP-Number-Auth-Items ]
+                 *[ SIP-Auth-Data-Item ]
+                 *[ Failed-AVP ]
+                 *[ Proxy-Info ]
+                 *[ Route-Record ]
+                 *[ AVP ]
+                 ;
+
+/**
+ * The Registration-Termination-Request (RTR) command, indicated by the Command-Code field set to 304 and the <tt>R</tt>
+ * bit set in the Command Flags field, is sent by a Diameter Multimedia server to a Diameter Multimedia client in order to
+ * request the de-registration of a user.
+ */
+Registration-Termination-Request ::= < Diameter Header: 304, REQ, PXY, 16777216 >
+                 < Session-Id >
+                 { Vendor-Specific-Application-Id }
+                 { Auth-Session-State }
+                 { Origin-Host }
+                 { Origin-Realm }
+                 { Destination-Host }
+                 { Destination-Realm }
+                 { User-Name }
+                 { Deregistration-Reason }
+                 [ Associated-Identities ]
+                 *[ Supported-Features ]
+                 *[ Public-Identity ]
+                 *[ Proxy-Info ]
+                 *[ Route-Record ]
+                 *[ AVP ]
+                 ;
+
+/**
+ * The Registration-Termination-Answer (RTA) command, indicated by the Command-Code field set to 304 and the <tt>R</tt>
+ * bit cleared in the Command Flags field, is sent by a client in response to the Registration-Termination-Request
+ * command. The Result-Code or Experimental-Result AVP may contain one of the values defined in section 6.2 in
+ * addition to the values defined in IETF RFC 3588 [6].
+ */
+Registration-Termination-Answer ::= < Diameter Header: 304, PXY, 16777216 >
+                < Session-Id >
+                { Vendor-Specific-Application-Id }
+                { Auth-Session-State }
+                { Origin-Host }
+                { Origin-Realm }
+                [ Result-Code ]
+                [ Experimental-Result ]
+                [ Associated-Identities ]
+                *[ Supported-Features ]
+                *[ Failed-AVP ]
+                *[ Proxy-Info ]
+                *[ Route-Record ]
+                *[ AVP ]
+                ;
+
+/**
+ * The Push-Profile-Request (PPR) command, indicated by the Command-Code field set to 305 and the <tt>R</tt> bit set in the
+ * Command Flags field, is sent by a Diameter Multimedia server to a Diameter Multimedia client in order to update the
+ * subscription data of a multimedia user in the Diameter Multimedia client whenever a modification has occurred in the
+ * subscription data that constitutes the data used by the client.
+ */
+Push-Profile-Request ::= < Diameter Header: 305, REQ, PXY, 16777216 >
+                < Session-Id >
+                { Vendor-Specific-Application-Id }
+                { Auth-Session-State }
+                { Origin-Host }
+                { Origin-Realm }
+                { Destination-Host }
+                { Destination-Realm }
+                { User-Name }
+                *[ Supported-Features ]
+                [ CxDx-User-Data ]
+                [ Charging-Information ]
+                *[ Proxy-Info ]
+                *[ Route-Record ]
+                *[ AVP ]
+                ;
+
+/**
+ * The Push-Profile-Answer (PPA) command, indicated by the Command-Code field set to 305 and the <tt>R</tt> bit cleared in
+ * the Command Flags field, is sent by a client in response to the Push-Profile-Request command. The Result-Code or
+ * Experimental-Result AVP may contain one of the values defined in section 6.2 in addition to the values defined in IETF
+ * RFC 3588 [6].
+ */
+Push-Profile-Answer ::=< Diameter Header: 305, PXY, 16777216 >
+               < Session-Id >
+               { Vendor-Specific-Application-Id }
+               { Auth-Session-State }
+               { Origin-Host }
+               { Origin-Realm }
+               [ Result-Code ]
+               [ Experimental-Result ]
+               *[ Supported-Features ]
+               *[ Failed-AVP ]
+               *[ Proxy-Info ]
+               *[ Route-Record ]
+               *[ AVP ]
+               ;

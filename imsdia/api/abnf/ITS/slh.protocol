@@ -1,0 +1,209 @@
+/**
+ * 3GPP TS 29.173 V9.0.0 (2010-03)
+ * SLh interface between  GMLC and HSS. 
+ */
+ 
+protocol diameter.slh < 16777291 10415: " 3GPP TS  29.173 V9.0.0 (2010-03)" >;
+
+		 //////////////////
+		// Derived AVPs //
+	       //////////////////
+/**
+ * The LMSI AVP is of type OctetString and it shall contain the 
+ * Local Mobile Station Identity (LMSI) allocated by the VLR, 
+ * as defined in 3GPP TS 23.003 [10]. For further details on the 
+ * encoding of this AVP, see 3GPP TS 23.003[10].
+ */
+  LMSI	::= 2400   /* 6.4.2 */ OctetString	M,V| | |    |N;
+
+/**
+ * The Serving-Node AVP is of type Grouped. This AVP shall contain 
+ * the information about the network node serving the targeted user.
+ */
+   Serving-Node ::= 2401 /* 6.4.3 */ Grouped       M,V| | |    |N;
+
+/**
+ * The MME-Name AVP is of type DiameterIdentity and it shall contain 
+ * the Diameter identity of the serving MME. For further details 
+ * on the encoding of this AVP, see IETF RFC 3588 [5].
+ */
+    MME-Name	::= 2402 /* 6.4.4 */ DiamIdent     M,V| | |    |N;
+
+/**
+ * The MSC-Number AVP is of type OctetString and it shall contain the 
+ * ISDN number of the serving MSC or MSC server. For further details 
+ * on the encoding of this AVP, see 3GPP TS 23.003[10].
+ */
+    MSC-Number  ::= 2403 /* 6.4.5 */ OctetString    M,V| | |    |N;
+
+/**
+ * The LCS-Capabilities-Sets AVP is of type Unsigned32 and it shall 
+ * contain a bit mask. The meaning of the bits shall be as defined 
+ * in 3GPP 29.002 [3].
+ */
+  LCS-Capabilities-Sets ::= 2404 /* 6.4.6 */ Unsigned32   M,V| | |    |N;
+
+
+/**
+ * The GMLC-Address AVP is of type Address and shall contain the IPv4 
+ * or IPv6 address of H-GMLC or the V-GMLC associated with the serving node.
+ */
+   GMLC-Address ::= 2405 /* 6.4.7 */ Address        M,V| | |    |N;
+
+
+/**
+ * The Additional-Serving-Node AVP is of type Grouped. This AVP shall 
+ * contain the information about the network node serving the targeted user.
+ */
+   Additional-Serving-Node ::= 2406 /* 6.4.8 */ Grouped  M,V| | |    |N;
+
+/**
+ * The PPR-Address AVP is of type Address and contains the IPv4 or 
+ * IPv6 address of the Privacy Profile Register for the targeted user.
+ */  	
+  PPR-Address   ::=  2407 /* 6.4.9 */ Address       M,V| | |    |N;  
+
+/**
+ * The MSISDN AVP is of type OctetString. This AVP contains an MSISDN, 
+ * in international number format as described in ITU-T Rec E.164 [8], 
+ * encoded as a TBCD-string, i.e. digits from 0 through 9 are encoded 
+ * 0000 to 1001; 1111 is used as a filler when there is an odd number 
+ * of digits; bits 8 to 5 of octet n encode digit 2n; bits 4 to 1 of 
+ * octet n encode digit 2(n-1)+1.
+ */
+  MSISDN        ::=  701  /* 3GPP TS 29.329 - 6.3.2 */ OctetString   M,V| | |    |N;
+
+/**
+ * The SGSN-Number AVP is of type OctetString and it shall contain the 
+ * ISDN number of the SGSN. For further details on the encoding of 
+ * this AVP, see 3GPP TS 23.003[3].
+ */
+  SGSN-Number   ::=  1489 /* 3GPP TS 29.272 - 7.3.102 */ OctetString   M,V| | |    |N;
+
+/**
+ * The GMLC-Number AVP is of type OctetString. This AVP shall contain 
+ * the ISDN number of the GMLC. For further details on the encoding 
+ * of this AVP, see 3GPP TS 23.003[3].
+ */
+  GMLC-Number   ::=  1474 /* 3GPP TS 29.272 - 7.3.85 */ OctetString   M,V| | |    |N;
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may
+ * inform the destination host about the features that origin host supports.
+ * The Vendor-ID AVP and the Feature-List AVP shall together identify which
+ * feature list is carried in the Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been
+ * defined by 3GPP, the Vendor-ID AVP shall contain the vendor ID of 3GPP.
+ * Where the Supported-Feature AVP is used to identify features that have been
+ * defined by a vendor other than 3GPP, it shall contain the vendor ID of the
+ * specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the
+ * Feature-List-ID AVP shall differentiate those lists from one another.
+ */
+  Supported-Features ::= 628 /* 3GPP TS 29.229 - 6.3.29 */ Grouped M,V| | |    |N;
+
+/**
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity
+ * of a feature list.
+ */
+    Feature-List-ID  ::= 629 /* 3GPP TS 29.229 - 6.3.30 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask
+ * indicating the supported * features of an application.
+ */
+    Feature-List     ::= 630 /* 3GPP TS 29.229 - 6.3.31 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The 3GPP-AAA-Server-Name AVP is of type DiameterIdentity, and defines 
+ * the Diameter address of the 3GPP AAA Server node.
+ */
+    AAA-Server-Name ::= 318 /* 3GPP TS 29.234 - 10.1.34 */ DiamIdent   M,V| | |    |N;
+
+
+  
+      //////////////////
+     // Grouped AVPs //
+    //////////////////
+
+
+    Supported-Features ::= < AVP Header : 628 10415 >
+                { Vendor-Id }
+                { Feature-List-ID }
+                { Feature-List }
+                *[ AVP ]
+                ;
+
+    Serving-Node ::= < AVP Header : 2401 10415 >
+		[ SGSN-Number ]
+		[ MME-Name ]
+		[ MSC-Number ]
+		[ AAA-Server-Name ]
+		[ LCS-Capabilities-Sets ]
+		[ GMLC-Address ]
+		*[AVP]
+		;
+
+    Additional-Serving-Node ::=	< AVP Header : 2406 10415 >
+		[ SGSN-Number ]
+		[ MME-Name ]
+		[ MSC-Number ]
+		[ AAA-Server-Name ]
+		[ LCS-Capabilities-Sets ]
+		[ GMLC-Address ]
+		*[AVP]
+		;
+
+
+    //////////////////
+    //   commands   //
+    //////////////////
+
+  /**
+   * The LCS-Routing-Info-Request (RIR) command, indicated by the Command-Code field 
+   * set to TBD2 and the "R" bit set in the Command Flags field, is sent from GMLC to HSS. 
+   */  
+
+   LCS-Routing-Info-Request < RIR > ::=	< Diameter Header: 8388622, REQ, PXY, 16777291 >
+		< Session-Id >
+		{ Auth-Session-State }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Realm }
+		[ Destination-Host ]
+		[ User-Name ]
+		[ MSISDN ]
+		[ GMLC-Number ]
+		*[ Supported-Features ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		*[ AVP ]
+		;
+
+
+  /**
+   * The LCS-Routing-Info-Answer (RIA) command, indicated by the Command-Code field 
+   * set to TBD2 and the 'R' bit cleared in the Command Flags field, is sent from HSS to GMLC. 
+   */ 
+    LCS-Routing-Info-Answer < RIA > ::=	< Diameter Header: 8388622, PXY, 16777291 >
+		< Session-Id >
+		{ Auth-Session-State }
+		{ Origin-Host }
+		{ Origin-Realm }
+		*[ Supported-Features ]
+                [ Result-Code ]
+                [ Experimental-Result ]
+		[ User-Name ]
+		[ MSISDN ]
+		[ LMSI ]
+		[ Serving-Node ]
+		*[ Additional-Serving-Node ]
+		[ GMLC-Address ]
+		[ PPR-Address ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+

@@ -1,0 +1,27 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    di
+                                                                                
+DESCRIPTION
+    This is an Advanced User Command. This command is primarily 
+    a debugging utility command. To debug, message dumps manually 
+    is a time consuming process since it involves eye-balling 
+    through the entire message dump received. This command provides
+    an easier alternative. The received hex dump, should be
+    copied into MsgDump.txt file, in the current directory, where
+    the sampleAppD process is running. This command then, can be
+    used to pass the dump (stored in MsgDump.txt) to the appropriate
+    worker-thread in the sampleAppD process, which will automatically
+    decode the received byte-dump and provide a pretty print of the
+    message received. In case of an error an exception will be thrown
+
+PARAMETERS
+    Worker-thread queue instance
+ 
+EXAMPLE
+    >> di 1 - (For a Base Protocol Hex Dump in MsgDump.txt)
+    >> di 2 - (For a Sh Interface  Hex Dump in MsgDump.txt)
+    >> di 3 - (For a CxDx Interface Hex Dump in MsgDump.txt)
+    >> di 4 - (For a GqGq' Interface Hex Dump in MsgDump.txt)
+

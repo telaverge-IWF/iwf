@@ -1,0 +1,749 @@
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu.o itu.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-mtp3.o itu-mtp3.c
+itu-mtp3.c: In function ‘MTP3_Alarms_CCITT’:
+itu-mtp3.c:2561:16: warning: variable ‘now_time’ set but not used [-Wunused-but-set-variable]
+     struct tm *now_time;
+                ^
+itu-mtp3.c: In function ‘CCITT_MTP3Thread’:
+itu-mtp3.c:4680:4: warning: format ‘%u’ expects argument of type ‘unsigned int’, but argument 2 has type ‘__time_t’ [-Wformat=]
+    MTP3EventCount);
+    ^
+In file included from itu-mtp3.c:492:0:
+itu-mtp3.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+itu-mtp3.c:2521:1: warning: ‘CloseAlarmFile’ defined but not used [-Wunused-function]
+ CloseAlarmFile(char *data)
+ ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-mgmt.o itu-mgmt.c
+itu-mgmt.c: In function ‘MTP3_OSS_Start_CCITT’:
+itu-mgmt.c:4138:13: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     ITS_INT ret = ITS_SUCCESS;
+             ^
+itu-mgmt.c: In function ‘MTP3_OSS_AddLink_CCITT’:
+itu-mgmt.c:5608:16: warning: variable ‘retn’ set but not used [-Wunused-but-set-variable]
+     ITS_Object retn;
+                ^
+itu-mgmt.c: In function ‘MTP3_GetOm_CCITT’:
+itu-mgmt.c:6378:9: warning: implicit declaration of function ‘gettimeofday’ [-Wimplicit-function-declaration]
+         retVal = gettimeofday(&current_time, NULL);
+         ^
+itu-mgmt.c:6319:12: warning: variable ‘retVal’ set but not used [-Wunused-but-set-variable]
+   ITS_UINT retVal;
+            ^
+itu-mgmt.c: In function ‘MTP3_GetOm_MML_CCITT’:
+itu-mgmt.c:6606:12: warning: variable ‘retVal’ set but not used [-Wunused-but-set-variable]
+   ITS_UINT retVal;
+            ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-mtp3_ifc.o itu-mtp3_ifc.c
+In file included from itu-mtp3_ifc.c:93:0:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-slm.o itu-slm.c
+itu-slm.c: In function ‘LSDA_Main_CCITT’:
+itu-slm.c:2207:9: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     int ret;
+         ^
+itu-slm.c:2201:25: warning: variable ‘isnmm’ set but not used [-Wunused-but-set-variable]
+     SNMM_MESSAGE snmm, *isnmm;
+                         ^
+itu-slm.c:2200:32: warning: variable ‘lmtp3’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER omtp3, *mtp3, *lmtp3;
+                                ^
+In file included from itu-slm.c:181:0:
+itu-slm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-slt.o itu-slt.c
+In file included from itu-slt.c:154:0:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-smh.o itu-smh.c
+itu-smh.c: In function ‘MessageForRouting’:
+itu-smh.c:756:21: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE pc;
+                     ^
+itu-smh.c: In function ‘TrafficManagementMessage’:
+itu-smh.c:1058:22: warning: variable ‘d’ set but not used [-Wunused-but-set-variable]
+     SS7_Destination *d;
+                      ^
+itu-smh.c: In function ‘MTP2_SendData_CCITT’:
+itu-smh.c:1926:20: warning: variable ‘src’ set but not used [-Wunused-but-set-variable]
+         ITS_USHORT src = ITS_SCCP_CCITT_SRC;
+                    ^
+In file included from itu-smh.c:264:0:
+itu-smh.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-srm.o itu-srm.c
+itu-srm.c: In function ‘RSRT_Main_CCITT’:
+itu-srm.c:1620:21: warning: variable ‘tpc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE tpc;
+                     ^
+itu-srm.c: In function ‘RTCC_Main_CCITT’:
+itu-srm.c:3283:25: warning: variable ‘isnmm’ set but not used [-Wunused-but-set-variable]
+     SNMM_MESSAGE snmm, *isnmm;
+                         ^
+In file included from itu-srm.c:168:0:
+itu-srm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-stm.o itu-stm.c
+itu-stm.c: In function ‘STM_Main_CCITT’:
+itu-stm.c:527:17: warning: comparison between ‘STM_Triggers’ and ‘enum <anonymous>’ [-Wenum-compare]
+     if (trigger == SRM_TRIGGER_L2_MSG)
+                 ^
+itu-stm.c: In function ‘ForceUninhibitLink’:
+itu-stm.c:979:9: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     int ret = ITS_SUCCESS;
+         ^
+itu-stm.c: In function ‘TLAC_Main_CCITT’:
+itu-stm.c:1066:25: warning: variable ‘snmm_ptr’ set but not used [-Wunused-but-set-variable]
+     SNMM_MESSAGE snmm, *snmm_ptr;
+                         ^
+itu-stm.c: In function ‘AvailableRoute’:
+itu-stm.c:5794:21: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE pc;
+                     ^
+itu-stm.c: In function ‘RestrictedRoute’:
+itu-stm.c:6096:21: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE pc;
+                     ^
+itu-stm.c: In function ‘StartTrafficRestart’:
+itu-stm.c:6786:21: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE pc;
+                     ^
+itu-stm.c: In function ‘StatusIterate’:
+itu-stm.c:6928:21: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+     MTP3_POINT_CODE pc;
+                     ^
+itu-stm.c: In function ‘TSRC_Main_CCITT’:
+itu-stm.c:8357:37: warning: variable ‘pc’ set but not used [-Wunused-but-set-variable]
+                     MTP3_POINT_CODE pc;
+                                     ^
+itu-stm.c: In function ‘TCOC_Main_CCITT’:
+itu-stm.c:9628:19: warning: variable ‘sls’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET ni, sls, tls, tlc;
+                   ^
+itu-stm.c: In function ‘TCRC_Main_CCITT’:
+itu-stm.c:13136:40: warning: variable ‘sls’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET ni, oldNI, oldLS, oldLC, sls;
+                                        ^
+itu-stm.c: In function ‘TSFC_Main_CCITT’:
+itu-stm.c:13424:14: warning: variable ‘retVal’ set but not used [-Wunused-but-set-variable]
+     ITS_UINT retVal;
+              ^
+In file included from itu-stm.c:304:0:
+itu-stm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-mtp3_alarms.o itu-mtp3_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup.o itu-isup.c
+itu-isup.c: In function ‘DBCPrintAllCicsCfg’:
+itu-isup.c:3909:17: warning: variable ‘cics_present’ set but not used [-Wunused-but-set-variable]
+     ITS_BOOLEAN cics_present = ITS_FALSE;
+                 ^
+itu-isup.c: In function ‘DBCPrintGeneralPegType’:
+itu-isup.c:4494:14: warning: variable ‘value’ set but not used [-Wunused-but-set-variable]
+     ITS_UINT value;
+              ^
+itu-isup.c: In function ‘INTELLINET_ISUP_Commit_CCITT’:
+itu-isup.c:8363:25: warning: variable ‘cics_present’ set but not used [-Wunused-but-set-variable]
+             ITS_BOOLEAN cics_present = ITS_FALSE;
+                         ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup_ifc.o itu-isup_ifc.c
+itu-isup_ifc.c: In function ‘ISUP_MTP3Decode_CCITT’:
+itu-isup_ifc.c:862:32: warning: variable ‘oargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                                ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup_data.o itu-isup_data.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup_context.o itu-isup_context.c
+itu-isup_context.c: In function ‘__ISUP_ValidateParamCompatability_CCITT’:
+itu-isup_context.c:1409:32: warning: variable ‘oargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                                ^
+itu-isup_context.c:1409:24: warning: variable ‘vargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                        ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sprc.o itu-sprc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup_alarms.o itu-isup_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-isup_dis.o itu-isup_dis.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sccp.o itu-sccp.c
+itu-sccp.c: In function ‘INTELLINET_GetSCCPNextRef_CCITT’:
+itu-sccp.c:1488:21: warning: variable ‘foundCtxt’ set but not used [-Wunused-but-set-variable]
+     SCCP_CONN_CTXT *foundCtxt = NULL, *newCtxt = NULL;
+                     ^
+itu-sccp.c: In function ‘BuildDupData_CCITT’:
+itu-sccp.c:4881:17: warning: variable ‘tdList’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *tdList;
+                 ^
+itu-sccp.c: In function ‘CCITT_SCCPThread’:
+itu-sccp.c:6208:25: warning: format ‘%u’ expects argument of type ‘unsigned int’, but argument 2 has type ‘__time_t’ [-Wformat=]
+                         SCCPEventCount);
+                         ^
+itu-sccp.c:6375:28: warning: variable ‘src’ set but not used [-Wunused-but-set-variable]
+                 ITS_USHORT src = sccpEvent.src; 
+                            ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sclc.o itu-sclc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-scoc.o itu-scoc.c
+itu-scoc.c: In function ‘HandleAppRLSD’:
+itu-scoc.c:2327:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+itu-scoc.c: In function ‘HandleAppRSR’:
+itu-scoc.c:2543:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+itu-scoc.c:2543:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+itu-scoc.c: In function ‘HandleDownCC’:
+itu-scoc.c:2703:16: warning: variable ‘clp’ set but not used [-Wunused-but-set-variable]
+     SCCP_ADDR *clp = NULL;
+                ^
+itu-scoc.c: In function ‘HandleAppCREF’:
+itu-scoc.c:3213:19: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *dl = NULL;
+                   ^
+itu-scoc.c: In function ‘HandleDownCREF’:
+itu-scoc.c:3338:16: warning: variable ‘cdp’ set but not used [-Wunused-but-set-variable]
+     SCCP_ADDR *cdp = NULL;
+                ^
+itu-scoc.c: In function ‘HandleAppRLC’:
+itu-scoc.c:3621:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+itu-scoc.c: In function ‘HandleAppRSC’:
+itu-scoc.c:8063:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+itu-scoc.c:8063:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+itu-scoc.c: In function ‘HandleAppERR’:
+itu-scoc.c:8643:19: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *dl = NULL;
+                   ^
+itu-scoc.c: In function ‘HandleAppIT’:
+itu-scoc.c:9086:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+itu-scoc.c:9086:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+itu-scoc.c: In function ‘SCOCHandleRoutingFailure_CCITT’:
+itu-scoc.c:9547:15: warning: variable ‘sls’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET sls;
+               ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-scrc.o itu-scrc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-scmg.o itu-scmg.c
+itu-scmg.c: In function ‘BCSTSendSSA’:
+itu-scmg.c:1567:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info* rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+itu-scmg.c: In function ‘BCSTSendSSC’:
+itu-scmg.c:1849:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info* rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+itu-scmg.c: In function ‘BCSTSendSSP’:
+itu-scmg.c:2114:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info* rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+itu-scmg.c: In function ‘PausePC’:
+itu-scmg.c:3672:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                          ^
+itu-scmg.c:3672:33: warning: variable ‘tinfo1’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                 ^
+itu-scmg.c: In function ‘ResumePC’:
+itu-scmg.c:3791:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                          ^
+itu-scmg.c:3791:33: warning: variable ‘tinfo1’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                 ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sccp_gtt.o itu-sccp_gtt.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sccp_ifc.o itu-sccp_ifc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-sccp_alarms.o itu-sccp_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tcap_ifc.o itu-tcap_ifc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tcap.o itu-tcap.c
+itu-tcap.c: In function ‘ITCAP_Initialize_CCITT’:
+itu-tcap.c:1688:44: warning: argument to ‘sizeof’ in ‘memcpy’ call is the same pointer type ‘struct ROUTE_Info **’ as the destination; expected ‘struct ROUTE_Info *’ or an explicit length [-Wsizeof-pointer-memaccess]
+             memcpy(&rinfo,temp->data,sizeof(ROUTE_InfoPtr *));
+                                            ^
+itu-tcap.c: In function ‘ITCAP_Terminate_CCITT’:
+itu-tcap.c:1927:44: warning: argument to ‘sizeof’ in ‘memcpy’ call is the same pointer type ‘struct ROUTE_Info **’ as the destination; expected ‘struct ROUTE_Info *’ or an explicit length [-Wsizeof-pointer-memaccess]
+             memcpy(&rinfo,temp->data,sizeof(ROUTE_InfoPtr *));
+                                            ^
+itu-tcap.c: In function ‘TCAP_HandleUpdateLtIdEvent_CCITT’:
+itu-tcap.c:4457:5: warning: implicit declaration of function ‘TCAP_FormatLongKey’ [-Wimplicit-function-declaration]
+     TCAP_FormatLongKey(nextLTidKey, TCAP_NEXT_LTID_KEY);
+     ^
+itu-tcap.c:4453:14: warning: unused variable ‘dlgId’ [-Wunused-variable]
+     ITS_CTXT dlgId = ITS_GET_CTXT(&event->data[0]);
+              ^
+itu-tcap.c:4449:14: warning: unused variable ‘ltid’ [-Wunused-variable]
+     ITS_UINT ltid = 0;
+              ^
+itu-tcap.c:4446:9: warning: unused variable ‘tidKeyLen’ [-Wunused-variable]
+     int tidKeyLen = 0;
+         ^
+itu-tcap.c:4445:15: warning: unused variable ‘tidKey’ [-Wunused-variable]
+     ITS_OCTET tidKey[4];
+               ^
+itu-tcap.c:4444:40: warning: unused variable ‘sharedTx’ [-Wunused-variable]
+     TCAP_TRANS_ENTRY *localTx = NULL, *sharedTx = NULL, *tmpTx = NULL;
+                                        ^
+itu-tcap.c:4444:23: warning: unused variable ‘localTx’ [-Wunused-variable]
+     TCAP_TRANS_ENTRY *localTx = NULL, *sharedTx = NULL, *tmpTx = NULL;
+                       ^
+itu-tcap.c: In function ‘TCAP_HandleReplicationEvent_CCITT’:
+itu-tcap.c:4492:15: warning: unused variable ‘nextLTidKey’ [-Wunused-variable]
+     ITS_OCTET nextLTidKey[sizeof(ITS_UINT)];
+               ^
+itu-tcap.c:4490:9: warning: unused variable ‘error’ [-Wunused-variable]
+     int error = 0;
+         ^
+itu-tcap.c:4489:14: warning: unused variable ‘ltid’ [-Wunused-variable]
+     ITS_UINT ltid = 0;
+              ^
+itu-tcap.c:4488:15: warning: unused variable ‘nextLTid’ [-Wunused-variable]
+     ITS_UINT *nextLTid = NULL, ret = ITS_SUCCESS;
+               ^
+itu-tcap.c:4486:9: warning: unused variable ‘tidKeyLen’ [-Wunused-variable]
+     int tidKeyLen = 0;
+         ^
+itu-tcap.c:4485:15: warning: unused variable ‘tidKey’ [-Wunused-variable]
+     ITS_OCTET tidKey[4];
+               ^
+itu-tcap.c:4484:40: warning: unused variable ‘sharedTx’ [-Wunused-variable]
+     TCAP_TRANS_ENTRY *localTx = NULL, *sharedTx = NULL, *tmpTx = NULL;
+                                        ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tco.o itu-tco.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-dha.o itu-dha.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-cco.o itu-cco.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tsm.o itu-tsm.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tcap_context.o itu-tcap_context.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o itu-tcap_alarms.o itu-tcap_alarms.c
+ar cruv ../lib/libCCITT-VENDORD.a \
+	 itu.o \
+                itu-mtp3.o      itu-mgmt.o     itu-mtp3_ifc.o  itu-slm.o itu-slt.o       itu-smh.o      itu-srm.o       itu-stm.o itu-mtp3_alarms.o itu-isup.o      itu-isup_ifc.o itu-isup_data.o itu-isup_context.o  itu-sprc.o itu-isup_alarms.o itu-isup_dis.o itu-sccp.o      itu-sclc.o     itu-scoc.o      itu-scrc.o itu-scmg.o      itu-sccp_gtt.o itu-sccp_ifc.o itu-sccp_alarms.o \
+                itu-tcap_ifc.o  itu-tcap.o     itu-tco.o       itu-dha.o itu-cco.o       itu-tsm.o      itu-tcap_context.o itu-tcap_alarms.o
+a - itu.o
+a - itu-mtp3.o
+a - itu-mgmt.o
+a - itu-mtp3_ifc.o
+a - itu-slm.o
+a - itu-slt.o
+a - itu-smh.o
+a - itu-srm.o
+a - itu-stm.o
+a - itu-mtp3_alarms.o
+a - itu-isup.o
+a - itu-isup_ifc.o
+a - itu-isup_data.o
+a - itu-isup_context.o
+a - itu-sprc.o
+a - itu-isup_alarms.o
+a - itu-isup_dis.o
+a - itu-sccp.o
+a - itu-sclc.o
+a - itu-scoc.o
+a - itu-scrc.o
+a - itu-scmg.o
+a - itu-sccp_gtt.o
+a - itu-sccp_ifc.o
+a - itu-sccp_alarms.o
+a - itu-tcap_ifc.o
+a - itu-tcap.o
+a - itu-tco.o
+a - itu-dha.o
+a - itu-cco.o
+a - itu-tsm.o
+a - itu-tcap_context.o
+a - itu-tcap_alarms.o
+ld -shared --whole-archive -o ../lib/libCCITT-VENDORD.so \
+	 itu.o \
+                itu-mtp3.o      itu-mgmt.o     itu-mtp3_ifc.o  itu-slm.o itu-slt.o       itu-smh.o      itu-srm.o       itu-stm.o itu-mtp3_alarms.o itu-isup.o      itu-isup_ifc.o itu-isup_data.o itu-isup_context.o  itu-sprc.o itu-isup_alarms.o itu-isup_dis.o itu-sccp.o      itu-sclc.o     itu-scoc.o      itu-scrc.o itu-scmg.o      itu-sccp_gtt.o itu-sccp_ifc.o itu-sccp_alarms.o \
+                itu-tcap_ifc.o  itu-tcap.o     itu-tco.o       itu-dha.o itu-cco.o       itu-tsm.o      itu-tcap_context.o itu-tcap_alarms.o
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi.o ansi.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-mtp3.o ansi-mtp3.c
+ansi-mtp3.c: In function ‘MTP3_Alarms_ANSI’:
+ansi-mtp3.c:2557:16: warning: variable ‘now_time’ set but not used [-Wunused-but-set-variable]
+     struct tm *now_time;
+                ^
+In file included from ansi-mtp3.c:535:0:
+ansi-mtp3.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+ansi-mtp3.c:2516:1: warning: ‘CloseAlarmFile’ defined but not used [-Wunused-function]
+ CloseAlarmFile(char *data)
+ ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-mgmt.o ansi-mgmt.c
+ansi-mgmt.c: In function ‘MTP3_OSS_Start_ANSI’:
+ansi-mgmt.c:3641:13: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     ITS_INT ret = ITS_SUCCESS;
+             ^
+ansi-mgmt.c: In function ‘MTP3_OSS_AddLink_ANSI’:
+ansi-mgmt.c:5113:16: warning: variable ‘retn’ set but not used [-Wunused-but-set-variable]
+     ITS_Object retn;
+                ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-mtp3_ifc.o ansi-mtp3_ifc.c
+In file included from ansi-mtp3_ifc.c:72:0:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-slm.o ansi-slm.c
+ansi-slm.c: In function ‘LSDA_Main_ANSI’:
+ansi-slm.c:2169:9: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     int ret;
+         ^
+ansi-slm.c:2162:37: warning: variable ‘lmtp3’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER_ANSI omtp3, *mtp3, *lmtp3;
+                                     ^
+In file included from ansi-slm.c:165:0:
+ansi-slm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-slt.o ansi-slt.c
+In file included from ansi-slt.c:136:0:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-smh.o ansi-smh.c
+ansi-smh.c: In function ‘TrafficManagementMessage’:
+ansi-smh.c:1078:22: warning: variable ‘d’ set but not used [-Wunused-but-set-variable]
+     SS7_Destination *d;
+                      ^
+ansi-smh.c: In function ‘MTP2_SendData_ANSI’:
+ansi-smh.c:1903:20: warning: variable ‘src’ set but not used [-Wunused-but-set-variable]
+         ITS_USHORT src = ITS_SCCP_ANSI_SRC;
+                    ^
+In file included from ansi-smh.c:251:0:
+ansi-smh.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-srm.o ansi-srm.c
+ansi-srm.c: In function ‘RTCC_Main_ANSI’:
+ansi-srm.c:4287:25: warning: variable ‘isnmm’ set but not used [-Wunused-but-set-variable]
+     SNMM_MESSAGE snmm, *isnmm;
+                         ^
+In file included from ansi-srm.c:150:0:
+ansi-srm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-stm.o ansi-stm.c
+ansi-stm.c: In function ‘STM_Main_ANSI’:
+ansi-stm.c:924:17: warning: comparison between ‘STM_Triggers’ and ‘enum <anonymous>’ [-Wenum-compare]
+     if (trigger == SRM_TRIGGER_L2_MSG)
+                 ^
+ansi-stm.c: In function ‘ForceUninhibitLink’:
+ansi-stm.c:1354:9: warning: variable ‘ret’ set but not used [-Wunused-but-set-variable]
+     int ret = ITS_SUCCESS;
+         ^
+In file included from ansi-stm.c:699:0:
+ansi-stm.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-mtp3_alarms.o ansi-mtp3_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup.o ansi-isup.c
+ansi-isup.c: In function ‘DBCPrintAllCicsCfg’:
+ansi-isup.c:4506:17: warning: variable ‘cics_present’ set but not used [-Wunused-but-set-variable]
+     ITS_BOOLEAN cics_present = ITS_FALSE;
+                 ^
+ansi-isup.c: In function ‘INTELLINET_ISUP_Commit_ANSI’:
+ansi-isup.c:8535:25: warning: variable ‘cics_present’ set but not used [-Wunused-but-set-variable]
+             ITS_BOOLEAN cics_present = ITS_FALSE;
+                         ^
+In file included from ansi-isup.c:535:0:
+ansi-isup.c: At top level:
+../include/mtp3_intern.h:689:14: warning: ‘families’ defined but not used [-Wunused-variable]
+ static char *families[] =
+              ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup_ifc.o ansi-isup_ifc.c
+ansi-isup_ifc.c: In function ‘ISUP_MTP3Decode_ANSI’:
+ansi-isup_ifc.c:847:32: warning: variable ‘oargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                                ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup_data.o ansi-isup_data.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup_context.o ansi-isup_context.c
+ansi-isup_context.c: In function ‘__ISUP_ValidateParameters_ANSI’:
+ansi-isup_context.c:1241:32: warning: variable ‘oargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                                ^
+ansi-isup_context.c:1241:24: warning: variable ‘vargs’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET *margs, *vargs, *oargs;
+                        ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sprc.o ansi-sprc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup_alarms.o ansi-isup_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-isup_dis.o ansi-isup_dis.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sccp.o ansi-sccp.c
+ansi-sccp.c: In function ‘INTELLINET_GetSCCPNextRef_ANSI’:
+ansi-sccp.c:1295:21: warning: variable ‘foundCtxt’ set but not used [-Wunused-but-set-variable]
+     SCCP_CONN_CTXT *foundCtxt = NULL, *newCtxt = NULL;
+                     ^
+ansi-sccp.c: In function ‘ANSI_SCCPThread’:
+ansi-sccp.c:6046:28: warning: variable ‘src’ set but not used [-Wunused-but-set-variable]
+                 ITS_USHORT src = sccpEvent.src;
+                            ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sclc.o ansi-sclc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-scoc.o ansi-scoc.c
+ansi-scoc.c: In function ‘HandleAppRLSD’:
+ansi-scoc.c:1755:9: warning: variable ‘releaseID’ set but not used [-Wunused-but-set-variable]
+     int releaseID = 0;
+         ^
+ansi-scoc.c:1752:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+ansi-scoc.c: In function ‘HandleDownCC’:
+ansi-scoc.c:1900:16: warning: variable ‘clp’ set but not used [-Wunused-but-set-variable]
+     SCCP_ADDR *clp = NULL;
+                ^
+ansi-scoc.c: In function ‘HandleAppCREF’:
+ansi-scoc.c:2192:19: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleDownCREF’:
+ansi-scoc.c:2297:16: warning: variable ‘cdp’ set but not used [-Wunused-but-set-variable]
+     SCCP_ADDR *cdp = NULL;
+                ^
+ansi-scoc.c: In function ‘HandleAppRLC’:
+ansi-scoc.c:2489:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+ansi-scoc.c: In function ‘HandleDownRSR’:
+ansi-scoc.c:5308:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleAppRSC’:
+ansi-scoc.c:5528:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+ansi-scoc.c:5528:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleDownRSC’:
+ansi-scoc.c:5660:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleAppERR’:
+ansi-scoc.c:5874:19: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleAppIT’:
+ansi-scoc.c:6173:31: warning: variable ‘dl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                               ^
+ansi-scoc.c:6173:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘HandleDownIT’:
+ansi-scoc.c:6276:19: warning: variable ‘sl’ set but not used [-Wunused-but-set-variable]
+     SCCP_REF_NUM *sl = NULL, *dl = NULL;
+                   ^
+ansi-scoc.c: In function ‘SCOCHandleRoutingFailure_ANSI’:
+ansi-scoc.c:6483:15: warning: variable ‘sls’ set but not used [-Wunused-but-set-variable]
+     ITS_OCTET sls;
+               ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-scrc.o ansi-scrc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-scmg.o ansi-scmg.c
+ansi-scmg.c: In function ‘LBCSSendSSP’:
+ansi-scmg.c:1124:17: warning: variable ‘resp’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER resp;
+                 ^
+ansi-scmg.c: In function ‘LBCSSendUIS’:
+ansi-scmg.c:1345:17: warning: variable ‘resp’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER resp;
+                 ^
+ansi-scmg.c: In function ‘LBCSSendUOS’:
+ansi-scmg.c:1434:17: warning: variable ‘resp’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER resp;
+                 ^
+ansi-scmg.c: In function ‘LBCSSendSSC’:
+ansi-scmg.c:1518:17: warning: variable ‘resp’ set but not used [-Wunused-but-set-variable]
+     MTP3_HEADER resp;
+                 ^
+ansi-scmg.c: In function ‘BCSTSendSSA’:
+ansi-scmg.c:1612:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+ansi-scmg.c: In function ‘BCSTSendSSC’:
+ansi-scmg.c:1883:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info* rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+ansi-scmg.c: In function ‘BCSTSendSSP’:
+ansi-scmg.c:2152:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info* rinfo, *linfo, *tinfo1, *tinfo2;
+                                          ^
+ansi-scmg.c: In function ‘PausePC’:
+ansi-scmg.c:3552:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                          ^
+ansi-scmg.c:3552:33: warning: variable ‘tinfo1’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                 ^
+ansi-scmg.c: In function ‘ResumePC’:
+ansi-scmg.c:3672:42: warning: variable ‘tinfo2’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                          ^
+ansi-scmg.c:3672:33: warning: variable ‘tinfo1’ set but not used [-Wunused-but-set-variable]
+     ROUTE_Info *linfo, *rinfo, *tinfo1, *tinfo2;
+                                 ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sccp_gtt.o ansi-sccp_gtt.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sccp_ifc.o ansi-sccp_ifc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-sccp_alarms.o ansi-sccp_alarms.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-tcap_ifc.o ansi-tcap_ifc.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-cmp.o ansi-cmp.c
+ansi-cmp.c: In function ‘CMPHandleAPPMsg_ANSI’:
+ansi-cmp.c:580:13: warning: variable ‘inv’ set but not used [-Wunused-but-set-variable]
+         int inv = 0;
+             ^
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-tpcpi.o ansi-tpcpi.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-trp.o ansi-trp.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-tcap.o ansi-tcap.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-tcap_context.o ansi-tcap_context.c
+gcc -g -Wall -I. -I/opt/checkout/IntelliSS7/common/include -DCCITT -D_REENTRANT -DUSING_FLEX -DUSE_HEAP -DPLATFORM=linux -DNEED_LARGE_CONTEXT -D_MIT_POSIX_THREADS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -fPIC -I/opt/checkout/IntelliSS7/MTP2/include -I/opt/checkout/IntelliSS7/MTP3/include -I/opt/checkout/IntelliSS7/SNMM/include -I/opt/checkout/IntelliSS7/SLTM/include -I/opt/checkout/IntelliSS7/ISUP/include -I/opt/checkout/IntelliSS7/SCCP/include -I/opt/checkout/IntelliSS7/TCAP/include -I/opt/checkout/IntelliSS7/common/include -I/opt/checkout/eAccelero/cmapi/common -I../include -I../include/ansi -I../include/itu -DINCLUDE_CODEC -DTCAP_CODEC -c -o ansi-tcap_alarms.o ansi-tcap_alarms.c
+ar cruv ../lib/libANSI-VENDORD.a \
+	 ansi.o \
+                ansi-mtp3.o     ansi-mgmt.o   ansi-mtp3_ifc.o ansi-slm.o ansi-slt.o      ansi-smh.o    ansi-srm.o      ansi-stm.o ansi-mtp3_alarms.o ansi-isup.o     ansi-isup_ifc.o  ansi-isup_data.o ansi-isup_context.o  ansi-sprc.o ansi-isup_alarms.o ansi-isup_dis.o ansi-sccp.o     ansi-sclc.o   ansi-scoc.o     ansi-scrc.o ansi-scmg.o     ansi-sccp_gtt.o ansi-sccp_ifc.o ansi-sccp_alarms.o \
+                ansi-tcap_ifc.o ansi-cmp.o  ansi-tpcpi.o  ansi-trp.o ansi-tcap.o     ansi-tcap_context.o ansi-tcap_alarms.o
+a - ansi.o
+a - ansi-mtp3.o
+a - ansi-mgmt.o
+a - ansi-mtp3_ifc.o
+a - ansi-slm.o
+a - ansi-slt.o
+a - ansi-smh.o
+a - ansi-srm.o
+a - ansi-stm.o
+a - ansi-mtp3_alarms.o
+a - ansi-isup.o
+a - ansi-isup_ifc.o
+a - ansi-isup_data.o
+a - ansi-isup_context.o
+a - ansi-sprc.o
+a - ansi-isup_alarms.o
+a - ansi-isup_dis.o
+a - ansi-sccp.o
+a - ansi-sclc.o
+a - ansi-scoc.o
+a - ansi-scrc.o
+a - ansi-scmg.o
+a - ansi-sccp_gtt.o
+a - ansi-sccp_ifc.o
+a - ansi-sccp_alarms.o
+a - ansi-tcap_ifc.o
+a - ansi-cmp.o
+a - ansi-tpcpi.o
+a - ansi-trp.o
+a - ansi-tcap.o
+a - ansi-tcap_context.o
+a - ansi-tcap_alarms.o
+ld -shared --whole-archive -o ../lib/libANSI-VENDORD.so \
+	 ansi.o \
+                ansi-mtp3.o     ansi-mgmt.o   ansi-mtp3_ifc.o ansi-slm.o ansi-slt.o      ansi-smh.o    ansi-srm.o      ansi-stm.o ansi-mtp3_alarms.o ansi-isup.o     ansi-isup_ifc.o  ansi-isup_data.o ansi-isup_context.o  ansi-sprc.o ansi-isup_alarms.o ansi-isup_dis.o ansi-sccp.o     ansi-sclc.o   ansi-scoc.o     ansi-scrc.o ansi-scmg.o     ansi-sccp_gtt.o ansi-sccp_ifc.o ansi-sccp_alarms.o \
+                ansi-tcap_ifc.o ansi-cmp.o  ansi-tpcpi.o  ansi-trp.o ansi-tcap.o     ansi-tcap_context.o ansi-tcap_alarms.o
+for dir in itu_generic_93 itu_isup_97 itu_isup_99 itu_china ansi_generic_92 ansi_isup_95;						\
+do								\
+	(cd $dir && make PROTOCOL=CCITT 		\
+			     DEBUG_BUILD=yes);	\
+done
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/itu_generic_93'
+ar cruv ../../lib/libITU_GENERIC_93D.a itu-isup_93.o  itu-validate_param.o itu-timers.o itu-wait_in_acm_itu93.o  itu-wait_in_anm_itu93.o itu-wait_in_res_itu93.o  itu-wait_in_rlc_itu93.o itu-wait_out_acm_itu93.o itu-wait_out_anm_itu93.o itu-wait_out_res_itu93.o itu-wait_out_rlc_itu93.o itu-rcvd_in_anm_itu93.o  itu-sent_out_anm_itu93.o itu-wait_out_rel_itu93.o itu-idle_itu93.o itu-wait_out_rsc_itu93.o itu-csc_itu93.o itu_generic_state_itu93.o itu-wait_out_gra_itu93.o itu-wait_in_cot_itu93.o itu-wait_cot_report_itu93.o
+r - itu-isup_93.o
+r - itu-validate_param.o
+r - itu-timers.o
+r - itu-wait_in_acm_itu93.o
+r - itu-wait_in_anm_itu93.o
+r - itu-wait_in_res_itu93.o
+r - itu-wait_in_rlc_itu93.o
+r - itu-wait_out_acm_itu93.o
+r - itu-wait_out_anm_itu93.o
+r - itu-wait_out_res_itu93.o
+r - itu-wait_out_rlc_itu93.o
+r - itu-rcvd_in_anm_itu93.o
+r - itu-sent_out_anm_itu93.o
+r - itu-wait_out_rel_itu93.o
+r - itu-idle_itu93.o
+r - itu-wait_out_rsc_itu93.o
+r - itu-csc_itu93.o
+r - itu_generic_state_itu93.o
+r - itu-wait_out_gra_itu93.o
+r - itu-wait_in_cot_itu93.o
+r - itu-wait_cot_report_itu93.o
+ld -shared --whole-archive -o \
+	../../lib/libITU_GENERIC_93D.so \
+	itu-isup_93.o  itu-validate_param.o itu-timers.o itu-wait_in_acm_itu93.o  itu-wait_in_anm_itu93.o itu-wait_in_res_itu93.o  itu-wait_in_rlc_itu93.o itu-wait_out_acm_itu93.o itu-wait_out_anm_itu93.o itu-wait_out_res_itu93.o itu-wait_out_rlc_itu93.o itu-rcvd_in_anm_itu93.o  itu-sent_out_anm_itu93.o itu-wait_out_rel_itu93.o itu-idle_itu93.o itu-wait_out_rsc_itu93.o itu-csc_itu93.o itu_generic_state_itu93.o itu-wait_out_gra_itu93.o itu-wait_in_cot_itu93.o itu-wait_cot_report_itu93.o
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/itu_generic_93'
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/itu_isup_97'
+ar cruv ../../lib/libITU_ISUP_97D.a itu-isup_97.o itu-wait_in_rlc_itu97.o itu-wait_in_res_itu97.o itu-wait_in_anm_itu97.o itu-wait_in_acm_itu97.o itu-sent_out_anm_itu97.o itu-rcvd_in_anm_itu97.o itu-idle_itu97.o itu-wait_out_rsc_itu97.o itu-wait_out_rlc_itu97.o itu-wait_out_res_itu97.o itu-wait_out_rel_itu97.o itu-wait_out_anm_itu97.o itu-wait_out_acm_itu97.o itu-wait_out_gra_itu97.o itu-wait_in_cot_itu97.o itu-wait_cot_report_itu97.o
+r - itu-isup_97.o
+r - itu-wait_in_rlc_itu97.o
+r - itu-wait_in_res_itu97.o
+r - itu-wait_in_anm_itu97.o
+r - itu-wait_in_acm_itu97.o
+r - itu-sent_out_anm_itu97.o
+r - itu-rcvd_in_anm_itu97.o
+r - itu-idle_itu97.o
+r - itu-wait_out_rsc_itu97.o
+r - itu-wait_out_rlc_itu97.o
+r - itu-wait_out_res_itu97.o
+r - itu-wait_out_rel_itu97.o
+r - itu-wait_out_anm_itu97.o
+r - itu-wait_out_acm_itu97.o
+r - itu-wait_out_gra_itu97.o
+r - itu-wait_in_cot_itu97.o
+r - itu-wait_cot_report_itu97.o
+ld -shared --whole-archive -o ../../lib/libITU_ISUP_97D.so \
+	itu-isup_97.o itu-wait_in_rlc_itu97.o itu-wait_in_res_itu97.o itu-wait_in_anm_itu97.o itu-wait_in_acm_itu97.o itu-sent_out_anm_itu97.o itu-rcvd_in_anm_itu97.o itu-idle_itu97.o itu-wait_out_rsc_itu97.o itu-wait_out_rlc_itu97.o itu-wait_out_res_itu97.o itu-wait_out_rel_itu97.o itu-wait_out_anm_itu97.o itu-wait_out_acm_itu97.o itu-wait_out_gra_itu97.o itu-wait_in_cot_itu97.o itu-wait_cot_report_itu97.o
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/itu_isup_97'
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/itu_isup_99'
+ar cruv ../../lib/libITU_ISUP_99D.a itu-isup_99.o itu-idle_itu_99.o itu-wait_in_acm_itu_99.o itu-wait_in_anm_itu_99.o itu-rcvd_in_anm_itu_99.o itu-wait_in_rlc_itu_99.o itu-wait_in_res_itu_99.o itu-wait_out_acm_itu_99.o itu-wait_out_anm_itu_99.o itu-sent_out_anm_itu_99.o itu-wait_out_rlc_itu_99.o itu-wait_out_res_itu_99.o itu-wait_in_cot_itu_99.o itu-wait_cot_report_itu_99.o itu-wait_out_rel_itu_99.o itu-wait_out_rsc_itu_99.o itu-wait_out_gra_itu_99.o
+r - itu-isup_99.o
+r - itu-idle_itu_99.o
+r - itu-wait_in_acm_itu_99.o
+r - itu-wait_in_anm_itu_99.o
+r - itu-rcvd_in_anm_itu_99.o
+r - itu-wait_in_rlc_itu_99.o
+r - itu-wait_in_res_itu_99.o
+r - itu-wait_out_acm_itu_99.o
+r - itu-wait_out_anm_itu_99.o
+r - itu-sent_out_anm_itu_99.o
+r - itu-wait_out_rlc_itu_99.o
+r - itu-wait_out_res_itu_99.o
+r - itu-wait_in_cot_itu_99.o
+r - itu-wait_cot_report_itu_99.o
+r - itu-wait_out_rel_itu_99.o
+r - itu-wait_out_rsc_itu_99.o
+r - itu-wait_out_gra_itu_99.o
+ld -shared --whole-archive -o ../../lib/libITU_ISUP_99D.so \
+	itu-isup_99.o itu-idle_itu_99.o itu-wait_in_acm_itu_99.o itu-wait_in_anm_itu_99.o itu-rcvd_in_anm_itu_99.o itu-wait_in_rlc_itu_99.o itu-wait_in_res_itu_99.o itu-wait_out_acm_itu_99.o itu-wait_out_anm_itu_99.o itu-sent_out_anm_itu_99.o itu-wait_out_rlc_itu_99.o itu-wait_out_res_itu_99.o itu-wait_in_cot_itu_99.o itu-wait_cot_report_itu_99.o itu-wait_out_rel_itu_99.o itu-wait_out_rsc_itu_99.o itu-wait_out_gra_itu_99.o
+ld: itu-idle_itu_99.o: relocation R_X86_64_PC32 against undefined symbol `__ISUP_Received_PRI' can not be used when making a shared object; recompile with -fPIC
+ld: final link failed: Bad value
+make[1]: *** [../../lib/libITU_ISUP_99D.so] Error 1
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/itu_isup_99'
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/itu_china'
+ar cruv ../../lib/libITU_CHINAD.a itu-isup_china.o
+r - itu-isup_china.o
+ld -shared --whole-archive -o ../../lib/libITU_CHINAD.so \
+	itu-isup_china.o
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/itu_china'
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/ansi_generic_92'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/ansi_generic_92'
+make[1]: Entering directory `/opt/checkout/vendors/IntelliNet/src/ansi_isup_95'
+make[1]: Nothing to be done for `all'.
+make[1]: Leaving directory `/opt/checkout/vendors/IntelliNet/src/ansi_isup_95'

@@ -1,0 +1,5 @@
+all		cpp		itu		Makefile
+all		cpp		itu		test_send.ini
+all		cpp		itu		test_send.dsw
+all		cpp		itu		test_send.dsp
+all		cpp		itu		test_send_main.cpp

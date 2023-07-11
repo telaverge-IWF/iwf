@@ -1,0 +1,141 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "DiameterStackConfig";
+
+import "Common.proto";
+
+
+
+message LHTransport {
+	optional fixed32 TransportSlot = 1;
+	optional string  TransportType = 2;
+	optional string  HostIpAddr    = 3;
+	optional fixed32 port          = 4;
+    repeated string  SecondaryIPAddr = 5;
+    optional string  PublicServerIpAddr    = 6;
+    optional fixed32 SecurePort          = 7;
+    optional string transportName = 8;
+    optional bool listen = 9;
+    optional string transportTag = 10;
+    optional fixed32 transportTagID = 11;
+}
+
+message LocalTransportTag {
+       optional fixed32 tagID = 1;
+       optional string tagName = 2;
+}
+
+message LocalTransportTagRequest {
+	optional fixed32 RequestID = 1;
+	repeated LocalTransportTag tags = 2;
+}
+
+message LocalTransportTagResponse {
+	optional fixed32 ResponseID = 1;
+	repeated LocalTransportTag tags = 2;
+	repeated ErrorDetails  ErrorDetails = 3;
+}
+
+
+message LocalHost {
+	optional string   LocalHostName = 1;
+	optional string   RealmName = 2;
+	optional fixed32  AuthSessionTimeout = 3;
+	optional fixed32  AuthSessionLifeTime = 4;
+	optional fixed32  AuthSessionGracePeriod = 5;
+	optional fixed32  AcctSessionInterimInterval = 6;
+	optional fixed32  AcctSessionRealTime = 7;
+	optional fixed32  AcctSessionTimeout = 8;
+	repeated LHTransport  Transports = 9;
+}
+
+
+
+message SctpProtocol {
+	optional bool    HeartBeatEnable    = 1;
+	optional fixed32 HearBeatTimeOut    = 2;
+	optional fixed32 InitialTimeOut     = 3;
+	optional fixed32 MaximumAttempts    = 4;
+	optional fixed32 RTOMaximum         = 5;
+	optional fixed32 RTOMinimum         = 6;
+	optional fixed32 RTOInitial         = 7;
+	optional fixed32 PathFailRetryCount = 8;
+	optional fixed32 CookieLifeTime     = 9;
+	optional fixed32 AssocMaxAttempts   =10;
+	optional fixed32 MaxInStreams       =11;
+	optional fixed32 NumOutStreams      =12;
+	optional fixed32 RecvTimeout        =13;
+	optional fixed32 SendTimeout        =14;
+	optional fixed32 ShutdownTimeout    =15;
+	optional fixed32 SackDelay          =16;
+	optional fixed32 SendBufSize        =17;
+	optional fixed32 RecvBufSize        =18;
+}
+
+
+
+message TrustedCAConfiguration {
+	optional string CAFile  = 1;
+	optional string CRLFile = 2;
+}
+
+message CACRLs {
+       repeated TrustedCAConfiguration TCACfg = 1;
+}
+
+message GeneralConfig {
+	optional bool   EnablePeerIPCheck    = 1;
+	optional bool   IsPredictiveLoopAvdRequired = 2;
+	optional bool   IsSnaptrSupported = 3;
+	optional bool   EnableHexDump = 4;
+}
+
+
+
+message TLSConfig {
+	optional bool   EnableIDVerification = 1;
+	optional bool  EnableCRLVerification = 2;
+}
+
+
+
+message TLSCipherConfig {
+	optional bool   EnableCipherSuite    = 1;
+	optional string CipherSuiteName      = 2;
+}
+
+
+message TLSCipherConfigs {
+	repeated TLSCipherConfig TLSCiphers = 1;
+}
+
+
+
+
+message StackConfiguration {
+	optional GeneralConfig GConfig    = 1;
+	optional TLSConfig     TConfig    = 2;
+	optional LocalHost     LHost   = 3;
+	optional SctpProtocol  Sctp     = 4;
+	optional TLSCipherConfigs TLSCiphers =5;
+	optional CACRLs CaCrL = 6;
+}
+
+
+
+message StackConfigRequest {
+	required fixed32       RequestID  = 1;
+	optional StackConfiguration StackConfig = 2;
+}
+
+
+
+message StackConfigResponse {
+	required fixed32  ResponseID = 1;
+	optional fixed32  RequestID  = 2;
+	optional StackConfiguration StackConfig = 3;
+	repeated ErrorDetails  ErrorDetails = 4;
+}
+
+%PB}
+

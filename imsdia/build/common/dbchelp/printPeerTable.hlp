@@ -1,0 +1,35 @@
+Diameter Command
+
+SYNOPSIS
+    printPeerTable
+
+DESCRIPTION
+    This command prints all peer table entry.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+    >> printPeerTable
+------------------------------------------------------------
+-- Peer Table Begin --
+------------------------------------------------------------
+
+Size: <1>
+
+Entries:
+--------------------------------------------------
+HostIdentity          = nemo
+RealmName             = india.internal.net
+isStatic              = 0
+TLS Enabled           = 0
+Transport Type        = 0
+Ip address            = 172.16.3.1
+Port No               = 1912
+Alternate Peer Status = 0
+--------------------------------------------------
+------------------------------------------------------------
+-- Peer Table End --
+------------------------------------------------------------
+
+

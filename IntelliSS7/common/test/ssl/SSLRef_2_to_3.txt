@@ -1,0 +1,211 @@
+SSLRef_2_to_3.txt
+=================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document describes issues and suggestions for adding SSLRef 3.0
+support to software currently using SSLRef 2.0. This discussion is based
+on the ssld example software provided with SSLRef 2.0 and the sample
+application provided with SSLRef 3.0 (in the "sample" folder).
+
+Most readers will probably also want to read the documents describing
+the SSLRef 3.0 API and the overview of its architecture.
+
+This document contains these sections:
+
+  - Overview of Updating Process
+  - General Differences
+  - SSL Connection Scenario
+  - Making Changes to Your Code
+
+
+Overview of Updating Process
+----------------------------
+Updating existing software currently based on SSLRef 2.0 to use SSLRef
+3.0 may require some changes to your software, or may require some glue
+code specific to your software. However, you may find the example code
+provided with SSLRef 3.0, and described here, is sufficient for your
+needs.
+
+First, note the general differences between SSLRef 2.0 and SSLRef 3.0.
+Reviewing the documentation describing the SSLRef 3.0 API and
+architecture may be helpful.
+
+Next, identify and modify the routines in your code that currently use
+SSLRef 2.0 calls. If your software makes heavy use of SSLRef 2.0
+features, you may find it is easier to redesign some of your code around
+the SSLRef 3.0 model, rather than try to merge the SSLRef 3.0 API into
+your existing model. This document provides an example of fitting SSLRef
+3.0 into a design based upon SSLRef 2.0.
+
+Finally, you must provide suitable SSLRef 3.0 callback routines to
+provide platform-specific capabilities to SSLRef 3.0.
+
+
+General Differences
+-------------------
+SSLRef 3.0 differs from version 2.0 in a few significant ways:
+
+SSLRef 3.0 encapsulates all data structures associated with an SSL
+session in a single SSLContext structure. The SSLContext structure must
+be unique for each SSL session and is passed as a parameter to most
+SSLRef 3.0 calls. This allows SSLRef 3.0 to be used in a thread-safe
+manner.
+
+SSLRef 3.0 uses a callback mechanism to abstract the SSL protocol from
+platform specific code such as that used for allocating memory and
+managing the network connection. Consequently there should be no need to
+modify the SSLRef 3.0 source code to make use of it on the supported
+platforms. However, the callback routines must be provided for the
+target platform.
+
+SSLRef 3.0 does not support some features found in SSLRef 2.0. These
+include some X.509v1 certificate support as well as a PEM-style
+certificate request tool.
+
+
+SSL Connection Scenario
+-----------------------
+A typical application based upon SSLRef 2.0, such as ssld, included with
+the SSLRef 2.0 package, proceeds with these steps to manage an SSL
+connection. (Relevant SSLRef 2.0 calls are in parenthethese.)
+
+  - Read Certificates (S_ReadCertificate)
+  - Read Private Key (S_GetPassword and PKCS8_ReadPrivateKey)
+  - Set Server and Client Info with certificate and key
+     (SSL_ServerInfo and SSL_ClientInfo)
+  - open socket (SSLd version)
+  - Create SSLSession on socket (SSL_Create)
+  - SSL_Handshake, specifying the protocol side
+  - SSL_Read/SSL_Write
+  - close socket (SSLd version)
+  - SSL_Destroy
+
+The corresponding sequence for SSLRef 3.0 is
+
+  - Create an SSLContext (malloc using SSLContextSize)
+  - Initialize SSLContext (ConfigureGenericSSLSession)
+  - Read and Add Certificates to SSLContext (AddCertificates)
+  - Read and Add Private Key to SSLContext (ReadPrivateKey)
+  - SSLSetProtocolVersion
+  - SSLSetProtocolSide
+  - open network connection (non-SSL call)
+  - SSLSetIORef with a pointer to the network connection
+  - SSLSetPeerID (not required)
+  - SSLHandshake
+  - SSLRead/SSLWrite
+  - SSLClose
+  - close network connection (non-SSL call)
+  - SSLDeleteContext
+
+Items in parenthethese indicate relevant calls to SSLRef 3.0 and
+associated sample code (TestSSL.c).
+
+Note that the order of items differs somewhat between SSLRef 2.0 and
+SSLRef 3.0. The basic scenario for SSLRef 3.0 is to
+
+  - create the SSLContext structure
+  - set appropriate fields in the SSLContext
+  - establish a network connection
+  - update the SSLContext with session-specific information
+  - handshake, transfer data, terminate the SSL connection
+  - then close the network connection
+
+The exact order of setting fields in the SSLContext structure is
+generally unimportant. However, The allocation callbacks should be set
+early because some calls use them to set the fields of the SSLContext.
+Typically a generic SSLContext structure is created with
+session-independent data, and then it is duplicated using
+SSLDuplicateContext() to create a unique instance for each session.
+
+
+Making Changes to Your Code
+---------------------------
+To provide basic SSL support to existing software, make these changes:
+
+Provide support for the required SSLRef 3.0 callback functions. You can
+use the code provided in these files included with the SSLRef 3.0
+package: Test.c, TestDB.c and TestIO.c. Note that these files
+are example code and may not represent the best implementation of the
+required capabilities. You also may have to make changes to these files
+to support your target platform.
+
+Copy these routines from TestSSL.c:
+  - ConfigureGenericSSLSession()
+  - ReadPrivateKey()
+  - AddCertificates()
+
+Again note that these routines are example code and may not represent
+the best implementation of the required capabilities. You should take
+special care to choose a cryptographically secure routine for generating
+random numbers.
+
+Instead of calling SSLRef 2.0's SSL_Create(), you must malloc an
+SSLContext, using the size returned by SSLContextSize() and then call
+ConfigureGenericSSLSession() (in TestSSL.c) to set the callback
+functions and other parameters.
+
+SSLRef 2.0's S_ReadCertificate() method can be replaced with
+AddCertificates() from TestSSL.c. Note, however, that certificates are
+specific to an SSLContext structure, and consequently specific to an
+individual SSL session in SSLRef 3.0. It may be most convenient to begin
+with a generic SSLContext with the desired certificates and then use
+SSLDuplicateContext() to create a new instance for each SSL session.
+
+Also note that the AddCertificates() sample routine uses a hard coded
+filename. You may want to modify it to take a filename as a parameter.
+
+Instead of calling SSLRef 2.0's S_GetPassword() and
+PKCS8_ReadPrivateKey(), call the ReadPrivateKey() found in TestSSL.c.
+ReadPrivateKey() uses a hard coded filename; so, you may want to modify
+it to accept a filename as a parameter. Note that in SSLRef 3.0
+passwords are specific to each SSL session.
+
+SSLRef 2.0 uses SSL_ServerInfo() and SSL_ClientInfo() to install the
+certificate and key information. In SSLRef 3.0 this is handled by the
+SSL calls made in AddCertificates() and ReadPrivateKey().
+
+SSLRef 2.0 requires that a network socket be opened, and then
+SSL_Create() is used to begin using the socket for an SSL session.
+SSLRef 3.0 is similar in that it requires the network connection be
+opened and identified in the SSLContext. Actual data transfer over the
+network connection will be handled by the read and write callback
+functions you provide.
+
+Instead of calling SSL_Create(), you must use the SSLContext previously
+configured and identify the connection port using SSLSetIORef(), specify
+if the connection is to be as client or server using
+SSLSetProtocolSide(), and specify how the SSL protocol version will be
+negotiated (SSLSetProtocolVersion()). If you want to support resumable
+sessions, you must also provide a unique identifier for the SSL peer
+using SSLSetPeerID().
+
+Instead of SSLRef 2.0's SSL_Handshake(), use SSLHandshake() to initiate
+the handshake process. Note that the server/client option is set with
+the earlier call to SSLSetProtocolSide() before calling SSLHandshake().
+(Actually, SSLHandshake() is optional. It is called automatically by
+SSLRead and SSLWrite as necessary to establish a session if the session
+was not already established.)
+
+SSLRef 2.0's SSL_Read() and SSL_Write() are replaced with the
+corresponding SSLRead() and SSLWrite() calls of SSLRef 3.0.
+
+Finally, before closing the network connection, you must call SSLClose()
+to allow the SSL protocol to inform the peer that the session is
+terminating as intended. This ensures that all the transmitted data was
+received; that nothing was improperly missing.
+
+The network connection can be closed, and the resources released by
+calling SSLDeleteContext() instead of SSLRef 2.0's SSL_Destroy().
+

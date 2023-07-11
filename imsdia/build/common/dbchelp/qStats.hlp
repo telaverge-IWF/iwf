@@ -1,0 +1,19 @@
+Diameter Command
+
+SYNOPSIS
+    qStats
+
+DESCRIPTION
+    This command will Print the Diameter Queue Status
+
+PARAMETERS
+    none.
+
+EXAMPLE
+    >> qStats 
+
+       Diameter Stack Upstream Q Count = 100
+
+       Diameter Stack DownStream Q Count = 200
+
+

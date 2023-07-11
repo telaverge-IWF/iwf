@@ -1,0 +1,107 @@
+
+This is the top level IMS Diameter project directory.
+
+Please refer the make.dirs file for compilation flags
+and options that can be passed to sublevel Makefile's
+in the directories. All sub-level directories reference
+this "make.dirs" for compiler/linker options.
+
+Important Compilation Instructions:
+
+The following environment variable are mandatory before
+executing make, to compile the project.
+
+ITS_ROOT: Env Variable pointing to the base IntelliSS7
+project directory. The Baseline Tag for IntelliSS7
+for IMS Project is B-IDIA-0100-00
+Ex: export ITS_ROOT=$HOME/cvsroot/IntelliSS7
+
+IMS_ROOT: Env Variable pointing to the base ims project directory. ie.
+current working directory
+Ex: export IMS_ROOT=$HOME/cvsroot/imsdia
+
+IMS_TOOLS: Environment Variable pointing to the base directory
+where all tools needed (viz. Xerces, Ace, Boost, OpenDiameter)
+are kept.
+Ex: export IMS_TOOLS=$HOME/cvsroot/imstools
+
+XERCESCROOT: Env Variable pointing to the xerces base directory
+Ex: export XERCESCROOT=$IMS_TOOLS/tools/xerces-c-src_2_7_0
+
+ACE_ROOT: Env Variable pointing to the ACE toolkit base directory
+Ex: export ACE_ROOT=$IMS_TOOLS/tools/ACE_wrappers
+
+BOOST_ROOT: Env Variable pointing to the BOOST toolkit base directory
+Ex: export BOOST_ROOT=$IMS_TOOLS/tools/boost_1_33_1
+
+DIAMETER_ROOT:  Env Variable pointing to the Open Diameter base directory
+Ex: export DIAMETER_ROOT=$IMS_TOOLS/vendors/opendiameter-1.0.7-g
+
+PLATFORM: Environment Variable based on the type of the system.
+solaris or linux
+
+LD_LIBRARY_PATH can include the following paths.
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$XERCESCROOT/lib:$ACE_ROOT/build/ace/.libs
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/lib
+
+export LD_LIBRARY_PATH
+
+
+For any questions/concerns 
+Email: techsupport@intellinet-india.com
+
+
+On ES3.0
+
+the include file for kerberos in  
+/usr/kerberos/include instead of /usr/include
+
+Solution: 
+-------- 
+1. Make sure you have the krb5-devel and krb5-libs rpms installed.
+2. Create Symlink for the following files as follows:
+
+
+    ln -s /usr/kerberos/include/com_err.h /usr/include/ 
+    ln -s /usr/kerberos/include/profile.h /usr/include/
+    ln -s /usr/kerberos/include/krb5.h /usr/include/
+
+Solaris 10:
+
+I have been able to succesfully build Open Diameter
+on solaris 10.
+
+SunOS magoo 5.10 Generic sun4u sparc SUNW,Ultra-5_10
+
+gcc --version
+gcc (GCC) 3.4.3 (csl-sol210-3_4-branch+sol_rpath)
+(Preinstalled gcc when you install solaris 10 with
+the dev. Packages: NOTE; it's installed in /usr/sfw/bin)
+
+make --version GNU Make 3.80
+
+I have followed steps provided by Jean-Francois Bertrand
+on the OD Wiki to the tee.
+
+Just minor updates specifically for Solaris 10:
+
+On Solaris 10 the libstdc++.la in /usr/sfw/lib and
+/usr/sfw/lib/64 are empty by default (weird..)
+
+Please copy them from the local directory to
+/usr/sfw directories mentioned above.
+
+Or download it from the following site:
+http://forum.sun.com/thread.jspa?threadID=22817
+
+You would also need to setup a soft link to libACE_SSL.a
+in the ACE_wrappers/ACE directory
+     ln -s SSL/libACE_SSL.a libACE_SSL.a
+
+
+Thanks
+Yogesh
+

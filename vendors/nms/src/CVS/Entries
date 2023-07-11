@@ -1,0 +1,25 @@
+/.cvsignore/9.1/Wed Mar 23 12:56:15 2005//TB-IWF-HP-0400-00
+/ITSinst1.ini/9.1/Wed Mar 23 12:56:15 2005//TB-IWF-HP-0400-00
+/ITSinst2.ini/9.1/Wed Mar 23 12:56:15 2005//TB-IWF-HP-0400-00
+/Makefile/9.3.36.1/Fri Apr 16 08:07:10 2010//TB-IWF-HP-0400-00
+/hmi.c/9.1/Wed Mar 23 12:56:15 2005//TB-IWF-HP-0400-00
+/isup.c/9.1/Wed Mar 23 12:56:15 2005//TB-IWF-HP-0400-00
+/isup_translate.c/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/makeall/1.1.2.1/Wed Apr 14 11:33:15 2010//TB-IWF-HP-0400-00
+/makeclean/1.1.2.1/Wed Apr 14 11:33:15 2010//TB-IWF-HP-0400-00
+/mtp2.c/9.10/Thu May 29 11:59:52 2008//TB-IWF-HP-0400-00
+/mtp2_alarms.c/9.1/Mon Apr 11 09:56:51 2005//TB-IWF-HP-0400-00
+/mtp3.c/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/sccp.c/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/tcap.c/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/transport.c/9.4.36.1/Fri Feb 19 08:16:44 2010//TB-IWF-HP-0400-00
+/v2_01.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v2_12.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v3_0.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v3_5.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v3_5_dll.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v3_8.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/v3_8_dll.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/vendor.dsp/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+/vendor.dsw/9.1/Wed Mar 23 12:56:16 2005//TB-IWF-HP-0400-00
+D

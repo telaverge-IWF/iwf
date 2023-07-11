@@ -1,0 +1,30 @@
+#!/bin/bash
+PRODUCT=iwf
+source /opt/diametriq/${PRODUCT}/scripts/package_functions.sh
+# file sync
+
+if [ "`GetDreInstallMode`" == "1" ];then
+    PLOG_INFO "DRE is in standalone mode!" $LINENO
+    exit 1
+fi
+
+remote_username="`GetRemoteNodeUsername`"
+remote_ipaddress="`GetRemoteNodeIP`"
+config_file="/opt/diametriq/${PRODUCT}/config/config_dir_file.cfg"
+
+for sync_path in `cat $config_file`
+do
+    if [ -e "$sync_path" ]
+    then
+        if [ -d "$sync_path" ]
+        then
+            rsync -rPvaz --exclude=".*" --delete $remote_username@$remote_ipaddress:$sync_path/ $sync_path
+        else
+            rsync -rPvaz --exclude=".*" --delete $remote_username@$remote_ipaddress:$sync_path $sync_path
+        fi
+    else
+        PLOG_ERROR "NOTE:- $sync_path doesn't exist, so skipped to sync." $LINENO
+    fi
+done
+
+PLOG_INFO "Sucessfully synced !!!" $LINENO

@@ -1,0 +1,1 @@
+/usr/bin/c++    -fno-implicit-templates -fno-exceptions -fno-rtti -O2 -g -DNDEBUG -DDBUG_OFF    CMakeFiles/bug25714.dir/bug25714.c.o  -o bug25714  -lpthread ../libmysql/libmysqlclient.a -lpthread ../probes_mysql.o -lz -lm -ldl 

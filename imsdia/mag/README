@@ -1,0 +1,131 @@
+DiaMAG - Diameter Messaging API Generator
+
+
+DiaMAG is a Diameter dictionary and C++/Java API generator. It is implemented
+as a pure J2SE application.
+
+(Note: Java API generation is not implemented yet.)
+ 
+
+Build DiaMAG
+============
+
+
+0. Make sure J2SE 1.5 SDK is installed and the SDK tools are available from the
+   command prompt.
+
+   You will also need GNU make 3.80, which has been available since 2002.
+
+   A copy of SableCC 3.2, a Java compiler compiler that DiaMAG uses, is
+   maintained in 'diameter/mag/bin' so there is no need to install this tool
+   separately.
+
+1. Generate the compiler, compile the Java source, and build DiaMAG:
+
+    % make -C diameter/mag/src
+
+   This should create diamag.jar in 'diameter/mag/bin' directory.
+
+
+Use of DiaMAG
+=============
+
+
+Input and other settings to DiaMAG are specified on the command-line.
+Typing the following command-line shows the usage of this generator.
+
+    % java -jar diameter/mag/bin/diamag.jar
+    Usage: java -jar diamag.jar COMMANDS PROTOCOL1 PROTOCOL2 ...
+      where COMMANDS can be any combination of
+        --dictionary:FILE-NAME
+        --c++:SOURCE-ROOT
+        --java:SOURCE-ROOT
+
+--dictionary:DICTIONARY-FILE-NAME
+
+    This action asks DiaMAG to generate an OpenDiameter dictionary for the given
+    Diameter protocols into the named file. Note that the file name immediately
+    follows the colon. No space shall be in between.
+
+--c++:SOURCE-ROOT
+
+    This action asks DiaMAG to generate C++ API classes for the given Diameter
+    protocols into the named directories. If SOURCE-ROOT doesn't exist, DiaMAG
+    will try to create it. DiaMAG will place header files into
+    SOURCE-ROOT/include and source files into SOURCE-ROOT/src. Test program
+    templates will be placed into SOURCE-ROOT/test.
+
+--java:SOURCE-ROOT
+
+    This action asks DiaMAG to generate Java API classes for the given Diameter
+    protocols into the named directory. If SOURCE-ROOT doesn't exist, DiaMAG
+    will try to create it.
+
+
+Protocol Specifications
+=======================
+
+
+The protocol specification we use as input to DiaMAG is based on the same ABNF
+notation used by Diameter RFC texts. This format is chosen so that it is a
+very simple task to write a specification from the RFC text of a Diameter
+application.
+
+Also, each individual Diameter application protocol is to be defined in a
+separate protocol specification file. AVPs referenced but already defined in
+other protocols should not be redefined.
+
+For a formal definition of this input format, read
+
+    diameter/mag/src/diameter.sablecc
+
+For a good example of a protocol specification, read
+
+    diameter/mag/protocols/rfc3588.protocol
+
+
+Syntax Check List
+
+  - The specification is case-sensitive
+  - Namespace shall match the protocol. For examples, use diameter.cxdx for
+    Cx-Dx, and diameter.sh for Sh
+  - "::=" is a single token; no spaces shall appear within
+  - AVP names and command names shall NOT be enclosed between < and >
+  - All fixed AVPs shall appear before other AVPs, and all required AVPs shall
+    appear before optional AVPs
+
+
+Semantic Check List
+
+  - All Enumerated AVP types must have its enumerated values defined
+  - All Grouped AVP types must have its contents defined
+
+
+Protocol Dependency
+===================
+
+
+Protocols with dependency between them shall be provided to DiaMAG at the same
+time so that cross references can be resolved. This means all Diameter
+application protocols shall be provided to DiaMAG along with the base protocol.
+A dependant protocol shall always follow the protocols on which it depends on
+the command line.
+
+This may cause the same API (in particular, the base protocol API) to be
+generated again and again. This is a waste but fortunately not necessary a
+problem, and will be addressed in a future release of DiaMAG.
+
+
+Usage Examples
+==============
+
+
+To generate the OpenDiameter dictionary into "dict/dictionary.xml" and the C++
+API into api/c++ directory for the Cx/Dx interfaces,
+
+    % java -jar diameter/mag/bin/diamag.jar \
+      --dictionary:dict/dictionary.xml \
+      --c++:api/c++/include%api/c++/src rfc3588.protocol cxdx.protocol
+
+(Note: the above command should be entered as a single line)
+

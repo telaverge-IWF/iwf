@@ -1,0 +1,29 @@
+/.gitignore/1.1.10.2/Mon Apr 20 08:47:47 2020//TB-IWF-HP-0400-00
+/AUTHORS/1.1.10.2/Mon Apr 20 08:47:47 2020//TB-IWF-HP-0400-00
+/COPYING/1.1.10.2/Mon Apr 20 08:47:47 2020//TB-IWF-HP-0400-00
+/ChangeLog/1.1.10.2/Mon Apr 20 08:47:47 2020//TB-IWF-HP-0400-00
+/INSTALL/1.1.10.2/Mon Apr 20 08:47:47 2020//TB-IWF-HP-0400-00
+/LICENSE/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/Makefile/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/Makefile.am/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/Makefile.in/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/NEWS/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/README/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/TODO/1.1.10.2/Mon Apr 20 08:47:48 2020//TB-IWF-HP-0400-00
+/acinclude.m4/1.1.10.2/Mon Apr 20 08:47:49 2020//TB-IWF-HP-0400-00
+/aclocal.m4/1.1.10.2/Mon Apr 20 08:47:49 2020//TB-IWF-HP-0400-00
+/config.log/1.1.10.2/Mon Apr 20 08:47:49 2020//TB-IWF-HP-0400-00
+/config.status/1.1.10.2/Mon Apr 20 08:47:49 2020//TB-IWF-HP-0400-00
+/configure/1.1.10.2/Mon Apr 20 08:47:50 2020//TB-IWF-HP-0400-00
+/configure.ac/1.1.10.2/Mon Apr 20 08:47:50 2020//TB-IWF-HP-0400-00
+/libtool/1.1.10.2/Mon Apr 20 08:47:50 2020//TB-IWF-HP-0400-00
+D/autom4te.cache////
+D/aux////
+D/config////
+D/doc////
+D/include////
+D/lib////
+D/scripts////
+D/share////
+D/src////
+D/tests////

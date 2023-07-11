@@ -1,0 +1,20 @@
+Diameter Command
+ 
+SYNOPSIS
+    disconnectAllPeer <disCause>
+ 
+DESCRIPTION
+    This command will send disconnect peer request to all peer is 
+    I-OPEN or R-OPEN state.
+    After peer come into CLOSED state we can remove its entry from
+    peer table by using removePeer MML.
+ 
+PARAMETERS
+ 
+    disCause      Disconnect Cause(Values are  0:Rebooting, 1:Busy,
+                                       2:Do not want to talk you )
+EXAMPLE
+    >> disconnectAllPeer 2
+ 
+       Executed Disconnect All Peers Successfully
+ 

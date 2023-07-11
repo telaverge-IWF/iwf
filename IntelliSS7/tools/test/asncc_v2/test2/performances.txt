@@ -1,0 +1,27 @@
+
+[To be done.]
+
+
+Former results (all descriptions of ASN.1 types were not static):
+-----------------------------------------------------------------
+
+Debug mode:
+-----------
+
+- 10000 iterations => 77 s => 7.7 ms for encode / decode cycle.
+100% of CPU. No memory leak.
+
+- Profiler:
+
+25% - operator delete(void *)
+6.5% - std::_Allocate(int unsigned char*)
+5.3% - std::_Allocate(int, char*)
+...
+
+
+Release mode:
+-------------
+
+- 10000 iterations => 17 s = > 1.7 ms for encode / decode cycle.
+
+

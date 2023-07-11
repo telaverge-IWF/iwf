@@ -1,0 +1,11 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+mozilla $IMS_ROOT/docs/html/index.html &
+exit 0

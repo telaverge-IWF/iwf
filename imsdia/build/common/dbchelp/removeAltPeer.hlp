@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    removeAltPeer <hostName> <realmName>
+
+DESCRIPTION
+    This command will the remove alternate peer entry for peer.
+
+PARAMETERS
+    hostName      Peer Host Name.
+
+    realmName     Realm Name served for peer.
+
+EXAMPLE
+    >> removeAltPeer nemo india.internal.net 
+
+       Successfully removed Alternate Peer

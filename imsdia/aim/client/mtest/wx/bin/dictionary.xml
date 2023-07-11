@@ -1,0 +1,26 @@
+<dictionary>
+
+<!-- type =0 -> OctetString -->
+<!-- type =1 -> Integer32 -->
+<!-- type =2 -> Integer64 -->
+<!-- type =3 -> Unsigned32 -->
+<!-- type =4 -> Unsigned64 -->
+<!-- type =5 -> Address -->
+<!-- type =6 -> Time -->
+<!-- type =7 -> URI -->
+<!-- type =8 -> UTF8String -->
+<!-- type =9 -> Identity -->
+<!-- type =10 -> IPFilterRule -->
+<!-- type =11 -> Enumerated -->
+<!-- type =20 -> Grouped -->
+
+<avp avpIndex="1" name="My-User-Data" code="1200" mand="1" encr="0" type = "0" venId="0"/>
+<command name="Capabilities-Exchange-Request" code="257" appId="0" >
+         <req>
+               <avprule avpIndex="1"/>
+         </req>
+</command>
+
+</dictionary>
+
+

@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    setHMITimeout  <tout>
+
+DESCRIPTION
+    This command is used to set HMI Timeout.
+
+PARAMETERS
+    <tout>    HMI Timeout
+
+EXAMPLE
+    >> setHMITimeout 5
+       HMI Timeout Set
+

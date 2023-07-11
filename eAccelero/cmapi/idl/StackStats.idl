@@ -1,0 +1,124 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "StackStatistics";
+
+    import "Common.proto";
+
+message ApplicationspecStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message ApplicationspecStatsResp {
+    required fixed32 ResponseId        = 1;
+    optional uint64 TotalReqIn              = 2;
+    optional uint64 TotalReqout             = 3;
+    optional uint64 TotalAnsIn              = 4;
+    optional uint64 TotalAnsout             = 5;
+    repeated ErrorDetails ErrorDetails = 6;
+}
+
+message ResetApplicationspecStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message ResetApplicationspecStatsResp {
+    required fixed32 ResponseId        = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+
+
+message StackIndicationStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message StackIndicationStatsResp {
+    required fixed32 ResponseId          = 1;
+    optional uint64 DisconnectIndication = 2;
+    optional uint64 TimeoutIndication    = 3;
+    optional uint64 AbortIndication      = 4;
+    optional uint64 CorruptIndication    = 5;
+    optional uint64 UnknownIndication    = 6;
+    optional uint64 FailOverIndication   = 7;
+    optional uint64 FailBackIndication   = 8;
+    repeated ErrorDetails ErrorDetails   = 9;
+}
+
+message ResetStackIndicationStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message ResetStackIndicationStatsResp {
+    required fixed32 ResponseId        = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+
+message GenericErrorStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message GenericErrorStatsResp {
+    required fixed32 ResponseId          = 1;
+    optional uint64 MalformedMessages    = 2;
+    optional uint64 HopByHopDropMessages = 4;
+    optional uint64 AnswerWithEbitSetIn  = 5;
+    optional uint64 AnswerWithEbitSetout = 6;
+    optional uint64 FailureResponses     = 7;
+    repeated ErrorDetails ErrorDetails   = 8;
+}
+
+message ResetGenericErrorStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message ResetGenericErrorStatsResp {
+    required fixed32 ResponseId        = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+
+message GenericStatsReq {
+    required fixed32 RequestId = 1;
+}
+
+message GenericStatsResp {
+    required fixed32 ResponseId          = 1;
+    optional uint64 TotalHandledMessages = 2;
+    optional uint64 CurrentActiveSession = 3;
+    repeated ErrorDetails ErrorDetails   = 4;
+}
+
+message ResetGenericStatsReq { 
+    required fixed32 RequestId = 1;
+}
+
+message ResetGenericStatsResp {
+    required fixed32 ResponseId        = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+
+%PB}
+
+
+interface StackStats
+{
+    FetchApplicationSpecificMessageStats(ApplicationspecStatsReq Req,
+            ApplicationspecStatsResp Resp)uses_PB;
+
+    FetchStackIndicationStats(StackIndicationStatsReq Req,
+            StackIndicationStatsResp Resp)uses_PB;
+
+    ResetApplicationSpecificMessageStats(ResetApplicationspecStatsReq Req,
+            ResetApplicationspecStatsResp Resp)uses_PB;
+
+    ResetStackIndicationStats(ResetStackIndicationStatsReq Req,
+            ResetStackIndicationStatsResp Resp)uses_PB;
+
+    FetchGenericErrorStats(GenericErrorStatsReq Req, GenericErrorStatsResp Resp)uses_PB;
+
+    ResetGenericErrorStats(ResetGenericErrorStatsReq Req, ResetGenericErrorStatsResp Resp)uses_PB;
+
+    FetchGenericStats(GenericStatsReq Req, GenericStatsResp Resp)uses_PB;
+
+    ResetGenericStats(ResetGenericStatsReq Req, ResetGenericStatsResp Resp)uses_PB;
+
+
+}

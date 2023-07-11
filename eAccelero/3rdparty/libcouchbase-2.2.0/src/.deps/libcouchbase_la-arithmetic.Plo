@@ -1,0 +1,319 @@
+src/libcouchbase_la-arithmetic.lo: src/arithmetic.c \
+ /usr/include/stdc-predef.h src/internal.h src/config.h \
+ src/config_static.h /usr/include/sys/types.h /usr/include/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/time.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/byteswap-16.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h \
+ /usr/include/sys/socket.h /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/bits/socket.h /usr/include/bits/socket_type.h \
+ /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
+ /usr/include/asm-generic/socket.h /usr/include/asm/sockios.h \
+ /usr/include/asm-generic/sockios.h /usr/include/netinet/in.h \
+ /usr/include/bits/in.h /usr/include/inttypes.h /usr/include/netdb.h \
+ /usr/include/rpc/netdb.h /usr/include/bits/siginfo.h \
+ /usr/include/bits/netdb.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
+ /usr/include/bits/confname.h /usr/include/getopt.h /usr/include/stdlib.h \
+ /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
+ /usr/include/xlocale.h /usr/include/alloca.h \
+ /usr/include/bits/stdlib-float.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdarg.h \
+ /usr/include/sys/time.h /usr/include/string.h /usr/include/bits/string.h \
+ /usr/include/bits/string2.h /usr/include/strings.h /usr/include/fcntl.h \
+ /usr/include/bits/fcntl.h /usr/include/bits/fcntl-linux.h \
+ /usr/include/linux/falloc.h /usr/include/bits/stat.h \
+ /usr/include/dlfcn.h /usr/include/bits/dlfcn.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/limits.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/syslimits.h \
+ /usr/include/limits.h /usr/include/bits/posix1_lim.h \
+ /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
+ /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
+ /usr/include/bits/stdio_lim.h src/trace.h src/probes.h \
+ /usr/include/sys/sdt.h /usr/include/sys/sdt-config.h \
+ /usr/include/errno.h /usr/include/bits/errno.h \
+ /usr/include/linux/errno.h /usr/include/asm/errno.h \
+ /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
+ /usr/include/stdio.h /usr/include/libio.h /usr/include/_G_config.h \
+ /usr/include/wchar.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/sys/stat.h /usr/include/ctype.h \
+ include/memcached/protocol_binary.h include/memcached/vbucket.h \
+ include/ep-engine/command_ids.h include/libvbucket/vbucket.h \
+ include/libvbucket/visibility.h include/libcouchbase/couchbase.h \
+ /usr/include/bits/timex.h include/libcouchbase/configuration.h \
+ include/libcouchbase/assert.h /usr/include/assert.h \
+ include/libcouchbase/visibility.h include/libcouchbase/error.h \
+ include/libcouchbase/types.h include/libcouchbase/http.h \
+ include/libcouchbase/arguments.h include/libcouchbase/sanitycheck.h \
+ include/libcouchbase/compat.h include/libcouchbase/behavior.h \
+ include/libcouchbase/durability.h include/libcouchbase/callbacks.h \
+ include/libcouchbase/timings.h include/libcouchbase/cntl.h \
+ contrib/cbsasl/include/cbsasl/cbsasl.h \
+ contrib/cbsasl/include/cbsasl/visibility.h \
+ contrib/http_parser/http_parser.h src/ringbuffer.h src/list.h \
+ src/url_encoding.h src/hashset.h src/genhash.h src/debug.h src/handler.h \
+ src/lcbio.h
+
+/usr/include/stdc-predef.h:
+
+src/internal.h:
+
+src/config.h:
+
+src/config_static.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/time.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stddef.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/sysmacros.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdint.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/sys/uio.h:
+
+/usr/include/bits/uio.h:
+
+/usr/include/bits/socket.h:
+
+/usr/include/bits/socket_type.h:
+
+/usr/include/bits/sockaddr.h:
+
+/usr/include/asm/socket.h:
+
+/usr/include/asm-generic/socket.h:
+
+/usr/include/asm/sockios.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/include/netinet/in.h:
+
+/usr/include/bits/in.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/netdb.h:
+
+/usr/include/rpc/netdb.h:
+
+/usr/include/bits/siginfo.h:
+
+/usr/include/bits/netdb.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/environments.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/getopt.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/xlocale.h:
+
+/usr/include/alloca.h:
+
+/usr/include/bits/stdlib-float.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/stdarg.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/string.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/include/strings.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/bits/fcntl.h:
+
+/usr/include/bits/fcntl-linux.h:
+
+/usr/include/linux/falloc.h:
+
+/usr/include/bits/stat.h:
+
+/usr/include/dlfcn.h:
+
+/usr/include/bits/dlfcn.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/limits.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/syslimits.h:
+
+/usr/include/limits.h:
+
+/usr/include/bits/posix1_lim.h:
+
+/usr/include/bits/local_lim.h:
+
+/usr/include/linux/limits.h:
+
+/usr/include/bits/posix2_lim.h:
+
+/usr/include/bits/xopen_lim.h:
+
+/usr/include/bits/stdio_lim.h:
+
+src/trace.h:
+
+src/probes.h:
+
+/usr/include/sys/sdt.h:
+
+/usr/include/sys/sdt-config.h:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/sys/stat.h:
+
+/usr/include/ctype.h:
+
+include/memcached/protocol_binary.h:
+
+include/memcached/vbucket.h:
+
+include/ep-engine/command_ids.h:
+
+include/libvbucket/vbucket.h:
+
+include/libvbucket/visibility.h:
+
+include/libcouchbase/couchbase.h:
+
+/usr/include/bits/timex.h:
+
+include/libcouchbase/configuration.h:
+
+include/libcouchbase/assert.h:
+
+/usr/include/assert.h:
+
+include/libcouchbase/visibility.h:
+
+include/libcouchbase/error.h:
+
+include/libcouchbase/types.h:
+
+include/libcouchbase/http.h:
+
+include/libcouchbase/arguments.h:
+
+include/libcouchbase/sanitycheck.h:
+
+include/libcouchbase/compat.h:
+
+include/libcouchbase/behavior.h:
+
+include/libcouchbase/durability.h:
+
+include/libcouchbase/callbacks.h:
+
+include/libcouchbase/timings.h:
+
+include/libcouchbase/cntl.h:
+
+contrib/cbsasl/include/cbsasl/cbsasl.h:
+
+contrib/cbsasl/include/cbsasl/visibility.h:
+
+contrib/http_parser/http_parser.h:
+
+src/ringbuffer.h:
+
+src/list.h:
+
+src/url_encoding.h:
+
+src/hashset.h:
+
+src/genhash.h:
+
+src/debug.h:
+
+src/handler.h:
+
+src/lcbio.h:

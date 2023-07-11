@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbmgmcommon.a  CMakeFiles/ndbmgmcommon.dir/ConfigRetriever.cpp.o CMakeFiles/ndbmgmcommon.dir/IPCConfig.cpp.o
+/usr/bin/ranlib libndbmgmcommon.a

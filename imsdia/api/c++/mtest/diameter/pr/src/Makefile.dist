@@ -1,0 +1,104 @@
+############################################################################
+#                                                                          #
+#     Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Softwgre       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+# FILE: Makefile                                                           #
+#                                                                          #
+############################################################################
+# 
+#  LOG: $Log: Makefile.dist,v $
+#  LOG: Revision 1.1  2011/05/09 11:14:50  vkumara
+#  LOG: Base line for Pr interface.
+#  LOG:
+#  LOG:
+#  ID: $Id: Makefile.dist,v 1.1 2011/05/09 11:14:50 vkumara Exp $
+############################################################################# 
+#ident "$Id: Makefile.dist,v 1.1 2011/05/09 11:14:50 vkumara Exp $"
+#
+# Include the standard definitions
+#
+
+include	$(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) -DDUMP $(ITS_DEFINES)
+
+CXXFLAGS:=$(CXXFLAGS) -g -I./ -DUNIX \
+        -I$(ITS_ROOT)/common/include \
+        -I$(IMS_ROOT)/common/include \
+        -I../include \
+        -I../../app_dist/include \
+        -I$(IMS_ROOT)/aim/client/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I$(HOME)/api/include 
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+          -lprapi$(DBGSUFFIX) \
+	  -lnasreqapi$(DBGSUFFIX) 
+
+ifeq ($(PLATFORM),solaris)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),linux)
+LIBS_OS:= \
+         $(IMS_LIBS) \
+         -ldiaval$(DBGSUFFIX) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+
+LIBS:= $(ITS_LIBS) \
+            -L$(ITS_ROOT)/common/lib \
+            -L$(IMS_ROOT)/aim/client/lib \
+            -L../../app_dist/lib \
+            -L$(IMS_ROOT)/api/c++/lib \
+            -L$(IMS_ROOT)/api/lib \
+            -L$(IMS_ROOT)/apps/lib \
+            -L$(HOME)/lib \
+            -L$(IMS_ROOT)/lib \
+            -L$(IMS_ROOT)/val/c++/lib \
+            $(LIBS_OS)
+ 
+OBJS:= AATest.o  \
+       ServerAssignmentTest.o AbortSessionTest.o \
+       sample_pr.o pr_stats.o
+
+# Restrict the user to give explicit targets
+all: ../bin/samplePrClient$(DBGSUFFIX)
+
+../bin/samplePrClient$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o \
+	$@ $(OBJS) $(LIBS) -lpthread $(SOCKLIBS) $(SYSLIBS) -ldl
+
+clean:
+	$(RM) ../bin/samplePrClient$(DBGSUFFIX) $(OBJS) 

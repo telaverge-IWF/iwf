@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    setOverloadLimits <maximumThreshold>  <minimumThreshold>
+
+
+DESCRIPTION
+    This command is used to set the Overload Limits.
+
+PARAMETERS
+    maximumThreshold     Maximum Threshold 
+    minimumThreshold     Minimum Threshold
+EXAMPLE
+    >> setOverloadLimits 5000 1000
+       Successfully Threshold values set
+

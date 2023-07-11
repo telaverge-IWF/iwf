@@ -1,0 +1,611 @@
+/**
+ * RFC 3588 - Diameter Base and Accounting Protocol
+   ETSI TS 129 234 V7.2.0 (2006-06) --- Wx interface
+   Wx interface between 3GPP AAA Server and HSS
+ * RFC 4006 - Diameter Credit Control Protocol
+ * RFC 4005 - Diameter NAS application
+ * Wx interface re-used AVPs 
+ */
+protocol diameter.wx < 16777219 10415: "ETSI TS 129 234 V7.2.0 (2006-06) " >;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * Subscription-Id AVP(code 443) is of type Grouped and is used to identity the
+ * end user's subscription.
+ */
+    Subscription-Id                            ::= 443 0 /* 8.46    */ Grouped       M  |P| | V |Y; /* RFC4006 */
+                                                                                
+/**
+ * Subscription-Id-Type AVP(code 450) is of type Enumerated and it is used to
+ * determine which type of identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type                       ::= 450 0 /*  8.47   */ Enumerated    M  |P| | V |Y; /* RFC4006 */                                                                                 
+/**
+ * Subscription-Id-Data AVP(code 444) is of type UTF8String and is used to 
+ * identify the end user.
+ */
+    Subscription-Id-Data                       ::= 444 0 /*  8.48   */ UTF8String    M  |P| | V |Y; /* RFC4006 */
+
+/**
+ * The 3GPP-WLAN-APN-Id AVP(code 100) is of type OctetString, and contains the 
+ * W-APN for which the user will have services available. These W-APNs may be 
+ * mapped to services in the home network or in the visited network. W-APN is 
+ * defined in 3GPP TS 23.003.
+ */
+    Wx-3GPP-WLAN-APN-Id                        ::= 100  /* 10.1.15 */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Authentication-Method AVP is of type Enumerated and indicates the 
+ * authentication method required for the user.
+ */
+    Authentication-Method                      ::= 300  /* 10.1.5  */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Authentication-Information-SIM AVP is of type OctetString and contains 
+ * the concatenation of authentication challenge RAND and the ciphering key Kc.
+ */
+    Authentication-Information-SIM             ::= 301  /* 10.1.6  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Authentication-Information-SIM AVP is of type OctetString and contains
+ * the response SRES.
+ */
+    Authorization-Information-SIM              ::= 302  /* 10.1.7  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The WLAN-User-Data AVP is of type Grouped. This AVP contains the WLAN User
+ * Profile information for the 3GPP AAA Server to authorize the service.
+ */
+    WLAN-User-Data                             ::= 303  /* 10.1.8  */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Charging-Data AVP is of type Grouped, and contains the addresses of the
+ * charging functions.
+ */
+    Charging-Data                              ::= 304  /* 10.1.10 */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The WLAN-Access AVP is of type Enumerated, and allows operators to determine
+ * barring of 3GPP-WLAN interworking subscription.
+ */
+    WLAN-Access                                ::= 305  /* 10.1.11 */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The WLAN-3GPP-IP-Access AVP is of type Enumerated, and allows operator to 
+ * disable all W-APNs for a subscriber at one time. If there is a conflict 
+ * between this item and the "APN-Barring-type" flag of any W-APN, the most 
+ * restrictive will prevail.
+ */
+    WLAN-3GPP-IP-Access                        ::= 306  /* 10.1.12 */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The APN-Authorized AVP is of type Grouped and contains authorization info 
+ * for the APNs. This AVP indicates the list of allowed W-APNs and the 
+ * environment where the access is allowed (visited or home PLMN). Also info is
+ * provided about the WLAN UE remote IP address when it has been statically 
+ * assigned by the operator.
+ */
+    APN-Authorized                             ::= 307  /* 10.1.14 */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The APN-Barring-Type AVP is of type Enumerated, and contains a flag 
+ * indicating whether access is allowed in visited PLMNs or in the home PLMN.
+ */
+    APN-Barring-Type                           ::= 309  /* 10.1.16 */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The WLAN-Direct-IP-Access AVP is of type Enumerated, and indicate whether 
+ * the user has direct access to external IP networks, e.g. Internet, from the
+ * WLAN Access Network or not.
+ */
+    WLAN-Direct-IP-Access                      ::= 310  /* 10.1.17 */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Max-Requested-Bandwidth AVP(code 313) is of type OctetString and 
+ * indicates the Max-Subscriber-Bandwidth. If present, shall be downloaded from
+ * HSS to 3GPP AAA Server, and sent from the 3GPP AAA Server to the PDG.
+ */
+    Max-Requested-Bandwidth                    ::= 313  /* 10.1.26 */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Charging-Characteristics AVP is of type Integer, and contains the 
+ * charging mode to be applied as described in 3GPP TS 32.215.
+ */
+    Charging-Characteristics                   ::= 314  /* 10.1.27 */ Integer32     M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Charging-Nodes AVP is of type Grouped, and contains the addresses of the
+ * charging functions, as described in 3GPP TS 32.240.
+ */
+    Charging-Nodes                             ::= 315  /* 10.1.28 */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Primary-OCS-Charging-Function-Name AVP is of type DiameterIdentity, and
+ * defines the address of the Primary Online Charging System (OCS).
+ */
+    Primary-OCS-Charging-Function-Name         ::= 316  /* 10.1.29 */ DiamIdent     M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Secondary-OCS-Charging-Function-Name AVP is of type DiameterIdentity,and
+ * defines the address of the Secondary Online Charging System (OCS).
+ */
+    Secondary-OCS-Charging-Function-Name       ::= 317  /* 10.1.30 */ DiamIdent     M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Maximum-Number-Accesses AVP(code 319) is of type Unsigned32, and used to
+ * specify the maximum number of concurrent accesses(IKE security associations)
+ * per W-APN.
+ */
+    Maximum-Number-Accesses                    ::= 319  /* 10.1.38 */ Unsigned32    M,V| | |   |N;  /* 3GPP TS 29.234 */
+
+/**
+ * The Visited-Network-Identifier AVP is of type OctetString. This AVP contains
+ * an identifier that helps the home network to identify the visited network 
+ * (e.g. the visited network domain name).
+ */
+    Visited-Network-Identifier                 ::= 600  /* 6.3.1   */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The Server-Assignment-Type AVP is of type Enumerated, and indicates the type
+ * of server update being performed in a Server-Assignment-Request operation. 
+ */
+    Server-Assignment-Type                     ::= 614  /* 6.3.15  */ Enumerated    M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The SIP-Auth-Data-Item is of type Grouped, and contains the authentication
+ * and/or authorization information for the Diameter client.
+ */
+    SIP-Auth-Data-Item                         ::= 612  /* 6.3.13  */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The SIP-Number-Auth-Items AVP is of type Unsigned32 and indicates the number
+ * of authentication vectors provided by the Diameter server.
+ * When used in a request it indicates the number of SIP-Auth-Data-Item's the
+ * S-CSCF is requesting. This can be used, for instance, when the client is 
+ * requesting several pre-calculated authentication vectors. In the answer 
+ * message the SIP-Number-Auth-Items AVP indicates the actual number of items 
+ * provided by the Diameter server.
+ */
+    SIP-Number-Auth-Items                      ::= 607  /* 6.3.8   */ Unsigned32    M,V| | |   |N;  /* 3GPP TS 29.229 */
+                                                                                
+/**
+ * The SIP-Authentication-Scheme AVP is of type UTF8String and indicates the 
+ * authentication scheme used in the authentication of SIP messages.
+ */
+    SIP-Authentication-Scheme                  ::= 608  /* 6.3.9   */ UTF8String    M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The SIP-Authenticate AVP is of type OctetString and contains specific parts
+ * of the data portion of the WWWAuthenticate or Proxy-Authenticate SIP headers
+ * that are to be present in a SIP response. The identification and encoding of
+ * the specific parts are defined in 3GPP TS 29.228.
+ */
+    SIP-Authenticate                           ::= 609  /* 6.3.10  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The SIP-Authorization AVP is of type OctetString and contains specific parts
+ * of the data portion of the Authorization or Proxy-Authorization SIP headers
+ * suitable for inclusion in a SIP request. The identification and encoding of
+ * the specific parts are defined in 3GPP TS 29.228.
+ */
+   SIP-Authorization                           ::= 610  /* 6.3.11  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+                                                                                
+/**
+ * The SIP-Authentication-Context AVP is of type OctectString, and contains 
+ * authentication-related information relevant for performing authentication 
+ * but that is not part of the SIP authentication headers.
+ * Some mechanisms (e.g. PGP, digest with quality of protection set to auth-int
+ * defined in IETF RFC 2617,digest with predictive nonces or sip access digest)
+ * request that part or the whole SIP request is passed to entity performing
+ * authentication. In such cases the SIP-Authentication-Context AVP would be 
+ * carrying such information.
+ */
+    SIP-Authentication-Context                 ::= 611  /* 6.3.12  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+                                                                                
+/**
+ * The SIP-Item-Number AVP is of type Unsigned32, and is included in a SIP-Auth
+ * -Data-Item grouped AVP in circumstances where there are multiple occurrences
+ * of SIP-Auth-Data-Item AVPs, and the order in which they should be processed 
+ * is significant. In this scenario, SIP-Auth-Data-Item AVPs with a low 
+ * SIP-Item-Number value should be processed before SIP-Auth-Data-Items AVPs 
+ * with a high SIP-Item-Number value.
+ */
+    SIP-Item-Number                            ::= 613  /* 6.3.14  */ Unsigned32    M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The Confidentiality-Key is of type OctetString, and contains the 
+ * Confidentiality Key (CK).
+ */
+    Confidentiality-Key                        ::= 625  /* 6.3.27  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+                                                                                
+/**
+ * The Integrity-Key is of type OctetString,and contains the Integrity Key(IK).
+ */
+    Integrity-Key                              ::= 626  /* 6.3.28  */ OctetString   M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The Primary-Charging-Collection-Function-Name AVP is of type DiameterURI. 
+ * This AVP contains the address of the Primary Charging Collection Function.
+ */
+    Primary-Charging-Collection-Function-Name    ::= 621 /* 6.3.22 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.229 */
+                                                                                
+/**
+ * The Secondary-Charging-Collection-Function-Name AVP is of type DiameterURI. 
+ * This AVP contains the address of the Secondary Charging Collection Function.
+ */
+    Secondary-Charging-Collection-Function-Name  ::= 622 /* 6.3.23 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.229 */
+
+/**
+ * The Associated-Identities AVP is of type Grouped and it contains the private
+ * user identities associated to an IMS subscription.
+ */
+    Associated-Identities                        ::= 632 /* 6.3.33 */ Grouped       V| | | M  |N;
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may 
+ * inform the destination host about the features that origin host supports.The
+ * Vendor-ID AVP and the Feature-List AVP shall together identify which feature
+ * list is carried in the Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been
+ * defined by 3GPP, the Vendor-ID AVP shall contain the vendor ID of 3GPP.
+ * Where the Supported-Feature AVP is used to identify features that have been
+ * defined by a vendor other than 3GPP, it shall contain the vendor ID of the
+ * specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the 
+ * Feature-List-ID AVP shall differentiate those lists from one another.
+ */
+    Supported-Features                           ::= 628 /* 6.3.29 */ Grouped       V|M| |    |N;
+
+/** 
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity 
+ * of a feature list.
+ */
+    Feature-List-ID                              ::= 629 /* 6.3.30 */ Unsigned32    V| | | M  |N;
+
+/** 
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask 
+ * indicating the supported * features of an application. 
+ */
+    Feature-List                                 ::= 630 /* 6.3.31 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Deregistration-Reason AVP is of type Grouped, and indicates the reason 
+ * for a de-registration operation.
+ */
+    Deregistration-Reason                        ::= 615 /* 6.3.16 */ Grouped     M,V| | |    |N;
+
+/**
+ * The Reason-Code AVP is of type Enumerated, and defines the reason for the 
+ * network initiated de-registration.
+ */
+    Reason-Code                                  ::= 616 /* 6.3.17 */ Enumerated  M,V| | |    |N;
+
+/** 
+ * The Reason-Info AVP is of type UTF8String, and contains textual information
+ * to inform the user about the reason for a de-registration.
+ */
+    Reason-Info                                  ::= 617 /* 6.3.18 */ UTF8String  M,V| | |    |N;
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+  Subscription-Id-Type ::= < Enumerated: 450 >
+        END_USER_E164             0
+        END_USER_IMSI             1
+        END_USER_SIP_URI          2
+        END_USER_NAI              3
+        END_USER_PRIVATE          4
+        ;
+
+  Authentication-Method ::= < Enumerated: 300 >
+        WLAN_EAP_SIM       0
+        WLAN_EAP_AKA       1
+        ;
+
+  WLAN-Access ::= < Enumerated: 305 >
+        WLAN_SUBSCRIPTION_ALLOWED    0
+        WLAN_SUBSCRIPTION_BARRED     1
+        ;
+
+  WLAN-3GPP-IP-Access ::= < Enumerated: 306 >
+        WLAN_APNS_ENABLE     0
+        WLAN_APNS_DISABLE    1
+        ;
+
+  APN-Barring-Type ::= < Enumerated: 309 >
+        WLAN_APN_NO_BARRING                  0
+        WLAN_APN_HOME_BARRED_WHEN_ROAMING    1
+        WLAN_APN_VISITED_BARRED              2
+        WLAN_APN_HOME_BARRED                 3
+        ;
+
+  WLAN-Direct-IP-Access ::= < Enumerated: 310 >
+        WLAN_DIRECT_IP_ACCESS       0
+        WLAN_NO_DIRECT_IP_ACCESS    1
+        ;
+
+  Server-Assignment-Type ::= < Enumerated: 614 >
+        NO_ASSIGNMENT                              0
+        REGISTRATION                               1
+        RE_REGISTRATION                            2
+        UNREGISTERED_USER                          3
+        TIMEOUT_DEREGISTRATION                     4
+        USER_DEREGISTRATION                        5
+        TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME   6
+        USER_DEREGISTRATION_STORE_SERVER_NAME      7
+        ADMINISTRATIVE_DEREGISTRATION              8
+        AUTHENTICATION_FAILURE                     9
+        AUTHENTICATION_TIMEOUT                     10
+        DEREGISTRATION_TOO_MUCH_DATA               11
+        ;
+
+  Reason-Code ::= < Enumerated: 616 >
+        PERMANENT_TERMINATION      0
+        NEW_SERVER_ASSIGNED        1
+        SERVER_CHANGE              2
+        REMOVE_SCSCF               3
+        ;
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+  Subscription-Id ::= < AVP Header: 443 0 >
+        { Subscription-Id-Type }
+        { Subscription-Id-Data }
+        ;
+
+  SIP-Auth-Data-Item ::= < AVP Header : 612 10415 >
+        [ SIP-Item-Number ]
+        [ SIP-Authentication-Scheme ]
+        [ SIP-Authenticate ]
+        [ SIP-Authorization ]
+        [ SIP-Authentication-Context ]
+        [ Confidentiality-Key ]
+        [ Integrity-Key ]
+        [ Authentication-Method ]
+        [ Authentication-Information-SIM ]
+        [ Authorization-Information-SIM ]
+        *[ AVP ]
+        ;
+
+  WLAN-User-Data ::= < AVP Header : 303 10415 >
+	{ WLAN-Access }
+	{ WLAN-3GPP-IP-Access }
+	{ WLAN-Direct-IP-Access }
+	1* { Charging-Data }
+	[ Subscription-Id ]
+	[ Session-Timeout ]
+	*[ APN-Authorized ]
+	*[ Maximum-Number-Accesses ]
+	*[ AVP ]
+        ;
+
+  Charging-Data ::= < AVP Header : 304 10415 >
+        { Charging-Characteristics }
+        { Charging-Nodes}
+        *[ AVP ]
+        ;
+
+  APN-Authorized ::= < AVP Header : 307 10415 >
+	{ Wx-3GPP-WLAN-APN-Id }
+	{ APN-Barring-Type }
+	[ Framed-IP-Address ]
+	*[ Framed-IPv6-Prefix ] 
+	[ Max-Requested-Bandwidth ]
+	*[ AVP ]
+        ;
+
+  Charging-Nodes ::= < AVP Header : 315 10415 >
+        { Primary-Charging-Collection-Function-Name }
+        [ Primary-OCS-Charging-Function-Name ]
+        [ Secondary-OCS-Charging-Function-Name]
+        [ Secondary-Charging-Collection-Function-Name ]
+        *[ AVP ]
+        ;
+
+  Associated-Identities ::= < AVP Header : 632 10415 >
+        *[ User-Name ]
+        *[ AVP ]
+        ;
+  
+  Supported-Features ::= < AVP Header : 628 10415 >
+        { Vendor-Id } /* Name Vendor-ID changed to Vendor-Id as in rfc3588*/
+        { Feature-List-ID }
+        { Feature-List }
+        *[ AVP ]
+        ;
+          
+  Deregistration-Reason ::= < AVP Header : 615 10415 >
+        { Reason-Code }
+        [ Reason-Info ]
+        *[AVP]
+        ;
+
+    //////////////
+    // Commands //
+    //////////////
+
+/*
+ * The Multimedia-Authentication-Request (MAR) command, indicated by the 
+ * Command-Code field set to 303 , is sent by the 3GPP AAA Server to the HSS in
+ * order to request security information.
+ */
+
+ Multimedia-Authentication-Request<MAR> ::= < Diameter Header: 303, REQ, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ NAS-Port-Type }
+	{ User-Name}
+	[ Destination-Host ]
+	[ Visited-Network-Identifier]
+	[ SIP-Auth-Data-Item ]
+	[ SIP-Number-Auth-Items ] 
+	* [ Proxy-Info ]
+	* [ Route-Record ]
+	* [ AVP ]
+        ;
+
+/*
+ * The Multimedia-Authentication-Answer (MAA) command, indicated by the 
+ * Command-Code 303, is sent by a server in response to the 
+ * Multimedia-Authentication-Request command. 
+ */
+
+ Multimedia-Authentication-Answer<MAA> ::=  < Diameter Header: 303, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ User-Name}
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[ SIP-Number-Auth-Items ]
+	[ SIP-Auth-Data-Item ]
+	[ Proxy-Info ]
+	[ Route-Record ]
+	[ AVP ]
+        ;
+
+/*
+ * The Push-Profile-Request -Request (PPR) command, indicated by the 
+ * Command-Code field set to 305 , is sent by the HSS to the 3GPP AAA Server in
+ * order to update the subscription data of a WLAN user in the 3GPP AAA Server
+ * whenever a modification has occurred in the subscription data.
+ */
+
+ Push-Profile-Request<PPR> ::= < Diameter Header: 305, REQ, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Host }
+	{ Destination-Realm }
+	{ User-Name}
+	[ WLAN-User-Data]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+        ;
+
+/*
+ * The Push-Profile-Answer (PAA) command, indicated by the Command-Code field
+ * set to 305 , is sent by the HSS in response to the Push-Profile-Request 
+ * command. 
+ */
+
+ Push-Profile-Answer<PPA> ::=< Diameter Header: 305, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+        ;
+
+/*
+ * The Server-Assignment-Request (SAR) command, indicated by the Command-Code 
+ * field set to 301 , is sent by the 3GPP AAA Server to the HSS in order to 
+ * register or deregister a WLAN user or to download the WLAN User Profile.
+ */
+
+ Server-Assignment-Request<SAR> ::= < Diameter Header: 301, REQ, PXY, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ User-Name}
+	{ Server-Assignment-Type }
+	[ Destination-Host ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+        ;
+
+/*
+ * The Server-Assignment-Answer (SAA) command, indicated by the Command-Code 
+ * field set to 301 , is sent by the HSS to the 3GPP AAA Server to confirm the 
+ * registration, de‑registration or user profile download procedure. 
+ */
+ 
+ Server-Assignment-Answer<SAA> ::= < Diameter Header: 301, 16777219 >
+	< Session-Id >
+	{ Vendor-Specific-Application-Id }
+	{ Auth-Session-State }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ User-Name}
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[ WLAN-User-Data ]
+	[ Charging-Data]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+        ;
+
+/**
+ * The Registration-Termination-Request (RTR) command, indicated by the
+ * Command-Code field set to 304 and the R bit set in the Command Flags field,
+ * is sent by a Diameter Multimedia server to a Diameter Multimedia client in
+ * order to request the de-registration of a user.
+ */
+ Registration-Termination-Request<RTR> ::= < Diameter Header: 304, REQ, PXY, 16777219 >
+        < Session-Id >
+        { Vendor-Specific-Application-Id }
+        { Auth-Session-State }
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Host }
+        { Destination-Realm }
+        { User-Name }
+        { Deregistration-Reason }
+        [ Associated-Identities ]
+        *[ Supported-Features ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/**
+ * The Registration-Termination-Answer (RTA) command, indicated by the 
+ * Command-Code field set to 304 and the R bit cleared in the Command Flags 
+ * field, is sent by a client in response to the Registration-Termination-
+ * Request command. The Result-Code or Experimental-Result AVP may contain one
+ * of the values defined in section 6.2 in addition to the values defined in
+ * IETF RFC 3588 [6].
+ */
+ Registration-Termination-Answer<RTA> ::= < Diameter Header: 304, PXY, 16777219 >
+        < Session-Id >
+        { Vendor-Specific-Application-Id }
+        { Auth-Session-State }
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        [ Associated-Identities ]
+        *[ Supported-Features ]
+        *[ Failed-AVP ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+

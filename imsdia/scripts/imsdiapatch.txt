@@ -1,0 +1,58 @@
+
+------------------------------------------------------------------------------
+1. What is an imsdia patch?
+
+A. An imsdia patch is a minor fix to a previously released version of the imsdia.
+   A patch consists of:
+   1) The files that have to be patched (typically scripts)
+   2) The install script that installs the files in the correct locations.
+
+------------------------------------------------------------------------------
+2. How is a patch identified?
+
+A. A patch is identified by a unique patch identifier (patch id). A typical
+   patch id is w.x-y-z-CUS, where the w.x=main release, y=sub-release, z=patch
+   release
+
+------------------------------------------------------------------------------
+3. How to install a patch?
+
+A. Login to the target machine 
+   <copy the patch tar file [w.x-y-z-CUS.tar] to any temp directory>
+   cd /tmp        
+   tar xvf w.x-y-z-CUS.tar 
+       (This will create a subdirectory w.x-y-z-CUS in current dir. The 
+        directory will have the relevant files and the install script.)
+   cd w.x-y-z-CUS
+   ./imsdiaPatchAdd
+       (This will install the relevant files in the correct places.
+        It will create directory $IMS_ROOT/patches/w.x-y-z-CUS where the patch
+        files are stored for later use)
+   $IMS_ROOT/scripts/imsdiaPatchInfo      (ensure patch is installed)
+   
+------------------------------------------------------------------------------
+4. How to remove a patch?
+
+A. Log in to target machine
+   cd $IMS_ROOT/scripts/
+   imsdiaPatchRemove 
+
+   NOTE: Not all patches can be removed. Read the file README for a patch
+         before attempting to remove a patch.
+
+------------------------------------------------------------------------------
+5. How to get a list of installed patches?
+
+A. Log in to target machine.
+   $IMS_ROOT/scripts/imsdiaPatchInfo
+
+------------------------------------------------------------------------------
+6. Where are the patches stored?
+
+A. After the install script for a patch (with id w.x-y-z-CUS) is executed on a 
+   machine, the files that are part of the patch are stored in the directory 
+   $IMS_ROOT/patches/w.x-y-z-CUS. The install script is also responsible for 
+   copying the files that are part of the patch to the appropriate location.
+   For example, the scripts are copied to the directory $IMS_ROOT/scripts.
+
+------------------------------------------------------------------------------

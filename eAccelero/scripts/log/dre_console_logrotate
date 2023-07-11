@@ -1,0 +1,15 @@
+/var/log/dre/dre_console_out.log 
+/var/log/dre/dre_console_err.log {
+    compress
+    delaycompress
+    copytruncate
+    notifempty
+    missingok
+    size 50M
+    rotate 25
+    firstaction
+    /opt/diametriq/dre/scripts/archive_dre_console.sh
+    endscript
+}
+ 
+ 

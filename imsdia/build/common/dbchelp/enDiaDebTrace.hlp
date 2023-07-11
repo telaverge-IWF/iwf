@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enDiaDebTrace                                                                                 
+DESCRIPTION
+    This command enables the diameter Debug traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enDiaDebTrace
+    *******Diameter Debug Traces are enabled*******
+

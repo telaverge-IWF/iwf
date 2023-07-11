@@ -1,0 +1,220 @@
+
+Parser extensions:
+
+ *      ITS_ConstructObject(itsENGINE_ParserExtensionClass, app,
+ *                          "libNMS.so", "NMS-Data"
+ *                          "NMS_ParseStart", "NMS_ParseEnd",
+ *                          "NMS_ConvertParserData");
+
+You add (optionally) a library, the tag you want to match on, and 3 functions.
+The functions have the following signatures (in order):
+
+typedef void    (*ENGINE_ParseStartFunc)(ENGINE_ParserExtension ext,
+                                         const char *el, const char **attr);
+typedef void    (*ENGINE_ParseStopFunc)(ENGINE_ParserExtension ext,
+                                        const char *el);
+typedef void    (*ENGINE_ResourceXlateFunc)(ENGINE_ParserExtension ext);
+
+The functions get invoked as follows:
+1) When the tag is initially matched (in an element), the start function is
+called, and is passed the element name and any attributes, along with the
+parser extension record.  The user is expected to store any information
+they need to remember on the extension record (there is a userData pointer
+in the extension record for this).
+2) If the topmost element contains nested elements, the start function is
+invoked for the nested elements (and attributes) until the topmost element
+is ended.
+3) The stop function is called when the terminator of a nested element or
+topmost element is parsed.  At this point if any termination activities need
+to be performed (ensure you saw the right nested elements, for example).
+4) The ResourceXlateFunc is called by the drivers to populate the resource
+database in the driver's PreFunc.  The function is expected to add any sections
+(or attributes to sections) in the resource database.
+
+An example might be (embedded in the config, order is important):
+
+<ParserExtension library     = "libNMS.so"
+                 elementName = "NMS-Data"
+                 startFunc   = "NMS_ParseStart"
+                 stopFunc    = "NMS_ParseStop"
+                 xlateFunc   = "NMS_ConvertParserData"/>
+
+<NMS-Data board    =  "1"
+          interrupt = "9">
+
+    <NMS-SSN value = "5"/>
+
+</NMS-Data>
+
+(Simplistic, but it should give you the idea).  Your functions get called as
+follows (this is paraphrased a bit):
+
+    ENGINE_ParserExtensionRec *extRec;
+    char *array[10];
+
+    [... get to tag match]
+
+    array[0] = "board";
+    array[1] = "1";
+    array[2] = "interrupt";
+    array[3] = "9";
+    array[4] = NULL;
+    ENGINE_PE_START_FUNC(extRec)(extRec, "NMS-Data", array);
+
+    [... parse the nested data]
+
+    array[0] = "value";
+    array[1] = "5";
+    array[2] = NULL;
+    ENGINE_PE_START_FUNC(extRec)(extRec, "NMS-SSN", array);
+
+    ENGINE_PE_STOP_FUNC(extRec)(extRec, "NMS-SSN");
+
+    ENGINE_PE_STOP_FUNC(extRec)(extRec, "NMS-Data");
+
+    [... then, in the driver PreFunc]
+
+    ENGINE_PE_XLATE_FUNC(extRec)(extRec);
+
+So, the things for you to notice:
+    The attributes are passed in a NULL terminated array.  The even elements
+    are the attribute name, the odd elements (even els + 1) are the value
+    of that attribute.  The array size of 10 above is artificial and doesn't
+    reflect reality.  You can have as many attributes as you want.
+
+
+    You cannot save the pointers (they belong to the parser).  If you need to
+    remember an attribute value, either convert it or use strdup() to copy
+    the string.
+
+    You always get the same extension record for your extension.  If you need
+    to save data, store it in the extension record.  Simple example:
+
+    struct NMS_Foo
+    {
+        int board;
+        int interrupt;
+        int ssn;
+    };
+
+    #define NMS_DATA_STRING     "NMS-Data"
+    #define NMS_SSN_STRING      "NMS-SSN"
+    #define BOARD_STRING        "board"
+    #define INTERRUPT_STRING    "interrupt"
+    #define VALUE_STRING        "value"
+
+    #define NMS_DATA_PTR(x)     ((struct NMS_Foo *)ENGINE_PE_USER_DATA(x))
+
+    void
+    NMS_ParseStart(ENGINE_ParserExtension ext, const char *elem, const char **attr)
+    {
+        if (strcmp(elem, NMS_DATA_STRING) == 0)
+        {
+            ENGINE_PE_USER_DATA(ext) = calloc(1, sizeof(struct NMS_Foo));
+
+            if (ENGINE_PE_USER_DATA(ext) == NULL)
+            {
+                printf("Out of memory: %s, %d\n", __FILE__, __LINE__);
+                /* yes, I'm serious, printf().  This happens in the parse
+                 * phase so we don't have anything set up yet. */
+
+                abort();
+            }
+
+            while (*attr)
+            {
+                if (strcmp(*attr, BOARD_STRING) == 0)
+                {
+                    attr++;
+
+                    NMS_DATA_PTR(ext)->board = atoi(*attr);
+
+                    attr++;
+                }
+                else if (strcmp(*attr, INTERRUPT_STRING) == 0)
+                {
+                    attr++;
+
+                    NMS_DATA_PTR(ext)->interrupt = atoi(*attr);
+
+                    attr++;
+                }
+                else
+                {
+                    /*
+                     * don't do this and you go into an infinite loop if you
+                     * don't recognize an attribute
+                     */
+                    attr += 2;
+                }
+            }
+        }
+        else if (strcmp(elem, NMS_SSN_STRING) == 0)
+        {
+            ITS_C_ASSERT(ENGINE_PE_USER_DATA(ext) != NULL);
+
+            while (*attr)
+            {
+                if (strcmp(*attr, NMS_SSN_STRING) == 0)
+                {
+                    attr++;
+
+                    NMS_DATA_PTR(ext)->ssn = atoi(*attr);
+
+                    attr++;
+                }
+                else
+                {
+                    /*
+                     * don't do this and you go into an infinite loop if you
+                     * don't recognize an attribute
+                     */
+                    attr += 2;
+                }
+            }
+        }
+        else
+        {
+            /*
+             * ignore it.  The config file has things you don't understand.
+             * Don't blow up, it may be config items that aren't relevent
+             * any more
+             */
+        }
+    }
+
+    The stop function isn't needed in this example, but here it is:
+
+    void
+    NMS_ParseStop(ENGINE_ParserExtension ext, const char *elem)
+    {
+        ITS_C_ASSERT(ext != NULL);
+
+        if (strcmp(elem, NMS_DATA_STRING) == 0)
+        {
+            /* end of NMS data, do something horrible */
+        }
+    }
+
+    The XlateFunc might look like the following:
+
+    static void
+    NMS_ConvertParserData(ENGINE_ParserExtension extRec)
+    {
+        const char *name = APPL_GetConfigFileName();
+        RESFILE_Manager *appRes = RESFILE_CreateResourceManager(name);
+        
+        ITS_C_ASSERT(appRes != NULL);
+        ITS_C_ASSERT(extRec != NULL);
+
+        RESFILE_AddKeyValuePair(appRes, NULL, BOARD_STRING,
+                                NMS_DATA_PTR(extRec)->board);
+
+        /* etc. for the interrupt and SSN */
+    }
+
+Finally, this is only an example.  You might want to create DTDs for
+your extension; I encourage you to *strongly* so we can parse their
+correctness when they appear.
+
+Mitch

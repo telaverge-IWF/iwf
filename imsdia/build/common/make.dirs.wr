@@ -1,0 +1,76 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make.dirs.wr,v 1.1 2009/01/22 08:47:14 gdalawai Exp $
+#
+# LOG: $Log: make.dirs.wr,v $
+# LOG: Revision 1.1  2009/01/22 08:47:14  gdalawai
+# LOG: Added make.dirs.wrfor including into binary package.
+# LOG:
+# LOG: Revision 1.1  2009/01/20 09:08:12  nvijikumar
+# LOG: Adding new make.dirs for WindRiver compilation
+# LOG:
+# LOG:
+#
+############################################################################
+# Java Specifics
+JAVACMD=java -jar
+DIAJARFILE=$(IMS_ROOT)/mag/bin/diamag.jar
+
+CPATH=/opt/WindRiver/wrenv.sh -p wrlinux-2.0 /opt/WindRiver/wrlinux-2.0/sysroots/xlr_pp50p2-glibc_std/x86-linux2/
+
+NOWHOLEARCHIVE=-Wl,--no-whole-archive
+CXX=$(CPATH)mips-wrs-linux-gnu-mips_xlr-glibc_std-g++ -Wall -D_GNU_SOURCE -pipe -Wno-deprecated -O2
+CXXAR=$(CPATH)mips-wrs-linux-gnu-mips_xlr-glibc_std-ar
+CXXARFLAGS=cruv
+CXXSHAREDAR=$(CPATH)mips-wrs-linux-gnu-mips_xlr-glibc_std-g++
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -o
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM)
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+
+# Compilation flag added to disable the check
+# for vendorId and Supported VendorId inside CER.
+#
+ifeq ($(APPID_EXCLUSIVE),yes)
+DEFINES:=$(DEFINES) -DAPP_ID_EXCLUSIVE
+endif
+
+# Plaform Specifics... for Linux
+ifeq ($(PLATFORM),linux)
+SOFLAGS=-fpic
+SOCKLIBS=-lsctp
+THREADLIBS=-lpthread
+SYSLIBS=-ldl -lrt -lz
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -o
+endif
+
+ifeq ($(DEBUG_BUILD),yes)
+CXXFLAGS=    -g -w $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS)
+DBGSUFFIX= D
+else
+CXXFLAGS=    -O $(INCLS) $(DEFINES) -DNDEBUG $(SOFLAGS)
+DBGSUFFIX=
+endif

@@ -1,0 +1,24 @@
+/.cvsignore/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/Test.dsp/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/Test.dsw/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/ansi_msgs.0/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/ccitt_msgs.0/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/ccittisupmsgs.txt/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/printCic.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/printISUPMsg.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/printISUPMsg.h/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/readISUPMsg.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/readISUPMsg.h/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/sendISUPMsg.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/sendISUPMsg.h/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/test.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/test.h/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/testMain.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+D/codec////
+D/etc////
+D/include////
+D/loadtest////
+D/src////
+D/testclient////

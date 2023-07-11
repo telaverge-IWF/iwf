@@ -1,0 +1,7 @@
+#!/bin/sh
+
+#g++ -g -Wall -D_GNU_SOURCE -pipe -Wno-deprecated -g -w -I../include -I/home/code/sandbox/B-DRE-0212-00/eAccelero/blocks/include -I/home/code/sandbox/B-DRE-0212-00/imsdia/val/c++/include -fpic DictionaryTableTest.cpp -o dictTest -ldl -lpthread -L/home/code/sandbox/B-DRE-0212-00/eAccelero/lib/debug -lblocks -L../lib -ldtfD -L/home/code/sandbox/B-DRE-0212-00/imsdia/aim/client/lib -L/home/code/sandbox/B-DRE-0212-00/imsdia/val/c++/lib -L/home/code/sandbox/B-DRE-0212-00/imsdia/api/c++/lib -lbaseapiD -lnasreqapiD -lIDSClientD -ldiavalD 
+
+g++ -rdynamic -g -Wall -DJSON_IS_AMALGAMATION -DHAVE_THROW_SPECS -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_STL -D_GNU_SOURCE -pipe -Wno-deprecated -g -w -I$EACC_ROOT/3rdparty/jsoncpp_0.6.0-rc2 -I../include -I$IMS_ROOT/api/c++/include -I$ITS_ROOT/common/include -I$IMS_ROOT/vendors/IntelliNet/include -I$IMS_ROOT/common/include -I$EACC_ROOT/blocks/include -I$IMS_ROOT/val/c++/include -fpic TransformerTableTest.cpp -o transformTest -ldl -lpthread -L$EACC_ROOT/lib/debug -lblocks -L../lib -ldtfD -L$IMS_ROOT/aim/client/lib -L$IMS_ROOT/val/c++/lib -L$IMS_ROOT/api/c++/lib -ls6aapiD -ls6ar10apiD -lbaseapiD -lnasreqapiD -lIDSClientD -ldiavalD -L$IMS_ROOT/vendors/IntelliNet/lib  -ldiastackD -lsctp -L$ITS_ROOT/common/lib -lSCTP -lITS-REDUNDANCYD -lENGINED  -L$DRE_ROOT/erlbf/json/lib -ljsoncpp
+
+# g++ -DJSON_IS_AMALGAMATION -I$EACC_ROOT/3rdparty/jsoncpp_0.6.0-rc2 -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE json_test.cpp  -L$DRE_ROOT/erlbf/json/lib -ljsoncpp

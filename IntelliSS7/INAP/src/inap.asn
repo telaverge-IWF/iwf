@@ -1,0 +1,2941 @@
+-- *ITU - 1218 - INAP * --
+INAP DEFINITIONS ::=
+
+BEGIN
+
+ActivateServiceFilteringArg ::= SEQUENCE
+{
+    filteredCallTreatment[0] IMPLICIT SEQUENCE
+    {
+	sFBillingChargingCharacteristics[0] IMPLICIT OCTET STRING(SIZE(1..40)),
+        informationToSend[1] CHOICE
+        {
+            inbandInfo[0] IMPLICIT SEQUENCE
+            {
+                messageID[0] CHOICE
+                {
+                    elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                    text[1] IMPLICIT SEQUENCE
+                    {
+                        messageContent[0] IMPLICIT IA5String(SIZE(1..2)),
+                        attributes[1] IMPLICIT OCTET STRING(SIZE(1..2)) OPTIONAL
+                    },
+                    elementaryMessageIDs[29] IMPLICIT SEQUENCE SIZE(1..1) OF INTEGER(0..2147483647),
+                    variableMessage[30] IMPLICIT SEQUENCE
+                    {
+                        elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                        variableParts[1] IMPLICIT SEQUENCE SIZE(1..5) OF CHOICE
+                        {
+                            integer[0] IMPLICIT INTEGER(0..2147483647),
+                            number[1] IMPLICIT OCTET STRING(SIZE(1..20)),
+                            time[2] IMPLICIT OCTET STRING(SIZE(2)),
+                            date[3] IMPLICIT OCTET STRING(SIZE(3)),
+                            price[4] IMPLICIT OCTET STRING(SIZE(4))
+                        }
+                    }
+                },
+                numberOfRepetitions[1] IMPLICIT INTEGER(1..127) OPTIONAL,
+                duration[2] IMPLICIT INTEGER(0..32767) OPTIONAL,
+                interval[3] IMPLICIT INTEGER(0..32767) OPTIONAL
+            },
+            tone[1] IMPLICIT SEQUENCE
+            {
+                toneID[0] IMPLICIT INTEGER(0..2147483647),
+                duration[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+            },
+            displayInformation[2] IMPLICIT IA5String(SIZE(1..2))
+        } OPTIONAL,
+        maximumNumberOfCounters[2] IMPLICIT INTEGER(1..100) OPTIONAL,
+        releaseCause[3] IMPLICIT OCTET STRING(SIZE(2..4)) OPTIONAL
+    },
+    filteringCharacteristics[1] CHOICE
+    {
+        interval[0] IMPLICIT INTEGER(-1..32000),
+        numberOfCalls[1] IMPLICIT INTEGER(0..2147483647)
+    },
+    filteringTimeOut[2] CHOICE
+    {
+        duration[0] IMPLICIT INTEGER(-2..86400),
+        stopTime[1] IMPLICIT OCTET STRING(SIZE(6))
+    },
+    filteringCriteria[3] CHOICE
+    {
+        dialledNumber[0] IMPLICIT OCTET STRING(SIZE(0..20)),
+        callingLineID[1] IMPLICIT OCTET STRING(SIZE(0..20)),
+        serviceKey[2] IMPLICIT INTEGER(0..2147483647),
+        addressAndService[30] IMPLICIT SEQUENCE
+        {
+            calledAddressValue[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+            serviceKey[1] IMPLICIT INTEGER(0..2147483647),
+            callingAddressValue[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+            locationNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+        }
+    },
+    startTime[4] IMPLICIT OCTET STRING(SIZE(6)) OPTIONAL,
+    extensions[5] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        }
+        DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+AnalysedInformationArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..2)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    dialledDigits[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[4] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[5] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    prefix[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[9] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[10] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[11] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            inore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    featureCode[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    accessCode[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    carrier[15] IMPLICIT OCTET STRING OPTIONAL
+}
+
+AnalyseInformationArg ::= SEQUENCE
+{
+    destinationRoutingAddress[0] IMPLICIT SEQUENCE SIZE(1..3) OF
+    OCTET STRING(SIZE(1..15)),
+    alertingPattern[1] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    iSDNAccessRelatedInformation[2] IMPLICIT OCTET STRING OPTIONAL,
+    originalCalledPartyID[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    callingPartyNumber[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartysCategory[6] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+    calledPartyNumber[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    chargeNumber[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    carrier[10] IMPLICIT OCTET STRING OPTIONAL
+}
+
+ApplyChargingArg ::= SEQUENCE
+{
+    aChBillingChargingCharacteristics[0] IMPLICIT OCTET STRING(SIZE(0..15)),
+    partyToCharge[2] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+ApplyChargingReportArg ::= OCTET STRING(SIZE(0..20))
+
+AssistRequestInstructionsArg ::= SEQUENCE
+{
+    correlationID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    iPAvailable[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    iPSSPCapabilities[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+CallGapArg ::= SEQUENCE
+{
+    gapCriteria[0] CHOICE
+    {
+        calledAddressValue[0] IMPLICIT OCTET STRING(SIZE(1..20)),
+        gapOnService[2] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647),
+            dpCriteria[1] IMPLICIT ENUMERATED
+            {
+                origAttemptAuthorized(1),
+                collectedInfo(2),
+                analysedInformation(3),
+                routeSelectFailure(4),
+                oCalledPartyBusy(5),
+                oNoAnswer(6),
+                oAnswer(7),
+                oMidCall(8),
+                oDisconnect(9),
+                oAbandon(10),
+                termAttemptAuthorized(12),
+                tBusy(13),
+                tNoAnswer(14),
+                tAnswer(15),
+                tMidCall(16),
+                tDisconnect(17),
+                tAbandon(18)
+            } OPTIONAL
+        },
+        calledAddressAndService[29] IMPLICIT SEQUENCE
+        {
+            calledAddressValue[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+            serviceKey[1] IMPLICIT INTEGER(0..2147483647)
+        },
+        callingAddressAndService[30] IMPLICIT SEQUENCE
+        {
+            callingAddressValue[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+            serviceKey[1] IMPLICIT INTEGER(0..2147483647),
+            locationNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+        }
+    },
+    gapIndicators[1] IMPLICIT SEQUENCE
+    {
+        duration[0] IMPLICIT INTEGER(-2..86400),
+        gapInterval[1] IMPLICIT INTEGER(-1..60000)
+    },
+    controlType[2] IMPLICIT ENUMERATED
+    {
+        sCPOverloaded(0),
+        manuallyInitiated(1),
+        destinationOverload(2)
+    } OPTIONAL,
+    gapTreatment[3] CHOICE
+    {
+        informationToSend[0] CHOICE
+        {
+            inbandInfo[0] IMPLICIT SEQUENCE
+            {
+                messageID[0] CHOICE
+                {
+                    elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                    text[1] IMPLICIT SEQUENCE
+                    {
+                        messageContent[0] IMPLICIT IA5String(SIZE(1..15)),
+                        attributes[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+                    },
+                    elementaryMessageIDs[29] IMPLICIT SEQUENCE SIZE(1..2) OF INTEGER(0..2147483647),
+                    variableMessage[30] IMPLICIT SEQUENCE
+                    {
+                        elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                        variableParts[1] IMPLICIT SEQUENCE SIZE(1..5) OF
+                        CHOICE
+                        {
+                            integer[0] IMPLICIT INTEGER(0..2147483647),
+                            number[1] IMPLICIT OCTET STRING(SIZE(1..15)),
+                            time[2] IMPLICIT OCTET STRING(SIZE(2)),
+                            date[3] IMPLICIT OCTET STRING(SIZE(3)),
+                            price[4] IMPLICIT OCTET STRING(SIZE(4))
+                        }
+                    }
+                },
+                numberOfRepetitions[1] IMPLICIT INTEGER(1..127) OPTIONAL,
+                duration[2] IMPLICIT INTEGER(0..32767) OPTIONAL,
+                interval[3] IMPLICIT INTEGER(0..32767) OPTIONAL
+            },
+            tone[1] IMPLICIT SEQUENCE
+            {
+                toneID[0] IMPLICIT INTEGER(0..2147483647),
+                duration[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+            },
+            displayInformation[2] IMPLICIT IA5String(SIZE(1..15))
+        },
+        releaseCause[1] IMPLICIT OCTET STRING(SIZE(2..4)),
+        both[2] IMPLICIT SEQUENCE
+        {
+            informationToSend[0] CHOICE
+            {
+                inbandInfo[0] IMPLICIT SEQUENCE
+                {
+                    messageID[0] CHOICE
+                    {
+                        elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                        text[1] IMPLICIT SEQUENCE
+                        {
+                            messageContent[0] IMPLICIT IA5String(SIZE(1..15)),
+                            attributes[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+                        },
+                        elementaryMessageIDs[29] IMPLICIT SEQUENCE SIZE(1..2) OF INTEGER(0..2147483647),
+                        variableMessage[30] IMPLICIT SEQUENCE
+                        {
+                            elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                            variableParts[1] IMPLICIT SEQUENCE SIZE(1..5) OF CHOICE
+                            {
+                                integer[0] IMPLICIT INTEGER(0..2147483647),
+                                number[1] IMPLICIT OCTET STRING(SIZE(1..15)),
+                                time[2] IMPLICIT OCTET STRING(SIZE(2)),
+                                date[3] IMPLICIT OCTET STRING(SIZE(3)),
+                                price[4] IMPLICIT OCTET STRING(SIZE(4))
+                            }
+                        }
+                    },
+                    numberOfRepetitions[1] IMPLICIT INTEGER(1..127) OPTIONAL,
+                    duration[2] IMPLICIT INTEGER(0..32767) OPTIONAL,
+                    interval[3] IMPLICIT INTEGER(0..32767) OPTIONAL
+                },
+                tone[1] IMPLICIT SEQUENCE
+                {
+                    toneID[0] IMPLICIT INTEGER(0..2147483647),
+                    duration[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL},
+                displayInformation[2] IMPLICIT IA5String(SIZE(1..15))
+            },
+            releaseCause[1] IMPLICIT OCTET STRING(SIZE(2..4))
+        }
+    } OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+CallInformationReportArg ::= SEQUENCE
+{
+    requestedInformationList[0] IMPLICIT SEQUENCE SIZE(1..5) OF SEQUENCE
+    {
+        requestedInformationType[0] IMPLICIT ENUMERATED
+        {
+            callAttemptElapsedTime(0),
+            callStopTime(1),
+            callConnectedElapsedTime(2),
+            calledAddress(3),
+            releaseCause(30)
+        },
+        requestedInformationValue[1] CHOICE
+        {
+            callAttemptElapsedTimeValue[0] IMPLICIT INTEGER(0..255),
+            callStopTimeValue[1] IMPLICIT OCTET STRING(SIZE(6)),
+            callConnectedElapsedTimeValue[2] IMPLICIT INTEGER(0..2147483647),
+            calledAddressValue[3] IMPLICIT OCTET STRING(SIZE(1..15)),
+            releaseCauseValue[30] IMPLICIT OCTET STRING(SIZE(2..4))
+        }
+    },
+    correlationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+CallInformationRequestArg ::= SEQUENCE
+{
+    requestedInformationTypeList[0] IMPLICIT SEQUENCE SIZE(1..5) OF ENUMERATED
+    {
+        callAttemptElapsedTime(0),
+        callStopTime(1),
+        callConnectedElapsedTime(2),
+        calledAddress(3),
+        releaseCause(30)
+    },
+    correlationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+CancelArg ::= CHOICE
+{
+    invokeID[0] IMPLICIT INTEGER(-128..127),
+    allRequests[1] IMPLICIT NULL
+}
+
+CancelStatusReportRequestArg ::= SEQUENCE
+{
+    resourceID[0] CHOICE
+    {
+        lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        facilityGroupID[1] CHOICE
+        {
+            trunkGroupID[0] IMPLICIT INTEGER,
+            privateFacilityID[1] IMPLICIT INTEGER,
+            huntGroup[2] IMPLICIT OCTET STRING,
+            routeIndex[3] IMPLICIT OCTET STRING
+        },
+        facilityGroupMemberID[2] IMPLICIT INTEGER,
+        trunkGroupID[3] IMPLICIT INTEGER
+    } OPTIONAL,
+    extensions[1] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+CollectedInformationArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    dialledDigits[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[4] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[5] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    prefix[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[9] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    travellingClassMark[10] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[11] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    featureCode[12] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    accessCode[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    carrier[14] IMPLICIT OCTET STRING OPTIONAL
+}
+
+CollectInformationArg ::= SEQUENCE
+{
+    alertingPattern[0] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    numberingPlan[1] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+    originalCalledPartyID[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    callingPartyNumber[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    dialledDigits[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+}
+
+ConnectArg ::= SEQUENCE
+{
+    destinationRoutingAddress[0] IMPLICIT SEQUENCE SIZE(1..3) OF
+    OCTET STRING(SIZE(1..15)),
+    alertingPattern[1] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    correlationID[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    cutAndPaste[3] IMPLICIT INTEGER(0..22) OPTIONAL,
+    forwardingCondition[4] IMPLICIT ENUMERATED
+    {
+        busy(0),
+        noanswer(1),
+        any(2)
+    } OPTIONAL,
+    iSDNAccessRelatedInformation[5] IMPLICIT OCTET STRING OPTIONAL,
+    originalCalledPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    routeList[7] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    scfID[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[10] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[11] IMPLICIT OCTET STRING OPTIONAL,
+    serviceInteractionIndicators[26] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyNumber[27] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartysCategory[28] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+    redirectingPartyID[29] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[30] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL
+}
+
+ConnectToResourceArg ::= SEQUENCE
+{
+    resourceAddress CHOICE
+    {
+        ipRoutingAddress[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        legID[1] CHOICE
+        {
+            sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+            receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+        },
+        both[2] IMPLICIT SEQUENCE
+        {
+            ipRoutingAddress[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+            legID[1] CHOICE
+            {
+                sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+                receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+            }
+        },
+        none[3] IMPLICIT NULL
+    },
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    serviceInteractionIndicators[30] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+}
+
+EstablishTemporaryConnectionArg ::= SEQUENCE
+{
+    assistingSSPIPRoutingAddress[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    correlationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    legID[2] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL,
+    scfID[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[5] IMPLICIT OCTET STRING OPTIONAL,
+    serviceInteractionIndicators[30] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+}
+
+EventNotificationChargingArg ::= SEQUENCE
+{
+    eventTypeCharging[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    eventSpecificInformationCharging[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    legID[2] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    monitorMode[30] IMPLICIT ENUMERATED
+    {
+        interrupted(0),
+        notifyAndContinue(1),
+        transparent(2)
+    } DEFAULT notifyAndContinue
+}
+
+EventReportBCSMArg ::= SEQUENCE
+{
+    eventTypeBCSM[0] IMPLICIT ENUMERATED
+    {
+        origAttemptAuthorized(1),
+        collectedInfo(2),
+        analysedInformation(3),
+        routeSelectFailure(4),
+        oCalledPartyBusy(5),
+        oNoAnswer(6),
+        oAnswer(7),
+        oMidCall(8),
+        oDisconnect(9),
+        oAbandon(10),
+        termAttemptAuthorized(12),
+        tBusy(13),
+        tNoAnswer(14),
+        tAnswer(15),
+        tMidCall(16),
+        tDisconnect(17),
+        tAbandon(18)
+    },
+    bcsmEventCorrelationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    eventSpecificInformationBCSM[2] CHOICE
+    {
+        collectedInfoSpecificInfo[0] IMPLICIT SEQUENCE
+        {
+            calledPartynumber[0] IMPLICIT OCTET STRING(SIZE(1..15))
+        },
+        analyzedInfoSpecificInfo[1] IMPLICIT SEQUENCE
+        {
+            calledPartynumber[0] IMPLICIT OCTET STRING(SIZE(1..15))
+        },
+        routeSelectFailureSpecificInfo[2] IMPLICIT SEQUENCE
+        {
+            failureCause[0] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL
+        },
+        oCalledPartyBusySpecificInfo[3] IMPLICIT SEQUENCE
+        {
+            busyCause[0] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL
+        },
+        oNoAnswerSpecificInfo[4] IMPLICIT SEQUENCE
+        {
+        },
+        oAnswerSpecificInfo[5] IMPLICIT SEQUENCE
+        {
+        },
+        oMidCallSpecificInfo[6] IMPLICIT SEQUENCE
+        {
+            connectTime[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        },
+        oDisconnectSpecificInfo[7] IMPLICIT SEQUENCE
+        {
+            releaseCause[0] IMPLICIT OCTET STRING(SIZE(2..4)) OPTIONAL,
+            connectTime[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        },
+        tBusySpecificInfo[8] IMPLICIT SEQUENCE
+        {
+            busyCause[0] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL
+        },
+        tNoAnswerSpecificInfo[9] IMPLICIT SEQUENCE
+        {
+        },
+        tAnswerSpecificInfo[10] IMPLICIT SEQUENCE
+        {
+        },
+        tMidCallSpecificInfo[11] IMPLICIT SEQUENCE
+        {
+            connectTime[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        },
+        tDisconnectSpecificInfo[12] IMPLICIT SEQUENCE
+        {
+            releaseCause[0] IMPLICIT OCTET STRING(SIZE(2..4)) OPTIONAL,
+            connectTime[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        }
+    } OPTIONAL,
+    legID[3] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL,
+    miscCallInfo[4] IMPLICIT SEQUENCE
+    {
+        messageType[0] IMPLICIT ENUMERATED
+        {
+            request(0),
+            notification(1)
+        },
+        dpAssignment[1] IMPLICIT ENUMERATED
+        {
+            individualLine(0),
+            groupBased(1),
+            officeBased(2)
+        } OPTIONAL
+    }
+    DEFAULT
+    {
+        messageType request
+    },
+    extensions[5] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+FurnishChargingInformationArg ::= OCTET STRING(SIZE(1..100))
+
+HoldCallInNetworkArg ::= CHOICE
+{
+    holdcause[0] IMPLICIT OCTET STRING,
+    empty[1] IMPLICIT NULL
+}
+
+InitialDPArg ::= SEQUENCE
+{
+    serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+    dialledDigits[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyBusinessGroupID[4] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartysCategory[5] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+    callingPartySubaddress[6] IMPLICIT OCTET STRING OPTIONAL,
+    cGEncountered[7] IMPLICIT ENUMERATED
+    {
+        noCGencountered(0),
+        manualCGencountered(1),
+        scpOverload(2)
+    } OPTIONAL,
+    iPSSPCapabilities[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    iPAvailable[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    locationNumber[10] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    miscCallInfo[11] IMPLICIT SEQUENCE
+    {
+        messageType[0] IMPLICIT ENUMERATED
+        {
+            request(0),
+            notification(1)
+        },
+        dpAssignment[1] IMPLICIT ENUMERATED
+        {
+            individualLine(0),
+            groupBased(1),
+            officeBased(2)
+        } OPTIONAL
+    } OPTIONAL,
+    originalCalledPartyID[12] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    serviceProfileIdentifier[13] IMPLICIT OCTET STRING OPTIONAL,
+    terminalType[14] IMPLICIT ENUMERATED
+    {
+        unknown(0),
+        dialPulse(1),
+        dtmf(2),
+        isdn(3),
+        isdnNoDtmf(4),
+        spare(16)
+    } OPTIONAL,
+    extensions[15] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    triggerType[16] IMPLICIT ENUMERATED
+    {
+        featureActivation(0),
+        verticalServiceCode(1),
+        customizedAccess(2),
+        customizedIntercom(3),
+        emergencyService(12),
+        aFR(13),
+        sharedIOTrunk(14),
+        offHookDelay(17),
+        channelSetupPRI(18),
+        tNoAnswer(25),
+        tBusy(26),
+        oCalledPartyBusy(27),
+        oNoAnswer(29),
+        originationAttemptAuthorized(30),
+        oAnswer(31),
+        oDisconnect(32),
+        termAttemptAuthorized(33),
+        tAnswer(34),
+        tDisconnect(35)
+    } OPTIONAL,
+    highLayerCompatibility[23] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    serviceInteractionIndicators[24] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    additionalCallingPartyNumber[25] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    forwardCallIndicators[26] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    bearerCapability[27] CHOICE
+    {
+        bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+        tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL,
+    eventTypeBCSM[28] IMPLICIT ENUMERATED
+    {
+        origAttemptAuthorized(1),
+        collectedInfo(2),
+        analysedInformation(3),
+        routeSelectFailure(4),
+        oCalledPartyBusy(5),
+        oNoAnswer(6),
+        oAnswer(7),
+        oMidCall(8),
+        oDisconnect(9),
+        oAbandon(10),
+        termAttemptAuthorized(12),
+        tBusy(13),
+        tNoAnswer(14),
+        tAnswer(15),
+        tMidCall(16),
+        tDisconnect(17),
+        tAbandon(18)
+    } OPTIONAL,
+    redirectingPartyID[29] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[30] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL
+}
+
+InitiateCallAttemptArg ::= SEQUENCE
+{
+    destinationRoutingAddress[0] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)),
+    alertingPattern[1] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    iSDNAccessRelatedInformation[2] IMPLICIT OCTET STRING OPTIONAL,
+    travellingClassMark[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    serviceInteractionIndicators[29] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyNumber[30] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+}
+
+OAnswerArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    callingPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[7] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[8] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[10] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+OCalledPartyBusyArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    busyCause[1] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL,
+    callingPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[4] CHOICE
+    {
+
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[5] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    prefix[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[9] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[10] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[11] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[13] IMPLICIT OCTET STRING OPTIONAL
+}
+
+ODisconnectArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    callingPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    releaseCause[5] IMPLICIT OCTET STRING(SIZE(2..4)) OPTIONAL,
+    routeList[6] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[7] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[8] IMPLICIT OCTET STRING OPTIONAL,
+    connectTime[9] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+}
+
+OMidCallArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartyBusinessGroupID[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[4] IMPLICIT OCTET STRING OPTIONAL,
+    featureRequestIndicator[5] IMPLICIT ENUMERATED
+    {
+        hold(0),
+        retrieve(1),
+        featureActivation(2),
+        spare1(3),
+        sparen(127)
+    } OPTIONAL,
+    extensions[6] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[7] IMPLICIT OCTET STRING OPTIONAL
+}
+
+ONoAnswer ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    callingPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    prefix[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[8] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[9] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[10] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[11] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[12] IMPLICIT OCTET STRING OPTIONAL
+}
+
+OriginationAttemptAuthorizedArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    dialledDigits[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[4] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[5] IMPLICIT INTEGER OPTIONAL,
+    travellingClassMark[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[7] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[8] IMPLICIT OCTET STRING OPTIONAL
+}
+
+PlayAnnouncementArg ::= SEQUENCE
+{
+    informationToSend[0] CHOICE
+    {
+        inbandInfo[0] IMPLICIT SEQUENCE
+        {
+            messageID[0] CHOICE
+            {
+                elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                text[1] IMPLICIT SEQUENCE
+                {
+                    messageContent[0] IMPLICIT IA5String(SIZE(1..15)),
+                    attributes[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+                },
+                elementaryMessageIDs[29] IMPLICIT SEQUENCE SIZE(1..15) OF INTEGER(0..2147483647),
+                variableMessage[30] IMPLICIT SEQUENCE
+                {
+                    elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                    variableParts[1] IMPLICIT SEQUENCE SIZE(1..5) OF
+                    CHOICE
+                    {
+                        integer[0] IMPLICIT INTEGER(0..2147483647),
+                        number[1] IMPLICIT OCTET STRING(SIZE(1..15)),
+                        time[2] IMPLICIT OCTET STRING(SIZE(2)),
+                        date[3] IMPLICIT OCTET STRING(SIZE(3)),
+                        price[4] IMPLICIT OCTET STRING(SIZE(4))
+                    }
+                }
+            },
+            numberOfRepetitions[1] IMPLICIT INTEGER(1..127) OPTIONAL,
+            duration[2] IMPLICIT INTEGER(0..32767) OPTIONAL,
+            interval[3] IMPLICIT INTEGER(0..32767) OPTIONAL
+        },
+        tone[1] IMPLICIT SEQUENCE
+        {
+            toneID[0] IMPLICIT INTEGER(0..2147483647),
+            duration[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        },
+        displayInformation[2] IMPLICIT IA5String(SIZE(1..15))
+    },
+    disconnectFromIPForbidden[1] IMPLICIT BOOLEAN DEFAULT TRUE,
+    requestAnnouncementComplete[2] IMPLICIT BOOLEAN DEFAULT TRUE,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+PromptAndCollectUserInformation ::= SEQUENCE
+{
+    collectedInfo[0] CHOICE
+    {
+        collectedDigits[0] IMPLICIT SEQUENCE
+        {
+            minimumNbOfDigits[0] IMPLICIT INTEGER(1..127) DEFAULT 1,
+            maximumNbOfDigits[1] IMPLICIT INTEGER(1..127),
+            endOfReplyDigit[2] IMPLICIT OCTET STRING(SIZE(1..2)) OPTIONAL,
+            cancelDigit[3] IMPLICIT OCTET STRING(SIZE(1..2)) OPTIONAL,
+            startDigit[4] IMPLICIT OCTET STRING(SIZE(1..2)) OPTIONAL,
+            firstDigitTimeOut[5] IMPLICIT INTEGER(1..127) OPTIONAL,
+            interDigitTimeOut[6] IMPLICIT INTEGER(1..127) OPTIONAL,
+            errorTreatment[7] IMPLICIT ENUMERATED
+            {
+                reportErrorToScf(0),
+                help(1),
+                repeatPrompt(2)
+            } DEFAULT reportErrorToScf,
+            interruptableAnnInd[8] IMPLICIT BOOLEAN DEFAULT TRUE,
+            voiceInformation[9] IMPLICIT BOOLEAN DEFAULT FALSE,
+            voiceBack[10] IMPLICIT BOOLEAN DEFAULT FALSE
+        },
+        iA5Information[1] IMPLICIT BOOLEAN
+    },
+    disconnectFromIPForbidden[1] IMPLICIT BOOLEAN DEFAULT TRUE,
+    informationToSend[2] CHOICE
+    {
+        inbandInfo[0] IMPLICIT SEQUENCE
+        {
+            messageID[0] CHOICE
+            {
+                elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                text[1] IMPLICIT SEQUENCE
+                {
+                    messageContent[0] IMPLICIT IA5String(SIZE(1..15)),
+                    attributes[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+                },
+                elementaryMessageIDs[29] IMPLICIT SEQUENCE SIZE(1..15) OF
+                INTEGER(0..2147483647),
+                variableMessage[30] IMPLICIT SEQUENCE
+                {
+                    elementaryMessageID[0] IMPLICIT INTEGER(0..2147483647),
+                    variableParts[1] IMPLICIT SEQUENCE SIZE(1..5) OF
+                    CHOICE
+                    {
+                        integer[0] IMPLICIT INTEGER(0..2147483647),
+                        number[1] IMPLICIT OCTET STRING(SIZE(1..15)),
+                        time[2] IMPLICIT OCTET STRING(SIZE(2)),
+                        date[3] IMPLICIT OCTET STRING(SIZE(3)),
+                        price[4] IMPLICIT OCTET STRING(SIZE(4))
+                    }
+                }
+            },
+            numberOfRepetitions[1] IMPLICIT INTEGER(1..127) OPTIONAL,
+            duration[2] IMPLICIT INTEGER(0..32767) OPTIONAL,
+            interval[3] IMPLICIT INTEGER(0..32767) OPTIONAL
+        },
+        tone[1] IMPLICIT SEQUENCE
+        {
+            toneID[0] IMPLICIT INTEGER(0..2147483647),
+            duration[1] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+        },
+        displayInformation[2] IMPLICIT IA5String(SIZE(1..15))
+    } OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+PromptAndCollectUserInformationResult ::= CHOICE
+{
+    digitsResponse[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    iA5Response[1] IMPLICIT IA5String
+}
+
+ReleaseCallArg ::= OCTET STRING(SIZE(2..15))
+
+RequestCurrentStatusReportArg ::= CHOICE
+{
+    lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    facilityGroupID[1] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    },
+    facilityGroupMemberID[2] IMPLICIT INTEGER,
+    trunkGroupID[3] IMPLICIT INTEGER
+}
+
+RequestCurrentStatusReportResult ::= SEQUENCE
+{
+    resourceStatus[0] IMPLICIT ENUMERATED
+    {
+        busy(0),
+        idle(1)
+    },
+    resourceID[1] CHOICE
+    {
+        lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        facilityGroupID[1] CHOICE
+        {
+            trunkGroupID[0] IMPLICIT INTEGER,
+            privateFacilityID[1] IMPLICIT INTEGER,
+            huntGroup[2] IMPLICIT OCTET STRING,
+            routeIndex[3] IMPLICIT OCTET STRING
+        },
+        facilityGroupMemberID[2] IMPLICIT INTEGER,
+        trunkGroupID[3] IMPLICIT INTEGER
+    } OPTIONAL,
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+RequestEveryStatusChangeReportArg ::= SEQUENCE
+{
+    resourceID[0] CHOICE
+    {
+        lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        facilityGroupID[1] CHOICE
+        {
+            trunkGroupID[0] IMPLICIT INTEGER,
+            privateFacilityID[1] IMPLICIT INTEGER,
+            huntGroup[2] IMPLICIT OCTET STRING,
+            routeIndex[3] IMPLICIT OCTET STRING
+        },
+        facilityGroupMemberID[2] IMPLICIT INTEGER,
+        trunkGroupID[3] IMPLICIT INTEGER
+    },
+    correlationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    monitorDuration[2] IMPLICIT INTEGER(-2..86400) OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+RequestFirstStatusMatchReportArg ::= SEQUENCE
+{
+    resourceID[0] CHOICE
+    {
+        lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        facilityGroupID[1] CHOICE
+        {
+            trunkGroupID[0] IMPLICIT INTEGER,
+            privateFacilityID[1] IMPLICIT INTEGER,
+            huntGroup[2] IMPLICIT OCTET STRING,
+            routeIndex[3] IMPLICIT OCTET STRING
+        },
+        facilityGroupMemberID[2] IMPLICIT INTEGER,
+        trunkGroupID[3] IMPLICIT INTEGER
+    } OPTIONAL,
+    resourceStatus[1] IMPLICIT ENUMERATED
+    {
+        busy(0),
+        idle(1)
+    } OPTIONAL,
+    correlationID[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    monitorDuration[3] IMPLICIT INTEGER(-2..86400) OPTIONAL,
+    extensions[4] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    bearerCapability[5] CHOICE
+    {
+        bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+        tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL
+}
+
+RequestNotificationChargingEventArg ::= SEQUENCE SIZE(1..2) OF SEQUENCE
+{
+    eventTypeCharging[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    monitorMode[1] IMPLICIT ENUMERATED
+    {
+        interrupted(0),
+        notifyAndContinue(1),
+        transparent(2)
+    },
+    legID[2] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    } OPTIONAL
+}
+
+RequestReportBCSMEventArg ::= SEQUENCE
+{
+    bcsmEvents[0] IMPLICIT SEQUENCE SIZE(1..10) OF SEQUENCE
+    {
+        eventTypeBCSM[0] IMPLICIT ENUMERATED
+        {
+            origAttemptAuthorized(1),
+            collectedInfo(2),
+            analysedInformation(3),
+            routeSelectFailure(4),
+            oCalledPartyBusy(5),
+            oNoAnswer(6),
+            oAnswer(7),
+            oMidCall(8),
+            oDisconnect(9),
+            oAbandon(10),
+            termAttemptAuthorized(12),
+            tBusy(13),
+            tNoAnswer(14),
+            tAnswer(15),
+            tMidCall(16),
+            tDisconnect(17),
+            tAbandon(18)
+        },
+        monitorMode[1] IMPLICIT ENUMERATED
+        {
+            interrupted(0),
+            notifyAndContinue(1),
+            transparent(2)
+        },
+        legID[2] CHOICE
+        {
+            sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+            receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        dpSpecificCriteria[30] CHOICE
+        {
+            numberOfDigits[0] IMPLICIT INTEGER(1..255),
+            applicationTimer[1] IMPLICIT INTEGER(0..2047)
+        } OPTIONAL
+    },
+    bcsmEventCorrelationID[1] IMPLICIT OCTET STRING(SIZE(1..4)) OPTIONAL,
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+ResetTimerArg ::= SEQUENCE
+{
+    timerID[0] IMPLICIT ENUMERATED
+    {
+        tssf(0)
+    } DEFAULT tssf,
+    timervalue[1] IMPLICIT INTEGER(0..2147483647),
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+RouteSelectFailureArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    dialledDigits[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    callingPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingFacilityGroup[4] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    callingFacilityGroupMember[5] IMPLICIT INTEGER OPTIONAL,
+    failureCause[6] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL,
+    originalCalledPartyID[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    prefix[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[10] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[11] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[12] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[13] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[14] IMPLICIT OCTET STRING OPTIONAL
+}
+
+SelectFacilityArg ::= SEQUENCE
+{
+    alertingPattern[0] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    destinationNumberRoutingAddress[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    iSDNAccessRelatedInformation[2] IMPLICIT OCTET STRING OPTIONAL,
+    calledFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    calledFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[6] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+SelectRouteArg ::= SEQUENCE
+{
+    destinationRoutingAddress[0] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)),
+    alertingPattern[1] IMPLICIT OCTET STRING(SIZE(3)) OPTIONAL,
+    correlationID[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    iSDNAccessRelatedInformation[3] IMPLICIT OCTET STRING OPTIONAL,
+    originalCalledPartyID[4] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    routeList[5] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    scfID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[7] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[8] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[9] IMPLICIT OCTET STRING OPTIONAL
+}
+
+SendChargingInformationArg ::= SEQUENCE
+{
+    sCIBillingChargingCharacteristics[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+    partyToCharge[1] CHOICE
+    {
+        sendingSideID[0] IMPLICIT OCTET STRING(SIZE(1)),
+        receivingSideID[1] IMPLICIT OCTET STRING(SIZE(1))
+    },
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+ServiceFilteringResponseArg ::= SEQUENCE
+{
+    countersValue[0] IMPLICIT SEQUENCE SIZE(0..100) OF SEQUENCE
+    {
+        counterID[0] IMPLICIT INTEGER(0..99),
+        counterValue[1] IMPLICIT INTEGER(0..2147483647)
+    },
+    filteringCriteria[1] CHOICE
+    {
+        dialledNumber[0] IMPLICIT OCTET STRING(SIZE(0..20)),
+        callingLineID[1] IMPLICIT OCTET STRING(SIZE(1..15)),
+        serviceKey[2] IMPLICIT INTEGER(0..2147483647),
+        addressAndService[30] IMPLICIT SEQUENCE
+        {
+            calledAddressValue[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+            serviceKey[1] IMPLICIT INTEGER(0..2147483647),
+            callingAddressValue[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+            locationNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+        }
+    },
+    extensions[2] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    responseCondition[3] IMPLICIT ENUMERATED
+    {
+        intermediateResponse(0),
+        lastResponse(1)
+    } OPTIONAL
+}
+
+SpecializedResourceReportArg ::= NULL
+
+StatusReportArg ::= SEQUENCE
+{
+    resourceStatus[0] IMPLICIT ENUMERATED
+    {
+        busy(0),
+        idle(1)
+    } OPTIONAL,
+    correlationID[1] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    resourceID[2] CHOICE
+    {
+        lineID[0] IMPLICIT OCTET STRING(SIZE(1..15)),
+        facilityGroupID[1] CHOICE
+        {
+            trunkGroupID[0] IMPLICIT INTEGER,
+            privateFacilityID[1] IMPLICIT INTEGER,
+            huntGroup[2] IMPLICIT OCTET STRING,
+            routeIndex[3] IMPLICIT OCTET STRING
+        },
+        facilityGroupMemberID[2] IMPLICIT INTEGER,
+        trunkGroupID[3] IMPLICIT INTEGER
+    } OPTIONAL,
+    extensions[3] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    reportCondition[4] IMPLICIT ENUMERATED
+    {
+        statusReport(0),
+        timerExpired(1),
+        canceled(2)
+    } OPTIONAL
+}
+
+TAnswerArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    calledFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    calledFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    extensions[5] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+TBusyArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    busyCause[1] IMPLICIT OCTET STRING(SIZE(2..15)) OPTIONAL,
+    calledPartyBusinessGroupID[2] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[3] IMPLICIT OCTET STRING OPTIONAL,
+    originalCalledPartyID[4] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[6] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[7] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[9] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+TDisconnectArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    calledFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    calledFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    releaseCause[5] IMPLICIT OCTET STRING(SIZE(2..4)) OPTIONAL,
+    extensions[6] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    connectTime[7] IMPLICIT INTEGER(0..2147483647) OPTIONAL
+}
+
+TermAttemptAuthorizedArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartyBusinessGroupID[3] IMPLICIT OCTET STRING OPTIONAL,
+    originalCalledPartyID[4] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[6] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    routeList[7] IMPLICIT SEQUENCE SIZE(1..3) OF OCTET STRING(SIZE(1..15)) OPTIONAL,
+    travellingClassMark[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[9] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+TMidCallArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartyBusinessGroupID[3] IMPLICIT OCTET STRING OPTIONAL,
+    callingPartySubaddress[4] IMPLICIT OCTET STRING OPTIONAL,
+    featureRequestIndicator[5] IMPLICIT ENUMERATED
+    {
+        hold(0),
+        retrieve(1),
+        featureActivation(2),
+        spare1(3),
+        sparen(127)
+    } OPTIONAL,
+    extensions[6] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL,
+    carrier[7] IMPLICIT OCTET STRING OPTIONAL
+}
+
+TNoAnswerArg ::= SEQUENCE
+{
+    dpSpecificCommonParameters[0] IMPLICIT SEQUENCE
+    {
+        serviceAddressInformation[0] IMPLICIT SEQUENCE
+        {
+            serviceKey[0] IMPLICIT INTEGER(0..2147483647) OPTIONAL,
+            miscCallInfo[1] IMPLICIT SEQUENCE
+            {
+                messageType[0] IMPLICIT ENUMERATED
+                {
+                    request(0),
+                    notification(1)
+                },
+                dpAssignment[1] IMPLICIT ENUMERATED
+                {
+                    individualLine(0),
+                    groupBased(1),
+                    officeBased(2)
+                } OPTIONAL
+            },
+            triggerType[2] IMPLICIT ENUMERATED
+            {
+                featureActivation(0),
+                verticalServiceCode(1),
+                customizedAccess(2),
+                customizedIntercom(3),
+                emergencyService(12),
+                aFR(13),
+                sharedIOTrunk(14),
+                offHookDelay(17),
+                channelSetupPRI(18),
+                tNoAnswer(25),
+                tBusy(26),
+                oCalledPartyBusy(27),
+                oNoAnswer(29),
+                originationAttemptAuthorized(30),
+                oAnswer(31),
+                oDisconnect(32),
+                termAttemptAuthorized(33),
+                tAnswer(34),
+                tDisconnect(35)
+            } OPTIONAL
+        },
+        bearerCapability[1] CHOICE
+        {
+            bearerCap[0] IMPLICIT OCTET STRING(SIZE(2..15)),
+            tmr[1] IMPLICIT OCTET STRING(SIZE(1))
+        } OPTIONAL,
+        calledPartyNumber[2] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartyNumber[3] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        callingPartysCategory[4] IMPLICIT OCTET STRING(SIZE(1)) OPTIONAL,
+        iPSSPCapabilities[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iPAvailable[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        iSDNAccessRelatedInformation[7] IMPLICIT OCTET STRING OPTIONAL,
+        cGEncountered[8] IMPLICIT ENUMERATED
+        {
+            noCGencountered(0),
+            manualCGencountered(1),
+            scpOverload(2)
+        } OPTIONAL,
+        locationNumber[9] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        serviceProfileIdentifier[10] IMPLICIT OCTET STRING OPTIONAL,
+        terminalType[11] IMPLICIT ENUMERATED
+        {
+            unknown(0),
+            dialPulse(1),
+            dtmf(2),
+            isdn(3),
+            isdnNoDtmf(4),
+            spare(16)
+        } OPTIONAL,
+        extensions[12] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+        {
+            type INTEGER,
+            criticality ENUMERATED
+            {
+                ignore(0),
+                abort(1)
+            } DEFAULT 0,
+            value[1] ANY DEFINED BY type
+        } OPTIONAL,
+        chargeNumber[13] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+        servingAreaID[14] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL
+    },
+    calledPartyBusinessGroupID[1] IMPLICIT OCTET STRING OPTIONAL,
+    calledPartySubaddress[2] IMPLICIT OCTET STRING OPTIONAL,
+    calledFacilityGroup[3] CHOICE
+    {
+        trunkGroupID[0] IMPLICIT INTEGER,
+        privateFacilityID[1] IMPLICIT INTEGER,
+        huntGroup[2] IMPLICIT OCTET STRING,
+        routeIndex[3] IMPLICIT OCTET STRING
+    } OPTIONAL,
+    calledFacilityGroupMember[4] IMPLICIT INTEGER OPTIONAL,
+    originalCalledPartyID[5] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectingPartyID[6] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    redirectionInformation[7] IMPLICIT OCTET STRING(SIZE(2)) OPTIONAL,
+    travellingClassMark[8] IMPLICIT OCTET STRING(SIZE(1..15)) OPTIONAL,
+    extensions[9] IMPLICIT SEQUENCE SIZE(1..2) OF SEQUENCE
+    {
+        type INTEGER,
+        criticality ENUMERATED
+        {
+            ignore(0),
+            abort(1)
+        } DEFAULT 0,
+        value[1] ANY DEFINED BY type
+    } OPTIONAL
+}
+
+ReceivedInformationArg ::= CHOICE {
+    digitsResponse [0] OCTET STRING,
+    iA5Response [1] IA5String
+}
+
+END

@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+
+<ITS-Diameter  version           = "1"
+               enableHexDump     = "0"
+               dictionaryFile    = "dictionary.xml" 
+               addOriginStateIdOpt = "1"
+               interWorkingMode    = "0"
+               peerNotificationsToApp    = "1"
+               disableStackInitiatedSTR    = "1" >
+
+   <LocalConfig>
+
+       <InbandSecurityId  value = "0"/>
+       <VendorId          value = "0"/>
+       <SupportedVendorId value = "10415"/>
+
+       <AuthAppId         value = "0"/>
+       <AuthAppId         value = "4"/>
+       <AuthAppId         value = "16777251"/>
+       <Transformation    value = "ITS_DIA_NO_TRANSFORMATION"/>
+       <PluginPath        value = "/opt/diametriq/iwf/lib/"/>
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "16777251"/>
+           <AuthAppId         value = "4"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+         <!-- Exactly one of Auth or Accounting should be present -->
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+
+       <!-- Single HostInfo Only 1 Origin-Host/Origin-Realm in CER -->
+       <LocalHost  serverHostName = "iwf"
+                   realmName      = "diametriq.com" >
+
+           <!--Transport   type         = "TCP"
+                        serverIpAddr = "172.16.12.165"
+                        port         = "3868">
+           </Transport-->
+
+	   <TcpConfigData    
+	    connectTimeout	= "1000" >
+	   </TcpConfigData>
+
+       </LocalHost>
+
+       <SessionConfig>
+
+              <AuthSession  
+                        timeout        = "400"
+                        lifetime       = "200"
+                        gracePeriod    = "100" >
+             
+              </AuthSession>
+
+              <AcctSession  
+                        state           = "0"  
+                        timeout         = "30"
+                        interimInterval = "30"
+                        realTime        = "30" >
+
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+   </LocalConfig>
+                            
+   <!--PeerConfig>
+
+       <Timer    name = "Tc"             value = "300" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "600" />
+  
+       <RetransmitInterval   value = "50"/>
+       <RetransmitCount      value = "1" />
+
+       <Peer    serverHostName = "mme"
+                realmName      = "diametriq.com" >
+
+           < Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           >
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.12.165"
+                        port         = "13868">
+           </Transport>
+
+       </Peer>
+
+   </PeerConfig-->
+
+   <!--RealmConfig>
+
+        < Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+                           redirect
+        >
+
+        <Route     realmName        = "diametriq.com"
+                   localAction      = "local" > 
+
+            <Destination 
+                         peerName       = "mme"
+                         applicationId  = "0"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+   
+            <Destination 
+                         peerName       = "mme"
+                         applicationId  = "16777251"
+                         vendorId       = "10415"
+                         priority       = "0" >
+            </Destination>
+   
+        </Route>
+
+	<Route     realmName        = "diametriq.com"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "mme" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig-->
+
+</ITS-Diameter>

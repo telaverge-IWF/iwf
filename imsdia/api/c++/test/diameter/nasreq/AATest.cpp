@@ -1,0 +1,130 @@
+#include <diameter/Exceptions.h>
+#include <diameter/nasreq/AA.h>
+
+void testAARequest() {
+    diameter::nasreq::AARequest request;
+
+    request.setSessionId(diameter::base::SessionId(...));
+    request.setAuthApplicationId(diameter::base::AuthApplicationId(...));
+    request.setOriginHost(diameter::base::OriginHost(...));
+    request.setOriginRealm(diameter::base::OriginRealm(...));
+    request.setDestinationRealm(diameter::base::DestinationRealm(...));
+    request.setAuthRequestType(diameter::base::AuthRequestType(...));
+    request.setDestinationHost(diameter::base::DestinationHost(...));
+    request.setNASIdentifier(NASIdentifier(...));
+    request.setNASIPAddress(NASIPAddress(...));
+    request.setNASIPv6Address(NASIPv6Address(...));
+    request.setNASPort(NASPort(...));
+    request.setNASPortId(NASPortId(...));
+    request.setNASPortType(NASPortType(...));
+    request.setOriginAAAProtocol(OriginAAAProtocol(...));
+    request.setOriginStateId(diameter::base::OriginStateId(...));
+    request.setPortLimit(PortLimit(...));
+    request.setUserName(diameter::base::UserName(...));
+    request.setUserPassword(UserPassword(...));
+    request.setServiceType(ServiceType(...));
+    request.setState(State(...));
+    request.setAuthorizationLifetime(diameter::base::AuthorizationLifetime(...));
+    request.setAuthGracePeriod(diameter::base::AuthGracePeriod(...));
+    request.setAuthSessionState(diameter::base::AuthSessionState(...));
+    request.setCallbackNumber(CallbackNumber(...));
+    request.setCalledStationId(CalledStationId(...));
+    request.setCallingStationId(CallingStationId(...));
+    request.setOriginatingLineInfo(OriginatingLineInfo(...));
+    request.setConnectInfo(ConnectInfo(...));
+    request.setCHAPAuth(CHAPAuth(...));
+    request.setCHAPChallenge(CHAPChallenge(...));
+    request.addFramedCompression(FramedCompression(...));
+    request.setFramedInterfaceId(FramedInterfaceId(...));
+    request.setFramedIPAddress(FramedIPAddress(...));
+    request.addFramedIPv6Prefix(FramedIPv6Prefix(...));
+    request.setFramedIPNetmask(FramedIPNetmask(...));
+    request.setFramedMTU(FramedMTU(...));
+    request.setFramedProtocol(FramedProtocol(...));
+    request.setARAPPassword(ARAPPassword(...));
+    request.setARAPSecurity(ARAPSecurity(...));
+    request.addARAPSecurityData(ARAPSecurityData(...));
+    request.addLoginIPHost(LoginIPHost(...));
+    request.addLoginIPv6Host(LoginIPv6Host(...));
+    request.setLoginLATGroup(LoginLATGroup(...));
+    request.setLoginLATNode(LoginLATNode(...));
+    request.setLoginLATPort(LoginLATPort(...));
+    request.setLoginLATService(LoginLATService(...));
+    request.addTunneling(Tunneling(...));
+    request.addProxyInfo(diameter::base::ProxyInfo(...));
+    request.addRouteRecord(diameter::base::RouteRecord(...));
+    // add more AVP as ANY values
+}
+
+void testAAAnswer() {
+    diameter::nasreq::AAAnswer answer;
+
+    answer.setSessionId(diameter::base::SessionId(...));
+    answer.setAuthApplicationId(diameter::base::AuthApplicationId(...));
+    answer.setAuthRequestType(diameter::base::AuthRequestType(...));
+    answer.setResultCode(diameter::base::ResultCode(...));
+    answer.setOriginHost(diameter::base::OriginHost(...));
+    answer.setOriginRealm(diameter::base::OriginRealm(...));
+    answer.setUserName(diameter::base::UserName(...));
+    answer.setServiceType(ServiceType(...));
+    answer.addClass(diameter::base::Class(...));
+    answer.addConfigurationToken(ConfigurationToken(...));
+    answer.setAcctInterimInterval(diameter::base::AcctInterimInterval(...));
+    answer.setErrorMessage(diameter::base::ErrorMessage(...));
+    answer.setErrorReportingHost(diameter::base::ErrorReportingHost(...));
+    answer.addFailedAVP(diameter::base::FailedAVP(...));
+    answer.setIdleTimeout(IdleTimeout(...));
+    answer.setAuthorizationLifetime(diameter::base::AuthorizationLifetime(...));
+    answer.setAuthGracePeriod(diameter::base::AuthGracePeriod(...));
+    answer.setAuthSessionState(diameter::base::AuthSessionState(...));
+    answer.setReAuthRequestType(diameter::base::ReAuthRequestType(...));
+    answer.setMultiRoundTimeOut(diameter::base::MultiRoundTimeOut(...));
+    answer.setSessionTimeout(diameter::base::SessionTimeout(...));
+    answer.setState(State(...));
+    answer.addReplyMessage(ReplyMessage(...));
+    answer.setOriginAAAProtocol(OriginAAAProtocol(...));
+    answer.setOriginStateId(diameter::base::OriginStateId(...));
+    answer.addFilterId(FilterId(...));
+    answer.setPasswordRetry(PasswordRetry(...));
+    answer.setPortLimit(PortLimit(...));
+    answer.setPrompt(Prompt(...));
+    answer.setARAPChallengeResponse(ARAPChallengeResponse(...));
+    answer.setARAPFeatures(ARAPFeatures(...));
+    answer.setARAPSecurity(ARAPSecurity(...));
+    answer.addARAPSecurityData(ARAPSecurityData(...));
+    answer.setARAPZoneAccess(ARAPZoneAccess(...));
+    answer.setCallbackId(CallbackId(...));
+    answer.setCallbackNumber(CallbackNumber(...));
+    answer.setFramedAppletalkLink(FramedAppletalkLink(...));
+    answer.addFramedAppletalkNetwork(FramedAppletalkNetwork(...));
+    answer.setFramedAppletalkZone(FramedAppletalkZone(...));
+    answer.addFramedCompression(FramedCompression(...));
+    answer.setFramedInterfaceId(FramedInterfaceId(...));
+    answer.setFramedIPAddress(FramedIPAddress(...));
+    answer.addFramedIPv6Prefix(FramedIPv6Prefix(...));
+    answer.setFramedIPv6Pool(FramedIPv6Pool(...));
+    answer.addFramedIPv6Route(FramedIPv6Route(...));
+    answer.setFramedIPNetmask(FramedIPNetmask(...));
+    answer.addFramedRoute(FramedRoute(...));
+    answer.setFramedPool(FramedPool(...));
+    answer.setFramedIPXNetwork(FramedIPXNetwork(...));
+    answer.setFramedMTU(FramedMTU(...));
+    answer.setFramedProtocol(FramedProtocol(...));
+    answer.setFramedRouting(FramedRouting(...));
+    answer.addLoginIPHost(LoginIPHost(...));
+    answer.addLoginIPv6Host(LoginIPv6Host(...));
+    answer.setLoginLATGroup(LoginLATGroup(...));
+    answer.setLoginLATNode(LoginLATNode(...));
+    answer.setLoginLATPort(LoginLATPort(...));
+    answer.setLoginLATService(LoginLATService(...));
+    answer.setLoginService(LoginService(...));
+    answer.setLoginTCPPort(LoginTCPPort(...));
+    answer.addNASFilterRule(NASFilterRule(...));
+    answer.addQoSFilterRule(QoSFilterRule(...));
+    answer.addTunneling(Tunneling(...));
+    answer.addRedirectHost(diameter::base::RedirectHost(...));
+    answer.setRedirectHostUsage(diameter::base::RedirectHostUsage(...));
+    answer.setRedirectMaxCacheTime(diameter::base::RedirectMaxCacheTime(...));
+    answer.addProxyInfo(diameter::base::ProxyInfo(...));
+    // add more AVP as ANY values
+}

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+
+<ITS-Diameter  version           = "1"
+               dictionaryFile    = "dictionary.xml" >
+
+   <LocalConfig>
+
+       <InbandSecurityId  value = "0"/>
+       <VendorId          value = "0"/>
+       <SupportedVendorId value = "10415"/>
+
+       <AuthAppId         value = "0"/>
+       <AuthAppId         value = "16777216"/>
+       <AuthAppId         value = "16777217"/>
+       <AuthAppId         value = "16777222"/>
+       <AccountingAppId   value = "3"/>
+       <AccountingAppId   value = "4"/>
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "0"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+         <!-- Exactly one of Auth or Accounting should be present -->
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+
+       <!-- Single HostInfo Only 1 Origin-Host/Origin-Realm in CER -->
+       <LocalHost  serverHostName = "yogesh"
+                   realmName      = "india.internal.net" >
+
+           <!-- Multiple Transports (Max 4) -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.16.75"
+                        port         = "1912">
+           </Transport>
+
+           <Transport   type         = "SCTP"
+                        serverIpAddr = "172.16.16.75"
+                        port         = "1912">
+           </Transport>
+
+       </LocalHost>
+
+       <SessionConfig>
+
+             <!-- 0 for Stateless, 1 for Stateful -->
+              <AuthSession  
+                        state          = "0"  
+                        timeout        = "40"
+                        lifetime       = "20"
+                        gracePeriod    = "10"
+                        retryAbort     = "30" >
+             
+              </AuthSession>
+
+              <!-- 0 for Stateless, 1 for Stateful -->
+              <AcctSession  
+                        state           = "0"  
+                        timeout         = "30"
+                        interimInterval = "30"
+                        realTime        = "30" >
+
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+   </LocalConfig>
+                            
+   <PeerConfig>
+
+       <Timer    name = "Tc"             value = "30" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "60" />
+  
+       <RetransmitInterval   value = "50"/>
+       <RetransmitCount      value = "1" />
+
+       <Peer    serverHostName = "yogesh1"
+                realmName      = "india.internal.net" >
+
+           <!-- Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.16.75"
+                        port         = "1911">
+           </Transport>
+
+       </Peer>
+
+   </PeerConfig>
+
+   <RealmConfig>
+
+        <!-- Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+                           redirect
+        -->
+
+        <Route     realmName        = "india.internal.net"
+                   localAction      = "local" > 
+
+            <Destination 
+                         peerName       = "yogesh1"
+                         applicationId  = "0"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+   
+        </Route>
+
+	<Route     realmName        = "india.internal.net"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "yogesh1" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig>
+
+</ITS-Diameter>

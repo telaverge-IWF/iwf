@@ -1,0 +1,17 @@
+/load_shema.sh/1.1.2.1/Fri Oct  5 12:38:38 2012//TB-IWF-HP-0400-00
+/mycrund.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/mycrundcxx.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/mycrundjava.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/mytwscxx.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/mytwsjava.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/restart_cluster.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/restart_mysqld.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/restart_ndb.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/slay.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/start_cluster.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/start_mysqld.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/start_ndb.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/stop_cluster.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/stop_mysqld.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+/stop_ndb.sh/1.1.2.1/Fri Oct  5 12:38:39 2012//TB-IWF-HP-0400-00
+D

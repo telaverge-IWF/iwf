@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_asp_inac_tmr
+
+DESCRIPTION
+    This command set asp inactive Timer.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_asp_inac_tmr 10
+
+********* SET NEW ASP INACTIVE TIMER *********
+
+ASP_INACTIVE_TIMER = 10
+

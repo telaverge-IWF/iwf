@@ -1,0 +1,299 @@
+USING INDEX ../doc/gsmmap_index.html
+Generating for ../include/itu/its_GSMMAP.h its_GSMMAP.c
+Dumping interface notes for: GSMMAP
+Dumping implementation notes for: GSMMAP_SendUpdateLocationArg
+Dumping link to GSMMAP_SendUpdateLocationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUpdateLocationArg
+Dumping link to GSMMAP_DecodeUpdateLocationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendUpdateLocationRes
+Dumping link to GSMMAP_SendUpdateLocationRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUpdateLocationRes
+Dumping link to GSMMAP_DecodeUpdateLocationRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendCancelLocationArg
+Dumping link to GSMMAP_SendCancelLocationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeCancelLocationArg
+Dumping link to GSMMAP_DecodeCancelLocationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPurgeMS_Arg
+Dumping link to GSMMAP_SendPurgeMS_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePurgeMS_Arg
+Dumping link to GSMMAP_DecodePurgeMS_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendIdentificationArg
+Dumping link to GSMMAP_SendSendIdentificationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendIdentificationArg
+Dumping link to GSMMAP_DecodeSendIdentificationArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendIdentificationRes
+Dumping link to GSMMAP_SendSendIdentificationRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendIdentificationRes
+Dumping link to GSMMAP_DecodeSendIdentificationRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPerformHO_Arg
+Dumping link to GSMMAP_SendPerformHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePerformHO_Arg
+Dumping link to GSMMAP_DecodePerformHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPerformHO_Res
+Dumping link to GSMMAP_SendPerformHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePerformHO_Res
+Dumping link to GSMMAP_DecodePerformHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPrepareHO_Arg
+Dumping link to GSMMAP_SendPrepareHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePrepareHO_Arg
+Dumping link to GSMMAP_DecodePrepareHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPrepareHO_Res
+Dumping link to GSMMAP_SendPrepareHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePrepareHO_Res
+Dumping link to GSMMAP_DecodePrepareHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendEndSignalArg
+Dumping link to GSMMAP_SendSendEndSignalArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendEndSignalArg
+Dumping link to GSMMAP_DecodeSendEndSignalArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProcessAccessSignallingArg
+Dumping link to GSMMAP_SendProcessAccessSignallingArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProcessAccessSignallingArg
+Dumping link to GSMMAP_DecodeProcessAccessSignallingArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendForwardAccessSignallingArg
+Dumping link to GSMMAP_SendForwardAccessSignallingArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeForwardAccessSignallingArg
+Dumping link to GSMMAP_DecodeForwardAccessSignallingArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPerformSubsequentHO_Arg
+Dumping link to GSMMAP_SendPerformSubsequentHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePerformSubsequentHO_Arg
+Dumping link to GSMMAP_DecodePerformSubsequentHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPerformSubsequentHO_Res
+Dumping link to GSMMAP_SendPerformSubsequentHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePerformSubsequentHO_Res
+Dumping link to GSMMAP_DecodePerformSubsequentHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPrepareSubsequentHO_Arg
+Dumping link to GSMMAP_SendPrepareSubsequentHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePrepareSubsequentHO_Arg
+Dumping link to GSMMAP_DecodePrepareSubsequentHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendPrepareSubsequentHO_Res
+Dumping link to GSMMAP_SendPrepareSubsequentHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodePrepareSubsequentHO_Res
+Dumping link to GSMMAP_DecodePrepareSubsequentHO_Res for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendAuthenticationInfoArg
+Dumping link to GSMMAP_SendSendAuthenticationInfoArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendAuthenticationInfoArg
+Dumping link to GSMMAP_DecodeSendAuthenticationInfoArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendAuthenticationInfoRes
+Dumping link to GSMMAP_SendSendAuthenticationInfoRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendAuthenticationInfoRes
+Dumping link to GSMMAP_DecodeSendAuthenticationInfoRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendCheckIMEIArg
+Dumping link to GSMMAP_SendCheckIMEIArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeCheckIMEIArg
+Dumping link to GSMMAP_DecodeCheckIMEIArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendCheckIMEIRes
+Dumping link to GSMMAP_SendCheckIMEIRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeCheckIMEIRes
+Dumping link to GSMMAP_DecodeCheckIMEIRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendParametersArg
+Dumping link to GSMMAP_SendSendParametersArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendParametersArg
+Dumping link to GSMMAP_DecodeSendParametersArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendParametersRes
+Dumping link to GSMMAP_SendSendParametersRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendParametersRes
+Dumping link to GSMMAP_DecodeSendParametersRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendInsertSubscriberDataArg
+Dumping link to GSMMAP_SendInsertSubscriberDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeInsertSubscriberDataArg
+Dumping link to GSMMAP_DecodeInsertSubscriberDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendInsertSubscriberDataRes
+Dumping link to GSMMAP_SendInsertSubscriberDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeInsertSubscriberDataRes
+Dumping link to GSMMAP_DecodeInsertSubscriberDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendDeleteSubscriberDataArg
+Dumping link to GSMMAP_SendDeleteSubscriberDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDeleteSubscriberDataArg
+Dumping link to GSMMAP_DecodeDeleteSubscriberDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendDeleteSubscriberDataRes
+Dumping link to GSMMAP_SendDeleteSubscriberDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDeleteSubscriberDataRes
+Dumping link to GSMMAP_DecodeDeleteSubscriberDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendResetArg
+Dumping link to GSMMAP_SendResetArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeResetArg
+Dumping link to GSMMAP_DecodeResetArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRestoreDataArg
+Dumping link to GSMMAP_SendRestoreDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRestoreDataArg
+Dumping link to GSMMAP_DecodeRestoreDataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRestoreDataRes
+Dumping link to GSMMAP_SendRestoreDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRestoreDataRes
+Dumping link to GSMMAP_DecodeRestoreDataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendActivateTraceModeArg
+Dumping link to GSMMAP_SendActivateTraceModeArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeActivateTraceModeArg
+Dumping link to GSMMAP_DecodeActivateTraceModeArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendDeactivateTraceModeArg
+Dumping link to GSMMAP_SendDeactivateTraceModeArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDeactivateTraceModeArg
+Dumping link to GSMMAP_DecodeDeactivateTraceModeArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendTraceSubscriberActivityArg
+Dumping link to GSMMAP_SendTraceSubscriberActivityArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeTraceSubscriberActivityArg
+Dumping link to GSMMAP_DecodeTraceSubscriberActivityArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendNoteInternalHO_Arg
+Dumping link to GSMMAP_SendNoteInternalHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeNoteInternalHO_Arg
+Dumping link to GSMMAP_DecodeNoteInternalHO_Arg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendIMSIArg
+Dumping link to GSMMAP_SendSendIMSIArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendIMSIArg
+Dumping link to GSMMAP_DecodeSendIMSIArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendIMSIRes
+Dumping link to GSMMAP_SendSendIMSIRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendIMSIRes
+Dumping link to GSMMAP_DecodeSendIMSIRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendRoutingInfoArg
+Dumping link to GSMMAP_SendSendRoutingInfoArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendRoutingInfoArg
+Dumping link to GSMMAP_DecodeSendRoutingInfoArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendRoutingInfoRes
+Dumping link to GSMMAP_SendSendRoutingInfoRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendRoutingInfoRes
+Dumping link to GSMMAP_DecodeSendRoutingInfoRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProvideRoamingNumberArg
+Dumping link to GSMMAP_SendProvideRoamingNumberArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProvideRoamingNumberArg
+Dumping link to GSMMAP_DecodeProvideRoamingNumberArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProvideRoamingNumberRes
+Dumping link to GSMMAP_SendProvideRoamingNumberRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProvideRoamingNumberRes
+Dumping link to GSMMAP_DecodeProvideRoamingNumberRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRegisterSSArg
+Dumping link to GSMMAP_SendRegisterSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRegisterSSArg
+Dumping link to GSMMAP_DecodeRegisterSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRegisterSSRes
+Dumping link to GSMMAP_SendRegisterSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRegisterSSRes
+Dumping link to GSMMAP_DecodeRegisterSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendEraseSSArg
+Dumping link to GSMMAP_SendEraseSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeEraseSSArg
+Dumping link to GSMMAP_DecodeEraseSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendEraseSSRes
+Dumping link to GSMMAP_SendEraseSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeEraseSSRes
+Dumping link to GSMMAP_DecodeEraseSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendActivateSSArg
+Dumping link to GSMMAP_SendActivateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeActivateSSArg
+Dumping link to GSMMAP_DecodeActivateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendActivateSSRes
+Dumping link to GSMMAP_SendActivateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeActivateSSRes
+Dumping link to GSMMAP_DecodeActivateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendDeactivateSSArg
+Dumping link to GSMMAP_SendDeactivateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDeactivateSSArg
+Dumping link to GSMMAP_DecodeDeactivateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendDeactivateSSRes
+Dumping link to GSMMAP_SendDeactivateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDeactivateSSRes
+Dumping link to GSMMAP_DecodeDeactivateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendInterrogateSSArg
+Dumping link to GSMMAP_SendInterrogateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeInterrogateSSArg
+Dumping link to GSMMAP_DecodeInterrogateSSArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendInterrogateSSRes
+Dumping link to GSMMAP_SendInterrogateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeInterrogateSSRes
+Dumping link to GSMMAP_DecodeInterrogateSSRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProcessUnstructuredSS_DataArg
+Dumping link to GSMMAP_SendProcessUnstructuredSS_DataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProcessUnstructuredSS_DataArg
+Dumping link to GSMMAP_DecodeProcessUnstructuredSS_DataArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProcessUnstructuredSS_DataRes
+Dumping link to GSMMAP_SendProcessUnstructuredSS_DataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProcessUnstructuredSS_DataRes
+Dumping link to GSMMAP_DecodeProcessUnstructuredSS_DataRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProcessUnstructuredSS_RequestArg
+Dumping link to GSMMAP_SendProcessUnstructuredSS_RequestArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProcessUnstructuredSS_RequestArg
+Dumping link to GSMMAP_DecodeProcessUnstructuredSS_RequestArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendProcessUnstructuredSS_RequestRes
+Dumping link to GSMMAP_SendProcessUnstructuredSS_RequestRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeProcessUnstructuredSS_RequestRes
+Dumping link to GSMMAP_DecodeProcessUnstructuredSS_RequestRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendUnstructuredSS_RequestArg
+Dumping link to GSMMAP_SendUnstructuredSS_RequestArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUnstructuredSS_RequestArg
+Dumping link to GSMMAP_DecodeUnstructuredSS_RequestArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendUnstructuredSS_RequestRes
+Dumping link to GSMMAP_SendUnstructuredSS_RequestRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUnstructuredSS_RequestRes
+Dumping link to GSMMAP_DecodeUnstructuredSS_RequestRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendUnstructuredSS_NotifyArg
+Dumping link to GSMMAP_SendUnstructuredSS_NotifyArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUnstructuredSS_NotifyArg
+Dumping link to GSMMAP_DecodeUnstructuredSS_NotifyArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRegisterPasswordArg
+Dumping link to GSMMAP_SendRegisterPasswordArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRegisterPasswordArg
+Dumping link to GSMMAP_DecodeRegisterPasswordArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendRegisterPasswordRes
+Dumping link to GSMMAP_SendRegisterPasswordRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeRegisterPasswordRes
+Dumping link to GSMMAP_DecodeRegisterPasswordRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendGetPasswordArg
+Dumping link to GSMMAP_SendGetPasswordArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeGetPasswordArg
+Dumping link to GSMMAP_DecodeGetPasswordArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendGetPasswordRes
+Dumping link to GSMMAP_SendGetPasswordRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeGetPasswordRes
+Dumping link to GSMMAP_DecodeGetPasswordRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendBeginSubscriberActivityArg
+Dumping link to GSMMAP_SendBeginSubscriberActivityArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeBeginSubscriberActivityArg
+Dumping link to GSMMAP_DecodeBeginSubscriberActivityArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendRoutingInfoForSMArg
+Dumping link to GSMMAP_SendSendRoutingInfoForSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendRoutingInfoForSMArg
+Dumping link to GSMMAP_DecodeSendRoutingInfoForSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendSendRoutingInfoForSMRes
+Dumping link to GSMMAP_SendSendRoutingInfoForSMRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeSendRoutingInfoForSMRes
+Dumping link to GSMMAP_DecodeSendRoutingInfoForSMRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendForwardSMArg
+Dumping link to GSMMAP_SendForwardSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeForwardSMArg
+Dumping link to GSMMAP_DecodeForwardSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendReportSM_DeliveryStatusArg
+Dumping link to GSMMAP_SendReportSM_DeliveryStatusArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeReportSM_DeliveryStatusArg
+Dumping link to GSMMAP_DecodeReportSM_DeliveryStatusArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendReportSM_DeliveryStatusRes
+Dumping link to GSMMAP_SendReportSM_DeliveryStatusRes for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeReportSM_DeliveryStatusRes
+Dumping link to GSMMAP_DecodeReportSM_DeliveryStatusRes for GSMMAP
+Dumping implementation notes for: GSMMAP_SendNoteSubscriberPresentArg
+Dumping link to GSMMAP_SendNoteSubscriberPresentArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeNoteSubscriberPresentArg
+Dumping link to GSMMAP_DecodeNoteSubscriberPresentArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendAlertServiceCentreWOResult
+Dumping link to GSMMAP_SendAlertServiceCentreWOResult for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeAlertServiceCentreWOResult
+Dumping link to GSMMAP_DecodeAlertServiceCentreWOResult for GSMMAP
+Dumping implementation notes for: GSMMAP_SendInformServiceCentreArg
+Dumping link to GSMMAP_SendInformServiceCentreArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeInformServiceCentreArg
+Dumping link to GSMMAP_DecodeInformServiceCentreArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendAlertServiceCentreArg
+Dumping link to GSMMAP_SendAlertServiceCentreArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeAlertServiceCentreArg
+Dumping link to GSMMAP_DecodeAlertServiceCentreArg for GSMMAP
+Dumping implementation notes for: GSMMAP_SendReadyForSMArg
+Dumping link to GSMMAP_SendReadyForSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeReadyForSMArg
+Dumping link to GSMMAP_DecodeReadyForSMArg for GSMMAP
+Dumping implementation notes for: GSMMAP_EncodeUserInfo
+Dumping link to GSMMAP_EncodeUserInfo for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeUserInfo
+Dumping link to GSMMAP_DecodeUserInfo for GSMMAP
+Dumping implementation notes for: GSMMAP_EncodeDialoguePDU
+Dumping link to GSMMAP_EncodeDialoguePDU for GSMMAP
+Dumping implementation notes for: GSMMAP_DecodeDialoguePDU
+Dumping link to GSMMAP_DecodeDialoguePDU for GSMMAP

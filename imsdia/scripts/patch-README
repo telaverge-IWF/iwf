@@ -1,0 +1,18 @@
+  PATCH NAME: Patch 2.2-00-01-QOB
+  -----------------------------------------------
+  PATCH SUMMARY: 
+  This patch installs the following
+  
+  1. library files in $IMS_ROOT/lib
+
+  This patch is ONLY for LINUX platform, 
+  This patch has fix for following Issue ID:
+      
+       Issue ID: <discription>
+  -----------------------------------------------
+  APPLIES TO: QOB-2.2-0
+  -----------------------------------------------
+  OBSOLETES PATCHES: NONE
+  -----------------------------------------------
+  REQUIRES PATCHES: NONE
+  -----------------------------------------------

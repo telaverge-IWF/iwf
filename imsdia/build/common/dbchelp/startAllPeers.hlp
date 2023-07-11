@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    startAllPeers
+
+DESCRIPTION
+    This command starts all peers which are configured.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+    >> startAllPeers
+
+       Successfully Peer started

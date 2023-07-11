@@ -1,0 +1,21 @@
+/CHANGES/1.1.1.1/Thu Aug 23 06:50:13 2012//TB-IWF-HP-0400-00
+/CONTRIBUTORS/1.1.1.1/Thu Aug 23 06:50:13 2012//TB-IWF-HP-0400-00
+/COPYING/1.1.1.1/Thu Aug 23 06:50:13 2012//TB-IWF-HP-0400-00
+/Makefile.am/1.1.1.1/Thu Aug 23 06:50:13 2012//TB-IWF-HP-0400-00
+/Makefile.in/1.1.1.1.36.1/Sat Dec 28 11:48:22 2013//TB-IWF-HP-0400-00
+/README/1.1.1.1/Thu Aug 23 06:50:13 2012//TB-IWF-HP-0400-00
+/aclocal.m4/1.1.1.1.36.1/Sat Dec 28 11:48:22 2013//TB-IWF-HP-0400-00
+/configure/1.1.1.1.36.1/Sat Dec 28 11:48:22 2013//TB-IWF-HP-0400-00
+/configure.ac/1.1.1.1/Thu Aug 23 06:50:14 2012//TB-IWF-HP-0400-00
+D/build-aux////
+D/codegear////
+D/include////
+D/m4////
+D/make////
+D/msvc////
+D/samples////
+D/scons////
+D/scripts////
+D/src////
+D/test////
+D/xcode////

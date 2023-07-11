@@ -1,0 +1,13 @@
+/var/log/dre/trace/* {
+      olddir old
+      compress
+      delaycompress
+      copytruncate
+      notifempty
+      missingok
+      size 50M
+      rotate 10
+    firstaction
+    /opt/diametriq/dre/scripts/archive.sh
+    endscript
+}

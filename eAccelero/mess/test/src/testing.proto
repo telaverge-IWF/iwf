@@ -1,0 +1,24 @@
+message GetConfigReq_pb
+{
+    required fixed32 id = 1; 
+    required string str = 2; 
+};
+message GetConfigResp_pb
+{
+	required fixed32 id = 1;
+	required fixed32 val = 2;
+	required string result = 3;
+};
+message SetConfigReq_pb
+{
+	required fixed32 id = 1;
+	required fixed32 val = 2;
+	required string descr = 3;
+};
+message SetConfigResp_pb
+{
+	required fixed32 id = 1;
+	required string result = 2;
+};
+
+

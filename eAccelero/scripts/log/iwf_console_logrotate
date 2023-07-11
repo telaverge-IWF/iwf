@@ -1,0 +1,15 @@
+/var/log/iwf/iwf_console_out.log 
+/var/log/dre/iwf_console_err.log {
+    compress
+    delaycompress
+    copytruncate
+    notifempty
+    missingok
+    size 50M
+    rotate 25
+    firstaction
+    /opt/diametriq/iwf/scripts/archive_iwf_console.sh
+    endscript
+}
+ 
+ 

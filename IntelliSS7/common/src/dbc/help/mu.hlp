@@ -1,0 +1,30 @@
+
+Sigtran M2UA :
+    mu_get_gen_cfg             M2UA Get General Config
+    mu_set_gen_cfg             M2UA Set General Config
+    mu_get_all_iids            M2UA Retreive all IID 
+    mu_get_gen_peg             M2UA Get General Pegs
+    mu_clr_gen_peg             M2UA Clear General Pegs
+    mu_reg_req                 M2UA Send Registration Request 
+    mu_dereg_req               M2UA Send Deregistration Request 
+    mu_rem_iid                 M2UA remove IID 
+    mu_set_iid                 M2UA Add new IID
+    mu_asp_trid                M2UA Asp Transport Idendifier 
+    mu_asp_up                  M2UA Send Asp Up Msg
+    mu_asp_active              M2UA Send Asp active Msg
+    mu_asp_inactive            M2UA Send Asp inactive Msg
+    mu_asp_down                M2UA Send Asp down Msg
+    mu_get_timers              M2UA Get all Asp Timer values 
+    mu_set_asp_up_tmr          M2UA Set Asp Up Timer
+    mu_set_asp_dn_tmr          M2UA Set Asp down Timer
+    mu_set_asp_ac_tmr          M2UA Set Asp Active Timer
+    mu_set_asp_inac_tmr        M2UA Set Asp Inactive Timer
+    mu_set_as_pen_tmr          M2UA Set As Pending Timer
+    mu_set_asp_def_tmr         M2UA Set Asp Default Timers
+    mu_get_all_asp_state       M2UA Get all Asp's Current State at SG 
+    mu_get_asp_state           M2UA Get Asp Current State 
+    mu_get_as_state            M2UA Get As Current State 
+    mu_add_asp                 M2UA Add Asp Id at SG 
+
+
+For details about any command use "help <command name>"

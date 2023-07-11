@@ -1,0 +1,291 @@
+/**
+ * 3GPP TS 29.234 V9.1.0 (2010-03) --- Pr interface
+ * The Pr Reference Point allows the 3GPP AAA Server to report presence relevant events to the Presence Network Agent (PNA).
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4072 - Diameter EAP application
+ * RFC 4005 - Diameter NASREQ application
+ */
+protocol diameter.pr < 16777230 10415 : "ETSI TS 129 234 V9.1.0 (2010-03) " >;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+
+/**
+ * The Visited-Network-Identifier AVP is of type OctetString. This AVP
+ * contains an identifier that helps the home  network to identify the
+ * visited network (e.g. the visited network domain name).
+ */
+    Visited-Network-Identifier         ::=  600  /*6.3.1*/                OctetString   M,V| | |   |N;
+
+
+/**
+ * The 3GPP-WLAN-APN-Id AVP is of type OctetString, and contains the W-APN for
+ * which the user will have services available. These W-APNs may be mapped to
+ * services in the home network or in the visited network. W-APN is defined
+ * in 3GPP TS 23.003 [22].
+ */
+    Pr3GPP-WLAN-APN-Id                 ::= 100 /* ETSI 29 23410.1.15*/    OctetString   M,V| | |   |N;
+
+
+/**
+ * The Subscription-ID AVP is of type grouped and indicates the user identity
+ * to be used for charging purposes. It is defined in the IETF RFC 4006 [19].
+ * WLAN shall make use only of the values MSISDN or IMSI. This grouped AVP shall
+ * set the sub-AVP Subscription-Id- Type to value "END_USER_E164" or to value
+ * "END_USER_IMSI" and shall set the sub-AVP Subscription-Id-Data to
+ * the MSISDN value.
+ */
+    Subscription-Id                    ::= 443  0  /*clause 8.46 RFC4006 */  Grouped       M|P| |  V  |Y;
+
+/**
+ * Subscription-Id-Type AVP is of type Enumerated and it is used to determine which type of
+ * identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type               ::= 450 0 /* clause 8.47 RFC4006 */ Enumerated    M|P| |  V  |Y;
+
+/**
+ * Subscription-Id-Data AVP is used to identity the end user and is of type UTF8String.
+ */
+    Subscription-Id-Data               ::= 444 0 /* clause 8.48 RFC4006 */ UTF8String    M|P| |  V  |Y;
+
+
+/**
+ * The Server-Assignment-Type AVP is of type Enumerated, and indicates the type of server update being performed in a
+ * Server-Assignment-Request operation. The following values are defined:
+ * <ul>
+ * <li> NO_ASSIGNMENT (0)<br>
+ * This value is used to request from HSS the user profile assigned to one or more public identities, without
+ * affecting the registration state of those identities.
+ * <li> REGISTRATION (1)<br>
+ * The request is generated as a consequence of a first registration of an identity.
+ * <li> RE_REGISTRATION (2)<br>
+ * The request corresponds to the re-registration of an identity.
+ * <li> UNREGISTERED_USER (3)<br>
+ * The request is generated because the S-CSCF received an INVITE for a public identity that is not registered.
+ * <li> TIMEOUT_DEREGISTRATION (4)<br>
+ * The SIP registration timer of an identity has expired.
+ * <li> USER_DEREGISTRATION (5)<br>
+ * The S-CSCF has received a user initiated de-registration request.
+ * <li> TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME (6)<br>
+ * The SIP registration timer of an identity has expired. The S-CSCF keeps the user data stored in the S-CSCF
+ * and requests HSS to store the S-CSCF name.
+ * <li> USER_DEREGISTRATION_STORE_SERVER_NAME (7)<br>
+ * The S-CSCF has received a user initiated de-registration request. The S-CSCF keeps the user data stored in
+ * the S-CSCF and requests HSS to store the S-CSCF name.
+ * <li> ADMINISTRATIVE_DEREGISTRATION (8)<br>
+ * The S-CSCF, due to administrative reasons, has performed the de-registration of an identity.
+ * <li> AUTHENTICATION_FAILURE (9)<br>
+ * The authentication of a user has failed.
+ * <li> AUTHENTICATION_TIMEOUT (10)<br>
+ * The authentication timeout has expired.
+ * <li> DEREGISTRATION_TOO_MUCH_DATA (11)<br>
+ * The S-CSCF has requested user profile information from the HSS and has received a volume of data higher
+ * than it can accept.
+ * </ul>
+ */
+
+   Server-Assignment-Type                            ::=  614 /*6.3.15*/ Enumerated  M,V| | |    |N;
+
+                          /////////////////
+                          //Enumerations//
+                          ///////////////
+
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                               END_USER_E164           0
+                               END_USER_IMSI           1
+                               END_USER_SIP_URI        2
+                               END_USER_NAI            3
+                               END_USER_PRIVATE        4
+                               ;
+
+Server-Assignment-Type ::= < Enumerated: 614 >
+                NO_ASSIGNMENT                                0
+                REGISTRATION                                 1
+                RE_REGISTRATION                              2
+                UNREGISTERED_USER                            3
+                TIMEOUT_DEREGISTRATION                       4
+                USER_DEREGISTRATION                          5
+                TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME     6
+                USER_DEREGISTRATION_STORE_SERVER_NAME        7
+                ADMINISTRATIVE_DEREGISTRATION                8
+                AUTHENTICATION_FAILURE                       9
+                AUTHENTICATION_TIMEOUT                       10
+                DEREGISTRATION_TOO_MUCH_DATA                 11
+                ;
+
+
+                  ///////////////////
+                  ///Grouped AVPs///
+                  //////////////////
+
+  Subscription-Id ::= < AVP Header: 443 >
+                        { Subscription-Id-Type }
+                        { Subscription-Id-Data }
+                        ;
+
+
+
+
+    /////////////// 
+    // Commands //
+    //////////////
+
+
+/**
+ * The Server-Assignment-Request (SAR) command, indicated by the Command-Code field being set to 301 and 
+ * the 'R' bit set in the Command Flags field, is sent by the 3GPP AAA Server to the PNA, in order to indicate 
+ * to the PNA a WLAN user is in the status of Attached or Detached.
+ */
+
+Server-Assignment-Request ::= < Diameter Header: 301, REQ, PXY, 16777230 >
+                  < Session-Id > 
+                  { Vendor-Specific-Application-Id } 
+                  { Auth-Session-State } 
+                  { Origin-Host }
+                  { Origin-Realm }                
+                  { Server-Assignment-Type }
+                  [ Destination-Host ]
+                  [ Destination-Realm ]
+                  [ User-Name ]                   
+                  [Visited-Network-Identifier]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/** 
+ * The Server-Assignment-Answer (SAA) command, indicated by the Command-Code field being set to 301 
+ * and the 'R' bit cleared in the Command Flags field, is sent by the PNA to the 3GPP AAA Server, i
+ * to confirm the Attached or Detached indication.
+ */
+Server-Assignment-Answer ::= < Diameter Header: 301, PXY, 16777230 >
+                  < Session-Id >
+                  { Vendor-Specific-Application-Id }
+                  { Auth-Session-State }
+                  { Origin-Host }
+                  { Origin-Realm }
+                  [ Result-Code ]
+                  [Experimental-Result ]
+                  [ User-Name ]
+                  *[ Proxy-Info ]
+                  *[ Route-Record ]
+                  *[ AVP ]
+                  ;
+
+/**
+ * The AA-Request (AAR), which is indicated by setting the Command-Code field to
+ * 265 and the 'R' bit in the Command Flags field, is used to request
+ * authentication and/or authorization for a given NAS user.
+ * The type of request is identified through the Auth-Request-Type AVP [BASE].
+ * The recommended value for most RADIUS interoperabily situations is
+ * AUTHORIZE_AUTHENTICATE.
+ * If Authentication is requested, the User-Name attribute SHOULD be present, as
+ * well as any additional authentication AVPs that would carry the password
+ * information. A request for authorization SHOULD only include the information
+ * from which the authorization will be performed, such as the User-Name,
+ * Called-Station-Id, or Calling-Station-Id AVPs. All requests SHOULD contain
+ * AVPs uniquely identifying the source of the call, such as Origin-Host and
+ * NAS-Port. Certain networks MAY use different AVPs for authorization purposes.
+ * A request for authorization will include some AVPs defined in section 6.
+ */
+    AA-Request<AAR> ::= < Diameter Header: 265, REQ, PXY , 16777230>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Request-Type }
+            [ Destination-Host ]  /* {} changed to [] */
+            [ Visited-Network-Identifier]
+            [Pr3GPP-WLAN-APN-Id ]
+            [ User-Name ]
+            [ Authorization-Lifetime ]
+            [ Auth-Grace-Period ]
+            [ Auth-Session-State ]
+            [ Framed-IP-Address ]
+            [ Framed-IP-Netmask ]
+            * [ Tunneling ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+
+/**
+ * The AA-Answer (AAA) message is indicated by setting the Command-Code field to
+ * 265 and clearing the 'R' bit in the Command Flags field. It is sent in
+ * response to the AA-Request (AAR) message. If authorization was requested, a
+ * successful response will include the authorization AVPs appropriate for the
+ * service being provided, as defined in section 6.
+ * For authentication exchanges requiring more than a single round trip,
+ * the server MUST set the Result-Code AVP to DIAMETER_MULTI_ROUND_AUTH.
+ * An AAA message with this result code MAY include one Reply-Message or
+ * more and MAY include zero or one State AVPs.
+ */
+    AA-Answer<AAA> ::= < Diameter Header: 265, PXY, 16777230>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Auth-Request-Type }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ Subscription-Id ] /* Subscription-ID-AVP has been changed to Subscription-Id */
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Request (ASR), indicated by the Command-Code set to
+ * 274 and the message flags' 'R' bit set, may be sent by any server to
+ * the access device that is providing session service, to request that
+ * the session identified by the Session-Id be stopped.
+ */
+    Abort-Session-Request<ASR> ::= < Diameter Header: 274, REQ, PXY, 16777230 >
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Destination-Host }
+            { Auth-Application-Id }
+            [ User-Name ]
+            [Pr3GPP-WLAN-APN-Id ]
+            [ Origin-State-Id ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            *[ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Answer (ASA), indicated by the Command-Code set to
+ * 274 and the message flags' 'R' bit clear, is sent in response to the
+ * ASR.  The Result-Code AVP MUST be present, and indicates the
+ * disposition of the request.
+ * If the session identified by Session-Id in the ASR was successfully
+ * terminated, Result-Code is set to DIAMETER_SUCCESS.  If the session
+ * is not currently active, Result-Code is set to
+ * DIAMETER_UNKNOWN_SESSION_ID.  If the access device does not stop the
+ * session for any other reason, Result-Code is set to
+ * DIAMETER_UNABLE_TO_COMPLY.
+ */
+    Abort-Session-Answer<ASA> ::= < Diameter Header: 274, PXY, 16777230 >
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ User-Name ]
+            [ Origin-State-Id ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            * [ Redirect-Host ]
+            [ Redirect-Host-Usage ]
+            [ Redirect-Max-Cache-Time ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+

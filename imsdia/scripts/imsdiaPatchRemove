@@ -1,0 +1,89 @@
+echo " imsdiaPatchRemove Utility";
+
+export PROCLIST="sampleAppD";
+export PATCH_DIR=$IMS_ROOT/patches;
+
+# Env variables
+EXE=$0
+SUCCESS=0
+FAILURE=1
+PWDIR=`/bin/pwd`
+NARGS=$#
+ARG=$1
+
+
+function check_args
+{
+   if [ $NARGS != 1 ]
+   then
+      echo " Usage: <$EXE> <PATCH_ID>"
+      echo " Usage: <$EXE> all "
+      echo " to remove all patches which can be backed out "
+      echo " To View the installed patches use imsdiaPatchInfo"
+      exit $FAILURE;
+   fi
+}
+
+function check_and_stop_proc
+{
+  echo " Stopping all the related running processes ";
+  for proc in $PROCLIST
+  do
+      if ps -e | grep $proc > /dev/null
+      then
+          kill -9 `pgrep ${proc}`
+          pkill -9 $proc
+          echo "$proc terminated."
+      fi
+  done
+}
+
+function execute
+{
+   if [ $ARG = "all" ] || [ $ARG = "-all" ]
+   then
+      echo "\n Checking for imsdia Patches installed on this machine\n ";
+      /bin/ls -l $PATCH_DIR | grep 2.2 > /dev/null;
+      if [ $? = 1 ]
+      then
+         echo " NO imsdia Patches found on this machine ";
+         exit $SUCCESS;
+      else
+         for d in `ls -1 $PATCH_DIR | grep 2.2`; 
+         do
+            PATCH_ID=$d;
+            echo " Removing Patch ID : $PATCH_ID ";
+            remove_patch;
+         done
+      fi
+    else
+       echo " Checking if imsdia Patch $ARG is installed on this machine ";
+       PATCH_ID="$ARG";
+
+       if [ ! -d $PATCH_DIR/$PATCH_ID ]
+       then
+          echo " This patch was not installed on this machine";
+          exit $FAILURE;
+       else
+          echo " Removing Patch ID : $PATCH_ID";
+          remove_patch;
+       fi
+    fi
+}
+
+function remove_patch
+{
+   if [ -f $PATCH_DIR/$PATCH_ID/lPatchRemove ]
+   then
+       $PATCH_DIR/$PATCH_ID/lPatchRemove;
+       /bin/rm -rf $PATCH_DIR/$PATCH_ID;
+   else
+       echo " $PATCH_ID cannot be backed out";
+   fi
+}
+
+check_args
+check_and_stop_proc
+execute
+echo "DONE";
+exit 0;

@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbclient_static.a  CMakeFiles/ndbclient_static.dir/ndbclient_static_depends.c.o
+/usr/bin/ranlib libndbclient_static.a

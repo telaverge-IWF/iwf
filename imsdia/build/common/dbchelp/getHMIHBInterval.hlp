@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    getHMIHBInterval
+
+DESCRIPTION
+    This command is used to get HMI Heartbeat Interval.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getHMIHBInterval
+       HMI Heartbeat Interval = 500 
+

@@ -1,0 +1,8 @@
+PROJECT=diamag
+
+PACKAGES=com.intellinet.diameter.mag \
+         com.intellinet.diameter.mag.analysis \
+         com.intellinet.diameter.mag.lexer \
+         com.intellinet.diameter.mag.node \
+         com.intellinet.diameter.mag.parser \
+         com.intellinet.diameter.mag.util

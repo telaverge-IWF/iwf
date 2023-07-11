@@ -1,0 +1,15 @@
+/Makefile.in/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/README/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/README.IZ/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/SigAction.h/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/curses.priv.h/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/fifo_defs.h/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/llib-lncurses/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/llib-lncursest/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/llib-lncursesw/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+/modules/1.1.2.1/Fri Oct  5 16:14:20 2012//TB-IWF-HP-0400-00
+D/base////
+D/tinfo////
+D/trace////
+D/tty////
+D/widechar////

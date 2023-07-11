@@ -1,0 +1,410 @@
+{
+    "local" : {
+        "opc" : 2057,  // integer
+            // origin-host and realm take from diameter config
+            "apc" : 4114,  // integer Adjacent PC
+
+            "family" : "itu", //string value ansi or itu
+
+            "timers" : {
+                "invoke-timeout" : 30  // in secs [3-60]
+            },
+
+            "invoke-id" : {
+                "use-from-config" : true,  // if true, gives flexibility and independence in invoke-id generation
+                "start-id-for-each-dialog" : 43  // for TCAP components originated from the IWF
+                    // should be in the range of 0 to 255
+            },
+
+            "self-sccp-address" : {
+                "use-from-config" : true,   // if true, use the following GT address digits for self
+                "gtdigits" : "33644400129"
+            },
+
+            "remote-sccp-address" : {
+                "use-from-config" : false,  // if true, use the following GT address digits for remote
+                "gtdigits" : "33644400100"
+            },
+
+            "use-sccp-cdpa-from-in-msg" : true,  // whether to use the SCCP CdPA in the Incoming message,
+            // in the SCCP CgPA in the Outgoing message
+
+            "diameter-config" : {           //Configurable Diameter Error Code to be used when message cannot be delivered
+                "experimental-result-code" : false, //If true error will be set in Experimental Result Code
+                "error-code" : 5004
+            },
+
+            "clear-user-session-contexts" : false, // Whether to clear the SessionContexts stored in Application
+            "timer-value-for-session-context-cleanup" : 36000, //Idle Time after which SessionContexts should be cleared for each User 
+            "send-aspActive-in-standby-node" : false, // Whether to send ASPActive in StandByNode 
+            "max-peer-status-update-count" : 10, //Maximum Number of times IWF will try to update Peer Status in couchbase
+            "pending-queue-expiry-time" : 30, //Expiry Time for PendingQueue
+            "is-kasme-generation-required" : false, //For S6a-MAP AIR transformation, whether to generate KASME or not
+            "use-local-sgsn-number" : true, //whether to populate local SGSN number or configured SGSN number for S6a-MAP client message transformations
+            "validate-vplmnid" : false //whether to validate the VplmnId received in Req messages with the Translator Rules
+    },
+
+        "routing-rules" : {
+            "e164-number-range": {
+                "startNumber" : 800001, //Starting Number
+                "endNumber" : 810001 //Starting Number
+            },
+
+            "home-based" : [
+            {
+                "mcc" : "404",
+                "mnc" : "12",
+                "application-id" : "4",    // integer
+                "translator" : "CAP-Ro",       // conversion from s6a to MAP
+                "ossn" : 146,                   // integer 1-255
+                "allowed-vplmn-id" : "04f421,270220",   // list of allowed visited networks encoded according 3GPP 29.272
+                "dest"  : "hlr1",                // string MAX 128
+                "dest-realm" : "diametriq.com"  // string MAX 128
+            },
+            {
+                "mcc" : "405",
+                "mnc" : "012",
+                "application-id" : "16777251",
+                "allowed-vplmn-id" : "04F421,270220",   // list of allowed visited networks encoded according 3GPP 29.272
+                "translator" : "s6a-MAP",       // conversion from s6a to MAP
+                "ossn" : 149,
+                "dest"  : "hlr2",
+                "dest-realm" : "diametriq.com"  // string MAX 128
+            },
+            {
+                "mcc" : "405",
+                "mnc" : "53",
+                "application-id" : "16777251",
+                "allowed-vplmn-id" : "04f431",   // list of allowed visited networks encoded according 3GPP 29.272
+                "translator" : "s6a-MAP",      // conversion from s61 to MAP
+                "ossn" : 149,
+                "dest" : "hlr3",
+                "dest-realm" : "diametriq.com"  // string MAX 128
+            },
+            {
+                "mcc" : "405",
+                "mnc" : "56",
+                "application-id" : "16777251",
+                "allowed-vplmn-id" : "04f424",   // list of allowed visited networks encoded according 3GPP 29.272
+                "translator" : "s6a-MAP",      // conversion from s61 to MAP
+                "ossn" : 149,
+                "dest" : "hlr4",
+                "dest-realm" : "diametriq.com"  // string MAX 128
+            },
+            {
+                "mcc" : "405",
+                "mnc" : "57",
+                "application-id" : "16777251",
+                "allowed-vplmn-id" : "04f425",   // list of allowed visited networks encoded according 3GPP 29.272
+                "translator" : "MAP-s6a",      // conversion from s61 to MAP
+                "ossn" : 149,
+                "dest" : "hlr4",
+                "dest-realm" : "diametriq.com"  // string MAX 128
+            }
+            ]
+
+                // no need for routes for server initiated message, we can take the
+                // destination, application-id etc... from IMSI-Table
+        },
+
+        "destinations" : {
+            "sccp" : [
+            {
+                "dia_ident" : "hlr1.diametriq.com", //string MAX 128
+                "dest"  : "hlr1",   // string MAX 128
+                "type"  : "pc-ssn", // string values = "pc-ssn" or "gt"
+                "family": "ansi",   // string values ansi or itu
+                "is-national" : true,  // bool true/false
+                "pc"   : 4114,        // integer
+                "ssn-present" : true,
+                "ssn"  : 146              // integer 1-255
+            },
+            {
+                "dia_ident" : "hlr2.diametriq.com",
+                "dest"  : "hlr2",
+                "type"  : "pc-ssn",
+                "family": "ansi",
+                "is-national" : true,
+                "pc"   : 4115,
+                "ssn-present" : true,
+                "ssn"  : 6
+            },
+            {
+                "dia_ident" : "hlr3.diametriq.com",
+                "dest" : "hlr3",
+                "type" : "gt",
+                "gti"  : 1,
+                "tt"   : 1,
+                "np"   : 1,
+                "ssn-present" : false
+            },
+            {
+                "dia_ident" : "hlr4.diametriq.com",
+                "dest" : "hlr4",
+                "type" : "gt",
+                "gti"  : 2,
+                "tt"   : 3,
+                "np"   : 1,
+                "gtdigits" : "919194042244",
+                "ssn-present" : false
+            }
+            ]
+        },
+
+        "proto-translator" : {
+            "s6a-MAP" : {
+                "local-sgsn-number" : "13214734271",  // string MAX 20 chars
+                "sgsn-address-map": [
+                {
+                    "origin-host": "mme",   // string MAX 128
+                    "ip-address": "172.20.1.22"  // string IP address
+                },
+                {
+                    "origin-host": "sgsn",  // string MAX 128
+                    "ip-address": "172.20.1.23"   // string IP address
+                }
+                ]
+            },
+            "MAP-s6a" : {
+                "hlr-number" : "A19123456789876",
+                "sgsn-vplmn-id-map" : [
+                {
+                    "sgsn" : [
+                    {
+                        "sgsn_number" : "9191123456789876"
+                    },
+                    {
+                        "sgsn_number" : "9191123456789887"
+                    }
+                    ],
+                        "vplmn_id" : "40412"
+                },
+                {
+                    "sgsn" : [
+                    {
+                        "sgsn_number" : "9191123456789844"
+                    }
+                    ],
+                        "vplmn_id" : "40412"
+                }
+                ]
+            },
+            "CAP-Ro" : {
+                "InitialDPArg" : {
+                    "node-functionality"          : 15,
+                    "originating-ioi"             : "1111",
+                    "terminating-ioi"             : "4321",
+                    "sip-method"                  : "INVITE",
+                    "service-context-id"          : "32299@3gpp.org",
+                    "cause-code"                  : "1",
+                    "msc-service-specific-type"       : 80, //service-specific-type mapped for mscAddress
+                    "gmsc-service-specific-type"       : 30,    //service-specific-type mapped for gmscAddress
+                    "cpc-service-specific-type"       : 50, // service-specific-type mapped to callingpartyscategory
+                    "multiple-services-indicator" : 1,
+                    "ext-teleservice-to-service-id-map": [
+                    {
+                        "ext-teleservice" : 17,
+                        "service-id"      : 400
+                    },
+                    {
+                        "ext-teleservice" : 18,
+                        "service-id"      : 401
+                    },
+                    {
+                        "ext-teleservice" : 16,
+                        "service-id"      : 402
+                    }
+                    ],
+                        "ext-bearerservice-to-service-id-map": [
+                        {
+                            "ext-bearerservice" : 17,
+                            "service-id"      : 403
+                        },
+                        {
+                            "ext-bearerservice" : 18,
+                            "service-id"      : 404
+                        },
+                        {
+                            "ext-bearerservice" : 16,
+                            "service-id"      : 405
+                        }
+                    ]
+                },
+                "InitialDPSMSArg" : {
+                    "sms-node"                    : 0,
+                    "client-address"              : "127.0.0.1",
+                    "originator-sccp-address"     : "172.16.3.14",
+                    "reply-path-requested"        : 0,
+                    "msc-service-specific-type"       : 80, //service-specific-type mapped for mscAddress
+                    "sgsn-service-specific-type"       : 30    //service-specific-type mapped for gmscAddress
+                }
+            },
+            "CAP-Ro-TSL" : {
+                "Voice" : {
+                    "RRBCSM_ArmMode" : {
+                        //Range of value for Monitor Mode
+                        //MONITOR_MODE_INTERRUPTED = 0,
+                        //MONITOR_MODE_NOTIFY_AND_CONTINUE = 1,
+                        //MONITOR_MODE_TRANSPARENT = 2
+                        //Range of value for LegId
+                        //"01"
+                        //"02"
+                        "MO_CAPV2" : {
+                            "oCldPtyBusyEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            },
+                            "oNoAnsEvent" :
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            },
+                            "oAnsEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 1
+                            },
+                            "oDisConEvent" : [
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "1",
+                                "Mode"   : 1
+                            },
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            }
+                            ],
+                                "RouteSelectFailure" : {
+                                    "Enabled" : true,
+                                    "Leg_ID" : "2",
+                                    "Mode"   : 0
+                                }
+                        },
+                        "MT_CAPV2" : {
+                            "tBusyEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            },
+                            "tNoAnsEvent"    : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            },
+                            "tAnsEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 1
+                            },
+                            "tDisConEvent" : [
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "1",
+                                "Mode"   : 1
+                            },
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            }
+                            ],
+                                "tAbandonEvent" : {
+                                    "Enabled" : true,
+                                    "Leg_ID" : "1",
+                                    "Mode"   : 1
+                                }
+                        },
+                        "MO_CAPV1" : {
+                            "oAnsEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 1
+                            },
+                            "oDisConEvent" : [
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "1",
+                                "Mode"   : 1
+                            },
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            }
+                            ]
+                        },
+                        "MT_CAPV1" : {
+                            "tAnsEvent"  : {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 1
+                            },
+                            "tDisConEvent" : [
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "1",
+                                "Mode"   : 1
+                            },
+                            {
+                                "Enabled" : true,
+                                "Leg_ID" : "2",
+                                "Mode"   : 0
+                            }
+                            ]
+                        }
+                    },
+
+                    "ConnectParams" :  {
+                        "ConnectMaxCallDuration"   : 80,
+                        "AnnouncementNumber_INN"   : 0,
+                        "AnnouncementNumber_NOA"   : 4,
+                        "AnnouncementNumber_NPI"   : 1,
+                        "DestinationNumber_INN"    : 0,
+                        "DestinationNumber_NOA"    : 4,
+                        "DestinationNumber_NPI"    : 1,
+                        "GenericNumber_NQI"        : 6,
+                        "GenericNumber_NOA"        : 4,
+                        "GenericNumber_NPI"        : 1,
+                        "GenericNumber_NII"        : 0,
+                        "GenericNumber_ARI"        : 0,
+                        "GenericNumber_SCI"        : 0,
+                        "RedirectingNumber_NOA"    : 4,
+                        "RedirectingNumber_NPI"    : 1,
+                        "RedirectingNumber_ARI"    : 0,
+                        "OriginalCalledNumber_NOA" : 4,
+                        "OriginalCalledNumber_NPI" : 1,
+                        "OriginalCalledNumber_ARI" : 0
+                    },
+	           //Configuration of below parameters should adhere to spec Q.850
+	           "ReleaseParams" : {
+	               "Cause_Location" : 4,
+	               "Coding_Standard" : 0,
+	               "Cause_Indicator" : 27,
+                       "Extension_Indicator1" : 1,
+                       "Extension_Indicator2" : 1
+	           },
+
+               "IncludeTimeoutInCCTime" :  {
+                "Enabled"              : true
+               }
+                },
+                "SMS" : {
+                    "ReleaseCause" : 21
+                }
+            }
+        },
+        "cdr-config" : {
+            "max-records-per-file" : 1000,      //maximum number of record in a CDR file
+            "format"               : "csv",      //Currently supported formats - csv and json
+            "field-separator"      : "|"        //if format is "csv" then provide field-separator(character)
+        },
+        "dcca" : {
+            "set-tbit-on-retry" : true //true to enable and false to disable
+        }
+
+}
+

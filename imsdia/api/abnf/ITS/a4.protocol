@@ -1,0 +1,398 @@
+ /**
+ * ETSI TS 183 066 V2.1.1 (2009-01) -- A4  Interface --Diameter Based Protocol
+ * The A4 reference point is between CLF and UAAF .
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+ protocol diameter.a4 < 16777257   13019 : " ETSI TS 183 066 V2.1.1 (2009-01)" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+/**
+ * The Globally-Unique-Address AVP (AVP code 300 13019) is of type Grouped.
+*/
+     Globally-Unique-Address ::=300 /* ETSI ES 283 034 V1.5.0 (2008-04)  7.3 */Grouped
+									 M,V| | | | Y; 
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The
+ * value 0xFFFFFFFF indicates that the NAS should allow the user to select
+ * an address (i.e:negotiated). The value 0xFFFFFFFE indicates that NAS
+ * should select an address for the user (e.g:assigned from a pool of
+ * addresses kept by NAS).
+ * Frame-IP-Address or Frame-IPv6-Prefix  is changed to Framed-IP-Address.
+ */
+    Framed-IP-Address                  ::= 8   /*RFC 4005 6.11.1*/   OctetString   |M| | V|Y;
+
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that
+ * specific IPv6 prefixes are desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPv6-Prefix                 ::= 97  /*RFC 4005 6.11.6*/   OctetString   |M| |  V|Y;
+
+/**
+ * The Address-Realm AVP (AVP code 301 13019) is of type OctetString and
+ * contains an address realm in the form of a FQDN.
+ */
+    Address-Realm                      ::= 301 /*ES283034[7.3.2]*/   OctetString   M,V| | |  |Y;
+
+
+/**
+ * The Logical-Access-ID AVP (AVP code 302 13019) is of type OctetString.
+ * This AVP contains either a Circuit-ID (as defined in RFC 3046 [11]) or a
+ * technology independent identifier.
+ */
+    Logical-Access-Id     ::= 302 /*ETSI ES 283 034 V1.5.0 (2008-04) 7.3.3*/               										OctetString   V|M| |  |Y;
+					
+/**
+ * The Physical-Access-ID AVP (AVP code 313 13019) is of type UTF8String and
+ * identifies the physical access to which the user equipment is connected.
+ * It includes a port identifier and the identity of the access node where
+ * the port resides.
+ */
+    Physical-Access-Id  ::=313 /* ETSI ES 283 034 V1.5.0 (2008-04) 7.3.14*/ UTF8String    
+										V|M| |  |Y;
+/**
+ * The CNGCF-Address AVP (AVP code 600 13019) is of type Grouped and contains one or more 
+ * CNGCF addresses, each of which identifying different types of CNGCF implementation.
+*/
+     CNGCF-Address ::=600 /* ETSI TS 183 059-1 V2.1.1 (2009-08) 7.3.5 */ Grouped V|M| | |N ;
+
+/**
+ * The TFTP-Server AVP (AVP code 602 13019) is of type UTF8String and identifies a TFTP server.
+*/
+   TFTP-Server::=602 /* ETSI TS 183 059-1 V2.1.1 (2009-08) 7.3.9 */UTF8String V|M| | |N ;
+
+/**
+ * The ACS-Server AVP (AVP code 603 13019) is of type UTF8String and identifies an 
+ * Autoconfiguration Server conforming to the DSL
+*/
+   ACS-Server ::=603 /* ETSI TS 183 059-1 V2.1.1 (2009-08) 7.3.10 */UTF8String V|M| | |N ;
+
+/**
+ * The SIP-Outbound-Proxy AVP (AVP code 601 13019) is of type OctetString and identifies a 
+ * SIP outbound proxy (e.g. a P-CSCF when accessing to the IMS) in the form of an FQDN.
+*/
+    SIP-Outbound-Proxy ::=601 /* ETSI TS 183 059-1 V2.1.1 (2009-08) 7.3.6 */ OctetString  V|M| | |N ; 
+
+/**
+ * The Initial-Gate-Setting AVP (AVP code 303 13019) is of type Grouped.
+ */
+    Initial-Gate-Setting-Description  ::= 303 /*ETSI ES 283 034 V2.2.0 (2008-07)  7.3*/               Grouped       V|M| |  |Y;
+
+/**
+ * The NAS-Filter-Rule AVP (AVP Code 400) is of type IPFilterRule and provides
+ * filter rules that need to be configured on the NAS for the user. One or more
+ * of these AVPs MAY be present in an authorization response.
+ */
+    NAS-Filter-Rule                   ::= 400 /* RFC4005-6.6 */   IPFilterRule   |M| |  V |Y;
+
+/**
+ * The Maximum-Allowed-Bandwidth-UL AVP (AVP code 308 13019) is of type
+ * Unsigned32 and indicated the maximum uplink bandwidth that can be authorized
+ * for a particular traffic class. The AVP value is expressed in kbits/s.
+ * Absence of the Maximum-Allowed-Bandwidth-UL AVP indicates that no limitation
+ * is placed by the subscription on the amount of bandwidth that can be used
+ * on the uplink direction.
+ */
+    Maximum-Allowed-Bandwidth-UL  ::= 308 /*ETSI ES 283 034 V2.2.0 (2008-07)     7.3*/              									 Unsigned32    V|M| |  |Y;
+/**
+ * The Maximum-Allowed-Bandwidth-DL AVP (AVP code 309 13019) is of type
+ * Unsigned32 and indicated the maximum downlink bandwidth that can be
+ * authorized for a particular traffic class. The AVP value is expressed in
+ * kbits/s. Absence of the Maximum-Allowed-Bandwidth-DL AVP indicates that no
+ * limitation is placed by the subscription on the amount of bandwidth that
+ * can be used on the downlink direction.
+ */
+    Maximum-Allowed-Bandwidth-DL       ::= 309 /*ETSI ES 283 034 V2.2.0 (2008-07)  7.3*/               									Unsigned32    V|M| |  |Y;
+/**
+ * The QoS-Profile AVP (AVP code 304 13019) represent of QoS-Profile element
+ * and is of type Grouped.
+ */
+    QoS-Profile-Description  ::= 304  /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3*/   Grouped  
+										     V|M| |  |Y;
+
+/**
+ * The Application-Class-Id AVP (AVP code 312 13019) is of type UTF8String
+ * and represents a class of applications that share the same QoS profile.
+ */
+    Application-Class-Id               ::= 312 /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3*/               UTF8String    V|M| |  |Y;
+
+/**
+ * The Media-Type AVP is defined in the Gq specification (TS 129 209 [5]) and
+ * shall be used with the Vendor-Id header set to 3GPP (10415).
+ */
+/* NOTE:- This AVP in Specs is given as Grouped but in Gq specs TS 129 209-
+ * is given as  Enumerated hence taking according to later.
+ */
+    Media-Type                         ::= 700 /*TS 129 209 [5]*/    Enumerated    V|M| |  |Y;
+
+/**
+ * The Reservation-Priority AVP (AVP code 310 13019) is of type Enumerated and
+ * represent a priority level to serve resource reservation requests.
+ */
+    Reservation-Priority               ::=  310  /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3.11*/            Enumerated    V | | | M  |Y;
+
+/**
+ * The Transport-Class AVP (AVP code 311 13019) is of type Unsigned32 and
+ * contains an integer used as an indexpointing to a class of transport
+ * services to be applied (e.g. forwarding behaviour).
+ */
+   Transport-Class                     ::= 311 /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3*/               Unsigned32    V|M| |  |Y;
+
+/**
+ * The QoS-Profile-ID AVP (AVP code 315 13019) is of type Unsigned32 and
+ * contains a pointer to a pre-defined set of QoS profile information.
+ */
+   QoS-Profile-ID    ::= 315 /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3*/ Unsigned32    V|M| |  |Y;
+
+/**
+ * The Initial-Gate-Setting-ID AVP (AVP code 314 13019) is of type Unsigned32
+ * and contains a pointer to a pre-defined set of initial gate setting
+ * information. This AVP and the Initial-Gate-Setting-Description AVP shall
+ * not be used in the same command.
+ */
+   Initial-Gate-Setting-ID ::= 314 /* ETSI ES 283 034 V2.2.0 (2008-07) 7.3*/               Unsigned32    V|M| |  |Y;
+
+
+/**
+ * The Privacy-Indicator AVP (AVP code 440 13019) is of type Grouped and provides policy 
+ * rules for disclosure of subscriber profile elements to applications.
+*/
+    Privacy-Indicator ::=440 /* ETSI TS 183 020 V1.1.1 (2006-03)  5.5.1  */ Grouped  V|M| |  |Y;
+
+/**
+ * The Requested-Information AVP shall be present if specific information is
+ * requested and shall be absent if all available information is requested.
+ * It contains  list of items requested by the AF.The Requested-Information AVP
+ * (AVP code 353 13019) is of type Enumerated.
+ */
+    Requested-Information              ::= 353  /* ETSI ES 283 035 V1.1.1 (2006-07)  7.3.4*/            Enumerated    V| | | M| Y;
+
+/**
+ * The AF-Application-identifier AVP (AVP code 504) is of type OctetString, and it contains information that identifies
+ * the particular service that the AF service session belongs to. This information may be used by the PDF to differentiate
+ * QoS for different application services. For example the AF-Application-Identifier may be used as additional
+ * information together with the Media-Type AVP when the QoS class for the bearer authorization at the Go interface is
+ * selected. The AF-Application-Identifier may be used also to complete the QoS authorization with application specific
+ * default settings in the PDF if the AF does not provide full Session-Component-Description information.
+ */
+    AF-Application-Identifier          ::=  703 /*TS129209[6.5.5]*/  OctetString   M,V| | |  |Y;
+
+
+/**
+ * The Data-Operation-Indicator AVP (AVP code 420 13019) is of type Enumerated and represents 
+ * the type of data operation the receiver shall perform after receiving this AVP. When the 
+ * Data-Operation-Indicator AVP is omitted, the receiver shall perform the update operation 
+ * by default.
+*/
+    Data-Operation-Indicator ::=420 /*ETSI TS 183 066 V2.1.1 (2009-01) 7.3.1 */ Enumerated
+                								 V|M| |  |Y ;
+  
+
+
+///////////////
+//Enumearted///
+///////////////
+
+
+    Media-Type ::= < Enumerated: 700 >
+                     AgUDIO         0
+                     VIDEO         1
+                     DATA          2
+                     APPLICATION   3
+                     CONTROL       4
+                     TEXT          5
+                     MESSAGE       6
+                     /*  OTHER     4294967296 */
+                     ;
+
+  Reservation-Priority  ::= < Enumerated: 310 >
+                                PRIORITY_0    0
+                                PRIORITY_1    1
+                                PRIORITY_2    2
+                                PRIORITY_3    3
+                                PRIORITY_4    4
+                                PRIORITY_5    5
+                                PRIORITY_6    6
+                                PRIORITY_7    7
+                                ;
+
+  /* ACCESS_NETWORK_TYPE = 7 is repeated hence omitting */
+    Requested-Information    ::= < Enumerated: 353 >
+                                   SUBSCRIBER_ID           0
+                                   LOCATION_INFORMATION    1
+                                   RACS_CONTACT_POINT      2
+                                   ACCESS_NETWORK_TYPE     3
+                                   TERMINAL_TYPE           4
+                                   LOGICAL_ACCESS_ID       5
+                                   PHYSICAL_ACCESS_ID      6
+                                   INITIAL_GATE_SETTING    8
+                                   QOS_PROFILE             9
+                                   IP_CONNECTIVITY_STATUS  10
+                                   ;
+
+   Data-Operation-Indicator ::= < Enumerated: 420 >  
+   				 UPDATE  0
+   				 REMOVE  1	
+                                 ;
+
+
+
+
+///////////////
+//Grouped /////
+///////////////
+Globally-Unique-Address ::= < AVP Header: 300 13019 >
+				[Framed-IP-Address]
+				[Framed-IPv6-Prefix]
+				[Address-Realm]
+				*[ AVP ]
+				;
+
+CNGCF-Address ::= < AVP Header: 600 13019 >
+				[TFTP-Server]
+				[ACS-Server]
+				*[ AVP ]
+				;
+
+
+ Initial-Gate-Setting-Description ::= < AVP Header: 303 13019 >
+                             1*{ NAS-Filter-Rule}
+                             [ Maximum-Allowed-Bandwidth-UL]
+                             [ Maximum-Allowed-Bandwidth-DL]
+	        	     *[ AVP ]
+                             ;
+
+
+ QoS-Profile-Description ::= < AVP Header: 304 13019 >
+ 	                   *[ Application-Class-Id]
+        	            *[ Media-Type]
+                	    [ Reservation-Priority]
+                	    [ Maximum-Allowed-Bandwidth-UL]
+                   	    [ Maximum-Allowed-Bandwidth-DL]
+                 	    [ Transport-Class]
+			    *[ AVP ]
+                    	    ;
+
+ Privacy-Indicator ::= < AVP Header: 440 13019 >
+			* {Requested-Information}
+			* [AF-Application-Identifier]
+			*[ AVP ]
+			;
+
+
+///////////////
+//commands/////
+///////////////
+/**
+ * The User-Data-Request (UDR) command, indicated by the Command-Code field set to 306 and the 
+ * "R" bit set in the Command Flags field, is sent by a Diameter client to a Diameter server 
+ * in order to request user data.
+*/
+   UserData-Request  ::= < Diameter Header: 306, REQ, PXY, 16777257 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+                                [ Destination-Host ]
+                                [Globally-Unique-Address]
+				[Logical-Access-Id]
+				[User-Name]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The User-Data-Answer (UDA) command, indicated by the Command-Code field set to 306 and 
+ * the "R" bit cleared in the Command Flags field, is sent by a server in response to the 
+ * User-Data-Request command.
+*/ 
+      UserData-Answer ::= < Diameter Header: 306, PXY, 16777257 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ Result-Code ]
+                                [ Experimental-Result ]
+				[Globally-Unique-Address]
+				[User-Name]
+				[Logical-Access-Id]
+				[Physical-Access-Id]
+				[CNGCF-Address]
+				[SIP-Outbound-Proxy]
+				[Initial-Gate-Setting-Description]
+				*[QoS-Profile-Description]
+				[QoS-Profile-ID]
+				[Initial-Gate-Setting-ID]
+				*[Privacy-Indicator]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+
+/**
+ * The Push-Notification-Request (PNR) command, indicated by the Command-Code field set to 309 
+ * and the "R" bit set in the Command Flags field, is sent by a Diameter server to a Diameter 
+ * client in order to notify changes in the user data in the server.
+*/
+     Push-Notification-Request  ::= < Diameter Header: 309, REQ, PXY, 16777257 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Host }
+				{ Destination-Realm }
+				[Globally-Unique-Address]
+				[User-Name]
+				[Logical-Access-Id]
+				[Physical-Access-Id]
+				[CNGCF-Address]
+				[SIP-Outbound-Proxy]
+				[Initial-Gate-Setting-Description]
+				*[QoS-Profile-Description]
+				[QoS-Profile-ID]
+				[Initial-Gate-Setting-ID]
+				*[Privacy-Indicator]
+				[Data-Operation-Indicator]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The Push-Notifications-Answer (PNA) command, indicated by the Command-Code field set to 309 
+ * and the "R" bit cleared in the Command Flags field, is sent by a client in response to the 
+ * Push-Notification-Request command.
+*/
+    Push-Notification-Answer  ::= < Diameter Header: 309, PXY, 16777257 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ Result-Code ]
+                                [ Experimental-Result ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+ 				*[ AVP ]
+				;
+	

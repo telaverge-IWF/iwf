@@ -1,0 +1,149 @@
+/**
+ * 3GPP TS 29.109 V8.3.0 (2009-09) -- Zh  Interface --Diameter Based Protocol
+ * The Zh  reference point is between BSF and HSS . 
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+ protocol diameter.zh < 16777221  10415 : "3GPP TS 29.109 V8.3.0 (2009-09)" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+/**
+ * The Public-Identity AVP is of type UTF8String. This AVP contains the public identity of a 
+ * user in the IMS. The syntax  of this AVP corresponds either to a SIP URL (with the format 
+ * defined in IETF RFC 3261 and IETF RFC 2396)  or a TEL URL (with the format defined in IETF 
+ * RFC 2806).
+ */
+   Public-Identity::=601 /* ETSI TS 129 229 V5.11.0  Section 6.3.2*/  UTF8String  M,V| | |    |N;
+
+
+
+/**
+ * The GUSS-Timestamp AVP (AVP code 409) is of type Time. If transmitted this AVP informs 
+ * the HSS about the timestamp of the GUSS stored in the BSF.
+*/
+    GUSS-Timestamp ::=409 /* 3GPP TS 29.109 V8.3.0  6.3.1.10 */ Time   V| | | M| N   ;
+
+/**
+ * The SIP-Auth-Data-Item is of type Grouped, and contains the authentication and/or 
+ * authorization information for the Diameter client.
+*/
+ SIP-Auth-Data-Item    ::=612 /* ETSI TS 129 229 V6.7.0 (2005-12) 6.3.13*/ Grouped     M,V| | |    |N;
+
+/**
+ * The SIP-Item-Number AVP is of type Unsigned32, and is included in a SIP-Auth-Data-Item 
+ * grouped AVP in  circumstances where there are multiple occurrences of SIP-Auth-Data-Item 
+ * AVPs, and the order in which they should be processed is significant. In this scenario, 
+ * SIP-Auth-Data-Item AVPs with a low SIP-Item-Number value should be processed before 
+ * SIP-Auth-Data-Items AVPs with a high SIP-Item-Number value.
+ */
+SIP-Item-Number       ::=  613 /*ETSI TS 129 229 V6.7.0 (2005-12)6.3.14*/ Unsigned32  M,V| | |    |N;        
+
+/**
+ * The Authentication-Scheme AVP is of type UTF8String and indicates the authentication  
+ * scheme used in the authentication of SIP messages.
+ */
+SIP-Authentication-Scheme    ::=  608 /* ETSI TS 129 229 V6.7.0 (2005-12)6.3.14 6.3.9*/  UTF8String  M,V| | |    |N;
+
+/**
+ * The SIP-Authenticate AVP is of type OctetString and contains specific parts of the 
+ * data portion of the WWWAuthenticate or Proxy-Authenticate SIP headers that are to 
+ * be present in a SIP response. The identification and encoding of the specific parts 
+ * are defined in 3GPP TS 29.228.
+ */
+SIP-Authenticate       ::=  609 /* ETSI TS 129 229 V6.7.0 (2005-12)  6.3.10*/ OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Authorization AVP is of type OctetString and contains specific parts of the data portion of the Authorization or
+ * Proxy-Authorization SIP headers suitable for inclusion in a SIP request. The identification and encoding of the specific
+ * parts are defined in 3GPP TS 29.228.
+ */
+SIP-Authorization       ::=  610/*ETSI TS 129 229 V6.7.0 (2005-12)  6.3.11*/ OctetString M,V| | |    |N;
+
+/**
+ * The SIP-Authentication-Context AVP is of type OctectString, and contains authentication-related  
+ * information relevant for performing the authentication but that is not part of the SIP 
+ * authentication headers.
+ * Some mechanisms (e.g. PGP, digest with quality of protection set to auth-int defined in IETF RFC 
+ * 2617, digest with  predictive nonces or sip access digest) request that part or the whole SIP 
+ * request is passed to the entity performing the  authentication. In such cases the 
+ * SIP-Authentication-Context AVP would be carrying such information.
+ */
+   SIP-Authentication-Context  ::=  611 /*ETSI TS 129 229 V6.7.0 (2005-12)  6.3.12*/ OctetString M,V| | |    |N;
+
+/**
+ * The Confidentiality-Key is of type OctetString, and contains the Confidentiality Key (CK).
+ */
+Confidentiality-Key     ::=  625 /*ETSI TS 129 229 V6.7.0 (2005-12)  6.3.27*/ OctetString M,V| | |    |N;
+
+/**
+ * The Integrity-Key is of type OctetString, and contains the Integrity Key (IK).
+ */
+ Integrity-Key       ::=  626 /* ETSI TS 129 229 V6.7.0 (2005-12) 6.3.28 */ OctetString M,V| | |    |N;
+
+/**
+ * The GAA-UserSecSettings AVP (AVP code 400) is of type OctetString. If transmitted on the 
+ * Zh interface it contains GBA user security settings (GUSS). If transmitted on the Zn 
+ * interface it contains the relevant USSs only. The content of GBA-UserSecSettings AVP is 
+ * a XML document whose root element shall be the "guss" element for Zh interface and
+ * the "ussList" element for the Zn interface.
+*/
+
+  GBA-UserSecSettings ::=400 /*  3GPP TS 29.109 V8.3.0   6.3.1.1  */ OctetString  M,V| | | | N  ;
+
+
+///////////////
+//Grouped /////
+///////////////
+  SIP-Auth-Data-Item ::=       < AVP Header : 612 10415>
+   			       [ SIP-Item-Number ]
+          		       [ SIP-Authentication-Scheme ]
+          		       [ SIP-Authenticate ]
+      			       [ SIP-Authorization ]
+                               [ SIP-Authentication-Context ]
+                               [ Confidentiality-Key ]
+                               [ Integrity-Key ]
+                               *[AVP]
+                               ;
+
+
+
+///////////////
+//commands/////
+///////////////
+
+
+ Multimedia-Auth-Request ::=<Diameter Header: 303, REQ, PXY, 16777221 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }                 // NO_STATE_MAINTAINED
+				{ Origin-Host }                       // Address of BSF
+				{ Origin-Realm }                      // Realm of BSF
+				{ Destination-Realm }                 // Realm of HSS
+				[ Destination-Host ]                  // Address of the HSS
+				[ User-Name ]                          // IMPI from UE
+				[ Public-Identity ]                    // IMPU from UE
+				[ GUSS-Timestamp ]                     //Timestamp of GUSS in BSF
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+ Multimedia-Auth-Answer ::= < Diameter Header: 303, PXY, 16777221 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+			        { Auth-Session-State}
+                                { Origin-Host }
+                                { Origin-Realm } 	
+                                [ Result-Code ]
+				[ Experimental-Result]
+				[ User-Name ]                       //IMPI
+				[ Public-Identity ]                 // IMPU
+				[ SIP-Auth-Data-Item ]
+				[ GBA-UserSecSettings ]              // GUSS
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;

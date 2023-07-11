@@ -1,0 +1,128 @@
+############################################################################
+#                                                                          #
+#     Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+# FILE: Makefile                                                           #
+#                                                                          #
+############################################################################
+#                                                                          #
+# ID: $Id: Makefile.dist,v 1.1.2.1 2014/02/26 05:56:08 jkchaitanya Exp $
+#
+# LOG: $Log: Makefile.dist,v $
+# LOG: Revision 1.1.2.1  2014/02/26 05:56:08  jkchaitanya
+# LOG: changes for new tool for perfomance for tsl
+# LOG:
+# LOG: Revision 1.1.4.2  2014/02/12 07:49:37  millayaraja
+# LOG: new testapp for IWF performance
+# LOG:
+# LOG: Revision 1.1.2.1  2013/07/03 06:49:20  jkchaitanya
+# LOG:  changes for ro rel 10 make file
+# LOG:
+# LOG: Revision 1.1.2.1.2.2  2012/12/20 18:39:15  rsanjay
+# LOG: Dictionary name changes
+# LOG:
+# LOG: Revision 1.1.2.1.2.1  2012/09/06 11:23:51  jvikas
+# LOG: DTF Branch merge to B-DRE-0212-00 - Sept6.
+# LOG:
+# LOG: Revision 1.1.2.1.4.1  2012/08/22 13:03:26  jvikas
+# LOG: Fixed Linking and Compilation Issues. Included Transformation in the XML.
+# LOG:
+# LOG: Revision 1.1.2.1  2012/07/09 06:00:13  pramana
+# LOG: Added to support release 10 (Bug 49).
+# LOG:
+# LOG: Revision 1.1  2011/03/10 09:27:34  vkumara
+# LOG: Sample Demo for Gy Interface
+# LOG:
+# LOG:
+#
+############################################################################
+#ident "$Id: Makefile.dist,v 1.1.2.1 2014/02/26 05:56:08 jkchaitanya Exp $"
+
+#
+# Include the standard definitions
+#
+
+include	$(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) -DDUMP $(ITS_DEFINES)
+
+CXXFLAGS:=$(CXXFLAGS) -g -I./ -DUNIX \
+        -I$(ITS_ROOT)/common/include \
+        -I$(IMS_ROOT)/common/include \
+        -I../include \
+        -I../../app_dist/include \
+        -I$(IMS_ROOT)/aim/client/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I$(HOME)/api/include \
+        -I$(IMS_ROOT)/dtf/include 
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+          -lgy_3gpp_r10_5$(DBGSUFFIX) \
+          -lnasreqapi$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),linux)
+LIBS_OS:= \
+         $(IMS_LIBS) \
+         -ldiaval$(DBGSUFFIX) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+
+LIBS:= $(ITS_LIBS) \
+            -L$(ITS_ROOT)/common/lib \
+            -L$(IMS_ROOT)/aim/client/lib \
+            -L../../app_dist/lib \
+            -L$(IMS_ROOT)/api/c++/lib \
+            -L$(IMS_ROOT)/api/lib \
+            -L$(IMS_ROOT)/apps/lib \
+            -L$(HOME)/lib \
+            -L$(IMS_ROOT)/lib \
+            -L$(IMS_ROOT)/val/c++/lib \
+            $(LIBS_OS)
+
+OBJS:= CCTest.o ACTest.o RATest.o sample_gy.o gy_stats.o
+
+# Restrict the user to give explicit targets
+all: ../bin/sampleGyClient$(DBGSUFFIX)
+
+../bin/sampleGyClient$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o \
+	$@ $(OBJS) $(LIBS) -lpthread $(SOCKLIBS) $(SYSLIBS) -ldl
+
+clean:
+	$(RM) ../bin/sampleGyClient$(DBGSUFFIX) $(OBJS) 
+

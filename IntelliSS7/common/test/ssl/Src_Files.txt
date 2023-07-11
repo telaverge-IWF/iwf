@@ -1,0 +1,122 @@
+Src_Files.txt
+=============
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document describes the purpose each of the non-documentation files
+included in the SSLRef 3.0 package.
+
+
+Directories and Their Contents
+------------------------------
+Files & Directories in SSLRef_3_0b2/
+    About_SSLRef300.txt  Root documentation
+    doc/                 other documenation files
+    include/             SSLRef 3.0 header files
+    libdes/              a DES implementation
+    LICENSE.txt          SSLRef 3.0 License
+    makefile.solaris     build file for Solaris platform
+    makefile.w32         build file for Win32 platforms
+    md5/                 a MD5 implementation
+    obj/                 an empty directory for obj files
+    private.key          a PKCS-7 encoded private key
+    sample/              sample client/server and support framework
+    sha/                 a SHA1 implementation
+    src/                 SSLRef 3.0 source
+    test.crt             a valid DER-encoded test certificate chain
+
+
+The contents of the doc folder are described in About_Docs.txt, located
+in the doc folder.
+
+
+The src folder contains:
+
+    asn1oids.c       a table of ASN.1 object IDs
+    asn1util.c       utilities for parsing ASN.1 DER
+
+    ciphers.c        a table mapping cipherSpecs to ciphers, MAC
+                     algorithms, key exchange, and similar items
+
+    digests.c        generalized hash interface functions for MD5
+                     and SHA1 and a dummy null hash implementation
+
+    hdskcert.c       support for the handshake certificate message
+    hdskchgc.c       support for change cipher spec messages
+    hdskfini.c       support for finished and server hello done messages
+    hdskhelo.c       support for client hello and server hello messages
+    hdskkeys.c       support for master secret & key calculation and
+                     resultant initialization of the ciphers
+    hdskkyex.c       support for key exchange and server key exchange
+                     messages
+
+    nullciph.c       a dummy implementation of the null cipher
+
+    ssl2map.c        an array that maps SSL 2 cipher kinds to SSL 3
+                     cipher suites
+    ssl2mesg.c       message encoding and decoding functions for SSL 2
+    ssl2prot.c       protocol engine for SSL 2
+    ssl2rec.c        record encrypting/decrypting for SSL 2
+
+    sslalert.c       support for alert protocol in SSL 3
+    sslalloc.c       generalized allocation through user callbacks
+    sslctx.c         initializing and configuring SSLContext structures
+    ssldebug.c       simple message printing and data dumping
+    sslhdshk.c       the handshake state machine
+    sslrc4.c         interface code to RC4 in BSAFE and RSAREF
+    sslrec.c         the record layer, including encryption and MACing
+                     of data
+    sslsess.c        support for resumable sessions using callbacks
+    ssltrspt.c       a layer which handles moving data between the
+                     application, record layer, and protocol advancement
+    sslutil.c        utility functions for encoding structures
+
+    x509.c           support for X.509 DER certificates
+
+The header names in the include folder should be fairly obvious. Most of
+the files are associated with a particular source file or set of source
+files. Of specific note:
+
+    cryptype.h       data types associated with cryptographic
+                     capabilities including hashes, symmetric ciphers
+                     and cipher specs
+
+    ssl.h            probably the only file an user will have to
+                     include directly
+
+    sslctx.h         the declaration of the SSLContext structure
+
+    sslerrs.h        errors SSLRef 3.0 can return
+
+
+The sample software consists of code that is outside the SSLRef 3.0
+library itself, but provides an example of how SSLRef 3.0 might be used.
+The sample folder contains:
+
+    dhprimes.c       predefined Diffie-Hellman groups
+    privkey.c        PKCS 5 and PCKS 7 for private key encoding
+
+    testdb.c         database support for resumable sessions
+    testdb.h         prototypes for TestDB
+
+    testio.c         I/O callbacks for TestSSL
+
+    testssl.c        A unix program to demonstrate SSLRef 3.0
+    testssl.h        prototypes for TestSSL
+
+    testutil.c       callback functions for system functionality
+                     including allocation, random, and time.
+
+    verisign.c       VeriSign root certificate data
+

@@ -1,0 +1,3492 @@
+--
+-- Copyright (C) 2000-2000 IntelliNet Technologies, Inc.  All rights reserved.
+--
+--
+-- $Id: cap_v3_lrfvn.asn,v 9.1 2005/03/23 12:51:12 cvsadmin Exp $
+--
+-- $Log: cap_v3_lrfvn.asn,v $
+-- Revision 9.1  2005/03/23 12:51:12  cvsadmin
+-- Begin PR6.5
+--
+-- Revision 8.2  2005/03/21 13:49:16  cvsadmin
+-- PR6.4.2 Source Propagated to Current
+--
+-- Revision 7.1  2002/08/26 22:08:40  mmiers
+-- Begin PR6.2
+--
+-- Revision 6.1  2002/02/28 16:13:18  mmiers
+-- Begin PR7.
+--
+-- Revision 5.1  2001/08/16 20:45:13  mmiers
+-- Start PR6.
+--
+-- Revision 4.1  2001/05/01 00:53:01  mmiers
+-- Begin PR5
+--
+-- Revision 3.1  2000/08/15 23:56:27  mmiers
+--
+-- Begin round 4.
+--
+-- Revision 1.2  2000/06/26 20:25:32  npopov
+-- Added more PDU values for testing.
+--
+-- Revision 1.1  2000/06/22 19:33:07  npopov
+-- Started doing value notation for testing.  Definitely will not complete it prior to my leaving IntelliNet.  But it could serve as an example for another person to continue.
+--
+--
+--
+
+
+CAP-V3 DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+
+CallingPartysCategory ::= OCTET STRING (SIZE(1))
+
+
+HighLayerCompatibility ::= OCTET STRING (SIZE (highLayerCompatibilityLength))
+
+
+highLayerCompatibilityLength INTEGER ::= 2
+
+
+Integer4 ::= INTEGER (0..2147483647)
+
+
+LegID ::= CHOICE {
+    sendingSideID   [0] LegType,
+    receivingSideID [1] LegType
+}
+
+
+RedirectionInformation ::= OCTET STRING (SIZE(2))
+
+
+ServiceKey ::= INTEGER (0..2147483647)
+
+
+BothwayThroughConnectionInd ::= ENUMERATED {
+    bothwayPathRequired(0),
+    bothwayPathNotRequired(1)
+}
+
+
+CriticalityType ::= ENUMERATED {
+	ignore(0),
+	abortx(1)
+} 
+
+
+MiscCallInfo ::= SEQUENCE {
+    messageType [0] ENUMERATED {
+	     request(0),
+	     notification(1)
+    },
+    dpAssignment [1] ENUMERATED {
+	     individualLine(0),
+	     groupBased(1),
+	     officeBased(2)
+    }  OPTIONAL
+}
+
+
+Duration ::= INTEGER (-2..86400)
+
+
+Interval ::= INTEGER (-1..60000)
+
+
+IMSI ::= OCTET STRING (SIZE (3..8))
+
+
+ISDN-AddressString ::= OCTET STRING (SIZE (1..maxISDN-AddressLength))
+
+
+maxISDN-AddressLength  INTEGER ::= 9
+
+
+Ext-BasicServiceCode ::= CHOICE {
+    ext-BearerService   [2] Ext-BearerServiceCode,
+    ext-Teleservice [3] Ext-TeleserviceCode
+}
+
+
+Ext-BearerServiceCode ::= OCTET STRING (SIZE(1..5))
+
+
+Ext-TeleserviceCode ::= OCTET STRING (SIZE(1..5))
+
+
+NAEA-CIC ::= OCTET STRING (SIZE(3))
+
+
+LocationInformation ::= SEQUENCE {
+    ageOfLocationInformation                AgeOfLocationInformation            OPTIONAL,
+    geographicalInformation             [0] GeographicalInformation             OPTIONAL,
+    vlr-number                          [1] ISDN-AddressString                  OPTIONAL,
+    locationNumber                      [2] LocationNumber                      OPTIONAL,
+    cellGlobalIdOrServiceAreaIdOrLAI    [3] CellGlobalIdOrServiceAreaIdOrLAI    OPTIONAL,
+    extensionContainer                  [4] ExtensionContainer                  OPTIONAL,
+    ... ,
+    selectedLSA-Id                      [5] LSAIdentity                         OPTIONAL,
+    msc-Number                          [6] ISDN-AddressString                  OPTIONAL,
+    geodeticInformation                 [7] GeodeticInformation                 OPTIONAL, 
+    currentLocationRetrieved            [8] NULL                                OPTIONAL
+}
+
+
+AgeOfLocationInformation ::= INTEGER (0..32767)
+
+
+GeographicalInformation ::= OCTET STRING (SIZE(8))
+
+
+CellGlobalIdOrServiceAreaIdOrLAI ::= CHOICE {
+    cellGlobalIdOrServiceAreaIdFixedLength  [0] CellGlobalIdOrServiceAreaIdFixedLength,
+    laiFixedLength                          [1] LAIFixedLength
+}
+
+
+CellGlobalIdOrServiceAreaIdFixedLength ::= OCTET STRING (SIZE(7))
+
+
+LAIFixedLength ::= OCTET STRING (SIZE(5))
+
+
+ExtensionContainer ::= SEQUENCE {
+	privateExtensionList	[0]PrivateExtensionList	OPTIONAL, 
+	pcs-Extensions	[1]PCS-Extensions	OPTIONAL,
+	...
+}
+
+
+PrivateExtensionList ::= SEQUENCE SIZE (1..maxNumOfPrivateExtensions) OF
+				PrivateExtension
+
+
+PrivateExtension ::= SEQUENCE {
+    extId			OBJECT IDENTIFIER,
+    extType			ANY
+}
+
+
+maxNumOfPrivateExtensions  INTEGER ::= 10
+
+
+PCS-Extensions ::= SEQUENCE {
+	...
+}
+
+
+LSAIdentity ::= OCTET STRING (SIZE(3))
+
+
+GeodeticInformation ::= OCTET STRING (SIZE(10))
+
+
+SubscriberState ::= CHOICE {
+	assumedIdle	[0] NULL,
+	camelBusy	[1] NULL,
+	netDetNotReachable	NotReachableReason,
+	notProvidedFromVLR	[2] NULL
+}
+
+
+NotReachableReason ::= ENUMERATED {
+	msPurged (0),
+	imsiDetached (1),
+	restrictedArea (2),
+	notRegistered (3)
+}
+
+
+CUG-Index ::= INTEGER (0..32767)
+
+
+CUG-Interlock ::= OCTET STRING (SIZE(4))
+
+
+CallReferenceNumber ::= OCTET STRING (SIZE(1..8))
+
+
+SuppressionOfAnnouncement ::= NULL
+
+
+TCInvokeIdSet ::= INTEGER (-128..127)
+
+
+AccessPointName  ::= OCTET STRING (SIZE(minAccessPointNameLength..maxAccessPointNameLength))
+
+
+AChBillingChargingCharacteristics  ::= OCTET STRING (SIZE(minAChBillingChargingLength..maxAChBillingChargingLength))
+
+
+AdditionalCallingPartyNumber ::= Digits
+
+
+AlertingPattern ::= OCTET STRING (SIZE(3))
+
+
+AOCBeforeAnswer                     ::= SEQUENCE {
+    aOCInitial                          [0] CAI-GSM0224,
+    aOCSubsequent                       [1] AOCSubsequent                       OPTIONAL
+}
+
+
+AOCGPRS                             ::= SEQUENCE {
+    aOCInitial                          [0] CAI-GSM0224,
+    aOCSubsequent                       [1] AOCSubsequent                       OPTIONAL
+}
+
+AOCSubsequent                       ::= SEQUENCE {
+    cAI-GSM0224                         [0] CAI-GSM0224 ,
+    tariffSwitchInterval                [1] INTEGER (1..86400)                  OPTIONAL
+}
+
+
+AppendFreeFormatData ::= ENUMERATED {
+	overwrite       (0),
+	append          (1)
+} 
+
+ApplicationTimer ::=INTEGER (0..2047)
+
+
+AssistingSSPIPRoutingAddress ::= Digits
+
+
+BackwardServiceInteractionInd ::= SEQUENCE {
+    conferenceTreatmentIndicator        [1] OCTET STRING (SIZE(1))  OPTIONAL,
+    callCompletionTreatmentIndicator    [2] OCTET STRING (SIZE(1))  OPTIONAL,
+    ...
+}
+
+
+BCSMEvent  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    eventTypeBCSM       [0] EventTypeBCSM,
+    monitorMode         [1] MonitorMode,
+    legID               [2] LegID               OPTIONAL,
+    dpSpecificCriteria  [30] DpSpecificCriteria OPTIONAL
+}
+
+
+BearerCapability ::= CHOICE {
+    bearerCap               [0] OCTET STRING (SIZE(2.. -- bound.& -- maxBearerCapabilityLength))
+}
+
+
+CAI-GSM0224 ::= SEQUENCE {
+    e1 [0] INTEGER (0..8191) OPTIONAL,
+    e2 [1] INTEGER (0..8191) OPTIONAL,
+    e3 [2] INTEGER (0..8191) OPTIONAL,
+    e4 [3] INTEGER (0..8191) OPTIONAL,
+    e5 [4] INTEGER (0..8191) OPTIONAL,
+    e6 [5] INTEGER (0..8191) OPTIONAL,
+    e7 [6] INTEGER (0..8191) OPTIONAL
+}
+
+
+CalledPartyBCDNumber ::= OCTET STRING (SIZE(minCalledPartyBCDNumberLength..maxCalledPartyBCDNumberLength))
+
+
+CalledPartyNumber ::= OCTET STRING (SIZE(minCalledPartyNumberLength..maxCalledPartyNumberLength))
+
+
+CallingPartyNumber ::= OCTET STRING (SIZE(minCallingPartyNumberLength..maxCallingPartyNumberLength))
+
+
+CallResult ::= OCTET STRING (SIZE(minCallResultLength..maxCallResultLength))
+
+
+CAMEL-AChBillingChargingCharacteristics ::= CHOICE {
+    timeDurationCharging [0] SEQUENCE {
+	    maxCallPeriodDuration       [0] INTEGER (1..864000),
+	    releaseIfdurationExceeded   [1] BOOLEAN DEFAULT FALSE,
+	    tariffSwitchInterval        [2] INTEGER (1..86400)          OPTIONAL,
+	    tone                        [3] BOOLEAN DEFAULT FALSE,
+	    extensions                  [4] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField  OPTIONAL,
+	    ...
+    }
+}
+
+
+extensions1 SEQUENCE OF ExtensionField ::= {
+    {
+	type          10000000,
+	criticality   abortx,
+	value         OCTET STRING: ''H
+    }
+}
+
+
+extensions2 SEQUENCE OF ExtensionField ::= {
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   ignore,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    },
+    {
+	    type          10000000,
+	    criticality   abortx,
+	    value         OCTET STRING: ''H
+    }
+}
+
+
+
+cAMEL-AChBillingChargingCharacteristics1 CAMEL-AChBillingChargingCharacteristics ::= timeDurationCharging: {
+	    maxCallPeriodDuration       1
+}
+
+
+cAMEL-AChBillingChargingCharacteristics2 CAMEL-AChBillingChargingCharacteristics ::= timeDurationCharging: {
+    maxCallPeriodDuration       864000,
+    releaseIfdurationExceeded   FALSE,
+    tariffSwitchInterval        86400,
+    tone                        TRUE,
+    extensions                  extensions2
+}
+
+
+CAMEL-CallResult ::= CHOICE {
+    timeDurationChargingResult [0] SEQUENCE {
+	partyToCharge           [0] ReceivingSideID,
+	timeInformation         [1] TimeInformation,
+	callActive              [2] BOOLEAN                 DEFAULT TRUE,
+	callReleasedAtTcpExpiry [3] NULL                    OPTIONAL,
+	extensions              [4] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+	...
+    }
+}
+
+
+cAMEL-CallResult1 CAMEL-CallResult ::= timeDurationChargingResult: {
+	partyToCharge           receivingSideID: '11'H,
+	timeInformation         timeIfNoTariffSwitch: 864000
+}
+
+
+cAMEL-CallResult2 CAMEL-CallResult ::= timeDurationChargingResult: {
+	partyToCharge           receivingSideID: '11'H,
+	timeInformation         timeIfNoTariffSwitch: 864000,
+	callActive              FALSE,
+	callReleasedAtTcpExpiry NULL,
+	extensions              extensions2
+}
+
+
+CAMEL-FCIBillingChargingCharacteristics ::= CHOICE {
+    fCIBCCCAMELsequence1 [0] SEQUENCE {
+	freeFormatData        [0] OCTET STRING (SIZE ( -- bound.& -- minFCIBillingChargingDataLength.. -- bound.& -- maxFCIBillingChargingDataLength)),
+	partyToCharge         [1] SendingSideID DEFAULT sendingSideID: leg1,
+	appendFreeFormatData  [2] AppendFreeFormatData DEFAULT overwrite
+    }
+}
+
+
+cAMEL-FCIBillingChargingCharacteristics1 CAMEL-FCIBillingChargingCharacteristics ::= fCIBCCCAMELsequence1: {
+    freeFormatData        '11223344556677889900'H
+}
+
+
+cAMEL-FCIBillingChargingCharacteristics2 CAMEL-FCIBillingChargingCharacteristics ::= fCIBCCCAMELsequence1: {
+    freeFormatData        '11223344556677889900'H,
+    partyToCharge         sendingSideID: leg1,
+    appendFreeFormatData  append
+}
+
+
+CAMEL-FCIGPRSBillingChargingCharacteristics ::= SEQUENCE {
+    gPRS-ReferenceNumber [0] GPRS-ReferenceNumber,
+    fCIBCCCAMELsequence1 [1] SEQUENCE {
+	freeFormatData       [0] OCTET STRING (SIZE(minFCIBillingChargingDataLength..maxFCIBillingChargingDataLength)),
+	pDPID                [1] PDPID OPTIONAL,
+	appendFreeFormatData [2] AppendFreeFormatData    DEFAULT overwrite
+    }
+}
+
+
+cAMEL-FCIGPRSBillingChargingCharacteristics1 CAMEL-FCIGPRSBillingChargingCharacteristics ::= {
+    gPRS-ReferenceNumber {
+	gPRS-Reference    0,
+	gprsSSF-Address   '11'H
+    },
+    fCIBCCCAMELsequence1 {
+	freeFormatData  '11'H
+    }
+}
+
+
+cAMEL-FCIGPRSBillingChargingCharacteristics2 CAMEL-FCIGPRSBillingChargingCharacteristics ::= {
+    gPRS-ReferenceNumber {
+	gPRS-Reference    2147483647,
+	gprsSSF-Address   '112233445566778899'H
+    },
+    fCIBCCCAMELsequence1 {
+	freeFormatData       '11223344556677889900'H,
+	pDPID                '11'H,
+	appendFreeFormatData overwrite
+    }
+}
+
+
+CAMEL-FCISMSBillingChargingCharacteristics ::= CHOICE {
+    fCIBCCCAMELsequence1 [0] SEQUENCE {
+	freeFormatData       [0] OCTET STRING (SIZE(minFCIBillingChargingDataLength..maxFCIBillingChargingDataLength)),
+	appendFreeFormatData [1] AppendFreeFormatData DEFAULT overwrite
+    }
+}
+
+
+cAMEL-FCISMSBillingChargingCharacteristics1 CAMEL-FCISMSBillingChargingCharacteristics ::= fCIBCCCAMELsequence1: {
+    freeFormatData       '11'H
+}
+
+
+cAMEL-FCISMSBillingChargingCharacteristics2 CAMEL-FCISMSBillingChargingCharacteristics ::= fCIBCCCAMELsequence1: {
+    freeFormatData       '11223344556677889900'H,
+    appendFreeFormatData overwrite
+}
+
+
+CAMEL-SCIBillingChargingCharacteristics ::= SEQUENCE {
+    aOCBeforeAnswer [0] AOCBeforeAnswer,
+    aOCAfterAnswer  [1] AOCSubsequent
+}
+
+
+cAMEL-SCIBillingChargingCharacteristics1 CAMEL-SCIBillingChargingCharacteristics ::= {
+    aOCBeforeAnswer {
+	aOCInitial  {}
+    },
+    aOCAfterAnswer {
+	cAI-GSM0224 {},
+    }
+}
+
+
+cAMEL-SCIBillingChargingCharacteristics2 CAMEL-SCIBillingChargingCharacteristics ::= {
+    aOCBeforeAnswer {
+	aOCInitial {
+		e1 8191,
+		e2 8191,
+		e3 8191,
+		e4 8191,
+		e5 8191,
+		e6 8191,
+		e7 8191
+	},
+	aOCSubsequent {
+	    cAI-GSM0224 {
+		e1 8191,
+		e2 8191,
+		e3 8191,
+		e4 8191,
+		e5 8191,
+		e6 8191,
+		e7 8191
+	    },
+	    tariffSwitchInterval 86400
+	}
+    },
+    aOCAfterAnswer {
+	cAI-GSM0224  {
+	    e1 8191,
+	    e2 8191,
+	    e3 8191,
+	    e4 8191,
+	    e5 8191,
+	    e6 8191,
+	    e7 8191
+	},
+	tariffSwitchInterval 86400
+    }
+}
+
+
+CAMEL-SCIGPRSBillingChargingCharacteristics ::= SEQUENCE {
+    gPRS-ReferenceNumber [0] GPRS-ReferenceNumber,
+    aOCGPRS              [1] AOCGPRS,
+    pDPID                [2] PDPID       OPTIONAL
+}
+
+
+cAMEL-SCIGPRSBillingChargingCharacteristics1 CAMEL-SCIGPRSBillingChargingCharacteristics ::= {
+    gPRS-ReferenceNumber {
+	gPRS-Reference  0,
+	gprsSSF-Address '11'H
+    },
+    aOCGPRS {
+	aOCInitial {
+	    e1 8191,
+	    e2 8191,
+	    e3 8191,
+	    e4 8191,
+	    e5 8191,
+	    e6 8191,
+	    e7 8191
+	}
+    }
+}
+
+
+cAMEL-SCIGPRSBillingChargingCharacteristics2 CAMEL-SCIGPRSBillingChargingCharacteristics ::= {
+    gPRS-ReferenceNumber {
+	gPRS-Reference  2147483647,
+	gprsSSF-Address '11'H
+    },
+    aOCGPRS {
+	aOCInitial {
+	    e1 8191,
+	    e2 8191,
+	    e3 8191,
+	    e4 8191,
+	    e5 8191,
+	    e6 8191,
+	    e7 8191
+	},
+	aOCSubsequent {
+	    cAI-GSM0224          {
+		e1 8191,
+		e2 8191,
+		e3 8191,
+		e4 8191,
+		e5 8191,
+		e6 8191,
+		e7 8191
+	    },
+	    tariffSwitchInterval 86400
+	}
+    },
+    pDPID '11'H
+}
+
+
+Cause ::= OCTET STRING (SIZE(minCauseLength..maxCauseLength))
+
+
+CGEncountered ::= ENUMERATED {
+    noCGencountered         (0),
+    manualCGencountered     (1),
+    scpOverload             (2)
+}
+
+
+ChargingCharacteristics             ::= CHOICE {
+	maxTransferredVolume            [0] INTEGER (1..4294967295),
+	maxElapsedTime                  [1] INTEGER (1..86400)
+}
+
+
+ChargingResult                      ::= CHOICE {
+	transferredVolume               [0] TransferredVolume,
+	elapsedTime                     [1] ElapsedTime
+}
+
+
+CollectedDigits                             ::= SEQUENCE {
+    minimumNbOfDigits       [0] INTEGER (1..30) DEFAULT 1,
+    maximumNbOfDigits       [1] INTEGER (1..30),
+    endOfReplyDigit         [2] OCTET STRING (SIZE (1..2))  OPTIONAL,
+    cancelDigit             [3] OCTET STRING (SIZE (1..2))  OPTIONAL,
+    startDigit              [4] OCTET STRING (SIZE (1..2))  OPTIONAL,
+    firstDigitTimeOut       [5] INTEGER (1..127)            OPTIONAL,
+    interDigitTimeOut       [6] INTEGER (1..127)            OPTIONAL,
+    errorTreatment          [7] ErrorTreatment              DEFAULT stdErrorAndInfo,
+    interruptableAnnInd     [8] BOOLEAN                     DEFAULT TRUE,
+    voiceInformation        [9] BOOLEAN                     DEFAULT FALSE,
+    voiceBack               [10] BOOLEAN                    DEFAULT FALSE
+}
+
+
+CollectedInfo ::= CHOICE {
+    collectedDigits         [0] CollectedDigits
+}
+
+
+ConnectedNumberTreatmentInd                 ::= ENUMERATED {
+    noINImpact                      (0),
+    presentationRestricted          (1),
+    presentCalledINNumber           (2),
+    presentCallINNumberRestricted   (3)
+}
+
+
+ControlType ::= ENUMERATED {
+    sCPOverloaded                   (0),
+    manuallyInitiated               (1)
+}
+
+
+CorrelationID ::= Digits
+
+
+DateAndTime ::= OCTET STRING (SIZE(7))
+
+
+DestinationRoutingAddress ::= SEQUENCE SIZE(1) OF CalledPartyNumber
+
+
+Digits ::= OCTET STRING (SIZE(minDigitsLength..maxDigitsLength))
+
+
+DpSpecificCriteria ::= CHOICE {
+    applicationTimer        [1] ApplicationTimer
+}
+
+
+ElapsedTime ::= CHOICE {
+	timeGPRSIfNoTariffSwitch    [0] INTEGER (0..86400),
+	timeGPRSIfTariffSwitch      [1] SEQUENCE {
+	    timeGPRSSinceLastTariffSwitch   [0] INTEGER (0..86400),
+	    timeGPRSTariffSwitchInterval    [1] INTEGER (0..86400)
+	}
+}
+
+
+ErrorTreatment ::= ENUMERATED {
+    stdErrorAndInfo         (0),
+    help                    (1),
+    repeatPrompt            (2) 
+}
+
+
+EventSpecificInformationBCSM ::= CHOICE {
+    routeSelectFailureSpecificInfo  [2] SEQUENCE {
+	failureCause [0] Cause OPTIONAL,
+	...
+    },
+    oCalledPartyBusySpecificInfo [3] SEQUENCE {
+	busyCause [0] Cause OPTIONAL,
+	...
+    },
+    oNoAnswerSpecificInfo [4] SEQUENCE {
+	...
+    },
+    oAnswerSpecificInfo [5] SEQUENCE {
+	destinationAddress CalledPartyNumber,
+	or-Call            [0] NULL                    OPTIONAL,
+	forwardedCall      [1] NULL                    OPTIONAL,
+	...
+    },
+    oDisconnectSpecificInfo         [7] SEQUENCE {
+	releaseCause  [0] Cause OPTIONAL,
+	...
+    },
+    tBusySpecificInfo               [8] SEQUENCE {
+	busyCause     [0] Cause OPTIONAL,
+	callForwarded [50] NULL                   OPTIONAL,
+	...
+    },
+    tNoAnswerSpecificInfo           [9] SEQUENCE {
+	callForwarded [50] NULL OPTIONAL,
+	...
+    },
+    tAnswerSpecificInfo             [10] SEQUENCE {
+	destinationAddress  CalledPartyNumber,
+	or-Call             [0] NULL                    OPTIONAL,
+	forwardedCall       [1] NULL                    OPTIONAL,
+	...
+    },
+    tDisconnectSpecificInfo         [12] SEQUENCE {
+	releaseCause [0] Cause  -- {bound} --            OPTIONAL,
+	...
+    }
+}
+
+
+EventSpecificInformationSMS     ::=  CHOICE {
+    o-smsFailureSpecificInfo        [0] SEQUENCE {
+	failureCause                    [0] SMSCause                            OPTIONAL,
+	...
+    },
+    o-smsSubmittedSpecificInfo      [1] SEQUENCE {
+	-- no specific info defined-
+	...
+    }
+}
+
+
+EventTypeBCSM                                       ::= ENUMERATED {
+    collectedInfo                   (2),
+    analyzedInformation             (3),
+    routeSelectFailure              (4),
+    oCalledPartyBusy                (5),
+    oNoAnswer                       (6),
+    oAnswer                         (7),
+    oDisconnect                     (9),
+    oAbandon                        (10),
+    termAttemptAuthorized           (12),
+    tBusy                           (13),
+    tNoAnswer                       (14),
+    tAnswer                         (15),
+    tDisconnect                     (17),
+    tAbandon                        (18)
+}
+
+
+EventTypeSMS                        ::= ENUMERATED {
+    sms-CollectedInfo                   (1),
+    o-smsFailure                        (2),
+    o-smsSubmitted                      (3)
+}
+
+
+ExtensionField ::= SEQUENCE {
+    type            INTEGER,
+    criticality     CriticalityType,
+    value           [1] ANY
+}
+
+
+FCIBillingChargingCharacteristics ::= OCTET STRING (SIZE(minFCIBillingChargingLength..maxFCIBillingChargingLength))
+
+
+FCIGPRSBillingChargingCharacteristics ::= OCTET STRING (SIZE(minFCIBillingChargingLength..maxFCIBillingChargingLength))
+
+
+FCISMSBillingChargingCharacteristics ::= OCTET STRING (SIZE(minFCIBillingChargingLength..maxFCIBillingChargingLength))
+
+
+ForwardServiceInteractionInd ::= SEQUENCE {
+    conferenceTreatmentIndicator    [1] OCTET STRING (SIZE(1))      OPTIONAL,
+    callDiversionTreatmentIndicator [2] OCTET STRING (SIZE(1))      OPTIONAL,
+    callCompletionTreatmentIndicator    [53]    OCTET STRING (SIZE(1))  OPTIONAL,
+    callingPartyRestrictionIndicator [4] OCTET STRING (SIZE(1))     OPTIONAL,
+    ...
+}
+
+
+GapCriteria ::= CHOICE {
+    calledAddressValue          [0] Digits,
+    gapOnService                [2] GapOnService,
+    calledAddressAndService     [29] SEQUENCE {
+	calledAddressValue          [0] Digits,
+	serviceKey                  [1] ServiceKey
+    },
+    callingAddressAndService    [30] SEQUENCE {
+	callingAddressValue         [0] Digits,
+	serviceKey                  [1] ServiceKey
+    }
+}
+
+
+GapOnService ::= SEQUENCE {
+    serviceKey [0] ServiceKey,
+    ...
+}
+
+
+GapIndicators ::= SEQUENCE {
+    duration                    [0] Duration,
+    gapInterval                 [1] Interval,
+    ...
+}
+
+
+GapTreatment ::= CHOICE {
+    informationToSend [0] InformationToSend,
+    releaseCause      [1] Cause
+}
+
+
+GenericNumber ::= OCTET STRING (SIZE(minGenericNumberLength..maxGenericNumberLength))
+
+
+GenericNumbers ::= SET SIZE(1..numOfGenericNumbers) OF GenericNumber
+
+
+GPRSCause ::= OCTET STRING (SIZE (minCauseLength..maxCauseLength))
+
+
+GPRSChargingID ::= INTEGER (0..4294967295)
+
+
+GPRSEvent ::= SEQUENCE {
+    gPRSEventType                       [0] GPRSEventType,
+    monitorMode                         [1] MonitorMode
+}
+
+
+GPRSEventSpecificInformation ::= CHOICE {
+	attachChangeOfPositionSpecificInformation 
+					    [0] SEQUENCE {
+		newRoutingAreaIdentity          [0] RAIdentity
+	},
+	pdp-ContextchangeOfPositionSpecificInformation
+					    [1] SEQUENCE {
+		newRoutingAreaIdentity          [0] RAIdentity,
+		chargingID                      [1] GPRSChargingID
+	},
+	detachSpecificInformation           [2] SEQUENCE {
+		inititatingEntity               [0] InitiatingEntity
+	},
+	disconnectSpecificInformation       [3] SEQUENCE {
+		inititatingEntity               [0] InitiatingEntity
+	},
+	pDPContextEstablishmentSpecificInformation
+					    [4] SEQUENCE {
+		accessPointName                 [0] AccessPointName
+	},
+	pDPContextEstablishmentAcknowledgementSpecificInformation
+					    [5] SEQUENCE {
+		chargingID                      [0] GPRSChargingID
+	}
+}
+
+
+GPRSEventType ::= ENUMERATED  {
+	attach                                  (1),
+	attachChangeOfPosition                  (2),
+	detached                                (3),
+	pdp-ContextEstablishment                (11),
+	pdp-ContextEstablishmentAcknowledgement (12),
+	disonnect                               (13),
+	pdp-ContextChangeOfPosition             (14)
+}
+
+
+GPRSMSClass ::= SEQUENCE {
+	mSNetworkCapability                 [0] MSNetworkCapability,
+	mSRadioAccessCapability             [1] MSRadioAccessCapability
+}
+
+
+GPRS-ReferenceNumber ::= SEQUENCE {
+    gPRS-Reference                      [0] Integer4,
+    gprsSSF-Address                     [1] ISDN-AddressString
+}
+
+
+InbandInfo ::= SEQUENCE {
+    messageID               [0] MessageID,
+    numberOfRepetitions     [1] INTEGER (1..127)    OPTIONAL,
+    duration                [2] INTEGER (0..32767)  OPTIONAL,
+    interval                [3] INTEGER (0.. 32767) OPTIONAL,
+    ...
+}
+
+
+InformationToSend ::= CHOICE {
+    inbandInfo              [0] InbandInfo,
+    tone                    [1] Tone
+}
+
+
+InitiatingEntity                    ::= ENUMERATED {
+	ms                              (0),
+	sgsn                            (1),
+	hlr                             (2),
+	ggsn                            (3)
+}
+
+
+InvokeID ::= TCInvokeIdSet
+
+
+IPRoutingAddress ::= CalledPartyNumber
+
+
+IPSSPCapabilities ::= OCTET STRING (SIZE(minIPSSPCapabilitiesLength..maxIPSSPCapabilitiesLength))
+
+
+LegType ::= OCTET STRING (SIZE(1))
+
+
+leg1 LegType ::= '01'H
+
+
+leg2 LegType ::= '02'H
+
+
+LocationInformationGPRS ::= SEQUENCE {
+	cellGlobalIdOrServiceAreaIdOrLAI    [0] OCTET STRING (SIZE(5..7))   OPTIONAL,
+	geographicalInformation         [1] OCTET STRING (SIZE (8))         OPTIONAL,
+	sgsn-Number                         [2] ISDN-AddressString          OPTIONAL
+}
+
+
+LocationNumber ::= OCTET STRING (SIZE(minLocationNumberLength..maxLocationNumberLength))
+
+
+MessageID ::= CHOICE {
+    elementaryMessageID     [0] Integer4,
+    text                    [1] SEQUENCE {
+	messageContent          [0] IA5String (SIZE
+				 ( -- bound.& -- minMessageContentLength.. -- bound.& -- maxMessageContentLength)),
+	attributes              [1] OCTET STRING (SIZE
+				 ( -- bound.& -- minAttributesLength.. -- bound.& -- maxAttributesLength)) OPTIONAL
+    },
+    elementaryMessageIDs    [29] SEQUENCE SIZE (1..  -- bound.& -- numOfMessageIDs) OF Integer4,
+    variableMessage         [30] SEQUENCE {
+	elementaryMessageID     [0] Integer4,
+	variableParts           [1] SEQUENCE SIZE (1..5) OF VariablePart  -- {bound} -- 
+	}
+}
+
+
+MonitorMode ::= ENUMERATED {
+    interrupted                 (0),
+    notifyAndContinue           (1),
+    transparent                 (2)
+}
+
+
+MSNetworkCapability ::= OCTET STRING (SIZE (3))
+
+
+MSRadioAccessCapability ::= OCTET STRING (SIZE (3..32))
+
+
+NACarrierInformation ::= SEQUENCE { 
+	naCarrierId                     [0] NAEA-CIC                                OPTIONAL,
+	naCICSelectionType              [1] NACarrierSelectionInfo                  OPTIONAL,
+	...
+}
+
+
+NACarrierSelectionInfo ::= OCTET STRING (SIZE(1))
+
+
+NAOliInfo ::= OCTET STRING (SIZE(1))
+
+
+NAChargeNumber ::= OCTET STRING (SIZE(2..7))
+
+
+NA-Info ::= SEQUENCE {
+    naCarrierInformation                [0] NACarrierInformation                OPTIONAL,
+    naOliInfo                           [1] NAOliInfo                           OPTIONAL,
+    naChargeNumber                      [2] NAChargeNumber                      OPTIONAL,
+    ...
+}
+
+
+OriginalCalledPartyID ::= OCTET STRING (SIZE(minOriginalCalledPartyIDLength ..maxOriginalCalledPartyIDLength))
+
+
+OCSIApplicable ::= NULL
+
+
+PDPID ::= OCTET STRING (SIZE (1))
+
+
+PDPType ::= SEQUENCE {
+    pDPTypeOrganization                         [0] OCTET STRING (SIZE(1)),
+    pDPTypeNumber                               [1] OCTET STRING (SIZE(1))
+}
+
+
+QualityOfService ::= OCTET STRING (SIZE (5))
+
+
+RAIdentity ::= OCTET STRING (SIZE (7))
+
+
+ReceivingSideID ::= CHOICE {receivingSideID [1] LegType}
+
+
+RedirectingPartyID ::= OCTET STRING (SIZE(minRedirectingPartyIDLength..maxRedirectingPartyIDLength))
+
+
+RequestedInformationList ::= SEQUENCE SIZE(1.. numOfInfoItems) OF RequestedInformation
+
+
+RequestedInformationTypeList ::= SEQUENCE SIZE(1.. numOfInfoItems) OF RequestedInformationType
+
+
+RequestedInformation ::= SEQUENCE {
+    requestedInformationType    [0] RequestedInformationType,
+    requestedInformationValue   [1] RequestedInformationValue,
+    ...
+}
+
+
+RequestedInformationType ::= ENUMERATED {
+    callAttemptElapsedTime      (0),
+    callStopTime                (1),
+    callConnectedElapsedTime    (2),
+    releaseCause                (30)
+}
+
+
+RequestedInformationValue ::= CHOICE {
+    callAttemptElapsedTimeValue     [0] INTEGER (0..255),
+    callStopTimeValue               [1] DateAndTime,
+    callConnectedElapsedTimeValue   [2] Integer4,
+    releaseCauseValue               [30] Cause
+}
+
+
+RPCause ::= OCTET STRING (SIZE(1))
+
+
+ScfID ::= OCTET STRING (SIZE(minScfIDLength..maxScfIDLength))
+
+
+SCIBillingChargingCharacteristics ::= OCTET STRING (SIZE(minSCIBillingChargingLength..maxSCIBillingChargingLength))
+    (CONSTRAINED BY {-- shall be the result of the BER-encoded value of type --
+    CAMEL-SCIBillingChargingCharacteristics})
+
+
+SCIGPRSBillingChargingCharacteristics ::= OCTET STRING (SIZE(minSCIBillingChargingLength..maxSCIBillingChargingLength))
+    (CONSTRAINED BY {-- shall be the result of the BER-encoded value of type -
+    CAMEL-SCIGPRSBillingChargingCharacteristics})
+
+
+SendingSideID ::= CHOICE {
+    sendingSideID  [0] LegType
+}
+
+
+ServiceInteractionIndicatorsTwo ::= SEQUENCE {
+    forwardServiceInteractionInd        [0] ForwardServiceInteractionInd        OPTIONAL,
+    backwardServiceInteractionsInd      [1] BackwardServiceInteractionInd       OPTIONAL,
+    bothwayThroughConnectionInd         [2] BothwayThroughConnectionInd         OPTIONAL,
+    connectedNumberTreatmentInd         [4] ConnectedNumberTreatmentInd
+						DEFAULT presentCalledINNumber,
+    holdTreatmentIndicator              [50] OCTET STRING (SIZE(1))             OPTIONAL,
+    cwTreatmentIndicator                [51]    OCTET STRING (SIZE(1))          OPTIONAL,
+    ectTreatmentIndicator               [52]    OCTET STRING (SIZE(1))          OPTIONAL
+}
+
+
+SGSNCapabilities ::= OCTET STRING (SIZE(1))
+
+
+SMSCause    ::= ENUMERATED {
+    systemFailure               (0),
+    unexpectedDataValue         (1),
+    facilityNotSupported        (2),
+    sM-DeliveryFailure          (3),
+    releaseFromRadioInterface   (4)
+}
+
+
+SMSEvent ::= SEQUENCE {
+    eventTypeSMS                        [0] EventTypeSMS,
+    monitorMode                         [1] MonitorMode
+}
+
+
+TimeInformation ::= CHOICE {
+    timeIfNoTariffSwitch                [0] TimeIfNoTariffSwitch,
+    timeIfTariffSwitch                  [1] TimeIfTariffSwitch
+}
+
+
+TimeIfNoTariffSwitch                ::= INTEGER(0..864000)
+
+
+TimeIfTariffSwitch                  ::= SEQUENCE {
+    timeSinceTariffSwitch               [0] INTEGER(0..864000),
+    tariffSwitchInterval                [1] INTEGER(1..864000)                      OPTIONAL
+}
+
+
+TimerID ::= ENUMERATED {
+    tssf                                (0)
+}
+
+
+TimerValue ::= Integer4
+
+
+TimeAndTimezone ::= OCTET STRING (SIZE(minTimeAndTimezoneLength..maxTimeAndTimezoneLength))
+
+
+Tone ::= SEQUENCE {
+    toneID              [0] Integer4,
+    duration            [1] Integer4            OPTIONAL,
+    ...
+}
+
+
+TPDataCodingScheme ::= OCTET STRING (SIZE(1))
+
+
+TPProtocolIdentifier ::= OCTET STRING (SIZE(1))
+
+
+TPShortMessageSubmissionInfo ::= OCTET STRING (SIZE(1))
+
+
+TPValidityPeriod ::= OCTET STRING (SIZE(1..7))
+
+
+TransferredVolume ::= CHOICE {
+    volumeIfNoTariffSwitch      [0] INTEGER (0..4294967295),
+    volumeIfTariffSwitch [1] SEQUENCE {
+	volumeSinceLastTariffSwitch     [0] INTEGER (0..4294967295),
+	volumeTariffSwitchInterval      [1] INTEGER (0..4294967295) OPTIONAL
+    }
+}
+
+
+UnavailableNetworkResource ::= ENUMERATED {
+    unavailableResources            (0),
+    componentFailure                (1),
+    basicCallProcessingException    (2),
+    resourceStatusFailure           (3),
+    endUserFailure                  (4)
+}
+
+
+unavailableNetworkResource1 UnavailableNetworkResource ::= unavailableResources
+
+
+unavailableNetworkResource2 UnavailableNetworkResource ::= endUserFailure
+
+
+VariablePart ::= CHOICE {
+    integer             [0] Integer4,
+    number              [1] Digits  -- {bound} -- , -- Generic digits
+    time                [2] OCTET STRING (SIZE(2)), -- HH: MM, BCD coded
+    date                [3] OCTET STRING (SIZE(4)), -- YYYYMMDD, BCD coded
+    price               [4] OCTET STRING (SIZE(4))
+}
+
+
+minCauseLength INTEGER ::= 2
+
+
+numOfInfoItems INTEGER ::= 4
+
+
+CancelFailed ::= SEQUENCE {
+    problem [0] ENUMERATED {
+	unknownOperation        (0),
+	tooLate                 (1),
+	operationNotCancellable (2)
+    },
+    operation [1] InvokeID,
+    ...
+}
+
+
+cancelFailed1 CancelFailed ::= {
+    problem unknownOperation,
+    operation -128
+}
+
+
+cancelFailed2 CancelFailed ::= {
+    problem operationNotCancellable,
+    operation 127
+}
+
+
+RequestedInfoError ::= ENUMERATED {
+    unknownRequestedInfo        (1),
+    requestedInfoNotAvailable   (2)
+}
+
+
+requestedInfoError1 RequestedInfoError ::= unknownRequestedInfo
+
+
+requestedInfoError2 RequestedInfoError ::= requestedInfoNotAvailable
+
+
+TaskRefused ::= ENUMERATED {
+    generic                     (0),
+    unobtainable                (1),
+    congestion                  (2)
+}
+
+
+taskRefused1 TaskRefused ::= generic
+
+
+taskRefused2 TaskRefused ::= congestion
+
+
+minAccessPointNameLength            INTEGER ::= 2    
+maxAccessPointNameLength            INTEGER ::= 10    
+minAChBillingChargingLength         INTEGER ::= 5    
+maxAChBillingChargingLength         INTEGER ::= 177    
+minAttributesLength                 INTEGER ::= 2    
+maxAttributesLength                 INTEGER ::= 10    
+maxBearerCapabilityLength           INTEGER ::= 11    
+minCalledPartyBCDNumberLength       INTEGER ::= 1    
+maxCalledPartyBCDNumberLength       INTEGER ::= 41    
+minCalledPartyNumberLength          INTEGER ::= 3    
+maxCalledPartyNumberLength          INTEGER ::= 18    
+minCallingPartyNumberLength         INTEGER ::= 2    
+maxCallingPartyNumberLength         INTEGER ::= 10    
+minCallResultLength                 INTEGER ::= 12    
+maxCallResultLength                 INTEGER ::= 24    
+maxCauseLength                      INTEGER ::= 2    
+minDigitsLength                     INTEGER ::= 2    
+maxDigitsLength                     INTEGER ::= 16    
+minFCIBillingChargingDataLength     INTEGER ::= 1    
+maxFCIBillingChargingDataLength     INTEGER ::= 160    
+minFCIBillingChargingLength         INTEGER ::= 5    
+maxFCIBillingChargingLength         INTEGER ::= 172    
+minGenericNumberLength              INTEGER ::= 3    
+maxGenericNumberLength              INTEGER ::= 11    
+minIPSSPCapabilitiesLength          INTEGER ::= 1    
+maxIPSSPCapabilitiesLength          INTEGER ::= 4    
+minLocationNumberLength             INTEGER ::= 2    
+maxLocationNumberLength             INTEGER ::= 10    
+minMessageContentLength             INTEGER ::= 1    
+maxMessageContentLength             INTEGER ::= 127    
+minOriginalCalledPartyIDLength      INTEGER ::= 2    
+maxOriginalCalledPartyIDLength      INTEGER ::= 10    
+minRedirectingPartyIDLength         INTEGER ::= 2    
+maxRedirectingPartyIDLength         INTEGER ::= 10    
+minScfIDLength                      INTEGER ::= 2    
+maxScfIDLength                      INTEGER ::= 10    
+minSCIBillingChargingLength         INTEGER ::= 4    
+maxSCIBillingChargingLength         INTEGER ::= 69    
+minTimeAndTimezoneLength            INTEGER ::= 8    
+maxTimeAndTimezoneLength            INTEGER ::= 8    
+numOfBCSMEvents                     INTEGER ::= 10    
+numOfSMSEvents                      INTEGER ::= 10    
+numOfGPRSEvents                     INTEGER ::= 10    
+numOfExtensions                     INTEGER ::= 10    
+numOfGenericNumbers                 INTEGER ::= 5    
+numOfMessageIDs                     INTEGER ::= 16    
+
+
+ApplyChargingArg ::= SEQUENCE {
+    aChBillingChargingCharacteristics [0] AChBillingChargingCharacteristics  -- {bound} -- ,
+    partyToCharge                     [2] SendingSideID   DEFAULT sendingSideID: leg1,
+    extensions                        [3] SEQUENCE SIZE (1..numOfExtensions) OF ExtensionField OPTIONAL,
+    ...
+}
+
+
+applyChargingArg1 ApplyChargingArg ::= {
+    aChBillingChargingCharacteristics '1122334455'H
+}
+
+
+applyChargingArg2 ApplyChargingArg ::= {
+    aChBillingChargingCharacteristics '112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677'H,
+    partyToCharge                     sendingSideID: leg1,
+    extensions                        extensions2
+}
+
+
+ApplyChargingReportArg ::= CallResult
+
+
+applyChargingReportArg1 ApplyChargingReportArg ::= '112233445566778899001122'H
+
+
+applyChargingReportArg2 ApplyChargingReportArg ::= '112233445566778899001122334455667788990011223344'H
+
+
+AssistRequestInstructionsArg ::= SEQUENCE {
+    correlationID       [0] CorrelationID,
+    iPSSPCapabilities   [2] IPSSPCapabilities,
+    extensions          [3] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField  OPTIONAL,
+    ...
+}
+
+
+assistRequestInstructionsArg1 AssistRequestInstructionsArg ::= {
+    correlationID       '1122'H,
+    iPSSPCapabilities   '11'H
+}
+
+
+assistRequestInstructionsArg2 AssistRequestInstructionsArg ::= {
+    correlationID       '11223344556677889900112233445566'H,
+    iPSSPCapabilities   '11223344'H,
+    extensions          extensions2
+}
+
+
+CallGapArg ::= SEQUENCE {
+    gapCriteria     [0] GapCriteria,
+    gapIndicators   [1] GapIndicators,
+    controlType     [2] ControlType  OPTIONAL,
+    gapTreatment    [3] GapTreatment OPTIONAL,
+    extensions      [4] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    gsmSCFAddress   [50] ISDN-AddressString OPTIONAL,
+    ...
+}
+
+
+callGapArg1 CallGapArg ::= {
+    gapCriteria     calledAddressValue: '1122'H,
+    gapIndicators   {
+	duration                    -2,
+	gapInterval                 -1
+    }
+}
+
+
+callGapArg2 CallGapArg ::= {
+    gapCriteria     callingAddressAndService: {
+	callingAddressValue         '11223344556677889900112233445566'H,
+	serviceKey                  2147483647
+    },
+    gapIndicators   {
+	duration                    86400,
+	gapInterval                 60000
+    },
+    controlType     manuallyInitiated,
+    gapTreatment    informationToSend: tone: {
+	toneID              2147483647,
+	duration            2147483647
+    },
+    extensions      extensions2,
+    gsmSCFAddress   '112233445566778899'H
+}
+
+
+CallInformationReportArg ::= SEQUENCE {
+    requestedInformationList    [0] RequestedInformationList,
+    extensions                  [2] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    legID                       [3] ReceivingSideID OPTIONAL,
+    ...
+}
+
+
+CallInformationRequestArg ::= SEQUENCE {
+    requestedInformationTypeList    [0] RequestedInformationTypeList,
+    extensions                      [2] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    legID                           [3] SendingSideID                   OPTIONAL,
+    ...
+}
+
+
+CancelArg ::= CHOICE {
+    invokeID            [0] InvokeID,
+    allRequests         [1] NULL
+}
+
+
+ConnectArg ::= SEQUENCE {
+    destinationRoutingAddress       [0] DestinationRoutingAddress -- {bound} -- ,
+    alertingPattern                 [1] AlertingPattern OPTIONAL,
+    originalCalledPartyID           [6] OriginalCalledPartyID  -- {bound} --            OPTIONAL,
+    extensions                      [10] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    callingPartysCategory           [28] CallingPartysCategory  OPTIONAL,
+    redirectingPartyID              [29] RedirectingPartyID  -- {bound} --              OPTIONAL,
+    redirectionInformation          [30] RedirectionInformation OPTIONAL,
+    genericNumbers                  [14] GenericNumbers  -- {bound} --                  OPTIONAL,
+    serviceInteractionIndicatorsTwo [15] ServiceInteractionIndicatorsTwo    OPTIONAL,
+    suppressionOfAnnouncement       [55] SuppressionOfAnnouncement  OPTIONAL,
+    oCSIApplicable                  [56] OCSIApplicable OPTIONAL,
+    na-Info                         [57] NA-Info    OPTIONAL,
+    connectArgExtension             [59] ConnectArgExtension                    OPTIONAL,
+    ...
+}
+
+
+ConnectArgExtension                 ::= SEQUENCE {
+    cug-Interlock                   [0] CUG-Interlock                           OPTIONAL,
+    cug-OutgoingAccess              [1] NULL                                    OPTIONAL,
+    nonCug-Call                     [2] NULL                                    OPTIONAL,
+    ...
+}
+
+
+--not used connectToResource {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        ConnectToResourceArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     systemFailure |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter|
+--not used                     unknownLegID}
+--not used     CODE            opcode-connectToResource
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tctr  
+-- This operation is used to connect a call from the SSP to the physical entity
+-- containing the gsmSRF.
+-- Refer to clause 11 for a description of the procedures associated with this operation.
+
+ConnectToResourceArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    resourceAddress CHOICE {
+	ipRoutingAddress            [0] IPRoutingAddress  -- {bound} -- ,
+	none                        [3] NULL
+	},
+    extensions                      [4] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF
+								ExtensionField  -- {bound} --   OPTIONAL,
+    serviceInteractionIndicatorsTwo [7] ServiceInteractionIndicatorsTwo                 OPTIONAL,
+    ...
+    }
+
+--not used continue OPERATION ::= {
+--not used     RETURN RESULT   FALSE
+--not used     ALWAYS RESPONDS FALSE
+--not used     CODE            opcode-continue
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tcue  
+-- This operation is used to request the gsmSSF to proceed with call processing at the
+-- DP at which it previously suspended call processing to await gsmSCF instructions
+-- (i.e. proceed to the next point in call in the BCSM). The gsmSSF continues call
+-- processing without substituting new data from gsmSCF.
+
+--not used continueWithArgument {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        ContinueWithArgumentArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     parameterOutOfRange | 
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter}
+--not used     CODE            opcode-continueWithArgument
+--not used     }
+--not used 
+-- Direction: gsmSCF -> gsmSSF, Timer: Tcwa  
+-- This operation is used to request the gsmSSF to proceed with call processing at the
+-- DP at which it previously suspended call processing to await gsmSCF instructions
+-- (i.e. proceed to the next point in call in the BCSM). The gsmSSF continues call
+-- processing with the modified call setup information as received from the gsmSCF.
+
+ContinueWithArgumentArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    alertingPattern [1] AlertingPattern OPTIONAL,
+    extensions  [6] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF 
+	    ExtensionField  -- {bound} --   OPTIONAL,
+    serviceInteractionIndicatorsTwo [7] ServiceInteractionIndicatorsTwo OPTIONAL,
+    callingPartysCategory   [53] CallingPartysCategory  OPTIONAL,
+    genericNumbers                  [54] GenericNumbers  -- {bound} --                  OPTIONAL,
+    suppressionOfAnnouncement   [55] SuppressionOfAnnouncement  OPTIONAL,
+    na-Info [56] NA-Info    OPTIONAL,
+    cug-Interlock                   [57] CUG-Interlock                          OPTIONAL,
+    cug-OutgoingAccess              [58] NULL                                   OPTIONAL,
+    continueWithArgumentArgExtension [59] ContinueWithArgumentArgExtension      OPTIONAL,
+    ...
+    }
+
+ContinueWithArgumentArgExtension    ::= SEQUENCE {
+    nonCug-Call                     [0] NULL                                    OPTIONAL,
+    ...
+    }
+
+--not used disconnectForwardConnection OPERATION ::= {
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {systemFailure |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence}
+--not used     CODE            opcode-disconnectForwardConnection
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tdfc
+-- This operation is used to disconnect a forward temporary connection or a connection to a  
+-- resource. Refer to clause 11 for a description of the procedures associated with this operation. 
+
+--not used establishTemporaryConnection {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        EstablishTemporaryConnectionArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS      {eTCFailed |
+--not used                 missingParameter |
+--not used                 systemFailure |
+--not used                 taskRefused |
+--not used                 unexpectedComponentSequence |
+--not used                 unexpectedDataValue |
+--not used                 unexpectedParameter|
+--not used                 unknownLegID}
+--not used     CODE        opcode-establishTemporaryConnection
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tetc  
+-- This operation is used to create a connection to a resource for a limited period
+-- of time (e.g. to play an announcement, to collect user information); it implies
+-- the use of the assist procedure. Refer to clause 11 for a description of the
+-- procedures associated with this operation.
+
+EstablishTemporaryConnectionArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    assistingSSPIPRoutingAddress    [0] AssistingSSPIPRoutingAddress  -- {bound} -- ,
+    correlationID                   [1] CorrelationID  -- {bound} --    OPTIONAL,
+    scfID                           [3] ScfID  -- {bound} --                                    OPTIONAL,
+    extensions                      [4] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF
+								ExtensionField  -- {bound} --   OPTIONAL,
+    serviceInteractionIndicatorsTwo [6] ServiceInteractionIndicatorsTwo                 OPTIONAL,
+    na-Info                         [50] NA-Info                                        OPTIONAL,
+    ...
+    }
+--  na-info is included at the discretion of the gsmSCF operator.
+
+--not used eventReportBCSM {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        EventReportBCSMArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ALWAYS RESPONDS FALSE
+--not used     CODE            opcode-eventReportBCSM
+--not used     }
+-- Direction: gsmSSF -> gsmSCF, Timer: Terb
+-- This operation is used to notify the gsmSCF of a call-related event (e.g. BCSM
+-- events such as busy or no answer) previously requested by the gsmSCF in a
+-- RequestReportBCSMEvent operation.
+
+EventReportBCSMArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    eventTypeBCSM                   [0] EventTypeBCSM,
+    eventSpecificInformationBCSM    [2] EventSpecificInformationBCSM  -- {bound} --             OPTIONAL,
+    legID                           [3] ReceivingSideID                                 OPTIONAL,
+    miscCallInfo                    [4] MiscCallInfo               -- DEFAULT {messageType request} --,
+    extensions                      [5] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF 
+								ExtensionField  -- {bound} --   OPTIONAL,
+    ...
+    }
+
+--not used furnishChargingInformation {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        FurnishChargingInformationArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS      {missingParameter |
+--not used                 taskRefused |
+--not used                 unexpectedComponentSequence |
+--not used                 unexpectedDataValue |
+--not used                 unexpectedParameter}
+--not used     CODE        opcode-furnishChargingInformation
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tfci
+-- This operation is used to request the gsmSSF to generate, register a call record
+-- or to include some information in the default call record.
+-- The registered call record is intended for off line charging of the call.  
+
+FurnishChargingInformationArg  -- {PARAMETERS-BOUND : bound} --  ::= FCIBillingChargingCharacteristics -- {bound} -- 
+
+--not used initialDP {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        InitialDPArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS      {missingCustomerRecord |
+--not used                 missingParameter |
+--not used                 parameterOutOfRange |
+--not used                 systemFailure |
+--not used                 taskRefused |
+--not used                 unexpectedComponentSequence |
+--not used                 unexpectedDataValue |
+--not used                 unexpectedParameter}
+--not used     CODE        opcode-initialDP
+--not used     }
+-- Direction: gsmSSF -> gsmSCF, Timer: Tidp 
+-- This operation is used after a TDP to indicate request for service.
+
+InitialDPArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    serviceKey                          [0] ServiceKey  ,
+    calledPartyNumber                   [2] CalledPartyNumber  -- {bound} --                    OPTIONAL,
+    callingPartyNumber                  [3] CallingPartyNumber  -- {bound} --                   OPTIONAL,
+    callingPartysCategory               [5] CallingPartysCategory                       OPTIONAL,
+    cGEncountered                       [7] CGEncountered                               OPTIONAL,
+    iPSSPCapabilities                   [8] IPSSPCapabilities  -- {bound} --                    OPTIONAL,
+    locationNumber                      [10] LocationNumber  -- {bound} --                      OPTIONAL,
+    originalCalledPartyID               [12] OriginalCalledPartyID  -- {bound} --               OPTIONAL,
+    extensions                          [15] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF
+								ExtensionField  -- {bound} --   OPTIONAL,
+    highLayerCompatibility              [23] HighLayerCompatibility OPTIONAL,
+    additionalCallingPartyNumber        [25] AdditionalCallingPartyNumber  -- {bound} --        OPTIONAL,
+    bearerCapability                    [27] BearerCapability  -- {bound} --                    OPTIONAL,
+    eventTypeBCSM                       [28] EventTypeBCSM                              OPTIONAL,
+    redirectingPartyID                  [29] RedirectingPartyID  -- {bound} --                  OPTIONAL,
+    redirectionInformation              [30] RedirectionInformation                     OPTIONAL,
+    cause                               [17] Cause  -- {bound} --                               OPTIONAL,
+    serviceInteractionIndicatorsTwo     [32] ServiceInteractionIndicatorsTwo            OPTIONAL,
+    iMSI                                [50] IMSI                                       OPTIONAL,
+    subscriberState                     [51] SubscriberState                            OPTIONAL,
+    locationInformation                 [52] LocationInformation                        OPTIONAL,
+    ext-basicServiceCode                [53] Ext-BasicServiceCode                       OPTIONAL,
+    callReferenceNumber                 [54] CallReferenceNumber                        OPTIONAL,
+    mscAddress                          [55] ISDN-AddressString                         OPTIONAL,
+    calledPartyBCDNumber                [56] CalledPartyBCDNumber  -- {bound} --                OPTIONAL,
+    timeAndTimezone                     [57] TimeAndTimezone  -- {bound} --                     OPTIONAL,
+    gsm-ForwardingPending               [58] NULL                                       OPTIONAL,
+    initialDPArgExtension               [59] InitialDPArgExtension                      OPTIONAL,
+    ...
+    }
+
+InitialDPArgExtension               ::= SEQUENCE {
+    naCarrierInformation                [0] NACarrierInformation                OPTIONAL,
+    gmscAddress                         [1] ISDN-AddressString                  OPTIONAL,
+    cug-Index                           [2] CUG-Index                           OPTIONAL,
+    cug-Interlock                       [3] CUG-Interlock                       OPTIONAL,
+    cug-OutgoingAccess                  [4] NULL                                OPTIONAL,
+    ...
+}
+-- If iPSSPCapabilities is not present then this denotes that a colocated gsmSRF is not 
+-- supported by the gsmSSF. If present, then the gsmSSF supports a colocated gsmSRF capable 
+-- of playing announcements via elementaryMessageIDs and variableMessages, the playing of
+-- tones and the collection of DTMF digits. Other supported capabilities are explicitly 
+-- detailed in the IPSSPCapabilities parameter itself.
+-- naCarrierInformation is included at the discretion of the gsmSSF operator.
+
+--not used releaseCall {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        ReleaseCallArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ALWAYS RESPONDS FALSE
+--not used     CODE            opcode-releaseCall 
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Trc 
+-- This operation is used to tear down an existing call at any phase of the call for all parties 
+-- involved in the call. 
+
+ReleaseCallArg  -- {PARAMETERS-BOUND : bound} --  ::= Cause  -- {bound} --  
+-- A default value of decimal 31 (normal unspecified) shall be given .
+
+--not used requestReportBCSMEvent {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        RequestReportBCSMEventArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     parameterOutOfRange |
+--not used                     systemFailure |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter | 
+--not used                     unknownLegID}
+--not used     CODE            opcode-requestReportBCSMEvent 
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Trrb
+-- This operation is used to request the gsmSSF to monitor for a call-related event
+-- (e.g. BCSM events such as busy or no answer), then send a notification back to the gsmSCF when 
+-- the event is detected.
+-- NOTE:
+--       Every EDP must be explicitly armed by the gsmSCF via a RequestReportBCSMEvent operation. 
+--       No implicit arming of EDPs at the gsmSSF after reception of any operation (different 
+--       from RequestReportBCSMEvent) from the gsmSCF is allowed.
+
+RequestReportBCSMEventArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    bcsmEvents  [0] SEQUENCE SIZE(1.. -- bound.& -- numOfBCSMEvents) OF  BCSMEvent  -- {bound} -- ,
+    extensions  [2] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF ExtensionField  -- {bound} --   OPTIONAL,
+    ...
+    }
+-- Indicates the BCSM related events for notification.
+
+--not used resetTimer {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        ResetTimerArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     parameterOutOfRange |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter}
+--not used     CODE            opcode-resetTimer
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Trt 
+-- This operation is used to request the gsmSSF to refresh an application timer in the gsmSSF.
+
+ResetTimerArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    timerID         [0] TimerID DEFAULT tssf,
+    timervalue      [1] TimerValue,
+    extensions      [2] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF 
+								ExtensionField  -- {bound} --   OPTIONAL,
+    ...
+    }
+
+--not used sendChargingInformation {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        SendChargingInformationArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedParameter |
+--not used                     parameterOutOfRange |
+--not used                     systemFailure |
+--not used                     taskRefused |
+--not used                     unexpectedDataValue |
+--not used                     unknownLegID}
+--not used     CODE            opcode-sendChargingInformation 
+--not used     }
+-- Direction: gsmSCF -> gsmSSF, Timer: Tsci 
+-- This operation is used to instruct the gsmSSF on the charging information to send by the gsmSSF.
+-- The charging information can either be sent back by means of signalling or internal
+-- if the gsmSSF is located in the local exchange. In the local exchange
+-- this information may be used to update the charge meter or to create a standard call record.  
+
+SendChargingInformationArg  -- {PARAMETERS-BOUND : bound} -- ::= SEQUENCE {
+    sCIBillingChargingCharacteristics   [0] SCIBillingChargingCharacteristics  -- {bound} -- ,
+    partyToCharge                       [1] SendingSideID,
+    extensions                          [2] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF
+						ExtensionField  -- {bound} --   OPTIONAL,
+    ...
+    }
+--not used END
+--not used 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP gsmSSF/gsmSCF Packages, Contracts and ACs.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--not impl CAP-gsmSSF-gsmSCF-pkgs-contracts-acs {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-gsmSSF-gsmSCF-pkgs-contracts-acs (6) version3(2)}
+--not impl 
+--not impl DEFINITIONS ::= BEGIN
+--not impl 
+-- This module describes the operation-packages, contracts and application-contexts used
+-- over the gsmSSF-gsmSCF interface.
+--not impl 
+--not impl IMPORTS
+--not impl 
+--not impl     PARAMETERS-BOUND,
+--not impl     cAPSpecificBoundSet
+--not impl FROM CAP-classes classes
+--not impl 
+--not impl     ROS-OBJECT-CLASS,
+--not impl     CONTRACT,
+--not impl     OPERATION-PACKAGE,
+--not impl     OPERATION
+--not impl FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not impl 
+--not impl     TCMessage {} 
+--not impl FROM TCAPMessages tc-Messages
+--not impl 
+--not impl     APPLICATION-CONTEXT,
+--not impl     dialogue-abstract-syntax
+--not impl FROM TC-Notation-Extensions tc-NotationExtensions
+--not impl 
+--not impl     activityTest,
+--not impl     applyCharging {},
+--not impl     applyChargingReport {},
+--not impl     assistRequestInstructions {},
+--not impl     callGap {},
+--not impl     callInformationReport {},
+--not impl     callInformationRequest {},
+--not impl     cancel {},
+--not impl     connect {},
+--not impl     connectToResource {},
+--not impl     continue,
+--not impl     continueWithArgument {},
+--not impl     disconnectForwardConnection,
+--not impl     establishTemporaryConnection {},
+--not impl     eventReportBCSM {},
+--not impl     furnishChargingInformation {},
+--not impl     initialDP {},
+--not impl     releaseCall {},
+--not impl     requestReportBCSMEvent {},
+--not impl     resetTimer {},
+--not impl     sendChargingInformation {}
+--not impl FROM CAP-gsmSSF-gsmSCF-ops-args gsmSSF-gsmSCF-Operations
+--not impl 
+--not impl     playAnnouncement {},
+--not impl     promptAndCollectUserInformation {},
+--not impl     specializedResourceReport
+--not impl FROM CAP-gsmSCF-gsmSRF-ops-args gsmSCF-gsmSRF-Operations
+--not impl 
+--not impl     specializedResourceControlPackage {}
+--not impl FROM CAP-gsmSCF-gsmSRF-pkgs-contracts-acs gsmSCF-gsmSRF-Protocol
+--not impl 
+--not impl     id-ac-CAP-gsmSSF-scfGenericAC,
+--not impl     id-ac-CAP-gsmSSF-scfAssistHandoffAC,
+--not impl     id-CAPSsfToScfGeneric,
+--not impl     id-CAPAssistHandoffssfToScf,
+--not impl     id-as-gsmSSF-scfGenericAS,
+--not impl     id-as-assistHandoff-gsmSSF-scfAS,
+--not impl     id-package-scfActivation,
+--not impl     id-package-gsmSRF-scfActivationOfAssist,
+--not impl     id-package-assistConnectionEstablishment,
+--not impl     id-package-genericDisconnectResource,
+--not impl     id-package-nonAssistedConnectionEstablishment,
+--not impl     id-package-connect,
+--not impl     id-package-callHandling,
+--not impl     id-package-bcsmEventHandling,
+--not impl     id-package-ssfCallProcessing,
+--not impl     id-package-timer,
+--not impl     id-package-billing,
+--not impl     id-package-charging,
+--not impl     id-package-trafficManagement,
+--not impl     id-package-callReport,
+--not impl     id-package-signallingControl,
+--not impl     id-package-activityTest,
+--not impl     id-package-cancel,
+--not impl     classes,
+--not impl     ros-InformationObjects,
+--not impl     tc-Messages,
+--not impl     tc-NotationExtensions, 
+--not impl     gsmSSF-gsmSCF-Operations,
+--not impl     gsmSCF-gsmSRF-Operations,
+--not impl     gsmSCF-gsmSRF-Protocol
+--not impl FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-object-identifiers (17) version3(2)}
+--not impl 
+--not impl ;
+--not impl 
+-- Application Contexts
+--not impl 
+--not impl capssf-scfGenericAC APPLICATION-CONTEXT ::= {
+--not impl     CONTRACT                    capSsfToScfGeneric
+--not impl     DIALOGUE MODE               structured
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax |
+--not impl                                 gsmSSF-scfGenericAbstractSyntax} 
+--not impl     APPLICATION CONTEXT NAME    id-ac-CAP-gsmSSF-scfGenericAC}
+--not impl 
+--not impl capssf-scfAssistHandoffAC APPLICATION-CONTEXT ::=   {
+--not impl     CONTRACT                    capAssistHandoffssfToScf
+--not impl     DIALOGUE MODE               structured
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax |
+--not impl                                 assistHandoff-gsmSSF-scfAbstractSyntax}
+--not impl     APPLICATION CONTEXT NAME    id-ac-CAP-gsmSSF-scfAssistHandoffAC}
+--not impl 
+--not impl 
+-- Contracts
+--not impl 
+--not impl capSsfToScfGeneric CONTRACT ::= {
+-- dialogue initiated by gsmSSF with InitialDP Operation
+--not impl     INITIATOR CONSUMER OF   
+--not impl             {           scfActivationPackage {cAPSpecificBoundSet}}
+--not impl     RESPONDER CONSUMER OF
+--not impl             {activityTestPackage|
+--not impl             assistConnectionEstablishmentPackage {cAPSpecificBoundSet} |
+--not impl             bcsmEventHandlingPackage {cAPSpecificBoundSet} |
+--not impl             billingPackage {cAPSpecificBoundSet} |
+--not impl             callHandlingPackage {cAPSpecificBoundSet} |
+--not impl             callReportPackage {cAPSpecificBoundSet} |
+--not impl             cancelPackage {cAPSpecificBoundSet} |
+--not impl             chargingPackage {cAPSpecificBoundSet} |
+--not impl             connectPackage {cAPSpecificBoundSet} |
+--not impl             genericDisconnectResourcePackage {cAPSpecificBoundSet} |
+--not impl             nonAssistedConnectionEstablishmentPackage {cAPSpecificBoundSet} |
+--not impl             signallingControlPackage {cAPSpecificBoundSet} |
+--not impl             specializedResourceControlPackage {cAPSpecificBoundSet} |
+--not impl             ssfCallProcessingPackage {cAPSpecificBoundSet} |
+--not impl             timerPackage {cAPSpecificBoundSet} |
+--not impl             trafficManagementPackage {networkSpecificBoundSet}
+--not impl             }
+--not impl     ID      id-CAPSsfToScfGeneric
+--not impl     }
+--not impl 
+--not impl capAssistHandoffssfToScf CONTRACT ::= {
+-- dialogue initiated by gsmSSF with AssistRequestInstructions
+--not impl     INITIATOR CONSUMER OF
+--not impl             {gsmSRF-scfActivationOfAssistPackage {cAPSpecificBoundSet}}
+--not impl     RESPONDER CONSUMER OF
+--not impl             {activityTestPackage|
+--not impl             callHandlingPackage {cAPSpecificBoundSet} |
+--not impl             cancelPackage {cAPSpecificBoundSet} |
+--not impl             genericDisconnectResourcePackage {cAPSpecificBoundSet} |
+--not impl             nonAssistedConnectionEstablishmentPackage {cAPSpecificBoundSet} |
+--not impl             specializedResourceControlPackage {cAPSpecificBoundSet} |
+--not impl             timerPackage {cAPSpecificBoundSet}
+--not impl             }
+--not impl     ID      id-CAPAssistHandoffssfToScf
+--not impl     }
+--not impl 
+--not impl 
+-- Operation Packages
+--not impl 
+--not impl scfActivationPackage {PARAMETERS-BOUND : bound}  OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {initialDP {bound}}
+--not impl     ID      id-package-scfActivation}
+--not impl gsmSRF-scfActivationOfAssistPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {assistRequestInstructions {bound}}
+--not impl     ID      id-package-gsmSRF-scfActivationOfAssist}
+--not impl assistConnectionEstablishmentPackage {PARAMETERS-BOUND : bound}   OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {establishTemporaryConnection {bound}}
+--not impl     ID      id-package-assistConnectionEstablishment}
+--not impl genericDisconnectResourcePackage {PARAMETERS-BOUND : bound}   OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {disconnectForwardConnection}
+--not impl     ID      id-package-genericDisconnectResource}
+--not impl nonAssistedConnectionEstablishmentPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {connectToResource {bound}}
+--not impl     ID      id-package-nonAssistedConnectionEstablishment}
+--not impl connectPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {connect {bound}}
+--not impl     ID      id-package-connect}
+--not impl callHandlingPackage  {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {releaseCall {bound}}
+--not impl     ID      id-package-callHandling}
+--not impl bcsmEventHandlingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {requestReportBCSMEvent {bound}}
+--not impl     SUPPLIER INVOKES    {eventReportBCSM {bound}}
+--not impl     ID      id-package-bcsmEventHandling}
+--not impl ssfCallProcessingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {continueWithArgument {bound} | continue}
+--not impl     ID      id-package-ssfCallProcessing}
+--not impl timerPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {resetTimer {bound}}
+--not impl     ID      id-package-timer}
+--not impl billingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {furnishChargingInformation {bound}}
+--not impl     ID      id-package-billing}
+--not impl chargingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {applyCharging {bound}}
+--not impl     SUPPLIER INVOKES    {applyChargingReport {bound}}
+--not impl     ID      id-package-charging}
+--not impl trafficManagementPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES {callGap {bound}}
+--not impl     ID id-package-trafficManagement}
+--not impl callReportPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {callInformationRequest {bound}}
+--not impl     SUPPLIER INVOKES    {callInformationReport {bound}}
+--not impl     ID      id-package-callReport}
+--not impl signallingControlPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {sendChargingInformation {bound}}
+--not impl     ID      id-package-signallingControl}
+--not impl activityTestPackage OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {activityTest}
+--not impl     ID      id-package-activityTest}
+--not impl cancelPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {cancel {bound}}
+--not impl     ID      id-package-cancel}
+--not impl 
+--not impl 
+--not impl 
+-- Abstract Syntaxes
+--not impl 
+--not impl gsmSSF-scfGenericAbstractSyntax ABSTRACT-SYNTAX ::= {
+--not impl     GenericSSF-gsmSCF-PDUs
+--not impl     IDENTIFIED BY   id-as-gsmSSF-scfGenericAS}
+--not impl GenericSSF-gsmSCF-PDUs ::= TCMessage {{SsfToScfGenericInvokable}, 
+--not impl             {SsfToScfGenericReturnable}}
+--not impl SsfScfGenericInvokable OPERATION ::= {
+--not impl             activityTest |
+--not impl             applyCharging {cAPSpecificBoundSet} |
+--not impl             applyChargingReport {cAPSpecificBoundSet} |
+--not impl             callInformationReport {cAPSpecificBoundSet} |
+--not impl             callInformationRequest {cAPSpecificBoundSet} |
+--not impl             cancel {cAPSpecificBoundSet} |
+--not impl             connect {cAPSpecificBoundSet} |
+--not impl             continueWithArgument {cAPSpecificBoundSet} |
+--not impl             connectToResource {cAPSpecificBoundSet} |
+--not impl             disconnectForwardConnection |
+--not impl             establishTemporaryConnection {cAPSpecificBoundSet} | 
+--not impl             eventReportBCSM {cAPSpecificBoundSet} |
+--not impl             furnishChargingInformation {cAPSpecificBoundSet} |
+--not impl             initialDP {cAPSpecificBoundSet} |
+--not impl             releaseCall {cAPSpecificBoundSet} |
+--not impl             requestReportBCSMEvent {cAPSpecificBoundSet} |
+--not impl             resetTimer {cAPSpecificBoundSet} |
+--not impl             sendChargingInformation {cAPSpecificBoundSet} |
+--not impl             playAnnouncement {cAPSpecificBoundSet} |
+--not impl             promptAndCollectUserInformation {cAPSpecificBoundSet} |
+--not impl             specializedResourceReport
+--not impl             }
+--not impl SsfScfGenericReturnable OPERATION ::= {
+--not impl             activityTest | 
+--not impl             applyCharging {cAPSpecificBoundSet} | 
+--not impl             applyChargingReport {cAPSpecificBoundSet} |
+--not impl             callGap {networkSpecificBoundSet} |
+--not impl             callInformationRequest {cAPSpecificBoundSet} |
+--not impl             cancel {cAPSpecificBoundSet} | 
+--not impl             connect {cAPSpecificBoundSet} | 
+--not impl             connectToResource {cAPSpecificBoundSet} | 
+--not impl             continue | 
+--not impl             continueWithArgument {cAPSpecificBoundSet} |
+--not impl             disconnectForwardConnection | 
+--not impl             establishTemporaryConnection {cAPSpecificBoundSet}| 
+--not impl             furnishChargingInformation {cAPSpecificBoundSet}| 
+--not impl             initialDP {cAPSpecificBoundSet}|
+--not impl             releaseCall {cAPSpecificBoundSet}| 
+--not impl             requestReportBCSMEvent {cAPSpecificBoundSet}|
+--not impl             resetTimer {cAPSpecificBoundSet}| 
+--not impl             sendChargingInformation {cAPSpecificBoundSet}|
+--not impl             playAnnouncement {cAPSpecificBoundSet}|
+--not impl             promptAndCollectUserInformation {cAPSpecificBoundSet}
+--not impl             }
+--not impl 
+--not impl assistHandoff-gsmSSF-scfAbstractSyntax ABSTRACT-SYNTAX ::= {
+--not impl     AssistHandoffsSF-gsmSCF-PDUs
+--not impl     IDENTIFIED BY   id-as-assistHandoff-gsmSSF-scfAS}
+--not impl AssistHandoffsSF-gsmSCF-PDUs ::= TCMessage {{AssistHandoffssfToScfInvokable}, 
+--not impl             {AssistHandoffssfToScfReturnable}}
+--not impl AssistHandoffssfToScfInvokable OPERATION ::= {
+--not impl             activityTest |
+--not impl             assistRequestInstructions {cAPSpecificBoundSet}| 
+--not impl             cancel {cAPSpecificBoundSet}| 
+--not impl             connectToResource {cAPSpecificBoundSet}| 
+--not impl             disconnectForwardConnection | 
+--not impl             playAnnouncement {cAPSpecificBoundSet}| 
+--not impl             promptAndCollectUserInformation {cAPSpecificBoundSet}| 
+--not impl             resetTimer {cAPSpecificBoundSet}| 
+--not impl             specializedResourceReport
+--not impl             }
+--not impl AssistHandoffssfToScfReturnable OPERATION ::= {
+--not impl             activityTest |
+--not impl             assistRequestInstructions {cAPSpecificBoundSet}| 
+--not impl             cancel {cAPSpecificBoundSet}| 
+--not impl             connectToResource {cAPSpecificBoundSet}| 
+--not impl             disconnectForwardConnection | 
+--not impl             playAnnouncement {cAPSpecificBoundSet}| 
+--not impl             promptAndCollectUserInformation {cAPSpecificBoundSet}| 
+--not impl             resetTimer {cAPSpecificBoundSet}
+--not impl             }
+--not impl 
+--not impl END
+--not impl 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP gsmSCF/gsmSRF Interface Operations and Arguments.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not used 
+--not used CAP-gsmSCF-gsmSRF-ops-args {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used umts-network(1) modules(3) cAP-gsmSCF-gsmSRF-ops-args(7) version3(2)}
+--not used 
+--not used DEFINITIONS IMPLICIT TAGS ::= BEGIN
+--not used 
+--not used IMPORTS
+--not used 
+--not used     OPERATION
+--not used FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not used 
+--not used     opcode-playAnnouncement,
+--not used     opcode-promptAndCollectUserInformation,
+--not used     opcode-specializedResourceReport
+--not used FROM CAP-operationcodes operationcodes
+--not used 
+--not used     CollectedInfo,
+--not used     Digits {},
+--not used     ExtensionField {},
+--not used     InformationToSend {},
+--not used     SendingSideID
+--not used FROM CAP-datatypes datatypes
+--not used 
+--not used     canceled,
+--not used     improperCallerResponse,
+--not used     missingParameter,
+--not used     parameterOutOfRange,
+--not used     systemFailure,
+--not used     taskRefused,
+--not used     unavailableResource,
+--not used     unexpectedComponentSequence,
+--not used     unexpectedDataValue,
+--not used     unexpectedParameter
+--not used FROM CAP-errortypes errortypes
+--not used 
+--not used     PARAMETERS-BOUND
+--not used FROM CAP-classes classes
+--not used 
+--not used     ros-InformationObjects,
+--not used     operationcodes,
+--not used     datatypes,
+--not used     errortypes,
+--not used     classes
+--not used FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used umts-network(1) modules(3) cAP-object-identifiers(17) version3(2)}
+--not used 
+--not used ;
+--not used 
+--not used playAnnouncement {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        PlayAnnouncementArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {canceled |
+--not used                     missingParameter |
+--not used                     parameterOutOfRange |
+--not used                     systemFailure |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter |
+--not used                     unavailableResource}
+--not used     LINKED          {specializedResourceReport}
+--not used     CODE            opcode-playAnnouncement
+--not used     }
+-- Direction: gsmSCF -> gsmSRF, Timer: Tpa
+-- This operation is to be used after Establish Temporary Connection (assist procedure
+-- with a second gsmSSF) or a Connect to Resource (no assist) operation. It may be used
+-- for inband interaction with a mobile station, or for interaction with an ISDN user.
+-- In the former case, the gsmSRF is usually collocated with the gsmSSF for standard
+-- tones (congestion tone...) or standard announcements.
+-- In the latter case, the gsmSRF is always collocated with the gsmSSF in the switch.
+-- Any error is returned to the gsmSCF. The timer associated with this operation must
+-- be of a sufficient duration to allow its linked operation to be correctly correlated.
+
+PlayAnnouncementArg  -- {PARAMETERS-BOUND : bound} -- ::= SEQUENCE {
+    informationToSend           [0] InformationToSend  -- {bound} -- ,
+    disconnectFromIPForbidden   [1] BOOLEAN DEFAULT TRUE,
+    requestAnnouncementComplete [2] BOOLEAN DEFAULT TRUE,
+    extensions                  [3] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions)    OF
+								ExtensionField   -- {bound} --  OPTIONAL,
+    ...
+    }
+--not used 
+--not used promptAndCollectUserInformation {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT    PromptAndCollectUserInformationArg {bound}
+--not used     RESULT      ReceivedInformationArg {bound}
+--not used     ERRORS      {canceled |
+--not used                 improperCallerResponse |
+--not used                 missingParameter |
+--not used                 parameterOutOfRange |
+--not used                 systemFailure |
+--not used                 taskRefused |
+--not used                 unexpectedComponentSequence |
+--not used                 unavailableResource |
+--not used                 unexpectedDataValue |
+--not used                 unexpectedParameter
+--not used                 }
+--not used     CODE        opcode-promptAndCollectUserInformation 
+--not used     }
+-- Direction: gsmSCF ->  gsmSRF, Timer: Tpc 
+-- This operation is used to interact with a user to collect information.
+
+PromptAndCollectUserInformationArg  -- {PARAMETERS-BOUND : bound} -- ::= SEQUENCE {
+    collectedInfo               [0] CollectedInfo,
+    disconnectFromIPForbidden   [1] BOOLEAN DEFAULT TRUE,
+    informationToSend           [2] InformationToSend  -- {bound} --    OPTIONAL,
+    extensions                  [3] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF
+							      ExtensionField   -- {bound} --    OPTIONAL,
+    ...
+    }
+
+ReceivedInformationArg  -- {PARAMETERS-BOUND : bound} -- ::= CHOICE {
+    digitsResponse              [0] Digits  -- {bound} -- 
+    }
+
+
+--not used specializedResourceReport OPERATION ::= {
+--not used     ARGUMENT        SpecializedResourceReportArg
+--not used     RETURN RESULT   FALSE
+--not used     ALWAYS RESPONDS FALSE
+--not used     CODE            opcode-specializedResourceReport
+--not used     }
+-- Direction: gsmSRF -> gsmSCF, Timer: Tsrr  
+-- This operation is used as  the response to a PlayAnnouncement operation when the announcement 
+-- completed report indication is set.  
+
+SpecializedResourceReportArg ::=   NULL
+--not used 
+--not used END
+--not used 
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP gsmSCF/gsmSCF Contracts, Packages and ACs.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--not impl CAP-gsmSCF-gsmSRF-pkgs-contracts-acs {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1)  modules(3) cAP-gsmSCF-gsmSRF-pkgs-contracts-acs(8) version3(2)}
+--not impl 
+--not impl DEFINITIONS ::= BEGIN
+--not impl 
+-- This module describes the operation-packages, contracts and application-contexts used
+-- over the gsmSCF-gsmSRF interface.
+--not impl 
+--not impl IMPORTS
+--not impl 
+--not impl     PARAMETERS-BOUND,
+--not impl     cAPSpecificBoundSet
+--not impl FROM CAP-classes classes
+--not impl 
+--not impl     ROS-OBJECT-CLASS,
+--not impl     CONTRACT,
+--not impl     OPERATION-PACKAGE,
+--not impl     OPERATION
+--not impl FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not impl 
+--not impl     TCMessage {} 
+--not impl FROM TCAPMessages tc-Messages
+--not impl 
+--not impl     APPLICATION-CONTEXT,
+--not impl     dialogue-abstract-syntax
+--not impl FROM TC-Notation-Extensions tc-NotationExtensions
+--not impl 
+--not impl     playAnnouncement {},
+--not impl     promptAndCollectUserInformation {},
+--not impl     specializedResourceReport
+--not impl FROM CAP-gsmSCF-gsmSRF-ops-args gsmSCF-gsmSRF-Operations
+--not impl 
+--not impl     activityTest,
+--not impl     cancel {},
+--not impl     assistRequestInstructions {}
+--not impl FROM CAP-gsmSSF-gsmSCF-ops-args gsmSSF-gsmSCF-Operations
+--not impl 
+--not impl     gsmSRF-scfActivationOfAssistPackage {}
+--not impl FROM CAP-gsmSSF-gsmSCF-pkgs-contracts-acs gsmSSF-gsmSCF-Protocol
+--not impl 
+--not impl     id-package-specializedResourceControl,
+--not impl     id-ac-gsmSRF-gsmSCF,
+--not impl     id-contract-gsmSRF-gsmSCF,
+--not impl     id-package-gsmSRF-scfCancel,
+--not impl     id-as-basic-gsmSRF-gsmSCF,
+--not impl     classes,
+--not impl     ros-InformationObjects,
+--not impl     tc-Messages,
+--not impl     tc-NotationExtensions,
+--not impl     gsmSCF-gsmSRF-Operations,
+--not impl     gsmSSF-gsmSCF-Operations,
+--not impl     gsmSSF-gsmSCF-Protocol
+--not impl FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3)  cAP-object-identifiers (17) version3(2)}
+--not impl 
+--not impl ;
+--not impl 
+-- Application Contexts 
+--not impl 
+--not impl gsmSRF-gsmSCF-ac APPLICATION-CONTEXT ::= {
+--not impl     CONTRACT                    gsmSRF-gsmSCF-contract
+--not impl     DIALOGUE MODE               structured
+--not impl     TERMINATION                 basic
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax | 
+--not impl                                 gsmSRF-gsmSCF-abstract-syntax}
+--not impl     APPLICATION CONTEXT NAME    id-ac-gsmSRF-gsmSCF}
+--not impl 
+-- Contracts 
+--not impl 
+--not impl gsmSRF-gsmSCF-contract CONTRACT ::= {
+--not impl     INITIATOR CONSUMER OF       {gsmSRF-scfActivationOfAssistPackage {cAPSpecificBoundSet} }
+--not impl     RESPONDER CONSUMER OF       {specializedResourceControlPackage {cAPSpecificBoundSet}|
+--not impl                                 activityTestPackage {cAPSpecificBoundSet}|
+--not impl                                 gsmSRF-scfCancelPackage {cAPSpecificBoundSet}}
+--not impl     ID                          id-contract-gsmSRF-gsmSCF}
+--not impl 
+-- Operation Packages
+--not impl 
+--not impl specializedResourceControlPackage {PARAMETERS-BOUND : bound}  OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {playAnnouncement {bound} |
+--not impl                         promptAndCollectUserInformation {bound}
+--not impl     }
+--not impl     SUPPLIER INVOKES    {specializedResourceReport}
+--not impl     ID                  id-package-specializedResourceControl}
+--not impl 
+--not impl gsmSRF-scfActivationOfAssistPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {assistRequestInstructions {bound}}
+--not impl     ID      id-package-gsmSRF-scfActivationOfAssist}
+--not impl 
+--not impl 
+--not impl gsmSRF-scfCancelPackage {PARAMETERS-BOUND : bound}   OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {cancel {bound}}
+--not impl     ID                  id-package-gsmSRF-scfCancel}
+--not impl 
+--not impl activityTestPackage {PARAMETERS-BOUND : bound}   OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {activityTest}
+--not impl     ID                  id-package-activityTest}
+--not impl 
+-- Abstract Syntaxes 
+--not impl 
+--not impl gsmSRF-gsmSCF-abstract-syntax ABSTRACT-SYNTAX ::= {
+--not impl     BASIC-gsmSRF-gsmSCF-PDUs
+--not impl     IDENTIFIED BY   id-as-basic-gsmSRF-gsmSCF}
+--not impl 
+--not impl BASIC-gsmSRF-gsmSCF-PDUs ::= TCMessage {{GsmSRFgsmSCFInvokable},{GsmSRFgsmSCFReturnable}}
+--not impl 
+--not impl GsmSRFgsmSCFInvokable OPERATION ::= {
+--not impl         activityTest |
+--not impl         assistRequestInstructions  {cAPSpecificBoundSet}|
+--not impl         cancel  {cAPSpecificBoundSet}|
+--not impl         playAnnouncement  {cAPSpecificBoundSet}|
+--not impl         promptAndCollectUserInformation  {cAPSpecificBoundSet}|
+--not impl         specializedResourceReport 
+--not impl         }
+--not impl 
+--not impl GsmSRFgsmSCFReturnable OPERATION ::= {
+--not impl         activityTest |
+--not impl         assistRequestInstructions  {cAPSpecificBoundSet}|
+--not impl         cancel  {cAPSpecificBoundSet}|
+--not impl         playAnnouncement  {cAPSpecificBoundSet}|
+--not impl         promptAndCollectUserInformation  {cAPSpecificBoundSet}
+--not impl         }
+--not impl 
+--not impl END
+--not impl 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP SMS Operations and Arguments.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not used 
+--not used CAP-SMS-ops-args {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-SMS-ops-args(22) version3(2)}
+--not used 
+--not used DEFINITIONS IMPLICIT TAGS::= BEGIN
+--not used 
+--not used IMPORTS
+--not used 
+--not used     errortypes,
+--not used     datatypes,
+--not used     operationcodes,
+--not used     classes,
+--not used     ros-InformationObjects
+--not used FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used umts-network(1) modules(3) cAP-object-identifiers(17) version3(2)}
+--not used 
+--not used     OPERATION
+--not used FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not used 
+--not used     tc-Messages,
+--not used     classes
+--not used FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used umts-network(1) modules(3) cAP-object-identifiers(17) version3(2)}
+--not used 
+--not used     ServiceKey
+--not used FROM CS1-DataTypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used in-network(1) modules(0) cs1-datatypes(2) version1(0)}
+--not used 
+--not used     MiscCallInfo
+--not used FROM CS2-datatypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) 
+--not used in-network(1) cS2(20) modules(0) in-cs2-datatypes (0) version1(0)}
+--not used 
+--not used     IMSI,
+--not used     ISDN-AddressString
+--not used FROM MAP-CommonDataTypes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-CommonDataTypes(18) version6(6)}
+--not used 
+--not used     LocationInformation
+--not used FROM MAP-MS-DataTypes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-MS-DataTypes(11) version6(6)}
+--not used 
+--not used     PARAMETERS-BOUND
+--not used FROM CAP-classes classes
+--not used 
+--not used     opcode-activityTestSMS,
+--not used     opcode-connectSMS,
+--not used     opcode-continueSMS,
+--not used     opcode-eventReportSMS,
+--not used     opcode-furnishChargingInformationSMS,
+--not used     opcode-initialDPSMS,
+--not used     opcode-releaseSMS,
+--not used     opcode-requestReportSMSEvent,
+--not used     opcode-resetTimerSMS
+--not used FROM CAP-operationcodes operationcodes
+--not used 
+--not used     CalledPartyBCDNumber {},
+--not used     EventSpecificInformationSMS,
+--not used     EventTypeSMS,
+--not used     ExtensionField {},
+--not used     FCISMSBillingChargingCharacteristics,
+--not used     LocationInformationGPRS,
+--not used     RPCause,
+--not used     SMSEvent,
+--not used     TimeAndTimezone {},
+--not used     TimerID,
+--not used     TimerValue,
+--not used     TPDataCodingScheme,
+--not used     TPProtocolIdentifier,
+--not used     TPShortMessageSubmissionInfo,
+--not used     TPValidityPeriod
+--not used FROM CAP-datatypes datatypes
+--not used 
+--not used     missingCustomerRecord,
+--not used     missingParameter,
+--not used     parameterOutOfRange,
+--not used     systemFailure,
+--not used     taskRefused,
+--not used     unexpectedComponentSequence,
+--not used     unexpectedDataValue,
+--not used     unexpectedParameter
+--not used FROM CAP-errortypes errortypes
+--not used 
+--not used ;
+--not used 
+--not used activityTestSMS OPERATION ::= {
+--not used     RETURN RESULT TRUE
+--not used     CODE    opcode-activityTestSMS
+--not used     }
+-- Direction: gsmSCF -> gsmSSF/gprsSSF, Timer: Tatsms 
+-- This operation is used to check for the continued existence of a relationship
+-- between the gsmSCF and gsmSSF/gprsSSF. If the relationship is still in existence,
+-- then the gsmSSF/gprsSSF will respond. If no reply is received, then the gsmSCF
+-- will assume that the gsmSSF/gprsSSF has failed in some way.
+
+--not used connectSMS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         ConnectSMSArg {bound}
+--not used     ERRORS {
+--not used         MissingParameter |
+--not used         ParameterOutOfRange |
+--not used         SystemFailure |
+--not used         TaskRefused |
+--not used         UnexpectedComponentSequence |
+--not used         UnexpectedDataValue |
+--not used         unexpectedParameter
+--not used         }
+--not used     CODE opcode-connectSMS
+--not used     }
+--  Direction: gsmSCF -> gsmSSF or gprsSSF, Timer: Tconsms
+--  This operation is used to request the gsmSSF/gprsSSF to perform the SMS processing
+--  actions to route
+--  or forward a short message to a specified destination.
+
+ConnectSMSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    callingPartysNumber                 [0] ISDN-AddressString                  OPTIONAL,
+    destinationSubscriberNumber         [1] CalledPartyBCDNumber -- {bound} --                OPTIONAL,
+    sMSCAddress                         [2] ISDN-AddressString                  OPTIONAL,
+    extensions                          [10] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions)   OF 
+							    ExtensionField  -- {bound} --       OPTIONAL,
+    ...
+    }
+--not used 
+--not used continueSMS OPERATION ::= {
+--not used     RETURN RESULT   FALSE
+--not used     ALWAYS RESPONDS FALSE
+--not used     CODE            opcode-continueSMS
+--not used     }
+-- Direction: gsmSCF -> gsmSSF/gprsSMS, Timer: Tcuesms  
+-- This operation is used to request the gsmSSF/gprsSSF to proceed with
+-- Short Message processing at the DP at which it previously suspended
+-- Short Message processing to await gsmSCF instructions (i.e. proceed
+-- to the next Point in Association in the SMS FSM). The gsmSSF/gprsSSF
+-- continues SMS processing without substituting new data from gsmSCF.
+
+--not used eventReportSMS {PARAMETERS-BOUND : bound}  OPERATION ::= {
+--not used     ARGUMENT
+--not used         EventReportSMSArg {bound}
+--not used     CODE opcode-eventReportSMS
+--not used     }
+
+--  Direction: gsmSSF or gprsSSF -> gsmSCF, Timer: Terbsms
+--  This operation is used to notify the gsmSCF of a SM related event (e.g., FSM events such 
+--  as submission or failure) previously requested by the gsmSCF in a RequestReportSMSEvent 
+--  operation.
+
+EventReportSMSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    eventTypeSMS                        [0] EventTypeSMS,
+    eventSpecificInformationSMS         [1] EventSpecificInformationSMS         OPTIONAL,
+    miscCallInfo                        [2] MiscCallInfo   -- DEFAULT {messageType request } --, 
+    extensions                          [10] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions)   OF 
+							    ExtensionField  -- {bound} --       OPTIONAL,
+    ...
+    }
+--not used 
+--not used furnishChargingInformationSMS {PARAMETERS-BOUND : bound}         OPERATION ::= {
+--not used     ARGUMENT
+--not used         FurnishChargingInformationSMSArg {bound}
+--not used     ERRORS {
+--not used         MissingParameter |
+--not used         TaskRefused |
+--not used         UnexpectedComponentSequence |
+--not used         UnexpectedDataValue |
+--not used         unexpectedParameter
+--not used         }
+--not used     CODE opcode-furnishChargingInformationSMS
+--not used     }
+--  Direction: gsmSCF -> gsmSSF or gprsSSF, Timer: Tfcisms 
+--  This operation is used to request the gsmSSF to generate, register a charging record or to 
+--  include some information in the default SM record. The registered charging record is intended 
+--  for off line charging of the SM.
+
+FurnishChargingInformationSMSArg  -- {PARAMETERS-BOUND : bound} --          ::= FCISMSBillingChargingCharacteristics  -- {bound} -- 
+
+--not used initialDPSMS {PARAMETERS-BOUND : bound}  OPERATION ::= {
+--not used     ARGUMENT
+--not used         InitialDPSMSArg {bound}
+--not used     ERRORS {
+--not used         MissingCustomerRecord |
+--not used         MissingParameter |
+--not used         ParameterOutOfRange |
+--not used         SystemFailure |
+--not used         TaskRefused |
+--not used         UnexpectedComponentSequence |
+--not used         UnexpectedDataValue |
+--not used         unexpectedParameter
+--not used         }
+--not used     CODE opcode-initialDPSMS
+--not used     }
+--  Direction: gsmSSF or gprsSSF -> gsmSCF, Timer: Tidpsms
+--  This operation is used after a TDP to indicate request for service.
+
+InitialDPSMSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    serviceKey                          [0] ServiceKey,
+    destinationSubscriberNumber         [1] CalledPartyBCDNumber  -- {bound} --                 OPTIONAL,
+    callingPartyNumber                  [2] ISDN-AddressString                  OPTIONAL,
+    eventTypeSMS                        [3] EventTypeSMS                        OPTIONAL,
+    iMSI                                [4] IMSI                                OPTIONAL,
+    locationInformationMSC              [5] LocationInformation                 OPTIONAL,
+    locationInformationGPRS             [6] LocationInformationGPRS             OPTIONAL,
+    sMSCAddress                         [7] ISDN-AddressString                  OPTIONAL,
+    timeAndTimezone                     [8] TimeAndTimezone  -- {bound} --                  OPTIONAL,
+    tPShortMessageSubmissionSpecificInfo [9] TPShortMessageSubmissionInfo       OPTIONAL,
+    tPProtocolIdentifier                [10] TPProtocolIdentifier               OPTIONAL,
+    tPDataCodingScheme                  [11] TPDataCodingScheme             OPTIONAL,
+    tPValidityPeriod                    [12] TPValidityPeriod                   OPTIONAL,
+    extensions                          [13] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions)   OF 
+							    ExtensionField  -- {bound} --       OPTIONAL,
+    ...
+    }
+
+--not used releaseSMS                       OPERATION ::= {
+--not used     ARGUMENT
+--not used         ReleaseSMSArg
+--not used     CODE opcode-releaseSMS
+--not used     }
+--  Direction: gsmSCF -> gsmSSF or gprsSSF, Timer: Trcsms
+--  This operation is used to prevent an attempt to submit a short message. 
+
+ReleaseSMSArg                       ::= RPCause
+
+--not used requestReportSMSEvent {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         RequestReportSMSEventArg {bound}
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         ParameterOutOfRange |
+--not used         SystemFailure |
+--not used         TaskRefused |
+--not used         UnexpectedComponentSequence |
+--not used         UnexpectedDataValue |
+--not used         unexpectedParameter
+--not used         }
+--not used     CODE opcode-requestReportSMSEvent
+--not used     }
+--  Direction: gsmSCF -> gsmSSF or gprsSSF, Timer: Trrbsms
+--  This operation is used to request the gsmSSF or gprsSSF to monitor for a
+--  SM related event (e.g., FSM events such as submission or failure), then
+--  send a notification back to the gsmSCF when the event is detected.
+
+RequestReportSMSEventArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    sMSEvents                           [0] SEQUENCE SIZE (1.. -- bound.& -- numOfSMSEvents)    OF SMSEvent,
+    extensions                          [10] SEQUENCE SIZE (1.. -- bound.& -- numOfExtensions)  OF 
+							    ExtensionField  -- {bound} --       OPTIONAL,
+    ...
+    }
+--  Indicates the SM related events for notification.
+
+--not used resetTimerSMS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        ResetTimerSMSArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS          {missingParameter |
+--not used                     parameterOutOfRange |
+--not used                     taskRefused |
+--not used                     unexpectedComponentSequence |
+--not used                     unexpectedDataValue |
+--not used                     unexpectedParameter}
+--not used     CODE            opcode-resetTimerSMS
+--not used     }
+-- Direction: gsmSCF -> gsmSSF/gprsSSF, Timer: Trtsms 
+-- This operation is used to request the gsmSSF/gprsSSF to refresh an application
+-- timer in the gsmSSF.
+
+ResetTimerSMSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+    timerID         [0] TimerID DEFAULT tssf,
+    timervalue      [1] TimerValue,
+    extensions      [2] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions) OF 
+								ExtensionField  -- {bound} --   OPTIONAL,
+    ...
+    }
+--not used 
+--not used END
+--not used 
+--not used 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP SMS Contracts, Packages and ACs.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--not impl CAP-smsSSF-gsmSCF-pkgs-contracts-acs {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-smsSSF-gsmSCF-pkgs-contracts-acs(23) version3(2)}
+--not impl 
+--not impl DEFINITIONS ::= BEGIN
+--not impl 
+-- This module describes the operation-packages, contracts and application-contexts used
+-- over the gsmSSF/gprsSSF-gsmSCF interface.
+--not impl 
+--not impl IMPORTS
+--not impl 
+--not impl     PARAMETERS-BOUND,
+--not impl     cAPSpecificBoundSet
+--not impl FROM CAP-classes classes 
+--not impl 
+--not impl 
+--not impl     ROS-OBJECT-CLASS,
+--not impl     CONTRACT,
+--not impl     OPERATION-PACKAGE,
+--not impl     OPERATION
+--not impl FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not impl 
+--not impl     TCMessage {} 
+--not impl FROM TCAPMessages tc-Messages
+--not impl 
+--not impl     APPLICATION-CONTEXT,
+--not impl     dialogue-abstract-syntax
+--not impl FROM TC-Notation-Extensions tc-NotationExtensions
+--not impl 
+--not impl     activityTestSMS,
+--not impl     connectSMS{},
+--not impl     continueSMS,
+--not impl     eventReportSMS{},
+--not impl     furnishChargingInformationSMS{},
+--not impl     initialDPSMS{},
+--not impl     releaseSMS,
+--not impl     requestReportSMSEvent{},
+--not impl     resetTimerSMS{}
+--not impl FROM CAP-SMS-ops-args sms-Operations
+--not impl 
+--not impl     sms-Operations,
+--not impl     tc-NotationExtensions,
+--not impl     tc-Messages,
+--not impl     ros-InformationObjects,
+--not impl     classes,
+--not impl     id-as-sms-AS 
+--not impl FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not impl umts-network(1) modules(3) cAP-object-identifiers (17) version3(2)}
+--not impl 
+--not impl ;
+--not impl 
+-- Application Contexts
+--not impl 
+--not impl cap3-sms-AC APPLICATION-CONTEXT ::= {
+--not impl     CONTRACT                    cap3SMS
+--not impl     DIALOGUE MODE               structured
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax |
+--not impl                                 gprsSSF-scfAbstractSyntax} 
+--not impl     APPLICATION CONTEXT NAME    id-ac-cap3-sms-AC}
+--not impl 
+--not impl 
+-- Contracts
+--not impl 
+--not impl cap3SMS CONTRACT ::= {
+-- dialogue initiated by gprsSSF or gsmSSF with InitialDPSMS Operation
+--not impl     INITIATOR CONSUMER OF   
+--not impl             {smsActivationPackage {cAPSpecificBoundSet}}
+--not impl     RESPONDER CONSUMER OF
+--not impl             {smsConnectPackage {cAPSpecificBoundSet} |
+--not impl             smsReleasePackage {cAPSpecificBoundSet} |
+--not impl             smsEventHandlingPackage {cAPSpecificBoundSet} |
+--not impl             smsTimerPackage {cAPSpecificBoundSet} |
+--not impl             smsBillingPackage {cAPSpecificBoundSet} |
+--not impl             smsProcessingPackage {cAPSpecificBoundSet} |
+--not impl             smsActivityTestPackage {cAPSpecificBoundSet}
+--not impl cAPSpecificBoundSetcAPSpecificBoundSet}
+--not impl     ID      id-cap3GprsSsfToScf
+--not impl     }
+--not impl 
+--not impl 
+-- Operation Packages
+--not impl 
+--not impl smsActivationPackage {PARAMETERS-BOUND : bound}  OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {initialDPSMS {bound}}
+--not impl     ID      id-package-smsActivation}
+--not impl smsConnectPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {connectSMS {bound}}
+--not impl     ID      id-package-smsConnect}
+--not impl smsProcessingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {continueSMS}
+--not impl     ID      id-package-smsContinue}
+--not impl smsReleasePackage  {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {releaseSMS }
+--not impl     ID      id-package-smsRelease}
+--not impl smsEventHandlingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {requestReportSMSEvent {bound}}
+--not impl     SUPPLIER INVOKES    {eventReportSMS {bound}}
+--not impl     ID      id-package-smsEventHandling}
+--not impl smsBillingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {furnishChargingInformationSMS {bound}}
+--not impl     ID      id-package-smsBilling}
+--not impl smsActivityTestPackage OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {activityTestSMS}
+--not impl     ID      id-package-smsActivityTest}
+--not impl smsTimerPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {resetTimerSMS {bound}}
+--not impl     ID      id-package-smsTimer}
+--not impl 
+--not impl 
+--not impl 
+-- Abstract Syntaxes
+--not impl 
+--not impl sms-AbstractSyntax ABSTRACT-SYNTAX ::= {
+--not impl     Generic-sms-PDUs
+--not impl     IDENTIFIED BY   id-as-sms-AS}
+--not impl 
+--not impl Generic-sms-PDUs ::= TCMessage {{SmsInvokable}, 
+--not impl             {SmsReturnable}}
+--not impl 
+--not impl SmsInvokable OPERATION ::= {
+--not impl     activityTestSMS |
+--not impl     connectSMS {cAPSpecificBoundSet} |
+--not impl     eventReportSMS {cAPSpecificBoundSet} |
+--not impl     furnishChargingInformationSMS {cAPSpecificBoundSet} |
+--not impl     initialDPSMS {cAPSpecificBoundSet} |
+--not impl     requestReportSMSEvent {cAPSpecificBoundSet} |
+--not impl     resetTimerSMS {cAPSpecificBoundSet}
+--not impl     }
+--not impl 
+--not impl SmsReturnable OPERATION ::= {
+--not impl     activityTestSMS | 
+--not impl     connectSMS {cAPSpecificBoundSet} | 
+--not impl     continueSMS | 
+--not impl     furnishChargingInformationSMS {cAPSpecificBoundSet}| 
+--not impl     initialDPSMS {cAPSpecificBoundSet}|
+--not impl             releaseSMS {cAPSpecificBoundSet}| 
+--not impl             requestReportSMSEvent {cAPSpecificBoundSet}|
+--not impl             resetTimerSMS {cAPSpecificBoundSet} 
+--not impl             }
+--not impl 
+--not impl END
+--not impl 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP gsmSCF/gprsSSF Operations and Arguments.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not used 
+--not used CAP-gprsSSF-gsmSCF-ops-args {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used umts-network(1) modules(3) cAP-GPRS-ops-args(24) version3(2)}
+--not used 
+--not used DEFINITIONS IMPLICIT TAGS::= BEGIN
+--not used 
+--not used IMPORTS
+--not used 
+--not used     errortypes,
+--not used     datatypes,
+--not used     operationcodes,
+--not used     classes,
+--not used     ros-InformationObjects
+--not used FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-object-identifiers(17) version3(2)}
+--not used 
+--not used     OPERATION
+--not used FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not used 
+--not used     ServiceKey
+--not used FROM CS1-DataTypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used in-network(1) modules(0) cs1-datatypes(2) version1(0)}
+--not used 
+--not used     MiscCallInfo
+--not used FROM CS2-datatypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) 
+--not used in-network(1) cS2(20) modules(0) in-cs2-datatypes (0) version1(0)}
+--not used 
+--not used     IMSI,
+--not used     ISDN-AddressString
+--not used FROM MAP-CommonDataTypes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-CommonDataTypes(18) version6(6)}
+--not used 
+--not used     PARAMETERS-BOUND
+--not used FROM CAP-classes classes
+--not used 
+--not used     opcode-activityTestGPRS,
+--not used     opcode-applyChargingGPRS,
+--not used     opcode-applyChargingReportGPRS,
+--not used     opcode-cancelGPRS,
+--not used     opcode-connectGPRS,
+--not used     opcode-continueGPRS,
+--not used     opcode-entityReleasedGPRS,
+--not used     opcode-furnishChargingInformationGPRS,
+--not used     opcode-initialDPGPRS,
+--not used     opcode-releaseGPRS,
+--not used     opcode-eventReportGPRS,
+--not used     opcode-requestReportGPRSEvent,
+--not used     opcode-resetTimerGPRS,
+--not used     opcode-sendChargingInformationGPRS
+--not used FROM CAP-operationcodes operationcodes
+--not used 
+--not used     AccessPointName {},
+--not used     GPRSCause {},
+--not used     ChargingCharacteristics,
+--not used     ChargingResult,
+--not used     FCIGPRSBillingChargingCharacteristics,
+--not used     GPRSChargingID,
+--not used     GPRSEventSpecificInformation {},
+--not used     GPRSEvent,
+--not used     GPRSEventType,
+--not used     GPRSMSClass,
+--not used     GPRS-ReferenceNumber
+--not used     PDPID,
+--not used     PDPType,
+--not used     QualityOfService,
+--not used     RAIdentity,
+--not used     SCIGPRSBillingChargingCharacteristics,
+--not used     SGSNCapabilities,
+--not used     TimeAndTimezone {},
+--not used     TimerID,
+--not used     TimerValue
+--not used FROM CAP-datatypes datatypes
+--not used 
+--not used     missingCustomerRecord,
+--not used     missingParameter,
+--not used     parameterOutOfRange,
+--not used     systemFailure,
+--not used     taskRefused,
+--not used     unexpectedComponentSequence,
+--not used     unexpectedDataValue,
+--not used     unexpectedParameter,
+--not used     unknownPDPID,
+--not used     unknownGPRSReference,
+--not used     overlappingDialogue
+--not used FROM CAP-errortypes errortypes
+--not used 
+--not used ;
+--not used 
+--not used 
+--not used activityTestGPRS OPERATION ::= {
+--not used     ARGUMENT
+--not used        ActivityTestGPRSArg {bound}
+--not used     RETURN RESULT TRUE
+--not used     CODE    opcode-activityTestGPRS
+--not used     }
+-- Direction: gsmSCF -> gprsSSF, Timer: Tatg
+-- This operation is used to check for the continued existence of a relationship between the gsmSCF 
+-- and gprsSSF. If the relationship is still in existence, then the gprsSSF will respond. If no 
+-- reply is received, then the gsmSCF will assume that the gsmSSF has failed in some way and will 
+-- take the appropriate action.
+
+ActivityTestGPRSArg             ::= SEQUENCE {
+    gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber 
+    }
+
+--not used applyChargingGPRS                    OPERATION ::= {
+--not used     ARGUMENT
+--not used         ApplyChargingGPRSArg
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         unexpectedComponentSequence |
+--not used         unexpectedParameter |
+--not used         unexpectedDataValue |
+--not used         parameterOutOfRange |
+--not used         systemFailure |
+--not used         taskRefused |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference |
+--not used         OverlappingDialogue
+--not used         }
+--not used     CODE opcode-applyChargingGPRS
+--not used     }
+--  Direction gsmSCF -> gprsSSF, Timer Tacg
+--  This operation is used for interacting from the gsmSCF with the gprsSSF CSE-controlled 
+--  GPRS session or PDP context charging mechanism.
+
+ApplyChargingGPRSArg                ::= SEQUENCE {
+gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber, 
+	chargingCharacteristics         [1] ChargingCharacteristics,
+	tariffSwitchInterval            [2] INTEGER (1..86400)              OPTIONAL,
+	pDPID                           [3] PDPID                           OPTIONAL
+	}
+--  tariffSwitchInterval is measured in 1 second units.
+
+--not used applyChargingReportGPRS          OPERATION ::= {
+--not used     ARGUMENT
+--not used         ApplyChargingReportGPRSArg
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         unexpectedComponentSequence |
+--not used         unexpectedParameter |
+--not used         unexpectedDataValue |
+--not used         parameterOutOfRange |
+--not used         systemFailure |
+--not used         taskRefused |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference
+--not used         }
+--not used     CODE opcode-applyChargingReportGPRS
+--not used     }
+--  Direction gprsSSF -> gsmSCF,Timer Tagcr
+--  The ApplyChargingReportGPRS operation provides the feedback from the gprsSCF to the gsmSCF 
+--  CSE-controlled GPRS session charging mechanism.
+
+ApplyChargingReportGPRSArg          ::= SEQUENCE {
+gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber, 
+	chargingResult                  [1] ChargingResult,
+	qualityOfService                [2] QualityOfService        OPTIONAL,
+	active                          [3] BOOLEAN                 DEFAULT TRUE,
+	pDPID                           [4] PDPID   OPTIONAL
+	}
+--  For the encoding of qualityOfService refer to 3G TS 24.008 [12].
+
+--not used cancelGPRS                           OPERATION ::= {
+--not used     ARGUMENT
+--not used         CancelGPRSArg
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         taskRefused |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference |
+--not used         OverlappingDialogue
+--not used         }
+--not used     CODE opcode-cancelGPRS
+--not used     }
+--  Direction: gsmSCF -> gprsSSF, Timer: Tcag   
+--  This generic operation cancels the correlated previous operation or all previous requests, 
+--  i.e. all EDPs and reports can be cancelled by the gsmSCF.
+
+CancelGPRSArg                           ::= SEQUENCE {
+    gPRS-ReferenceNumber                [0] GPRS-ReferenceNumber, 
+    pDPID                               [1] PDPID OPTIONAL
+    }
+
+--not used connectGPRS {PARAMETERS-BOUND: bound} OPERATION::= {
+--not used     ARGUMENT    ConnectGPRSArg {bound}
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS  {missingParameter |
+--not used             parameterOutOfRange | 
+--not used             unknownPDPID |
+--not used             systemFailure |
+--not used             taskRefused |
+--not used             unexpectedComponentSequence |
+--not used             unexpectedDataValue |
+--not used             unexpectedParameter}
+--not used     CODE    opcode-connectGPRS
+--not used     }
+-- Direction: gsmSCF -> gprsSSF, Timer: Tcon  
+-- This operation is used to modify the Access Point Name used when establishing a PDP Context.
+
+ConnectGPRSArg  -- {PARAMETERS-BOUND: bound} -- ::= SEQUENCE {
+    accessPointName [0] AccessPointName  -- {bound} -- ,
+    pdpID   [1] PDPID   OPTIONAL,
+    ...
+    }
+
+--not used continueGPRS                         OPERATION ::= {
+--not used     ARGUMENT
+--not used         ContinueGPRSArg
+--not used     RETURN RESULT   FALSE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         unknownPDPID |
+--not used         unexpectedDataValue
+--not used         }
+--not used     CODE opcode-continueGPRS
+--not used     }
+--  Direction: gsmSCF -> gprsSSF, Timer: Tcue
+--  This operation is used to request the gprsSSF to proceed with processing at the DP at 
+--  which it previously suspended processing to await gsmSCF instructions (i.e., proceed to 
+--  the next point in processing  in the Attach/Detach FSM or PDP Context FSM) without
+--  substituting new data from the gsmSCF.
+
+ContinueGPRSArg                     ::= SEQUENCE {
+	pDPID                       [0] PDPID                       OPTIONAL
+	}
+
+--not used entityReleasedGPRS  {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         EntityReleasedGPRSArg {bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         taskRefused |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference
+--not used         }
+--not used     CODE opcode-entityReleasedGPRS
+--not used     }
+--  Direction: gprsSSF -> gsmSCF, Timer: Terg
+--  This operation is used to notify the gsmSCF that a PDP context has been
+--  terminated abnormally in the SGSN.
+
+EntityReleasedGPRSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+	gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber, 
+	gPRSCause                       [1] GPRSCause  -- {bound} -- ,
+	pDPID                           [2] PDPID
+	}
+
+--not used furnishChargingInformationGPRS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT        FurnishChargingInformationGPRSArg {bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS      {missingParameter |
+--not used                 taskRefused |
+--not used                 unexpectedComponentSequence |
+--not used                 unexpectedDataValue |
+--not used                 unexpectedParameter |
+--not used                 unknownPDPID |
+--not used                 unknownGPRSReference |
+--not used                 overlappingDialogue
+--not used                 }
+--not used     CODE        opcode-furnishChargingInformationGPRS
+--not used     }
+-- Direction: gsmSCF -> gprsSSF, Timer: Tfcig 
+-- This operation is used to request the gprsSSF to generate, register a logical record or to 
+-- include some information in the default logical GPRS record.
+-- The registered logical record is intended for off line charging of the GPRS session
+-- or PDP context.
+
+FurnishChargingInformationGPRSArg  -- {PARAMETERS-BOUND : bound} --  ::= FCIGPRSBillingChargingCharacteristics -- {bound} -- 
+
+--not used initialDPGPRS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         InitialDPGPRSArg {bound}
+--not used     ERRORS {
+--not used         missingCustomerRecord |
+--not used         missingParameter |
+--not used         parameterOutOfRange |
+--not used         systemFailure |
+--not used         taskRefused |
+--not used         unexpectedComponentSequence |
+--not used         unexpectedDataValue |
+--not used         unexpectedParameter
+--not used         }
+--not used     CODE opcode-initialDPGPRS
+--not used     }
+--not used 
+--  Direction gprsSSF -> gsmSCF,Timer Tdpg
+--  This operation is used by the gprsSSF when a trigger is detected at a DP in the GPRS state
+--  machines to request instructions from the gsmSCF
+
+InitialDPGPRSArg -- {PARAMETERS-BOUND : bound} -- ::= SEQUENCE {
+	gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber,
+	serviceKey                      [1] ServiceKey,
+	gPRSEventType                   [2] GPRSEventType,
+	mSISDN                          [3] ISDN-AddressString,
+	iMSI                            [4] IMSI,
+	timeAndTimeZone                 [5] TimeAndTimezone  -- {bound} -- ,
+	gPRSMSClass                     [6] GPRSMSClass                 OPTIONAL,
+	pDPType                         [7] PDPType                     OPTIONAL,
+	qualityOfService                [8] QualityOfService                OPTIONAL,
+	accessPointName                 [9] AccessPointName -- {bound} --               OPTIONAL,
+	routeingAreaIdentity            [10] RAIdentity                     OPTIONAL,
+	chargingID                      [11] GPRSChargingID             OPTIONAL,
+	sGSNCapabilities                [12] SGSNCapabilities               OPTIONAL,
+	extensions                      [13] SEQUENCE SIZE(1.. -- bound.& -- numOfExtensions)   OF 
+							ExtensionField  -- {bound} --       OPTIONAL,
+	...
+	}
+--not used 
+--not used releaseGPRS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         ReleaseGPRSArg {bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         cancelFailed |
+--not used         missingParameter |
+--not used         taskRefused |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference |
+--not used         OverlappingDialogue
+--not used         }
+--not used     CODE opcode-releaseGPRS
+--not used     }
+--  Direction: gsmSCF -> gprsSSF, Timer: Trg
+--  This operation is used to tear down an existing GPRS session or PDP Context at any phase.
+
+ReleaseGPRSArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+	gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber, 
+	gprsCause                       [1] GPRSCause  -- {bound} -- ,
+	pDPID                           [2] PDPID OPTIONAL
+	}
+
+--not used eventReportGPRS {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         EventReportGPRSArg {bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         UnknownGPRSReference |
+--not used         unknownPDPID
+--not used         }
+--not used     CODE opcode-eventReportGPRS
+--not used     }
+--  Direction gprsSSF -> gsmSCF,Timer Trge
+--      This operation is used to notify the gsmSCF of a GPRS session or PDP context related 
+--      events (e.g. PDP context activation) previously requested by the gsmSCF in a 
+--      RequestReportGPRSEventoperation.
+
+EventReportGPRSArg  -- {PARAMETERS-BOUND : bound} -- ::= SEQUENCE {
+	gPRS-ReferenceNumber            [0] GPRS-ReferenceNumber,
+	gPRSEventType                   [1] GPRSEventType,
+	miscGPRSInfo                    [2] MiscCallInfo -- DEFAULT {messageType request} -- ,
+	gPRSEventSpecificInformation    [3] GPRSEventSpecificInformation  -- {bound} --     OPTIONAL,
+	pDPID                           [4] PDPID OPTIONAL
+	}
+
+--not used requestReportGPRSEvent {PARAMETERS-BOUND : bound} OPERATION ::= {
+--not used     ARGUMENT
+--not used         RequestReportGPRSEventArg {bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         parameterOutOfRange |
+--not used         systemFailure |
+--not used         taskRefused |
+--not used         unexpectedComponentSequence |
+--not used         unexpectedDataValue |
+--not used         unexpectedParameter |
+--not used         unknownPDPID |
+--not used         UnknownGPRSReference |
+--not used         OverlappingDialogue
+--not used         }
+--not used     CODE opcode-requestReportGPRSEvent
+--not used     }
+--not used 
+-- Direction: gsmSCF -> gprsSSF, Timer: Trrqe
+-- This operation is used to request the gprsSSF to monitor for an event (e.g., GPRS events 
+-- such as attach or PDP context activiation), then send a notification back to the 
+-- gsmSCF when the event is detected.
+
+RequestReportGPRSEventArg  -- {PARAMETERS-BOUND : bound} --  ::= SEQUENCE {
+	gPRS-ReferenceNumber        [0] GPRS-ReferenceNumber, 
+	gPRSEvents                  [1] SEQUENCE SIZE (1.. -- bound.& -- numOfGPRSEvents) OF GPRSEvent,
+	pDPID                       [2] PDPID           OPTIONAL
+	}
+-- Indicates the GPRS related events for notification.
+
+--not used resetTimerGPRS                       OPERATION ::= {
+--not used     ARGUMENT
+--not used         ResetTimerGPRSArg
+--not used     ERRORS {
+--not used         missingParameter |
+--not used         parameterOutOfRange |
+--not used         taskRefused |
+--not used         unexpectedComponentSequence |
+--not used         unexpectedDataValue |
+--not used         unexpectedParameter |
+--not used         unknownPDPID
+--not used         }
+--not used     CODE opcode-resetTimerGPRS
+--not used     }
+--not used 
+--  Direction: gsmSCF -> gprsSSF, Timer: Trtg 
+--  This operation is used to request the gprsSSF to refresh an application timer in the gprsSSF.
+
+ResetTimerGPRSArg               ::= SEQUENCE {
+	timerID                     [0] TimerID                 DEFAULT tssf,
+	timervalue                  [1] TimerValue,
+	pDPID                       [2] PDPID OPTIONAL
+	}
+
+--not used sendChargingInformationGPRS {PARAMETERS-BOUND: bound} OPERATION ::= {
+--not used     ARGUMENT    SendChargingInformationGPRSArg { bound}
+--not used     RETURN RESULT   TRUE
+--not used     ERRORS  {missingParameter |
+--not used             unexpectedComponentSequence |
+--not used             unexpectedParameter |
+--not used             parameterOutOfRange |
+--not used             systemFailure |
+--not used             taskRefused |
+--not used             unexpectedDataValue |
+--not used             unknownPDPID |
+--not used             UnknownGPRSReference |
+--not used             OverlappingDialogue
+--not used             }
+--not used     CODE    opcode-sendChargingInformationGPRS
+--not used     }
+-- Direction: gsmSCF -> gprsSSF, Timer: Tscig 
+-- This operation is used to instruct the gprsSSF on the charging information which the 
+-- gprsSSF shall send to the Mobile Station by means of GSM access signalling.
+
+
+SendChargingInformationGPRSArg  -- {PARAMETERS-BOUND: bound} -- ::= SEQUENCE {
+    sCIGPRSBillingChargingCharacteristics   [0] SCIGPRSBillingChargingCharacteristics -- {bound} --,
+    ...
+    }
+--not used 
+--not used END
+--not used 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP gsmSCF/gprsSSF Contracts, Packages and ACs.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--not impl CAP-gprsSSF-gsmSCF-pkgs-contracts-acs {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) umts-network(1) modules(3) cAP-gprsSSF-gsmSCF-pkgs-contracts-acs (25) version3(2)}
+--not impl 
+--not impl DEFINITIONS ::= BEGIN
+--not impl 
+-- This module describes the operation-packages, contracts and application-contexts used
+-- over the gprsSSF-gsmSCF interface.
+--not impl 
+--not impl IMPORTS
+--not impl 
+--not impl     PARAMETERS-BOUND,
+--not impl     cAPSpecificBoundSet
+--not impl FROM CAP-classes classes 
+--not impl 
+--not impl     ROS-OBJECT-CLASS,
+--not impl     CONTRACT,
+--not impl     OPERATION-PACKAGE,
+--not impl     OPERATION
+--not impl FROM Remote-Operations-Information-Objects ros-InformationObjects
+--not impl 
+--not impl     TCMessage {} 
+--not impl FROM TCAPMessages tc-Messages
+--not impl 
+--not impl     APPLICATION-CONTEXT,
+--not impl     dialogue-abstract-syntax
+--not impl FROM TC-Notation-Extensions tc-NotationExtensions
+--not impl 
+--not impl     ActivityTestGPRS {},
+--not impl     applyChargingGPRS {},
+--not impl     applyChargingReportGPRS {},
+--not impl     cancelGPRS {},
+--not impl     connectGPRS {},
+--not impl     continueGPRS {},
+--not impl     entityReleasedGPRS {},
+--not impl     furnishChargingInformationGPRS {},
+--not impl     initialDPGPRS {},
+--not impl     releaseGPRS {},
+--not impl     eventReportGPRS {},
+--not impl     requestReportGPRSEvent {},
+--not impl     resetTimerGPRS {},
+--not impl     sendChargingInformationGPRS {}
+--not impl FROM CAP-gprsSSF-gsmSCF-ops-args gprsSSF-gsmSCF-Operations
+--not impl 
+--not impl     id-ac-CAP-gprsSSF-gsmSCF-AC,
+--not impl     id-cap3GprsSsfTogsmScf,
+--not impl     id-as-gprsSSF-gsmSCF-AS,
+--not impl     id-as-gsmSCF-gprsSSF-AS,
+--not impl     classes,
+--not impl     ros-InformationObjects,
+--not impl     tc-Messages,
+--not impl     tc-NotationExtensions,
+--not impl     gprsSSF-gsmSCF-Operations
+--not impl FROM CAP-object-identifiers {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not impl umts-network(1) modules(3) cAP-object-identifiers (17) version3(2)}
+--not impl 
+--not impl ;
+--not impl 
+--not impl 
+-- Application Contexts
+--not impl 
+--not impl cap3-gprssf-scfAC APPLICATION-CONTEXT ::= {
+--not impl     CONTRACT                    cap3GprsSsfToScf
+--not impl     DIALOGUE MODE               structured
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax |
+--not impl                                 gprsSSF-fgsmSCFAbstractSyntax} 
+--not impl     APPLICATION CONTEXT NAME    id-ac-CAP-gprsSSF-gsmSCF-AC}
+--not impl 
+--not impl cap3-gsmscf-gprsssfAC APPLICATION-CONTEXT ::= {
+--not impl     CONTRACT                    cap3GsmScfToGprsSsf
+--not impl     DIALOGUE MODE               structured
+--not impl     ABSTRACT SYNTAXES           {dialogue-abstract-syntax |
+--not impl                                 gsmSCF-gprsSSFAbstractSyntax} 
+--not impl     APPLICATION CONTEXT NAME    id-ac-CAP-gsmSCF-gprsSSF-AC }
+--not impl 
+--not impl 
+-- Contracts
+--not impl 
+--not impl cap3GprsSsfToScf CONTRACT ::= {
+-- dialogue initiated by gprsSSF with InitialDPGPRS, ApplyChargingReportGPRS,
+-- EntityReleaseGPRS and EventReportGPRS Operations
+--not impl     INITIATOR CONSUMER OF   
+--not impl             {
+--not impl             gprSscfActivationPackage {cAPSpecificBoundSet} |
+--not impl             gprsEventHandlingPackage {cAPSpecificBoundSet} |
+--not impl             gprsChargingPackage {cAPSpecificBoundSet} |
+--not impl             gprsExceptionInformationPackage
+--not impl             }
+--not impl     RESPONDER CONSUMER OF
+--not impl             {
+--not impl             gprsConnectPackage {cAPSpecificBoundSet} |
+--not impl             gprsProcessingPackage {cAPSpecificBoundSet} |
+--not impl             gprsReleasePackage {cAPSpecificBoundSet} |
+--not impl             gprsEventHandlingPackage {cAPSpecificBoundSet} |
+--not impl             gprsTimerPackage {cAPSpecificBoundSet} |
+--not impl             gprsBillingPackage {cAPSpecificBoundSet} |
+--not impl             gprsChargingPackage {cAPSpecificBoundSet} |
+--not impl             gprsCancelPackage {cAPSpecificBoundSet} |
+--not impl             gprsChargeAdvicePackage {cAPSpecificBoundSet}
+--not impl             }
+--not impl     ID      id-cap3GprsSsfTogsmScf
+--not impl     }
+--not impl 
+--not impl cap3GsmScfToGprsSsf CONTRACT ::= {
+-- dialogue initiated by gsmSCF with ApplyCharginGPRS, ActivityTestGPRS,
+-- CancelGPRS, FurnishChargingInformationGPRS, ReleaseGPRS,
+-- RequestReportGPRSEvent and SendChargingInformationGPRS Operations
+--not impl     INITIATOR CONSUMER OF   
+--not impl     {
+--not impl             gprsReleasePackage {networkSpecificBoundSet} |
+--not impl             gprsEventHandlingPackage {networkSpecificBoundSet} |
+--not impl             gprsTimerPackage {networkSpecificBoundSet} |
+--not impl             gprsBillingPackage {networkSpecificBoundSet} |
+--not impl             gprsChargingPackage {networkSpecificBoundSet} |
+--not impl             gprsActivityTestPackage {networkSpecificBoundSet} |
+--not impl             gprsCancelPackage {networkSpecificBoundSet} |
+--not impl             gprsChargeAdvicePackage {networkSpecificBoundSet}
+--not impl     }
+--not impl     RESPONDER CONSUMER OF
+--not impl     {
+--not impl     }
+--not impl     ID      id-cap3GprsSsfTogsmScf
+--not impl     }
+--not impl 
+--not impl 
+-- Operation Packages
+--not impl 
+--not impl gprsScfActivationPackage {PARAMETERS-BOUND : bound}  OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    { initialDPGPRS {bound}}
+--not impl     ID      id-package-gprsScfActivation}
+--not impl gprsConnectPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {connectGPRS {bound}}
+--not impl     ID      id-package-gprsConnect}
+--not impl gprsProcessingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {continueGPRS {bound}}
+--not impl     ID      id-package-gprsContinue}
+--not impl gprsReleasePackage  {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {releaseGPRS {bound}}
+--not impl     ID      id-package-gprsRelease}
+--not impl gprsEventHandlingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {requestReportGPRSEvent {bound}}
+--not impl     SUPPLIER INVOKES    {eventReportGPRS {bound}}
+--not impl     ID      id-package-gprsEventHandling}
+--not impl gprsExceptionInformationPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {entityReleasedGPRS {bound}}
+--not impl     ID      id-package-gprsExceptionInformation}
+--not impl gprsTimerPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {resetTimerGPRS {bound}}
+--not impl     ID      id-package-gprsTimer}
+--not impl gprsBillingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {furnishChargingInformationGPRS {bound}}
+--not impl     ID      id-package-gprsBilling}
+--not impl gprsChargingPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {applyChargingGPRS {bound}}
+--not impl     SUPPLIER INVOKES    {applyChargingReportGPRS {bound}}
+--not impl     ID      id-package-gprsCharging}
+--not impl gprsChargeAdvicePackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {sendChargingInformationGPRS {bound}}
+--not impl     ID      id-package-gprsChargeAdvice}
+--not impl gprsActivityTestPackage OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {activityTestGPRS {bound}}
+--not impl     ID      id-package-gprsActivityTest}
+--not impl gprsCancelPackage {PARAMETERS-BOUND : bound} OPERATION-PACKAGE ::= {
+--not impl     CONSUMER INVOKES    {cancelGPRS {bound}}
+--not impl     ID      id-package-gprsCancel}
+--not impl 
+--not impl 
+--not impl 
+-- Abstract Syntaxes
+--not impl 
+--not impl gprsSSF-gsmSCFAbstractSyntax ABSTRACT-SYNTAX ::= {
+--not impl     GenericGprsSSF-gsmSCF-PDUs
+--not impl     IDENTIFIED BY   id-as-gprsSSF-gsmSCF-AS}
+--not impl 
+--not impl GenericGprsSSF-gsmSCF-PDUs ::= TCMessage {{GprsSsfToGsmScfInvokable}, 
+--not impl             {GprsSsfToGsmScfReturnable}}
+--not impl 
+--not impl GprsSsfToGsmScfGenericInvokable OPERATION ::= {
+--not impl             activityTestGPRS {networkSpecificBoundSet} |
+--not impl             applyChargingGPRS {cAPSpecificBoundSet} |
+--not impl             applyChargingReportGPRS {cAPSpecificBoundSet} |
+--not impl             cancelGPRS {cAPSpecificBoundSet} |
+--not impl             connectGPRS {cAPSpecificBoundSet} |
+--not impl             entityReleasedGPRS {cAPSpecificBoundSet} | 
+--not impl             eventReportGPRS {cAPSpecificBoundSet} |
+--not impl             furnishChargingInformationGPRS {cAPSpecificBoundSet} |
+--not impl             initialDPGPRS {cAPSpecificBoundSet} |
+--not impl             releaseGPRS {cAPSpecificBoundSet} |
+--not impl             requestReportGPRSEvent {cAPSpecificBoundSet} |
+--not impl             resetTimerGPRS {cAPSpecificBoundSet} |
+--not impl             sendChargingInformationGPRS {cAPSpecificBoundSet}
+--not impl             }
+--not impl 
+--not impl GprsSsfToGsmScfReturnable OPERATION ::= {
+--not impl             activityTestGPRS {networkSpecificBoundSet} |
+--not impl             applyChargingGPRS {cAPSpecificBoundSet} | 
+--not impl             applyChargingReportGPRS {cAPSpecificBoundSet} | 
+--not impl             cancelGPRS {cAPSpecificBoundSet} | 
+--not impl             connectGPRS {cAPSpecificBoundSet} | 
+--not impl             continueGPRS {cAPSpecificBoundSet} |
+--not impl             entityReleasedGPRS {cAPSpecificBoundSet} |
+--not impl             furnishChargingInformationGPRS {cAPSpecificBoundSet}| 
+--not impl             initialDPGPRS {cAPSpecificBoundSet}|
+--not impl             releaseGPRS {cAPSpecificBoundSet}| 
+--not impl             requestReportGPRSEvent {cAPSpecificBoundSet}|
+--not impl             resetTimerGPRS {cAPSpecificBoundSet}| 
+--not impl             sendChargingInformationGPRS {cAPSpecificBoundSet}
+--not impl             }
+--not impl 
+--not impl gsmSCF-gprsSSFGenericAbstractSyntax ABSTRACT-SYNTAX ::= {
+--not impl     GenericGsmSCF-gprsSSF-PDUs
+--not impl     IDENTIFIED BY   id-as-gsmSCF-gprsSSF-AS}
+--not impl 
+--not impl GenericGsmSCF-gprsSSF-PDUs ::= TCMessage {{GsmScfToGprsSsfInvokable}, {GsmScfToGprsSsfReturnable}}
+--not impl 
+--not impl GsmScfToGprsSsfInvokable OPERATION ::= {
+--not impl             activityTestGPRS {networkSpecificBoundSet} |
+--not impl             applyChargingGPRS {cAPSpecificBoundSet}| 
+--not impl             cancelGPRS {cAPSpecificBoundSet}| 
+--not impl             furnishChargingInformationGPRS {cAPSpecificBoundSet}| 
+--not impl             releaseGPRS {cAPSpecificBoundSet}| 
+--not impl             requestReportGPRSEvent {cAPSpecificBoundSet}|
+--not impl             sendChargingInformationGPRS {cAPSpecificBoundSet} 
+--not impl             }
+--not impl 
+--not impl GsmScfToGprsSsfReturnable OPERATION ::= {
+--not impl             activityTestGPRS {networkSpecificBoundSet} |
+--not impl             applyChargingGPRS {cAPSpecificBoundSet}| 
+--not impl             cancelGPRS {cAPSpecificBoundSet}| 
+--not impl             furnishChargingInformationGPRS {cAPSpecificBoundSet}| 
+--not impl             releaseGPRS {cAPSpecificBoundSet}| 
+--not impl             requestReportGPRSEvent {cAPSpecificBoundSet}| 
+--not impl             sendChargingInformationGPRS {cAPSpecificBoundSet} 
+--not impl             }
+--not impl 
+--not impl END
+--not impl 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Added global module definition (end).
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+END
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

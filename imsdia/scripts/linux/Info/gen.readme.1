@@ -1,0 +1,182 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: gen.readme.1,v 3.1 2008/03/31 10:33:28 nvijikumar Exp $
+#
+# LOG: $Log: gen.readme.1,v $
+# LOG: Revision 3.1  2008/03/31 10:33:28  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:22:43  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.3  2006/06/21 10:52:24  nvijikumar
+# LOG: Modification for Copyright info.
+# LOG:
+# LOG: Revision 1.2  2006/05/12 04:35:14  nvijikumar
+# LOG: Changes to copy the IMS related information.
+# LOG:
+# LOG: Revision 1.1  2006/03/06 13:19:15  nvijikumar
+# LOG: Baseline scripts to collect the system info on linux box
+# LOG:
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/sh
+
+clear
+more <<EOF
+===================== CollectInfo ==========================
+
+To enable us to keep track of this information, it is important that you
+complete the following questions as much as possible.
+
+At any time you may abort with a ^C
+
+===============================   BEGIN    ===============================
+
+EOF
+
+while [ 1 ]
+do
+    echo "Enter your full name: "
+    read usrname
+
+    echo "         Your e-mail: "
+    read usremail
+
+    echo "        Your Phone #: "
+    read usrphone
+
+    echo "System Serial number: "
+    read serialnum
+
+    echo "       Customer Name: "
+    read custname
+
+    echo "         Customer ID: "
+    read customerid
+
+    echo "         Contract ID: "
+    read contractid
+
+    echo "    Address (line 1): "
+    read customeraddress1
+
+    echo "    Address (line 2): "
+    read customeraddress2
+
+    echo "                City: "
+    read city
+
+    echo "      State (eg. CA): "
+    read state
+
+    echo "   Country (eg. USA): "
+    read country
+
+    echo "            Zip Code: "
+    read zipcode
+
+    clear
+    echo "You have entered the following information:"
+    echo "-------------------------------------------"
+
+    echo "   Your name: $usrname"
+    echo " Your e-mail: $usremail"
+    echo "Your Phone #: $usrphone"
+
+    echo "System Serial number: $serialnum"
+    echo "       Customer Name: $custname"
+    echo "         Customer ID: $customerid"
+    echo "         Contract ID: $contractid"
+
+    echo " Address (line 1): $customeraddress1"
+    echo " Address (line 2): $customeraddress2"
+    echo "             City: $city"
+    echo "   State (eg. CA): $state"
+    echo "Country (eg. USA): $country"
+    echo "         Zip Code: $zipcode"
+
+    echo ""
+    echo ""
+    echo "Would you like to re-enter [y/n]: "
+    read answer
+    while [ 1 ]
+    do
+        case $answer in
+                y | Y)
+                    clear
+                    break
+                    ;;
+                n | N)
+                    break 2
+                    ;;
+                *) echo "You must enter Y or N [Y/N]: "
+                   read answer
+                   ;;
+        esac
+    done
+done
+
+echo
+echo
+echo "List any known problems with this system (up to 3 lines of comment):"
+echo "Line1: "
+read comm1
+
+echo "Line2: "
+read comm2
+
+echo "Line3: "
+read comm3
+
+echo "The following information was listed by the user" >> README
+echo "------------------------------------------------" >> README
+echo "" >> README
+echo "   User Name: $usrname" >> README
+echo " User e-mail: $usremail" >> README
+echo "User Phone #: $usrphone" >> README
+echo "" >> README
+echo "System Serial number: $serialnum" >> README
+echo "Customer Name: $custname" >> README
+echo "  Customer ID: $customerid" >> README
+echo "  Contract ID: $contractid" >> README
+echo " Address (line 1): $customeraddress1" >> README
+echo " Address (line 2): $customeraddress2" >> README
+echo "             City: $city" >> README
+echo "            State: $state" >> README
+echo "          Country: $country" >> README
+echo "         Zip Code: $zipcode" >> README
+echo "" >> README
+echo "Any problems reported to plague the system currently:" >> README
+echo $comm1 >> README
+echo $comm2 >> README
+echo $comm3 >> README
+echo "" >> README
+echo "" >> README
+echo "" >> README
+
+

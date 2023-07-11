@@ -1,0 +1,15 @@
+
+export PATCH_ID="2.2-00-01-CUS";
+export PATCH_DIR=$IMS_ROOT/patches;
+export PKG_DIR=$IMS_ROOT;
+
+echo "Removing patch $PATCH_ID";
+
+/bin/cp -r $PATCH_DIR/$PATCH_ID/libdiastackD.so.org $PKG_DIR/lib/libdiastackD.so 
+
+echo "Patch $PATCH_ID  removed ";
+
+echo "DONE";
+
+exit 0;
+

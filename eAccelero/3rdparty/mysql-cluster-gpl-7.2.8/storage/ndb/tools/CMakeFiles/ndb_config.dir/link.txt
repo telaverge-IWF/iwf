@@ -1,0 +1,1 @@
+/usr/bin/c++    -fno-implicit-templates -fno-exceptions -fno-rtti   -O2 -g -DNDEBUG -DDBUG_OFF    CMakeFiles/ndb_config.dir/ndb_config.cpp.o  -o ndb_config  -lpthread ../src/libndbclient_static.a ../../../mysys/libmysys.a ../../../dbug/libdbug.a ../../../mysys/libmysys.a ../../../dbug/libdbug.a -lm ../../../probes_mysql.o ../../../strings/libstrings.a -lpthread -lz 

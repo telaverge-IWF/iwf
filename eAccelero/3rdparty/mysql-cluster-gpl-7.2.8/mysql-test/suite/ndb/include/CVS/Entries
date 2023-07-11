@@ -1,0 +1,27 @@
+/have_clusterj.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_clusterj_jpa.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_connectorj.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_java.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_junit.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_ndb_rqg.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_ndbjtie_junit.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/have_openjpa.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/memory_usage.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_add_node.cnf/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_add_node_mysqld.cnf/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_desc_print.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_execute_count.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_info.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_init_execute_count.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_init_scan_counts.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_scan_counts.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/ndb_share_check_shares.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/restart_cluster.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/restart_cluster_rolling.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/restart_node.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/restart_random_node.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/run_java.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/run_ndbapitest.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/start_mysqld.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+/stop_mysqld.inc/1.1.2.1/Fri Oct  5 12:37:44 2012//TB-IWF-HP-0400-00
+D

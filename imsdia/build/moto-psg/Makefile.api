@@ -1,0 +1,233 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: Makefile.api,v 1.1 2010/10/07 09:49:54 nvijikumar Exp $
+#
+# LOG: $Log: Makefile.api,v $
+# LOG: Revision 1.1  2010/10/07 09:49:54  nvijikumar
+# LOG: SOURCE PKG build support
+# LOG:
+# LOG:
+#
+############################################################################
+#
+# Makefile for IntelliNet Diameter Messaging API Libraries
+#
+include $(IMS_ROOT)/make.dirs
+
+CXXFLAGS:=$(CXXFLAGS) -Iinclude
+
+#
+# Protocols to be built
+#
+BASEPROTO=diameter \
+          diameter.base \
+
+CXDXPROTO=diameter.cxdx 
+
+SHPROTO=diameter.sh 
+
+GQGQPROTO=diameter.gqgqprime 
+
+RFROPROTO=diameter.rfro \
+          diameter.rfro.ims
+
+DCCAPROTO=diameter.dcca 
+
+RXPROTO=diameter.rx 
+
+GXPROTO=diameter.gx 
+
+NASREQPROTO=diameter.nasreq 
+
+S6APROTO=diameter.s6a
+
+RX29214PROTO=diameter.rx_ts29214
+
+BASESRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(BASEPROTO))))
+BASEOBJS=$(BASESRCS:.cpp=.o)
+
+CXDXSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(CXDXPROTO))))
+CXDXOBJS=$(CXDXSRCS:.cpp=.o)
+
+SHSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(SHPROTO))))
+SHOBJS=$(SHSRCS:.cpp=.o)
+
+GQGQSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(GQGQPROTO))))
+GQGQOBJS=$(GQGQSRCS:.cpp=.o)
+
+RFROSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(RFROPROTO))))
+RFROOBJS=$(RFROSRCS:.cpp=.o)
+
+DCCASRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(DCCAPROTO))))
+DCCAOBJS=$(DCCASRCS:.cpp=.o)
+
+RXSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(RXPROTO))))
+RXOBJS=$(RXSRCS:.cpp=.o)
+
+GXSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(GXPROTO))))
+GXOBJS=$(GXSRCS:.cpp=.o)
+
+NASREQSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(NASREQPROTO))))
+NASREQOBJS=$(NASREQSRCS:.cpp=.o)
+
+S6ASRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(S6APROTO))))
+S6AOBJS=$(S6ASRCS:.cpp=.o)
+
+RX29214SRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(RX29214PROTO))))
+RX29214OBJS=$(RX29214SRCS:.cpp=.o)
+
+CMNOBJECTS=$(BASEOBJS) $(CXDXOBJS) $(SHOBJS) $(GQGQOBJS) $(RFROOBJS)     \
+           $(DCCAOBJS) $(RXOBJS) $(GXOBJS) \
+           $(NASREQOBJS) \
+           $(S6AOBJS)
+
+           
+
+#
+# Library names
+#
+
+CMNLIB=lib/libdiaapi
+
+BASELIB=lib/libbaseapi
+CXDXLIB=lib/libcxdxapi
+SHLIB=lib/libshapi
+GQGQLIB=lib/libgqgqapi
+RFROLIB=lib/librfroapi
+DCCALIB=lib/libdccaapi
+RXLIB=lib/librxapi
+GXLIB=lib/libgxapi
+RX29214LIB=lib/librx29214api
+NASREQLIB=lib/libnasreqapi
+S6ALIB=lib/libs6aapi
+
+#
+# Targets
+#
+.PHONY: all clean
+
+all: $(BASELIB)$(DBGSUFFIX).a $(BASELIB)$(DBGSUFFIX).so \
+     $(CXDXLIB)$(DBGSUFFIX).a $(CXDXLIB)$(DBGSUFFIX).so \
+     $(SHLIB)$(DBGSUFFIX).a   $(SHLIB)$(DBGSUFFIX).so   \
+     $(GQGQLIB)$(DBGSUFFIX).a $(GQGQLIB)$(DBGSUFFIX).so \
+     $(RFROLIB)$(DBGSUFFIX).a $(RFROLIB)$(DBGSUFFIX).so \
+     $(DCCALIB)$(DBGSUFFIX).a $(DCCALIB)$(DBGSUFFIX).so \
+     $(RXLIB)$(DBGSUFFIX).a   $(RXLIB)$(DBGSUFFIX).so \
+     $(GXLIB)$(DBGSUFFIX).a   $(GXLIB)$(DBGSUFFIX).so \
+     $(NASREQLIB)$(DBGSUFFIX).a $(NASREQLIB)$(DBGSUFFIX).so \
+     $(S6ALIB)$(DBGSUFFIX).a $(S6ALIB)$(DBGSUFFIX).so \
+     $(RX29214LIB)$(DBGSUFFIX).a   $(RX29214LIB)$(DBGSUFFIX).so 
+	 
+
+realclean clean:
+	rm -f $(BASELIB)$(DBGSUFFIX).a $(CXDXLIB)$(DBGSUFFIX).a \
+              $(SHLIB)$(DBGSUFFIX).a  $(GQGQLIB)$(DBGSUFFIX).a \
+              $(RFROLIB)$(DBGSUFFIX).a  $(DCCALIB)$(DBGSUFFIX).a \
+              $(RXLIB)$(DBGSUFFIX).a \
+              $(GXLIB)$(DBGSUFFIX).a \
+              $(S6ALIB)$(DBGSUFFIX).a \
+	      $(NASREQLIB)$(DBGSUFFIX).a \
+              $(BASELIB)$(DBGSUFFIX).so $(CXDXLIB)$(DBGSUFFIX).so \
+              $(SHLIB)$(DBGSUFFIX).so  $(GQGQLIB)$(DBGSUFFIX).so \
+              $(RFROLIB)$(DBGSUFFIX).so  $(DCCALIB)$(DBGSUFFIX).so \
+              $(RXLIB)$(DBGSUFFIX).so \
+              $(GXLIB)$(DBGSUFFIX).so \
+              $(NASREQLIB)$(DBGSUFFIX).so \
+	      $(S6ALIB)$(DBGSUFFIX).so \
+              $(RX29214LIB)$(DBGSUFFIX).a \
+              $(RX29214LIB)$(DBGSUFFIX).so \
+              $(CMNOBJECTS)
+
+
+$(CMNLIB)$(DBGSUFFIX).a: $(CMNOBJECTS)
+	$(CXXAR) $(CXXARFLAGS) $(CMNLIB)$(DBGSUFFIX).a $(CMNOBJECTS)
+
+$(CMNLIB)$(DBGSUFFIX).so: $(CMNOBJECTS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(CMNLIB)$(DBGSUFFIX).so $(CMNOBJECTS) $(NOWHOLEARCHIVE)
+
+$(BASELIB)$(DBGSUFFIX).a: $(BASEOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(BASELIB)$(DBGSUFFIX).a $(BASEOBJS) 
+
+$(BASELIB)$(DBGSUFFIX).so: $(BASEOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(BASELIB)$(DBGSUFFIX).so $(BASEOBJS) $(NOWHOLEARCHIVE)
+
+$(CXDXLIB)$(DBGSUFFIX).a: $(CXDXOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(CXDXLIB)$(DBGSUFFIX).a $(CXDXOBJS)
+
+$(CXDXLIB)$(DBGSUFFIX).so: $(CXDXOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(CXDXLIB)$(DBGSUFFIX).so $(CXDXOBJS) $(NOWHOLEARCHIVE)
+
+$(SHLIB)$(DBGSUFFIX).a: $(SHOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(SHLIB)$(DBGSUFFIX).a $(SHOBJS)
+
+$(SHLIB)$(DBGSUFFIX).so: $(SHOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(SHLIB)$(DBGSUFFIX).so $(SHOBJS) $(NOWHOLEARCHIVE)
+
+$(GQGQLIB)$(DBGSUFFIX).a: $(GQGQOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(GQGQLIB)$(DBGSUFFIX).a $(GQGQOBJS)
+
+$(GQGQLIB)$(DBGSUFFIX).so: $(GQGQOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(GQGQLIB)$(DBGSUFFIX).so $(GQGQOBJS) $(NOWHOLEARCHIVE)
+
+$(RFROLIB)$(DBGSUFFIX).a: $(RFROOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(RFROLIB)$(DBGSUFFIX).a $(RFROOBJS)
+
+$(RFROLIB)$(DBGSUFFIX).so: $(RFROOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(RFROLIB)$(DBGSUFFIX).so $(RFROOBJS) $(NOWHOLEARCHIVE)
+
+$(DCCALIB)$(DBGSUFFIX).a: $(DCCAOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(DCCALIB)$(DBGSUFFIX).a $(DCCAOBJS)
+
+$(DCCALIB)$(DBGSUFFIX).so: $(DCCAOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(DCCALIB)$(DBGSUFFIX).so $(DCCAOBJS) $(NOWHOLEARCHIVE)
+
+$(RXLIB)$(DBGSUFFIX).a: $(RXOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(RXLIB)$(DBGSUFFIX).a $(RXOBJS)
+
+$(RXLIB)$(DBGSUFFIX).so: $(RXOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(RXLIB)$(DBGSUFFIX).so $(RXOBJS) $(NOWHOLEARCHIVE)
+
+$(GXLIB)$(DBGSUFFIX).a: $(GXOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(GXLIB)$(DBGSUFFIX).a $(GXOBJS)
+
+$(GXLIB)$(DBGSUFFIX).so: $(GXOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(GXLIB)$(DBGSUFFIX).so $(GXOBJS) $(NOWHOLEARCHIVE)
+
+$(NASREQLIB)$(DBGSUFFIX).a: $(NASREQOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(NASREQLIB)$(DBGSUFFIX).a $(NASREQOBJS)
+
+$(NASREQLIB)$(DBGSUFFIX).so: $(NASREQOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(NASREQLIB)$(DBGSUFFIX).so $(NASREQOBJS) $(NOWHOLEARCHIVE)
+
+$(S6ALIB)$(DBGSUFFIX).a: $(S6AOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(S6ALIB)$(DBGSUFFIX).a $(S6AOBJS)
+
+$(S6ALIB)$(DBGSUFFIX).so: $(S6AOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(S6ALIB)$(DBGSUFFIX).so $(S6AOBJS) $(NOWHOLEARCHIVE)
+
+$(RX29214LIB)$(DBGSUFFIX).a: $(RX29214OBJS)
+	$(CXXAR) $(CXXARFLAGS) $(RX29214LIB)$(DBGSUFFIX).a $(RX29214OBJS)
+
+$(RX29214LIB)$(DBGSUFFIX).so: $(RX29214OBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(RX29214LIB)$(DBGSUFFIX).so $(RX29214OBJS) $(NOWHOLEARCHIVE)

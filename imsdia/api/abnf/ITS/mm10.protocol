@@ -1,0 +1,264 @@
+/**
+ * 3GPP TS 29.140 V6.4.0 (2008-03) -- Mm10  Interface --Diameter Based Protocol
+ * Multimedia Messaging Service (MMS).  
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+
+ protocol diameter.mm10 < 16777226  10415 : "3GPP TS 29.140 V6.4.0 (2008-03)" >;
+
+ //////////////////
+ // Derived AVPs //
+ //////////////////
+/**
+ * The Trigger-Event AVP (AVP code 1103) is of type Enumerated. It indicates the type of 
+ * the event that triggered the Message-Process-Request.
+*/
+   Trigger-Event	::=1103	/*3GPP TS 29.140 V6.4.0   6.3.5	*/ Enumerated	M,V| | | |N  ;
+
+/**
+ * The Served-User-Identity AVP (AVP Code 1100) is of type Grouped. This AVP contains identity 
+ * of the served subscriber for whom a messaging processing is requested.
+*/
+   Served-User-Identity	::=1100	/* 3GPP TS 29.140 V6.4.0  6.3.1	*/ Grouped	M,V| | | |N  ;
+
+/**
+ * The MSISDN AVP is of type OctetString and contains the user's MSISDN.
+ * See 3GPP TS 23.003 [3] for the structure of MSISDN.
+ */
+   MSISDN        ::= 701   /*3GPP TS 29.329*/ OctetString        M,V| | |    |N;
+
+/**
+ * The VASP-ID AVP (AVP Code 1101) is of type UTF8String. This AVP contains the identification 
+ * of a Value Added Service Provider.
+*/
+   VASP-ID ::=1101/* 3GPP TS 29.140 V6.4.0  6.3.3 */ UTF8String  M,V| | | |N  ;
+
+/**
+ * The VAS-ID AVP (AVP Code 1102) is of type UTF8String. This AVP contains the 
+ * identification of a Value Added Service
+*/
+   VAS-ID  ::=1102 /* 3GPP TS 29.140 V6.4.0  6.3.4 */ UTF8String  M,V| | | |N  ;
+
+   Mm10-3GPP-IMSI ::= 1002    /* 3GPP TS 29.061  */ UTF8String   M,V| | |     |N;
+
+/**
+ * The Sender-Address AVP (AVP code 1104) is of type UTF8String. This AVP contains the 
+ * identification of a multimedia message sender to be provided to the multimedia message 
+ * recipient.
+*/
+ 
+   Sender-Address ::= 1104/* 3GPP TS 29.140 V6.4.0  6.3.4 */ UTF8String  M,V| | | |N  ;
+
+/**
+ * The Initial-Recipient-Address AVP (AVP code 1105) is of type Grouped. It contains 
+ * recipient address information sent to the MSCF.
+*/
+
+   Initial-Recipient-Address ::= 1105 /* 3GPP TS 29.140 V6.4.0  6.3.8 */Grouped M,V| | | |N  ;
+
+/**
+ * The Sequence-Number AVP (AVP code 1107) is of type Unsigned32. It contains the unique 
+ * identification (counter) of a recipient address group.
+*/
+   Sequence-Number  ::= 1107/* 3GPP TS 29.140 V6.4.0  6.3.10 */Unsigned32   M,V| | | |N  ;
+
+/**
+ * The Recipient-Address AVP (AVP code 1108) is of type UTF8String. It contains the 
+ * Recipient address of a multimedia message.
+*/
+   Recipient-Address  ::= 1108 /* 3GPP TS 29.140 V6.4.0  6.3.11 */ UTF8String M,V| | | |N  ;
+
+/**
+ * The Originating-Interface-AVP (AVP code1110) is of type Enumerated. It indicates the 
+ * interface a multimedia Message has been received on.
+*/
+   Originating-Interface::=1110/* 3GPP TS 29.140 V6.4.0  6.3.13	*/ Enumerated  M,V| | | |N  ;
+
+/**
+ * The Service-Key AVP (AVP code 1114) is of type UTF8String. It identifies an application 
+ * of the target MSCF
+*/
+
+   Service-Key ::=1114/* 3GPP TS 29.140 V6.4.0  6.3.17 */UTF8String M,V| | | |N  ;
+
+/**
+ * The Delivery-Report AVP (AVP code 1111) is of type Enumerated. It indicates whether 
+ * an delivery report is requested
+*/
+   Delivery-Report::=1111/* 3GPP TS 29.140 V6.4.0  6.3.14 */Enumerated  M,V| | | |N  ;
+/**
+ * The Read-Reply AVP (AVP code 1112) is of type Enumerated. It indicates whether a 
+ *delivery report is requested
+*/
+   Read-Reply ::= 1112/* 3GPP TS 29.140 V6.4.0  6.3.15 */Enumerated  M,V| | | |N  ;
+
+/**
+ * The Sender-Visibility AVP (AVP code 1113) is of type Enumerated. It indicates whether 
+ * the sender identification is requested to be hidden or not.
+*/
+   Sender-Visibility  ::=1113 /* 3GPP TS 29.140 V6.4.0  6.3.16 */Enumerated  M,V| | | |N  ;
+
+/**
+ * The Status AVP (AVP code 1116) is of type Grouped. It contains message status information 
+ * to allow notification of the served user. At least one of both AVP Status-Code and 
+ * Status-Text shall be present.
+*/
+
+   Status ::=1116 /* 3GPP TS 29.140 V6.4.0  6.3.19 */Grouped    M,V| | | |N  ;
+
+/**
+ * The Status-Code AVP (AVP code 1117) is of type UTF8String. It contains the trigger 
+ * event specific response code to qualify the outcome of the message processing. The 
+ * UTF8String identifying the Status-Code shall be represented according to the following 
+ * ABNF definition:
+*/
+   Status-Code::=1117 /* 3GPP TS 29.140 V6.4.0  6.3.20 */ UTF8String    M,V| | | |N  ;
+
+/**
+ * The Status-Text AVP (AVP code 1118) is of type UTF8String. If contains a response 
+ * status text to qualify the outcome of the message processing.
+*/
+   Status-Text::= 1118 /* 3GPP TS 29.140 V6.4.0  6.3.21 */ UTF8String    M,V| | | |N  ;
+
+/**
+ * The Result-Recipient-Address AVP (AVP code 1106) is of type Grouped. It contains 
+ * recipient address information as returned from the MSCF. 
+*/
+   Result-Recipient-Address::=1106 /* 3GPP TS 29.140 V6.4.0  6.3.9 */Grouped  M,V| | | |N  ;
+
+/**
+ * The Routeing-Address AVP (AVP code 1109) is of type UTF8String. It contains the Recipient 
+ * address for routeing of a multimedia message. 
+*/
+   Routeing-Address::=1109 /* 3GPP TS 29.140 V6.4.0 6.3.12 */ UTF8String M,V| | | |N  ;
+
+/**
+ * The Billing-Information AVP (AVP code 1115) is of type UTF8String. It contains transparent 
+ * information to be forwarded to the billing system.
+*/
+   Billing-Information ::=1115 /* 3GPP TS 29.140 V6.4.0   6.3.18 */ UTF8String M,V| | | |N  ;
+
+///////////////
+//Enumearted///
+///////////////
+
+	Trigger-Event  ::= 	< Enumerated :1103 >
+   				MM1_Message_Submission_Profile_based     0 
+				MM1_Message_Submission_Address_based    1
+				MM1_Message_Delivery                     2
+				MM7_Message_Submission_Profile_based     3
+				MM7_Message_Submission_Address_based     4
+				;
+
+        Originating-Interface::=< Enumerated :1110 >
+				MM1         0
+				MM3         1
+				MM4         2
+				MM7         3
+				;
+
+        Delivery-Report::=      < Enumerated :1111 >
+                                No_Delivery_Report_Requested     0
+                                Delivery_Report_Requested        1
+                                ;
+
+        Read-Reply ::=        < Enumerated :1112 >
+    				No_Read_Reply_Requested          0
+				Read_Reply_Requested             1
+				;
+        Sender-Visibility  ::= < Enumerated :1113 >
+                                Sender_Identification_requested_not_to_be_hidden    0
+				Sender_Identification_requested_to_be_hidden          1
+				;
+				
+
+///////////////
+//Grouped /////
+///////////////
+
+        Served-User-Identity ::= 	<AVP Header: 1100   10415>
+					[MSISDN]
+					[VASP-ID]
+					[VAS-ID]
+					*[AVP]
+					;
+
+        Initial-Recipient-Address ::= 	<AVP Header: 1105 10415>
+					{Sequence-Number}
+					{Recipient-Address}
+					*[AVP]
+					;
+    
+    	Status ::= 			<AVP Header: 1116 10415>
+					[Status-Code]
+					[Status-Text]
+					*[AVP]
+					;
+
+   	Result-Recipient-Address ::= 	<AVP Header: 1106 10415>
+					{Sequence-Number}
+					[Recipient-Address]
+					[Routeing-Address]
+					[Sender-Address]
+					*[AVP]
+					;
+
+
+///////////////
+//commands/////
+///////////////
+
+/**
+ * The Message-Process-Request (MPR) command, indicated by the Command-Code field set to 
+ * 311 and the 'R' bit set in the Command Flags field, is sent by a Diameter client to a 
+ * Diameter server in order to request the processing of a multimedia message.
+*/
+
+    Message-Process-Request ::=	< Diameter Header: 311, REQ, PXY, 16777226 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Host }
+				{ Destination-Realm }
+				{ Event-Timestamp }
+				{ Trigger-Event }         
+		        	{ Served-User-Identity}
+				*{Initial-Recipient-Address}
+				{ Originating-Interface }
+				[Mm10-3GPP-IMSI ]
+				[Sender-Address]
+				[Service-Key]
+				[ Delivery-Report ]
+				[ Read-Reply ]
+				[ Sender-Visibility ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+ 				*[ AVP ]
+				;
+
+/**
+ * The Message-Process-Answer (MPA) command, indicated by the Command-Code field set to 311 
+ * and the 'R' bit cleared in the Command Flags field, is sent by the Diameter server in 
+ *  response to the Message-Process-Request command.				
+*/
+ Message-Process-Answer  ::=    < Diameter Header: 311, PXY, 16777226  >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ Result-Code ]
+                                [ Experimental-Result ]
+				[ Status ]
+				[ Delivery-Report ]
+				[ Read-Reply ]
+				[ Billing-Information ]
+				[ Sender-Visibility ]
+			 	*[ Result-Recipient-Address ]
+                                *[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;

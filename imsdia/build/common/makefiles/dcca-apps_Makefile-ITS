@@ -1,0 +1,91 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: dcca-apps_Makefile-ITS,v 3.2 2009/03/13 11:16:04 nvijikumar Exp $
+#
+#
+############################################################################
+#
+# Include the standard definitions
+#
+include $(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) $(ITS_DEFINES) -D_BCGI 
+
+INCLS:=$(INCLS) $(ITS_INCLS) \
+        -I../include \
+        -I$(IMS_ROOT)/include \
+        -I$(IMS_ROOT)/include/diameter \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(IMS_ROOT)/api/include/diameter/bcgi
+         
+APP_OBJS:=dcca_callbacks.o dcca_mml.o sample_dcca.o \
+          sample_sender.o dcca_stats.o dcca_test.o
+       
+#AATest.o \
+          ASTest.o RATest.o STTest.o 
+
+
+OBJS:=dcca_main.o
+
+#STAT_LIBS:=-L$(IMS_ROOT)/api/c++/lib \
+ 	-L$(IMS_ROOT)/lib \
+	-lbaseapi$(DBGSUFFIX) \
+        -lbcgidccaapi$(DBGSUFFIX)
+
+STAT_LIBS:=-L$(IMS_ROOT)/lib \
+	-ldiaapi$(DBGSUFFIX) \
+
+LIBS:=$(XER_LIB) -L$(IMS_ROOT)/lib \
+      -L../../apps/lib \
+      -lENGINE$(DBGSUFFIX) \
+      -lDRIVER++$(DBGSUFFIX) \
+	-ldiastack$(DBGSUFFIX) \
+      -lITSDFrame$(DBGSUFFIX)  \
+      -ldcca$(DBGSUFFIX) \
+      -ldccaapp$(DBGSUFFIX)  \
+      -lcmndiaapp$(DBGSUFFIX)
+
+# -ldcca$(DBGSUFFIX) \
+
+
+all: ../lib/libdccaapp$(DBGSUFFIX).so \
+     ../bin/sampleDccaApp$(DBGSUFFIX) 
+
+clean:
+	rm -f $(OBJS) $(APP_OBJS) \
+      	../bin/sampleDccaApp$(DBGSUFFIX) \
+	../lib/libdccaapp$(DBGSUFFIX).so	
+
+../lib/libdccaapp$(DBGSUFFIX).so:	$(APP_OBJS)
+	$(CXXSHAREDAR) $(CXXSHAREDARFLAGS) \
+	../lib/libdccaapp$(DBGSUFFIX).so \
+   	$(APP_OBJS) $(NOWHOLEARCHIVE)
+
+../bin/sampleDccaApp$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJS) \
+        $(SOCKLIBS) $(THREADLIBS) $(SYSLIBS) $(LIBS) 
+
+
+

@@ -1,0 +1,15 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enTrace                                                                                 
+DESCRIPTION
+    This command will enable all diameter stack level traces 
+    (Debug/Warning/Error/Critical).
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enTrace
+
+    *****All the traces are enabled*****
+

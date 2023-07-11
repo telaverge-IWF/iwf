@@ -1,0 +1,18 @@
+#!/bin/sh
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/aim/client/lib:$ITS_ROOT/common/lib:$IMS_ROOT/val/c++/lib:../../app_dist/lib:$IMS_ROOT/apps/lib:../../lib
+
+export LD_LIBRARY_PATH
+rm core.*
+
+# USAGE
+#sampleE2ClientD  -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost)
+#        -dr (DestinationRealm) -sp (Server Port) -srvip ( Server IP Address)
+#        -contype (Connection Type: primary / backup )
+
+sampleS6AClientD -oh snoopy -or india.internal.net -dh snoopy1 -dr india.internal.net -sp 1999 -srvip "172.16.3.45" -contype primary 
+
+
+exit 0
+
+

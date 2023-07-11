@@ -1,0 +1,18 @@
+Diameter Command
+
+SYNOPSIS
+    setPeerTimers  <wdval> <tcval> <expiryval>
+
+DESCRIPTION
+    This command will set the Peer timers.
+
+PARAMETERS
+    <wdval>       Watchdog Timer value
+    <tcval>       Retry Timer value
+    <expiryval>   Expiry Timer value
+
+EXAMPLE
+    >> setPeerTimers 30 60 60
+
+       Successfully Peer timers Set
+

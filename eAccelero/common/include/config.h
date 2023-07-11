@@ -1,0 +1,74 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define HOST "localhost"
+#define USER "root"
+#define PASS "intelliss7"
+#define DATABASE "DIAMETRIQ"
+
+#define MAX_TABLENAME_LEN 128
+#define MAX_FIELDNAME_LEN 1024
+#define MAX_STATEMENT_SIZE 2045
+#define INVALID_NUM (-1)
+#define INVALID_STR ('\0')
+#define PRINTF printf
+
+#define TABLE_DELIMITER '\b'
+#define FIELD_DELIMITER '\t'
+#define ROW_DELIMITER '\n'
+
+typedef enum _DbStatus
+{
+    DRE_DB_FAIL,
+    DRE_DB_SUCCESS
+}DbStatus_e;
+
+typedef enum _ConfigReqType
+{
+    DRE_DB_ADD,
+    DRE_DB_MOD,
+    DRE_DB_DEL,
+    DRE_DB_GET,
+    DRE_DB_ERR
+}ConfigReqType_e;
+
+typedef enum _dreTableName
+{
+    DRE_AVAILABILITY_MANAGER_CONFIG_T,
+    DRE_DEFAULT_ROUTE_T,
+    DRE_DYNAMIC_DISCOVERY_T,
+    DRE_LOCAL_HOST_CONFIG_T,
+    DRE_PEER_GLOBAL_CONFIG_T,
+    DRE_PEER_T,
+    DRE_PEER_TIMERS_T,
+    DRE_REALM_ROUTING_T,
+    DRE_REPLICATION_MANAGER_CONFIG_T,
+    DRE_USER_T,
+    DRE_ASF_T,
+    DRE_ASFCONFIG_T,
+    DRE_ASFFEATURE_T,
+    DRE_PEER_DICT_MAP_T,
+    DRE_TABLE_COUNT
+}dreTableName_e;
+
+typedef enum _dreDataType
+{
+    DRE_AVAILABILITY_MANAGER_CONFIG,
+    DRE_DEFAULT_ROUTE,
+    DRE_DYNAMIC_DISCOVERY,
+    DRE_LOCAL_HOST_CONFIG,
+    DRE_PEER_GLOBAL_CONFIG,
+    DRE_PEER_AND_TIMER,
+    DRE_REALM_ROUTING,
+    DRE_REPLICATION_MANAGER_CONFIG,
+    DRE_USER,
+    DRE_ASF,
+    DRE_ASFCONFIG,
+    DRE_ASFFEATURE,
+    DRE_PEER_DICT_MAP,
+    DRE_DATATYPE_COUNT
+}dreDataType_e;
+
+
+
+#endif

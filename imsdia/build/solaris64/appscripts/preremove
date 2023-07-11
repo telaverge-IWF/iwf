@@ -1,0 +1,34 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+
+PKGDIR=$PKG-$VERSION
+if [ -d $BASEDIR/$PKGDIR/config  ]
+then
+    echo ""
+    echo " Backing up $BASEDIR/$PKGDIR to $BACKUPDIR/$APP_PKG_BKP"
+    if [ ! -d $BACKUPDIR/$APP_PKG_BKP ]
+    then
+       mkdir -p $BACKUPDIR/$APP_PKG_BKP
+    fi
+    
+    if [ -d $BACKUPDIR/$APP_PKG_BKP/$PKGDIR ]
+    then
+       # Remove the same version backup
+       /bin/rm -rf $BACKUPDIR/$PKGDIR
+    fi
+
+
+    cp -r $BASEDIR/$PKGDIR $BACKUPDIR/$APP_PKG_BKP
+    if [ $? -eq 0 ]
+    then
+         echo " $PKGDIR Backup complete "
+    fi
+    echo ""
+fi

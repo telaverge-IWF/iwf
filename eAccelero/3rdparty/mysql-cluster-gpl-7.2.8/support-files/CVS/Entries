@@ -1,0 +1,26 @@
+/CMakeLists.txt/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/MySQL-shared-compat.spec.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/binary-configure.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/build-tags/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/compiler_warnings.supp/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/config.huge.ini.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/config.medium.ini.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/config.small.ini.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/magic/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/my-huge.cnf.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/my-innodb-heavy-4G.cnf.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/my-large.cnf.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/my-medium.cnf.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/my-small.cnf.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql-cluster-7.2.8.spec/1.1.2.1.30.1.14.1.2.2/Mon Apr 20 08:50:43 2020//TB-IWF-HP-0400-00
+/mysql-log-rotate.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql-multi.server.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql.m4/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql.server-sys5.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql.server.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysql.spec.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/mysqld_multi.server.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+/ndb-config-2-node.ini.sh/1.1.2.1/Fri Oct  5 12:38:46 2012//TB-IWF-HP-0400-00
+D/MacOSX////
+D/RHEL4-SElinux////
+D/dtrace////

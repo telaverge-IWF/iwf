@@ -1,0 +1,43 @@
+#!/bin/ksh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+CLS="\033[2J"
+
+function main
+{
+print $CLS
+
+eval 'DBGConsole -socket -nonInteractive > z 2>&1 << End
+v
+stat
+quit
+End '
+
+print "\n The Process Status Summary"
+print " --------------------------"
+
+/bin/grep -E 'Application|TCPConnection|InitialRunMode' z
+
+print "\n Traffic Summary"
+print " ---------------"
+
+/bin/grep -E 'Num' z
+/bin/grep -E 'messages' z
+
+rm z
+
+exit
+}
+
+
+ps -e | grep DBGCon > /dev/null || main
+
+print "\nError: The socket to get information is being used by the Debug Console
+"
+print "Please close the Debug Console session to proceed"

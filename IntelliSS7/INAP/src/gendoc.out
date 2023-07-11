@@ -1,0 +1,219 @@
+USING INDEX ../doc/inap_index.html
+Generating for ../include/itu/inap.h inap.c isup_rose.c
+Dumping interface notes for: INAP
+Dumping implementation notes for: INAP_SendCallInformationRequest
+Dumping link to INAP_SendCallInformationRequest for INAP
+Dumping implementation notes for: INAP_DecodeCallInformationRequest
+Dumping link to INAP_DecodeCallInformationRequest for INAP
+Dumping implementation notes for: INAP_SendCallInformationReport
+Dumping link to INAP_SendCallInformationReport for INAP
+Dumping implementation notes for: INAP_DecodeCallInformationReport
+Dumping link to INAP_DecodeCallInformationReport for INAP
+Dumping implementation notes for: INAP_SendEventReportBCSM
+Dumping link to INAP_SendEventReportBCSM for INAP
+Dumping implementation notes for: INAP_DecodeEventReportBCSM
+Dumping link to INAP_DecodeEventReportBCSM for INAP
+Dumping implementation notes for: INAP_SendInitialDP
+Dumping link to INAP_SendInitialDP for INAP
+Dumping implementation notes for: INAP_DecodeInitialDP
+Dumping link to INAP_DecodeInitialDP for INAP
+Dumping implementation notes for: INAP_SendServiceFilteringResponse
+Dumping link to INAP_SendServiceFilteringResponse for INAP
+Dumping implementation notes for: INAP_DecodeServiceFilteringResponse
+Dumping link to INAP_DecodeServiceFilteringResponse for INAP
+Dumping implementation notes for: INAP_SendApplyChargingRequest
+Dumping link to INAP_SendApplyChargingRequest for INAP
+Dumping implementation notes for: INAP_DecodeApplyChargingRequest
+Dumping link to INAP_DecodeApplyChargingRequest for INAP
+Dumping implementation notes for: INAP_SendApplyChargingReport
+Dumping link to INAP_SendApplyChargingReport for INAP
+Dumping implementation notes for: INAP_DecodeApplyChargingReport
+Dumping link to INAP_DecodeApplyChargingReport for INAP
+Dumping implementation notes for: INAP_SendActivateServiceFiltering
+Dumping link to INAP_SendActivateServiceFiltering for INAP
+Dumping implementation notes for: INAP_DecodeActivateServiceFiltering
+Dumping link to INAP_DecodeActivateServiceFiltering for INAP
+Dumping implementation notes for: INAP_SendActivityTest
+Dumping link to INAP_SendActivityTest for INAP
+Dumping implementation notes for: INAP_DecodeActivityTest
+Dumping link to INAP_DecodeActivityTest for INAP
+Dumping implementation notes for: INAP_SendCallGap
+Dumping link to INAP_SendCallGap for INAP
+Dumping implementation notes for: INAP_DecodeCallGap
+Dumping link to INAP_DecodeCallGap for INAP
+Dumping implementation notes for: INAP_SendCancel
+Dumping link to INAP_SendCancel for INAP
+Dumping implementation notes for: INAP_DecodeCancel
+Dumping link to INAP_DecodeCancel for INAP
+Dumping implementation notes for: INAP_SendConnect
+Dumping link to INAP_SendConnect for INAP
+Dumping implementation notes for: INAP_DecodeConnect
+Dumping link to INAP_DecodeConnect for INAP
+Dumping implementation notes for: INAP_SendContinue
+Dumping link to INAP_SendContinue for INAP
+Dumping implementation notes for: INAP_DecodeContinue
+Dumping link to INAP_DecodeContinue for INAP
+Dumping implementation notes for: INAP_SendDisconnectForwardConnection
+Dumping link to INAP_SendDisconnectForwardConnection for INAP
+Dumping implementation notes for: INAP_DecodeDisconnectForwardConnection
+Dumping link to INAP_DecodeDisconnectForwardConnection for INAP
+Dumping implementation notes for: INAP_SendEstablishTemporaryConnection
+Dumping link to INAP_SendEstablishTemporaryConnection for INAP
+Dumping implementation notes for: INAP_DecodeEstablishTemporaryConnection
+Dumping link to INAP_DecodeEstablishTemporaryConnection for INAP
+Dumping implementation notes for: INAP_SendFurnishChargingInformation
+Dumping link to INAP_SendFurnishChargingInformation for INAP
+Dumping implementation notes for: INAP_DecodeFurnishChargingInformation
+Dumping link to INAP_DecodeFurnishChargingInformation for INAP
+Dumping implementation notes for: INAP_SendReleaseCall
+Dumping link to INAP_SendReleaseCall for INAP
+Dumping implementation notes for: INAP_DecodeReleaseCall
+Dumping link to INAP_DecodeReleaseCall for INAP
+Dumping implementation notes for: INAP_SendRequestReportBCSMEvent
+Dumping link to INAP_SendRequestReportBCSMEvent for INAP
+Dumping implementation notes for: INAP_DecodeRequestReportBCSMEvent
+Dumping link to INAP_DecodeRequestReportBCSMEvent for INAP
+Dumping implementation notes for: INAP_SendResetTimer
+Dumping link to INAP_SendResetTimer for INAP
+Dumping implementation notes for: INAP_DecodeResetTimer
+Dumping link to INAP_DecodeResetTimer for INAP
+Dumping implementation notes for: INAP_SendConnectToResource
+Dumping link to INAP_SendConnectToResource for INAP
+Dumping implementation notes for: INAP_DecodeConnectToResource
+Dumping link to INAP_DecodeConnectToResource for INAP
+Dumping implementation notes for: INAP_SendPromptAndCollectUserInformation
+Dumping link to INAP_SendPromptAndCollectUserInformation for INAP
+Dumping implementation notes for: INAP_DecodePromptAndCollectUserInformation
+Dumping link to INAP_DecodePromptAndCollectUserInformation for INAP
+Dumping implementation notes for: INAP_SendReceivedInformation
+Dumping link to INAP_SendReceivedInformation for INAP
+Dumping implementation notes for: INAP_DecodeReceivedInformation
+Dumping link to INAP_DecodeReceivedInformation for INAP
+Dumping implementation notes for: INAP_SendPlayAnnouncement
+Dumping link to INAP_SendPlayAnnouncement for INAP
+Dumping implementation notes for: INAP_DecodePlayAnnouncement
+Dumping link to INAP_DecodePlayAnnouncement for INAP
+Dumping implementation notes for: INAP_SendAssistRequestInstructions
+Dumping link to INAP_SendAssistRequestInstructions for INAP
+Dumping implementation notes for: INAP_DecodeAssistRequestInstructions
+Dumping link to INAP_DecodeAssistRequestInstructions for INAP
+Dumping implementation notes for: INAP_SendSpecializedResourceReport
+Dumping link to INAP_SendSpecializedResourceReport for INAP
+Dumping implementation notes for: INAP_DecodeSpecializedResourceReport
+Dumping link to INAP_DecodeSpecializedResourceReport for INAP
+Dumping implementation notes for: INAP_SendInitiateCallAttempt
+Dumping link to INAP_SendInitiateCallAttempt for INAP
+Dumping implementation notes for: INAP_DecodeInitiateCallAttempt
+Dumping link to INAP_DecodeInitiateCallAttempt for INAP
+Dumping implementation notes for: INAP_SendSendChargingInformation
+Dumping link to INAP_SendSendChargingInformation for INAP
+Dumping implementation notes for: INAP_DecodeSendChargingInformation
+Dumping link to INAP_DecodeSendChargingInformation for INAP
+Dumping implementation notes for: INAP_SendCollectInformation
+Dumping link to INAP_SendCollectInformation for INAP
+Dumping implementation notes for: INAP_DecodeCollectInformation
+Dumping link to INAP_DecodeCollectInformation for INAP
+Dumping implementation notes for: INAP_SendAnalyseInformation
+Dumping link to INAP_SendAnalyseInformation for INAP
+Dumping implementation notes for: INAP_DecodeAnalyseInformation
+Dumping link to INAP_DecodeAnalyseInformation for INAP
+Dumping implementation notes for: INAP_SendEventNotificationCharging
+Dumping link to INAP_SendEventNotificationCharging for INAP
+Dumping implementation notes for: INAP_DecodeEventNotificationCharging
+Dumping link to INAP_DecodeEventNotificationCharging for INAP
+Dumping implementation notes for: INAP_SendRequestCurrentStatusReport
+Dumping link to INAP_SendRequestCurrentStatusReport for INAP
+Dumping implementation notes for: INAP_DecodeRequestCurrentStatusReport
+Dumping link to INAP_DecodeRequestCurrentStatusReport for INAP
+Dumping implementation notes for: INAP_SendRequestCurrentStatusReportResult
+Dumping link to INAP_SendRequestCurrentStatusReportResult for INAP
+Dumping implementation notes for: INAP_DecodeRequestCurrentStatusReportResult
+Dumping link to INAP_DecodeRequestCurrentStatusReportResult for INAP
+Dumping implementation notes for: INAP_SendRequestEveryStatusChangeReport
+Dumping link to INAP_SendRequestEveryStatusChangeReport for INAP
+Dumping implementation notes for: INAP_DecodeRequestEveryStatusChangeReport
+Dumping link to INAP_DecodeRequestEveryStatusChangeReport for INAP
+Dumping implementation notes for: INAP_SendRequestFirstStatusMatchReport
+Dumping link to INAP_SendRequestFirstStatusMatchReport for INAP
+Dumping implementation notes for: INAP_DecodeRequestFirstStatusMatchReport
+Dumping link to INAP_DecodeRequestFirstStatusMatchReport for INAP
+Dumping implementation notes for: INAP_SendRequestNotificationChargingEvent
+Dumping link to INAP_SendRequestNotificationChargingEvent for INAP
+Dumping implementation notes for: INAP_DecodeRequestNotificationChargingEvent
+Dumping link to INAP_DecodeRequestNotificationChargingEvent for INAP
+Dumping implementation notes for: INAP_SendSelectFacility
+Dumping link to INAP_SendSelectFacility for INAP
+Dumping implementation notes for: INAP_DecodeSelectFacility
+Dumping link to INAP_DecodeSelectFacility for INAP
+Dumping implementation notes for: INAP_SendStatusReport
+Dumping link to INAP_SendStatusReport for INAP
+Dumping implementation notes for: INAP_DecodeStatusReport
+Dumping link to INAP_DecodeStatusReport for INAP
+Dumping implementation notes for: INAP_SendCancelStatusReportRequest
+Dumping link to INAP_SendCancelStatusReportRequest for INAP
+Dumping implementation notes for: INAP_DecodeCancelStatusReportRequest
+Dumping link to INAP_DecodeCancelStatusReportRequest for INAP
+Dumping implementation notes for: INAP_SendRouteSelectFailure
+Dumping link to INAP_SendRouteSelectFailure for INAP
+Dumping implementation notes for: INAP_DecodeRouteSelectFailure
+Dumping link to INAP_DecodeRouteSelectFailure for INAP
+Dumping implementation notes for: INAP_SendOCalledPartyBusy
+Dumping link to INAP_SendOCalledPartyBusy for INAP
+Dumping implementation notes for: INAP_DecodeOCalledPartyBusy
+Dumping link to INAP_DecodeOCalledPartyBusy for INAP
+Dumping implementation notes for: INAP_SendONoAnswer
+Dumping link to INAP_SendONoAnswer for INAP
+Dumping implementation notes for: INAP_DecodeONoAnswer
+Dumping link to INAP_DecodeONoAnswer for INAP
+Dumping implementation notes for: INAP_SendOAnswer
+Dumping link to INAP_SendOAnswer for INAP
+Dumping implementation notes for: INAP_DecodeOAnswer
+Dumping link to INAP_DecodeOAnswer for INAP
+Dumping implementation notes for: INAP_SendODisconnect
+Dumping link to INAP_SendODisconnect for INAP
+Dumping implementation notes for: INAP_DecodeODisconnect
+Dumping link to INAP_DecodeODisconnect for INAP
+Dumping implementation notes for: INAP_SendOTermAttempAuthorized
+Dumping link to INAP_SendOTermAttempAuthorized for INAP
+Dumping implementation notes for: INAP_DecodeOTermAttempAuthorized
+Dumping link to INAP_DecodeOTermAttempAuthorized for INAP
+Dumping implementation notes for: INAP_SendTBusy
+Dumping link to INAP_SendTBusy for INAP
+Dumping implementation notes for: INAP_DecodeTBusy
+Dumping link to INAP_DecodeTBusy for INAP
+Dumping implementation notes for: INAP_SendTNoAnswer
+Dumping link to INAP_SendTNoAnswer for INAP
+Dumping implementation notes for: INAP_DecodeTNoAnswer
+Dumping link to INAP_DecodeTNoAnswer for INAP
+Dumping implementation notes for: INAP_SendTAnswer
+Dumping link to INAP_SendTAnswer for INAP
+Dumping implementation notes for: INAP_DecodeTAnswer
+Dumping link to INAP_DecodeTAnswer for INAP
+Dumping implementation notes for: INAP_SendTDisconnect
+Dumping link to INAP_SendTDisconnect for INAP
+Dumping implementation notes for: INAP_DecodeTDisconnect
+Dumping link to INAP_DecodeTDisconnect for INAP
+Dumping implementation notes for: INAP_SendOMidCall
+Dumping link to INAP_SendOMidCall for INAP
+Dumping implementation notes for: INAP_DecodeOMidCall
+Dumping link to INAP_DecodeOMidCall for INAP
+Dumping implementation notes for: INAP_SendTMidCall
+Dumping link to INAP_SendTMidCall for INAP
+Dumping implementation notes for: INAP_DecodeTMidCall
+Dumping link to INAP_DecodeTMidCall for INAP
+Dumping implementation notes for: INAP_SendHoldCallInNetwork
+Dumping link to INAP_SendHoldCallInNetwork for INAP
+Dumping implementation notes for: INAP_DecodeHoldCallInNetwork
+Dumping link to INAP_DecodeHoldCallInNetwork for INAP
+Dumping implementation notes for: INAP_SendOriginationAttemptAuthorized
+Dumping link to INAP_SendOriginationAttemptAuthorized for INAP
+Dumping implementation notes for: INAP_DecodeOriginationAttemptAuthorized
+Dumping link to INAP_DecodeOriginationAttemptAuthorized for INAP
+Dumping implementation notes for: INAP_SendCollectedInformation
+Dumping link to INAP_SendCollectedInformation for INAP
+Dumping implementation notes for: INAP_DecodeCollectedInformation
+Dumping link to INAP_DecodeCollectedInformation for INAP
+Dumping implementation notes for: INAP_SendAnalysedInformation
+Dumping link to INAP_SendAnalysedInformation for INAP
+Dumping implementation notes for: INAP_DecodeAnalysedInformation
+Dumping link to INAP_DecodeAnalysedInformation for INAP

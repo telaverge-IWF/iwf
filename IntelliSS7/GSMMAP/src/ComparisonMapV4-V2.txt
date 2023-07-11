@@ -1,0 +1,1484 @@
+                 BACKWARD COMPATIBILITY OF MAP V4 WITH MAP V2
+
+
+
+
+Contents
+========
+
+1. MAP V2 PDUs Analysed
+2. MAP V2 PDUs That Can Be Decoded By V4 Decoder
+3. MAP V2 PDUs That Can Be Decoded By V4 Decoder Only Under Certain Conditions
+3.1. UpdateLocationArg
+3.2. UpdateLocationRes
+3.3. PurgeMS-Arg
+3.4. InsertSubscriberDataArg
+3.5. ResetArg
+3.6. ProvideRoamingNumberArg
+3.7. InterrogateSS-Res
+3.8. GuidanceInfo
+3.9. RoutingInfoForSM-Arg
+3.10. ReportSM-DeliveryStatusArg
+3.11. SM-DeliveryFailureCause
+4. MAP V2 PDUs That Cannot Be Successfully Decoded By V4 Decoder
+4.1. CancelLocationArg
+4.2. PerformHO-Arg
+4.3. PerformHO-Res
+4.4. PerformSubsequentHO-Arg
+4.5. SendParametersArg
+4.6. SentParameterList
+4.7. TraceSubscriberActivityArg
+4.8. NoteInternalHO-Arg
+4.9. SendRoutingInfoArg
+4.10. SendRoutingInfoRes
+4.11. SS-UserData
+4.12. BeginSubscriberActivityArg
+4.13. RoutingInfoForSM-Res
+4.14. ForwardSM-Arg
+
+
+
+1. MAP V2 PDUs Analysed
+
+
+The following encoded MAP V2 PDUs were tested against the MAP V4 decoder:
+
+ActivateTraceModeArg
+AlertServiceCentreArg
+BeginSubscriberActivityArg
+CUG-RejectCause
+CallBarringCause
+CancelLocationArg
+DeactivateTraceModeArg
+DeleteSubscriberDataArg
+DeleteSubscriberDataRes
+EquipmentStatus
+ForwardSM-Arg
+GuidanceInfo
+IMEI
+InformServiceCentreArg
+InsertSubscriberDataArg
+InsertSubscriberDataRes
+InterrogateSS-Res
+MAP_DialoguePDU
+NoteInternalHO-Arg
+PW-RegistrationFailureCause
+Password
+PerformHO-Arg
+PerformHO-Res
+PerformSubsequentHO-Arg
+PrepareHO-Arg
+PrepareHO-Res
+PrepareSubsequentHO-Arg
+ProvideRoamingNumberArg
+PurgeMS-Arg
+ReadyForSM-Arg
+RegisterSS-Arg
+ReportSM-DeliveryStatusArg
+ResetArg
+RestoreDataArg
+RestoreDataRes
+RoamingNotAllowedCause
+RoutingInfoForSM-Arg
+RoutingInfoForSM-Res
+SM-DeliveryFailureCause
+SS-ForBS-Code
+SS-IncompatibilityCause
+SS-UserData
+SendAuthenticationInfoArg
+SendAuthenticationInfoRes
+SendIdentificationRes
+SendParametersArg
+SendRoutingInfoArg
+SendRoutingInfoRes
+SentParameterList
+TraceSubscriberActivityArg
+USSD-Arg
+USSD-Res
+UpdateLocationArg
+UpdateLocationRes
+
+
+2. MAP V2 PDUs That Can Be Decoded By V4 Decoder
+
+ActivateTraceModeArg
+AlertServiceCentreArg
+CallBarringCause
+CUG_RejectCause
+DeactivateTraceModeArg
+DeleteSubscriberDataArg
+DeleteSubscriberDataRes
+EquipmentStatus
+IMEI
+InserSubscriberDataRes
+InformServiceCentreArg
+InsertSubscriberDataRes
+MAP_DialoguePDU
+PW-RegistrationFailureCause
+Password
+PrepareHO-Arg
+PrepareHO-Res
+PrepareSubsequentHO-Arg
+ReadyForSM-Arg
+RegisterSS-Arg
+RestoreDataArg
+RestoreDataRes
+RoamingNotAllowedCause
+SS_ForBS_Code
+SS-IncompatibilityCause
+SendAuthenticationInfoArg
+SendAuthenticationInfoRes
+SendIdentificationRes
+USSD-Arg
+USSD_Arg
+
+
+3. MAP V2 PDUs That Can Be Decoded By V4 Decoder Only Under Certain Conditions
+
+UpdateLocationArg
+UpdateLocationRes
+PurgeMS-Arg
+InsertSubscriberDataArg
+ResetArg
+ProvideRoamingNumberArg
+InterrogateSS-Res
+GuidanceInfo
+RoutingInfoForSM-Arg
+ReportSM-DeliveryStatusArg
+SM-DeliveryFailureCause
+
+
+3.1. UpdateLocationArg
+
+V2:
+
+UpdateLocationArg ::= SEQUENCE {
+    imsi IMSI,
+    locationInfo LocationInfo,
+    vlr-Number ISDN-AddressString,
+    lmsi [10] LMSI OPTIONAL,
+    ...
+}
+
+LocationInfo ::= CHOICE { 
+    roamingNumber [0] ISDN-AddressString, 
+    msc-Number [1] ISDN-AddressString
+} 
+
+
+V4:
+
+UpdateLocationArg ::= SEQUENCE {
+    imsi                IMSI,
+    msc-Number          [1] ISDN-AddressString,
+    vlr-Number          ISDN-AddressString,
+    lmsi                [10] LMSI          OPTIONAL,
+    extensionContainer  ExtensionContainer OPTIONAL,
+    ... ,
+    vlr-Capability      [6] VLR-Capability OPTIONAL
+}
+
+The result of passing the V2 value:
+
+updateLocationArg1 UpdateLocationArg ::= {
+    imsi '1122334455667788'H,
+    locationInfo roamingNumber: '112233445566778899'H
+    vlr-Number '112233445566778899'H,
+    lmsi '11223344'H
+}
+
+is as follows:
+
+========= Run 13 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+UpdateLocationArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 38
+  imsi IMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 8
+    0x1122334455667788
+D0047E: Tag not recognized: [0]; check PDU #3 'UpdateLocationArg'.
+  *SKIPPED*: tag = [0] primitive; length = 9
+    <skipped>
+D0047E: Tag not recognized: [UNIVERSAL 4]; check PDU #3 'UpdateLocationArg'.
+  *SKIPPED*: tag = [UNIVERSAL 4] primitive; length = 9
+    <skipped>
+D0047E: Tag not recognized: [10]; check PDU #3 'UpdateLocationArg'.
+  *SKIPPED*: tag = [10] primitive; length = 4
+    <skipped>
+D0049E: Field omitted: "msc-Number"; check PDU #3 'UpdateLocationArg'.
+D0049E: Field omitted: "vlr-Number"; check PDU #3 'UpdateLocationArg'.
+Error 5 decoding in 0 bytes.
+D0047E: Tag not recognized: [0]; check PDU #3 'UpdateLocationArg'.
+Encoding freed.
+
+The problem is that the context-specific tags do not match due to V2 missing
+the field :
+
+    msc-Number  [1] ISDN-AddressString,
+
+where it is supposed to be by V4, i.e. right after the imsi field.
+
+On the other hand if we pass:
+
+updateLocationArg2 UpdateLocationArg ::= {
+    imsi '1122334455667788'H,
+    locationInfo msc-Number:    '112233445566778899'H
+    vlr-Number '112233445566778899'H,
+}
+
+the decoding result is:
+
+========= Run 14 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+UpdateLocationArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 32
+  imsi IMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 8
+    0x1122334455667788
+  msc-Number ISDN-AddressString OCTET STRING: tag = [1] primitive; length = 9
+    0x112233445566778899
+  vlr-Number ISDN-AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 9
+    0x112233445566778899
+Decoded in 72 bytes.
+	Decoded PDU...
+value UpdateLocationArg ::= 
+{
+  imsi '1122334455667788'H,
+  msc-Number '112233445566778899'H,
+  vlr-Number '112233445566778899'H
+}
+
+In this case we may talk about backward compatibility of V4.  So the V4
+UpdateLocationArg compatibility DEPENDS UPON THE V2 ENCODED VALUE PASSED
+FOR DECODING.  IT IS OBNLY COMPATIBLE IF THE V2 LocationInfo CHOICE field IS:
+
+msc-Number [1] ISDN-AddressString
+
+
+3.2. UpdateLocationRes
+
+V2:
+
+UpdateLocationRes ::= CHOICE {
+    hlr-Number ISDN-AddressString,
+    extensibleUpdateLocationRes ExtensibleUpdateLocationRes
+}
+
+ExtensibleUpdateLocationRes ::= SEQUENCE {
+    hlr-Number ISDN-AddressString,
+    ...
+} 
+
+
+V4:
+
+UpdateLocationRes ::= SEQUENCE {
+    hlr-Number  ISDN-AddressString,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+The result of passing the V2 value:
+
+updateLocationRes1 UpdateLocationRes ::= hlr-Number: '112233445566778899'H
+
+is:
+
+========= Run 15 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+D0034E: PDU and input tags do not match: [UNIVERSAL 4]; check PDU #4.
+Error 9 decoding in 0 bytes.
+D0034E: PDU and input tags do not match: [UNIVERSAL 4]; check PDU #4.
+Encoding freed.
+
+which is due to the fact that ISDN-AddressString (OCTET STRING) and SEQUENCE
+tags do not match.
+
+On the other hand if we pass the V2 value:
+
+updateLocationRes2 UpdateLocationRes ::= extensibleUpdateLocationRes: {
+    hlr-Number '112233445566778899'H
+}
+
+the result is:
+
+========= Run 16 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+UpdateLocationRes SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 11
+  hlr-Number ISDN-AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 9
+    0x112233445566778899
+Decoded in 32 bytes.
+	Decoded PDU...
+value UpdateLocationRes ::= 
+{
+  hlr-Number '112233445566778899'H
+}
+
+which is good enough.  So AGAIN THE OUTCOME DEPENDS UPON THE V2 VALUE PASSED
+FOR V4 DECODING.  THERE IS NO PTROBLEM IF THE V2 CHOICE IS
+ExtensibleUpdateLocationRes.
+
+
+3.3. PurgeMS-Arg
+
+V2:
+
+PurgeMS-Arg ::= SEQUENCE { 
+    imsi IMSI, 
+    vlr-Number ISDN-AddressString, 
+    ...
+} 
+
+V4:
+
+PurgeMS-Arg ::= SEQUENCE {
+    imsi               IMSI,
+    vlr-Number         [0] ISDN-AddressString  OPTIONAL,
+    sgsn-Number        [1] ISDN-AddressString  OPTIONAL,
+    extensionContainer ExtensionContainer      OPTIONAL,
+    ...
+}
+
+If we pass the following V2 (encoded) value for the V4 decoder:
+
+purgeMS-Arg PurgeMS-Arg ::= { 
+    imsi '1122334455667788'H,
+    vlr-Number '112233445566778899'H
+} 
+
+we get the following result
+
+========= Run 20 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+PurgeMS-Arg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 21
+  imsi IMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 8
+    0x1122334455667788
+  *SKIPPED*: tag = [UNIVERSAL 4] primitive; length = 9
+    <skipped>
+Decoded in 48 bytes.
+	Decoded PDU...
+value PurgeMS-Arg ::= 
+{
+  imsi '1122334455667788'H
+}
+
+WHICH BY ITSELF MIGHT BE GOOD ENOUGH SINCE THE DECODER DID NOT ISSUE AN ERROR
+MESSAGE BUT SIMPLY SKIPPED UNRECOGNIZED PART OF THE ENCODED DATA.
+
+
+3.4. InsertSubscriberDataArg
+
+V2:
+
+InsertSubscriberDataArg ::= SEQUENCE {
+    imsi [0] IMSI OPTIONAL,
+    COMPONENTS OF SubscriberData,
+    ...
+}
+
+SubscriberData ::= SEQUENCE {
+    msisdn [1] ISDN-AddressString                      OPTIONAL,
+    category [2] Category                              OPTIONAL,
+    subscriberStatus [3] SubscriberStatus              OPTIONAL,
+    bearerServiceList [4] BearerServiceList            OPTIONAL,
+    teleserviceList [6] TeleserviceList                OPTIONAL,
+    provisionedSS [7] SS-InfoList                      OPTIONAL,
+    odb-Data [8] ODB-Data                              OPTIONAL,
+    roamingRestrictionDueToUnsupportedFeature [9] NULL OPTIONAL,
+    regionalSubscriptionData [10] ZoneCodeList         OPTIONAL
+}
+
+V4:
+
+InsertSubscriberDataArg ::= SEQUENCE {
+    imsi                 [0] IMSI                  OPTIONAL,
+    COMPONENTS OF        SubscriberData,
+    extensionContainer   [14] ExtensionContainer   OPTIONAL,
+    ...,
+    naea-PreferredCI     [15] NAEA-PreferredCI     OPTIONAL,
+    gprsSubscriptionData [16] GPRSSubscriptionData OPTIONAL,
+    roamingRestrictedInSgsnDueToUnsupportedFeature [23] NULL OPTIONAL,
+    networkAccessMode    [24] NetworkAccessMode    OPTIONAL
+}
+
+SubscriberData ::= SEQUENCE {
+    msisdn               [1] ISDN-AddressString            OPTIONAL,
+    category             [2] Category                      OPTIONAL,
+    subscriberStatus     [3] SubscriberStatus              OPTIONAL,
+    bearerServiceList    [4] BearerServiceList             OPTIONAL,
+    teleserviceList      [6] TeleserviceList               OPTIONAL,
+    provisionedSS        [7] Ext-SS-InfoList               OPTIONAL,
+    odb-Data             [8] ODB-Data                      OPTIONAL,
+    roamingRestrictionDueToUnsupportedFeature [9] NULL     OPTIONAL,
+    regionalSubscriptionData [10] ZoneCodeList             OPTIONAL,
+    vbsSubscriptionData  [11] VBSDataList                  OPTIONAL,
+    vgcsSubscriptionData [12] VGCSDataList                 OPTIONAL,
+    vlrCamelSubscriptionInfo [13] VlrCamelSubscriptionInfo OPTIONAL
+}
+
+If we pass the value:
+
+insertSubscriberDataArg4 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '11'H,
+    category '11'H,
+    subscriberStatus serviceGranted,
+    bearerServiceList {
+	'11'H
+    },
+    teleserviceList {
+	'11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '11'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    callBarringFeatureList {
+		{
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 0,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options noCUG-Restrictions
+		}
+	    }
+	},
+	ss-Data: {
+	}
+    },
+    odb-Data {
+	odb-GeneralData {allOG-CallsBarred}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H
+    }
+}
+
+which--as one can see--contains some empty subvalues, then we get:
+
+
+========= Run 47 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU, NO BUFFER PROVIDED.
+InsertSubscriberDataArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 106
+  imsi IMSI OCTET STRING: tag = [0] primitive; length = 8
+    0x1122334455667788
+  msisdn ISDN-AddressString OCTET STRING: tag = [1] primitive; length = 1
+    0x11
+  category Category OCTET STRING: tag = [2] primitive; length = 1
+    0x11
+  subscriberStatus SubscriberStatus ENUMERATED: tag = [3] primitive; length = 1
+    0
+  bearerServiceList BearerServiceList SEQUENCE OF: tag = [4] constructed; length = 3
+    Ext-BearerServiceCode OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 1
+      0x11
+  teleserviceList TeleserviceList SEQUENCE OF: tag = [6] constructed; length = 3
+    Ext-TeleserviceCode OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 1
+      0x11
+  provisionedSS Ext-SS-InfoList SEQUENCE OF: tag = [7] constructed; length = 61
+    Ext-SS-Info CHOICE
+      forwardingInfo Ext-ForwInfo SEQUENCE: tag = [0] constructed; length = 33
+        ss-Code SS-Code OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 1
+          0x11
+        forwardingFeatureList Ext-ForwFeatureList SEQUENCE OF: tag = [UNIVERSAL 16] constructed; length = 28
+          Ext-ForwFeature SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 26
+            basicService Ext-BasicServiceCode CHOICE
+              ext-BearerService Ext-BearerServiceCode OCTET STRING: tag = [2] primitive; length = 1
+                0x11
+            ss-Status Ext-SS-Status OCTET STRING: tag = [4] primitive; length = 1
+              0x11
+            forwardedToNumber ISDN-AddressString OCTET STRING: tag = [5] primitive; length = 9
+              0x112233445566778899
+            forwardedToSubaddress ISDN-SubaddressString OCTET STRING: tag = [8] primitive; length = 1
+              0x11
+            forwardingOptions Ext-ForwOptions OCTET STRING: tag = [6] primitive; length = 1
+              0x11
+            noReplyConditionTime Ext-NoRepCondTime INTEGER: tag = [7] primitive; length = 1
+              30
+    Ext-SS-Info CHOICE
+      callBarringInfo Ext-CallBarInfo SEQUENCE: tag = [1] constructed; length = 4
+D0047E: Tag not recognized: [UNIVERSAL 16]; check field 'callBarringInfo' (type: Ext-CallBarInfo) of element #2 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+        *SKIPPED*: tag = [UNIVERSAL 16] constructed; length = 2
+          <skipped>
+D0049E: Field omitted: "ss-Code"; check field 'callBarringInfo' (type: Ext-CallBarInfo) of element #2 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+D0049E: Field omitted: "callBarringFeatureList"; check field 'callBarringInfo' (type: Ext-CallBarInfo) of element #2 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+    Ext-SS-Info CHOICE
+      cug-Info CUG-Info SEQUENCE: tag = [2] constructed; length = 16
+        cug-SubscriptionList CUG-SubscriptionList SEQUENCE OF: tag = [UNIVERSAL 16] constructed; length = 14
+          CUG-Subscription SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 12
+            cug-Index CUG-Index INTEGER: tag = [UNIVERSAL 2] primitive; length = 1
+              0
+            cug-Interlock CUG-Interlock OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 4
+              0x11223344
+            intraCUG-Options IntraCUG-Options ENUMERATED: tag = [UNIVERSAL 10] primitive; length = 1
+              0
+    Ext-SS-Info CHOICE
+      ss-Data Ext-SS-Data SEQUENCE: tag = [3] constructed; length = 0
+D0049E: Field omitted: "ss-Code"; check field 'ss-Data' (type: Ext-SS-Data) of element #4 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+D0049E: Field omitted: "ss-Status"; check field 'ss-Data' (type: Ext-SS-Data) of element #4 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+  odb-Data ODB-Data SEQUENCE: tag = [8] constructed; length = 4
+    odb-GeneralData ODB-GeneralData BIT STRING: tag = [UNIVERSAL 3] primitive; length = 2
+      0x0280
+  roamingRestrictionDueToUnsupportedFeature NULL: tag = [9] primitive; length = 0
+    NULL
+  regionalSubscriptionData ZoneCodeList SEQUENCE OF: tag = [10] constructed; length = 4
+    ZoneCode OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 2
+      0x1122
+Error 5 decoding in 0 bytes.
+D0047E: Tag not recognized: [UNIVERSAL 16]; check field 'callBarringInfo' (type: Ext-CallBarInfo) of element #2 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+Encoding freed.
+
+
+The above shows that with the V4 version there is a problems if some of the
+fileds are missing.  In particular, in V2 we have the definitions:
+
+SS-Info ::= CHOICE {
+    forwardingInfo [0] ForwardingInfo,
+    callBarringInfo [1] CallBarringInfo,
+    cug-Info [2] CUG-Info,
+    ss-Data [3] SS-Data
+}
+
+CallBarringInfo ::= SEQUENCE { 
+    ss-Code SS-Code OPTIONAL,
+    callBarringFeatureList CallBarringFeatureList,
+    ...
+}
+
+CallBarringFeatureList ::= SEQUENCE SIZE((1..maxNumOfBasicServiceGroups)) OF
+						CallBarringFeature
+
+
+CallBarringFeature ::= SEQUENCE { 
+    basicService BasicServiceCode OPTIONAL, 
+    ss-Status [4] SS-Status OPTIONAL, 
+    ...
+}
+
+and in V4:
+
+Ext-SS-Info ::= CHOICE {
+    forwardingInfo  [0] Ext-ForwInfo,
+    callBarringInfo [1] Ext-CallBarInfo,
+    cug-Info        [2] CUG-Info,
+    ss-Data     [3] Ext-SS-Data,
+    emlpp-Info  [4] EMLPP-Info
+}
+
+Ext-CallBarInfo ::= SEQUENCE {
+    ss-Code     SS-Code,
+    callBarringFeatureList  Ext-CallBarFeatureList,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+Ext-CallBarFeatureList ::= SEQUENCE (SIZE(1..maxNumOfExt-BasicServiceGroups))
+						OF Ext-CallBarringFeature
+
+Ext-CallBarringFeature ::= SEQUENCE {
+    basicService    Ext-BasicServiceCode    OPTIONAL,
+    ss-Status   [4] Ext-SS-Status,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+The error messages from the decoder
+
+D0049E: Field omitted: "ss-Code"; check field 'ss-Data' (type: Ext-SS-Data) of element #4 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+D0049E: Field omitted: "ss-Status"; check field 'ss-Data' (type: Ext-SS-Data) of element #4 (type: Ext-SS-Info) of field 'provisionedSS' (type: Ext-SS-InfoList) of PDU #18 'InsertSubscriberDataArg'.
+
+INDICATE THAT THE "ss-code" AND "ss-Status" FIELDS IN V4 ARE MANDATORY FIELDS
+WHILE IN V2 THEY ARE OPTIONAL.  IN V2 IT IS OK TO DROP THEM (WHICH IS THE CASE
+IN THIS PARTICULAR EXAMPLE) WHILE IN V4 THEY ARE EXPECTED TO BE PRESENT ALWAYS.
+SO THERE IS ONLY PARTIAL COMPATIBILITY BETWEEN V4 AND V2 FOR THE
+INSERTSUBSCRIBERDATAARG PDU.
+
+
+3.5. ResetArg
+
+V2:
+
+ResetArg ::= SEQUENCE { 
+    networkResource NetworkResource OPTIONAL, 
+    hlr-Number ISDN-AddressString, 
+    hlr-List HLR-List OPTIONAL, 
+    ...
+}
+
+V4:
+
+ResetArg ::= SEQUENCE {
+    hlr-Number ISDN-AddressString,
+    hlr-List   HLR-List OPTIONAL,
+    ...
+}
+
+The problem occurs when the V2 optional field "networkResourse" is present:
+
+Error 5 decoding in 0 bytes.
+D0047E: Tag not recognized: [UNIVERSAL 10]; check PDU #28 'ResetArg'.
+
+If "networkResourse" IS PRESENT, THE V4 RESULTS IN THE ABOVE ERROR.  SO WE CAN
+TALK ABOUT ONLY PARTIAL COMPATIBILITY IN THIS CASE.
+
+
+3.6. ProvideRoamingNumberArg
+
+V2:
+
+ProvideRoamingNumberArg ::= SEQUENCE {
+    imsi                  [0] IMSI,
+    msc-Number            [1] ISDN-AddressString OPTIONAL,
+    msisdn                [2] ISDN-AddressString OPTIONAL,
+    previousRoamingNumber [3] ISDN-AddressString OPTIONAL,
+    lmsi                  [4] LMSI               OPTIONAL,
+    gsm-BearerCapability  [5] ExternalSignalInfo OPTIONAL,
+    networkSignalInfo     [6] ExternalSignalInfo OPTIONAL,
+    ...
+}
+
+
+V4:
+
+ProvideRoamingNumberArg ::= SEQUENCE {
+    imsi                  [0] IMSI,
+    msc-Number            [1] ISDN-AddressString,
+    msisdn                [2] ISDN-AddressString  OPTIONAL,
+    lmsi                  [4] LMSI                OPTIONAL,
+    gsm-BearerCapability  [5] ExternalSignalInfo  OPTIONAL,
+    networkSignalInfo     [6] ExternalSignalInfo  OPTIONAL,
+    suppressionOfAnnouncement [7] SuppressionOfAnnouncement OPTIONAL,
+    gmsc-Address          [8] ISDN-AddressString  OPTIONAL,
+    callReferenceNumber   [9] CallReferenceNumber OPTIONAL,
+    or-Interrogation     [10] NULL                OPTIONAL,
+    extensionContainer   [11] ExtensionContainer  OPTIONAL,
+    ... ,
+    alertingPattern      [12] AlertingPattern     OPTIONAL,
+    ccbs-Call            [13] NULL                OPTIONAL
+}
+
+
+Passing the value
+
+provideRoamingNumberArg1 ProvideRoamingNumberArg ::= {
+    imsi '112233'H
+}
+
+results in the following V4 decoder errror messages:
+
+ProvideRoamingNumberArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 5
+  imsi IMSI OCTET STRING: tag = [0] primitive; length = 3
+    0x112233
+D0049E: Field omitted: "msc-Number"; check PDU #42 'ProvideRoamingNumberArg'.
+Error 5 decoding in 0 bytes.
+D0049E: Field omitted: "msc-Number"; check PDU #42 'ProvideRoamingNumberArg'.
+Encoding freed.
+
+While passing the value
+
+provideRoamingNumberArg2 ProvideRoamingNumberArg ::= {
+    imsi '1122334455667788'H,
+    msc-Number '112233445566778899'H,
+    msisdn '112233445566778899'H,
+    previousRoamingNumber '112233445566778899'H,
+    lmsi '11223344'H,
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    },
+    networkSignalInfo {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+produces:
+
+ProvideRoamingNumberArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 467
+  imsi IMSI OCTET STRING: tag = [0] primitive; length = 8
+    0x1122334455667788
+  msc-Number ISDN-AddressString OCTET STRING: tag = [1] primitive; length = 9
+    0x112233445566778899
+  msisdn ISDN-AddressString OCTET STRING: tag = [2] primitive; length = 9
+    0x112233445566778899
+  *SKIPPED*: tag = [3] primitive; length = 9
+    <skipped>
+  *SKIPPED*: tag = [4] primitive; length = 4
+    <skipped>
+  *SKIPPED*: tag = [5] constructed; length = 206
+    <skipped>
+  *SKIPPED*: tag = [6] constructed; length = 206
+    <skipped>
+Decoded in 544 bytes.
+	Decoded PDU...
+value ProvideRoamingNumberArg ::= 
+{
+  imsi '1122334455667788'H,
+  msc-Number '112233445566778899'H,
+  msisdn '112233445566778899'H
+}
+
+SO V4 DECODER CAN HANDLE THE V2 ENCODED VALUE IF THE V4 MANDATORY FIELD
+"msc-Number" IS PRESENT.
+
+
+3.7. InterrogateSS-Res
+
+V2:
+
+InterrogateSS-Res ::= CHOICE {
+    ss-Status             [0] SS-Status,
+    forwardedToNumber     [1] ISDN-AddressString,
+    basicServiceGroupList [2] BasicServiceGroupList,
+    forwardingFeatureList [3] ForwardingFeatureList,
+    cli-RestrictionInfo   [4] Cli-RestrictionInfo
+}
+
+V4:
+
+InterrogateSS-Res ::= CHOICE {
+    ss-Status             [0] SS-Status,
+    basicServiceGroupList [2] BasicServiceGroupList,
+    forwardingFeatureList [3] ForwardingFeatureList,
+    genericServiceInfo    [4] GenericServiceInfo
+}
+
+Passing the value:
+
+interrogateSS-Res2a InterrogateSS-Res ::= forwardedToNumber: '11'H
+
+results in:
+
+InterrogateSS-Res CHOICE
+D0047E: Tag not recognized: [1]; check PDU #58 'InterrogateSS-Res'.
+  *SKIPPED*: tag = [1] primitive; length = 1
+    <skipped>
+Error 5 decoding in 0 bytes.
+D0047E: Tag not recognized: [1]; check PDU #58 'InterrogateSS-Res'.
+Encoding freed.
+
+because V4 is missing the field "forwardedToNumber".  SO THERE IS ONLY PARTIAL
+COMPATIBILITY BWTWEEN V2 AND V4.
+
+
+3.8. GuidanceInfo
+
+V2:
+
+GuidanceInfo ::= ENUMERATED { 
+    enterPW              (0),
+    enterNewPW           (1),
+    enterNewPW-Again     (2),
+    badPW-TryAgain       (3),
+    badPW-FormatTryAgain (4)
+}
+
+V4:
+
+GuidanceInfo ::= ENUMERATED {
+    enterPW              (0),
+    enterNewPW           (1),
+    enterNewPW-Again     (2)
+}
+
+Passing the value:
+
+guidanceInfo4 GuidanceInfo ::= badPW-TryAgain
+
+results in the V4 decoder issuing the error message:
+
+D0071S: Value not among the ENUMERATED: 3; check PDU #62 'GuidanceInfo'.
+Error 17 decoding in 8 bytes.
+
+So this PDU is not backward compatible in a strict sense.  Disabling constraint
+checking, though, will force the V4 decoder to not exit with an error but in
+this case the value of the above V2 PDU might not be what is expected by V4.
+This PDU IS PARTIALLY BACWARD COMPATIBLE.
+
+
+3.9. RoutingInfoForSM-Arg
+
+V2:
+
+RoutingInfoForSM-Arg ::= SEQUENCE {
+    msisdn                  [0] ISDN-AddressString,
+    sm-RP-PRI               [1] BOOLEAN,
+    serviceCentreAddress    [2] AddressString,
+    teleservice             [5] TeleserviceCode OPTIONAL,
+    ...
+}
+
+V4:
+
+RoutingInfoForSM-Arg ::= SEQUENCE {
+    msisdn                  [0] ISDN-AddressString,
+    sm-RP-PRI               [1] BOOLEAN,
+    serviceCentreAddress    [2] AddressString,
+    extensionContainer      [6] ExtensionContainer  OPTIONAL,
+    ...,
+    gprsSupportIndicator    [7] NULL        OPTIONAL,
+    sm-RP-MTI               [8] SM-RP-MTI   OPTIONAL,
+    sm-RP-SMEA              [9] SM-RP-SMEA  OPTIONAL
+}
+
+Passing the V2 value:
+
+routingInfoForSM-Arg2 RoutingInfoForSM-Arg ::= {
+    msisdn '112233445566778899'H,
+    sm-RP-PRI TRUE,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    teleservice '11'H
+}
+
+results in the following trace from the V4 decoder:
+
+RoutingInfoForSM-Arg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 39
+  msisdn ISDN-AddressString OCTET STRING: tag = [0] primitive; length = 9
+    0x112233445566778899
+  sm-RP-PRI BOOLEAN: tag = [1] primitive; length = 1
+    TRUE
+  serviceCentreAddress AddressString OCTET STRING: tag = [2] primitive; length = 20
+    0x1122334455667788990011223344556677889900
+  *SKIPPED*: tag = [5] primitive; length = 1
+    <skipped>
+Decoded in 72 bytes.
+	Decoded PDU...
+value RoutingInfoForSM-Arg ::= 
+{
+  msisdn '112233445566778899'H,
+  sm-RP-PRI TRUE,
+  serviceCentreAddress '1122334455667788990011223344556677889900'H
+}
+
+The above looks ok.  The V4 decoder just skips the field that it cannot
+understand.  In general, it is better to not use the optional V2 field
+"teleservice" to make this PDU fully backward compatible with V4.
+
+
+3.10. ReportSM-DeliveryStatusArg
+
+V2:
+
+ReportSM-DeliveryStatusArg ::= SEQUENCE {
+    msisdn ISDN-AddressString,
+    serviceCentreAddress AddressString,
+    sm-DeliveryOutcome SM-DeliveryOutcome OPTIONAL,
+    ...
+}
+
+V4:
+
+ReportSM-DeliveryStatusArg ::= SEQUENCE {
+    msisdn                  ISDN-AddressString,
+    serviceCentreAddress    AddressString,
+    sm-DeliveryOutcome      SM-DeliveryOutcome,
+    absentSubscriberDiagnosticSM [0] AbsentSubscriberDiagnosticSM OPTIONAL,
+    extensionContainer           [1] ExtensionContainer OPTIONAL,
+    ...,
+    gprsSupportIndicator         [2] NULL               OPTIONAL,
+    deliveryOutcomeIndicator     [3] NULL               OPTIONAL,
+    additionalSM-DeliveryOutcome [4] SM-DeliveryOutcome OPTIONAL,
+    additionalAbsentSubscriberDiagnosticSM [5] AbsentSubscriberDiagnosticSM OPTIONAL
+}
+
+The V2 value:
+
+reportSM-DeliveryStatusArg1 ReportSM-DeliveryStatusArg ::= {
+    msisdn '11'H,
+    serviceCentreAddress '11'H
+}
+
+results in the following trace output:
+
+ReportSM-DeliveryStatusArg SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 6
+  msisdn ISDN-AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 1
+    0x11
+  serviceCentreAddress AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 1
+    0x11
+D0049E: Field omitted: "sm-DeliveryOutcome"; check PDU #76 'ReportSM-DeliveryStatusArg'.
+Error 5 decoding in 0 bytes.
+D0049E: Field omitted: "sm-DeliveryOutcome"; check PDU #76 'ReportSM-DeliveryStatusArg'.
+Encoding freed.
+
+which is because the V4 mandatory field "sm-DeliveryOutcome" is optional in V2.
+SO THERE IS NO PROBLEM IF THIS FIELD IS PRESENT IN V2.
+
+
+3.11. SM-DeliveryFailureCause
+
+V2:
+
+SM-DeliveryFailureCause ::= CHOICE {
+    sm-DeliveryFailureCauseWithDiagnostic SM-DeliveryFailureCauseWithDiagnostic,
+    sm-EnumeratedDeliveryFailureCause     SM-EnumeratedDeliveryFailureCause
+}
+
+SM-DeliveryFailureCauseWithDiagnostic ::= SEQUENCE {
+    sm-EnumeratedDeliveryFailureCause SM-EnumeratedDeliveryFailureCause,
+    diagnosticInfo SignalInfo OPTIONAL,
+    ...
+}
+
+V4:
+
+SM-DeliveryFailureCause ::= SEQUENCE {
+    sm-EnumeratedDeliveryFailureCause  SM-EnumeratedDeliveryFailureCause,
+    diagnosticInfo                     SignalInfo         OPTIONAL,
+    extensionContainer                 ExtensionContainer OPTIONAL,
+    ...
+}
+
+
+If the V2 value passed is:
+
+sM-DeliveryFailureCause2 SM-DeliveryFailureCause ::=
+		sm-EnumeratedDeliveryFailureCause: subscriberNotSC-Subscriber
+
+the we get from the V4 decoder:
+
+D0034E: PDU and input tags do not match: [UNIVERSAL 10]; check PDU #90.
+Error 9 decoding in 0 bytes.
+D0034E: PDU and input tags do not match: [UNIVERSAL 10]; check PDU #90.
+Encoding freed.
+
+which is because the PDU type was changed from V2 to V4 and, thus, the only
+possible value for backward compatibility is 
+
+
+4. MAP V2 PDUs That Cannot Be Successfully Decoded By V4 Decoder
+
+CancelLocationArg
+PerformHO-Arg
+PerformHO-Res
+PerformSubsequentHO-Arg
+SendParametersArg
+SentParameterList
+TraceSubscriberActivityArg
+NoteInternalHO-Arg
+SendRoutingInfoArg
+SendRoutingInfoRes
+SS-UserData
+BeginSubscriberActivityArg
+RoutingInfoForSM-Res
+ForwardSM-Arg
+
+
+4.1. CancelLocationArg
+
+V2:
+
+CancelLocationArg ::= CHOICE { 
+    imsi          IMSI, 
+    imsi-WithLMSI IMSI-WithLMSI
+}
+
+V4:
+
+CancelLocationArg ::= SEQUENCE {
+    identity             Identity,
+    cancellationType    CancellationType   OPTIONAL,
+    extensionContainer  ExtensionContainer OPTIONAL,
+    ...
+}
+
+The following 3 V2 values were used for testing:
+
+
+cancelLocationArg1 CancelLocationArg ::= imsi: '1122334455667788'H
+
+
+cancelLocationArg2 CancelLocationArg ::= imsi: '112233'H
+
+
+cancelLocationArg3 CancelLocationArg ::= imsi-WithLMSI: {
+    imsi '1122334455667788'H,
+    lmsi '11223344'H
+}
+
+>From the first glance it is obvious that the above 2 PDU types are 100%
+incompatible.  The kind of messages that the V4 decoder generates are:
+
+========= Run 18 of the BER decoder on encoded original PDU =========
+Flags passed: AUTOMATIC_ENCDEC+DEBUGPDU+INDEFINITE, NO BUFFER PROVIDED.
+D0034E: PDU and input tags do not match: [UNIVERSAL 4]; check PDU #5.
+Error 9 decoding in 0 bytes.
+D0034E: PDU and input tags do not match: [UNIVERSAL 4]; check PDU #5.
+Encoding freed.
+Testing failed for the value "V2_cancelLocationArg2".
+
+
+4.2. PerformHO-Arg
+
+V2:
+
+PerformHO-Arg ::= SEQUENCE { 
+    targetCellId GlobalCellId, 
+    servingCellId GlobalCellId, 
+    channelType ChannelType, 
+    classmarkInfo ClassmarkInfo, 
+    handoverPriority [11] HandoverPriority OPTIONAL, 
+    kc [12] Kc OPTIONAL
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.3. PerformHO-Res
+
+V2:
+
+PerformHO-Res ::= SEQUENCE { 
+    handoverNumber ISDN-AddressString, 
+    accessSignalInfo ExternalSignalInfo
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.4. PerformSubsequentHO-Arg
+
+V2:
+
+PerformSubsequentHO-Arg ::= SEQUENCE {
+    targetCellId GlobalCellId, 
+    servingCellId GlobalCellId, 
+    targetMSC-Number ISDN-AddressString, 
+    classmarkInfo [10] ClassmarkInfo OPTIONAL
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.5. SendParametersArg
+
+V2:
+
+SendParametersArg ::= SEQUENCE { 
+    subscriberId SubscriberId, 
+    requestParameterList RequestParameterList
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.6. SentParameterList
+
+V2:
+
+SentParameterList ::= SEQUENCE SIZE (1..maxNumOfSentParameter) OF SentParameter
+
+SentParameter ::= CHOICE { 
+    imsi [0] IMSI, 
+    authenticationSet [1] AuthenticationSet, 
+    subscriberData [2] SubscriberData, 
+    ki [4] Ki
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.7. TraceSubscriberActivityArg
+
+V2:
+
+TraceSubscriberActivityArg ::= SEQUENCE {
+    imsi [0] IMSI OPTIONAL,
+    traceReference [1] TraceReference,
+    traceType [2] TraceType,
+    omc-Id [3] AddressString OPTIONAL,
+    callReference [4] CallReference OPTIONAL
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.8. NoteInternalHO-Arg
+
+V2:
+
+NoteInternalHO-Arg ::= SEQUENCE {
+    handoverType HandoverType,
+    targetCellId [1] GlobalCellId OPTIONAL,
+    channelId [2] ExternalSignalInfo OPTIONAL
+}
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.9. SendRoutingInfoArg
+
+V2:
+
+SendRoutingInfoArg ::= SEQUENCE {
+    msisdn             [0] ISDN-AddressString,
+    cug-CheckInfo      [1] CUG-CheckInfo       OPTIONAL,
+    numberOfForwarding [2] NumberOfForwarding  OPTIONAL,
+    networkSignalInfo  [10] ExternalSignalInfo OPTIONAL,
+    ...
+}
+
+V4:
+
+SendRoutingInfoArg ::= SEQUENCE {
+    msisdn              [0] ISDN-AddressString,
+    cug-CheckInfo       [1] CUG-CheckInfo        OPTIONAL,
+    numberOfForwarding  [2] NumberOfForwarding   OPTIONAL,
+    interrogationType   [3] InterrogationType,
+    or-Interrogation    [4] NULL                 OPTIONAL,
+    or-Capability       [5] OR-Phase             OPTIONAL,
+    gmsc-Address        [6] ISDN-AddressString,
+    callReferenceNumber [7] CallReferenceNumber  OPTIONAL,
+    forwardingReason    [8] ForwardingReason     OPTIONAL,
+    basicServiceGroup   [9] Ext-BasicServiceCode OPTIONAL,
+    networkSignalInfo   [10] ExternalSignalInfo  OPTIONAL,
+    camelInfo           [11] CamelInfo           OPTIONAL,
+    suppressionOfAnnouncement [12] SuppressionOfAnnouncement OPTIONAL,
+    extensionContainer  [13] ExtensionContainer  OPTIONAL,
+    ...,
+    alertingPattern [14] AlertingPattern         OPTIONAL,
+    ccbs-Call           [15] NULL                OPTIONAL,
+    supportedCCBS-Phase [16] SupportedCCBS-Phase OPTIONAL
+}
+
+
+If the value
+
+sendRoutingInfoArg1 SendRoutingInfoArg ::= {
+    msisdn '11'H
+}
+
+is passed, the error messsage from the decoder is:
+
+D0049E: Field omitted: "interrogationType"; check PDU #39 'SendRoutingInfoArg'.
+D0049E: Field omitted: "gmsc-Address"; check PDU #39 'SendRoutingInfoArg'.
+Error 5 decoding in 0 bytes.
+
+Unfortunately, the above 2 PDUs have different extension roots (the set of
+fields coming before the the extension marker "...").  In V4 the extension
+root contains 2 mandatory fields that are missing in the extension root of V2.
+The missing mandatory fields are: interrogationType & gmsc-Address.  This makes
+it impossible to decode with the V4 decoder.  AS A RESULT, THESE 2 PDUS ARE
+INCOMPATIBLE.
+
+
+4.10. SendRoutingInfoRes
+
+V2:
+
+SendRoutingInfoRes ::= SEQUENCE {
+    imsi IMSI,
+    routingInfo RoutingInfo,
+    cug-CheckInfo CUG-CheckInfo                 OPTIONAL,
+    ...
+}
+
+V4:
+
+SendRoutingInfoRes ::= SEQUENCE {
+    imsi            [9] IMSI                    OPTIONAL,
+    extendedRoutingInfo ExtendedRoutingInfo     OPTIONAL,
+    cug-CheckInfo   [3] CUG-CheckInfo           OPTIONAL,
+    cugSubscriptionFlag [6] NULL                OPTIONAL,
+    subscriberInfo  [7] SubscriberInfo          OPTIONAL,
+    ss-List         [1] SS-List                 OPTIONAL,
+    basicService    [5] Ext-BasicServiceCode    OPTIONAL,
+    forwardingInterrogationRequired [4] NULL    OPTIONAL,
+    vmsc-Address    [2] ISDN-AddressString      OPTIONAL,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...,
+    naea-PreferredCI[10] NAEA-PreferredCI       OPTIONAL,
+    ccbs-Indicators [11] CCBS-Indicators        OPTIONAL
+}
+
+
+Passing the value:
+
+sendRoutingInfoRes1 SendRoutingInfoRes ::= {
+    imsi '112233'H,
+    routingInfo roamingNumber: '11'H
+}
+
+results in the following trace from the decoder:
+
+SendRoutingInfoRes SEQUENCE: tag = [UNIVERSAL 16] constructed; length = indef
+  extendedRoutingInfo ExtendedRoutingInfo CHOICE
+    roamingNumber ISDN-AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 3
+      0x112233
+  *SKIPPED*: tag = [UNIVERSAL 4] primitive; length = 1
+    <skipped>
+EOC
+Decoded in 344 bytes.
+	Decoded PDU...
+value SendRoutingInfoRes ::= 
+{
+  extendedRoutingInfo roamingNumber : '112233'H
+}
+
+Although there is no severe error from the decoder, the result of the decoding
+is not good because in V2 the "imsi" field is mandatory while in V4 it is
+optional and has a different tag, [9], which results in the V4 decoder not
+recognizing it.  The V4 decoder mistakenly assigns the "imsi" value to the
+next CHOICE field "roamingNumber".
+
+The same is true if we pass the full V2 value with all the optional fields
+present:
+
+sendRoutingInfoRes2 SendRoutingInfoRes ::= {
+    imsi '1122334455667788'H,
+    routingInfo forwardingData: {
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '11'H
+    },
+    cug-CheckInfo {
+	cug-Interlock '11223344'H,
+	cug-OutgoingAccess NULL
+    }
+}
+
+The V4 decoder trace in this case is:
+
+SendRoutingInfoRes SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 59
+  extendedRoutingInfo ExtendedRoutingInfo CHOICE
+    roamingNumber ISDN-AddressString OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 8
+      0x1122334455667788
+  *SKIPPED*: tag = [UNIVERSAL 16] constructed; length = 37
+    <skipped>
+  *SKIPPED*: tag = [UNIVERSAL 16] constructed; length = 8
+    <skipped>
+Decoded in 344 bytes.
+	Decoded PDU...
+value SendRoutingInfoRes ::= 
+{
+  extendedRoutingInfo roamingNumber : '1122334455667788'H
+}
+
+which is effectively the same as in the case of sendRoutingInfoRes1.  So
+although there is no critical error coming from the decoder, the latter is
+confused by the fact that the tag of "imsi" is different in V4. THIS MAKES
+V4 INCOMPATIBLE WITH V2. 
+
+
+4.11. SS-UserData
+
+V2:
+
+SS-UserData ::= IA5String (SIZE (1.. maxSignalInfoLength))
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.12. BeginSubscriberActivityArg
+
+V2:
+
+BeginSubscriberActivityArg ::= SEQUENCE {
+    imsi IMSI, 
+    originatingEntityNumber ISDN-AddressString
+}
+
+V4:
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+
+4.13. RoutingInfoForSM-Res
+
+V2:
+
+RoutingInfoForSM-Res::= SEQUENCE {
+    imsi                     IMSI,
+    locationInfoWithLMSI [0] LocationInfoWithLMSI,
+    mwd-Set              [2] BOOLEAN OPTIONAL,
+    ...
+}
+
+LocationInfoWithLMSI ::= SEQUENCE {
+    locationInfo LocationInfo,
+    lmsi LMSI OPTIONAL,
+    ...
+}
+
+V4:
+
+RoutingInfoForSM-Res::= SEQUENCE {
+    imsi                     IMSI,
+    locationInfoWithLMSI [0] LocationInfoWithLMSI,
+    extensionContainer   [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+LocationInfoWithLMSI ::= SEQUENCE {
+    networkNode-Number  [1] ISDN-AddressString,
+    lmsi                    LMSI               OPTIONAL,
+    extensionContainer      ExtensionContainer OPTIONAL,
+    ...,
+    gprsNodeIndicator   [5] NULL               OPTIONAL,
+    additional-Number   [6] Additional-Number  OPTIONAL
+}
+
+
+If we pass the V2 value:
+
+routingInfoForSM-Res1 RoutingInfoForSM-Res ::= {
+    imsi '112233'H,
+    locationInfoWithLMSI {
+	locationInfo roamingNumber: '11'H
+
+    }
+}
+
+then the V4 decoder trace is:
+
+RoutingInfoForSM-Res SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 10
+  imsi IMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 3
+    0x112233
+  locationInfoWithLMSI LocationInfoWithLMSI SEQUENCE: tag = [0] constructed; length = 3
+D0047E: Tag not recognized: [0]; check field 'locationInfoWithLMSI' (type: LocationInfoWithLMSI) of PDU #71 'RoutingInfoForSM-Res'.
+    *SKIPPED*: tag = [0] primitive; length = 1
+      <skipped>
+D0049E: Field omitted: "networkNode-Number"; check field 'locationInfoWithLMSI' (type: LocationInfoWithLMSI) of PDU #71 'RoutingInfoForSM-Res'.
+Error 5 decoding in 0 bytes.
+D0047E: Tag not recognized: [0]; check field 'locationInfoWithLMSI' (type: LocationInfoWithLMSI) of PDU #71 'RoutingInfoForSM-Res'.
+Encoding freed.
+
+The problem is because the V2 and V4 types LocationInfoWithLMSI have different
+extension roots and tags.
+
+
+On the other hand, if the V2 value passed is:
+
+routingInfoForSM-Res2 RoutingInfoForSM-Res ::= {
+    imsi '1122334455667788'H,
+    locationInfoWithLMSI {
+	locationInfo msc-Number: '112233445566778899'H,
+	lmsi '11223344'H
+    },
+    mwd-Set TRUE
+}
+
+The V4 decoder trace output is:
+
+RoutingInfoForSM-Res SEQUENCE: tag = [UNIVERSAL 16] constructed; length = 32
+  imsi IMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 8
+    0x1122334455667788
+  locationInfoWithLMSI LocationInfoWithLMSI SEQUENCE: tag = [0] constructed; length = 17
+    networkNode-Number ISDN-AddressString OCTET STRING: tag = [1] primitive; length = 9
+      0x112233445566778899
+    lmsi LMSI OCTET STRING: tag = [UNIVERSAL 4] primitive; length = 4
+      0x11223344
+  *SKIPPED*: tag = [2] primitive; length = 1
+    <skipped>
+Decoded in 72 bytes.
+	Decoded PDU...
+value RoutingInfoForSM-Res ::= 
+{
+  imsi '1122334455667788'H,
+  locationInfoWithLMSI 
+  {
+    networkNode-Number '112233445566778899'H,
+    lmsi '11223344'H
+  }
+}
+
+The V4 decoder is tricked to believe that the V2 fileld "msc-Number" is
+"networkNode-Number" resulting in a PDU that is not what is expected.  It is
+difficult to talk about V4 backward compatibility in this case.
+
+
+4.14. ForwardSM-Arg
+
+V2:
+
+ForwardSM-Arg ::= SEQUENCE {
+    sm-RP-DA SM-RP-DA,
+    sm-RP-OA SM-RP-OA,
+    sm-RP-UI SignalInfo,
+    moreMessagesToSend NULL OPTIONAL,
+    ...
+}
+
+V4:
+
+V4: None.
+
+THIS PDU IS ABSENT IN V4, SO IT CANNOT BE SUCCESSFULLY DECODED BY V4.
+
+On the other hand, there is the following PDU in V4:
+
+MO-ForwardSM-Arg ::= SEQUENCE {
+    sm-RP-DA        SM-RP-DA,
+    sm-RP-OA        SM-RP-OA,
+    sm-RP-UI        SignalInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+V2:
+
+SM-RP-DA ::= CHOICE {
+    imsi          [0] IMSI,
+    lmsi          [1] LMSI,
+    roamingNumber [3] ISDN-AddressString,
+    serviceCentreAddressDA [4] AddressString,
+    noSM-RP-DA    [5] NULL
+}
+
+SM-RP-OA ::= CHOICE {
+    msisdn        [2] ISDN-AddressString,
+    serviceCentreAddressOA [4] AddressString,
+    noSM-RP-OA    [5] NULL
+}
+
+SignalInfo ::= OCTET STRING (SIZE (1..maxSignalInfoLength))
+
+V4:
+
+SM-RP-DA ::= CHOICE {
+    imsi          [0] IMSI,
+    lmsi          [1] LMSI,
+    serviceCentreAddressDA [4] AddressString,
+    noSM-RP-DA    [5] NULL
+}
+
+SM-RP-OA ::= CHOICE {
+    msisdn        [2] ISDN-AddressString,
+    serviceCentreAddressOA [4] AddressString,
+    noSM-RP-OA    [5] NULL
+}
+
+SignalInfo ::= OCTET STRING (SIZE (1..maxSignalInfoLength))
+
+Based on the above definitions, it is clear that if MO-ForwardSM-Arg is used by
+the V4 decoder, then it is possible to decode the V2 PDUs if the CHOICE types
+above have proper types chosen.
+

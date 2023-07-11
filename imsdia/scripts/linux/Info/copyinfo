@@ -1,0 +1,117 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: copyinfo,v 3.1 2008/03/31 10:33:28 nvijikumar Exp $
+#
+# LOG: $Log: copyinfo,v $
+# LOG: Revision 3.1  2008/03/31 10:33:28  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:22:43  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.5  2006/07/03 12:47:30  nvijikumar
+# LOG: Changes to copy the demo and client dirs.
+# LOG:
+# LOG: Revision 1.4  2006/06/21 10:52:24  nvijikumar
+# LOG: Modification for Copyright info.
+# LOG:
+# LOG: Revision 1.3  2006/05/12 04:35:14  nvijikumar
+# LOG: Changes to copy the IMS related information.
+# LOG:
+# LOG: Revision 1.2  2006/03/06 13:47:34  yranade
+# LOG: Typo fix.
+# LOG:
+# LOG: Revision 1.1  2006/03/06 13:19:15  nvijikumar
+# LOG: Baseline scripts to collect the system info on linux box
+# LOG:
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+rm -rf etc_info
+mkdir etc_info
+cd etc_info
+cp -r /etc/auto.master .
+cp -p /etc/hosts .
+cp -r /etc/sysconfig/network* .
+cp -p /etc/resolv.conf .
+cp -p /etc/exports .
+cp -p /etc/fstab .
+cp -p /etc/inittab .
+cp -p /etc/sysctl.conf .
+cp -p /etc/mtab ./etc
+cp -p /etc/named.conf .
+cp -p /etc/nsswitch.conf .
+cp -p /etc/rpc .
+cp -p /etc/redhat-release .
+cp -p /etc/services ./etc
+
+cp -r /etc/host*   .
+cp -p /etc/inittab      .
+cp -p /etc/syslog.conf  .
+chkconfig --list > chkconfig.list
+
+cd ..
+
+mkdir proc
+cp /proc/cpuinfo proc
+top -n 1 > proc/top
+
+#
+#IMS related information.
+#
+if [ -d /opt/IntelliNet ]
+then
+    for dir in `ls -l /opt/IntelliNet`
+    do
+        if [ -d /opt/IntelliNet/$dir/config ]
+        then
+            mkdir -p IntelliNet/$dir/config
+            cp -r /opt/IntelliNet/$dir/config/* IntelliNet/$dir/config/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/bin ]
+        then
+            mkdir -p IntelliNet/$dir/bin
+            cp -r /opt/IntelliNet/$dir/bin/* IntelliNet/$dir/bin/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/logs ]
+        then
+            mkdir -p IntelliNet/$dir/logs
+            cp -r /opt/IntelliNet/$dir/logs/* IntelliNet/$dir/logs/.
+        fi
+        if [ -d /opt/IntelliNet/$dir/demo ]
+        then
+            mkdir -p IntelliNet/$dir/demo
+            cp -r /opt/IntelliNet/$dir/demo/bin IntelliNet/$dir/demo
+        fi
+        if [ -d /opt/IntelliNet/$dir/iclient ]
+        then
+            mkdir -p IntelliNet/$dir/client
+            cp -r /opt/IntelliNet/$dir/client/demo IntelliNet/$dir/client
+        fi
+
+    done
+fi

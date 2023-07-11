@@ -1,0 +1,17 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_asp_up
+
+DESCRIPTION
+    This command sends asp up for ASP.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> mu_asp_up
+
+    *********** ASP UP Sent *************
+

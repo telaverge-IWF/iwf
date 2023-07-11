@@ -1,0 +1,404 @@
+/****************************************************************************
+ *                                                                          *
+ *     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    *
+ *             Manufactured in the United States of America.                *
+ *       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       *
+ *                                                                          *
+ *   This product and related documentation is protected by copyright and   *
+ *   distributed under licenses restricting its use, copying, distribution  *
+ *   and decompilation.  No part of this product or related documentation   *
+ *   may be reproduced in any form by any means without prior written       *
+ *   authorization of IntelliNet Technologies and its licensors, if any.    *
+ *                                                                          *
+ *   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      *
+ *   government is subject to restrictions as set forth in subparagraph     *
+ *   (c)(1)(ii) of the Rights in Technical Data and Computer Software       *
+ *   clause at DFARS 252.227-7013 and FAR 52.227-19.                        *
+ *                                                                          *
+ ****************************************************************************
+ *                                                                          *
+ * CONTRACT: INTERNAL                                                       *
+ *                                                                          *
+ ****************************************************************************
+ *
+ * ID: $Id: diameter.sablecc,v 3.1.30.1 2012/09/06 11:30:45 jvikas Exp $
+ *
+ * LOG: $Log: diameter.sablecc,v $
+ * LOG: Revision 3.1.30.1  2012/09/06 11:30:45  jvikas
+ * LOG: DTF Branch merge to B-DRE-0212-00 Sept6.
+ * LOG:
+ * LOG: Revision 3.1.32.1  2012/08/16 11:20:40  cprem
+ * LOG: Added grammar for including optional Dictionary id in the protocol file.
+ * LOG:
+ * LOG: Revision 3.1  2008/03/31 10:33:28  nvijikumar
+ * LOG: Start GA 3.0
+ * LOG:
+ * LOG: Revision 2.1  2006/09/13 09:22:43  yranade
+ * LOG: Start GA 1.1
+ * LOG:
+ * LOG: Revision 1.6  2006/08/03 13:24:08  brianhu
+ * LOG: Support of vendor id in derived AVP spec
+ * LOG:
+ ****************************************************************************/
+
+/*
+ * SableCC Grammar Specification for Diameter ABNF
+ */
+Package com.intellinet.diameter.mag;
+
+Helpers
+
+    any_character   = [0..0xffff];
+    ht              = 0x0009;
+    lf              = 0x000a;
+    ff              = 0x000c;
+    cr              = 0x000d;
+    sp              = ' ';
+
+    line_terminator = lf | cr | cr lf | lf cr;
+    input_character = [any_character - [cr + lf]];
+
+    not_star        = [input_character - '*'] | line_terminator;
+    not_star_slash  = [input_character - ['*' + '/']] | line_terminator;
+
+    lowercase       = ['a' .. 'z'];
+    uppercase       = ['A' .. 'Z'];
+    alpha           = lowercase | uppercase;
+    digit           = ['0' .. '9'];
+
+    string_character = [input_character - ['"' + '\']] | '\';
+
+Tokens
+
+    white_space     = (sp | ht | ff | line_terminator)*;
+    block_comment   = '/' '*' not_star+ '*'+ (not_star_slash not_star* '*'+)* '/';
+    line_comment    = '/' '/' input_character* line_terminator?;
+
+    documentation   =  '/' '*' '*' '*'* (not_star_slash not_star* '*'+)* '/';
+    string_literal  = '"' string_character* '"';
+    defined_as      = '::=';
+    l_brace         = '{';
+    r_brace         = '}';
+    l_bracket       = '[';
+    r_bracket       = ']';
+    l_angle         = '<';
+    r_angle         = '>';
+    l_paren         = '(';
+    r_paren         = ')';
+    colon           = ':';
+    semi_colon      = ';';
+    asterisk        = '*';
+    comma           = ',';
+    period          = '.';
+    vbar            = '|';
+
+    mandatory_flag  = 'M';
+    private_flag    = 'P';
+    vendor_flag     = 'V';
+    yes             = 'Y';
+    no              = 'N';
+    base            = '@';
+    protocol        = 'protocol';
+    dict_id         = 'dict-id';
+    req             = 'REQ';
+    pxy             = 'PXY';
+    err             = 'ERR';
+
+    diameter        = 'Diameter';
+    avp             = 'AVP';
+    header          = 'Header';
+    octet_string    = 'OctetString';
+    integer32       = 'Integer32';
+    integer64       = 'Integer64';
+    unsigned32      = 'Unsigned32';
+    unsigned64      = 'Unsigned64';
+    float32         = 'Float32';
+    float64         = 'Float64';
+    grouped         = 'Grouped';
+    address         = 'Address';
+    time            = 'Time';
+    utf8_string     = 'UTF8String';
+    diameter_id     = 'DiamIdent';
+    diameter_uri    = 'DiamURI';
+    enumerated      = 'Enumerated';
+    ip_filter_rule  = 'IPFilterRule';
+    qos_filter_rule = 'QoSFilterRule';
+
+    integer         = ('+' | '-')? digit+;
+    identifier      = alpha (alpha | digit | '-' | '_')*;
+
+Ignored Tokens  
+
+    white_space, line_comment, block_comment;
+
+/*
+3.2.  Command Code ABNF specification
+
+   Every Command Code defined MUST include a corresponding ABNF
+   specification, which is used to define the AVPs that MUST or MAY be
+   present.  The following format is used in the definition:
+*/
+
+Productions
+
+    grammar
+{-> grammar}        = documentation? base? protocol namespace l_angle protocol_id vendor_id? colon protocol_url r_angle semi_colon dict_id_def? definition+
+                      {-> New grammar(documentation, base, [namespace.identifier], protocol_id.integer, vendor_id.integer, protocol_url.string_literal,dict_id_def.integer, [definition])}
+                    ;
+
+    dict_id_def
+{-> integer}        = documentation? dict_id integer semi_colon {-> integer}
+                    ;
+
+    namespace
+{-> identifier+}    = {single}   [name]:identifier                         {-> [name]}
+                    | {multiple} [name]:identifier period [rest]:namespace {-> [name, rest.identifier]}
+                    ;
+
+    protocol_id
+{-> integer}        = integer {-> integer}
+                    ;
+
+    protocol_url
+{-> string_literal} = string_literal {->string_literal}
+                    ;
+
+    definition
+{-> definition}     = {derived} documentation? avp_name defined_as avp_code vendor_id? avp_type avp_flag_rules semi_colon
+                      {-> New definition.derived(documentation, avp_name.identifier, avp_code.integer, vendor_id.integer, avp_type, avp_flag_rules)}
+                    | {enum}    documentation? avp_name defined_as enum_header enum_body semi_colon
+                      {-> New definition.enum(documentation, avp_name.identifier, enum_header.integer, [enum_body.enumerator])}
+                    | {grouped} documentation? avp_name defined_as grouped_header grouped_body semi_colon
+                      {-> New definition.grouped(documentation, avp_name.identifier, grouped_header, grouped_body)}
+                    | {command} documentation? [name]:identifier command_acronym? defined_as command_header command_body semi_colon
+                      {-> New definition.command(documentation, name, command_acronym.identifier, command_header, command_body)}
+                    ;
+
+    // #
+    // Derived AVP Sepcifications
+    // #
+
+    avp_type
+{->avp_type}        = {octet_string}    octet_string    {-> New avp_type.octet_string()}
+                    | {integer32}       integer32       {-> New avp_type.integer32()}
+                    | {integer64}       integer64       {-> New avp_type.integer64()}
+                    | {unsigned32}      unsigned32      {-> New avp_type.unsigned32()}
+                    | {unsigned64}      unsigned64      {-> New avp_type.unsigned64()}
+                    | {float32}         float32         {-> New avp_type.float32()}
+                    | {float64}         float64         {-> New avp_type.float64()}
+                    | {grouped}         grouped         {-> New avp_type.grouped()}
+                    | {address}         address         {-> New avp_type.address()}
+                    | {time}            time            {-> New avp_type.time()}
+                    | {utf8_string}     utf8_string     {-> New avp_type.utf8_string()}
+                    | {diameter_id}     diameter_id     {-> New avp_type.diameter_id()}
+                    | {diameter_uri}    diameter_uri    {-> New avp_type.diameter_uri()}
+                    | {enumerated}      enumerated      {-> New avp_type.enumerated()}
+                    | {ip_filter_rule}  ip_filter_rule  {-> New avp_type.ip_filter_rule()}
+                    | {qos_filter_rule} qos_filter_rule {-> New avp_type.qos_filter_rule()}
+                    ;
+
+    avp_flag_rules
+{-> avp_flag_rules} = [must]:avp_flags [a]:vbar [may]:avp_flags [b]:vbar [shouldnt]:avp_flags [c]:vbar [mustnt]:avp_flags [d]:vbar encryptable
+                      {-> New avp_flag_rules([must.avp_flag], [may.avp_flag], [shouldnt.avp_flag], [mustnt.avp_flag], encryptable)}
+                    ;
+
+    avp_flags
+{-> avp_flag*}      = {empty}                                           {-> []}
+                    | {single}   [flag]:avp_flag                        {-> [flag]}
+                    | {multiple} [flag]:avp_flag comma [more]:avp_flags {-> [flag, more.avp_flag]}
+                    ;
+
+    avp_flag
+{-> avp_flag}       = {mandatory} mandatory_flag {-> New avp_flag.mandatory()}
+                    | {private}   private_flag   {-> New avp_flag.private()}
+                    | {vendor}    vendor_flag    {-> New avp_flag.vendor()}
+                    ;
+
+    encryptable
+{-> encryptable}    = {yes} yes {-> New encryptable.yes()}
+                    | {not} no  {-> New encryptable.not()}
+                    ;
+
+    // #
+    // Enumerated AVP Definitions
+    // #
+
+    enum_header
+{-> integer}        = l_angle enumerated colon avp_code r_angle {-> avp_code.integer}
+                    ;
+
+    enum_body
+{-> enumerator+}    = enumerator+ {-> [enumerator.enumerator]}
+                    ;
+
+    enumerator
+{-> enumerator}     = documentation? [name]:identifier [value]:integer {-> New enumerator(documentation, name, value)}
+                    ;
+
+    // #
+    // Grouped AVP Definitions
+    // #
+
+    grouped_header
+{-> grouped_header} = l_angle avp header colon avp_code vendor_id? r_angle {-> New grouped_header(avp_code.integer, vendor_id.integer)}
+                    ;
+
+    grouped_body
+{-> grouped_body}   = fixed* required_avp* optional*
+                      {-> New grouped_body([fixed.named_avp_ref], [required_avp.general_avp_ref], [optional.general_avp_ref])}
+                    ;
+
+    avp_code
+{-> integer}        = integer {-> integer}
+                    ;
+
+    vendor_id
+{->integer}         = integer {-> integer}
+                    ;
+
+    // #
+    // Command Definitions
+    // #
+
+    command_acronym
+{-> identifier}     = l_angle identifier r_angle {-> identifier}
+                    ;
+
+    command_header
+{-> command_header} = l_angle diameter header colon command_id r_bit? p_bit? e_bit? application_id? r_angle
+                      {-> New command_header(command_id.integer, r_bit.req, p_bit.pxy, e_bit.err, application_id.integer)}
+                    ;
+
+    command_body
+{-> command_body}   = fixed* required* optional*
+                      {-> New command_body([fixed.named_avp_ref], [required.named_avp_ref], [optional.general_avp_ref])}
+                    ;
+
+    command_id
+{-> integer}        = integer {-> integer}
+                    ;
+
+    r_bit
+{-> req}            = comma req {-> req}
+                    ;
+
+    p_bit
+{-> pxy}            = comma pxy {-> pxy}
+                    ;
+
+    e_bit
+{-> err}            = comma err {-> err}
+                    ;
+
+    application_id
+{-> integer}        = comma integer {-> integer}
+                    ;
+
+    // #
+    // Common Stuff
+    // #
+
+    fixed
+{-> named_avp_ref}  = qualifier? l_angle avp_name r_angle {-> New named_avp_ref(qualifier, avp_name.identifier)}
+                    ;
+
+    required
+{-> named_avp_ref}  = qualifier? l_brace avp_name r_brace {-> New named_avp_ref(qualifier, avp_name.identifier)}
+                    ;
+
+    required_avp
+{-> general_avp_ref}= qualifier? l_brace avp_spec r_brace {-> New general_avp_ref(qualifier, avp_spec)}
+                    ;
+
+    optional
+{-> general_avp_ref}= qualifier? l_bracket avp_spec r_bracket {-> New general_avp_ref(qualifier, avp_spec)}
+                    ;
+
+    qualifier
+{-> qualifier}      = [min]:integer? asterisk [max]:integer? {-> New qualifier(min, max)}
+                    ;
+
+    avp_name
+{->identifier}      = identifier {-> identifier}
+                    ;
+
+    avp_spec
+{->avp_spec}        = {named} avp_name {-> New avp_spec.named(avp_name.identifier)}
+                    | {any}   avp {-> New avp_spec.any()}
+                    ;
+
+Abstract Syntax Tree
+
+    grammar         = documentation? base? [namespace]:identifier+ [id]:integer [vendor_id]:integer? [url]:string_literal [dict_id]:integer? definition+
+                    ;
+
+    definition      = {derived} documentation? [name]:identifier [avp_code]:integer [vendor_id]:integer? avp_type avp_flag_rules
+                    | {enum}    documentation? [name]:identifier [avp_code]:integer enumerator+
+                    | {grouped} documentation? [name]:identifier grouped_header grouped_body
+                    | {command} documentation? [name]:identifier identifier? command_header command_body
+                    ;
+
+    // Derived AVP Sepcifications
+
+    avp_type        = {octet_string}
+                    | {integer32}
+                    | {integer64}
+                    | {unsigned32}
+                    | {unsigned64}
+                    | {float32}
+                    | {float64}
+                    | {grouped}
+                    | {address}
+                    | {time}
+                    | {utf8_string}
+                    | {diameter_id}
+                    | {diameter_uri}
+                    | {enumerated}
+                    | {ip_filter_rule}
+                    | {qos_filter_rule}
+                    ;
+
+    enumerator      = documentation? [name]:identifier [value]:integer
+                    ;
+
+    avp_flag_rules  = [must]:avp_flag* [may]:avp_flag* [shouldnt]:avp_flag* [mustnt]:avp_flag* encryptable
+                    ;
+
+    avp_flag        = {mandatory}
+                    | {private}
+                    | {vendor}
+                    ;
+
+    encryptable     = {yes}
+                    | {not}
+                    ;
+
+    // Grouped AVP Definitions
+
+    grouped_header  = [avp_code]:integer [vendor_id]:integer?
+                    ;
+
+    grouped_body    = [fixed]:named_avp_ref* [required]:general_avp_ref* [optional]:general_avp_ref*
+                    ;
+
+
+    // Command Definitions
+
+    command_header  = [command_id]:integer req? pxy? err? [application_id]:integer?
+                    ;
+
+    command_body    = [fixed]:named_avp_ref* [required]:named_avp_ref* [optional]:general_avp_ref*
+                    ;
+
+    named_avp_ref   = qualifier? [name]:identifier
+                    ;
+
+    general_avp_ref = qualifier? avp_spec
+                    ;
+
+    qualifier       = [min]:integer? [max]:integer?
+                    ;
+
+    avp_spec        = {named} [name]:identifier
+                    | {any}
+                    ;

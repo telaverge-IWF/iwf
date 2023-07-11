@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+$find = "/usr/bin/find";
+$pkgproto = "/usr/bin/pkgproto";
+$temp = "/tmp/prototype$$";
+$prototype = "prototype";
+$pkginfo = "pkginfo";
+$checkinstall = "checkinstall";
+$postinstall = "postinstall";
+$preremove= "preremove";
+$postremove= "postremove";
+
+system  ("$find . -print | $pkgproto > $temp");
+open (PREPROTO,"< $temp") || die "Unable to read prototype information ($!)\n";
+open (PROTO,"> $prototype") || die "Unable to write file prototype ($!)\n";
+print PROTO "i checkinstall=./$checkinstall\n";
+print PROTO "i pkginfo=./$pkginfo\n";
+print PROTO "i postinstall=./$postinstall\n";
+print PROTO "i preremove=./$preremove\n";
+print PROTO "i postremove=./$postremove\n";
+while (<PREPROTO>) 
+{
+	# Read the prototype information from /tmp/prototype$$
+	chomp;
+	$thisline = $_;
+	if ($thisline =~ $prototype || $thisline =~ $pkginfo || 
+            $thisline =~ $checkinstall || $thisline =~ $postinstall ||
+            $thisline =~ $preremove || $thisline =~ $postremove ||
+            $thisline =~ "makefile" )
+        {
+	   # We don't need that line
+	} 
+        elsif ($thisline =~ "^[fd] ") 
+        {
+	   # Change the ownership for files and directories
+	   ($dir, $none, $file, $mode, $user, $group) = split / /,$thisline;
+           if ( $file =~ "html" || $file =~ "config" )
+           {
+	      print PROTO "$dir $none $file=$file $mode nobody nobody\n";
+           }
+           else
+           {
+	      print PROTO "$dir $none $file=$file $mode root other\n";
+           }
+	} 
+        else 
+        {
+	   # Symlinks and other stuff should be printed as well ofcourse
+	   print PROTO "$thisline\n";
+	}
+}
+close PROTO;
+close PREPROTO;
+
+# Clean up
+unlink $temp || warn "Unable to remove tempfile ($!)\n";
+

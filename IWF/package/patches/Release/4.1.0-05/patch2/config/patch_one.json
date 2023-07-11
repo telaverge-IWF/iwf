@@ -1,0 +1,34 @@
+{
+        "patch-details": [
+	   {    
+           "patch-type" : "static",
+               "patch-number": 2,
+               "dre-release": "iwf-4.1.0-05",
+               "pre-patch-script" : "$IWF_ROOT/package/patches/Release/4.1.0-02/patch1/pre_patch.sh",
+               "post-patch-script" : "$IWF_ROOT/package/patches/Release/4.1.0-02/patch1/post_patch.sh",
+               "pre-uninstall-script" : "$IWF_ROOT/package/patches/Release/4.1.0-02/patch1/pre_uninstall_patch.sh",
+               "post-uninstall-script" : "$IWF_ROOT/package/patches/Release/4.1.0-02/patch1/post_uninstall_patch.sh",
+               "files": [
+               {
+                   "source": "$IWF_ROOT/bin/IWF-CCITT",
+                   "target": "/opt/diametriq/iwf/bin/IWF-CCITT"
+               },
+               {
+                   "source": "$IWF_ROOT/lib/libIWF-CCITT.so",
+                   "target": "/opt/diametriq/iwf/lib/libIWF-CCITT.so"
+               },
+               {
+                   "source": "$IWF_ROOT/common/lib/libIWFCmn-CCITT.so",
+                   "target": "/opt/diametriq/iwf/lib/libIWFCmn-CCITT.so"
+               },
+               {
+                   "source": "$IWF_ROOT/lib/libahocorasick.so",
+                   "target": "/opt/diametriq/iwf/lib/libahocorasick.so"
+               }
+           ]
+            }    
+        
+      ]
+}
+
+

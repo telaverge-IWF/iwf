@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    disablePeerDiscovery
+
+DESCRIPTION
+    This command is used to disable Peer Discovery Flag.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> disablePeerDiscovery
+       Peer Discovery Disabled 
+
+NOTE: This MML is solely for purpose of commiting to new XML. We cannot Disable Peer Discovery Dynamically  

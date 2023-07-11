@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbtest.a  CMakeFiles/ndbtest.dir/test_context.cpp.o CMakeFiles/ndbtest.dir/__/blocks/dbtup/tuppage.cpp.o
+/usr/bin/ranlib libndbtest.a

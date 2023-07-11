@@ -1,0 +1,16 @@
+/Makefile.am/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/bench.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress.gen.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress.gen.h/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress.h/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress.rpc/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress_dns.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress_http.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/regress_rpc.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/test-eof.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/test-init.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/test-time.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/test-weof.c/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+/test.sh/1.1.2.1/Fri Oct  5 12:38:26 2012//TB-IWF-HP-0400-00
+D

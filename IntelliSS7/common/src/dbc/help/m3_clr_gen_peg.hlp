@@ -1,0 +1,43 @@
+M3UA Command
+
+SYNOPSIS
+    m3_clr_gen_peg <trid> <pegid>
+
+DESCRIPTION
+    This command resets peg count for given transport id and peg type.
+
+PARAMETERS
+    trid    - transport id
+    peg Id  - The peg id to get the peg
+              ALL/all for All M3UA PEGS Values
+
+    Different M3UA peg types and corresponding values are given below -
+
+    Peg Type                   Peg ID
+    ---------------------------------
+    PEG_M3UA_MSG_PAUSE_IND       28
+    PEG_M3UA_MSG_RESUME_IND      29
+    PEG_M3UA_DATA_SENT           30
+    PEG_M3UA_DATA_RECV           31
+    PEG_M3UA_DAUD_SENT           32
+    PEG_M3UA_DAUD_RECV           33
+    PEG_M3UA_DUNA_SENT           34
+    PEG_M3UA_DUNA_RECV           35
+    PEG_M3UA_DAVA_SENT           36
+    PEG_M3UA_DAVA_RECV           37
+    PEG_M3UA_SCON_SENT           38
+    PEG_M3UA_SCON_RECV           39
+    PEG_M3UA_DRST_SENT           40
+    PEG_M3UA_DRST_RECV           41
+    PEG_M3UA_DUPU_SENT           42
+    PEG_M3UA_DUPU_RECV           43
+
+EXAMPLE
+    >> m3_clr_gen_peg 0x4e22 28
+
+    value of peg id 28 set to 0
+
+   >> m3_clr_gen_peg 0x4e22 all
+
+    value of all peg ids set to 0  
+

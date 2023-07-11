@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbsched_mt.a  CMakeFiles/ndbsched_mt.dir/SimulatedBlock_mt.cpp.o CMakeFiles/ndbsched_mt.dir/TransporterCallback_mt.cpp.o CMakeFiles/ndbsched_mt.dir/LongSignal_mt.cpp.o CMakeFiles/ndbsched_mt.dir/SimplePropertiesSection_mt.cpp.o CMakeFiles/ndbsched_mt.dir/mt.cpp.o CMakeFiles/ndbsched_mt.dir/dummy_mt.cpp.o
+/usr/bin/ranlib libndbsched_mt.a

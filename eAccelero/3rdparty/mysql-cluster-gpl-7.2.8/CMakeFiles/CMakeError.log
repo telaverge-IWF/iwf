@@ -1,0 +1,2866 @@
+Determining if the function floor exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4019522362/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4019522362.dir/build.make CMakeFiles/cmTryCompileExec4019522362.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4019522362.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=floor   -o CMakeFiles/cmTryCompileExec4019522362.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+<command-line>:0:23: warning: conflicting types for built-in function ‘floor’ [enabled by default]
+/usr/share/cmake/Modules/CheckFunctionExists.c:3:6: note: in expansion of macro ‘CHECK_FUNCTION_EXISTS’
+ char CHECK_FUNCTION_EXISTS();
+      ^
+Linking C executable cmTryCompileExec4019522362
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4019522362.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=floor    CMakeFiles/cmTryCompileExec4019522362.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4019522362 -rdynamic 
+CMakeFiles/cmTryCompileExec4019522362.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `floor'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec4019522362] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4019522362/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function crypt exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1186520433/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1186520433.dir/build.make CMakeFiles/cmTryCompileExec1186520433.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1186520433.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=crypt   -o CMakeFiles/cmTryCompileExec1186520433.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1186520433
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1186520433.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=crypt    CMakeFiles/cmTryCompileExec1186520433.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1186520433 -rdynamic 
+CMakeFiles/cmTryCompileExec1186520433.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `crypt'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1186520433] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1186520433/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function dlopen exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2057617486/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2057617486.dir/build.make CMakeFiles/cmTryCompileExec2057617486.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2057617486.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=dlopen   -o CMakeFiles/cmTryCompileExec2057617486.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2057617486
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2057617486.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=dlopen    CMakeFiles/cmTryCompileExec2057617486.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2057617486 -rdynamic 
+CMakeFiles/cmTryCompileExec2057617486.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `dlopen'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2057617486] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2057617486/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2798912850/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2798912850.dir/build.make CMakeFiles/cmTryCompileExec2798912850.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2798912850.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2798912850.dir/CheckSymbolExists.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTryCompileExec2798912850
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2798912850.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2798912850.dir/CheckSymbolExists.c.o  -o cmTryCompileExec2798912850 -rdynamic 
+CMakeFiles/cmTryCompileExec2798912850.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x16): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2798912850] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2798912850/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+File /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2182058212/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2182058212.dir/build.make CMakeFiles/cmTryCompileExec2182058212.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2182058212.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTryCompileExec2182058212.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2182058212
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2182058212.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTryCompileExec2182058212.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2182058212 -rdynamic -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2182058212] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2182058212/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if files cxxabi.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3940204099/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3940204099.dir/build.make CMakeFiles/cmTryCompileExec3940204099.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3940204099.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3940204099.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: cxxabi.h: No such file or directory
+ #include <cxxabi.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3940204099.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3940204099/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <cxxabi.h>
+
+
+int main(){return 0;}
+
+Determining if files floatingpoint.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3742958169/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3742958169.dir/build.make CMakeFiles/cmTryCompileExec3742958169.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3742958169.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3742958169.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:27: fatal error: floatingpoint.h: No such file or directory
+ #include <floatingpoint.h>
+                           ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3742958169.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3742958169/fast] Error 2
+
+Source:
+/* */
+#include <floatingpoint.h>
+
+
+int main(){return 0;}
+
+Determining if files ieeefp.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec470952149/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec470952149.dir/build.make CMakeFiles/cmTryCompileExec470952149.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec470952149.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec470952149.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: ieeefp.h: No such file or directory
+ #include <ieeefp.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec470952149.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec470952149/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <ieeefp.h>
+
+
+int main(){return 0;}
+
+Determining if files ndir.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3054721537/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3054721537.dir/build.make CMakeFiles/cmTryCompileExec3054721537.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3054721537.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3054721537.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:18: fatal error: ndir.h: No such file or directory
+ #include <ndir.h>
+                  ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3054721537.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3054721537/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <ndir.h>
+
+
+int main(){return 0;}
+
+Determining if files port.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2634287394/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2634287394.dir/build.make CMakeFiles/cmTryCompileExec2634287394.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2634287394.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2634287394.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:18: fatal error: port.h: No such file or directory
+ #include <port.h>
+                  ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2634287394.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2634287394/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <port.h>
+
+
+int main(){return 0;}
+
+Determining if files select.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3002914351/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3002914351.dir/build.make CMakeFiles/cmTryCompileExec3002914351.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3002914351.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3002914351.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: select.h: No such file or directory
+ #include <select.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3002914351.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3002914351/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <select.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/ndir.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3373145260/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3373145260.dir/build.make CMakeFiles/cmTryCompileExec3373145260.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3373145260.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3373145260.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:22: fatal error: sys/ndir.h: No such file or directory
+ #include <sys/ndir.h>
+                      ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3373145260.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3373145260/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/ndir.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/pte.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec483603652/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec483603652.dir/build.make CMakeFiles/cmTryCompileExec483603652.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec483603652.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec483603652.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:21: fatal error: sys/pte.h: No such file or directory
+ #include <sys/pte.h>
+                     ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec483603652.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec483603652/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/pte.h>
+
+
+int main(){return 0;}
+
+Determining if files synch.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec128192405/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec128192405.dir/build.make CMakeFiles/cmTryCompileExec128192405.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec128192405.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec128192405.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:19: fatal error: synch.h: No such file or directory
+ #include <synch.h>
+                   ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec128192405.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec128192405/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <synch.h>
+
+
+int main(){return 0;}
+
+Determining if files sysent.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2419616624/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2419616624.dir/build.make CMakeFiles/cmTryCompileExec2419616624.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2419616624.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2419616624.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: sysent.h: No such file or directory
+ #include <sysent.h>
+                    ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2419616624.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: *** [cmTryCompileExec2419616624/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sysent.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/fpu.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4285721401/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4285721401.dir/build.make CMakeFiles/cmTryCompileExec4285721401.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4285721401.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4285721401.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:21: fatal error: sys/fpu.h: No such file or directory
+ #include <sys/fpu.h>
+                     ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4285721401.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4285721401/fast] Error 2
+
+Source:
+/* */
+#include <sys/fpu.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/malloc.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2906839357/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2906839357.dir/build.make CMakeFiles/cmTryCompileExec2906839357.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2906839357.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2906839357.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:24: fatal error: sys/malloc.h: No such file or directory
+ #include <sys/malloc.h>
+                        ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2906839357.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2906839357/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/malloc.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/stream.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4131020853/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4131020853.dir/build.make CMakeFiles/cmTryCompileExec4131020853.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4131020853.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4131020853.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:24: fatal error: sys/stream.h: No such file or directory
+ #include <sys/stream.h>
+                        ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4131020853.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4131020853/fast] Error 2
+
+Source:
+/* */
+#include <sys/stream.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/termcap.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec933080494/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec933080494.dir/build.make CMakeFiles/cmTryCompileExec933080494.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec933080494.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec933080494.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:25: fatal error: sys/termcap.h: No such file or directory
+ #include <sys/termcap.h>
+                         ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec933080494.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec933080494/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/termcap.h>
+
+
+int main(){return 0;}
+
+Determining if files curses.h;term.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1856502508/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1856502508.dir/build.make CMakeFiles/cmTryCompileExec1856502508.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1856502508.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1856502508.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: curses.h: No such file or directory
+ #include <curses.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1856502508.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1856502508/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <curses.h>
+#include <term.h>
+
+
+int main(){return 0;}
+
+Determining if files termbits.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2204089451/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2204089451.dir/build.make CMakeFiles/cmTryCompileExec2204089451.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2204089451.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2204089451.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:22: fatal error: termbits.h: No such file or directory
+ #include <termbits.h>
+                      ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2204089451.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2204089451/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <termbits.h>
+
+
+int main(){return 0;}
+
+Determining if files termcap.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3162058595/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3162058595.dir/build.make CMakeFiles/cmTryCompileExec3162058595.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3162058595.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3162058595.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:21: fatal error: termcap.h: No such file or directory
+ #include <termcap.h>
+                     ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3162058595.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3162058595/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <termcap.h>
+
+
+int main(){return 0;}
+
+Determining if files varargs.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1204784707/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1204784707.dir/build.make CMakeFiles/cmTryCompileExec1204784707.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1204784707.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1204784707.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+In file included from /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:0:
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/varargs.h:4:2: error: #error "GCC no longer implements <varargs.h>."
+ #error "GCC no longer implements <varargs.h>."
+  ^
+/usr/lib/gcc/x86_64-redhat-linux/4.8.5/include/varargs.h:5:2: error: #error "Revise your code to use <stdarg.h>."
+ #error "Revise your code to use <stdarg.h>."
+  ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1204784707.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1204784707/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <varargs.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/utime.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec655035732/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec655035732.dir/build.make CMakeFiles/cmTryCompileExec655035732.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec655035732.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec655035732.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:23: fatal error: sys/utime.h: No such file or directory
+ #include <sys/utime.h>
+                       ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec655035732.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec655035732/fast] Error 2
+
+Source:
+/* */
+#include <sys/utime.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/vadvise.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec458367474/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec458367474.dir/build.make CMakeFiles/cmTryCompileExec458367474.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec458367474.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec458367474.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:25: fatal error: sys/vadvise.h: No such file or directory
+ #include <sys/vadvise.h>
+                         ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec458367474.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec458367474/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/vadvise.h>
+
+
+int main(){return 0;}
+
+Determining if files vis.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1809996689/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1809996689.dir/build.make CMakeFiles/cmTryCompileExec1809996689.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1809996689.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1809996689.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:17: fatal error: vis.h: No such file or directory
+ #include <vis.h>
+                 ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1809996689.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1809996689/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <vis.h>
+
+
+int main(){return 0;}
+
+Determining if files sys/ptem.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4070182844/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4070182844.dir/build.make CMakeFiles/cmTryCompileExec4070182844.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4070182844.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4070182844.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:22: fatal error: sys/ptem.h: No such file or directory
+ #include <sys/ptem.h>
+                      ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4070182844.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4070182844/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sys/ptem.h>
+
+
+int main(){return 0;}
+
+Determining if the function aio_read exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3252860691/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3252860691.dir/build.make CMakeFiles/cmTryCompileExec3252860691.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3252860691.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=aio_read   -o CMakeFiles/cmTryCompileExec3252860691.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3252860691
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3252860691.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=aio_read    CMakeFiles/cmTryCompileExec3252860691.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3252860691 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3252860691.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `aio_read'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3252860691] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3252860691/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function printstack exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2725549975/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2725549975.dir/build.make CMakeFiles/cmTryCompileExec2725549975.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2725549975.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=printstack   -o CMakeFiles/cmTryCompileExec2725549975.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2725549975
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2725549975.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=printstack    CMakeFiles/cmTryCompileExec2725549975.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2725549975 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2725549975.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `printstack'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2725549975] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2725549975/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function bfill exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2088184997/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2088184997.dir/build.make CMakeFiles/cmTryCompileExec2088184997.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2088184997.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=bfill   -o CMakeFiles/cmTryCompileExec2088184997.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2088184997
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2088184997.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=bfill    CMakeFiles/cmTryCompileExec2088184997.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2088184997 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2088184997.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `bfill'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2088184997] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2088184997/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function bmove exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3891612219/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3891612219.dir/build.make CMakeFiles/cmTryCompileExec3891612219.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3891612219.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=bmove   -o CMakeFiles/cmTryCompileExec3891612219.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3891612219
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3891612219.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=bmove    CMakeFiles/cmTryCompileExec3891612219.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3891612219 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3891612219.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `bmove'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3891612219] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3891612219/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function directio exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec11196049/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec11196049.dir/build.make CMakeFiles/cmTryCompileExec11196049.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec11196049.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=directio   -o CMakeFiles/cmTryCompileExec11196049.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec11196049
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec11196049.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=directio    CMakeFiles/cmTryCompileExec11196049.dir/CheckFunctionExists.c.o  -o cmTryCompileExec11196049 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec11196049.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `directio'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec11196049] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec11196049/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function _doprnt exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1000726875/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1000726875.dir/build.make CMakeFiles/cmTryCompileExec1000726875.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1000726875.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=_doprnt   -o CMakeFiles/cmTryCompileExec1000726875.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1000726875
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1000726875.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=_doprnt    CMakeFiles/cmTryCompileExec1000726875.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1000726875 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1000726875.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `_doprnt'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1000726875] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1000726875/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function compress exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1168841838/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1168841838.dir/build.make CMakeFiles/cmTryCompileExec1168841838.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1168841838.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=compress   -o CMakeFiles/cmTryCompileExec1168841838.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1168841838
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1168841838.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=compress    CMakeFiles/cmTryCompileExec1168841838.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1168841838 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1168841838.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `compress'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1168841838] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1168841838/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function fconvert exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec555222724/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec555222724.dir/build.make CMakeFiles/cmTryCompileExec555222724.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec555222724.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fconvert   -o CMakeFiles/cmTryCompileExec555222724.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec555222724
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec555222724.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fconvert    CMakeFiles/cmTryCompileExec555222724.dir/CheckFunctionExists.c.o  -o cmTryCompileExec555222724 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec555222724.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `fconvert'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec555222724] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec555222724/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function fpsetmask exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1225932419/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1225932419.dir/build.make CMakeFiles/cmTryCompileExec1225932419.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1225932419.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fpsetmask   -o CMakeFiles/cmTryCompileExec1225932419.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1225932419
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1225932419.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fpsetmask    CMakeFiles/cmTryCompileExec1225932419.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1225932419 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1225932419.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `fpsetmask'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1225932419] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1225932419/fast] Error 2
+
+
+Determining if the function gethrtime exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3224251942/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3224251942.dir/build.make CMakeFiles/cmTryCompileExec3224251942.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3224251942.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethrtime   -o CMakeFiles/cmTryCompileExec3224251942.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3224251942
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3224251942.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=gethrtime    CMakeFiles/cmTryCompileExec3224251942.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3224251942 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3224251942.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `gethrtime'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3224251942] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3224251942/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function getpassphrase exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3765426347/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3765426347.dir/build.make CMakeFiles/cmTryCompileExec3765426347.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3765426347.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=getpassphrase   -o CMakeFiles/cmTryCompileExec3765426347.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3765426347
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3765426347.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=getpassphrase    CMakeFiles/cmTryCompileExec3765426347.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3765426347 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3765426347.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `getpassphrase'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3765426347] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3765426347/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function issetugid exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2465802887/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2465802887.dir/build.make CMakeFiles/cmTryCompileExec2465802887.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2465802887.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=issetugid   -o CMakeFiles/cmTryCompileExec2465802887.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2465802887
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2465802887.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=issetugid    CMakeFiles/cmTryCompileExec2465802887.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2465802887 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2465802887.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `issetugid'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2465802887] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2465802887/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function port_create exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec308709642/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec308709642.dir/build.make CMakeFiles/cmTryCompileExec308709642.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec308709642.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=port_create   -o CMakeFiles/cmTryCompileExec308709642.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec308709642
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec308709642.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=port_create    CMakeFiles/cmTryCompileExec308709642.dir/CheckFunctionExists.c.o  -o cmTryCompileExec308709642 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec308709642.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `port_create'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec308709642] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec308709642/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_attr_create exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3769590776/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3769590776.dir/build.make CMakeFiles/cmTryCompileExec3769590776.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3769590776.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_attr_create   -o CMakeFiles/cmTryCompileExec3769590776.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3769590776
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3769590776.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_attr_create    CMakeFiles/cmTryCompileExec3769590776.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3769590776 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3769590776.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_attr_create'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3769590776] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3769590776/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_condattr_create exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2044876741/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2044876741.dir/build.make CMakeFiles/cmTryCompileExec2044876741.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2044876741.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_condattr_create   -o CMakeFiles/cmTryCompileExec2044876741.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2044876741
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2044876741.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_condattr_create    CMakeFiles/cmTryCompileExec2044876741.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2044876741 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2044876741.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_condattr_create'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2044876741] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2044876741/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_threadmask exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec645905859/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec645905859.dir/build.make CMakeFiles/cmTryCompileExec645905859.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec645905859.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_threadmask   -o CMakeFiles/cmTryCompileExec645905859.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec645905859
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec645905859.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_threadmask    CMakeFiles/cmTryCompileExec645905859.dir/CheckFunctionExists.c.o  -o cmTryCompileExec645905859 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec645905859.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_threadmask'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec645905859] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec645905859/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_yield_np exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1143761387/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1143761387.dir/build.make CMakeFiles/cmTryCompileExec1143761387.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1143761387.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_yield_np   -o CMakeFiles/cmTryCompileExec1143761387.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1143761387
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1143761387.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_yield_np    CMakeFiles/cmTryCompileExec1143761387.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1143761387 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1143761387.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_yield_np'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1143761387] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1143761387/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function rwlock_init exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1494395410/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1494395410.dir/build.make CMakeFiles/cmTryCompileExec1494395410.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1494395410.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=rwlock_init   -o CMakeFiles/cmTryCompileExec1494395410.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1494395410
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1494395410.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=rwlock_init    CMakeFiles/cmTryCompileExec1494395410.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1494395410 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1494395410.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `rwlock_init'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1494395410] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1494395410/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function setfd exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2093785099/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2093785099.dir/build.make CMakeFiles/cmTryCompileExec2093785099.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2093785099.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=setfd   -o CMakeFiles/cmTryCompileExec2093785099.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2093785099
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2093785099.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=setfd    CMakeFiles/cmTryCompileExec2093785099.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2093785099 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2093785099.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `setfd'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec2093785099] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2093785099/fast] Error 2
+
+
+Determining if the function sigthreadmask exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1477371369/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1477371369.dir/build.make CMakeFiles/cmTryCompileExec1477371369.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1477371369.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=sigthreadmask   -o CMakeFiles/cmTryCompileExec1477371369.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1477371369
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1477371369.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=sigthreadmask    CMakeFiles/cmTryCompileExec1477371369.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1477371369 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1477371369.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `sigthreadmask'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1477371369] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1477371369/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function strlcpy exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec460008466/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec460008466.dir/build.make CMakeFiles/cmTryCompileExec460008466.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec460008466.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strlcpy   -o CMakeFiles/cmTryCompileExec460008466.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec460008466
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec460008466.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strlcpy    CMakeFiles/cmTryCompileExec460008466.dir/CheckFunctionExists.c.o  -o cmTryCompileExec460008466 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec460008466.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `strlcpy'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec460008466] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec460008466/fast] Error 2
+
+
+Determining if the function strlcat exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3221231565/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3221231565.dir/build.make CMakeFiles/cmTryCompileExec3221231565.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3221231565.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strlcat   -o CMakeFiles/cmTryCompileExec3221231565.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3221231565
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3221231565.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strlcat    CMakeFiles/cmTryCompileExec3221231565.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3221231565 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3221231565.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `strlcat'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3221231565] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3221231565/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function fgetln exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1114918479/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1114918479.dir/build.make CMakeFiles/cmTryCompileExec1114918479.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1114918479.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fgetln   -o CMakeFiles/cmTryCompileExec1114918479.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1114918479
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1114918479.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=fgetln    CMakeFiles/cmTryCompileExec1114918479.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1114918479 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1114918479.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `fgetln'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1114918479] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1114918479/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function tell exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2368888987/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2368888987.dir/build.make CMakeFiles/cmTryCompileExec2368888987.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2368888987.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=tell   -o CMakeFiles/cmTryCompileExec2368888987.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2368888987
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2368888987.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=tell    CMakeFiles/cmTryCompileExec2368888987.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2368888987 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2368888987.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `tell'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec2368888987] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2368888987/fast] Error 2
+
+
+Determining if the function thr_setconcurrency exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1448487267/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1448487267.dir/build.make CMakeFiles/cmTryCompileExec1448487267.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1448487267.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=thr_setconcurrency   -o CMakeFiles/cmTryCompileExec1448487267.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1448487267
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1448487267.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=thr_setconcurrency    CMakeFiles/cmTryCompileExec1448487267.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1448487267 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec1448487267.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `thr_setconcurrency'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec1448487267] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1448487267/fast] Error 2
+
+
+Determining if the function thr_yield exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2546961267/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2546961267.dir/build.make CMakeFiles/cmTryCompileExec2546961267.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2546961267.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=thr_yield   -o CMakeFiles/cmTryCompileExec2546961267.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2546961267
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2546961267.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=thr_yield    CMakeFiles/cmTryCompileExec2546961267.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2546961267 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec2546961267.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `thr_yield'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec2546961267] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2546961267/fast] Error 2
+
+
+Determining if files ia64intrin.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec182063743/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec182063743.dir/build.make CMakeFiles/cmTryCompileExec182063743.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec182063743.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec182063743.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:24: fatal error: ia64intrin.h: No such file or directory
+ #include <ia64intrin.h>
+                        ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec182063743.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec182063743/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <ia64intrin.h>
+
+
+int main(){return 0;}
+
+Determining if the function read_real_time exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec889367976/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec889367976.dir/build.make CMakeFiles/cmTryCompileExec889367976.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec889367976.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=read_real_time   -o CMakeFiles/cmTryCompileExec889367976.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec889367976
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec889367976.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=read_real_time    CMakeFiles/cmTryCompileExec889367976.dir/CheckFunctionExists.c.o  -o cmTryCompileExec889367976 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec889367976.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `read_real_time'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec889367976] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec889367976/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function rdtscll exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3867553076/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3867553076.dir/build.make CMakeFiles/cmTryCompileExec3867553076.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3867553076.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=rdtscll   -o CMakeFiles/cmTryCompileExec3867553076.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3867553076
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3867553076.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=rdtscll    CMakeFiles/cmTryCompileExec3867553076.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3867553076 -rdynamic -lm -lcrypt -ldl -lpthread 
+CMakeFiles/cmTryCompileExec3867553076.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `rdtscll'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3867553076] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3867553076/fast] Error 2
+
+
+Determining if the TIOCSTAT exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4009498725/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4009498725.dir/build.make CMakeFiles/cmTryCompileExec4009498725.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4009498725.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4009498725.dir/CheckSymbolExists.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: error: ‘TIOCSTAT’ undeclared (first use in this function)
+   return ((int*)(&TIOCSTAT))[argc];
+                   ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:8:19: note: each undeclared identifier is reported only once for each function it appears in
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4009498725.dir/CheckSymbolExists.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4009498725/fast] Error 2
+
+File /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <sys/ioctl.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef TIOCSTAT
+  return ((int*)(&TIOCSTAT))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the FIONREAD exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3880952019/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3880952019.dir/build.make CMakeFiles/cmTryCompileExec3880952019.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3880952019.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3880952019.dir/CheckSymbolExists.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:2:23: fatal error: sys/filio.h: No such file or directory
+ #include <sys/filio.h>
+                       ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3880952019.dir/CheckSymbolExists.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3880952019/fast] Error 2
+
+File /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <sys/filio.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef FIONREAD
+  return ((int*)(&FIONREAD))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the system is big endian passed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2799650581/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2799650581.dir/build.make CMakeFiles/cmTryCompileExec2799650581.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2799650581.dir/TestEndianess.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2799650581.dir/TestEndianess.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/TestEndianess.c
+Linking C executable cmTryCompileExec2799650581
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2799650581.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTryCompileExec2799650581.dir/TestEndianess.c.o  -o cmTryCompileExec2799650581 -rdynamic 
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+TestEndianess.c:
+/* A 16 bit integer is required. */
+typedef unsigned short cmakeint16;
+
+/* On a little endian machine, these 16bit ints will give "THIS IS LITTLE ENDIAN."
+   On a big endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_little[] =  {0x4854, 0x5349, 0x4920, 0x2053, 0x494c, 0x5454, 0x454c, 0x4520, 0x444e, 0x4149, 0x2e4e, 0x0000};
+
+/* on a big endian machine, these 16bit ints will give "THIS IS BIG ENDIAN."
+   On a little endian machine the characters will be exchanged pairwise. */
+const cmakeint16 info_big[] =     {0x5448, 0x4953, 0x2049, 0x5320, 0x4249, 0x4720, 0x454e, 0x4449, 0x414e, 0x2e2e, 0x0000};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_little[argc];
+  require += info_big[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of uchar failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2704992223/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2704992223.dir/build.make CMakeFiles/cmTryCompileExec2704992223.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2704992223.dir/SIZEOF_UCHAR.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec2704992223.dir/SIZEOF_UCHAR.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UCHAR.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UCHAR.c:19:22: error: ‘uchar’ undeclared here (not in a function)
+ #define SIZE (sizeof(uchar))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UCHAR.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2704992223.dir/SIZEOF_UCHAR.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2704992223/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UCHAR.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(uchar))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of int8 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec319605548/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec319605548.dir/build.make CMakeFiles/cmTryCompileExec319605548.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec319605548.dir/SIZEOF_INT8.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec319605548.dir/SIZEOF_INT8.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT8.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT8.c:19:22: error: ‘int8’ undeclared here (not in a function)
+ #define SIZE (sizeof(int8))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT8.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec319605548.dir/SIZEOF_INT8.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec319605548/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT8.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(int8))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of uint8 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4225885668/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4225885668.dir/build.make CMakeFiles/cmTryCompileExec4225885668.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4225885668.dir/SIZEOF_UINT8.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec4225885668.dir/SIZEOF_UINT8.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT8.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT8.c:19:22: error: ‘uint8’ undeclared here (not in a function)
+ #define SIZE (sizeof(uint8))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT8.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4225885668.dir/SIZEOF_UINT8.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4225885668/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT8.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(uint8))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of int16 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2414210450/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2414210450.dir/build.make CMakeFiles/cmTryCompileExec2414210450.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2414210450.dir/SIZEOF_INT16.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec2414210450.dir/SIZEOF_INT16.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT16.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT16.c:19:22: error: ‘int16’ undeclared here (not in a function)
+ #define SIZE (sizeof(int16))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT16.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2414210450.dir/SIZEOF_INT16.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2414210450/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT16.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(int16))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of uint16 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1478657840/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1478657840.dir/build.make CMakeFiles/cmTryCompileExec1478657840.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1478657840.dir/SIZEOF_UINT16.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec1478657840.dir/SIZEOF_UINT16.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT16.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT16.c:19:22: error: ‘uint16’ undeclared here (not in a function)
+ #define SIZE (sizeof(uint16))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT16.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1478657840.dir/SIZEOF_UINT16.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1478657840/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT16.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(uint16))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of int32 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2332071283/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2332071283.dir/build.make CMakeFiles/cmTryCompileExec2332071283.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2332071283.dir/SIZEOF_INT32.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec2332071283.dir/SIZEOF_INT32.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT32.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT32.c:19:22: error: ‘int32’ undeclared here (not in a function)
+ #define SIZE (sizeof(int32))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT32.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2332071283.dir/SIZEOF_INT32.c.o] Error 1
+gmake[2]: *** [cmTryCompileExec2332071283/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT32.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(int32))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of uint32 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3125839433/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3125839433.dir/build.make CMakeFiles/cmTryCompileExec3125839433.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3125839433.dir/SIZEOF_UINT32.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec3125839433.dir/SIZEOF_UINT32.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT32.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT32.c:19:22: error: ‘uint32’ undeclared here (not in a function)
+ #define SIZE (sizeof(uint32))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT32.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3125839433.dir/SIZEOF_UINT32.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3125839433/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT32.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(uint32))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of int64 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1826280290/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1826280290.dir/build.make CMakeFiles/cmTryCompileExec1826280290.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1826280290.dir/SIZEOF_INT64.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec1826280290.dir/SIZEOF_INT64.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT64.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT64.c:19:22: error: ‘int64’ undeclared here (not in a function)
+ #define SIZE (sizeof(int64))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT64.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1826280290.dir/SIZEOF_INT64.c.o] Error 1
+gmake[2]: *** [cmTryCompileExec1826280290/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_INT64.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(int64))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of uint64 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec70716395/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec70716395.dir/build.make CMakeFiles/cmTryCompileExec70716395.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec70716395.dir/SIZEOF_UINT64.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec70716395.dir/SIZEOF_UINT64.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT64.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT64.c:19:22: error: ‘uint64’ undeclared here (not in a function)
+ #define SIZE (sizeof(uint64))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT64.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec70716395.dir/SIZEOF_UINT64.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec70716395/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_UINT64.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "stdio.h"
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(uint64))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of bool failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3953240473/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3953240473.dir/build.make CMakeFiles/cmTryCompileExec3953240473.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3953240473.dir/SIZEOF_BOOL.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec3953240473.dir/SIZEOF_BOOL.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:18:22: error: ‘bool’ undeclared here (not in a function)
+ #define SIZE (sizeof(bool))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:20:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3953240473.dir/SIZEOF_BOOL.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3953240473/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CheckTypeSize/SIZEOF_BOOL.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+#include "sys/types.h"
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(bool))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Performing C SOURCE FILE Test TIME_T_UNSIGNED failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2682689055/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2682689055.dir/build.make CMakeFiles/cmTryCompileExec2682689055.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2682689055.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DTIME_T_UNSIGNED   -o CMakeFiles/cmTryCompileExec2682689055.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:4:16: error: ‘time_t’ undeclared (first use in this function)
+   int array[(((time_t)-1) > 0) ? 1 : -1];
+                ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:4:16: note: each undeclared identifier is reported only once for each function it appears in
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2682689055.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2682689055/fast] Error 2
+
+Source file was:
+
+int main()
+{
+  int array[(((time_t)-1) > 0) ? 1 : -1];
+  return 0;
+}
+Performing C SOURCE FILE Test HAVE_TIMESPEC_TS_SEC failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4182439017/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4182439017.dir/build.make CMakeFiles/cmTryCompileExec4182439017.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4182439017.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_TIMESPEC_TS_SEC   -o CMakeFiles/cmTryCompileExec4182439017.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:7:10: error: ‘struct timespec’ has no member named ‘ts_sec’
+   abstime.ts_sec = time(NULL)+1;
+          ^
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:8:10: error: ‘struct timespec’ has no member named ‘ts_nsec’
+   abstime.ts_nsec = 0;
+          ^
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4182439017.dir/src.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4182439017/fast] Error 2
+
+Source file was:
+
+#include <pthread.h>
+
+int main(int ac, char **av)
+{
+  struct timespec abstime;
+  abstime.ts_sec = time(NULL)+1;
+  abstime.ts_nsec = 0;
+}
+
+Performing C++ SOURCE FILE Test HAVE_SOLARIS_STYLE_GETHOST failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3187028255/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3187028255.dir/build.make CMakeFiles/cmTryCompileExec3187028255.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec3187028255.dir/src.cxx.o
+/usr/bin/c++   -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -fno-implicit-templates -fno-exceptions -fno-rtti -DHAVE_SOLARIS_STYLE_GETHOST   -o CMakeFiles/cmTryCompileExec3187028255.dir/src.cxx.o -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx: In function ‘int main()’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx:17:66: error: cannot convert ‘int*’ to ‘hostent**’ for argument ‘7’ to ‘int gethostbyaddr_r(const void*, __socklen_t, int, hostent*, char*, size_t, hostent**, int*)’
+           0, 0, (struct hostent *) 0, (char *) NULL,  0, (int *)0);
+                                                                  ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3187028255.dir/src.cxx.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3187028255/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+    #undef inline
+    #if !defined(SCO) && !defined(__osf__) && !defined(_REENTRANT)
+    #define _REENTRANT
+    #endif
+    #include <pthread.h>
+    #include <sys/types.h>
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <arpa/inet.h>
+    #include <netdb.h>
+    int main()
+    {
+
+       struct hostent *foo =
+       gethostbyaddr_r((const char *) 0,
+          0, 0, (struct hostent *) 0, (char *) NULL,  0, (int *)0);
+       return 0;
+    }
+  
+Determining if the include file netinet/in6.h exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3015736484/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3015736484.dir/build.make CMakeFiles/cmTryCompileExec3015736484.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3015736484.dir/CheckIncludeFile.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec3015736484.dir/CheckIncludeFile.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: fatal error: netinet/in6.h: No such file or directory
+ #include <netinet/in6.h>
+                         ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3015736484.dir/CheckIncludeFile.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3015736484/fast] Error 2
+
+
+Performing C SOURCE FILE Test HAVE_SOCKADDR_IN_SIN_LEN failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec456654950/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec456654950.dir/build.make CMakeFiles/cmTryCompileExec456654950.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec456654950.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_SOCKADDR_IN_SIN_LEN   -o CMakeFiles/cmTryCompileExec456654950.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:9:7: error: ‘struct sockaddr_in’ has no member named ‘sin_len’
+    tmp->sin_len;
+       ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec456654950.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec456654950/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+
+int main()
+{
+   struct sockaddr_in* tmp;
+   tmp->sin_len;
+  return 0;
+}
+
+Performing C SOURCE FILE Test HAVE_SOCKADDR_IN6_SIN6_LEN failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1597604193/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1597604193.dir/build.make CMakeFiles/cmTryCompileExec1597604193.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1597604193.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_SOCKADDR_IN6_SIN6_LEN   -o CMakeFiles/cmTryCompileExec1597604193.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:9:7: error: ‘struct sockaddr_in6’ has no member named ‘sin6_len’
+    tmp->sin6_len;
+       ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1597604193.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1597604193/fast] Error 2
+
+Source file was:
+
+#include <sys/types.h>
+#include <netinet/in.h>
+#include <sys/socket.h>
+
+int main()
+{
+   struct sockaddr_in6* tmp;
+   tmp->sin6_len;
+  return 0;
+}
+
+Performing C SOURCE FILE Test STRUCT_DIRENT_HAS_D_NAMLEN failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3376662187/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3376662187.dir/build.make CMakeFiles/cmTryCompileExec3376662187.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3376662187.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DSTRUCT_DIRENT_HAS_D_NAMLEN   -o CMakeFiles/cmTryCompileExec3376662187.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:7:7: error: ‘struct dirent’ has no member named ‘d_namlen’
+    tmp->d_namlen;
+       ^
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3376662187.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3376662187/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <dirent.h>
+
+int main()
+{
+   struct dirent* tmp;
+   tmp->d_namlen;
+  return 0;
+}
+
+Determining if the function mbscmp exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2047809310/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2047809310.dir/build.make CMakeFiles/cmTryCompileExec2047809310.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2047809310.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=mbscmp   -o CMakeFiles/cmTryCompileExec2047809310.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2047809310
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2047809310.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=mbscmp    CMakeFiles/cmTryCompileExec2047809310.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2047809310 -rdynamic 
+CMakeFiles/cmTryCompileExec2047809310.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `mbscmp'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2047809310] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2047809310/fast] Error 2
+
+
+Performing C++ SOURCE FILE Test HAVE_DECL_TGOTO failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec988339679/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec988339679.dir/build.make CMakeFiles/cmTryCompileExec988339679.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec988339679.dir/src.cxx.o
+/usr/bin/c++   -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -fno-implicit-templates -fno-exceptions -fno-rtti -DHAVE_DECL_TGOTO   -o CMakeFiles/cmTryCompileExec988339679.dir/src.cxx.o -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx:2:18: fatal error: term.h: No such file or directory
+ #include <term.h>
+                  ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec988339679.dir/src.cxx.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec988339679/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <term.h>
+int main()
+{
+  tgoto(0,0,0);
+  return 0;
+}
+Performing C++ SOURCE FILE Test HAVE_DECL_TGOTO2 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2002339838/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2002339838.dir/build.make CMakeFiles/cmTryCompileExec2002339838.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec2002339838.dir/src.cxx.o
+/usr/bin/c++   -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -fno-implicit-templates -fno-exceptions -fno-rtti -DHAVE_DECL_TGOTO2   -o CMakeFiles/cmTryCompileExec2002339838.dir/src.cxx.o -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.cxx:2:22: fatal error: curses.h: No such file or directory
+   #include <curses.h>
+                      ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2002339838.dir/src.cxx.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2002339838/fast] Error 2
+
+Source file was:
+
+  #include <curses.h>
+  #include <term.h>
+  int main()
+  {
+    tgoto(0,0,0);
+    return 0;
+  }
+Determining if the function strvis exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec334696878/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec334696878.dir/build.make CMakeFiles/cmTryCompileExec334696878.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec334696878.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=strvis   -o CMakeFiles/cmTryCompileExec334696878.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec334696878
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec334696878.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strvis    CMakeFiles/cmTryCompileExec334696878.dir/CheckFunctionExists.c.o  -o cmTryCompileExec334696878 -rdynamic 
+CMakeFiles/cmTryCompileExec334696878.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `strvis'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec334696878] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec334696878/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function strunvis exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1788049832/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1788049832.dir/build.make CMakeFiles/cmTryCompileExec1788049832.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1788049832.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=strunvis   -o CMakeFiles/cmTryCompileExec1788049832.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1788049832
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1788049832.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=strunvis    CMakeFiles/cmTryCompileExec1788049832.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1788049832 -rdynamic 
+CMakeFiles/cmTryCompileExec1788049832.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `strunvis'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec1788049832] Error 1
+gmake[2]: *** [cmTryCompileExec1788049832/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if files libaio.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3484545222/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3484545222.dir/build.make CMakeFiles/cmTryCompileExec3484545222.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3484545222.dir/CheckIncludeFiles.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec3484545222.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: libaio.h: No such file or directory
+ #include <libaio.h>
+                    ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3484545222.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3484545222/fast] Error 2
+
+Source:
+/* */
+#include <libaio.h>
+
+
+int main(){return 0;}
+
+Determining if the function io_queue_init exists in the aio failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec714428236/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec714428236.dir/build.make CMakeFiles/cmTryCompileExec714428236.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec714428236.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=io_queue_init   -o CMakeFiles/cmTryCompileExec714428236.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec714428236
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec714428236.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=io_queue_init    CMakeFiles/cmTryCompileExec714428236.dir/CheckFunctionExists.c.o  -o cmTryCompileExec714428236 -rdynamic -laio 
+/usr/bin/ld: cannot find -laio
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec714428236] Error 1
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec714428236/fast] Error 2
+
+
+Determining if the function processor_bind exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1134830161/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1134830161.dir/build.make CMakeFiles/cmTryCompileExec1134830161.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1134830161.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=processor_bind   -o CMakeFiles/cmTryCompileExec1134830161.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1134830161
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1134830161.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=processor_bind    CMakeFiles/cmTryCompileExec1134830161.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1134830161 -rdynamic 
+CMakeFiles/cmTryCompileExec1134830161.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `processor_bind'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1134830161] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1134830161/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function atomic_swap_32 exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1145345891/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1145345891.dir/build.make CMakeFiles/cmTryCompileExec1145345891.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1145345891.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=atomic_swap_32   -o CMakeFiles/cmTryCompileExec1145345891.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1145345891
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1145345891.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=atomic_swap_32    CMakeFiles/cmTryCompileExec1145345891.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1145345891 -rdynamic 
+CMakeFiles/cmTryCompileExec1145345891.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `atomic_swap_32'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec1145345891] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1145345891/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_mutexattr_init exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1319369369/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1319369369.dir/build.make CMakeFiles/cmTryCompileExec1319369369.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1319369369.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=pthread_mutexattr_init   -o CMakeFiles/cmTryCompileExec1319369369.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec1319369369
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec1319369369.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_mutexattr_init    CMakeFiles/cmTryCompileExec1319369369.dir/CheckFunctionExists.c.o  -o cmTryCompileExec1319369369 -rdynamic 
+CMakeFiles/cmTryCompileExec1319369369.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_mutexattr_init'
+collect2: error: ld returned 1 exit status
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [cmTryCompileExec1319369369] Error 1
+gmake[2]: *** [cmTryCompileExec1319369369/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function pthread_mutexattr_settype exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2538105450/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2538105450.dir/build.make CMakeFiles/cmTryCompileExec2538105450.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2538105450.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DCHECK_FUNCTION_EXISTS=pthread_mutexattr_settype   -o CMakeFiles/cmTryCompileExec2538105450.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec2538105450
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec2538105450.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_mutexattr_settype    CMakeFiles/cmTryCompileExec2538105450.dir/CheckFunctionExists.c.o  -o cmTryCompileExec2538105450 -rdynamic 
+CMakeFiles/cmTryCompileExec2538105450.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `pthread_mutexattr_settype'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec2538105450] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2538105450/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if files sun_prefetch.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4212001786/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4212001786.dir/build.make CMakeFiles/cmTryCompileExec4212001786.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4212001786.dir/CheckIncludeFiles.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec4212001786.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:26: fatal error: sun_prefetch.h: No such file or directory
+ #include <sun_prefetch.h>
+                          ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec4212001786.dir/CheckIncludeFiles.c.o] Error 1
+gmake[2]: *** [cmTryCompileExec4212001786/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source:
+/* */
+#include <sun_prefetch.h>
+
+
+int main(){return 0;}
+
+Performing C SOURCE FILE Test HAVE__BITSCANFORWARD failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1229784148/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1229784148.dir/build.make CMakeFiles/cmTryCompileExec1229784148.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1229784148.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE__BITSCANFORWARD   -o CMakeFiles/cmTryCompileExec1229784148.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:2:20: fatal error: intrin.h: No such file or directory
+ #include <intrin.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1229784148.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec1229784148/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <intrin.h>
+unsigned long A = 7;
+int main()
+{
+  unsigned long a;
+  unsigned char res = _BitScanForward(&a, A);
+  return (int)a;
+}
+Performing C SOURCE FILE Test HAVE__BITSCANREVERSE failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2136859683/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2136859683.dir/build.make CMakeFiles/cmTryCompileExec2136859683.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2136859683.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE__BITSCANREVERSE   -o CMakeFiles/cmTryCompileExec2136859683.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:2:20: fatal error: intrin.h: No such file or directory
+ #include <intrin.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2136859683.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2136859683/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <intrin.h>
+unsigned long A = 7;
+int main()
+{
+  unsigned long a;
+  unsigned char res = _BitScanReverse(&a, A);
+  return (int)a;
+}
+Performing C SOURCE FILE Test HAVE_SOLARIS_AFFINITY failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3695794105/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3695794105.dir/build.make CMakeFiles/cmTryCompileExec3695794105.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3695794105.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_SOLARIS_AFFINITY   -o CMakeFiles/cmTryCompileExec3695794105.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:3:21: fatal error: sys/lwp.h: No such file or directory
+ #include <sys/lwp.h>
+                     ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3695794105.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3695794105/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Source file was:
+
+#include <sys/types.h>
+#include <sys/lwp.h>
+#include <sys/processor.h>
+#include <sys/procset.h>
+int main()
+{
+  processorid_t cpu_id = (processorid_t)0;
+  id_t tid = _lwp_self();
+  int ret = processor_bind(P_LWPID, tid, cpu_id, 0);
+}
+Determining if files atomic.h exist failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec951997336/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec951997336.dir/build.make CMakeFiles/cmTryCompileExec951997336.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec951997336.dir/CheckIncludeFiles.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS  -o CMakeFiles/cmTryCompileExec951997336.dir/CheckIncludeFiles.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:20: fatal error: atomic.h: No such file or directory
+ #include <atomic.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec951997336.dir/CheckIncludeFiles.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec951997336/fast] Error 2
+
+Source:
+/* */
+#include <atomic.h>
+
+
+int main(){return 0;}
+
+Determining if the function htonll exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4201586587/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4201586587.dir/build.make CMakeFiles/cmTryCompileExec4201586587.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4201586587.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -std=gnu99 -DCHECK_FUNCTION_EXISTS=htonll   -o CMakeFiles/cmTryCompileExec4201586587.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec4201586587
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec4201586587.dir/link.txt --verbose=1
+/usr/bin/cc     -std=gnu99 -DCHECK_FUNCTION_EXISTS=htonll    CMakeFiles/cmTryCompileExec4201586587.dir/CheckFunctionExists.c.o  -o cmTryCompileExec4201586587 -rdynamic 
+CMakeFiles/cmTryCompileExec4201586587.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `htonll'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec4201586587] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec4201586587/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Performing C SOURCE FILE Test HAVE_DARWIN_ATOMICS failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2176287608/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2176287608.dir/build.make CMakeFiles/cmTryCompileExec2176287608.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2176287608.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_DARWIN_ATOMICS   -o CMakeFiles/cmTryCompileExec2176287608.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:1:30: fatal error: libkern/OSAtomic.h: No such file or directory
+ #include <libkern/OSAtomic.h>
+                              ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec2176287608.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec2176287608/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Return value: 1
+Source file was:
+#include <libkern/OSAtomic.h>
+     int main() {
+       volatile int foo = 5; 
+       OSAtomicAdd32(6, &foo);
+       return (foo == 11) ? 0 : -1;
+     }
+Performing C SOURCE FILE Test HAVE_SOLARIS_ATOMICS failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3252748994/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3252748994.dir/build.make CMakeFiles/cmTryCompileExec3252748994.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3252748994.dir/src.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS -DHAVE_SOLARIS_ATOMICS   -o CMakeFiles/cmTryCompileExec3252748994.dir/src.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/src.c:1:20: fatal error: atomic.h: No such file or directory
+ #include <atomic.h>
+                    ^
+compilation terminated.
+gmake[3]: *** [CMakeFiles/cmTryCompileExec3252748994.dir/src.c.o] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3252748994/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+Return value: 1
+Source file was:
+#include <atomic.h>
+     int main() {
+       volatile unsigned int foo = 5; 
+       atomic_add_32(&foo, 6);
+       return (foo == 11) ? 0 : -1;
+     }
+Determining if the include file mach/mach_time.h exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1044304520/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1044304520.dir/build.make CMakeFiles/cmTryCompileExec1044304520.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1044304520.dir/CheckIncludeFile.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS --std=gnu99 -Wall -Wredundant-decls    -o CMakeFiles/cmTryCompileExec1044304520.dir/CheckIncludeFile.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: fatal error: mach/mach_time.h: No such file or directory
+ #include <mach/mach_time.h>
+                            ^
+compilation terminated.
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[3]: *** [CMakeFiles/cmTryCompileExec1044304520.dir/CheckIncludeFile.c.o] Error 1
+gmake[2]: *** [cmTryCompileExec1044304520/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+
+Determining if the function srandomdev exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3411937381/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3411937381.dir/build.make CMakeFiles/cmTryCompileExec3411937381.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3411937381.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS --std=gnu99 -Wall -Wredundant-decls -DCHECK_FUNCTION_EXISTS=srandomdev   -o CMakeFiles/cmTryCompileExec3411937381.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec3411937381
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec3411937381.dir/link.txt --verbose=1
+/usr/bin/cc     --std=gnu99 -Wall -Wredundant-decls -DCHECK_FUNCTION_EXISTS=srandomdev    CMakeFiles/cmTryCompileExec3411937381.dir/CheckFunctionExists.c.o  -o cmTryCompileExec3411937381 -rdynamic 
+CMakeFiles/cmTryCompileExec3411937381.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `srandomdev'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec3411937381] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec3411937381/fast] Error 2
+
+
+Determining if the function gethrvtime exists failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec677184202/fast"
+gmake[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec677184202.dir/build.make CMakeFiles/cmTryCompileExec677184202.dir/build
+gmake[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec677184202.dir/CheckFunctionExists.c.o
+/usr/bin/cc  -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS --std=gnu99 -Wall -Wredundant-decls -DCHECK_FUNCTION_EXISTS=gethrvtime   -o CMakeFiles/cmTryCompileExec677184202.dir/CheckFunctionExists.c.o   -c /usr/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTryCompileExec677184202
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTryCompileExec677184202.dir/link.txt --verbose=1
+/usr/bin/cc     --std=gnu99 -Wall -Wredundant-decls -DCHECK_FUNCTION_EXISTS=gethrvtime    CMakeFiles/cmTryCompileExec677184202.dir/CheckFunctionExists.c.o  -o cmTryCompileExec677184202 -rdynamic 
+CMakeFiles/cmTryCompileExec677184202.dir/CheckFunctionExists.c.o: In function `main':
+CheckFunctionExists.c:(.text+0x15): undefined reference to `gethrvtime'
+collect2: error: ld returned 1 exit status
+gmake[3]: *** [cmTryCompileExec677184202] Error 1
+gmake[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+gmake[2]: *** [cmTryCompileExec677184202/fast] Error 2
+gmake[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8/CMakeFiles/CMakeTmp'
+
+

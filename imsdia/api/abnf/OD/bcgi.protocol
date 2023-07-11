@@ -1,0 +1,185 @@
+/**
+ * BCGI specific Diameter Credit Control Application
+ */
+protocol diameter.bcgi < 4 1078218584 : "bcgi inputs" >;
+                                                                                
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+    OLC-ID                                     ::= 1000  /*bcgi*/ Unsigned32    V| | |M,P|N;  
+
+    Bcgi-Service-Identifier                    ::= 1001  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Service-Type                               ::= 1002  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    A-Number                                   ::= 1003  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    B-Number                                   ::= 1004  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Original-Dialed-Digits                     ::= 1005  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Originator-Location-Code                   ::= 1006  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    MS-Info-Cell-Id                            ::= 1008  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    VLR-Number                                 ::= 1009  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Granted-Unit-ID                            ::= 1017  /*bcgi*/ Grouped       V| | |M,P|N;  
+
+    Granted-Unit-Value                         ::= 1018  /*bcgi*/ Unsigned32    V| | |M,P|N;  
+
+    Granted-Unit-Type                          ::= 1019  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Granted-Unit-Precision                     ::= 1020  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Low-Balance-Warning-Indicator              ::= 1022  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Balance-Expiration-Date                    ::= 1023  /*bcgi*/ Time          V| | |M,P|N;  
+
+    Last-Quota-Indicator                       ::= 1025  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Charge-Unit-ID                             ::= 1043  /*bcgi*/ Grouped       V| | |M,P|N;  
+
+    Charge-Unit-Value                          ::= 1026  /*bcgi*/ Unsigned32    V| | |M,P|N;  
+
+    Charge-Unit-Precision                      ::= 1027  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Charge-Unit-Type                           ::= 1028  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Charged-Amount-ID                          ::= 1044  /*bcgi*/ Grouped       V| | |M,P|N;  
+
+    Charged-Amount                             ::= 1029  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Charged-Amount-Precision                   ::= 1030  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Remaining-Balance-Amount-ID                ::= 1045  /*bcgi*/ Grouped       V| | |M,P|N;  
+
+    Remaining-Balance-Amount                   ::= 1031  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Remaining-Balance-Amount-Precision         ::= 1032  /*bcgi*/ Integer32     V| | |M,P|N;  
+
+    Message-Type-Code                          ::= 1041  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    MSC-Address                                ::= 1042  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Subscription-ID-Brand                      ::= 1046  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    RBT-Indicator                              ::= 1047  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Treatment-Flag                             ::= 1048  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Treatment-Type                             ::= 1049  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Treatment-Language                         ::= 1050  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Treatment-Value                            ::= 1051  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+    Time-Zone                                  ::= 1052  /*bcgi*/ UTF8String    V| | |M,P|N;  
+
+    Service-Subtype                            ::= 1053  /*bcgi*/ Enumerated    V| | |M,P|N;  
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////                                                                                 
+    Bcgi-Service-Identifier ::= < Enumerated: 1001 >
+       SRV_ID_IDN         6
+       ;
+
+    Service-Type ::= < Enumerated: 1002 >
+       SRV_TYPE_ORIGINATED         1
+       SRV_TYPE_TERMINATED         2
+       ;
+
+    Granted-Unit-Type ::= < Enumerated: 1019 >
+       GRANTED_UNIT_SECONDS         1
+       GRANTED_UNIT_MINUTES         2
+       GRANTED_UNIT_SMS_EVENTS      3
+       GRANTED_UNIT_OCCURRENCES     4
+       GRANTED_UNIT_KILOBYTES       5
+       ;
+
+    Charge-Unit-Type ::= < Enumerated: 1028 >
+       CHARGE_UNIT_SECONDS         1
+       CHARGE_UNIT_MINUTES         2
+       CHARGE_UNIT_SMS_EVENTS      3
+       CHARGE_UNIT_OCCURRENCES     4
+       CHARGE_UNIT_KILOBYTES       5
+       ;
+
+    Message-Type-Code ::= < Enumerated: 1041 >
+       MSG_TYPE_RESERVE_UNIT        1
+       MSG_TYPE_DEBIT_UNIT          2
+       ;
+
+    Subscription-ID-Brand ::= < Enumerated: 1046 >
+       SUB_BRAND_BST        1
+       SUB_BRAND_SP         2
+       ;
+
+    RBT-Indicator ::= < Enumerated: 1047 >
+       RBT_DISABLED          0
+       RBT_ENABLED           1
+       ;
+
+    Treatment-Flag ::= < Enumerated: 1048 >
+       TREATMENT_DISABLED          0
+       TREATMENT_ENABLED           1
+       ;
+
+    Treatment-Type ::= < Enumerated: 1049 >
+       TREATMENT_IP     1
+       TREATMENT_CSR    2
+       ;
+
+    Treatment-Language ::= < Enumerated: 1050 >
+       TREATMENT_ENGLISH           1
+       TREATMENT_SPANISH           2
+       ;
+
+    Treatment-Value ::= < Enumerated: 1051 >
+       TREATMENT_BAL_EXP           100
+       TREATMENT_BAL               105
+       TREATMENT_BAL_EXP_BPP       110
+       TREATMENT_INSUFF            120
+       TREATMENT_ZERO_EXP          130
+       TREATMENT_DENY              140
+       TREATMENT_CANNOT_CMPLT      145
+       TREATMENT_LOW_BAL           150
+       TREATMENT_COST              200
+       TREATMENT_COST_BPP          210
+       TREATMENT_REPLEN            220
+       TREATMENT_UNAVAIL           230
+       ;
+
+    Service-Subtype ::= < Enumerated: 1053 >
+       SRV_SUB_VMR        1
+       ;
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+    Granted-Unit-ID ::= < AVP Header: 1017 >
+       [ Granted-Unit-Value ]
+       [ Granted-Unit-Type ]
+       [ Granted-Unit-Precision ]
+       ;
+
+    Charge-Unit-ID ::= < AVP Header: 1043 >
+       [ Charge-Unit-Value ]
+       [ Charge-Unit-Precision ]
+       [ Charge-Unit-Type ]
+       ;
+
+    Charged-Amount-ID ::= < AVP Header: 1044 >
+       [ Charged-Amount ]
+       [ Charged-Amount-Precision ]
+       ;
+
+    Remaining-Balance-Amount-ID ::= < AVP Header: 1045 >
+       [ Remaining-Balance-Amount ]
+       [ Remaining-Balance-Amount-Precision ]
+       ;
+

@@ -1,0 +1,22 @@
+/coded_stream.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/coded_stream.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/coded_stream_inl.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/coded_stream_unittest.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/gzip_stream.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/gzip_stream.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/gzip_stream_unittest.sh/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/package_info.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/printer.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/printer.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/printer_unittest.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/tokenizer.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/tokenizer.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/tokenizer_unittest.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream_impl.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream_impl.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream_impl_lite.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream_impl_lite.h/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+/zero_copy_stream_unittest.cc/1.1.1.1/Thu Aug 23 06:50:12 2012//TB-IWF-HP-0400-00
+D

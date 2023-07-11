@@ -1,0 +1,284 @@
+%PB{
+	option java_package = "com.diametriq.webagent";
+	option java_outer_classname = "ManagePeerGroups";
+
+	import "Common.proto";
+
+	message LBPeer {
+		required string LBPeerName      = 1;
+		optional fixed32 LBPeerID       = 2;
+		optional string  LBPeerRealm    = 3;
+		optional fixed32 LBPeerWeight   = 4;
+		optional fixed32 LBPeerPriority = 5;
+	}
+
+	message LBAlgorithm {
+		enum SuppComponentID {
+			COMP_ALL    = 0;
+			COMP_ASF    = 1;
+			COMP_ERLBF  = 2;
+            COMP_ASF_ERLBF = 3;
+		}
+		required string LBMethod        = 1;
+		optional string LBMethodDesc    = 2;
+        optional SuppComponentID SuppComponent = 3;
+	}
+
+	message LBAlgorithms {
+		repeated LBAlgorithm LBAlgos = 1;
+	}
+
+    message LBPeerGroup {
+        required string LBPeerGroupName         = 1;
+        optional fixed32 LBPeerGroupID          = 2;
+        optional bool   EnablePCRFBinding       = 3;
+        optional LBAlgorithm LBAlgo             = 4;
+        repeated LBPeer LBPeers                 = 5;
+        optional bool   RejectReq               = 6;
+        optional fixed32 ConfiguredResultCode   = 7;
+        optional bool IsExperimentalResultCode  = 8;
+        optional fixed32 VendorId               = 9;
+        optional bool IsSessionBindingBasedOnIMSI = 10;
+    }
+
+	message LBPeerGroups {
+		repeated LBPeerGroup PeerGroups = 1;
+	}
+
+	message LBPeerGroupReq {
+		required fixed32 RequestID        = 1;
+		repeated LBPeerGroup PeerGroups   = 2;
+	}
+
+	message LBPeerGroupResp {
+		required fixed32 ResponseID    = 1;
+		optional fixed32 RequestID     = 2;
+		repeated LBPeerGroup PeerGroups   = 3;
+		repeated LBAlgorithm LBAlgos = 4;
+		repeated ErrorDetails ErrorDetails = 5;
+	}
+
+
+	message ERLBFPeerStats {
+		required fixed32 PeerID      = 3;
+		optional string PeerName     = 4;
+		optional uint64  MsgsSent    = 5;
+		optional uint64  MsgsSkipped = 6;
+	}
+
+	message ERLBFPeerGroupStats {
+		required fixed32 PeerGroupID = 1;
+		optional string PeerGroupName =2;
+		repeated ERLBFPeerStats PeerStats = 3;
+        optional uint64 ReqMsgsRejected = 4;
+	}
+
+	message ERLBFPeerGroupStatsReq {
+		required fixed32 RequestID = 1;
+		repeated fixed32 PeerGroupID = 2;
+	}
+
+	message ERLBFPeerGroupStatsResp {
+		required fixed32 ResponseID    = 1;
+		repeated ERLBFPeerGroupStats PeerGroupStats = 2;
+		repeated ErrorDetails ErrorDetails = 3;
+	}
+
+	message ERLBFResetPeerGroupStats {
+		repeated fixed32 PeerGroupID  = 1;
+		repeated string PeerGroupName = 2;
+	}
+
+	message ERLBFResetPeerGroupStatsReq {
+		required fixed32 RequestID                            = 1;
+		optional ERLBFResetPeerGroupStats ResetPeerGroupStats = 2;
+	}
+
+	message ERLBFResetPeerGroupStatsResp {
+		required fixed32 ResponseID                           = 1;
+		optional ERLBFResetPeerGroupStats ResetPeerGroupStats = 2;
+		repeated ErrorDetails ErrorDetails = 3;
+	}
+
+	message SessionBindingStats {
+		required uint64 CurrentSessBinds = 1;
+		optional uint64 TotalSessBindsExpired = 2;
+		optional uint64 TotalSessBindsAdded = 3;
+		optional uint64 TotalSessBindsDeleted = 4;
+
+	}
+
+	message SessionBindingStatsReq {
+		required fixed32 RequestID  = 1;
+	}
+
+	message SessionBindingStatsRsp {
+		required fixed32 ResponseID    = 1;
+		required SessionBindingStats SessStats = 2;
+		repeated ErrorDetails ErrorDetails = 3;
+	}
+
+	///////////////////////////////////////////////////////////////
+	// Protocol Buffers for Dynamic Dictionaries Loading and
+	// Transform Plugins
+	///////////////////////////////////////////////////////////////
+
+	message Dictionary {
+		required string DictionaryName = 1;
+		optional fixed32 DictionaryID = 2;
+		optional string  InterfaceName = 3;
+		optional string ReleaseNum  = 4;
+	}
+
+	message TransformPlugin {
+		required string PluginName  = 1;
+		optional string FromDictionary = 2;
+		optional string ToDictionary = 3;
+		optional string ConfigFileName = 4;
+	}
+
+	message DynDictionaryRequest {
+		required fixed32 RequestID = 1;
+		repeated Dictionary Dictionaries = 2;
+		repeated TransformPlugin Plugins = 3;
+	}
+
+	message DynDictionaryResponse {
+		required fixed32 ResponseID = 1;
+		optional fixed32 RequestID = 2;
+		repeated Dictionary Dictionaries = 3;
+		repeated TransformPlugin Plugins = 4;
+		repeated ErrorDetails ErrorDetails = 5;
+	}
+
+	message LoggerConf
+	{
+		optional string ComponentName = 1;
+		enum LogChannel {
+			SYSLOG   = 0;
+			FILENAME = 1;
+			CONSOLE  = 2;
+		}
+		optional LogChannel Channel   = 2;
+		enum LogLevel {
+			CRITICAL_LOG = 2;
+			ERROR_LOG    = 3;
+			WARNING_LOG  = 4;
+			NOTICE_LOG   = 5;
+			INFO_LOG     = 6;
+			DEBUG_LOG    = 7;
+		}
+		optional LogLevel Level       = 3;
+	}
+
+	message LoggerInfo
+	{
+		repeated LoggerConf  LoggerConfig = 1;
+	}
+
+	message LoggerConfReq
+	{
+		required fixed32     RequestID     = 1;
+		repeated LoggerConf  LoggerConfig  = 2;
+	}
+
+	message LoggerConfResp
+	{
+		required fixed32     ResponseID     = 1;
+		repeated LoggerConf  LoggerConfig   = 2;
+		repeated ErrorDetails ErrorDetails = 3;
+	}
+
+// ASF Related Protocol Buffers - START
+    message ASGroupCfg {
+        optional string  AppGroup  = 1;
+        optional fixed32 AppGroupID = 2;
+        optional fixed32 Priority = 3;
+        optional bool    IsHostedApp = 4;
+        optional fixed32 MaxAppInstances = 5;
+        optional LBAlgorithm LBAlgo = 6;
+        optional string CreatedBy = 7;
+        optional string CreationDate = 8;
+        optional string ModifiedBy = 9;
+        optional string ModifyTime = 10;
+    }
+
+    message ASGroupsCfg {
+        repeated ASGroupCfg ASGroups = 1;
+    }
+
+    message ASFConfiguration {
+        optional fixed32 AppResponseTimeout = 1;
+    }
+
+    message ASFConfigReq {
+        required fixed32 RequestID = 1;
+        optional ASFConfiguration ASFInfo = 2;
+        repeated ASGroupCfg ASGroups = 3;
+    }
+
+    message ASFConfigResp {
+            required fixed32 ResponseID = 1;
+            optional fixed32 RequestID = 2;
+            optional ASFConfiguration ASFInfo = 3;
+            repeated ASGroupCfg ASGroups = 4;
+            repeated ErrorDetails ErrorDetails = 5;
+    }
+// ASF Related Protocol Buffers - END
+
+	%PB}
+
+	interface CmgrComponents
+{
+	CMgrGetLBPeerConfigs(LBPeerGroupReq Req, LBPeerGroupResp Resp)uses_PB;
+	CMgrSetLBPeerConfigs(LBPeerGroupReq Req, LBPeerGroupResp Resp)uses_PB;
+	CMgrDTFConfig(DynDictionaryRequest Req, DynDictionaryResponse Resp)uses_PB;
+	GetComponentLoggingConf(LoggerConfReq Req, LoggerConfResp Resp)uses_PB;
+	SetComponentLoggingConf(LoggerConfReq Req, LoggerConfResp Resp)uses_PB;
+    GetASFConfiguration(ASFConfigReq Req, ASFConfigResp Resp)uses_PB;
+    SetASFConfiguration(ASFConfigReq Req, ASFConfigResp Resp)uses_PB;
+}
+
+interface DreErlbf
+{
+	ErlbfSetLBPeerConfigs(LBPeerGroupReq Req, LBPeerGroupResp Resp)uses_PB;
+}
+
+interface FetchConfiguration
+{
+	FetchErlbfConfiguration(LBPeerGroupReq Req, LBPeerGroupResp Resp)uses_PB;
+	FetchDTFConfiguration(DynDictionaryRequest Req, DynDictionaryResponse Resp)uses_PB;
+	FetchLoggerConfiguration(LoggerConfReq Req, LoggerConfResp Resp)uses_PB;
+    FetchASFConfiguration(ASFConfigReq Req, ASFConfigResp Resp)uses_PB;
+}
+
+interface ErlbfStats
+{
+	FetchERLBFPeerGroupStats(ERLBFPeerGroupStatsReq Req, ERLBFPeerGroupStatsResp Resp)uses_PB;
+	FetchSessionBindingStats(SessionBindingStatsReq Req, SessionBindingStatsRsp Resp)uses_PB;
+	ResetERLBFPeerGroupStats(ERLBFResetPeerGroupStatsReq Req, ERLBFResetPeerGroupStatsResp Resp)uses_PB;
+}
+
+interface DreDTF
+{
+	DreDTFConfig(DynDictionaryRequest Req, DynDictionaryResponse Resp)uses_PB;
+}
+
+interface LoggingConf
+{
+	SetComponentLoggingConf(LoggerConfReq Req, LoggerConfResp Resp)uses_PB;
+}
+
+interface DreASF
+{
+    SetASFConfiguration(ASFConfigReq Req, ASFConfigResp Resp)uses_PB;
+}
+
+interface CompConfigResults
+{
+	SendPeerGrpConfigResult(LBPeerGroupResp Resp, CMAPIRes result)uses_PB;
+	SendDTFConfigResult(DynDictionaryResponse Resp, CMAPIRes result)uses_PB;
+	SendLogConfigResult(LoggerConfResp Resp, CMAPIRes result)uses_PB;
+    SendASFConfigResult(ASFConfigResp Resp, CMAPIRes result)uses_PB;
+}
+

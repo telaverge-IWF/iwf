@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+
+<!-- Sample XML file for application configuration (INI). -->
+
+<Application name           = "DiaServer"
+             type           = "console-application"
+             globalStart    = ""
+             binding        = "CPP"
+             library        = "libdiaappD.so"
+             appSelector    = "ApplicationRoutingFunction"
+             preFunc        = "AppPreFunc"
+             postFunc       = "AppPostFunc">
+
+    <AppOptions name = "traceFlushAfterWrite"         value = "yes"/>
+    <AppOptions name = "routeUniqueLinkCodesRequired" value = "yes"/>
+    <AppOptions name = "memPoolChecksOn"              value = "no"/>
+   
+    <AppOptions name = "redundancyType"               value = "active-hotbackup"/>
+    <AppOptions name = "nodeState"                    value = "active"/>
+    <AppOptions name = "appSelectAll"                 value = "ApplicationRoutingFunction"/>
+
+    <AppOptions name = "DiameterConfigFile"   value = "itsdiaserver.xml"/>
+    <AppOptions name = "DccaTccTimerValue"   value = "600"/>    
+
+    <!--+++++++++++++++ DSM GCS ++++++++++++++-->
+
+     <ParserExtension
+           library         = "libDSM-GCSD.so"
+           elementName     = "DsmGcsConfig"
+           startFunc       = "DSM_GCS_ConfigParseStart"
+           stopFunc        = "DSM_GCS_ConfigParseStop"
+           xlateFunc       = "DSM_GCS_ConfigConvertParserData"
+           diffFunc        = "DSM_GCS_ConfigDiff"
+     />
+
+     <FaultTolerance
+        maxNumFtGroups      = "32"
+        maxNumProcesses     = "10"
+        maxNumNodes         = "4"
+        nodeId              = "2"
+        processId           = "5"
+        mtp3FtGroupId       = "0"
+        routingFtGroupId    = "1"
+        timersFtGroupId     = "1"
+        mgmtDataFtGroupId   = "1"
+     >
+     
+     <Procedures>
+
+     </Procedures>
+
+     <Callbacks>
+
+     </Callbacks>
+
+        <FtGroups>
+
+            <FtGroup
+                ftGroupId      = "0"
+                ftGroupName    = "FtGroup0"
+            >
+        <!--  change dsmType = "GCS" for redundancy -->
+
+            <DsmConfig
+                dsmSize         = "20971520"
+                dsmBaseAddress  = "0x80000000"
+                dsmMaxNumTables = "256"
+                dsmType         = "GCS"
+            />
+
+            <DsmGcsConfig
+                gcsFtGroupId        = "0"
+                gcsDaemonName       = "4805"
+                gcsSyncMemUseTcp    = "1"
+                gcsSyncMemIpAddress = "172.16.3.1"
+                gcsSyncMemIpPort    = "4888"
+            />
+
+            <!-- Note: MUST include itself. -->
+            <!-- Note: nodeName and processName are optional attributes. -->
+
+            <FtGroupMembers>
+
+                <FtGroupMember
+                    nodeId      = "2"
+                    nodeName    = "Node2"
+                    processId   = "5"
+                    processName = "Node1Process5"
+                />
+                <FtGroupMember
+                    nodeId      = "1"
+                    nodeName    = "Node1"
+                    processId   = "5"
+                    processName = "Node2Process5"
+                />
+
+            </FtGroupMembers>
+
+
+                <!-- Note: MUST NOT include itself. -->
+                <!-- Note: Master FtGroupMembers are tried in order. -->
+
+                <MasterFtGroupMembers>
+                    <MasterFtGroupMember
+                        nodeId    = "1"
+                        processId = "5"
+                    />
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+                   <MembershipChangeCallback 
+                       library = ""
+                       function= "NodeStateChangeCallback" 
+                   />
+                </Callbacks>
+
+            </FtGroup>
+
+            <FtGroup
+                ftGroupId      = "1"
+                ftGroupName    = "FtGroup0"
+            >
+        <!--  change dsmType = "GCS" for redundancy -->
+
+            <DsmConfig
+                dsmSize         = "20971520"
+                dsmBaseAddress  = "0x80000000"
+                dsmMaxNumTables = "256"
+                dsmType         = "STUB"
+            />
+            <!-- Note: MUST include itself. -->
+            <!-- Note: nodeName and processName are optional attributes. -->
+
+            <FtGroupMembers>
+
+                <FtGroupMember
+                    nodeId      = "2"
+                    nodeName    = "Node2"
+                    processId   = "5"
+                    processName = "Node1Process5"
+                />
+
+            </FtGroupMembers>
+
+
+                <!-- Note: MUST NOT include itself. -->
+                <!-- Note: Master FtGroupMembers are tried in order. -->
+
+                <MasterFtGroupMembers>
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+                </Callbacks>
+            </FtGroup>
+
+        </FtGroups>
+
+    </FaultTolerance>
+
+    <Feature
+        name        = "DCCA"
+        library     = "libdccacoreD.so"
+        classRec    = "itsDCCA_Class"
+    /> 
+
+<!---  Enable these features for Redundancy -->
+
+    <Feature
+        name        = "DSM  - GCS"
+        library     = "libDSM-GCSD.so"
+        classRec    = "itsDSM_GcsImplClass"
+    />
+    <Feature
+        name        = "Redundancy"
+        library     = "libITS-REDUNDANCYD.so"
+        classRec    = "itsREDUNDANCY_Class"
+    />  
+    <Feature
+        name        = "DSM  - STUB"
+        library     = "libDSM-STUBD.so"
+        classRec    = "itsDSM_StubImplClass"
+    />
+        
+    <ToolkitTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = ""/>
+    </ToolkitTrace>
+        
+    <ApplicationTrace>
+        <Critical     output="stdout"/>
+        <Error        output="stdout"/>
+        <Warning      output="stdout"/>
+        <Debug        output="stdout"/>
+    </ApplicationTrace>
+
+
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <WorkerPool stackSize = "0">
+
+        <Transport  type   = "TaskQueue"
+                    count  = "20"
+                    family = "">
+
+        </Transport>
+
+    </WorkerPool>
+
+    <BorderPool stackSize = "0">
+
+      <Transport  name    = "MML Console Dispatcher"
+                   type    = "ServerSocket"
+                   family  = "">
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "127.0.0.1"
+                        serverPort      = "2012"
+            />
+
+            <Callbacks
+                type        = "debug-console"
+            />
+
+       </Transport>
+
+
+    </BorderPool>
+
+    <Diameter>
+
+    </Diameter>
+
+</Application>
+

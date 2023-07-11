@@ -1,0 +1,33 @@
+Diameter Command
+
+SYNOPSIS
+    getDiaMiscStats <clearFlag>
+
+DESCRIPTION
+    This command will Print the Miscellaneous Status and if clear flag is set,
+    statistics will be reset.
+
+PARAMETERS
+    clearFlag     0 - don't reset
+                  1 - will reset statistics
+
+EXAMPLE
+    >> getDiaMiscStats 1
+
+-----------------------------------------------------------
+-- Dia Misc Stats --  
+-----------------------------------------------------------
+Num of RedirectEvents               0
+Num of AccDupRequests               0
+Num of Malformed Requests           0
+Num of Acc Retransmissions          0
+Num of Total Retrans                0
+Num of AccReqstsDropped             0
+Num of Hop-By-Hop Drop Messages     0
+Num of Unknown Types                0
+Num of Protocol  Errors             0
+Num of Transient Failure            0
+Num of Permanent Failures           0
+Num of Transport Down               0
+
+

@@ -1,0 +1,16 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    clear
+                                                                                
+DESCRIPTION
+    This command resets all the counters maintained by
+    the demo application.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> clear
+   *****statistics values cleared*****
+                                                                                
+

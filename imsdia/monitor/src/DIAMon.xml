@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- XML file for DIA_MON configuration (INI). -->
+
+<DIA_Mon  MonitorInterval = "10"
+          TraceError      = "1"
+          TraceCritical   = "1"
+          TraceWarning    = "1"
+          TraceDebug      = "1">
+
+   <Task name      = "DiaServerD"
+         args      = "-configFile ../config/IDS.xml"
+         directory = "/opt/IntelliNet/IDS/bin"
+         postTerminateAction = "">
+
+   </Task>
+  
+</DIA_Mon>
+

@@ -1,0 +1,4136 @@
+/**
+ * 3GPP TS 32.296 V10.1.0 (2010-10)-- Re Interface --Diameter Based Protocol
+ * The Re reference point is between Online Charging Function (OCF) and Rating Function.
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+protocol diameter.re < 16777218  10415 : "3GPP TS 32.296 V10.1.0 (2010-10)" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+
+/**
+ * The Session-Abort-Cause AVP (AVP code 500) is of type Enumerated, and 
+ * determines the cause of a session abort request or of an RAR indicating a 
+ * bearer context release. 
+ */
+    Abort-Cause                        ::= 500 10415 /* 6.4.5  */         Enumerated    M,V|P| |   |Y;
+
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505)is of type OctetString,contains
+ * the AF Charging Identifier that is sent by the AF. This information may be 
+ * used for charging correlation  between AF and RACS functional entities.
+ */
+    AF-Charging-Identifier             ::= 505 10415  /* 6.4.25 */         OctetString   M,V|P| |   |Y;
+
+
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows
+ * via their flow identifiers.
+ * If no Flow-Number AVP(s) are supplied, the Flows AVP refers to all Flows
+ * matching the media component number.
+ */
+    Flows                              ::= 510 10415 /* 6.4.10 */         Grouped       M,V|P| |   |Y;
+
+/**           
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32,and it contains the
+ * ordinal number of the IP flow(s), assigned according to the rules in annex C
+ * of TS 129 207 [6].
+ */ 
+    Flow-Number                        ::= 509  10415 /* 6.4.9 */         Unsigned32    M,V|P| |   |Y;
+
+
+/**
+ * The Specific-Action AVP (AVP code 513) is of type Enumerated.Within an 
+ * initial AA-Request the SPDF may use the Specific-Action AVP to request 
+ * from the A-RACF notification of specific actions. If the Specific-Action AVP
+ * is omitted within the initial AA-Request, no notification of any of the 
+ * events defined below is requested.
+ */
+    Specific-Action                    ::= 513 10415 /* 6.4.13 */         Enumerated    M,V|P| |   |Y;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for a 
+ * downlink IP flow. The bandwidth contains all the overhead coming from the 
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+    Max-Requested-Bandwidth-DL         ::= 515 10415 /* 6.4.14 */         Unsigned32    M,V|P| |   |Y;
+
+/**
+ * The Max-Requested-Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for an 
+ * uplink IP flow. The bandwidth contains all the overhead coming from the 
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+    Max-Requested-Bandwidth-UL         ::= 516 10415 /* 6.4.15 */         Unsigned32    M,V|P| |   |Y;
+
+/**
+ * The Session-Bundle-Id (AVP code 400) is of type Unsigned32. It may be 
+ * specified by the A-RACF in the AA-Answer, when the initial reservation
+ * is granted, in order to identify the group of sessions to which the session 
+ * of the AA-Answer belongs. The value of the Session-Bundle-Id AVP is 
+ * meaningful for the A-RACF only. It may be included by the A-RACF in 
+ * subsequent Abort-Session-Request (ASR) messages sent to the SPDF.
+ */
+    Session-Bundle-Id                  ::= 400   /*6.2.24*/            Unsigned32    M,V|P| |  |Y;
+
+/**
+ * The Authorization-Package-Id AVP (AVP code 461) is of type UTF8String, and 
+ * it identifies an authorization context requested by the AF for the session. 
+ * This information is used by the A-RACF to derive the policy to be passed to 
+ * an RCEF through the Re reference point for the session.
+ */
+    Authorization-Package-Id  ::= 461   /*6.4.29*/   UTF8String    V| | | M|Y;
+
+/**
+ * The Service-Rating AVP is of type Grouped. It is used in the all messages once 
+ * if single service is rated or multiple times if several services are rated in 
+ * a single transaction.
+ * Here we are using 5000 AVP Code instead of TBD(To Be Decided).
+*/
+    Service-Rating  ::= 5000	/*3GPP TS 32.296 V10.1.0   7.1.4.2.47 */ Grouped V,M| | | | N ;
+
+
+/**
+ * The DestinationID AVP is of type Grouped. It contains information about the 
+ * destination of the service usage in the network (e.g. the called party in a 
+ * telephony scenario). Multiple Destination AVPs can be included in one rating
+ * request message (i.e. PRQ or TRQ), if the service is directed towards multiple
+ * destinations (e.g. one SMS to multiple recipients).
+ * Here we are using 5001 AVP Code instead of TBD(To Be Decided).
+*/ 
+   	DestinationID ::= 5001	 /*3GPP TS 32.296  7.1.4.2.29*/  Grouped  V,M| | | | N ;
+
+/**
+ * The DestinationIDType AVP is of type Enumerated. It is used inside the 
+ * DestinationID AVP, and it indicates which kind of destination information is
+ * contained in this DestinationIDData AVP.
+ * Here we are using 5002 AVP Code instead of TBD(To Be Decided).
+*/
+      DestinationIDType	::= 5002 /*3GPP TS 32.296  7.1.4.2.31 */  Enumerated V,M| | | | N ;
+
+/**
+ * The DestinationIDData AVP is of type UTF8String. Its contents identify the
+ * destination to which the requested service is directed .
+ * Here we are using 5003 AVP Code instead of TBD(To Be Decided).
+*/
+     DestinationIDData  ::= 5003   /*3GPP TS 32.296  7.1.4.2.30*/ UTF8String   V,M| | | | N ;
+
+/**
+ * The Service-Information AVP (AVP code 873) is of type Grouped. Its purpose is to
+ * allow the transmission of additional 3GPP service specific information elements
+ *  which are not described in this document.
+*/
+    Service-Information        ::=873    /* 3GPP TS 32.299  7.2.149*/Grouped V,M|P| | | N ;
+/**
+ * The AoC-Information AVP (AVP code 2054) is of type Grouped that includes
+ * the information required for advice of charge.
+*/
+    AoC-Information        ::=2054     /* 3GPP TS 32.299 7.2.12B */ Grouped V,M|P| | | N ;
+
+/**
+ * The AoC-Cost-Information AVP (AVP code 2053) is of type Grouped and holds accumulated 
+ * and incremental cost infromation for the AoC service .
+*/
+   AoC-Cost-Information    ::=2053 /* 3GPP TS 32.299 */  Grouped V,M| P| | | N;
+
+/**
+ * The Accumulated-Cost AVP (AVP code 2052) is of type Grouped and holds the accumulated
+ * cost for the ongoing session.
+*/
+
+   Accumulated-Cost ::=2052   /* 3GPP TS 32.299 7.2.2A */  Grouped V,M| P| | | N;
+
+/**
+ * The Incremental-Cost AVP (AVP code 2062) is of type Grouped and holds the incremental
+ * cost since last AoC interaction for the ongoing session.
+*/
+   Incremental-Cost ::=2062   /* 3GPP TS 32.299 7.2.51A */  Grouped V,M| P| | | N;
+
+/**
+ * The Tariff-Information AVP (AVP code 2060) is of type Grouped and holds a tariff
+ * definition either from the local provider or from 3rd party provider. It contains
+ * information about the operator and the ID of the service being provided,the current
+ * tariff and possible next tariff after tariff switch time. It may also chain to
+ * tariffs provided by intermediate operators in the chain.
+*/
+    Tariff-Information ::=2060  /* 3GPP TS 32.299  7.2.168B */  Grouped V,M| P| | | N;
+
+/**
+ * The Current-Tariff AVP (AVP code 2056) is of type Grouped and holds tariff 
+ * information. The Tariff is a formula for cost calculation given the 
+ * Used-Service-Unit AVP. The calculated cost is given in the Currency-Code AVP. 
+ * The formula sums all the rating elements and multiplies the sum by the Scale-Factor AVP.
+*/
+   Current-Tariff ::=2056 /*3GPP TS 32.299  7.2.33A */  Grouped V,M| P| | | N;
+
+/**
+ *The Scale-Factor AVP (AVP code 2059) is of type Grouped and holds simple 
+ *multiplication factor in the same format as Unit-Value.
+ */
+   Scale-Factor::= 2059  /*3GPP TS 32.299 7.2.138A   */  Grouped V,M| P| | | N;
+
+/**
+ *The Rate-Element AVP (AVP code 2058) is of type Grouped and holds simple rate element 
+ *of one dimension. Possible dimentions are the CC-Unit-Type.
+ *Example: CC-Unit-Type AVP TIME, Unit-Value AVP 6 and Unit-Cost AVP 10 with Exponent 
+ *AVP 2 should read:
+ *10 cents per 6 seconds time. The currency is context dependent.
+ *IF CC-Unit-Type AVP is MONEY, this is a fixed fee and Unit-Value is ignored.
+*/
+  Rate-Element  ::=2058 /*3GPP TS 32.299  7.2.126A  */  Grouped V,M| P| | | N;
+
+/**
+ *The Unit-Cost AVP (AVP code 2061) is of type Grouped and holds monetary value.
+ *It has the same format of Unit-Value
+*/
+   Unit-Cost ::=2061  /*3GPP TS 32.299  7.2.178A  */  Grouped V,M| P| | | N;
+
+/**
+ * The Next-Tariff AVP (AVP code 2057) is of type Grouped and holds tariff information. 
+ * The Tariff is a formula for cost calculation given the Used-Service-Unit AVP.
+ * The calculated cost is given in the Currency-Code AVP.
+ * The formula sums all the rating elements and multiplies the sum by the Scale-Factor AVP.
+*/
+   Next-Tariff ::=2057  /*3GPP TS 32.299  7.2.88B  */  Grouped V,M| P| | | N;
+
+/**
+ *The PS-Information AVP (AVP code 874) is of type Grouped. Its purpose is to 
+ *allow the transmission of additional PS service specific information elements.
+*/
+   PS-Information ::=874  /*3GPP TS 32.299  7.2.124  */  Grouped V,M| P| | | N;
+
+/**
+ * 
+*/
+   Re-3GPP-Charging-Id ::=2     /*3GPP TS 29.061  16.4.7*/   OctetString  V| P|  | M| Y;
+
+/**
+ *The PDN-Connection-ID AVP (AVP code 2050) is of type Unsigned32 and contains the
+ * charging identifier to identify different records belonging to same PDN connection. 
+ *This field includes Charging Id of first IP-CAN bearer activated within the PDN
+ * connection. Together with P-GW address this uniquely identifies the PDN connection.
+*/
+  PDN-Connection-ID ::=2050 /*3GPP TS 32.299  7.2.104A  */ Unsigned32  V,M| P| | | N;
+
+/**
+ * The Node-Id AVP (AVP code 2064) is of type UTF8String and includes an optional,
+ * operator configurable identifier string for the node that had generated the 
+ * Accounting Request (ACR).
+*/
+  Node-Id ::= 2064  /*3GPP TS 32.299   7.2.89b*/ Unsigned32  V,M|P| | |N;
+
+/**
+ * For GGSN, it indicates the type of PDP context, e.g. IP or PPP.
+ * For P-GW, it indicates the PDN Type, i.e. IPv4, IPv6, IPv4v6.
+*/
+   Re-3GPP-PDP-Type    ::=3 /*3GPP TS 29.061 16.4.7 */  Enumerated  V| P|  | M| Y;
+
+/**
+ * The PDP-Address AVP (AVP code 1227) is of type Address and holds the IP-address
+ *  associated with the IP CAN  bearer session ( PDP context / PDN connection)..
+*/
+  PDP-Address ::=1227   /*3GPP TS 32.299  7.2.105   */   Address   V,M| P| | | Y;   
+
+/**
+ *
+ *
+*/
+
+ Dynamic-Address-Flag ::= 2051  /*3GPP TS 32.299  7.2.39A */  Enumerated   V,M| P| | | N;
+
+/**
+ * The QoS-Information AVP (AVP code 1016) is of type Grouped, and it defines the 
+ * QoS information for an IP-CAN bearer, PCC rule or QCI. When this AVP is sent from
+ * the PCEF to the PCRF, it indicates the requested QoS information for an IP CAN 
+ * bearer. When this AVP is sent from the PCRF to the PCEF, it indicates the authorized 
+ * QoS for an IP CAN bearer (when appearing at CCA or RAR command level or a service
+ * flow (when included within the PCC rule) or a QCI (when appearing at CCA or RAR 
+ * command level with the QoS-Class-Identifier AVP and the Maximum-Requested-Bandwidth-UL
+ * AVP and/or the Maximum-Requested-Bandwidth-DL AVP).
+*/
+  QoS-Information ::=1016  /*3GPP TS 29.212  5.3.16 */   Grouped   M,V| P| | | Y;
+
+/*
+ * QoS-Class-Identifier AVP (AVP code 1028) is of type Enumerated, and it defines
+ * the maximum authorized traffic class for the transport bearer or service flow.
+ * The following values are defined:
+ *       TRAFFIC_CLASS_A (0) -This value defines that the QoS class is A.
+ *       TRAFFIC_CLASS_B (1)- This value defines that the QoS class is B.
+ *       TRAFFIC_CLASS_C (2)-This value defines that the QoS class is C.
+ *       TRAFFIC_CLASS_D (3)- This value defines that the QoS class is D.
+ *       TRAFFIC_CLASS_E (4)-This value defines that the QoS class is E.
+ *       TRAFFIC_CLASS_F (5)-This value defines that the QoS class is F.
+ * The mapping of QCI to QoS classes of specific transport technology can be found
+ * in pertinent SDO's specification.
+*/
+   QoS-Class-Identifier  ::= 1028  /* from s6a.protocol */Enumerated       M,V|P| |     |Y;
+
+/*
+ * The Guaranteed Bitrate-UL AVP (AVP code 1026) is of type Unsigned32, and it
+ * indicates the guaranteed bitrate in bits per second for an uplink service data flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+*/
+   Guaranteed-Bitrate-UL ::= 1026 /* 3GPP TS 29.212 V9.2.0  5.3.26 */ Unsigned32 M,V| P| | | Y;
+
+/**
+ *  The Guaranteed-Bitrate-DL AVP (AVP code 1025) is of type Unsigned32, and it indicates
+ *  the guaranteed bitrate in bits per second for a downlink service data flow. The 
+ *  bandwidth contains all the overhead coming from the IP-layer and the layers above, 
+ *  e.g. IP, UDP, RTP and RTP payload.
+*/
+   Guaranteed-Bitrate-DL  ::=1025 /*3GPP TS 29.212 V9.2.0   5.3.25 */ Unsigned32 M,V| P| | | Y;
+
+/**
+ * The Bearer-Identifier AVP (AVP code 1020) is of type OctetString, and it indicates the
+ * bearer to which specific information refers.
+ * When present within a CC-Request Diameter command, subsequent AVPs within the CC-Request
+ * refer to the specific bearer identified by this AVP.
+ * The bearer identifier of an IP CAN bearer shall be unique within the corresponding 
+ * IP CAN session. The bearer identifier shall be selected by the PCEF.
+*/
+ Bearer-Identifier ::=1020  /*3GPP TS 29.212 V9.2.0  5.3.20 */  OctetString  M,V| P| | | Y;
+
+/**
+ * The Allocation-Retention-Priority AVP (AVP code 1034) is of type Grouped, and it is 
+ * used to indicate the priority of allocation and retention, the pre-emption capability 
+ * and pre-emption vulnerability for the SDF if provided within the QoS-Information-AVP
+ *  or for the EPS default bearer if provided within the Default-EPS-Bearer-QoS AVP.
+*/
+ Allocation-Retention-Priority ::=1034 /*3GPP TS 29.212 V9.2.0  5.3.32 */ Grouped V| P| | M| Y;
+
+/**
+ * The SGSN-Address AVP (AVP code 1228) is of type Address and holds the IP-address of the
+ * SGSN/Serving Node (e;g S-GW, AGW, ePDG) that was used during a report.
+*/
+   SGSN-Address    ::= 1228 /* 3GPP TS 32.299 V9.0.0   7.2.153 */ Address     V,M|P| |  |N;
+
+/**
+ * The GGSN-Address AVP (AVP code 847) is of type Address and holds the IP-address of the 
+ * P-GW that generated the GPRS/EPC Charging ID
+*/
+   GGSN-Address ::= 847 /* 3GPP TS 32.299 V9.0.0   7.2.153 */ Address     V,M|P| |  |N;
+
+/**
+ * The CG-Address AVP (AVP code 846) is of type Address and holds the IP-address of the
+ * charging gateway.
+*/
+   CG-Address ::= 846 /* 3GPP TS 32.299 V9.0.0   7.2.25 */ Address     V,M|P| |  |N;
+
+/**
+ * The Serving-Node-Type AVP (AVP Code 2047) is of type Enumerated and identifies 
+ * the type of Serving Node.
+*/
+  Serving-Node-Type ::=2047 /* 3GPP TS 32.299 V9.0.0   7.2.152B */  Enumerated   V,M|P| |  |N;
+
+/**
+ * The SGW-Change AVP (AVP Code 2065) is of type Enumerated, and indicates this is the 
+ * first Accounting Request (ACR)[Start] due to S-GW change. If this AVP is not present,
+ *  this means this ACR [Start] is not due to SGW change.
+*/
+  SGW-Change ::=2065 /* 3GPP TS 32.299 V9.0.0   7.2.153A */  Enumerated   V,M|P| |  |N;
+
+/**
+ * For GGSN, it identifies a particular PDP context for the associated PDN and
+ * MSISDN/IMSI from creation to deletion. For P-GW, it identifies the EPS Bearer 
+ * ID if it is known to the P-GW (i.e. GTP-based S5/S8 is in use).
+*/
+
+   Re-3GPP-NSAPI ::=10 /*3GPP TS 29.061 V8.2.0    16.4.7 */  OctetString   V| P|    | M| Y;
+
+/**
+ * MCC and MNC extracted from the user's IMSI (first 5 or 6 digits, as applicable
+ * from the presented IMSI).
+*/  
+  Re-3GPP-IMSI-MCC-MNC ::=8 /*3GPP TS 29.061 V8.2.0  16.4.7 */UTF8String  V| P|    | M| Y;
+
+
+/**
+ *MCC-MNC of the network the GGSN or the P-GW belongs to.
+*/
+  Re-3GPP-GGSN-MCC-MNC ::=9 /*3GPP TS 29.061 V8.2.0  16.4.7 */ UTF8String  V| P|   | M| Y;
+
+/**
+ * For GGSN it contains the Selection mode for this PDP Context received in the Create
+ * PDP Context Request message For P-GW it contains the Selection mode for this EPS
+ * Bearer received in the Create Session Request message.
+*/
+   Re-3GPP-Selection-Mode ::= 12   /*3GPP TS 29.061 V8.2.0  16.4.7 */UTF8String  V| P|    | M| Y;
+
+/**
+ * For GGSN, it contains the charging characteristics for this PDP Context received 
+ * in the Create PDP Context Request Message (only available in R99 and later releases).
+ * For P-GW, it contains the charging characteristics for the IP-CAN bearer.
+*/
+  Re-3GPP-Charging-Characteristics::=13 /*3GPP TS 29.061 V8.2.0  16.4.7 */UTF8String  V| P|   | M| Y;
+
+/**
+ * MCC and MNC extracted from the RAI within the Create PDP Context Request or
+ * Update PDP Context Request message.
+*/
+  Re-3GPP-SGSN-MCC-MNC ::= 18  /*3GPP TS 29.061 V8.2.0  16.4.7 */ UTF8String  V| P|   | M| Y;
+
+/**
+ *  Re-3GPP-MS-TimeZone Indicate the offset between universal time and local time in steps
+ * of 15 minutes of where the MS/UE currently resides.
+*/
+   Re-3GPP-MS-TimeZone::=23 /*3GPP TS 29.061 V8.2.0  16.4.7 */ OctetString  V| P|   | M| Y;
+
+/**
+ * The Charging-Rule-Base-Name AVP (AVP code 1004) is of type UTF8String, and it
+ * indicates the name of a pre-defined group of PCC rules residing at the PCEF.
+*/
+ Charging-Rule-Base-Name ::=1004 /* 3GPP TS 29.212 V9.2.0 5.3.5 */UTF8String  M,V| P| | |Y ;
+
+
+/**
+ *Indicate which Radio Access Technology is currently serving the UE
+*/
+  Re-3GPP-RAT-Type ::= 21  /*3GPP TS 29.061 V8.2.0  16.4.7 */ OctetString  V| P|   | M| Y ;
+
+/**
+ * The PS-Furnish-Charging-Information AVP (AVP code 865) is of type Grouped. 
+ * Its purpose is to add online charging session specific information, received
+ * via the Ro reference point, onto the Rf reference point in order to facilitate 
+ * its  inclusion in CDRs. This information element may be received in a CCA 
+ * message via the Ro reference point. In situations where online and offline 
+ * charging are active in parallel, the information element is transparently 
+ * copied into an ACR to be sent on the Rf reference point.
+*/
+
+  PS-Furnish-Charging-Information ::=865 /* 3GPP TS 32.299 V9.0.0  7.2.123 */ Grouped V,M| P| | | N;
+
+
+/**
+ *The PS-Free-Format-Data AVP (AVP code 866) is of type OctectString and holds 
+ *online charging session specific data.
+*/
+ PS-Free-Format-Data ::=866  /* 3GPP TS 32.299 V9.0.0 7.2.122 */  OctetString  V,M| P| | | N; 
+
+/**
+ * The PS-Append-Free-Format-Data AVP (AVP code 867) is of type enumerated and indicates 
+ *if the information sent in the PS-Free-Format-Data AVP must be appended to the 
+ *PS-free-format-data stored for the online-session.
+*/
+ PS-Append-Free-Format-Data ::= 867 /* 3GPP TS 32.299 V9.0.0 7.2.121 */  Enumerated  V,M| P| | | N;
+
+/**
+ *The PDP-Context-Type AVP (AVP code 1247) is of type Enumerated and indicates the 
+ *type of a PDP context.
+*/
+ PDP-Context-Type ::=1247 /* 3GPP TS 32.299 V9.0.0 7.2.106 */  Enumerated  V,M| P| | | N; 
+
+
+/**
+ * The Offline-Charging AVP (AVP code 1278) is a grouped AVP, which is used to set 
+ * the parameters required to control offline charging.
+*/
+   Offline-Charging ::=1278  /* 3GPP TS 32.299 V9.0.0 7.2.93*/  Grouped V,M| P| | | N;
+
+
+/**
+ *The Time-Quota-Mechanism AVP (AVP code 1270) is of type Grouped.
+*/
+
+ Time-Quota-Mechanism ::=1270 /*3GPP TS 32.299 V9.0.0  7.2.170*/ Grouped V,M| P| | | N;
+
+/**
+ * The Time-Quota-Type AVP (AVP code 1271) is of type Enumerated. It is used to
+ * indicate which time quota consumption mechanism shall be used for the associated 
+ * Rating Group.
+*/
+ Time-Quota-Type ::= 1271 /* 3GPP TS 32.299 V9.0.0  7.2.172*/Enumerated V,M| P| | | N;
+
+
+/**
+ * The Base-Time-Interval AVP (AVP code 1265) is of type Unsigned32.
+ * It contains the length of the base time interval,for controlling the 
+ *consumption of time quota, in seconds.
+*/
+ Base-Time-Interval ::=1265 /* 3GPP TS 32.299 V9.0.0  7.2.19    */ Unsigned32 V,M| P| | | N;
+
+/**
+ * This Envelope-Reporting AVP (AVP code 1268) is of type Enumerated and is used 
+ * in the CCA (INITIAL) to indicate whether the client shall report the start 
+ * and end of each time envelope, in those cases in which quota is consumed in
+ * envelopes.
+*/
+  Envelope-Reporting::=1268 /* 3GPP TS 32.299 V9.0.0 7.2.43 */Enumerated V,M| P| | | N;
+
+
+/**
+ *The Multiple-Services-Credit-Control AVP (AVP code 456) is of type grouped 
+ *as specified in IETF RFC 4006 [402]. It contains additional 3GPP specific charging parameters.
+*/
+
+  Multiple-Services-Credit-Control ::= 456 /* 3GPP TS 32.299 V9.0.0  7.1.4*/Grouped  M| P| |V | Y;
+
+
+/**
+ *The Traffic-Data-Volumes AVP (AVP code 2046) is of type Grouped. 
+ *Its purpose is to allow the transmission of the IPCAN bearer container, 
+ *on encountering change on charging condition for this IP-CAN bearer.This 
+ *container reports the volume count (separated for uplink and downlink).
+*/
+
+ Traffic-Data-Volumes::=2046 /* 3GPP TS 32.299 V9.0.0  7.1.173A */Grouped  M| P| |V | Y;
+
+/**
+ *The Accounting-Input-Octets AVP (AVP code 363) together with the Accounting-Input-Packets 
+ *AVP contain the number of octets (resp packets) reflecting the volume counts for uplink 
+ *traffic for a service data flow.
+*/
+
+ Accounting-Input-Octets ::=363 /* 3GPP TS 32.299 V9.0.0  7.1.1a */ Unsigned64  M| P|  |V| Y;
+
+/**
+ * The Accounting-Input-Packets AVP (AVP code 365) together with the 
+ * Accounting-Input-Octets AVP contain the number of packets (resp octets) 
+ * reflecting the volume counts for uplink traffic for a service data flow.
+*/
+  Accounting-Input-Packets ::=365  /* 3GPP TS 32.299 V9.0.0  7.1.1b */ Unsigned64  M| P|  |V| Y;
+
+/**
+ * The Accounting-Output-Octets AVP (AVP code 364) together with the Accounting-Output-Packets 
+ * AVP contain the number of octets (resp packets) reflecting the volume counts for downlink 
+ * traffic for a service data flow.
+*/
+  Accounting-Output-Octets ::=364  /* 3GPP TS 32.299 V9.0.0  7.1.1c */ Unsigned64  M| P|  |V| Y; 
+
+/**
+ * The Accounting-Output-Packets AVP (AVP code 366) together with the Accounting-Output-Octets 
+ * AVP contain the number of packets (resp octets) reflecting the volume counts for downlink 
+ * traffic for a service data flow.
+*/
+  Accounting-Output-Packets ::=366  /* 3GPP TS 32.299 V9.0.0  7.1.1c */ Unsigned64  M| P|  |V| Y;
+
+/**
+ * The Change-Condition AVP (AVP code 2037) is of type Integer32, and indicates 
+ *the change in charging condition:(Qos change, tariff time change) which causes:
+        - sending of Accounting-request from PCN node
+        - volume counts container closing for an IP-CAN bearer.
+        - service data container closing.
+*/
+    Change-Condition  ::= 2037 /*3GPP TS 32.299 V9.0.0  7.1.1c */ Integer32 V,M| P| | | N; 
+
+/**
+ * The Diagnostics AVP (AVP code 2039) is of type Integer32 and provides a more 
+ * detailed cause value for sending Accounting-request from PCN node. 
+ * It complements the Change-Condition AVP.
+*/
+ Diagnostics ::= 2039     /* 3GPP TS 32.299 V9.0.0   7.2.37A*/ Integer32 V,M| P| | | N;  
+
+/**
+ * The WLAN-Information AVP (AVP code 875) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional WLAN service 
+ * specific information elements.
+*/
+ WLAN-Information::=875   /* 3GPP TS 32.299 V9.0.0   7.2.185 */ Grouped  V,M| P| | | N;
+
+/**
+ *The WLAN-Session-Id AVP (AVP code 1246) is of type Unsigned32 and contains the 
+ *charging id generated by the AAA Server for the session.
+*/
+ WLAN-Session-Id ::=1246  /* 3GPP TS 32.299 V9.0.0   7.2.187 */  UTF8String V,M| P| | | N;
+
+/**
+ *The PDG-Address AVP (AVP code 895) is of type Address and contains the PDG IP address.
+*/
+  PDG-Address ::=895 /* 3GPP TS 32.299 V9.0.0   7.2.103 */     Address  V,M| P| | | N;
+
+/**
+ *The PDG-Charging-Id AVP (AVP code 896) is of type Unsigned32 and contains the 
+ *charging identifier generated by the PDG for the tunnel. Charging identifier 
+ *is generated at tunnel establishment and transferred to 3GPP AAA Server.
+ *Different PDGs allocate the charging identifier independently of each other 
+ *and may allocate the same numbers. PDGCharging- Id together with PDG-Address 
+ *constitutes a unique identifier for the tunnel
+*/
+  PDG-Charging-Id::=896 /* 3GPP TS 32.299 V9.0.0   7.2.104 */ Address  V,M|P| | |N ; 
+
+/**
+ *The WAG-Address AVP (AVP code 890) is of type Address and contains the WAG IP address.
+*/
+ WAG-Address ::=890 /* 3GPP TS 32.299 V9.0.0   7.2.183 */ Address  V,M| P| | | N;
+
+/**
+ * The WAG-PLMN-Id AVP (AVP code 891) is of type OctetString and contains the WAG 
+ * PLMN id (MCC and MNC).
+*/
+ WAG-PLMN-Id ::=891   /* 3GPP TS 32.299 V9.0.0   7.2.184 */ OctetString V,M| P| | | N;
+
+/**
+ * The WLAN-Radio-Container AVP (AVP code 892) is of type Grouped. 
+*/
+  WLAN-Radio-Container::=892 /* 3GPP TS 32.299 V9.0.0   7.2.186*/Grouped  V,M| P| | | N;
+
+/**
+ * The WLAN-Technology AVP (AVP code 893) is of type Unsigned32. Actual content of 
+ * this AVP is tbd.
+*/
+ WLAN-Technology ::=893   /* 3GPP TS 32.299 V9.0.0   7.2.188 */ Unsigned32 V,M| P| | | N;
+
+/**
+ *The WLAN-UE-Local-IPAddress AVP (AVP code 894) is of type Address and contains 
+  the UE's  local IP address.
+*/
+   WLAN-UE-Local-IPAddress ::=894  /* 3GPP TS 32.299 V9.0.0   7.2.189 */Address V,M| P| | | N;
+
+
+/**
+ *The IMS-Information AVP (AVP code 876) is of type Grouped. 
+ *Its purpose is to allow the transmission of additional IMS service specific 
+ *information elements.
+*/
+ IMS-Information ::=876 /* 3GPP TS 32.299 V9.0.0   7.2.58 */ Grouped  V,M| P| | | N;
+
+/**
+ *The Event-Type AVP (AVP code 823) is of type Grouped and contains information 
+ *about the type of chargeable telecommunication service/event for which the 
+ *accounting-request and/or credit control request message(s) is generated.
+*/
+  Event-Type::=823 /* 3GPP TS 32.299 V9.0.0   7.2.47 */ Grouped  V,M| P| | | N;
+
+/**
+ *The SIP-Method AVP (AVP code 824) is of type UTF8String and holds the name of 
+ *the SIP Method (INVITE, UPDATE etc.) causing a accounting request to be sent 
+ *to the CDF or credit control request to be sent to the OCF.
+*/
+  SIP-Method::=824 /* 3GPP TS 32.299 V9.0.0   7.2.154 */ UTF8String   V,M| P| | | N;
+
+/**
+ *The Event AVP (AVP code 825) is of type UTF8String and holds the content 
+ *of the "Event" header.
+*/
+ Event ::=825 /* 3GPP TS 32.299 V9.0.0   7.2.45 */ UTF8String   V,M| P| | | N;
+
+/**
+ *The Expires AVP (AVP code 888) is of type Unsigned32 and holds the content 
+ *of the "Expires" header.
+*/
+   Expires ::=888 /* 3GPP TS 32.299 V9.0.0   7.2.45 */ Unsigned32   V,M| P| | | N;
+
+/**
+ *The  Role-Of-Node  AVP (AVP code 829) is of type Enumerated and specifies the 
+ *role of the AS/CSCF.
+*/
+   Role-Of-Node ::= 829 /* 3GPP TS 32.299 V9.0.0   7.2.138 */ Enumerated  V,M| P| | | N;
+
+/**
+ *The Node-Functionality AVP (AVP code 862) is of type Enumerated and includes the 
+ *functionality identifier of the node.
+*/
+  Node-Functionality::=862 /* 3GPP TS 32.299 V9.0.0   7.2.89 */ Enumerated  V,M| P| | | N;
+
+/**
+ *The User-Session-ID  AVP (AVP code 830) is of type UTF8String and holds the session 
+ *identifier. For a SIP session the User-Session-ID contains the SIP Call ID.
+*/
+  User-Session-ID ::=830  /* 3GPP TS 32.299 V9.0.0   7.2.181 */ UTF8String   V,M| P| | | N;
+
+/**
+ * The Calling-Party-Address AVP (AVP code 831) is of type UTF8String and holds 
+ * the address (SIP URI or TEL URI) which identifies the party (Public User Identity 
+ * or Public Service Identity) initiating a SIP transaction. . It is obtained from 
+ * the P-Asserted-Identity header of any non-REGISTER SIP Request, either initiating 
+ * a dialog or a standalone transaction. This AVP may appear several times when the 
+ * P-Asserted-Identity header contains both a SIP URI and a TEL URI.
+*/
+ Calling-Party-Address ::=831  /* 3GPP TS 32.299 V9.0.0   7.2.23 */ UTF8String   V,M| P| | | N;
+
+/**
+ * The Called-Party-Address AVP (AVP code 832) is of type UTF8String. 
+ * In IMS charging (except for SIP Register and SIP Subscription transactions), 
+ * it holds the address (SIP URI or TEL URI) of the party (Public User ID or Public
+ * Service ID) to whom the SIP transaction is posted. The Called Party Address 
+ * shall be populated with the SIP URI or TEL URI contained in the Request-URI 
+ *of the outgoing request.
+*/
+ Called-Party-Address ::=832 /* 3GPP TS 32.299 V9.0.0   7.2.22 */ UTF8String   V,M| P| | | N;
+
+/**
+ * The Called-Asserted-Identity AVP (AVP code 1250) is of type UTF8String and 
+ * holds the address (Public User ID: SIP URI, E.164, etc.) of the finally 
+ * asserted called party. The address is obtained from the P-Asserted-Identity 
+ * SIP header field of the 2xx responses corresponding to a SIP request either 
+ * initiating a dialog or a standalone transaction. This field may appear several 
+ * times in the request when the P-Asserted-Identity contains both a SIP URI and a TEL URI.
+*/
+  Called-Asserted-Identity ::= 1250 /* 3GPP TS 32.299 V9.0.0   7.2.21 */ UTF8String   V,M| P| | | N;
+  
+/**
+ * The Number-Portability-Routing-Information AVP (AVP code 2024) is of type 
+ * UTF8String and This AVP holds information on carrier select routing, 
+ * received by S-CSCF during ENUM/DNS processes. This information is sent over
+ * SIP in the Requested URI header.
+*/
+  Number-Portability-Routing-Information ::= 2024  /* 3GPP TS 32.299 V9.0.0  7.2.92A */ UTF8String  V,M| P| | | N;                                                               
+/**
+ * The Carrier-Select-Routing-Informations AVP (AVP code 2023) is of type 
+ * UTF8String and This AVP holds information on carrier select routing, 
+ * received by S-CSCF during ENUM/DNS processes. This information is sent over
+ *  SIP in the Requested URI header.
+*/
+  Carrier-Select-Routing-Information ::= 2023 /*3GPP TS 32.299 V9.0.0  7.2.23A */ UTF8String      V,M| P| | | N;
+
+/**
+ * The Alternate-Charged-Party-Address AVP (AVP code 1280) is of type UTF8String 
+ * and holds the address of the alternate charged party determined by an AS at 
+ *IMS session initiation.
+*/
+  Alternate-Charged-Party-Address ::= 1280 /*3GPP TS 32.299 V9.0.0  7.2.12 */ UTF8String           V,M| P| | | N;
+
+/**
+ * The Requested-Party-Address AVP (AVP code 1251) is of type UTF8 String. In IMS 
+ * it holds the address (SIP URI or TEL URI) of the party (Public User ID or Public 
+ * Service ID) to whom the SIP transaction was originally posted.
+ * The Requested Party Address shall be populated with the SIP URI or TEL URI 
+ * contained in the Request-URI of the incoming request. This field is only present 
+ * if different from the Called Party Address parameter.
+*/
+   Requested-Party-Address ::=1251 /*3GPP TS 32.299 V9.0.0  7.2.137 */ UTF8String                                                                        V,M| P| | | N;
+/**
+ * The Associated-URI AVP (AVP code 856) is of type UTF8String and holds a non-barred 
+ * public user identity (SIP URI or TEL URI) associated to the the public user identity 
+ * under registration. This identity is obtained from the PAssociated- URI header 
+ * of a 200 OK SIP response to a REGISTER request. This AVP may appear several times when
+ * the P-Associated-URI header contains more than one public user identity.
+*/
+
+   Associated-URI ::=856 /*3GPP TS 32.299 V9.0.0  7.2.16  */ UTF8String   V,M| P| | | N;
+
+/**
+ * The Time-Stamps AVP (AVP code 833) is of type Grouped and holds the time 
+ * of the initial SIP request and the time of the response to the initial SIP Request.
+*/
+    Time-Stamps ::=833  /*3GPP TS 32.299 V9.0.0  7.2.173  */  Grouped   V,M| P| | | N;
+
+
+/**
+ * The SIP-Request-Timestamp AVP (AVP code 834) is of type Time and holds the time 
+ *in UTC format of the SIP request
+*/
+ SIP-Request-Timestamp ::= 834 /*3GPP TS 32.299 V9.0.0  7.2.155  */  Time    V,M| P| | | N;
+ 
+/**
+ * The SIP-Response-Timestamp AVP (AVP code 835) is of type Time and holds the time 
+ *in UTC format of the response to the SIP request.
+*/
+  SIP-Response-Timestamp ::=835 /* 3GPP TS 32.299 V9.0.0  7.2.155  */  Time    V,M| P| | | N;
+
+/**
+ * The SIP-Request-Timestamp-Fraction AVP (AVP code 2301) is of type Unsigned16 
+ * and holds the miliseconds fraction in relation to SIP-Request-Timestamp.
+ * Using Unsigned32 insted of Unsigned16 due to compilation errors.
+*/
+ SIP-Request-Timestamp-Fraction ::= 2301 /* 3GPP TS 32.299 V9.0.0  7.2.155A  */  Unsigned32 V,M| P| | | N;
+
+/**
+ * The SIP-Response-Timestamp-Fraction AVP (AVP code 2302) is of type Unsigned16 
+ * and holds the miliseconds fraction in relation to SIP-Response-Timestamp.
+ * Using Unsigned32 insted of Unsigned16 due to compilation errors.
+*/
+  SIP-Response-Timestamp-Fraction ::=2302  /* 3GPP TS 32.299 V9.0.0  7.2.156A  */  Unsigned32 V,M| P| | | N;
+
+/**
+ * The Application-Server-Information AVP (AVP code 850) is of type Grouped 
+ * and contains information about application servers visited through ISC interface.
+*/
+   Application-Server-Information ::=850  /* 3GPP TS 32.299 V9.0.0  7.2.15  */  Grouped
+                                                                  V,M| P| | | N;
+/**
+ * The Application-Server AVP (AVP code 836) is of type UTF8String and holds 
+ * the SIP URL(s) of the AS(s) addressed during the session.
+*/
+   Application-Server ::=836   /* 3GPP TS 32.299 V9.0.0  7.2.15  */  UTF8String
+                                                                  V,M| P| | | N;
+/**
+ * The Application-Provided-Called-Party-Address AVP (AVP code 837) is of type 
+ * UTF8String and holds the called party number (SIP URI, E.164), if it is 
+ * determined by an application server.
+*/
+
+   Application-Provided-Called-Party-Address ::=837  /* 3GPP TS 32.299 V9.0.0  7.2.13 */  
+                                     UTF8String                       V,M| P| | | N;
+
+/**
+ * The Inter-Operator-Identifier AVP (AVP code 838) is of type Grouped and holds 
+ * the identification of the network neighbours (originating and terminating) 
+ * as exchanged via SIP signalling
+*/
+   Inter-Operator-Identifier ::=838 /* 3GPP TS 32.299 V9.0.0  7.2.60 */Grouped  V,M| P| | | N;
+
+
+/**
+ * The Originating-IOI AVP (AVP code 839) is of type UTF8String (alphanumeric string) 
+ * and holds the Inter Operator Identifier (IOI) for the originating network as  
+ * generated by the IMS network element which takes responsibility for populating 
+ * this parameter [404] in a SIP request [202].
+*/
+
+   Originating-IOI ::=839 /* 3GPP TS 32.299 V9.0.0  7.2.94 */UTF8String V,M| P| | | N;
+
+/**
+ *  The Terminating-IOI AVP (AVP code 840) is of type UTF8String Identifier (IOI) for the
+ *  terminating network as generated by populating this parameter [404] in a SIP response [202].
+*/
+
+     Terminating-IOI ::=840 /* 3GPP TS 32.299 V9.0.0  7.2.169 */UTF8String V,M| P| | | N;
+
+/**
+ * The IMS-Charging-Identifier AVP (AVP code 841) is of type UTF8String and holds 
+ * the IMS Charging Identifier (ICID) as generated by a IMS node for a SIP session
+*/
+
+    IMS-Charging-Identifier ::=841 /* 3GPP TS 32.299 V9.0.0  7.2.56 */UTF8String V,M| P| | | N;
+
+/**
+ * The SDP-Session-Description AVP (AVP code 842) is of type UTF8String and holds 
+ * the content of an "attribute-line"  (i=, c=, b=, k=, a=, etc.) related to a session .
+*/
+   
+    SDP-Session-Description ::=842 /* 3GPP TS 32.299 V9.0.0  7.2.144 */UTF8String V,M| P| | | N;
+
+/**
+ * The SDP-Media-Component AVP (AVP code 843) is of type Grouped and contains 
+ * information about media used for a IMS session.
+*/
+     SDP-Media-Component ::=843 /* 3GPP TS 32.299 V9.0.0  7.2.140 */Grouped V,M| P| | | N;
+
+/**
+ * The SDP-Media-Name AVP (AVP code 844) is of type UTF8String and holds the content 
+ * of a "m=" line in the SDP data.
+*/
+
+   SDP-Media-Name ::=844 /* 3GPP TS 32.299 V9.0.0  7.2.142 */UTF8String  V,M| P| | | N;    
+
+/**
+ * The SDP-Media-Description AVP (AVP code 845) is of type UTF8String and holds 
+ * the content of an "attribute-line" (i=, c=, b=, k=, a=, etc.) related to a 
+ * media component, as described in [406]. 
+*/
+  SDP-Media-Description ::=845  /* 3GPP TS 32.299 V9.0.0  7.2.141 */UTF8String  V,M| P| | | N;
+
+/**
+ * The Media-Initiator-Flag AVP (AVP code 882) is of type Enumerated and indicates 
+ * which party has requested the session modification. The default value is '0' 
+ * indicating the called party initiated the modification.
+*/
+  Media-Initiator-Flag ::=882 /* 3GPP TS 32.299 V9.0.0  7.2.79 */Enumerated V,M| P| | | N; 
+
+/**
+ * The Media-Initiator-Party AVP (AVP code 1288) is of type UTF8String. Enumerated in 
+ * IMS charging, it holds the address (SIP URI or TEL URI) of the party 
+ * (Public User ID or Public Service ID) who initiates the media action, like
+ * adding/removing, connecting/disconnecting the media. The Media Initiator Party 
+ * shall be populated with the SIP URI or TEL URI contained in the Request-URI 
+ * of the outgoing request. It is use for PoC charging.
+*/
+    Media-Initiator-Party ::=1288 /* 3GPP TS 32.299 V9.0.0  7.2.80 */UTF8String  V,M| P| | | N;
+
+
+/**
+ * The Authorized-QoS  AVP (AVP code 849) is of type UTF8String and holds 
+ * the Authorised QoS.
+*/
+
+  Authorized-QoS ::=849 /* 3GPP TS 32.299 V9.0.0  7.2.17 */UTF8String  V,M| P| | | N ;
+
+/**
+ *The SDP-Type AVP (AVP code 2036) is of type Enumerated and holds information 
+ *if the SDP media component was of type SDP offer or SDP answer.
+*/
+
+    SDP-Type ::=2036 /*3GPP TS 32.299 V9.0.0  7.2.145A */  Enumerated   V,M| P| | | N ;
+
+/**
+ * The Served-Party-IP-Address AVP (AVP code 848) is of type Address and holds the IP 
+ * address of either the calling or called party, depending on whether the P-CSCF 
+ * is in touch with the calling or the called party. This AVP is only
+ *  provided by the P-CSCF. 
+*/
+   Served-Party-IP-Address ::= 848 /* 3GPP TS 32.299 V9.0.0  7.2.146  */Address V,M| P| | | N ;
+
+/**
+ * The Trunk-Group-ID AVP (AVP code 851) is of type Grouped and identifies the 
+ * incoming and outgoing PSTN legs.
+*/
+     Trunk-Group-ID ::=851 /* 3GPP TS 32.299 V9.0.0  7.2.177  */Grouped  V,M| P| | | N ;
+
+
+/** 
+ *The Incoming-Trunk-Group-ID AVP (AVP code 852) is of type UTF8String and identifies 
+ *the incoming PSTN leg.
+*/
+    Incoming-Trunk-Group-ID::=852 /* 3GPP TS 32.299 V9.0.0  7.2.59  */UTF8String V,M| P| | | N ;
+
+/**
+ * The Outgoing-Trunk-Group-ID AVP (AVP code 853) is of type UTF8String and identifies 
+ * the outgoing PSTN leg.
+*/
+     Outgoing-Trunk-Group-ID::=853/* 3GPP TS 32.299 V9.0.0  7.2.99  */UTF8String V,M| P| | | N ;
+
+
+/**
+ * The Bearer-Service AVP (AVP code 854) is of type OctetString and holds the used bearer 
+ * service for the PSTN leg.
+*/
+   Bearer-Service ::=854 /* 3GPP TS 32.299 V9.0.0  7.2.20  */ OctetString  V,M| P| | | N ;
+
+/**
+ * The Service-ID AVP (AVP code 855) is of type UTF8String and identifies the service 
+ * the MRFC is hosting. For conferences the conference ID is used as the value of 
+ * this parameter.
+*/
+    Service-ID::= 855/* 3GPP TS 32.299 V9.0.0  7.2.147  */ UTF8String  V,M| P| | | N ;
+
+/**
+ *   The Service-Specific-Info AVP (AVP Code 1249) is of type Grouped and holds 
+ *  service specific data if and as provided by an Application Server or a 
+ *  PCEF only for pre-defined PCC rules.
+*/
+     Service-Specific-Info::=1249 /* 3GPP TS 32.299 V9.0.0  7.2.151 */Grouped V,M| P| | | N ;
+
+/**
+ * The Service-Specific-Data AVP (AVP Code 863) is of type UTF8String and holds the 
+ * value of the Service-Specific- Data.
+*/
+    Service-Specific-Data ::=863/* 3GPP TS 32.299 V9.0.0  7.2.150  */UTF8String V,M| P| | | N ;
+
+/**
+ * The Service-Specific-Type AVP (AVP Code 1257) is of type Unsigned32 and holds 
+ * the type of the Service-Specific-Data. 
+*/
+    Service-Specific-Type ::=1257/* 3GPP TS 32.299 V9.0.0  7.2.150  */Unsigned32   V,M| P| | | N ;
+
+/**
+ * The Message-Body AVP (AVP Code 889) is of type Grouped AVP and holds 
+ *  information about the message bodies including user-to-user data.
+*/
+    Message-Body::= 889/* 3GPP TS 32.299 V9.0.0  7.2.81  */ Grouped V,M| P| | | N ;
+
+/**
+ * The Content-Type AVP (AVP code 826) is of type UTF8String and holds the media 
+ * type (e.g. application/sdp, text/html) of the message-body .
+*/
+    Content-Type::= 826/* 3GPP TS 32.299 V9.0.0  7.2.33  */UTF8String V,M| P| | | N ;
+
+/**
+ * The Content-Length AVP (AVP code 827) is of type Unsigned32 and holds the size 
+ * of the message-body
+*/
+   Content-Length::= 827 /* 3GPP TS 32.299 V9.0.0  7.2.31  */Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Content-Disposition AVP (AVP code 828) is of type UTF8String and indicates 
+ * how the message body or a message body part is to be interpreted 
+ * (e.g. session, render) .
+*/
+  Content-Disposition::=  828/* 3GPP TS 32.299 V9.0.0  7.2.30  */UTF8String  V,M| P| | | N ;
+
+/**
+ * The Originator AVP (AVP code 864) is of type Enumerated and indicates the 
+ * originating party of the message body.
+*/
+    Originator::= 864/* 3GPP TS 32.299 V9.0.0  7.2.95  */ Enumerated     V,M| P| | | N ;
+
+/**
+ * The Cause-Code AVP (AVP code 861) is of type Integer32 and includes the cause 
+ * code value from IMS node. It is used in Accounting-request[stop] and/or 
+ * Accounting-request[event] messages. It is also used in the Credit-Control-request
+ * [Terminate] and/or Credit-Control-request [Event] messages.
+*/
+    Cause-Code::= 861/* 3GPP TS 32.299 V9.0.0  7.2.24  */ Integer32  V,M| P| | | N ;
+
+
+/**
+ * The Access-Network-Information AVP (AVP code 1263) is of type OctetString 
+ * and indicates the SIP P-header "P-Access-Network-Information".
+*/
+    Access-Network-Information::= 1263/* 3GPP TS 32.299 V9.0.0  7.2.2  */OctetString 
+                                                                     V,M| P| | | N ;
+
+/**
+ * The Early-Media-Description AVP (AVP code 1272) is of type grouped and describes 
+ * the SDP session, media parameters and timestamps related to media components set 
+ * to active according to SDP signalling exchanged during a SIP session establishment 
+ * before the final successful or unsuccessful SIP answer to the initial SIP INVITE 
+ * message is received. Once a media component has been set to active, subsequent 
+ * status changes shall also be registered.
+*/
+ Early-Media-Description::=1272 /* 3GPP TS 32.299 V9.0.0  7.2.40  */Grouped  V,M| P| | | N ;
+
+/**
+ * The SDP-TimeStamps AVP (AVP code 1273) is of type Grouped and holds the time 
+ * of the SDP offer and the SDP answer.
+*/
+  SDP-TimeStamps ::= 1273 /* 3GPP TS 32.299 V9.0.0  7.2.145  */Grouped  V,M| P| | | N ;
+
+/**
+ * The SDP-Offer-Timestamp AVP (AVP code 1274) is of type Time and holds the time in 
+ * UTC format of the SDP offer.
+*/
+    SDP-Offer-Timestamp ::=1274/* 3GPP TS 32.299 V9.0.0  7.2.143  */Time V,M| P| | | N ;
+
+/**
+ * The SDP-Answer-Timestamp AVP (AVP code 1275) is of type Time and holds the time 
+ * in UTC format of the response to the SDP offer.
+*/
+      SDP-Answer-Timestamp ::=1275 /* 3GPP TS 32.299 V9.0.0  7.2.139  */Time V,M| P| | | N ;
+
+/**
+ * The IMS-Communication-Service-Identifier AVP (AVP code 1281) is of type UTF8String 
+ * and holds the IMS Communication Service Identifier (ICSI) as contained in the 
+ * P-Asserted-Service header of a SIP request to identify an IMS Communication Service.
+*/
+   IMS-Communication-Service-Identifier::= 1281/* 3GPP TS 32.299 V9.0.0  7.2.57  */ UTF8String 
+                                                                         V,M| P| | | N ;
+/**
+ * The Online-Charging-Flag AVP (AVP code 2303) is of type Enumerated and indicates 
+ * the Online Charging Request was sent based on the provided ECF address from the 
+ * SIP  P-header "P-Charging-Function-Addresses"
+*/
+    Online-Charging-Flag::=2303/* 3GPP TS 32.299 V9.0.0  7.2.93A  */Enumerated
+                                                                     V,M| P| | | N ;
+/**
+ * The MMS-Information AVP (AVP code 877) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional MMS service 
+ * specific information elements.
+*/
+     MMS-Information::=877/* 3GPP TS 32.299 V9.0.0  7.2.88  */Grouped V,M| P| | | N ;
+
+/**
+ * The Originator-Address AVP (AVP code 886) is of type Grouped. Its purpose is to 
+ * identify the originator of a message.
+*/
+   Originator-Address ::= 886 /* 3GPP TS 32.299 V9.0.0  7.2.96  */Grouped V,M| P| | | N ;
+
+
+/**
+ * The Address-Type AVP (AVP code 899) is of type Enumerated and indicates the type 
+ * of address carried within the Address-Information AVP.
+*/
+    Re-Address-Type ::= 899 /* 3GPP TS 32.299 V9.0.0  7.2.7 */ Enumerated  V,M| P| | | N ;
+
+/**
+ * The Address-Data AVP (AVP code 897) is of type UTF8String and indicates the address 
+ * information and formatted according type of address indicated in the Address-Type 
+ * AVP and according to MMS encapsulation
+*/
+    Address-Data ::= 897  /* 3GPP TS 32.299 V9.0.0  7.2.5 */  UTF8String  V,M| P| | | N ;
+
+
+/**
+ * The Address-Domain AVP (AVP code 898) is of type Grouped and indicates the 
+ * domain/network to which the associated address resides. If this AVP is present, 
+ * at least one of the AVPs described within the grouping must be included .
+*/
+    Address-Domain  ::= 898 /* 3GPP TS 32.299 V9.0.0  7.2.6  */Grouped V,M| P| | | N ;
+
+
+/**
+ * The Domain-Name AVP (AVP code 1200) is of type UTF8String and represents a fully 
+ * qualified domain name (FQDN).
+*/
+     Domain-Name::=1200  /* 3GPP TS 32.299 V9.0.0  7.2.38*/  UTF8String  V,M| P| | | N ;
+
+/**
+ * The Recipient-Address AVP (AVP code 1201) is of type Grouped. 
+ * Its purpose is to identify the recipient of a message.
+*/
+    Recipient-Address::=1201 /* 3GPP TS 32.299 V9.0.0  7.2.130  */Grouped V,M| P| | | N ;
+
+/**
+ * The Addressee-Type AVP (AVP code 1208) is of type Enumerated and identifies 
+ * the how the recipient is addressed in the header of an MM.
+*/
+     Addressee-Type::= 1208 /* 3GPP TS 32.299 V9.0.0  7.2.8 */ Enumerated  V,M| P| | | N ;
+
+/**
+ * The Submission-Time AVP (AVP code 1202) is of type Time and indicates the time at 
+ * which the message was submitted.
+*/
+    Submission-Time::=1202  /* 3GPP TS 32.299 V9.0.0  7.2.165 */ Time  V,M| P| | | N ;
+
+
+/**
+ * The MM-Content-Type AVP (AVP code 1203) is of type Grouped and indicates the 
+ * overall content type of the MM content and includes information about all 
+ * the contents of an MM.
+*/
+    MM-Content-Type::= 1203 /* 3GPP TS 32.299 V9.0.0  7.2.86  */Grouped V,M| P| | | N ;
+
+
+/**
+ * The Type-Number AVP (AVP code1204) is of type Enumerated and identifies 
+ * the well-known media types. The values are taken from OMNA WSP Content 
+ * Type Codes database
+*/
+    Type-Number::=1204 /* 3GPP TS 32.299 V9.0.0  7.2.178 */ Enumerated  V,M| P| | | N ;
+              
+/**
+ *  The Additional-Type-Information AVP (AVP code 1205) is of type UTF8String and 
+ *  identifies any additional information beyond well-known media types or 
+ *  non-well-known media types.
+*/
+  Additional-Type-Information::=1205 /* 3GPP TS 32.299 V9.0.0  7.2.4*/  UTF8String  V,M| P| | | N ;
+
+
+/**
+ * The Content-Size AVP (AVP code 1206) is of type Unsigned32 and indicates the size 
+ * in bytes of the specified content type.
+*/
+   Content-Size::=1206/* 3GPP TS 32.299 V9.0.0  7.2.32*/  Unsigned32  V,M| P| | | N ;
+
+/**
+ *  The Additional-Content-Information AVP (AVPcode 1207) is of type Grouped and identifies
+ *  any subsequent content  types. It is used to identify each content 
+ * (including re-occurences) within an MM when the Type-Number AVP or 
+ * Additional-Type-Information AVP from the Content-Type AVP indicate 
+ * a multi-part content.
+*/
+   Additional-Content-Information::= 1207/* 3GPP TS 32.299 V9.0.0  7.2.178 */  Grouped 
+                                                                             V,M| P| | | N ;
+
+/** 
+ * The Priority AVP (AVP code 1209) is of type Enumerated and the priority (importance) 
+ * of the message if specified. For SMS Charging the value low is not applicable.
+*/
+   Priority::=1209/* 3GPP TS 32.299 V9.0.0  7.2.120 */  Enumerated    V,M| P| | | N ;
+
+/**
+ * The Message-ID AVP (AVP code 1210) is of type UTF8String and holds the 
+ * identification of the message being charged.
+*/
+    Message-ID::= 1210 /* 3GPP TS 32.299 V9.0.0  7.2.83 */  UTF8String    V,M| P| | | N ;
+
+
+/**
+ *  The Message-Type AVP (AVP code 1211) is of type Enumerated and holds the type 
+ *  of the message according to the MMS transactions e.g. submission, delivery.
+*/
+    Message-Type::=1211 /* 3GPP TS 32.299 V9.0.0  7.2.85 */  Enumerated   V,M| P| | | N ;
+
+/**
+ * The Message-Size AVP (AVP code 1212) is of type Unsigned32. For MMS, it holds the 
+ * total size in bytes of the MM calculated . For SMS, it holds the total size in 
+ * octets of SM including any user data header.
+*/
+   Message-Size::=1212/* 3GPP TS 32.299 V9.0.0  7.2.84 */Unsigned32 V,M| P| | | N ;
+
+
+/**
+ * The Message-Class AVP (AVP code 1213) is of type Grouped.
+*/
+    Message-Class::=1213 /* 3GPP TS 32.299 V9.0.0  7.2.82 */Grouped  V,M| P| | | N ;
+    
+/**
+ * The Class-Identifier  AVP (AVP code 1214) is of type Enumerated .
+*/
+
+    Class-Identifier ::=1214 /* 3GPP TS 32.299 V9.0.0  7.2.27 */  Enumerated   V,M| P| | | N ;
+
+/**
+ * The Token-Text AVP (AVP code 1215) is of type UTF8String and contains extension 
+ * information for the Message- Class AVP.
+*/
+   Token-Text::=1215 /* 3GPP TS 32.299 V9.0.0  7.2.174 */  UTF8String   V,M| P| | | N ; 
+
+/**
+ * The Delivery-Report-Requested AVP (AVP code 1216) is of type Enumerated and 
+ * indicates whether a delivery report has been requested by the originator or not.
+*/
+   Delivery-Report-Requested::=1216 /* 3GPP TS 32.299 V9.0.0  7.2.36 */    Enumerated
+                                                                         V,M| P| | | N ;
+
+/**
+ * The Read-Reply-Report-Requested AVP (AVP code 1222) is of type Enumerated 
+ * and indicates whether a read reply report has been requested by the 
+ * originator MMS User Agent or not.
+*/
+    Read-Reply-Report-Requested::=1222 /* 3GPP TS 32.299 V9.0.0  7.2.127 */    Enumerated
+                                                                       V,M| P| | | N ;
+
+/**
+ * The MMBox-Storage-Requested AVP (AVP code 1248) is of type Enumerated and 
+ * indicates whether an MMBoxstorage has been requested by the originator MMS 
+ * User Agent or not. 
+*/
+    MMBox-Storage-Requested ::=1248 /* 3GPP TS 32.299 V9.0.0  7.2.87 */    Enumerated
+                                                                       V,M| P| | | N ;
+
+/**
+ * The Applic-ID AVP (AVP code 1218) is of type UTF8String and holds the
+ * identification of the destination application that the underlying MMS 
+ * abstract message was addressed to.
+*/
+    Applic-ID ::=1218/* 3GPP TS 32.299 V9.0.0  7.2.9 */ UTF8String   V,M| P| | | N ;
+
+/**
+ * The Reply-Applic-ID AVP (AVP code 1223) is of type UTF8String and holds the 
+ * identifier of a "reply path", i.e. the identifier of the application to 
+ * which delivery reports, read-reply reports and reply-MMs are addressed.
+*/
+  Reply-Applic-ID::= 1223 /* 3GPP TS 32.299 V9.0.0  7.2.9 */ UTF8String   V,M| P| | | N ;
+
+/**
+ * The Aux-Applic-Info AVP (AVP code 1219) is of type UTF8String and holds 
+ * additional application/implementation specific control information.
+*/
+  Aux-Applic-Info::=1219   /* 3GPP TS 32.299 V9.0.0  7.2.18 */ UTF8String   V,M| P| | | N ;
+
+/**
+ * The Content-Class AVP (AVP code 1220) is of type Enumerated and classifies the 
+ * content of the MM to the highest content class to which the MM belongs,
+*/
+   Content-Class::=1220/* 3GPP TS 32.299 V9.0.0  7.2.18 */ Enumerated V,M| P| | | N ;
+ 
+/**
+ * The DRM-Content AVP (AVP code 1221) is of type Enumerated and indicates if 
+ * the MM contains DRM-protected content.
+*/ 
+    DRM-Content ::= 1221 /* 3GPP TS 32.299 V9.0.0  7.2.18 */ Enumerated V,M| P| | | N ;
+
+/**
+ * The Adaptations AVP (AVP code 1217) is of type Enumerated and indicates 
+ * whether the originator allows adaptation of the content (default Yes).
+*/
+    Adaptations ::=1217 /* 3GPP TS 32.299 V9.0.0  7.2.18 */ Enumerated V,M| P| | | N ;
+
+/**
+ * The LCS-Information AVP (AVP code 878) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional LCS service 
+ * specific information elements.
+*/
+     LCS-Information::=878/* 3GPP TS 32.299 V9.0.0  7.2.69 */Grouped  V,M| P| | | N ;
+
+/**
+ * The LCS-Client-ID  AVP (AVP code 1232) is of type Grouped and holds information 
+ * related to the identity of an LCS client.
+*/
+  LCS-Client-ID ::=1232/* 3GPP TS 32.299 V9.0.0  7.2.64 */Grouped  V,M| P| | | N ;
+
+/**
+ * The LCS-Client-Type AVP (AVP code 1241) is of type Enumerated and contains 
+ * an estimate of the location of an MS in universal coordinates and the 
+ * accuracy of the estimate.
+*/
+    LCS-Client-Type::=1241/* 3GPP TS 32.299 V9.0.0  7.2.64 */Enumerated  V,M| P| | | N ;
+
+/**
+ * The LCS-Client-External-ID AVP (AVP code 1234) is of type UTF8String and 
+ * holds the identification of the external LCS Client.
+*/
+    LCS-Client-External-ID::=1234/* 3GPP TS 32.299 V9.0.0  7.2.63 */ UTF8String  V,M| P| | | N ;
+
+/**
+ * The LCS-Client-Dialed-By-MS AVP (AVP code 1233) is of type UTF8String and 
+ * holds the number of the LCS Client dialled by the UE.
+*/
+   LCS-Client-Dialed-By-MS::=1233 /* 3GPP TS 32.299 V9.0.0  7.2.62 */ UTF8String  V,M| P| | | N ;
+
+/**
+ * The LCS-Client-Name AVP (AVP code 1235) is of type Grouped and contains the 
+ * information related to the name of the LCS Client.
+*/
+   LCS-Client-Name ::=1235 /* 3GPP TS 32.299 V9.0.0  7.2.62 */ Grouped   V,M| P| | | N ;
+
+/**
+ * The LCS-Data-Coding-Scheme AVP (AVP code 1236) is of type UTF8String and 
+ * contains the information of the alphabet and the language used.
+*/
+   LCS-Data-Coding-Scheme::=1236  /* 3GPP TS 32.299 V9.0.0  7.2.67 */ UTF8String  V,M| P| | | N ;
+
+ 
+/**
+ * The LCS-Name-String AVP (AVP code 1238) is of type UTF8String and contains 
+ * the LCS Client name.
+*/
+     LCS-Name-String::=1238  /* 3GPP TS 32.299 V9.0.0  7.2.70 */ UTF8String  V,M| P| | | N ; 
+
+
+/**
+ * The LCS-Format-Indicator AVP (AVP code 1237) is of type Enumerated and contains 
+ * the format of the LCS Client name.
+ */
+    LCS-Format-Indicator ::=1237  /* 3GPP TS 32.299 V9.0.0  7.2.68 */ Enumerated V,M| P| | | N ;
+
+
+/**
+ * The LCS-Client-Name AVP (AVP code 1231) is of type UTF8String and contains 
+ * the APN of the LCS Client.
+ */
+     LCS-APN ::= 1231 /* 3GPP TS 32.299 V9.0.0  7.2.61 */ UTF8String  V,M| P| | | N ;
+
+/**
+ * The LCS-Requestor-ID  AVP (AVP code 1239) is of type Grouped and contains 
+ * information related to the identification of the Requestor.
+ */
+  LCS-Requestor-ID ::= 1239 /* 3GPP TS 32.299 V9.0.0  7.2.71 */Grouped V,M| P| | | N ;
+
+/**
+ * The LCS-Requestor-ID-String AVP (AVP code 1240) is of type UTF8String and 
+ * contains the identification of the Requestor and can be e.g. MSISDN or logical name. 
+ */
+   LCS-Requestor-ID-String  ::= 1240 /* 3GPP TS 32.299 V9.0.0  7.2.72 */UTF8String 
+                                                                             V,M| P| | | N ;
+/**
+ * The Location-Type AVP (AVP code 1244) is of type Grouped and indicates 
+ * the type of location estimate required by the LCS client. 
+ */
+   
+   Location-Type ::=1244 /* 3GPP TS 32.299 V9.0.0  7.2.75 */Grouped V,M| P| | | N ;
+
+/**
+ * The Location-Estimate-Type AVP (AVP code 1243) is of type Enumerated and 
+ * contains one of the following values:
+*/
+     Location-Estimate-Type ::= 1243 /* 3GPP TS 32.299 V9.0.0  7.2.74 */Enumerated V,M| P| | | N ;
+/**
+ * The Deferred-Location-Event-Type AVP (AVP code 1230) is of type UTF8String 
+ * and holds information related to a deferred location request.
+*/
+    Deferred-Location-Event-Type ::= 1230 /* 3GPP TS 32.299 V9.0.0  7.2.35 */UTF8String
+                                                                             V,M| P| | | N ; 
+/**
+ * The Location-Estimate AVP (AVP code 1242) is of type UTF8String and contains 
+ * an estimate of the location of an MS in universal coordinates and the 
+ * accuracy of the estimate.
+*/ 
+    Location-Estimate ::= 1242 /* 3GPP TS 32.299 V9.0.0 7.2.73 */UTF8String   V,M| P| | | N ;                                                 
+
+/**
+ * The Positioning-Data AVP (AVP code 1245) is of type UTF8String and indicates 
+ * the usage of each positioning method that was attempted to determine the 
+ *location estimate either successfully or unsuccessfully.
+*/
+      Positioning-Data ::= 1245 /* 3GPP TS 32.299 V9.0.0 7.2.119 */UTF8String   V,M| P| | | N ; 
+
+/** 
+ * The PoC-Information AVP (AVP code 879) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional PoC service 
+ * specific information elements.
+*/
+      PoC-Information::= 879  /* 3GPP TS 32.299 V9.0.0 7.2.111 */Grouped V,M| P| | | N ;
+   
+/**
+ * The PoC-Server-Role AVP (AVP code 883) is of type Enumerated and specifies 
+ * the role of the PoC server.
+*/
+   PoC-Server-Role::= 883  /* 3GPP TS 32.299 V9.0.0 7.2.112*/Enumerated  V,M| P| | | N ;
+
+
+/**
+ * The PoC-Session-Type AVP (AVP code 884) is of type Enumerated and specifies 
+ * the type of the PoC session.
+*/
+     PoC-Session-Type ::=884  /* 3GPP TS 32.299 V9.0.0 7.2.115*/Enumerated  V,M| P| | | N ; 
+
+
+/**
+ * The PoC-User-Role AVP (AVP code 1252) is of type Grouped. 
+ * It specifies the role(s) related information of the PoCUser that 
+ * participating in the PoC Session.
+*/ 
+      PoC-User-Role ::=1252 /* 3GPP TS 32.299 V9.0.0 7.2.116 */Grouped V,M| P| | | N ;
+  
+/**
+ * The PoC-User-Role-Ids AVP (AVP code 1253) is of type UTF8String and 
+ * identifies the PoC user role.
+*/
+      PoC-User-Role-Ids ::=1253 /* 3GPP TS 32.299 V9.0.0 7.2.117 */ UTF8String  V,M| P| | | N ;
+
+
+/**
+ * The   PoC-User-Role-info-Units  (AVP code 1254) is of type Enumerated and specify 
+ * the role type details of PoC users.
+*/
+   PoC-User-Role-info-Units  ::=1254 /* 3GPP TS 32.299 V9.0.0 7.2.118 */Enumerated V,M| P| | | N;
+
+
+/**
+ * The PoC-Session-Initiation-type  AVP (AVP code 1277) is of type Enumerated 
+ * and specifies the type of the PoC session initiation.
+*/
+    PoC-Session-Initiation-type  ::=1277 /* 3GPP TS 32.299 V9.0.0 7.2.114 */Enumerated V,M| P| | | N;
+
+/**
+ * The PoC-Event-Type AVP (AVP code 2025) is of type Enumerated and indicates 
+ * PoC session unrelated charging event.
+*/
+     PoC-Event-Type ::=2025  /* 3GPP TS 32.299 V9.0.0 7.2.109A  */Enumerated V,M| P| | | N ;
+
+/**
+ * The Number-Of-Participants AVP (AVP code 885) is of type Unsigned32 and holds 
+ * the number of invited parties of the multi-party session when included in the 
+ * initial charging request message, e.g. in PoC, CONFerence and SIMPLE IM. When 
+ * included in interim / update charging messages, it indicates the number of 
+ * parties who are currently attached in the session at the time the interim / update 
+ * messages are sent
+*/
+    Number-Of-Participants::= 885 /* 3GPP TS 32.299 V9.0.0 7.2.90  */Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Participants-Involved AVP (AVP code 887) is of type UTF8String and holds 
+ * the list of address (Public User ID:SIP URI, TEL URI, MSISDN) of the parties 
+ * who are involved into the PoC session.
+*/
+    Participants-Involved ::=887 /* 3GPP TS 32.299 V9.0.0 7.2.100 */UTF8String  V,M| P| | | N ;
+
+/**
+ * The Participant-Group AVP (AVP code 1260) is of type Grouped and holds detailed 
+ * information, e.g. the address (Public User ID: SIP URI, TEL URI, MSISDN), the 
+ * access priority parameters, etc, of the party who is involved into the PoC session.
+*/
+     Participant-Group::=1260 /* 3GPP TS 32.299 V9.0.0 7.2.101 */ Grouped V,M| P| | | N ;
+
+/**
+ * Participant-Access-Priority AVP (AVP code 1259) is of type Enumerated. 
+ * It is a subfield of Participants-Group AVP to indicate the priority level for users 
+ * when initiating a new PoC session or participating in a PoC session.
+*/
+   Participant-Access-Priority::=1259 /* 3GPP TS 32.299 V9.0.0 7.2.102 */Enumerated  V,M| P| | | N ;
+
+/**
+ * The User-Participating-Type AVP(AVP code 1279) is of type Enumerated. 
+ * It is a subfield of Participants-Group AVP to indicate the user participating 
+ * type when participating in the PoC session.
+*/
+     User-Participating-Type::= 1279 /*3GPP TS 32.299 V9.0.0 7.2.102 */Enumerated  V,M| P| | | N ;
+
+/**
+ * The Talk-Burst-Exchange AVP (AVP code 1255) is of type Grouped and holds the 
+ * talk burst related charging data.
+*/
+    Talk-Burst-Exchange::=  1255/*3GPP TS 32.299 V9.0.0 7.2.166 */Grouped V,M| P| | | N ;
+
+
+/**
+ * The PoC-Change-Time AVP (AVP code 1262) is of type Time and is a time stamp 
+ * that defines the moment when a container is closed or the CDR is closed.
+*/
+     PoC-Change-Time ::= 1262 /*3GPP TS 32.299 V9.0.0 7.2.108 */ Time V,M| P| | | N ;
+ 
+/**
+ * The Number-Of-Talk-Bursts AVP (AVP code 1283) is of type Unsigned32 and 
+ * holds the number of the sent talk bursts.
+*/
+    Number-Of-Talk-Bursts  ::=1283 /*3GPP TS 32.299 V9.0.0 7.2.92 */Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Talk-Burst-Volume AVP (AVP code 1287) is of type Unsigned32 and holds 
+ * the volume in bytes of the sent talk bursts.
+*/
+    Talk-Burst-Volume ::=1287  /*3GPP TS 32.299 V9.0.0   7.2.168 */Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Talk-Burst-Time AVP (AVP code 1286) is of type Unsigned32 and holds the 
+ * duration in seconds of the sent talk bursts.
+*/
+     Talk-Burst-Time::=1286 /*3GPP TS 32.299 V9.0.0   7.2.167 */Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Number-Of-Received-Talk-Bursts AVP (AVP code 1282) is of type Unsigned32 
+ * and holds the number of the received talk bursts.
+*/
+    Number-Of-Received-Talk-Bursts::=  1282  /*3GPP TS 32.299 V9.0.0   7.2.91 */
+                                                               Unsigned32  V,M| P| | | N ;
+/**
+ * The Received-Talk-Burst-Volume AVP (AVP code 1285) is of type Unsigned32 
+ * and holds the volume in bytes of the received talk bursts.
+*/
+    Received-Talk-Burst-Volume ::= 1285  /*3GPP TS 32.299 V9.0.0   7.2.129 */
+ 							Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Received-Talk-Burst-Time AVP (AVP code 1284) is of type Unsigned32 and 
+ * holds the duration in seconds of the received talk bursts.
+*/
+     Received-Talk-Burst-Time ::=  1284  /*3GPP TS 32.299 V9.0.0   7.2.128 */
+      							Unsigned32  V,M| P| | | N ;
+/**
+ * The PoC-Change-Condition AVP (AVP code 1261) is of type Enumerated and contains 
+ * the reason for closing a container and the addition of a new container.
+*/
+     PoC-Change-Condition ::=  1261  /*3GPP TS 32.299 V9.0.0   7.2.107 */
+                                                       Enumerated   V,M| P| | | N ;
+
+/**
+ * The PoC-Controlling-Address AVP (AVP code 858) is of type UTF8String and 
+ * identifies the PoC server performing the controlling function for 
+ * the associated PoC session.
+*/
+     PoC-Controlling-Address ::=858 /*3GPP TS 32.299 V9.0.0   7.2.109 */
+ 						UTF8String   V,M| P| | | N ;
+
+/**
+ * The PoC-Group-Name AVP (AVP code 859) is of type UTF8String and identifies 
+ * a group. Included if the session is a pre-arranged group session or a chat 
+ * group session. It can be used for PoC and OMA SIMPE IM Charging, or other
+ * applications.
+*/
+    PoC-Group-Name  ::=859  /*3GPP TS 32.299 V9.0.0   7.2.110 */
+                                                UTF8String   V,M| P| | | N ;
+
+/**
+ * The PoC-Session-Id AVP (AVP code 1229) is of type UTF8String. It uniquely 
+ * identifies an end-to-end PoC session and may be used for correlation between 
+ * charging information generated by participating and controlling PoC functions.
+ * This information is obtained from the "Contact" header of the SIP message 
+ * received from the controlling PoC function.
+*/
+    PoC-Session-Id ::=1229  /*3GPP TS 32.299 V9.0.0   7.2.113 */
+                                                UTF8String   V,M| P| | | N ;
+
+/**
+ * The Charged-Party AVP (AVP code 857) is of type UTF8String and holds the 
+ * address (Public User ID: SIP URI, TEL URI, etc.) of the party to be charged.
+*/
+     Charged-Party::= 857  /*3GPP TS 32.299 V9.0.0   7.2.26 */
+                                                UTF8String   V,M| P| | | N ;
+/**
+ * The MBMS-Information AVP (AVP code 880) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional MBMS service 
+ * specific information elements.
+*/
+   MBMS-Information ::=880 /*3GPP TS 32.299 V9.0.0   7.2.77  */ Grouped  V,M| P| | | N ;
+
+/**
+ * The MBMS-User-Service-Type AVP (AVP code 1225) is of type Enumerated and 
+ * indicates type of service the MBMS user service that is being delivered. 
+ * The following values are supported:
+*/
+   MBMS-User-Service-Type ::=1225 /*3GPP TS 32.299 V9.0.0   7.2.78  */ Enumerated  V,M| P| | | N ;
+
+/**
+ * The File-Repair-Supported AVP (AVP code 1224) is of type Enumerated and 
+ * indicates whether the MBMS user service supports point-to-point file repair.  
+*/
+    File-Repair-Supported ::= 1224/*3GPP TS 32.299 V9.0.0   7.2.49  */Enumerated V,M| P| | | N ;
+
+
+/**
+ * The SMS-Information AVP (AVP code 2000) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional
+ * SMS service specific information elements.
+*/
+    SMS-Information  ::=  2000 /*3GPP TS 32.299 V9.0.0   7.2.162  */Grouped V,M| P| | | N ;
+
+/**
+ * The SMS-Node AVP (AVP code 2016) is of type Enumerated and identifies the role 
+ * which the SMS node performs in relation to the charging event.
+*/
+       SMS-Node::= 2016 /*3GPP TS 32.299 V9.0.0   7.2.163  */Enumerated V,M| P| | | N ;
+
+/**
+ * The Client-Address AVP (AVP code 2018) is of type Address and is the address 
+ * of the messaging Node which the OCS is connected to.    
+*/
+     Client-Address::=2018/*3GPP TS 32.299 V9.0.0   7.2.28  */ Address V,M| P| | | N ;
+
+/**
+ * The Originator-SCCP-Address AVP (AVP code 2008) is of type Address. 
+ * It is the "SCCP calling address" used by the messaging node when receiving 
+ * a message. This is usually the address of the MSC or SGSN/Serving Node that 
+ * was serving the UE when it submitted the SM.
+*/
+    
+     Originator-SCCP-Address::=2008 /*3GPP TS 32.299 V9.0.0   7.2.98  */ Address V,M| P| | | N ;
+
+/**
+ * The SMSC-Address AVP (AVP code 2017) is of type Address and carries the address 
+ * of the SMSC, as contained in the SM.
+*/
+     SMSC-Address::=2017/*3GPP TS 32.299 V9.0.0   7.2.164 */ Address V,M| P| | | N ;
+
+
+/**
+ * The Data-Coding-Scheme AVP (AVP code 2001) is of type Integer 32 and contains 
+ * the data coding scheme of the message
+*/
+     Data-Coding-Scheme::=2001 /*3GPP TS 32.299 V9.0.0   7.2.34 */Integer32  V,M| P| | | N ;
+
+/**
+ * The SM-Discharge-Time AVP (AVP code 2012) is of type Time. It indicates the time 
+ * associated with the event being reported in the SM-Status AVP. It is only used in 
+ * scenarios in which the delivery of the Delivery-Report (more properly
+ * the Status-Report) is being charged.
+*/
+    SM-Discharge-Time::=2012 /*3GPP TS 32.299 V9.0.0   7.2.157 */Time V,M| P| | | N ;
+
+/**
+ * The SM-Message-Type AVP (AVP code 2007) is of type Enumerated and indicates 
+ * the type of the message which caused the charging interaction
+*/
+   SM-Message-Type ::= 2007  /*3GPP TS 32.299 V9.0.0   7.2.158 */ Enumerated  V,M| P| | | N ;
+
+/**
+ * The Originator-Interface AVP (AVP code 2009) is the group AVP which 
+ * contains information related to the Interface on which the message originated.
+*/
+   Originator-Interface ::=2009 /*3GPP TS 32.299 V9.0.0   7.2.97 */ Grouped  V,M| P| | | N ;
+
+/**
+ * The Interface-Id AVP (AVP code 2003) is of type UTF8String and holds the 
+ * interface identification provided by the messaging node (originator/destination).
+*/
+     Interface-Id ::= 2003 /*3GPP TS 32.299 V9.0.0   7.2.52 */  UTF8String V,M| P| | | N ;
+
+
+/**
+ * The Interface-Text AVP (AVP code 2005) is of type UTF8String and is the 
+ * consolidation information about the application associated with the charging event.
+*/
+      Interface-Text ::= 2005 /*3GPP TS 32.299 V9.0.0  7.2.54 */  UTF8String V,M| P| | | N ;
+
+/**
+ * The Interface-Port AVP (AVP code 2004) is of type UTF8String and holds the 
+ * port-identification or contains information about the transport layer port 
+ * used by the application associated with the charging event. 
+*/
+    Interface-Port  ::= 2004 /*3GPP TS 32.299 V9.0.0  7.2.53 */  UTF8String V,M| P| | | N ;
+
+/**
+ * The Interface-Type AVP (AVP code 2006) is of type Enumerated and contains information 
+ * about type of interface nature of the transaction in the messaging node for which 
+ * the charging event occurs
+*/
+    Interface-Type ::=  2006/*3GPP TS 32.299 V9.0.0  7.2.55 */ Enumerated V,M| P| | | N ;
+
+/**
+ * The SM-Protocol-ID AVP (AVP code 2013) is of type Octet String and holds an 
+ * indication of the protocol used for the SM.
+*/
+    SM-Protocol-ID   ::=  2013 /*3GPP TS 32.299 V9.0.0  7.2.159 */ OctetString  V,M| P| | | N ;
+
+/** 
+ * The Reply-Path-Requested AVP (AVP code 2011) is of type Enumerated.
+*/
+     Reply-Path-Requested ::=2011 /*3GPP TS 32.299 V9.0.0  7.2.135 */Enumerated V,M| P| | | N ;
+
+/**
+ * The SM-Status AVP (AVP code 2014) is of type OctetString. The OctetString is 
+ * of length 1 octet and contains status information about the delivery of an SM.
+*/
+    SM-Status  ::=  2014  /*3GPP TS 32.299 V9.0.0  7.2.160 */ OctetString  V,M| P| | | N ;
+
+/**
+ * The SM-User-Data-Header AVP (AVP code 2015) is of type OctetString and 
+ * contains any user data header extracted from the user data part of the SM
+*/
+    SM-User-Data-Header ::=2015 /*3GPP TS 32.299 V9.0.0  7.2.161 */ OctetString  V,M| P| | | N ;
+
+/**
+ * The Number-Of-Messages-Sent AVP (AVP code 2019) is of type Unsigned32 and indicates 
+ * the number of SMSs sent by the IMS application if applicable.
+*/
+   Number-Of-Messages-Sent ::= 2019 /*3GPP TS 32.299 V9.0.0  7.2.89A */ Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Recipient-Info AVP (AVP code 2026) is of type Grouped. Its purpose is to 
+ * group information associated with a recipient. and contains the list of 
+ * Recipient addresses of the message.
+*/
+    Recipient-Info ::=2026/*3GPP TS 32.299 V9.0.0  7.2.130A */ Grouped V,M| P| | | N ;
+
+/**
+ * The Destination-Interface AVP (AVP code 2002) is type Grouped, which contains 
+ * information related to the Interface on which the message is to be delivered.
+*/
+    Destination-Interface ::= 2002 /*3GPP TS 32.299 V9.0.0  7.2.37 */ Grouped V,M| P| | | N ;
+
+/**
+ * The Recipient-Received-Address AVP (AVP code 2028) is of type Grouped. 
+ * Its purpose is to identify the recipient of a message with the original, 
+ * unmodified address information as received before any address manipulations 
+ * has taken place in the entity generating the charging information. 
+ * This field allows correlation of address information with information 
+ * generated by other nodes in the message flow.
+*/
+   Recipient-Received-Address ::= 2028  /*3GPP TS 32.299 V9.0.0  7.2.130A */ Grouped V,M| P| | | N ;     
+
+/**
+ * The Recipient-SCCP-Address AVP (AVP code 2010) is of type Address. 
+ * It is the "SCCP called address" used by the messaging node when delivering 
+ * the message. This is usually the address of the MSC or SGSN/Serving Node that 
+ * is serving the UE when it delivers the SM. It contains a Global Title, where 
+ * Global Title represents an E.164 number, and possibly a Point Code (ISPC).
+*/
+   Recipient-SCCP-Address  ::=2010 /*3GPP TS 32.299 V9.0.0  7.2.131 */ Address V,M| P| | | N ;
+
+/**
+ * The Originator-Received-Address AVP (AVP code 2027) is of type Grouped. 
+ * Its purpose is to identify the originator of a message with the original, 
+ * unmodified address information as received before any address manipulations 
+ * has taken place in the entity generating the charging information. 
+ * This field allows correlation of address information with information 
+ * generated by other nodes in the message flow.
+*/
+   Originator-Received-Address  ::= 2027  /*3GPP TS 32.299 V9.0.0  7.2.97A */Grouped 
+                                                                      V,M| P| | | N ;
+
+/**
+ * The SM-Service-Type AVP (AVP code 2029) is of type Enumerated and indicates 
+ * the type of SM service that caused the charging interaction.
+*/
+     SM-Service-Type  ::=2029  /*3GPP TS 32.299 V9.0.0  7.2.163A */Enumerated   V,M| P| | | N ;
+
+/**
+ * The MMTel-Information AVP (AVP code 2030) is of type Grouped. 
+ * Its purpose is to allow the transmission of additional MMtel service 
+ * specific information elements. It holds MMTel supplementary services 
+ * invoked during MMTel service.
+*/
+    MMTel-Information ::=2030 /*3GPP TS 32.299 V9.0.0  7.2.88A */ Grouped    V,M| P| | | N ;
+
+
+/**
+ * The Supplementary-Service AVP (AVP code 2048) is of type Grouped 
+ * and holds the specific supplementary service details for one MMTel  
+ * supplementary service.
+*/
+       Supplementary-Service ::=2048 /*3GPP TS 32.299 V9.0.0  7.2.165A */ Grouped    V,M| P| | | N ;
+
+/**
+ * The Service-Type AVP (AVP Code 2031) is of type Unsigned32 and identifies 
+ * the type of MMTel supplementary service.
+*/
+      Service-Type ::= 2031/*3GPP TS 32.299 V9.0.0   7.2.152A   */  Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Service-Mode AVP (AVP Code 2032) is of type Unsigned32and provides the 
+ * mode for CDIV, CB and ECT MMTel supplementary services.
+*/
+     Service-Mode ::=2032 /*3GPP TS 32.299 V9.0.0   7.2.149A   */  Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Number-of-Diversions AVP (AVP Code 2034) is of type Unsigned32 and holds 
+ * the number of diversions related to a CDIV service. When counting the number 
+ * of diversions, all types of diversion are included.
+*/
+   Number-of-Diversions ::= 2034 /*3GPP TS 32.299 V9.0.0  7.2.89aa */  Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Associated-Party-Address AVP (AVP code 2035) is of type UTF8String and is used 
+ * for MMTel supplementary service. It holds the address (SIP URI or TEL URI) of the 
+ * user, the MMTel supplementary service is provided to : the "forwarding party" for 
+ * CDIV, the " transferor" for ECT, the  "Pilot Identity"  for Flexible Alerting (FA).
+*/
+   Associated-Party-Address ::=2035  /*3GPP TS 32.299 V9.0.0  7.2.15A */ UTF8String V,M| P| | | N ;
+
+/**
+ * The Change-Time AVP (AVP code 2038) is of type Time.
+*/
+    Change-Time::= 2038  /*3GPP TS 32.299 V9.0.0  7.2.25B */ Time  V,M| P| | | N ;
+
+/**
+ * The Participant-Action-Type AVP (AVP code 2049) is of type Enumerated and holds 
+ * the participants action type during the conference for Billing Domain's information.
+*/
+   Participant-Action-Type::=2049 /*3GPP TS 32.299 V9.0.0  7.2.102A */ Enumerated V,M| P| | | N ;
+
+/**
+ * The Subscriber-Role AVP (AVP code 2033) is of type Enumerated and indicates 
+ * the role of the subscriber (originating party or terminating party) in MMTel 
+ * supplementary services.
+*/
+       Subscriber-Role ::= 2033  /*3GPP TS 32.299 V9.0.0  7.2.165A */ Enumerated V,M| P| | | N ;
+
+/**
+ * The Price AVP is of type Unsigned32. It contains the price of the requested service
+ * Here we are using 5004 AVP Code instead of TBD(To Be Decided).
+*/
+     	Price ::= 5004  /*3GPP TS 32.296 V10.1.0   7.1.4.2.49 */ Unsigned32  V,M| | | | N ;
+
+/**
+ * The BillingInfo  AVP is of type UTF8String. It contains billing relevant information. 
+ * The content of this AVP is operator specific and out of scope for 3GPP standards.
+ * Here we are using 5005 AVP Code instead of TBD(To Be Decided).
+*/
+     BillingInfo ::= 5005  /*3GPP TS 32.296 V10.1.0 7.1.4.2.6 */UTF8String V,M| | | | N ;
+
+/**
+ * The TariffSwitchTime AVP is of type Unsigned32. It is used in the TRS message. 
+ * It contains the time period in seconds from the time included in the ActualTime 
+ * AVP of the corresponding TRQ message until the next tariff switch occurs. 
+ * A value "0" of the TariffSwitchTime AVP means, that the tariff switch occurs 
+ * immediately, i.e. the tariff information contained in the NextMonetaryTariff 
+ * AVP is valid immediately.
+ * Here we are using 5006 AVP Code instead of TBD(To Be Decided).
+*/
+     TariffSwitchTime  ::=5006 /*3GPP TS 32.296 V10.1.0  7.1.4.2.59 */Unsigned32 V,M| | | | N ;
+
+/**
+ * The ExpiryTime AVP is of type Unsigned32. It is used in the TRS message. 
+ * It contains the time period in seconds from the time included in the 
+ * ActualTime AVP of the corresponding TRQ message until all tariff information 
+ * contained in this TRS message expires.    
+ * Here we are using 5007 AVP Code instead of TBD(To Be Decided).
+*/
+      ExpiryTime   ::=5007 /*3GPP TS 32.296 V10.1.0    7.1.4.2.39 */Unsigned32  V,M| | | | N ;
+
+/**
+ * The ValidUnits AVP is of type Unsigned32. It is used in the TRS message. 
+ * It defines, for how many consumed service units the tariff information in this TRS 
+ * message is valid. After the number of units defined in the ValidUnits AVP has been 
+ * consumed by the subscriber, the online charging function shall send a new TRQ message 
+ * to the Rating Function. If available, the online charging function may use the 
+ * MonetaryTariffAfterValidUnits AVP to charge service consumption after all valid 
+ * units have been consumed .
+ * Here we are using 5008 AVP Code instead of TBD(To Be Decided).
+*/
+     ValidUnits  ::=5008 /*3GPP TS 32.296 V10.1.0  7.1.4.2.60 */Unsigned32  V,M| | | | N ;
+
+   
+/**
+ * The MonetaryTariffAfterValidUnits AVP is of type Grouped. It is used in the 
+ * TariffResponse message, and it contains the tariff information that is valid 
+ * after all valid units  have been used. 
+ * This AVP may be used to optimize service availability in call scenarios involving 
+ * a limited number of valid units . 
+ * Here we are using 5009 AVP Code instead of TBD(To Be Decided).
+*/
+      MonetaryTariffAfterValidUnits  ::=5009 /*3GPP TS 32.296 V10.1.0  7.1.4.2.45*/
+                                                            Grouped   V,M| | | | N ;
+/**
+ * The Counter AVP is of type Grouped. It contains information related to a 
+ * specified counter of  the subscriber, as stored in the Account Balance 
+ * Management Function. Multiple Counter AVPs can be included in one rating 
+ * request message (i.e. PRQ or TRQ).
+ * Here we are using 5010 AVP Code instead of TBD(To Be Decided).
+*/
+     
+     Counter ::=5010/*3GPP TS 32.296 V10.1.0  7.1.4.2.9 */   Grouped   V,M| | | | N ;
+
+/**
+ * The CounterID AVP is of type Unsigned32. It is used to address a specific counter, 
+ * i.e. it identifies the counter. Therefore, the CounterID must be unique for each subscriber.
+ * Here we are using 5011 AVP Code instead of TBD(To Be Decided).
+*/  
+    CounterID  ::=5011/*3GPP TS 32.296 V10.1.0  7.1.4.2.20  */  Unsigned32 V,M| | | | N ;
+
+/**
+ * The CounterValue AVP is of type Integer32. It contains the actual current value for 
+ * the addressed counter (identified by the associated CounterID AVP) as stored in 
+ * the Account Balance Management Function
+ * Here we are using 5012 AVP Code instead of TBD(To Be Decided).
+*/
+    CounterValue   ::=5012/*3GPP TS 32.296 V10.1.0  7.1.4.2.25 */ Integer32  V,M| | | | N ;
+
+/**
+ * The CounterExpiryDate AVP is of type Time. It contains the timestamp, at which the  
+ * current value of the addressed counter (as identified by the associated CounterID 
+ * AVP) expires
+ * Here we are using 5013  AVP Code instead of TBD(To Be Decided).
+*/
+     CounterExpiryDate ::=5013/*3GPP TS 32.296 V10.1.0 7.1.4.2.19 */ Time   V,M| | | | N ;
+
+/**
+ * The BasicPriceTimeStamp AVP is of type Time. It contains the timestamp of the 
+ * last charging of the Basic Price which is applicable for the service indicated 
+ * in the current request
+ * Here we are using 5014 AVP Code instead of TBD(To Be Decided).
+*/
+     BasicPriceTimeStamp  ::=5014/*3GPP TS 32.296 V10.1.0  7.1.4.2.4*/ Time   V,M| | | | N ;
+
+/**
+ * The BasicPrice AVP is of type Unsigned32. It contains a basic fee, that is applicable  
+ * e.g. only once per day. If the BasicPrice AVP is received by an online charging function, 
+ * the charging function will deduct this price from the subscriber's Account Balance, 
+ * and it will store the current system time internally as timestamp for the last charging 
+ * of the Basic Price.
+ * Here we are using 5015 AVP Code instead of TBD(To Be Decided).
+*/
+     BasicPrice ::=5015/*3GPP TS 32.296 V10.1.0  7.1.4.2.3 */ Unsigned32   V,M| | | | N ;
+
+/**
+ * The CounterPrice AVP is of type Grouped. It is used in the PriceResponse message, 
+ * and it contains information on how the online charging function shall modify 
+ * a specified counter of  the subscriber in the Account Balance Management Function
+ * Here we are using 5016 AVP Code instead of TBD(To Be Decided).
+*/
+     CounterPrice  ::=5016/*3GPP TS 32.296 V10.1.0 7.1.4.2.21*/Grouped    V,M| | | | N ; 
+
+/**
+ * The CounterType AVP is of type Unsigned32. It contains an operator specific value 
+ * which characterizes the addressed counter (identified by the associated CounterID AVP). 
+ * The CounterType AVP is used only for descriptive purposes. In contrast to the CounterID 
+ * AVP, the CounterType AVP may be not unique. 
+ * Here we are using 5017 AVP Code instead of TBD(To Be Decided).
+*/
+    CounterType::=5017/*3GPP TS 32.296 V10.1.0   7.1.4.2.24 */ Unsigned32  V,M| | | | N ;
+
+/**
+ * The CounterChange AVP is of type Integer32. It contains the value, with which 
+ * the addressed counter (as identified by the associated CounterID AVP) shall be 
+ * incremented or decremented
+ * Here we are using 5018 AVP Code instead of TBD(To Be Decided).
+*/
+     CounterChange::=5018/*3GPP TS 32.296 V10.1.0   7.1.4.2.10 */ Integer32  V,M| | | | N;  
+
+/**
+ * The SetCounterTo AVP is of type Integer32. It contains a value, to which the 
+ * addressed counter (as identified by the associated CounterID AVP) shall be set. 
+ * This AVP may be used, e.g., to reset counters.
+ * Here we are using 5019 AVP Code instead of TBD(To Be Decided).
+*/
+   SetCounterTo::=5019/*3GPP TS 32.296 V10.1.0      7.1.4.2.55*/ Integer32    V,M| | | | N;
+
+/**
+ * The CounterTariff AVP is of type Grouped. It is used in the TariffResponse message, 
+ * and it contains information on how the online charging function shall modify a 
+ * specified counter of  the subscriber in the Account Balance Management Function.
+ * Here we are using 5020 AVP Code instead of TBD(To Be Decided).
+*/
+    CounterTariff::=5020/*3GPP TS 32.296 V10.1.0 7.1.4.2.22 */  Grouped   V,M| | | | N;
+
+/**
+ * The CounterChangePerSession AVP is of type Integer32. It contains the value, 
+ * with which the addressed counter (as identified by the associated CounterID AVP) 
+ * shall be incremented or decremented once  for the whole online charging session.
+ * Here we are using 5021  AVP Code instead of TBD(To Be Decided).
+*/
+    CounterChangePerSession::=5021/*3GPP TS 32.296 V10.1.0  7.1.4.2.16 */ Integer32 V,M| | | | N;
+
+/**
+ * The CounterChangePerConsumedServiceUnit AVP is of type Integer32. It contains the 
+ * value, with which the addressed counter (as identified by the associated CounterID AVP) 
+ * shall be incremented or decremented per consumed service unit.
+ * Here we are using 5022  AVP Code instead of TBD(To Be Decided).
+*/
+   CounterChangePerConsumedServiceUnit::=5022/*3GPP TS 32.296 V10.1.0  7.1.4.2.15  */ Integer32 
+                                                                             V,M| | | | N;
+/**
+ * The CounterChangeForFirstChargeableTimeUnit AVP is of type Integer32. It contains 
+ * the value, with which the addressed counter (as identified by the associated 
+ * CounterID AVP) shall be incremented or decremented for the first chargeable time 
+ * unit. The first chargeable time unit is defined by the EParameterE7 AVP in the 
+ * MonetaryTariff AVP.
+ * Here we are using 5023  AVP Code instead of TBD(To Be Decided).
+*/
+       CounterChangeForFirstChargeableTimeUnit ::=5023/*3GPP TS 32.296 V10.1.0 7.1.4.2.11  */
+     									Integer32 V,M| | | | N;
+/**
+ * The CounterChangePerSubsequentChargeableTimeUnit AVP is of type Integer32. It 
+ * contains the value, with which the addressed counter (as identified by the 
+ * associated CounterID AVP) shall be incremented or decremented per chargeable 
+ * time unit, except for the first chargeable time unit. The chargeable time unit 
+ * is defined by the EParameterE2 AVP in the Current-Tariff AVP 
+ * Here we are using 5024  AVP Code instead of TBD(To Be Decided).
+*/
+      CounterChangePerSubsequentChargeableTimeUnit ::=5024/*3GPP TS 32.296 V10.1.0    7.1.4.2.17 */
+                                                                         Integer32 V,M| | | | N;
+/**
+ * The CounterChangePerChargeableVolumeUnit AVP is of type Integer32. It contains the 
+ * value, with which the addressed counter (as identified by the associated CounterID AVP) 
+ * shall be incremented or decremented per chargeable volume unit. The chargeable volume 
+ * unit is defined by the EParameterE6 AVP in the Current-Tariff AVP.
+ * Here we are using 5025  AVP Code instead of TBD(To Be Decided).
+*/
+    CounterChangePerChargeableVolumeUnit::=5025/*3GPP TS 32.296 V10.1.0   7.1.4.2.13 */
+                                                                         Integer32 V,M| | | | N;
+/**
+ * The CounterChangeForFirstChargeableTimeUnitAfterSwitch AVP is of type Integer32. 
+ * It contains the value, with which the addressed counter (as identified by the 
+ * associated CounterID AVP) shall be incremented or decremented for the first 
+ * chargeable time unit, if a tariff switch has occurred immediately at the beginning 
+ * of the online charging session. In this case, the first chargeable time unit is 
+ * defined by the EParameterE7 AVP in the Next-Tariff AVP.
+ * Here we are using 5026 AVP Code instead of TBD(To Be Decided).
+*/
+    CounterChangeForFirstChargeableTimeUnitAfterSwitch ::=5026/*3GPP TS 32.296 V10.1.0 
+                                                  7.1.4.2.12 */  Integer32 V,M| | | | N;
+
+/**
+ * The CounterChangePerSubsequentChargeableTimeUnitAfterSwitch AVP is of type Integer32. 
+ * It contains the value, with which the addressed counter (as identified by the 
+ * associated CounterID AVP) shall be incremented or decremented per chargeable 
+ * time unit (except for the first chargeable time unit) after a tariff switch has occurred. 
+ * In this case, the chargeable time unit is defined by the EParameterE2 AVP in
+ * the Next-Tariff AVP.
+ * Here we are using 5027  AVP Code instead of TBD(To Be Decided).
+*/
+    CounterChangePerSubsequentChargeableTimeUnitAfterSwitch ::=5027 /*3GPP TS 32.296 V10.1.0   7.1.4.2.18 */  Integer32     V,M| | | | N;
+
+/**
+ * The CounterChangePerChargeableVolumeUnitAfterSwitch AVP is of type Integer32. It 
+ * contains the value, with which the addressed counter (as identified by the 
+ * associated CounterID AVP) shall be incremented or decremented per chargeable 
+ * volume unit after a tariff switch has occurred. The chargeable volume unit is 
+ * defined by the EParameterE6 AVP in the Next-Tariff AVP.
+ * Here we are using 5028 AVP Code instead of TBD(To Be Decided).
+*/
+      CounterChangePerChargeableVolumeUnitAfterSwitch::=5028 /*3GPP TS 32.296 V10.1.0
+                                              7.1.4.2.14 */  Integer32  V,M| | | | N ;
+/**
+ * The CounterThreshold AVP is of type Integer32. It contains a threshold value for 
+ * the addressed counter (identified by the associated CounterID AVP). If the value 
+ * oe the specified counter reaches this threshold value, all tariff information 
+ * contained in the TRS message expires, and the Online Charging Function shall sent 
+ * a new TRQ message to the Rating Function.
+ * Here we are using 5029  AVP Code instead of TBD(To Be Decided).
+*/
+     CounterThreshold ::=5029/*3GPP TS 32.296 V10.1.0 7.1.4.2.23 */ Integer32 V,M| | | | N ;
+
+/**
+ * The RequestedCounters AVP is of type Unsigned32. An individual RequestedCounter AVP
+ * contains the ID of a counter . Multiple RequestedCounter AVPs may be included in 
+ *one TRS message.
+ * Here we are using 5030 AVP Code instead of TBD(To Be Decided).
+*/
+    RequestedCounters ::= 5030/*3GPP TS 32.296 V10.1.0  7.1.4.2.50	*/Unsigned32 V,M| | | | N;
+
+/**
+ * The RequestSubType AVP is of type Enumerated. It is used when class "B" 
+ * rating function is used
+ * Here we are using 5031  AVP Code instead of TBD(To Be Decided).
+*/
+     RequestSubType ::=5031/*3GPP TS 32.296 V10.1.0  7.1.4.2.52  */ Enumerated V,M| | | | N;
+
+/**
+ * The ImpactOnCounter AVP is of type Grouped. It contains information on how the 
+ * counter has been modified as a result of the current online session. It is used 
+ * by the Charging Data Function for inclusion in the CDRs .
+ * Here we are using 5032  AVP Code instead of TBD(To Be Decided).
+*/
+    ImpactOnCounter::=5032/*3GPP TS 32.296 V10.1.0 7.1.4.2.42   */ Grouped   V,M| | | | N;
+
+/**
+ * The CounterValueBegin AVP is of type Integer32. It contains the value for the 
+ * addressed counter (identified by the associated CounterID AVP) at the beginning 
+ * of the current online charging session. 
+ * Here we are using 5033  AVP Code instead of TBD(To Be Decided).
+*/
+    CounterValueBegin::=5033/*3GPP TS 32.296 V10.1.0  7.1.4.2.26 */ Integer32  V,M| | | | N;
+
+/**
+ * The CounterValueChange AVP is of type Integer32. It contains the change of the 
+ * value for the addressed counter (identified by the associated CounterID AVP) 
+ * as result of the current online charging session. 
+ * Here we are using 5034  AVP Code instead of TBD(To Be Decided)
+*/
+     CounterValueChange::=5034/*3GPP TS 32.296 V10.1.0 7.1.4.2.27 */ Integer32  V,M| | | | N;
+
+/**
+ * The CounterValueEnd AVP is of type Integer32. It contains the value for the 
+ * addressed counter (identified by the associated CounterID AVP) at the end of 
+ * the current online charging session. 
+ * Here we are using 5035  AVP Code instead of TBD(To Be Decided)
+*/  
+    CounterValueEnd::=5035/*3GPP TS 32.296 V10.1.0  7.1.4.2.28   */ Integer32  V,M| | | | N;
+
+/**
+ * The RequestedUnits AVP is of type Unsigned32. It defines how many service units 
+ * the charging function intends to grant. This information is being used by the 
+ * RF to reserve counters
+ * Here we are using 5036  AVP Code instead of TBD(To Be Decided)
+*/
+     RequestedUnits::=5036/*3GPP TS 32.296 V10.1.0   7.1.4.2.51 */ Unsigned32 V,M| | | | N;
+
+/**
+ * The ConsumedUnits AVP is of type Unsigned32. It defines how many service units 
+ * were totally consumed since the previous TRQ or SUQ message. This information 
+ * is being used by the RF to update counters and track the price.
+ * Here we are using 5037 AVP Code instead of TBD(To Be Decided)
+*/
+     ConsumedUnits::=5037/*3GPP TS 32.296 V10.1.0  7.1.4.2.7  */ Unsigned32 V,M| | | | N;
+
+/**
+ * The ConsumedUnitsAfterTariffSwitch AVP is of type Unsigned32. It defines how many 
+ * service units were totally consumed after tariff switch since the previous TRQ or 
+ * SUQ message. If no tariff switch occurred, the value 0 shall be used. This information 
+ * is being used by the RF to update counters and track the price.
+ * Here we are using 5038  AVP Code instead of TBD(To Be Decided)
+*/
+     ConsumedUnitsAfterTariffSwitch::=5038 /*3GPP TS 32.296 V10.1.0  7.1.4.2.8 */ Unsigned32 
+                                                                              V,M| | | | N;
+
+/**
+ * The MonetaryQuota AVP is of type Unsigned32. It defines the amount of monetary units 
+ * reserved by the charging function. The rating function calculates the amount of service 
+ * units that can be consumed with this amount.
+ * Here we are using 5039  AVP Code instead of TBD(To Be Decided)
+*/
+      MonetaryQuota ::=5039/*3GPP TS 32.296 V10.1.0  7.1.4.2.46  */ Unsigned32 V,M| | | | N;
+
+/**
+ * The MinimalRequestedUnits AVP is of type Unsigned32. It defines the minimal number 
+ * of service units the charging function intends to grant. This information is being 
+ * used by the RF to calculate the allowed units and to reserve counters.
+ * Here we are using 5040  AVP Code instead of TBD(To Be Decided)
+*/
+      MinimalRequestedUnits::=5040 /*3GPP TS 32.296 V10.1.0  7.1.4.2.43 */ Unsigned32 V,M| | | | N;
+
+/**
+ * The AllowedUnits AVP is of type Unsigned32. It defines how many service units 
+ * the charging function can grant for the MonetaryQuota reserved
+ * Here we are using 5041  AVP Code instead of TBD(To Be Decided)
+*/
+    AllowedUnits::=5041 /*3GPP TS 32.296 V10.1.0 7.1.4.2.2 */ Unsigned32           V,M| | | | N ;
+
+/**
+ * The ActualTime AVP is of type Time. It contains the actual timestamp of the current 
+ * rating request message (i.e. PRQ or TRQ).
+ * Here we are using 5042  AVP Code instead of TBD(To Be Decided)
+*/
+    ActualTime::=5042 /*3GPP TS 32.296 V10.1.0  7.1.4.2.1 */ Time   V,M| | | | N;
+
+/**
+ * The FirstRequest AVP is of type Enumerated. Its purpose is to indicate, whether 
+ * this TariffRequest message is the first Tariff Request message within this rating 
+ * dialogue, i.e. this message "initiates" the rating dialogue.
+ * Here we are using 5043  AVP Code instead of TBD(To Be Decided)
+*/
+    FirstRequest::=5043 /*3GPP TS 32.296 V10.1.0  7.1.4.2.41*/ Enumerated V,M| | | | N;
+
+/**
+ * The BeginTime AVP is of type Time. It contains the timestamp of the service 
+ * activation request from the network
+ * Here we are using 5044  AVP Code instead of TBD(To Be Decided)
+*/
+    BeginTime::=5044 /*3GPP TS 32.296 V10.1.0    7.1.4.2.5 */ Time V,M| | | | N ;
+
+/** 
+ * The Time-Quota-Threshold AVP (AVP code 868) is of type Unsigned32 and contains a threshold 
+ * value in seconds. This AVP may be included within the Multiple-Services-Credit-Control 
+ * AVP when this AVP also contains a Granted- Service-Units AVP containing a CC-Time AVP 
+ *(i.e. when the granted quota is a time quota).
+*/
+    Time-Quota-Threshold::= 868 /*3GPP TS 32.299 V9.0.0   7.2.171 */ Unsigned32  V,M| P| | | N ;
+
+/**
+ * The Volume-Quota-Threshold AVP (AVP code 869) is of type Unsigned32 and contains a 
+ * threshold value in octets. This AVP may be included within the Multiple-Services-Credit
+ * -Control AVP when this AVP also contains a Granted-Service-Units AVP containing a 
+ * CC-Total-Octets, CC-Input-Octets or CC-Output-Octets AVP (i.e. when the granted 
+ * quota is a volume quota).
+*/
+    Volume-Quota-Threshold  ::=869  /*3GPP TS 32.299 V7.1.0  7.2.118 */ Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Unit-Quota-Threshold AVP (AVP code 1226) is of type Unsigned32 and contains a 
+ * threshold value in service specific units. This AVP may be included within the 
+ * Multiple-Services-Credit-Control AVP when this AVP also contains a Granted-Service-
+ * Units AVP containing CC-Service-Specific-Units AVP (i.e. when the granted quota 
+ * is service specific
+*/
+     Unit-Quota-Threshold::= 1226 /*3GPP TS 32.299 V7.1.0 7.2.116 */ Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Quota-Holding-Time AVP (AVP code 871) is of type Unsigned32 and contains the 
+ * quota holding time in seconds.  The client shall start the quota holding timer 
+ * when quota consumption ceases. 
+*/
+    Quota-Holding-Time::=871 /*3GPP TS 32.299 V7.1.0  7.2.89*/ Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Quota-Consumption-Time AVP (AVP code 881) is of type Unsigned32 and contains an 
+ * idle traffic threshold time in seconds. This AVP may be included within the Multiple-
+ * Services-Credit-Control AVP when this AVP also contains a Granted-Service-Units 
+ * AVP containing a CC-Time AVP (i.e. when the granted quota is a time quota).
+*/
+      Quota-Consumption-Time::= 881 /*3GPP TS 32.299 V7.1.0  7.2.88 */ Unsigned32 V,M| P| | | N ;
+
+/**
+ * The Reporting-Reason AVP (AVP code 872) is of type Enumerated and specifies the reason 
+ * for usage reporting for one or more types of quota for a particular category.  It can 
+ * occur directly in the Multiple-Services-Credit-Control AVP, or in the Used-Service-Units 
+ * AVP within a Credit Control Request command reporting credit usage. It shall not be used 
+ * at command level. It shall always and shall only be sent when usage is being reported.
+*/
+    Reporting-Reason ::=  872 /*3GPP TS 32.299 V7.1.0  7.2.93 */  Enumerated  V,M| P| | | N ;
+
+/**
+ * The Trigger-Type AVP (AVP code 870) is of type Enumerated and indicates a single 
+ * re-authorisation event type  .
+*/
+     Trigger-Type ::=870  /*3GPP TS 32.299 V7.1.0  7.2.113 */  Enumerated  V,M| P| | | N ;  
+
+/**
+ * The Service-Data-Container AVP (AVP code 2040) is of type Grouped. Its
+ * purpose is to allow the transmission of the container to be reported for
+ * Flow based Charging. On encountering change on charging condition, this
+ * container  identifies the volume count (separated for uplink and downlink),
+ * elapsed time or number of events, per service data flow identified per
+ * rating group or combination of the rating group and service id within an
+ * IP-CAN bearer.
+ */
+ Service-Data-Container  ::= 2040  /*3GPP TS 32299.8a0  5.3.1 */ Grouped  M,V|P| |   |N; 
+
+/**
+ * The Start-Time  AVP (AVP Code TBD) is of type Time and holds the time in UTC format 
+ * which represents the start of a user session at the S-GW/P-GW.
+ * Here we are using 5045  AVP Code instead of TBD(To Be Decided)
+*/
+     Start-Time ::= 5045  /*3GPP TS 32.299 V8.10.0  7.2.164A  */ Time  V,M| P| | | N ; 
+
+/**
+ * The Stop-Time  AVP (AVP Code TBD) is of type Time and holds the time in UTC format 
+ * which represents the termination of a user session at the S-GW/P-GW.7
+ * Here we are using 5046  AVP Code instead of TBD(To Be Decided)
+*/
+    Stop-Time ::=5046 /*3GPP TS 32.299 V8.10.0   7.2.164B */ Time  V,M| P| | | N ;
+
+/**
+ * The Refund-Information AVP (AVP code 2022) is of type OctetString and it conveys 
+ * relevant information for the OCS application relative to refund mechanism. When 
+ * refund mechanism is implemented in the OCS this AVP may be included in the CCA 
+ * of the previous IEC. This AVP must be used by the CTF in case of a refund scenario 
+ * and thus must be included in the CCR for refund if previously received in CCA for IEC. 
+*/
+     Refund-Information::=2022  /*3GPP TS 32.299 V8.10.0 7.2.132  */OctetString V,M| P| | | N ;
+   
+/**
+ * The AF-Correlation-Information AVP (AVPcode 1276) is of type Grouped and includes 
+ * the "AF Charging Identifier" (ICID for IMS)  and associated  flow identifiers 
+ * generated by the AF and received by P-GW over Rx/Gx.
+*/
+    AF-Correlation-Information::=1276 /*3GPP TS 32.299 V8.10.0 7.2.11*/Grouped V,M| P| | | N ;
+
+/**
+ * The Envelope AVP (AVP code 1266) is a grouped AVP which reports the start and end 
+ * time of one time envelope using the Envelope-Start-Time and Envelope-End-Time AVPs
+*/
+    Envelope ::=1266 /*3GPP TS 32.299 V8.10.0   7.2.41*/ Grouped V,M| P| | | N ;
+
+/**
+ * Indicate details of where the UE is currently located (e.g. SAI or CGI).
+*/
+    Re-3GPP-User-Location-Info ::=22 /*3GPP TS 29.061 V8.2.0 16.4.7 */ OctetString  V| P| |M| Y;
+
+/**
+ * For 3GPP2 indicates the BSID of where the UE is currently located (e.g. Cell-Id, SID, NID).
+ * (3GPP TS 29.212 V9.2.0)_
+*/
+    Re-3GPP2-BSID ::=9010 /*3GPP TS 32.299 V8.10.0  */ UTF8String   M|P| |  V  |Y; 
+
+/**
+ * The Terminal-Information AVP is of type Grouped. This AVP shall contain the
+ * information about the user's terminal.
+ */
+ Terminal-Information ::= 1401  /* 5.3.1 */ Grouped  M,V|P| |   |N;  /* OMA-DDS-Charging data*/
+
+/**
+ * The IMEI AVP is of type UTF8String. This AVP contains the
+ * International Mobile Equipment Identity. See 3GPP TS23.003 [3].
+ */
+   IMEI               ::= 1402   /* 7.3.4 */ UTF8String  M,V| | |    |N;
+    
+/**
+ * The Software-Version AVP is of type UTF8String. This AVP contains the
+ * Software Version of the International Mobile Equipment Identity.
+ * See 3GPP TS 23.003 [3].
+ */
+  Software-Version   ::=  1403  /* 7.3.5 */ UTF8String  M,V| | |    |N;
+
+/**
+ * The Service-Generic-Information AVP (AVP code 1256) is of type Grouped
+ * refer [TS32.299]. Its purpose is to allow the transmission of additional
+ * OMA service/enabler specific information elements which are common to
+ * different service/enablers.
+ */
+    Service-Generic-Information ::= 1256  /*TS 32299.8a0 */ Grouped   M|P| |  V  |Y; /* OMA-DDS-Charging_data */
+
+  
+    Application-Server-ID ::= 2101    /*Ro      */ UTF8String   M,V|P| |     |Y; /*OMA-DDS-Charging_data */
+    Application-Service-Type ::= 2102    /*Ro      */ UTF8String   M,V|P| |     |Y; /*OMA-DDS-Charging_data */
+    Application-Session-ID ::= 2103    /*Ro      */ UTF8String   M,V|P| |     |Y; /*OMA-DDS-Charging_data */
+    Delivery-Status ::= 2104    /*Ro      */ UTF8String   M,V|P| |     |Y; /*OMA-DDS-Charging_data */
+
+
+/**
+ * The IM-Information AVP (AVP code 2110) is of type Grouped. Its purpose is
+ * to allow the transmission of service information elements used for IM services.
+ */
+    IM-Information ::= 2110  /* 5.3.1 */ Grouped  M,V| | |   |Y;  /* OMA-DDS-Charging data*/
+
+    Total-Number-Of-Messages-Sent ::= 2114  /*TS 32299.8a0 */ Unsigned32    M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+    Total-Number-Of-Messages-Exploded ::= 2113  /*TS 32299.8a0 */ Unsigned32    M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+    Number-Of-Messages-Successfully-Sent ::= 2112  /*TS 32299.8a0 */ Unsigned32    M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+    Number-Of-Messages-Successfully-Exploded ::= 2111  /*TS 32299.8a0 */ Unsigned32    M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+
+/**
+  * The DCD-Information AVP (AVP code 2115) is of type Grouped. Its purpose is
+  * to allow the transmission of service information elements used for DCD services.
+  */
+    DCD-Information ::= 2115  /* 5.3.1 */ Grouped  M,V| | |   |Y;  /* OMA-DDS-Charging data*/
+
+    Content-ID ::= 2116  /*TS 32299.8a0 */ UTF8String   M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+    Content-provider-ID ::= 2117  /*TS 32299.8a0 */ UTF8String   M|P| |  V  |Y; /* 8.24, 32299.8a0 */
+
+/**
+ * 3GPP-Session-Stop-Indicator AVP is of type Octetstring. It indicates to the AAA server
+ * that the last PDP context of a session is released and that the PDP session has been terminated.
+ */
+     Re-3GPP-Session-Stop-Indicator ::= 3001 /*Ro */ OctetString  M,V| | |     |N; /* 3GPP TS 29.061*/                                             /* Dummy AVP code '3001' defined */
+
+ Operator-Name ::= 1000    /*Ro      */ OctetString   M,V| | |     |N; /* Radius (Re-check the type) dummy AVP code*/
+
+
+
+    Location-Information ::= 1001    /*Ro      */ OctetString   M,V| | |     |N; /* Radius (Re-check the type) dummy AVP code*/
+
+/**
+ * The Server-Capabilities AVP (is of type Grouped. This AVP contains information to 
+ * assist the I-CSCF in the selection  of an S-CSCF.
+ */
+Server-Capabilities    ::=  603 /*  3GPP TS 29.229 V8.10.0  6.3.4*/  Grouped     M,V| | |    |N;
+
+ /**
+ * The Mandatory-Capability AVP is of type Unsigned32. The value included in this AVP can be used to represent a
+ * single determined mandatory capability of an S-CSCF. Each mandatory capability available in an individual operator¡¯s
+ * network shall be allocated a unique value. The allocation of these values to individual capabilities is an operator issue. */
+Mandatory-Capability    ::=  604 /*3GPP TS 29.229 V8.10.0  6.3.5*/  Unsigned32  M,V| | |    |N;
+
+
+/**
+ * The Optional-Capability AVP is of type Unsigned32. The value included in this AVP can be used to represent a single
+ * determined optional capability of an S-CSCF. Each optional capability available in an individual operator¡¯s network
+ * shall be allocated a unique value. The allocation of these values to individual capabilities is an operator issue.
+ */
+Optional-Capability    ::=  605 /*3GPP TS 29.229 V8.10.0    *6.3.6*/  Unsigned32  M,V| | |    |N;
+
+/**
+ * The Server-Name 3 is of type UTF8String. This AVP contains a SIP-URL (as defined in IETF RFC 3261 and IETF
+ * RFC 2396), used to identify a SIP server (e.g. S-CSCF name).
+ */
+Server-Name   ::=  602 /*3GPP TS 29.229 V8.10.0     6.3.3*/  UTF8String  M,V| | |    |N;
+
+/**
+ * The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type
+ * OctetString, and contains a charging identifier (e.g. GCID).
+ */
+    Access-Network-Charging-Identifier-Value    ::= 503  /* 3GPP TS 29.214    V8.1*/ OctetString  V,M|P| |     |Y; 
+
+/**
+ * VASP-Id AVP is of type UTF8String. It contains the identification of a Value Added Service Provider.
+ */
+    VASP-Id        ::= 1101 /* 6.3.3  */ UTF8String  V,M|P| |     |N; /*MM10,3GPP TS 29.140 V6.3*/
+
+/**
+ * VAS-Id AVP is of type UTF8String. It contains the identification of a Value Added Service.
+ */ 
+  VAS-Id        ::= 1102 /* 6.3.4  */ UTF8String  V,M|P| |     |N; /*MM10,3GPP TS 29.140 V6.3*/
+
+/**
+ * The MSISDN AVP is of type OctetString. This AVP contains an MSISDN, in international number format as described
+ * in ITU-T Rec E.164, encoded as a TBCD-string, i.e. digits from 0 through 9 are encoded 0000 to 1001; 1111 is used
+ * as a filler when there is an odd number of digits; bits 8 to 5 of octet n encode digit 2n; bits 4 to 1 of octet n encode digit
+ * 2(n-1)+1.
+ */
+MSISDN    ::=  701 /*3GPP TS 29.329 V9.2.0  6.3.2*/  OctetString M,V| | |    |N;
+
+/**
+ * TMGI AVP is of type OctetString and contains the Temporary Mobile Group Identity allocated to a
+ * particular MBMS bearer service. TMGI use and structure is specified in 3GPP TS 23.003.
+ */
+    TMGI    ::= 900  /*3GPP TS 29.061 V6.7      17.7.2 */ OctetString  V,M|P| |     |Y;
+/**
+ * MBMS-Service-Type AVP is of type Enumerated and contains explicit information about the type of
+ * service that the BM-SC start Procedure is about to start.
+ */
+    MBMS-Service-Type                          ::= 906  /*3GPP TS 29.061 V6.7  17.7.9 */ Enumerated   V,M|P| |     |Y; 
+
+/**
+ * Required-MBMS-Bearer-Capabilities AVP is of type UTF8String and contains the minimum bearer capabilities
+ * the UE needs to support. The information conatined in this AVP is UTF-8 encoded QoS profile as defined
+ * in 3GPP TS 24.008.
+ */
+    Required-MBMS-Bearer-Capabilities          ::= 901  /*3GPP TS 29.061 V6.7  17.7.3 */ UTF8String   V,M|P| |     |Y;
+
+
+ /** 
+ * MBMS-2G-3G-Indicator AVP is of type Enumerated. It indicates whether the MBMS bearer 
+ * service will be  delivered in 2g-only, 3G-only or both coverage areas. 
+*/    
+ MBMS-2G-3G-Indicator                       ::= 907  /* 3GPP TS 29.061 V6.7   17.7.10*/ Enumerated   V,M|P| |     |Y; 
+
+/** 
+ * RAIdentity AVP is of type UTF8String and contains the Routing Area Identity of the 
+ *SGSN where the UE  is registered. RAI use and structure is specified in 3GPP TS 23.003.
+ */    
+  RAI      ::= 909  /*3GPP TS 29.061 V6.7     17.7.12*/ UTF8String   V,M|P| |     |Y;
+
+ /**
+ * MBMS-Service-Area AVP is of type OctetString and indicates the area over which the MBMS bearer service
+ * has to be distributed.
+ */
+    MBMS-Service-Area   ::= 903  /* 3GPP TS 29.061 V6.7   17.7.6 */ OctetString  V,M|P| |     |Y; 
+
+ /**
+ * MBMS-Session-Identity AVP is of type OctetString. Its length is one octet. It is allocated by the BM-SC. * together with TMGI it identifies a transmission of a specific MBMS session. The initial transmission and * the subsequent transmissions of the MBMS session will use the same values of these parameters. This AVP
+ * is optional within the Gmb interface.
+ */    
+  MBMS-Session-Identity  ::= 908  /* 3GPP TS 29.061 V6.7 17.7.11*/ OctetString  V,M|P| |     |Y;
+
+   Re-3GPP-IMSI ::= 1002    /*Ro      */ UTF8String   M,V| | |     |N; /* 3GPP TS 29.061 (Re-check the type)*/
+
+/**
+ * The Extension AVP is of type Grouped. Its purpose is to allow transmission of additional information elements 
+ * not covered by this document, in order to meet operator-specific requirements.
+ * Here we are using 5047  AVP Code instead of TBD(To Be Decided) 
+*/
+    Extension ::=5047 /* 3GPP TS 32.296 V10.1.0   7.1.4.2.40 */ Grouped    V,M| P| | | N ; 
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it
+ * contains the ordinal number of the media component, assigned according to
+ * the rules in annex C of TS 129 207 [6].
+ */
+    Media-Component-Number             ::= 518 10415 /* 6.4.17 */          Unsigned32    M,V|P| |   |Y;
+
+
+ /**
+ * The Called-Station-Id AVP (AVP Code 30) is of type UTF8String and allows
+ * the NAS to send the ASCII string describing the layer 2 address the user
+ * contacted in the request. For dialup access,this can be a phone number,
+ * obtained using Dialed Number identification (DNIS) or a similar
+ * technology. Note that this may be different from the phone number the call
+ * comes on. For the use with IEEE 802 access,the Called-Station-Id MAY contain
+ * a MAC address formatted as described in RAD802.1X. (NASREQ)
+ *
+ * This is from rfc4006.protocol.iwlan
+ */
+    Called-Station-Id       ::= 30  /* 4.5  */  UTF8String    M|P| |  V  |Y;
+
+   Priority-Level ::=1046   /*5.3.45 TS 29.212*/  Unsigned32 M,V|P| |    |Y;
+
+   Pre-emption-Capability ::= 1047 /*5.3.46 TS 29.212*/
+                                                Enumerated  M,V|P| |    |Y;
+   Pre-emption-Vulnerability::=1048      /*5.3.47 TS 29.212*/
+                                               Enumerated  M,V|P| |    |Y;
+
+
+ /**
+ * The Trigger AVP (AVP code 1264) is of type Grouped and holds the trigger
+ * types. The presence of the Trigger AVP without any Trigger-Type AVP in a
+ * CCA allows OCS to disable all the triggers. The presence of the Trigger
+ * AVP in the CCR identifies the event(s) triggering the CCR.
+ */
+    Trigger  ::= 1264  /*TS 32299-8.1.0 */ Grouped        V,M|P| |  |N; /* 7.2*/
+/**
+ * The Envelope-Start-Time AVP (AVP code 1269) is of type Time. 
+ * It is set to the time of the packet of user data which caused the time envelope to start.
+*/
+    Envelope-Start-Time ::=  1269 /*3GPP TS 32.299 V8.9.0 */ Time  V,M|P| |  |N; 
+/**
+ * This Envelope-End-Time AVP (AVP code 1267) is of type Time. It is set to
+ * the time of the end of the time envelope.
+*/
+    Envelope-End-Time ::= 1267  /*3GPP TS 32.299 V8.9.0 */ Time  V,M|P| |  |N;
+
+/**
+ * The Local-Sequence-Number  AVP (AVP code 2063) is of type Unsigned32 and
+ * holds the service data container sequence number : increased by 1 for each
+ * service data container closed.
+ */
+    Local-Sequence-Number   ::= 2063  /*TS 32299.8a0 */ Unsigned32    V,M|P| |    |N; 
+/**
+ * The Rating-Group AVP is of type Unsigned32 (AVP Code 432) and contains the
+ * identifier of a rating group. All the services subject to the same rating
+ * type are part of the same rating group. The specific rating group the
+ * request relates to is uniquely identified by the combination of
+ * Service-Context-Id and Rating-Group AVPs.
+ */
+    Rating-Group            ::= 432  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; 
+
+/**
+ * The Time-First-Usage  AVP (AVP code 2043) is of type Time and holds the
+ * time in UTC format for the first IP packet to be transmitted and mapped to
+ * the current service data container.
+ */
+    Time-First-Usage   ::= 2043 /*3GPP TS 32.299 V8.a  7.2.107*/ Time        V,M|P| |     |N;
+
+/**
+ * The Time-Last-Usage  AVP (AVP code 2044) is of type Time and holds the time
+ * in UTC format for the last  IP packet to be transmitted and mapped to the
+ * current service data container.
+ */
+    Time-Last-Usage   ::= 2044 /*3GPP TS 32.299 V8.a  7.2.107*/ Time        V,M|P| |     |N;
+
+/**
+ * The Time-Usage  AVP (AVP code 2045) is of type Time and holds the effective
+ * used time within the service data container reporting interval.
+ */
+    Time-Usage   ::= 2045 /*3GPP TS 32.299 V8.a 7.2.107*/ Time        V,M|P| |     |N;
+
+/*
+ * MonetaryTariff is a Grouped AVP need to check again. Because of not finding sub AVPs in 3GPP TS 32.296 V10.1.0. 
+ * Now for time being changing type to OctetString.
+ * Here we are using 5048 AVP Code instead of TBD(To Be Decided).
+ */
+    MonetaryTariff  ::= 5048  /*3GPP TS 32.299 V8.10.0 7.2.132  */ OctetString V,M| P| | | N ;
+
+/* 
+ * NextMonetaryTariff is a Grouped AVP need to check again.Because of not finding sub AVPs in 3GPP TS 32.296 V10.1.0. 
+ * Now for time being changing type to OctetString.
+ * Here we are using 5049 AVP Code instead of TBD(To Be Decided).
+ */
+     NextMonetaryTariff ::= 5049  /*3GPP TS 32.299 V8.10.0 7.2.132  */ OctetString V,M| P| | | N ;
+
+
+/**
+ * The Service-Identifier AVP is of type Unsigned32 (AVP Code 439) and contains
+ * the identifier of a service. The specific service the request relates to is
+ * uniquely identified by the combination of Service-Context-Id and
+ * Service-Identifier AVPs.
+ */
+    Service-Identifier                         ::= 439  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /*8.28*/
+
+/**
+ * Subscription-Id AVP is used to identity the end user's subscription and is of type Grouped.
+ */
+    Subscription-Id                            ::= 443  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* clause 8.46,RFC4006*/
+
+/**
+ * Subscription-Id-Type AVP is of type Enumerated and it is used to determine which type of
+ * identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type                       ::= 450  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.47,RFC4006*/
+
+/**
+ * Subscription-Id-Data AVP is used to identity the end user and is of type UTF8String.
+ */
+    Subscription-Id-Data                       ::= 444  /*RFC4006 */UTF8String     M|P| |  V  |Y; /* 8.48, RFC4006 */
+
+/**
+ * The Currency-Code AVP is of type Unsigned32 and contains a currency code that specifies
+ * in which currency the values of AVPs containing monetary units were given.It is specified
+ * by using the numeric values defined in the ISO 4217 standard [ISO4217].
+ */
+    Currency-Code                              ::= 425  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /* 8.11,RFC4006*/
+
+/**
+ * The Value-Digits AVP is of type Integer64 (AVP Code 447) and contains the significant digits
+ * of the number.  If decimal values are needed to present the units, the scaling MUST be
+ * indicated with the related Exponent AVP.    
+ */
+    Value-Digits                               ::= 447  /*RFC4006 */ Integer64     M|P| |  V  |Y; /* 8.10,RFC4006*/
+
+/**
+ * Exponent AVP is of type Integer32 (AVP Code 429) and contains the exponent value to
+ * be applied for the Value-Digit AVP within the Unit-Value AVP.
+ */
+    Exponent                                   ::= 429  /*RFC4006 */ Integer32     M|P| |  V  |Y; /* 8.9,RFC4006*/
+
+/**
+ * The Tariff-Time-Change AVP (AVP Code 451) is of type Time. It is sent from the server to the
+ * client and includes the time in seconds since January 1, 1900, 00:00 UTC, when the tariff
+ * of the service will be changed.
+ */ 
+    Tariff-Time-Change                         ::= 451  /*RFC4006 */ Time          M|P| |  V  |Y; /* 8.20,RFC4006 */
+
+/**
+ * The CC-Unit-Type AVP (AVP Code 454) is of type Enumerated and specifies the type of units  
+ * considered to be pooled into a credit pool.
+ */
+    CC-Unit-Type                               ::= 454  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.32,RFC4006 */
+
+/**
+ * Unit-Value AVP is of type Grouped (AVP Code 445) and specifies the units as decimal value.
+ * The Unit-Value is a value with an exponent;i.e., Unit-Value = Value-Digits AVP * 10^Exponent.
+ * This representation avoids unwanted rounding off.
+ */
+    Unit-Value                                 ::= 445  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.8,RFC4006*/
+
+/**
+ * The User-Equipment-Info AVP is of type Grouped and allows the credit-control client to indicate
+ * the identity and capability of the terminal the subscriber is using for the connection to network.
+ */
+    User-Equipment-Info                        ::= 458  /*RFC4006 */ Grouped        |P,M| | V |Y; /* 8.49,RFC4006 */
+
+/**
+ * The User-Equipment-Info-Type AVP is of type Enumerated and defines the type of user equipment
+ * information contained in the User-Equipment-Info-Value AVP.
+ */
+    User-Equipment-Info-Type                   ::= 459  /*RFC4006 */ Enumerated     |P,M| | V |Y; /* 8.50,RFC4006*/
+
+/**
+ * The User-Equipment-Info-Value AVP is of type OctetString. The User-Equipment-Info-Type AVP
+ * defines which type of identifier is used.
+ */
+    User-Equipment-Info-Value                  ::= 460  /*RFC4006 */ OctetString    |P,M| | V |Y; /* 8.51,RFC4006 */
+
+/**
+ * Granted-Service-Unit AVP (AVP Code 431) is of type Grouped and contains the amount of  
+ * units that the Diameter credit-control client can provide to the end user until the
+ * service must be released or the new Credit-Control-Request must be sent. A client is
+ * not required to implement all the unit types, and it must treat unknown or unsupported
+ * unit types in the answer message as an incorrect CCA answer.
+ */
+    Granted-Service-Unit                       ::= 431  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.17, RFC4006*/
+
+/**
+ * The CC-Time AVP is of type Unsigned32 and indicates the length of the requested,
+ * granted, or used time in seconds.
+ */
+    CC-Time                                    ::= 420  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /* 8.21,RFC4006 */
+
+/**
+ * The CC-Total-Octets AVP is of type Unsigned64 and contains the total number of requested,
+ * granted, or used octets regardless of the direction (sent or received).
+ */
+    CC-Total-Octets                            ::= 421  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.23,RFC4006 */
+
+/**
+ * The CC-Input-Octets AVP is of type Unsigned64 and contains the number of requested,
+ * granted, or used octets that can be/have been received from the end user.
+ */
+    CC-Input-Octets                            ::= 412  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.24, RFC4006 */
+
+/**
+ * The CC-Money AVP is of type Grouped and specifies the monetary amount in the given
+ * currency.  The Currency-Code AVP SHOULD be included.
+ */
+    CC-Money                                   ::= 413  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.22, RFC4006*/
+
+/**
+ * The CC-Output-Octets AVP is of type Unsigned64 and contains the number of requested,
+ * granted, or used octets that can be/have been sent to the end user.
+ */
+    CC-Output-Octets                           ::= 414  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.25,RFC4006 */
+
+/**
+ * The CC-Service-Specific-Units AVP is of type Unsigned64 and specifies the number of
+ * service-specific units (e.g., number of events, points) given in a selected service.
+ * The service-specific units always refer to the service identified in the
+ * Service-Identifier AVP(or Rating-Group AVP when the Multiple-Services-Credit-Control AVP is used).
+ */
+    CC-Service-Specific-Units                  ::= 417  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.26,RFC4006 */
+
+/**
+ * The Requested-Service-Unit AVP (AVP Code 437) is of type Grouped and contains the amount of 
+ * requested units specified by the Diameter credit-control client. A server is not required to
+ * implement all the unit types, and it must treat unknown or unsupported unit types as invalid AVPs.
+ */
+    Requested-Service-Unit                     ::= 437  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.18,RFC4006*/
+
+/**
+ * The Used-Service-Unit AVP is of type Grouped (AVP Code 446) and contains the amount of used
+ * units measured from the point when the service became active or, if interim interrogations
+ * are used during the session, from the point when the previous measurement ended.
+ */
+    Used-Service-Unit                          ::= 446  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.19,RFC4006*/
+
+/**              
+ * The Tariff-Change-Usage AVP (AVP Code 452) is of type Enumerated and defines
+ * whether units are used before or after a tariff change, or whether the units
+ * straddled a tariff change during the reporting period. Omission of this AVP
+ * means that no tariff change has occurred.
+ * In addition, when present in answer messages as part of the Multiple-
+ * Services-Credit-Control AVP, this AVP defines whether units are allocated to
+ * be used before or after a tariff change event.
+ * When the Tariff-Time-Change AVP is present, omission of this AVP in answer
+ * messages means that the single quota mechanism applies.
+ */              
+    Tariff-Change-Usage                        ::= 452  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.27,RFC4006 */
+
+/**
+ * The G-S-U-Pool-Reference AVP (AVP Code 457) is of type Grouped. It is used
+ * in the Credit-Control-Answer message,and associates the Granted-Service-Unit
+ * AVP within which it appears with a credit pool within the session.
+ */
+    G-S-U-Pool-Reference                       ::= 457  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.30,RFC4006 */
+
+/**
+ * The G-S-U-Pool-Identifier AVP (AVP Code 453) is of type Unsigned32 and
+ * identifies a credit pool within the session.
+ */
+    G-S-U-Pool-Identifier                      ::= 453  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /*8.31*/
+
+/**
+ * The Validity-Time AVP is of type Unsigned32 (AVP Code 448).  It is sent from the credit-control
+ * server to the credit-control client. The AVP contains the validity time of the granted service
+ * units. The measurement of the Validity-Time is started upon receipt of the Credit-Control-Answer
+ * Message containing this AVP.  If the granted service units have not been consumed within the
+ * validity time specified in this AVP, the credit-control client MUST send a Credit-Control-Request
+ * message to the server, with CC-Request-Type set to UPDATE_REQUEST. The value field of the
+ * Validity-Time AVP is given in seconds.
+ */
+    Validity-Time                              ::= 448  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /* 8.33,RFC4006*/
+
+/**
+ * The Final-Unit-Indication AVP (AVP Code 430) is of type Grouped and indicates that
+ * the Granted-Service-Unit AVP in the Credit-Control-Answer, or in the AA answer,
+ * contains the final units for the service. After these units have expired, the Diameter
+ * credit-control client is responsible for executing the action indicated in the
+ * Final-Unit-Action AVP.
+ */
+    Final-Unit-Indication                      ::= 430  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.34, RFC4006*/
+
+/**
+ * The Final-Unit-Action AVP (AVP Code 449) is of type Enumerated and indicates to the credit-control
+ * client the action to be taken when the user's account cannot cover the service cost.
+ */
+    Final-Unit-Action                          ::= 449  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.35,RFC4006*/
+
+/**
+ * The Restriction-Filter-Rule AVP (AVP Code 438) is of type IPFilterRule and provides filter
+ * rules corresponding to services that are to remain accessible even if there are no more service
+ * units granted. The access device has to configure the specified filter rules for the subscriber
+ * and MUST drop all the packets not matching these filters.
+ */
+    Restriction-Filter-Rule                    ::= 438  /*RFC4006 */ IPFilterRule  M|P| |  V  |Y; /* 8.36,RFC4006 */
+
+/**
+ * The Filter-Id AVP is of type UTF8String and contains the name of the filter
+ * list for this user. Zero or more Filter-Id AVPs MAY be sent in an
+ * authorisation answer.
+ */
+    Filter-Id                                  ::= 11   /* NASREQ*/ UTF8String    M|P| |  V  |Y; /* 6.7,RFC4005 */
+
+
+/**
+ * The Redirect-Server AVP (AVP Code 434) is of type Grouped and contains the address
+ * information of the redirect server (e.g., HTTP redirect server, SIP Server) with which
+ * the end user is to be connected when the account cannot cover the service cost.It MUST be
+ * present when the Final-Unit-Action AVP is set to REDIRECT.
+ */
+    Redirect-Server                            ::= 434  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.37,RFC4006*/
+
+/**
+ * The Redirect-Address-Type AVP (AVP Code 433) is of type Enumerated and defines the address
+ * type of the address given in the Redirect-Server-Address AVP.
+ */              
+    Redirect-Address-Type                      ::= 433  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.38,RFC4006*/
+
+/**
+ * The Redirect-Server-Address AVP (AVP Code 435) is of type UTF8String and
+ * defines the address of the redirect server (eg: HTTP redirect server,
+ * SIP server) wih which the end user is to be connected when the account
+ * cannot cover the service cost.
+ */
+    Redirect-Server-Address                    ::= 435  /*RFC4006 */ UTF8String    M|P| |  V  |Y; /* 8.38,RFC4006*/
+
+
+    //////////////////
+    //  Enumerated //
+    //////////////////
+
+    
+    Abort-Cause ::= < Enumerated: 500 >
+                      BEARER_RELEASED                  0
+                      INSUFFICIENT_SERVER_RESOURCES    1
+                      INSUFFICIENT_BEARER_RESOURCES    2
+                      ;
+
+    Specific-Action ::= < Enumerated: 513 >
+                          INDICATION_OF_RELEASE_OF_BEARER         4
+                          INDICATION_OF_SUBSCRIBER_DETACHMENT     6
+                          INDICATION_OF_RESERVATION_EXPIRATION    7
+                          ;
+
+
+    DestinationIDType ::=  <  Enumerated: 5002 >
+                              Destination_Number       0
+			      Destination_APN          1
+			      Destination_URL          2 
+			      Destination_EmailAddress 3 
+			      Destination_PrivateID    4
+                              ;
+
+    Re-3GPP-PDP-Type      ::=     < Enumerated:3   >
+                              IPv4         0
+                              IPv6         1 
+                              IPv4v6       2
+                              ; 
+
+
+    Dynamic-Address-Flag ::= <Enumerated: 2051  >
+                              Static     0
+			      Dynamic    1
+                              ;
+
+    QoS-Class-Identifier::= <Enumerated: 1028 >
+                	      TRAFFIC_CLASS_A         1
+		              TRAFFIC_CLASS_B         2
+               		      TRAFFIC_CLASS_C         3
+                              TRAFFIC_CLASS_D         4
+                              TRAFFIC_CLASS_E         5
+                              TRAFFIC_CLASS_F         6
+                              TRAFFIC_CLASS_G         7
+                              TRAFFIC_CLASS_H         8
+                              TRAFFIC_CLASS_I         9 
+                                 ;
+
+    Serving-Node-Type   ::=  <Enumerated:2047  >
+                              SGSN             0
+                              PMIPSGW          1
+			      GTPSGW           2 
+		              ePDG             3 
+			      hSGW             4
+			      MME              5
+                              ;
+
+    SGW-Change          ::= < Enumerated:2065  >
+                              ACR_Start_NOT_due_to_SGW_Change  0
+                              ACR_Start_due_to_SGW_Change      1
+                              ;
+   
+    PDP-Context-Type    ::= < Enumerated:1247  >       
+                              PRIMARY      0
+                              SECONDARY    1
+                              ;
+
+
+    Time-Quota-Type     ::= < Enumerated:1271  >
+                              DISCRETE_TIME_PERIOD    0
+                              CONTINUOUS_TIME_PERIOD  1 
+                              ;
+
+    Envelope-Reporting  ::= < Enumerated:1268  >
+                              DO_NOT_REPORT_ENVELOPES                 0
+                              REPORT_ENVELOPES                        1
+                              REPORT_ENVELOPES_WITH_VOLUME            2
+                              REPORT_ENVELOPES_WITH_EVENTS            3
+                              REPORT_ENVELOPES_WITH_VOLUME_AND_EVENTS 4
+                              ;
+
+     Role-Of-Node        ::= < Enumerated:829  >
+                              ORIGINATING_ROLE     0
+			      TERMINATING_ROLE     1
+		              PROXY_ROLE           2
+			      B2BUA_ROLE           3
+                              ;
+
+    Node-Functionality  ::=<  Enumerated:862  >
+                              S_CSCF       0
+			      P_CSCF       1
+		              I_CSCF       2
+		              MRFC         3
+			      MGCF 	   4
+			      BGCF         5
+			      AS           6
+			      IBCF         7
+			      S_GW         8
+			      P_GW         9
+			      HSGW         10
+			      ;
+
+    Media-Initiator-Flag::=<  Enumerated:882  >
+               		      called_party      0
+    			      calling_party     1 
+ 	                      unknown           2
+                              ;
+
+    SDP-Type            ::=<  Enumerated:2036  >
+                      	      SDP_Offer     0
+ 			      SDP_Answer    1
+                              ;
+
+    Originator          ::=<  Enumerated:864 >
+                              Calling_Party    0 
+                              Called_Party     1
+                              ;
+
+    Online-Charging-Flag::=<  Enumerated:2303  >
+                              ECF_address_not_provided   0
+	                      ECF_address_provided       1
+                              ;
+
+    Re-Address-Type        ::=<  Enumerated:899  >
+                              e_maili_address     0
+		              MSISDN             1 
+		              IPv4_Address       2
+			      IPv6_Address       3 
+			      Numeric_Shortcode  4 
+			      Alphanumeric_Shortcode   5
+			      Other                    6
+                              ;
+    Addressee-Type      ::=<  Enumerated:1208  >
+                              TO     0
+		              CC     1
+		              BCC    2
+                              ;
+
+    Priority            ::=<  Enumerated:1209  >
+                              Low            0
+                              Normal	   1
+                              High	   2
+                              ;
+    Message-Type        ::=<  Enumerated:1211  >
+                              m_send_req              1
+                              m_send_conf             2
+    			      m_notification_ind      3
+		              m_notifyresp_ind        4
+  			      m_retrieve_conf         5
+			      m_acknowledge_ind       6
+			      m_delivery_ind          7
+			      m_read_rec_ind          8
+			      m_read_orig_ind         9
+			      m_forward_req           10
+			      m_forward_conf          11
+			      m_mbox_store_conf       12
+			      m_mbox_view_conf        13
+			      m_mbox_upload_conf      14
+			      m_mbox_delete_conf      15
+                              ;
+
+    Class-Identifier    ::=<  Enumerated:1214  >
+                              Personal        0 
+		              Advertisement   1
+                              Informational   2 
+			      Auto            3
+                              ;
+    Delivery-Report-Requested      ::=<Enumerated:1216  >                                 
+                                       No         0
+				       Yes        1
+                                       ;
+
+    Read-Reply-Report-Requested    ::=<Enumerated:1222  >                                
+                                       No         0
+                                       Yes        1
+                                       ;
+    MMBox-Storage-Requested        ::=<Enumerated:1248  >                              
+                                        No         0
+                                        Yes        1
+                                        ;
+
+    Content-Class       ::=<  Enumerated:1220  >
+                              text            0
+    			      image_basic     1
+			      image_rich      2
+			      video_basic     3
+			      video_rich      4
+			      megapixel       5
+			      content_basic   6
+     			      content_rich    7
+                              ;
+
+    DRM-Content         ::=<  Enumerated:1221 >
+                              No         0
+                              Yes        1
+                              ;
+
+    Adaptations         ::=<  Enumerated:1217 >                
+                              Yes        0
+                              No         1
+                              ;
+    LCS-Client-Type     ::=<  Enumerated:1241 >
+                              EMERGENCY_SERVICES      0
+			      VALUE_ADDED_SERVICES    1
+			      PLMN_OPERATOR_SERVICES  2
+			      LAWFUL_INTERCEPT_SERVICES 3
+                              ;
+    LCS-Format-Indicator::=<  Enumerated:1237 >
+                              LOGICAL_NAME         0
+              		      EMAIL_ADDRESS        1
+                              MSISDN               2
+                              URL                  3
+                              SIP_URL              4
+                              ;      
+    Location-Estimate-Type   ::=  < Enumerated:1243 >
+                                    CURRENT_LOCATION              0
+		                    CURRENT_LAST_KNOWN_LOCATION   1
+				    INITIAL_LOCATION              2
+                                    ACTIVATE_DEFERRED_LOCATION    3
+                                    CANCEL_DEFERRED_LOCATION      4
+                                          ;
+    PoC-Server-Role     ::=<  Enumerated:883 >
+                              Participating_PoC_Server    0
+                              Controlling_PoC_Server      1
+                              ;
+
+    PoC-Session-Type    ::=<  Enumerated:884 >
+                              one_to_one_PoC_session              0
+                              chat_PoC_group_session              1
+                              pre_arranged_PoC_group_session      2
+                              ad_hoc_PoC_group_session            3
+                              ;
+
+    PoC-User-Role-info-Units   ::=<Enumerated:1254 >
+                                   Moderator            1
+	   	                   Dispatcher           2 
+	       		           Session_Owner        3 
+		       	           Session_Participant  4
+                                   ;
+    PoC-Session-Initiation-type::=<Enumerated:1277 >
+                                   Pre_established    0
+				   On_demand          1
+                                   ;
+        
+    PoC-Event-Type      ::=<  Enumerated:2025 >
+                              Normal                           0
+	                      Instant_Ppersonal_Aalert_event   1 
+                              PoC_Group_Advertisement_event    2
+			      Early_Ssession_Setting_up_event  3
+                              PoC_Talk_Burst                   4
+                              ;
+    Participant-Access-Priority::=<Enumerated:1259 >
+                                   Pre_emptive_priority     1
+                                   High_priority            2
+                                   Low_priority             3
+                                   ;
+
+    User-Participating-Type    ::=<Enumerated:1279 >
+                                   Normal         0
+    				   NW_PoC_Box     1
+                                   UE_PoC_Box     2
+                                   ;
+
+    PoC-Change-Condition       ::=<Enumerated:1261 >
+                                   serviceChange              0
+				   volumeLimit                1
+				   timeLimit                  2
+				   numberofTalkBurstLimit     3
+				   numberofActiveParticipants 4
+			       	   tariffTime                 5
+                                   ;
+
+    MBMS-User-Service-Type     ::=<Enumerated:1225 >
+                                   DOWNLOAD   1
+                                   STREAMING  2 
+                                   ;
+
+    File-Repair-Supported      ::=<Enumerated:1224 >
+                                   SUPPORTED        1
+                                   NOT_SUPPORTED  2
+                                   ;
+
+    SMS-Node            ::=<  Enumerated:2016 >
+                              SMS_Router                  0
+			      IP_SM_GW                    1 
+                              SMS_Router_and_IP_SM_GW     2
+			      SMS_SC                      3                               
+                              ;
+
+    SM-Message-Type     ::=<  Enumerated:2007 >
+                              SUBMISSION         0
+	     		      DELIVERY_REPORT    1
+		       	      SM_Service_Request 2               
+                              ;
+
+    Interface-Type      ::=<  Enumerated:2006 >
+                              Unknown                  0
+                              MOBILE_ORIGINATING       1
+                              MOBILE_TERMINATING       2
+                              APPLICATION_ORIGINATING  3
+                              APPLICATION_TERMINATION  4
+                              ;
+
+
+    Reply-Path-Requested::=<  Enumerated:2011 >
+                              No_Reply_Path_Set  0
+  			      Reply_path_Set     1
+                              ;
+
+                
+    SM-Service-Type     ::=<  Enumerated:2029 >
+                              VAS4SMS_Short_Message_content_processing                  0
+                              VAS4SMS_Short_Message_forwarding                          1
+                              VAS4SMS_Short_Message_Forwarding_multiple_subscriptions   2
+                    	      VAS4SMS_Short_Message_filtering                           3
+                              VAS4SMS_Short_Message_receipt                             4
+                              VAS4SMS_Short_Message_Network_Storage                     5
+                              VAS4SMS_Short_Message_to_multiple_destinations            6
+                              VAS4SMS_Short_Message_Virtual_Private_Network             7
+		              VAS4SMS_Short_Message_Auto_Reply                          8
+                              VAS4SMS_Short_Message_Personal_Signature                  9
+                              VAS4SMS_Short_Message_Deferred_Delivery                   10
+	                      Reserved_for_3GPP_defined_SM_services                     11 //11 .. 99
+                              Vendor_specific_SM_services                               100 //100 .. 199
+                              ;
+
+    Participant-Action-Type    ::= <  Enumerated:2049 >
+                                      CREATE_CONF             0
+				      JOIN_CONF               1
+				      INVITE_INTO_CONF        2
+				      QUIT_CONF               3          
+                                      ;
+
+
+    Subscriber-Role     ::=<  Enumerated:2033 > 
+                              ORIGINATING   0
+                              TERMINATING   1
+                              ;
+    RequestSubType      ::=<  Enumerated:5031 >
+                              REQ_SUBTYPE_AOC       0
+			      REQ_SUBTYPE_RESERVE   1
+	        	      REQ_SUBTYPE_DEBIT     2
+			      REQ_SUBTYPE_RELEASE   3
+ 			     ;
+
+    FirstRequest        ::=<  Enumerated:5043>
+                              Subsequent_Request   0
+                              First_Request        1
+                              ;
+
+    Reporting-Reason    ::=<  Enumerated:872     >
+                              THRESHOLD       0
+                              QHT             1
+                              FINAL           2
+                              QUOTA_EXHAUSTED  3
+                              VALIDITY_TIME    4
+                              OTHER_QUOTA_TYPE 5 
+                              RATING_CONDITION_CHANGE  6 
+		              FORCED_REAUTHORISATION   7 
+                              POOL_EXHAUSTED           8
+                              ;
+
+    Trigger-Type        ::=<  Enumerated:870 >
+                              CHANGE_IN_SGSN_IP_ADDRESS 			1
+			      CHANGE_IN_QOS 					2
+			      CHANGE_IN_LOCATION 				3
+			      CHANGE_IN_RAT 					4
+			      CHANGEINQOS_TRAFFIC_CLASS 			10
+		              CHANGEINQOS_RELIABILITY_CLASS 			11
+		       	      CHANGEINQOS_DELAY_CLASS 				12
+			      CHANGEINQOS_PEAK_THROUGHPUT 			13
+			      CHANGEINQOS_PRECEDENCE_CLASS 			14
+		              CHANGEINQOS_MEAN_THROUGHPUT 			15
+			      CHANGEINQOS_MAXIMUM_BIT_RATE_FOR_UPLINK 		16
+			      CHANGEINQOS_MAXIMUM_BIT_RATE_FOR_DOWNLINK 	17
+		              CHANGEINQOS_RESIDUAL_BER 				18
+			      CHANGEINQOS_SDU_ERROR_RATIO 			19
+			      CHANGEINQOS_TRANSFER_DELAY 			20
+			      CHANGEINQOS_TRAFFIC_HANDLING_PRIORITY 		21
+		              CHANGEINQOS_GUARANTEED_BIT_RATE_FOR_UPLINK 	22
+			      CHANGEINQOS_GUARANTEED_BIT_RATE_FOR_DOWNLINK 	23
+			      CHANGEINLOCATION_MCC 				30
+			      CHANGEINLOCATION_MNC 				31
+			      CHANGEINLOCATION_RAC 				32
+			      CHANGEINLOCATION_LAC 				33
+			      CHANGEINLOCATION_CellId 				34
+		              CHANGEINPARTICIPANTS_Number 			50 
+			      ;
+			
+    Pre-emption-Capability ::=  <Enumerated: 1047>
+                		PRE_EMPTION_CAPABILITY_ENABLED          0
+               			PRE_EMPTION_CAPABILITY_DISABLED         1
+                		;
+    Pre-emption-Vulnerability ::=  <Enumerated:  1048>
+                		   PRE_EMPTION_VULNERABILITY_ENABLED               0
+                		   PRE_EMPTION_VULNERABILITY_DISABLED              1
+                	           ;
+
+    MBMS-2G-3G-Indicator ::=  <Enumerated:  907>
+                                   Re_2G           0
+                                   Re_3G           1
+                                   Re_2G_AND_3G    2
+                                   ;
+
+    MBMS-Service-Type  ::=  <Enumerated:  906>                                
+                                   MULTICAST    0
+                                   BROADCAST    1
+                                   ;
+
+   Type-Number  ::=  <Enumerated:  1204>
+                                   Well_Known_values    0 /* 0 to 255 */
+                                   Registered_values    256 /* 256 to 65535 */ 
+                                   Experimental_values  65536 /* 65536 to 16777215 */
+                                   ;
+
+    PS-Append-Free-Format-Data ::= < Enumerated: 867 >
+                                  Append     0
+                                  Overwrite  1
+                                  ;
+
+
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                END_USER_E164             0
+                END_USER_IMSI             1
+                END_USER_SIP_URI          2
+                END_USER_NAI              3
+                END_USER_PRIVATE          4
+                ;
+
+    CC-Unit-Type ::= < Enumerated: 454 >
+                TIME                    0
+                MONEY                   1
+                TOTAL_OCTETS            2
+                INPUT_OCTETS            3
+                OUTPUT_OCTETS           4
+                SERVICE_SPECIFIC_UNITS  5
+                ;
+
+    User-Equipment-Info-Type ::= < Enumerated: 459 >
+                IMEISV         0
+                MAC            1
+                EUI64          2
+                MODIFIED_EUI64 3
+                ;
+
+    Tariff-Change-Usage ::= < Enumerated: 452 >
+                UNIT_BEFORE_TARIFF_CHANGE    0
+                UNIT_AFTER_TARIFF_CHANGE     1
+                UNIT_INDETERMINATE           2
+                ;
+    Final-Unit-Action ::= < Enumerated: 449 >
+                TERMINATE         0
+                REDIRECT          1
+                RESTRICT_ACCESS   2
+                ;
+    Redirect-Address-Type ::= < Enumerated: 433 >
+                IPv4_Address      0
+                IPv6_Address      1
+                URLocation        2
+                SIP_URI           3
+                ;
+	
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+    Flows ::= < AVP Header: 510 10415 >
+              { Media-Component-Number}
+              *[ Flow-Number]
+              * [ AVP]
+              ;
+
+
+    Service-Rating                 ::=      < AVP Header: 5000>
+                                             {Service-Identifier} 
+                                             {MonetaryTariff}    
+                                             [Service-Information]
+                                             [Extension]       
+                                             [Price]
+                                             [BillingInfo]
+                                             [TariffSwitchTime]
+                                             [NextMonetaryTariff] 
+                                             [ExpiryTime]
+                                             [ValidUnits]
+                                             [MonetaryTariffAfterValidUnits]
+                                             [BasicPriceTimeStamp]
+                                             [BasicPrice]
+                                             [RequestSubType]
+                                             [ ImpactOnCounter]
+                                             [RequestedUnits]
+                                             [ConsumedUnits]
+                                             [ConsumedUnitsAfterTariffSwitch]
+                                             [MonetaryQuota]
+                                             [MinimalRequestedUnits]
+                                             [AllowedUnits]
+                                           * [Counter]
+                                            *[DestinationID]
+                                           * [CounterPrice]
+                                           * [CounterTariff]
+                                           * [RequestedCounters]
+                                           * [AVP]
+                                             ;
+
+    DestinationID                  ::=     < AVP Header: 5001>
+                   		             {DestinationIDType}
+					     {DestinationIDData}
+                                             * [AVP]
+                                             ;
+ 
+    Service-Information            ::=     < AVP Header: 873>
+						[ AoC-Information ]
+						[ PS-Information ]
+						[ WLAN-Information ]
+						[ IMS-Information ]
+						[ MMS-Information ]
+						[ LCS-Information ]
+						[ PoC-Information ]
+						[ MBMS-Information ]
+						[ SMS-Information ]
+						[ MMTel-Information ]
+						[ Service-Generic-Information ]
+						[ IM-Information ]             
+						[ DCD-Information ]            
+                                              * [ Subscription-Id ]
+                                                * [AVP]
+                                                ;
+ 
+                         AoC-Information ::=  < AVP Header: 2054 >
+                                              [ AoC-Cost-Information ]
+                                              [ Tariff-Information ]
+                                              * [AVP]
+                                              ;
+                                            
+
+                        AoC-Cost-Information ::= < AVP Header: 2053 >
+                                                 [ Accumulated-Cost]
+                                               * [ Incremental-Cost ]
+                                                 [ Currency-Code ]
+                                               * [AVP]
+                                                 ;
+                                               
+                         Accumulated-Cost::=  < AVP Header: 2052 >
+                                               { Value-Digits }
+                                               [ Exponent ]
+                                               * [AVP]
+                                               ;
+
+                        Incremental-Cost::=  < AVP Header: 2062 >
+                                              { Value-Digits }
+                                              [ Exponent ]
+                                              * [AVP]
+                                              ;
+
+
+                         Tariff-Information::= < AVP Header: 2060 >
+ 						{ Current-Tariff }				                                              
+                                                [ Tariff-Time-Change]
+                                                [ Next-Tariff ]
+                                                * [AVP]
+                                                ;
+
+ 			Current-Tariff::= 	< AVP Header: 2056 >
+						[ Currency-Code ]
+						[ Scale-Factor ]
+						*[Rate-Element]
+                                                * [AVP]
+                                                ;
+
+                        Scale-Factor::=         < AVP Header: 2059 >
+                                                 { Value-Digits }					
+						 [ Exponent ]
+						 * [AVP]
+  	                                         ;
+
+                      	Rate-Element::=        < AVP Header: 2058 >
+                                                { CC-Unit-Type }
+						[ Unit-Value ]
+						[ Unit-Cost ]
+						[ Unit-Quota-Threshold ] /* Unit-Threshold has been changed to Unit-Quota-Threshold */
+                                                * [AVP]	
+					        ;
+
+                        Unit-Cost::= 		< AVP Header: 2061>
+						{ Value-Digits}
+						[ Exponent ]
+ 						* [AVP]				
+						;
+
+                      Next-Tariff ::= 		< AVP Header: 2057 >
+						[ Currency-Code ]
+						[ Scale-Factor ]
+						*[Rate-Element]
+						* [AVP]						               
+                                                ;
+
+                     PS-Information ::=        < AVP Header: 874>
+						[ Re-3GPP-Charging-Id ]
+						[ PDN-Connection-ID ]
+						[Node-Id]
+						[ Re-3GPP-PDP-Type ]
+						[ PDP-Address ]
+						[ Dynamic-Address-Flag ]
+						[QoS-Information]
+						[ SGSN-Address ]
+						[ GGSN-Address ]
+						[ CG-Address ]
+						[ Serving-Node-Type ]
+						[ SGW-Change ]
+						[ Re-3GPP-IMSI-MCC-MNC ] 
+						[ Re-3GPP-GGSN-MCC-MNC ] 
+                                                [ Re-3GPP-NSAPI ]         
+	         			        [ Called-Station-Id ]
+						[ Re-3GPP-Session-Stop-Indicator ] 
+						[ Re-3GPP-Selection-Mode ]  
+						[ Re-3GPP-Charging-Characteristics ]
+						[ Re-3GPP-SGSN-MCC-MNC ]
+						[ Re-3GPP-MS-TimeZone ]
+						[ Re-3GPP-User-Location-Info ]  
+						[ Re-3GPP2-BSID ]               
+						[ Re-3GPP-RAT-Type ]
+						[ PS-Furnish-Charging-Information ]
+						[ PDP-Context-Type ]
+						[ Offline-Charging ]
+						[ User-Equipment-Info ]
+						[ Terminal-Information ] 
+						[ Start-Time ]
+						[ Stop-Time ]
+						[ Change-Condition ]
+						[ Diagnostics ]
+			  		      * [ Charging-Rule-Base-Name] 
+                                              * [ Traffic-Data-Volumes ]
+                                              * [ Service-Data-Container ]
+                                                * [AVP]
+						;
+
+                        QoS-Information ::= < AVP Header: 1016 >
+                                             [ QoS-Class-Identifier ]
+					     [ Max-Requested-Bandwidth-UL ]
+					     [ Max-Requested-Bandwidth-DL ]
+					     [ Guaranteed-Bitrate-UL ]
+					     [ Guaranteed-Bitrate-DL ]
+                                             [ Bearer-Identifier ]
+                                             [ Allocation-Retention-Priority]
+                                             * [AVP]
+ 					     ;
+
+             Allocation-Retention-Priority ::= < AVP Header: 1034 >
+                                               {Priority-Level}					       
+					       [Pre-emption-Capability]
+					       [Pre-emption-Vulnerability]
+ 						* [AVP]
+                                                ;
+
+
+            PS-Furnish-Charging-Information ::= < AVP Header: 865>
+                                                 { Re-3GPP-Charging-Id }
+					         { PS-Free-Format-Data }
+						 [ PS-Append-Free-Format-Data ]
+ 					       * [AVP]
+
+                                                 ;
+
+                                Offline-Charging ::= < AVP Header:1278 >
+                                                   [ Quota-Consumption-Time ]
+                                                   [ Time-Quota-Mechanism ]
+						   [ Envelope-Reporting ]
+						 * [ Multiple-Services-Credit-Control ]
+						 * [ AVP ]
+                                                 ;
+
+
+                               Time-Quota-Mechanism ::= < AVP Header: 1270>
+							{ Time-Quota-Type }
+							{ Base-Time-Interval }
+							* [AVP]
+                                                        ;
+
+
+                    Multiple-Services-Credit-Control ::= < AVP Header:456 >
+                                                        [ Granted-Service-Unit ]
+							[ Requested-Service-Unit ]
+ 							[ Used-Service-Unit ]
+							[ Tariff-Change-Usage ]
+ 							[ Service-Identifier ]
+ 							[Rating-Group ]
+ 							[ G-S-U-Pool-Reference ]
+							[ Validity-Time ]
+							[ Result-Code ]
+							[Final-Unit-Indication ]
+							[ Time-Quota-Threshold ]
+							[ Volume-Quota-Threshold ]
+ 							[Unit-Quota-Threshold ]
+							[ Quota-Holding-Time ]
+							[ Quota-Consumption-Time ]
+ 							[ Trigger ]
+ 							[PS-Furnish-Charging-Information ]
+							[ Refund-Information ] 
+ 							[Envelope-Reporting ] 
+ 							[Time-Quota-Mechanism ]
+ 							[ Service-Specific-Info ]
+ 							[QoS-Information ]
+ 						      * [ Reporting-Reason ]
+                                                      * [ AF-Correlation-Information]
+                                                      * [ Envelope ]
+                                                      *  [ AVP ]
+  							;
+
+                          Traffic-Data-Volumes ::= < AVP Header: 2046>
+                                                   [ QoS-Information ]
+                                                   [ Accounting-Input-Octets ]
+						   [ Accounting-Input-Packets ]
+						   [ Accounting-Output-Octets ]
+					           [ Accounting-Output-Packets ]
+						   [ Change-Condition ]
+						   [ Change-Time ]
+						   [ Re-3GPP-User-Location-Info ]
+                                                   * [AVP]
+                                                   ;
+
+                        WLAN-Information ::= < AVP Header: 875>
+                                              [ WLAN-Session-Id ]
+                                              [ PDG-Address ]
+                                              [ PDG-Charging-Id ]
+                                              [ WAG-Address ]
+                                              [ WAG-PLMN-Id ]
+                                              [ WLAN-Radio-Container ]
+                                              [ WLAN-UE-Local-IPAddress ]
+                                              * [AVP]
+                                              ;
+
+                      WLAN-Radio-Container ::= < AVP Header: 892>
+						[ Operator-Name ]   
+						[ Location-Type ]   
+						[ Location-Information ]  
+						[ WLAN-Technology ]
+						* [AVP]
+                                                ;
+
+                       IMS-Information ::= < AVP Header: 876>
+						{ Node-Functionality }
+						[ Event-Type ]
+						[ Role-Of-Node ]
+						[ User-Session-ID ]
+						[ Called-Party-Address ]
+						* [ Called-Asserted-Identity ]
+						[ Number-Portability-Routing-Information ]
+						[ Carrier-Select-Routing-Information ]
+						[ Alternate-Charged-Party-Address ]
+						[ Requested-Party-Address ]
+						[ Time-Stamps ]
+						[ IMS-Charging-Identifier ]
+						[ Served-Party-IP-Address ]
+						[ Server-Capabilities ]  
+						[ Trunk-Group-ID ]
+						[ Bearer-Service ]
+						[ Service-ID]
+						[ Cause-Code ]
+						[ Access-Network-Information ]
+						[ IMS-Communication-Service-Identifier ]
+						[ Online-Charging-Flag ]
+					      * [ Associated-URI ]
+					      * [ Application-Server-Information ]
+				              * [ Inter-Operator-Identifier ]
+					      * [ SDP-Session-Description ]
+					      * [ SDP-Media-Component ]
+					      * [ Service-Specific-Info ]
+					      * [ Message-Body ]
+                                              * [ Early-Media-Description]
+                                                * [AVP]                                                
+						;
+
+                        Event-Type ::=        <AVP Header: 823 >
+                                         	[ SIP-Method ]
+						[ Event ]
+						[ Expires ]
+						* [AVP]
+ 						;
+                        
+                       Time-Stamps ::= 	< AVP Header: 833 >
+						[ SIP-Request-Timestamp ]
+						[ SIP-Response-Timestamp ]
+						[ SIP-Request-Timestamp-Fraction ]
+						[ SIP-Response-Timestamp-Fraction ]
+						* [AVP]
+						;							
+
+        Application-Server-Information::= <AVP Header: 850 >
+                                          [ Application-Server ]
+                                          * [ Application-Provided-Called-Party-Address ]
+                                          * [AVP]	
+					   ;
+
+         Inter-Operator-Identifier ::= < AVP Header: 838 >
+					[ Originating-IOI ]
+					[ Terminating-IOI ]
+                                        * [AVP]
+					;
+
+
+         SDP-Media-Component::=    <AVP Header: 843 >
+                                        [ SDP-Media-Name ]
+					* [ SDP-Media-Description ]
+					[ Media-Initiator-Flag ]
+					[ Media-Initiator-Party ]
+					[ Authorized-QoS ]
+					[ Re-3GPP-Charging-Id ]
+					[ Access-Network-Charging-Identifier-Value ] 
+					[SDP-Type]
+					* [AVP]
+					;
+
+               Trunk-Group-ID::=     <AVP Header: 851>
+     					[ Incoming-Trunk-Group-ID ]
+					[ Outgoing-Trunk-Group-ID ]
+                                        * [AVP]
+					 ;
+
+               Service-Specific-Info ::= < AVP Header: 1249 >
+					[ Service-Specific-Data ]
+					[ Service-Specific-Type ]
+					* [AVP]
+					;
+
+                Message-Body ::=       < AVP Header: 889 >
+                                        { Content-Type }
+                                        { Content-Length }
+					[ Content-Disposition ]
+					[ Originator]
+                                        * [AVP]
+					;
+
+                Early-Media-Description::= <AVP Header: 1272>
+					[ SDP-TimeStamps ]
+					*[ SDP-Media-Component ]
+					*[ SDP-Session-Description ]
+					* [AVP]
+					;
+
+
+               SDP-TimeStamps::= < AVP Header: 1273 >
+					[ SDP-Offer-Timestamp ]
+					[ SDP-Answer-Timestamp ]
+					* [AVP]
+					;
+
+                 MMS-Information ::= < AVP Header: 877>
+                                    [ Submission-Time ]
+                                    [ MM-Content-Type ]
+                                    [ Priority ]
+                                    [ Message-ID ]
+                                    [ Message-Type ]
+                                    [ Message-Size ]
+                                    [ Message-Class ]
+                                    [ Delivery-Report-Requested ]
+ 				    [ Read-Reply-Report-Requested ]
+				    [ MMBox-Storage-Requested ]
+				    [ Applic-ID ]
+				    [ Reply-Applic-ID ]
+				    [ Aux-Applic-Info ]
+				    [ Content-Class ]
+				    [ DRM-Content ]
+				    [ Adaptations ]
+				    [ VASP-Id ]             
+				    [ VAS-Id ]              
+                                    * [ Originator-Address ]
+                                    * [ Recipient-Address ]
+                                    * [AVP]
+				    ;
+
+
+                Originator-Address ::= < AVP Header: 886 >
+					[ Re-Address-Type ]
+					[ Address-Data ]
+					[ Address-Domain ]
+                                        * [AVP]
+                                        ;
+
+               Address-Domain ::=      < AVP Header: 898 >
+					[ Domain-Name ]
+				 	[ Re-3GPP-IMSI-MCC-MNC ]
+ 					* [AVP]
+                                        ;
+
+
+              Recipient-Address ::= < AVP Header: 1201 >
+					[ Re-Address-Type ]
+					[ Address-Data ]
+					[ Address-Domain ]
+					[ Addressee-Type ]
+					* [AVP]
+					;
+
+            MM-Content-Type ::= < AVP Header: 1203 >
+				[ Type-Number ]
+				[ Additional-Type-Information ]
+				[ Content-Size ]
+  				*[ Additional-Content-Information ]
+				* [AVP]
+				;
+
+            Additional-Content-Information::= < AVP Header: 1207 >
+						[ Type-Number ]
+						[ Additional-Type-Information ]
+						[ Content-Size ]
+						* [AVP]
+						;
+
+           Message-Class ::= < AVP Header: 1213 >
+                               [ Class-Identifier ]
+			       [ Token-Text ]
+				* [AVP]
+                               ;
+
+           LCS-Information ::= < AVP Header: 878>
+				[ LCS-Client-ID ]
+				[ Location-Type ]
+				[ Location-Estimate ]
+				[ Positioning-Data ]
+				[ Re-3GPP-IMSI ]               
+				[ MSISDN ]                 
+				* [AVP]
+				;
+
+          LCS-Client-ID ::= < AVP Header: 1232 >
+				[ LCS-Client-Type ]
+				[ LCS-Client-External-ID ]
+				[ LCS-Client-Dialed-By-MS ]
+				[ LCS-Client-Name ]
+				[ LCS-APN ]
+				[ LCS-Requestor-ID ]
+                                * [AVP]
+				;
+        
+           LCS-Client-Name::= < AVP Header: 1235>
+				[ LCS-Data-Coding-Scheme ]
+				[ LCS-Name-String ]
+				[ LCS-Format-Indicator ]
+				* [AVP]
+				;
+
+
+             LCS-Requestor-ID::= < AVP Header: 1239 >
+				[ LCS-Data-Coding-Scheme ]
+				[ LCS-Requestor-ID-String ]
+				* [AVP]
+				;
+
+            Location-Type::= < AVP Header: 1244>
+			   [ Location-Estimate-Type ]
+			   [ Deferred-Location-Event-Type ]
+                           * [AVP]
+		        	;
+
+            PoC-Information ::= < AVP Header: 879>
+				[ PoC-Server-Role ]
+				[ PoC-Session-Type ]
+				[ PoC-User-Role ]
+				[ PoC-Session-Initiation-type ]
+				[ PoC-Event-Type ]
+				[ Number-Of-Participants ]
+			        [ PoC-Controlling-Address ]
+				[ PoC-Group-Name ]
+				[ PoC-Session-Id ]
+				[ Charged-Party ]
+        		      * [ Participants-Involved ]
+                              * [ Participant-Group ]
+                              * [ Talk-Burst-Exchange ]
+                                * [AVP]
+			        ;
+
+            PoC-User-Role ::=   <AVP Header: 1252>
+				[ PoC-User-Role-Ids ]
+				[ PoC-User-Role-info-Units ]
+                        	* [AVP]
+			        ;
+
+
+            Participant-Group  ::= < AVP Header: 1260>
+				     [ Called-Party-Address ]
+                                     [ Participant-Access-Priority ]
+                                     [ User-Participating-Type ]
+                                     * [AVP]
+				     ;
+             Talk-Burst-Exchange::= < AVP Header: 1255 >
+                                        { PoC-Change-Time }
+					[ Number-Of-Talk-Bursts ]
+					[ Talk-Burst-Volume ]
+					[ Talk-Burst-Time ]
+					[ Number-Of-Received-Talk-Bursts ]
+					[ Received-Talk-Burst-Volume ]
+					[ Received-Talk-Burst-Time ]
+					[ Number-Of-Participants ]
+					[ PoC-Change-Condition ]
+                                        * [AVP]
+					;
+              MBMS-Information ::= < AVP Header: 880>
+					[ TMGI ]                
+					[ MBMS-Service-Type ]        
+                                        [ MBMS-User-Service-Type ]
+					[ File-Repair-Supported ]
+					[ Required-MBMS-Bearer-Capabilities ] 
+					[ MBMS-2G-3G-Indicator ] 
+					[ RAI ]                  
+					[ MBMS-Session-Identity ]
+				      * [ MBMS-Service-Area ]
+                                        * [AVP]
+                                        ;
+
+               SMS-Information ::=   < AVP Header: 2000>
+                                        [ SMS-Node ]
+					[ Client-Address ]
+					[ Originator-SCCP-Address ]
+                                        [ SMSC-Address ]
+					[ Data-Coding-Scheme ]
+					[ SM-Discharge-Time ]
+					[ SM-Message-Type ]
+					[ Originator-Interface ]
+					[ SM-Protocol-ID ]
+					[ Reply-Path-Requested ]
+					[ SM-Status ]
+					[ SM-User-Data-Header ]
+					[ Number-Of-Messages-Sent ]
+					[ Originator-Received-Address ]
+					[ SM-Service-Type ]
+				      * [ Recipient-Info ]
+                                        * [AVP]
+					;
+
+               Originator-Interface ::= < AVP Header: 2009 >
+                                        [ Interface-Id ]
+					[ Interface-Text ]
+					[ Interface-Port ]
+					[ Interface-Type ]
+					* [AVP]
+					;
+
+
+                  Recipient-Info ::= < AVP Header: 2026 >
+					[ Destination-Interface ]
+					[ Recipient-SCCP-Address ]
+					[ SM-Protocol-ID ]
+                                      * [ Recipient-Address ]
+                                      * [ Recipient-Received-Address ]
+                                      * [AVP]
+					;
+
+                  Destination-Interface ::= < AVP Header: 2002 >
+					[ Interface-Id ]
+					[ Interface-Text ]
+					[ Interface-Port ]
+					[ Interface-Type ]
+					* [AVP]
+                                        ;
+
+                   Recipient-Received-Address ::= < AVP Header: 2028>
+						[ Re-Address-Type ]
+						[ Address-Data ]
+						[ Address-Domain ]
+						* [AVP]
+						;
+
+                  Originator-Received-Address ::= < AVP Header: 2027>
+						[ Re-Address-Type ]
+						[ Address-Data ]
+						[ Address-Domain ]
+						* [AVP]
+						;
+
+
+                
+                  MMTel-Information ::= < AVP Header: 2030>
+					[ Subscriber-Role ]
+			              * [ Supplementary-Service]
+                                      * [AVP]
+					;
+
+
+
+                  Supplementary-Service::= < AVP Header: 2048>
+                                           [ Service-Type ]
+					   [ Service-Mode ]
+					   [ Number-of-Diversions ]
+					   [ Associated-Party-Address ]
+					   [ Service-ID ]
+				           [ Change-Time ]
+					   [ Number-Of-Participants ]
+					   [ Participant-Action-Type ]
+					   * [AVP]
+					   ;
+
+                   Counter ::= 	< AVP Header: 5010>
+				        {CounterID}	
+					[CounterValue]
+					[CounterExpiryDate]
+                                      * [AVP]
+					;
+
+                  CounterPrice ::= 	< AVP Header: 5016>
+				        {CounterID}	
+					[CounterType]
+					[CounterChange]
+					[SetCounterTo]
+					[CounterExpiryDate]
+                                      * [AVP]
+					;
+
+                  CounterTariff ::= 	< AVP Header: 5020>
+					{CounterID}
+					[CounterType]
+					[CounterChangePerSession]
+					[CounterChangePerConsumedServiceUnit]
+					[CounterChangeForFirstChargeableTimeUnit]
+					[CounterChangePerSubsequentChargeableTimeUnit]
+				       	[CounterChangePerChargeableVolumeUnit]
+					[CounterChangeForFirstChargeableTimeUnitAfterSwitch]
+					[CounterChangePerSubsequentChargeableTimeUnitAfterSwitch]
+					[CounterChangePerChargeableVolumeUnitAfterSwitch]
+					[CounterThreshold]
+					[SetCounterTo]
+					[CounterExpiryDate]
+                                      * [AVP]
+					;
+
+                ImpactOnCounter::= 	< AVP Header: 5032>
+   				        {CounterID}	
+					{CounterValueChange}
+					[CounterValueBegin]
+                                        [CounterValueEnd]
+                                      * [AVP]
+					;
+
+           Extension         ::=     < AVP Header: 5047>
+                                      *[AVP]
+                                      ;
+
+          
+
+
+           AF-Correlation-Information::= < AVP Header: 1276 >
+				      { AF-Charging-Identifier }
+			              * [ Flows ]
+                                      * [AVP]
+					;
+
+              Envelope ::=             < AVP Header: 1266> 
+				       { Envelope-Start-Time }
+ 					[ Envelope-End-Time ]
+					[ CC-Total-Octets ] 
+					[ CC-Input-Octets ]  
+					[ CC-Output-Octets ] 
+					[ CC-Service-Specific-Units ]
+                                       *[ AVP ]
+					;
+
+            Terminal-Information ::= <AVP Header: 1401  10415>
+        			     [IMEI]
+	                	     [Software-Version]
+                		     *[AVP]
+                		     ;
+
+           Service-Generic-Information ::= < AVP Header: 1256 >
+				          [ Application-Server-ID ]
+				          [ Application-Service-Type ]
+  				          [ Application-Session-ID ]
+        		        	  [ Delivery-Status ]
+ 				          * [AVP]
+						;
+             
+             IM-Information ::=     < AVP Header: 2110 >
+				        [ Total-Number-Of-Messages-Sent ]
+      					[ Total-Number-Of-Messages-Exploded ]
+        				[ Number-Of-Messages-Successfully-Sent ]
+        				[ Number-Of-Messages-Successfully-Exploded ]
+        				* [AVP]
+					;
+
+           DCD-Information ::=     < AVP Header: 2115 >
+				        [ Content-ID]
+     					[ Content-provider-ID]
+                                        * [AVP]
+					;
+
+              Server-Capabilities ::= <AVP Header: 603 10415 >
+			                *[Mandatory-Capability]
+                			*[Optional-Capability]
+                			*[Server-Name]
+                			*[AVP]
+                			;
+
+              Trigger         ::= < AVP Header: 1264 10415>
+                                      * [ Trigger-Type ]
+                                      *[AVP]
+                                      ;
+   
+
+            Service-Data-Container ::=     < AVP Header: 2040 10415>
+        				[AF-Correlation-Information]
+        				[ Charging-Rule-Base-Name ]
+        				[ Accounting-Input-Octets ]
+     					[ Accounting-Output-Octets ]
+        				[ Accounting-Input-Packets ]
+        				[ Accounting-Output-Packets ]
+        				[ Local-Sequence-Number ]
+        				[ QoS-Information ]
+        				[ Rating-Group ]
+        				[ Change-Time ]
+        				[ Service-Identifier ]
+        				[Service-Specific-Info ]
+        				[ SGSN-Address ]
+        				[Time-First-Usage ]
+        				[Time-Last-Usage ]
+        				[Time-Usage ]
+        				*[Change-Condition]
+        				[ Re-3GPP-User-Location-Info ]
+        				[ Re-3GPP2-BSID ]
+                                        * [AVP]
+        				;
+
+                      MonetaryTariffAfterValidUnits ::=      < AVP Header: 5009 >
+                                                [ Currency-Code ]
+                                                [ Scale-Factor ]
+                                                *[Rate-Element]
+                                                * [AVP]                                                                        
+                                                ;
+
+  Subscription-Id ::= < AVP Header: 443 >
+                 { Subscription-Id-Type }
+                 { Subscription-Id-Data }
+                 ;
+
+  Unit-Value ::= < AVP Header: 445 >
+                 { Value-Digits }
+                 [ Exponent ]
+                 ;
+ 
+  User-Equipment-Info ::= < AVP Header: 458 >
+                 { User-Equipment-Info-Type }
+                 { User-Equipment-Info-Value }
+                 ;
+
+  Granted-Service-Unit ::= < AVP Header: 431 > 
+                 [ Tariff-Time-Change ]
+                 [ CC-Time ]
+                 [ CC-Money ]
+                 [ CC-Total-Octets ]
+                 [ CC-Input-Octets ]
+                 [ CC-Output-Octets ]
+                 [ CC-Service-Specific-Units ]
+                 *[ AVP ]
+                 ;
+
+  Requested-Service-Unit ::= < AVP Header: 437 >
+                 [ CC-Time ]
+                 [ CC-Money ]
+                 [ CC-Total-Octets ]
+                 [ CC-Input-Octets ]
+                 [ CC-Output-Octets ]
+                 [ CC-Service-Specific-Units ]
+                 *[ AVP ]
+                 ;
+
+  Used-Service-Unit ::= < AVP Header: 446 >
+                 [ Tariff-Time-Change ]
+                 [ CC-Time ]
+                 [ CC-Money ]
+                 [ CC-Total-Octets ]
+                 [ CC-Input-Octets ]
+                 [ CC-Output-Octets ]
+                 [ CC-Service-Specific-Units ]
+                 *[ AVP ]
+                 ;
+
+  G-S-U-Pool-Reference ::= < AVP Header: 457 >
+                 { G-S-U-Pool-Identifier }
+                 { CC-Unit-Type }
+                 { Unit-Value }
+                 ;
+
+  Final-Unit-Indication ::= < AVP Header: 430 >
+                 { Final-Unit-Action }
+                 *[ Restriction-Filter-Rule ]
+                 *[ Filter-Id ]
+                 [ Redirect-Server ]
+                 ;
+
+  Redirect-Server ::= < AVP Header: 434 >
+                 { Redirect-Address-Type }
+                 { Redirect-Server-Address }
+                 ;
+
+  CC-Money ::= < AVP Header: 413 >
+                 { Unit-Value }
+                 [ Currency-Code ]
+                 ;
+
+    //////////////  
+    // Commands //
+    //////////////
+
+/*
+ * The Diameter PriceRequest message as used on the Re interface 
+ * has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5050 as Command-Code.
+*/
+    PriceRequest<PRQ> ::=  <Diameter Header: 5050, REQ, PXY>
+		       <Session-Id>
+                       {Origin-Host}
+                       {Origin-Realm}
+                       {Destination-Realm}
+	               {ActualTime}
+		       {Subscription-Id}
+                      *{Service-Rating}
+		       [Destination-Host]
+		       [Vendor-Specific-Application-Id]
+		       [User-Name]
+		       [Event-Timestamp]
+                      *[ AVP ]
+                       ;
+                 
+
+/*
+ *Diameter PriceResponse message as used on the Re interface 
+ *has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5050 as Command-Code.
+*/
+     PriceResponse<PRS> ::=  <Diameter Header: 5050, PXY>
+                       <Session-Id>
+	               {Origin-Host}
+                       {Origin-Realm}
+                      *{Service-Rating}  
+	               [Vendor-Specific-Application-Id]
+	               [User-Name]
+	               [Event-Timestamp]
+                       *[ AVP ]
+                       ;
+
+/*
+ *The Diameter TariffRequest message as used on the Re interface 
+ *has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5051 as Commadn-Code.
+*/
+
+   TariffRequest<TRQ> ::=  <Diameter Header: 5051, REQ, PXY>
+	               <Session-Id>
+	               {Origin-Host}
+                       {Origin-Realm}
+	               {Destination-Realm}
+                       {ActualTime}
+	               {Subscription-Id}
+	               *{Service-Rating}
+	               [Destination-Host]
+	               [Vendor-Specific-Application-Id]
+	               [User-Name]
+	               [Event-Timestamp]
+	               [FirstRequest]
+	               [BeginTime]
+                       *[ AVP ]
+                       ;
+/*
+ *The Diameter TariffResponse message as used on the Re interface 
+ *has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5051 as Command-Code.
+*/
+
+   TariffResponse<TRS> ::=  <Diameter Header: 5051, PXY>
+                       <Session-Id>
+	               {Origin-Host}
+                       {Origin-Realm} 
+                      *{Service-Rating}
+	               [Vendor-Specific-Application-Id]
+	               [User-Name]
+	               [Event-Timestamp]
+                       *[ AVP ]
+                       ;
+
+/**
+ * The Diameter ServiceUsageRequest message as used on the Re interface 
+ * has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5052 as Command-Code.
+*/
+      ServiceUsageRequest<SUQ> ::= <Diameter Header: 5052, REQ, PXY>
+ 			<Session-Id>
+			{Origin-Host}
+                        {Origin-Realm}
+                        {Destination-Realm}
+                        {ActualTime}
+			{Subscription-Id}
+			*{Service-Rating}
+			[Destination-Host]
+			[Vendor-Specific-Application-Id]
+			[User-Name]
+			[Event-Timestamp]
+			[BeginTime]
+			*[ AVP ]
+			;
+
+/**
+ * The Diameter ServiceUsageResponse message as used on the Re interface 
+ * has the following structure.
+ * Editors Note: The 3GPP Rating Application uses the value xxx (3GPP) as Vendor-Id.
+ * Need to change Command Codes. Time being we are using 5052 as Command-Code.
+ */
+   ServiceUsageResponse<SUS> ::= <Diameter Header: 5052, PXY>
+ 			<Session-Id>
+			{Origin-Host}
+                        {Origin-Realm}
+                       *{Service-Rating}
+			[Vendor-Specific-Application-Id]
+			[User-Name]
+			[Event-Timestamp]
+			*[ AVP ]
+			;

@@ -1,0 +1,59 @@
+%PB{
+	option java_package = "com.diametriq.webagent";
+	option java_outer_classname = "DreAlarms";
+
+    message DreAlarmInfo {
+        optional string  alarmKey = 1;
+        optional uint64  timeStamp = 2;
+        optional uint32  alarmId   = 3;
+        enum alarmType
+        {
+            COMMUNICATION_ALARM = 1;
+            QUALITY_OF_SERVICE_ALARM = 2;
+            PROCESSING_ERROR_ALARM = 3;
+            HMI_HEART_BEAT_ALARM = 4;
+            UNKNOWN_ALARM = 5;
+            SYSTEM_RESOURCE_ALARM = 6;
+            PROCESS_STATUS_ALARM = 7;
+            CONNECTIVITY_ALARM = 8;
+            AVAILABILITY_ALARM = 9;
+            CONGESTION_INDICATION_ALARM = 10;
+        }
+        optional alarmType type = 4;
+        optional string  probableCause= 5;
+        enum alarmSeverity
+        {
+            CLEARED = 1;
+            WARNING = 2;
+            MINOR   = 3;
+            MAJOR   = 4;
+            CRITICAL= 5;
+            INFO    = 6;
+        }
+        optional alarmSeverity severity = 6;
+        optional string alarmdescription = 7;
+        enum alarmClearCategory
+        {
+            CLEARED_MANUALLY =1;
+            CLEARED_ON_RECOVERY = 2;
+            CLEARED_ON_RESTART = 3;
+        }
+        optional alarmClearCategory clearCategory = 8;
+        optional string hostName = 9;
+    }
+
+    message DreAlarmInfoReq {
+        required fixed32 RequestId = 1;
+        optional DreAlarmInfo alarmInfo = 2;
+    }
+
+    message DreAlarmInfoResp {
+        required fixed32 ResponseId = 1;
+    }
+
+%PB}
+
+interface DreAlarmsInfo
+{
+    SendDreAlarmInfo(DreAlarmInfoReq req, DreAlarmInfoResp resp)uses_PB;
+}

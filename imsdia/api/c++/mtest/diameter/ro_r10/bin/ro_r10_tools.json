@@ -1,0 +1,105 @@
+{
+    "ro_r10" : {
+        "CreditControlAnswer" : {
+            "CCA_I" : {
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                },
+                "ResultCode" : {
+                    "Value" : 2001 
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 1
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : true,
+                            "Value" : 23
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                }
+            },
+            "CCA_U" : {
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                },
+                "ResultCode" : {
+                    "Value" : 2001
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 1
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : true,
+                            "Value" : 10
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false,
+                    "Value" : 1
+                }
+            },
+            "CCA_T" : {
+                "SleepTime" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                },
+                "ResultCode" : {
+                    "Value" : 2001
+                },
+                "MultipleServicesCreditControl" : {
+                    "ResultCode" : {
+                        "Value" : 2001
+                    },
+                    "FinalUnitIndication" : {
+                        "FinalUnitAction" : {
+                            "Value" : 0
+                        }
+                    },
+                    "GrantedServiceUnit" : {
+                        "CCTime" : {
+                            "Enabled" : false,
+                            "Value" : 23
+                        },
+                        "TariffTimeChange" : {
+                            "Enabled" : true,
+                            "Value" : 30
+                        }
+                    }
+                },
+                "LowBalanceIndication" : {
+                    "Enabled" : false, 
+                    "Value" : 1
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,5 @@
+all		cpp		itu		Makefile
+all		cpp		itu		test_receive_wt.ini
+all		cpp		itu		test_receive_wt.dsw
+all		cpp		itu		test_receive_wt.dsp
+all		cpp		itu		test_receive_wt_main.cpp

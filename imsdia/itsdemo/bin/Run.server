@@ -1,0 +1,15 @@
+#!/bin/sh
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib:$LD_LIBRARY_PATH:../lib:$LD_LIBRARY_PATH:../../dframe/lib:../../vendors/IntelliNet/lib:$ITS_ROOT/common/lib:/usr/local/lib:../../api/c++/lib
+
+export LD_LIBRARY_PATH
+
+# USAGE
+# sampleAppD -load -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost) 
+#            -dr (DestinationRealm) -configFile (xmlFileName)
+
+sampleAppD -oh nemo -or india.internal.net -dh nemocl -dr india.internal.net -configFile demo.xml.server 
+
+#gdb sampleAppD
+
+

@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    getDscpValue  <hostName> <realmName> 
+
+DESCRIPTION
+    This command will get the Dscp Value from Peer Configuration.
+    Dscp value range is from 0 - 255 on solaris.
+
+PARAMETERS
+    <hostName>       Peer Host Peer Name
+    <realmName>      Peer Host Realm Name
+
+EXAMPLE
+	>> getDscpValue nemocl india.internal.net
+ 	Dscp value : 20
+ 

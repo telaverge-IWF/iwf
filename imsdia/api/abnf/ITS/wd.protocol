@@ -1,0 +1,557 @@
+/**
+ * ETSI TS 129 234 V7.4.0 (2006-12) --- Wd interface
+ * The Wd reference point is defined between the 3GPP AAA 
+ * Proxy and the 3GPP AAA Server.
+ * The description of the reference point
+ * and its functionality is given in 3GPP TS 23.234
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4072 - Diameter EAP application
+ * RFC 4005 - Diameter NASREQ application
+ * Wd interface re-used AVPs
+ */
+protocol diameter.wd < 1 10415 : "ETSI TS 129 234 V7.4.0 (2006-12) " >;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+
+/**
+ * The Visited-Network-Identifier AVP is of type OctetString. This AVP
+ * contains an identifier that helps the home  network to identify the
+ * visited network (e.g. the visited network domain name).
+ */
+    Visited-Network-Identifier         ::=  600  /*6.3.1*/                OctetString   M,V| | |   |N;
+
+
+/**
+ * The Session-Request-Type AVP is of type Enumerated and indicates the action
+ * that the PDG is asking to the 3GPP AAA Server to perform (authorization or
+ * routing policy). The following values are defined:
+ * AUTHORIZATION REQUEST (0)
+ * - The PDG is requesting authorization for a user for a given W-APN.
+ * ROUTING POLICY (1)
+ * - The PDG is indicating that routing policy information is present.
+ */
+    Session-Request-Type               ::= 311  /*ETSI 29 234 10.1.23*/   Enumerated    M,V| | |   |N;
+
+
+/**
+ * The 3GPP-WLAN-APN-Id AVP is of type OctetString, and contains the W-APN for
+ * which the user will have services available. These W-APNs may be mapped to
+ * services in the home network or in the visited network. W-APN is defined
+ * in 3GPP TS 23.003 [22].
+ */
+    Wd3GPP-WLAN-APN-Id                 ::= 100 /* ETSI 29 23410.1.15*/    OctetString   M,V| | |   |N;
+
+
+
+/**
+ * The Routing Policy AVP is of type IPFilterRule, and defines a packet filter
+ * for an IP flow with the following
+ * information:
+ * - Direction (in or out).
+ * - Source and destination IP address (possibly masked).
+ * - Protocol.
+ * - Source and destination port (list or ranges).
+ * Where the protocol type shall be set to ESP (50). The IPFilterRule type shall
+ * be used with the following restrictions:
+ * - Only the Action "permit" shall be used.
+ * - No "options" shall be used.
+ * - The invert modifier "!" for addresses shall not be used.
+ * - The keyword "assigned" shall not be used.
+ * - For direction "out", an IPv4 destination IP address shall not be wildcarded.
+ * For direction "out", the 64 bits
+ * network prefix of an IPv6 destination IP address shall not be wildcarded.
+ */
+    Routing-Policy                     ::= 312 /* ETSI 29 10.1.24*/       IPFilterRule  M,V| | |   |N;
+
+
+/**
+ * The Subscription-ID AVP is of type grouped and indicates the user identity
+ * to be used for charging purposes. It is defined in the IETF RFC 4006 [19].
+ * WLAN shall make use only of the values MSISDN or IMSI. This grouped AVP shall
+ * set the sub-AVP Subscription-Id- Type to value "END_USER_E164" or to value
+ * "END_USER_IMSI" and shall set the sub-AVP Subscription-Id-Data to
+ * the MSISDN value.
+ */
+    Subscription-Id                    ::= 443  0  /*clause 8.46 RFC4006 */  Grouped       M|P| |  V  |Y;
+
+/**
+ * Subscription-Id-Type AVP is of type Enumerated and it is used to determine which type of
+ * identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type               ::= 450 0 /* clause 8.47 RFC4006 */ Enumerated    M|P| |  V  |Y;
+
+/**
+ * Subscription-Id-Data AVP is used to identity the end user and is of type UTF8String.
+ */
+    Subscription-Id-Data               ::= 444 0 /* clause 8.48 RFC4006 */ UTF8String    M|P| |  V  |Y;
+
+/**
+ * The Max-Requested-Bandwidth AVP(code 313) is of type OctetString and
+ * indicates the Max-Subscriber-Bandwidth. If present, shall be downloaded from
+ * HSS to 3GPP AAA Server, and sent from the 3GPP AAA Server to the PDG.
+ */
+    Max-Requested-Bandwidth            ::= 313  /*10.1.26 3GPP TS29.234*/ OctetString   M,V| | |   |N;
+
+
+
+/**
+ * The Charging-Data AVP is of type Grouped, and contains the addresses of thei
+ * charging functions. When this AVP is present within the APN-Authorised AVP,
+ * charging data apply to the specific W-APN within the  APN-Authorised AVP and
+ * shall prevail over the general received Charging-Data.
+ */
+    Charging-Data                      ::= 304 /* 10.1.10*/               Grouped       M,V| | |    |N;
+
+
+/**
+ * The Charging-Characteristics AVP is of type Integer, and contains the
+ * charging mode to be applied as described in 3GPP TS 32.215.
+ */
+    Charging-Characteristics           ::= 314  /*10.1.27 3GPP TS29.234*/ Integer32     M,V| | |   |N;
+
+/**
+ * The Charging-Nodes AVP is of type Grouped, and contains the addresses of the
+ * charging functions, as described in 3GPP TS 32.240.
+ */
+    Charging-Nodes                     ::= 315  /*10.1.28 3GPP TS29.234*/ Grouped       M,V| | |   |N;
+
+/**
+ * The Primary-Charging-Collection-Function-Name AVP is of type DiameterURI.
+ * This AVP contains the address of the Primary Charging Collection Function.
+ */
+    Primary-Charging-Collection-Function-Name ::= 621 /* 6.3.22 3GPP TS29.229*/ DiamURI M,V| | |   |N;
+
+/**
+ * The Primary-OCS-Charging-Function-Name AVP is of type DiameterIdentity, and
+ * defines the address of the Primary Online Charging System (OCS).
+ */
+    Primary-OCS-Charging-Function-Name ::= 316  /*10.1.29 3GPP TS29.234*/ DiamIdent     M,V| | |   |N;
+
+/**
+ * The Secondary-OCS-Charging-Function-Name AVP is of type DiameterIdentity,and
+ * defines the address of the Secondary Online Charging System (OCS).
+ */
+    Secondary-OCS-Charging-Function-Name ::= 317  /*10.1.30 3GPP TS29.234*/ DiamIdent   M,V| | |   |N;
+
+/**
+ * The Secondary-Charging-Collection-Function-Name AVP is of type DiameterURI.
+ * This AVP contains the address of the Secondary Charging Collection Function.
+ */
+    Secondary-Charging-Collection-Function-Name  ::= 622 /*6.3.23 3GPP TS29.229*/ DiamURI M,V| | |   |N;
+
+
+
+                          /////////////////
+                          //Enumerations//
+                          ///////////////
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                               END_USER_E164           0
+                               END_USER_IMSI           1
+                               END_USER_SIP_URI        2
+                               END_USER_NAI            3
+                               END_USER_PRIVATE        4
+                               ;
+
+   Session-Request-Type ::= < Enumerated: 311 >
+                              AUTHORIZATION_REQUEST    0
+                              ROUTING_POLICY           1
+                              ;
+
+
+                  ///////////////////
+                  ///Grouped AVPs///
+                  //////////////////
+
+  Subscription-Id ::= < AVP Header: 443 >
+                        { Subscription-Id-Type }
+                        { Subscription-Id-Data }
+                        ;
+
+
+  Charging-Data ::= < AVP Header : 304 10415 >
+                    { Charging-Characteristics }
+                    { Charging-Nodes}
+                    *[ AVP ]
+                    ;
+
+
+  Charging-Nodes ::= < AVP Header : 315 10415 >
+                     { Primary-Charging-Collection-Function-Name }
+                     [ Primary-OCS-Charging-Function-Name ]
+                     [ Secondary-OCS-Charging-Function-Name]
+                     [ Secondary-Charging-Collection-Function-Name ]
+                     *[ AVP ]
+                     ;
+
+
+    /////////////// 
+    // Commands //
+    //////////////
+/**         
+ * The Diameter-EAP-Request (DER) command, indicated by the Command-Code field
+ * set to 268 and the 'R' bit set in the Command Flags field, is sent by a
+ * Diameter client to a Diameter server, and conveys an EAP-Response from the
+ * EAP client. The Diameter-EAP-Request MUST contain one EAP-Payload AVP
+ * contain ing the actual EAP payload. An EAP-Payload AVP with no data MAY be
+ * sent to the Diameter server to initiate an EAP authentication session.
+ * The DER message MAY be the result of a multi-round authentication exchange
+ * that occurs when the DEA is received with the Result-Code AVP set to
+ * DIAMETER_MULTI_ROUND_AUTH [BASE]. A subsequent DER message MUST include any
+ * State AVPs [NASREQ] that were present in the DEA. For re-authentication, it
+ * is recommended that the Identity request be skipped in order to reduce the
+ * number of authentication round trips. This is only possible when the user's
+ * identity is already known by the home Diameter server.
+ */
+    Diameter-EAP-Request<DER> ::= < Diameter Header: 268, REQ, PXY, 5>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Request-Type }
+            { EAP-Payload }
+            [ Destination-Host ]
+            [ User-Name ]
+            [ NAS-IP-Address ]
+            [ NAS-IPv6-Address ]
+            [ Calling-Station-Id ]
+            [ Visited-Network-Identifier ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Diameter-EAP-Answer (DEA) message, indicated by the Command-Code
+ * field set to 268 and the 'R' bit cleared in the Command Flags field,
+ * is sent by the Diameter server to the client for one of the following
+ * reasons:
+ * 1. The message is part of a multi-round authentication exchange, and the
+ * server is expecting a subsequent Diameter-EAP-Request. This is indicated by
+ * setting the Result-Code to DIAMETER_MULTI_ROUND_AUTH, and MAY include zero
+ * or more State AVPs.
+ * 2. The EAP client has been successfully authenticated and authorized, in
+ * which case the message MUST include the Result-Code AVP indicating success,
+ * and SHOULD include an EAP-Payload of type EAP-Success. This event MUST
+ * cause the access device to provide service to the EAP client.
+ * 3. The EAP client has not been successfully authenticated and/or authorized,
+ * and the Result-Code AVP is set to indicate failure. This message SHOULD
+ * include an EAP-Payload, but this AVP is not used to determine whether service
+ * is to be provided. If the message from the Diameter client included a request
+ * for authorization, a successful response MUST include the authorization
+ * AVPs that are relevant to the service being provided.
+ */
+    Diameter-EAP-Answer<DEA> ::= < Diameter Header: 268, PXY, 5>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            { Auth-Request-Type }
+            1*{ Subscription-Id } /* the optional sign [] is changed to mandatory {} */            
+            [ EAP-Payload ]
+            [ User-Name ]
+            [ EAP-Master-Session-Key ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+/**
+ * The AA-Request (AAR), which is indicated by setting the Command-Code field to
+ * 265 and the 'R' bit in the Command Flags field, is used to request
+ * authentication and/or authorization for a given NAS user.
+ * The type of request is identified through the Auth-Request-Type AVP [BASE].
+ * The recommended value for most RADIUS interoperabily situations is
+ * AUTHORIZE_AUTHENTICATE.
+ * If Authentication is requested, the User-Name attribute SHOULD be present, as
+ * well as any additional authentication AVPs that would carry the password
+ * information. A request for authorization SHOULD only include the information
+ * from which the authorization will be performed, such as the User-Name,
+ * Called-Station-Id, or Calling-Station-Id AVPs. All requests SHOULD contain
+ * AVPs uniquely identifying the source of the call, such as Origin-Host and
+ * NAS-Port. Certain networks MAY use different AVPs for authorization purposes.
+ * A request for authorization will include some AVPs defined in section 6.
+ */
+    AA-Request<AAR> ::= < Diameter Header: 265, REQ, PXY, 1>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Request-Type }
+            { Destination-Host }
+            [ Session-Request-Type ]
+            [ Visited-Network-Identifier ]
+            [Wd3GPP-WLAN-APN-Id]
+            * [ Routing-Policy]
+            [ NAS-Identifier ]
+            [ NAS-IP-Address ]
+            [ NAS-IPv6-Address ]
+            [ NAS-Port ]
+            [ NAS-Port-Id ]
+            [ NAS-Port-Type ]
+            [ Origin-State-Id ]
+            [ Port-Limit ]
+            [ User-Name ]
+            [ User-Password ]
+            [ Service-Type ]
+            [ State ]
+            [ Authorization-Lifetime ]
+            [ Auth-Grace-Period ]
+            [ Auth-Session-State ]
+            [ Callback-Number ]
+            [ Called-Station-Id ]
+            [ Calling-Station-Id ]
+            [ Originating-Line-Info ]
+            [ Connect-Info ]
+            [ CHAP-Auth ]
+            [ CHAP-Challenge ]
+            * [ Framed-Compression ]
+            [ Framed-Interface-Id ]
+            [ Framed-IP-Address ]
+            [ Framed-IP-Netmask ]
+            [ Framed-MTU ]
+            [ Framed-Protocol ]
+            [ ARAP-Password ]
+            [ ARAP-Security ]
+            * [ ARAP-Security-Data ]
+            * [ Login-IP-Host ]
+            * [ Login-IPv6-Host ]
+            [ Login-LAT-Group ]
+            [ Login-LAT-Node ]
+            [ Login-LAT-Port ]
+            [ Login-LAT-Service ]
+            * [ Tunneling ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+/**
+ * The AA-Answer (AAA) message is indicated by setting the Command-Code field to
+ * 265 and clearing the 'R' bit in the Command Flags field. It is sent in
+ * response to the AA-Request (AAR) message. If authorization was requested, a
+ * successful response will include the authorization AVPs appropriate for the
+ * service being provided, as defined in section 6.
+ * For authentication exchanges requiring more than a single round trip,
+ * the server MUST set the Result-Code AVP to DIAMETER_MULTI_ROUND_AUTH.
+ * An AAA message with this result code MAY include one Reply-Message or
+ * more and MAY include zero or one State AVPs.
+ */
+    AA-Answer<AAA> ::= < Diameter Header: 265, PXY, 1>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Auth-Request-Type }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            1*{ Subscription-Id }
+            [ Max-Requested-Bandwidth ]
+            [ Charging-Data ]
+            [ Service-Type ]
+            * [ Class ]
+            * [ Configuration-Token ]
+            [ Acct-Interim-Interval ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            [ Idle-Timeout ]
+            [ Authorization-Lifetime ]
+            [ Auth-Grace-Period ]
+            [ Auth-Session-State ]
+            [ Re-Auth-Request-Type ]
+            [ Session-Timeout ]
+            [ State ]
+            * [ Reply-Message ]
+            [ Origin-State-Id ]
+            * [ Filter-Id ]
+            [ Password-Retry ]
+            [ Port-Limit ]
+            [ User-Name ]
+            [ Prompt ]
+            [ ARAP-Challenge-Response ]
+            [ ARAP-Features ]
+            [ ARAP-Security ]
+            * [ ARAP-Security-Data ]
+            [ ARAP-Zone-Access ]
+            [ Callback-Id ]
+            [ Callback-Number ]
+            [ Framed-Appletalk-Link ]
+            * [ Framed-Appletalk-Network ]
+            [ Framed-Appletalk-Zone ]
+            * [ Framed-Compression ]
+            [ Framed-Interface-Id ]
+            [ Framed-IP-Address ]
+            * [ Framed-IPv6-Prefix ]
+            [ Framed-IPv6-Pool ]
+            * [ Framed-IPv6-Route ]
+            [ Framed-IP-Netmask ]
+            * [ Framed-Route ]
+            [ Framed-Pool ]
+            [ Framed-IPX-Network ]
+            [ Framed-MTU ]
+            [ Framed-Protocol ]
+            [ Framed-Routing ]
+            * [ Login-IP-Host ]
+            * [ Login-IPv6-Host ]
+            [ Login-LAT-Group ]
+            [ Login-LAT-Node ]
+            [ Login-LAT-Port ]
+            [ Login-LAT-Service ]
+            [ Login-Service ]
+            [ Login-TCP-Port ]
+            * [ NAS-Filter-Rule ]
+            * [ QoS-Filter-Rule ]
+            * [ Tunneling ]
+            * [ Redirect-Host ]
+            [ Redirect-Host-Usage ]
+            [ Redirect-Max-Cache-Time ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+
+/**
+ * A Diameter server may initiate a re-authentication and/or reauthorization
+ * service for a particular session by issuing a Re-Auth-Request (RAR) message
+ * [BASE].For example, for pre-paid services, the Diameter server that
+ * originally authorized a session may need some confirmation that the user is
+ * still using the services. If a NAS receives an RAR message with Session-Id
+ * equal to a currently active session and a Re-Auth-Type that includes
+ * authentication, it MUST initiate a re-authentication toward the user, if
+ * the service supports this particular feature.
+ */
+    Re-Auth-Request<RAR> ::= < Diameter Header: 258, REQ, PXY, 1>
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Destination-Host }
+            { Auth-Application-Id }
+            { Re-Auth-Request-Type }
+            [ User-Name ]
+            [ Origin-State-Id ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Re-Auth-Answer (RAA) message [BASE] is sent in response to the RAR. The
+ * Result-Code AVP MUST be present and indicates the disposition of the request.
+ * A successful RAA transaction MUST be followed by an AAR message.
+ */
+    Re-Auth-Answer<RAA> ::= < Diameter Header: 258, PXY, 1>
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ User-Name ]
+            [ Origin-State-Id ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            * [ Redirect-Host ]
+            [ Redirect-Host-Usage ]
+            [ Redirect-Max-Cache-Time ] /* in spec mentioned as Redirect-Host-Cache-Time */
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Request (ASR), indicated by the Command-Code set to
+ * 274 and the message flags' 'R' bit set, may be sent by any server to
+ * the access device that is providing session service, to request that
+ * the session identified by the Session-Id be stopped.
+ */
+    Abort-Session-Request<ASR> ::= < Diameter Header: 274, REQ, PXY, 1>
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Destination-Host }
+            { Auth-Application-Id }
+            [ User-Name ]
+            [ Origin-State-Id ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            *[ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Answer (ASA), indicated by the Command-Code set to
+ * 274 and the message flags' 'R' bit clear, is sent in response to the
+ * ASR.  The Result-Code AVP MUST be present, and indicates the
+ * disposition of the request.
+ * If the session identified by Session-Id in the ASR was successfully
+ * terminated, Result-Code is set to DIAMETER_SUCCESS.  If the session
+ * is not currently active, Result-Code is set to
+ * DIAMETER_UNKNOWN_SESSION_ID.  If the access device does not stop the
+ * session for any other reason, Result-Code is set to
+ * DIAMETER_UNABLE_TO_COMPLY.
+ */
+    Abort-Session-Answer<ASA> ::= < Diameter Header: 274, PXY, 1>
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ User-Name ]
+            [ Origin-State-Id ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            * [ Redirect-Host ]
+            [ Redirect-Host-Usage ]
+            [ Redirect-Max-Cache-Time ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Session-Termination-Request (STR), indicated by the Command-Code
+ * set to 275 and the Command Flags' 'R' bit set, is sent by the access
+ * device to inform the Diameter Server that an authenticated and/or
+ * authorized session is being terminated.
+ */
+    Session-Termination-Request<STR> ::= < Diameter Header: 275, REQ, PXY, 1>
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Application-Id }
+            { Termination-Cause }
+            [ User-Name ]
+            [ Destination-Host ]
+            * [ Class ]
+            [ Origin-State-Id ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Session-Termination-Answer (STA), indicated by the Command-Code
+ * set to 275 and the message flags' 'R' bit clear, is sent by the
+ * Diameter Server to acknowledge the notification that the session has
+ * been terminated.  The Result-Code AVP MUST be present, and MAY
+ * contain an indication that an error occurred while servicing the STR.
+ * Upon sending or receipt of the STA, the Diameter Server MUST release
+ * all resources for the session indicated by the Session-Id AVP.  Any
+ * intermediate server in the Proxy-Chain MAY also release any
+ * resources, if necessary.
+ */
+   Session-Termination-Answer <STA> ::= < Diameter Header: 275, PXY, 1>
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ User-Name ]
+            * [ Class ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            * [ Failed-AVP ]
+            [ Origin-State-Id ]
+            * [ Proxy-Info ]
+            * [ AVP ]
+            ;

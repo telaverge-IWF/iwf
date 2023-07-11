@@ -1,0 +1,84 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make.dirs.mvl,v 1.1 2010/12/27 15:50:27 nvijikumar Exp $
+#
+# LOG: $Log: make.dirs.mvl,v $
+# LOG: Revision 1.1  2010/12/27 15:50:27  nvijikumar
+# LOG: Montavista config file
+# LOG:
+# LOG:
+#
+############################################################################
+# Java Specifics
+JAVACMD=java -jar
+DIAJARFILE=$(IMS_ROOT)/mag/bin/diamag.jar
+CXX=/opt/montavista/cge/devkit/x86/pentium3/bin/pentium3-g++ -g -Wall -D_GNU_SOURCE -pipe -Wno-deprecated
+CXXAR=ar
+CXXARFLAGS=cruv
+CXXSHAREDAR=/opt/montavista/cge/devkit/x86/pentium3/bin/pentium3-g++
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -o
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM) -DAPP_ID_EXCLUSIVE 
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+DNSLIB=/usr/lib/libresolv.a
+
+# Compilation flag added to disable the check
+# for vendorId and Supported VendorId inside CER.
+#
+ifeq ($(APPID_EXCLUSIVE),yes)
+DEFINES:=$(DEFINES) -DAPP_ID_EXCLUSIVE
+endif
+
+
+#
+# Plaform Specifics... for Solaris 
+#
+ifeq ($(PLATFORM),solaris)
+#SOFLAGS=-fpic
+SOFLAGS=-fPIC
+SOCKLIBS=-lnsl -lsocket
+THREADLIBS=-lthread -lmtmalloc
+SYSLIBS=-ldl -lrt 
+CXXSHAREDARFLAGS=-G -z allextract -o
+endif
+
+# Plaform Specifics... for Linux
+ifeq ($(PLATFORM),linux)
+SOFLAGS=-fpic
+SOCKLIBS=-lsctp
+NOWHOLEARCHIVE=-Wl,--no-whole-archive
+THREADLIBS=-lpthread
+SYSLIBS=-ldl -lrt -lz
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -o
+endif
+
+ifeq ($(DEBUG_BUILD),yes)
+CXXFLAGS=    -g -w $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS)
+DBGSUFFIX= D
+else
+CXXFLAGS=    -O $(INCLS) $(DEFINES) -DNDEBUG $(SOFLAGS)
+DBGSUFFIX=
+endif

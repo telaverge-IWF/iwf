@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    enableHMI
+
+DESCRIPTION
+    This command is used to enable Health Monitor Interface(HMI).
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> enableHMI
+       Successfully HMI Enabled
+

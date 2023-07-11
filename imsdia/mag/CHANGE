@@ -1,0 +1,10 @@
+CHANGES
+=======
+
+2006-02-06
+
+The "--c++" command argument is changes to accept a simple directory name.
+The header files, source files, and test templates will be placed in "include",
+"src", and "test" subdirectories, respectively, of the give directory.
+
+The generator is fixed to handle the generic "AVP" spec without a qualifier.

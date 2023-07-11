@@ -1,0 +1,44 @@
+#!/bin/bash
+echo 'export PS1="${LOGNAME}@`uname -n`!$ "'
+echo "" 
+echo '#'
+echo '# Path settings.'
+echo '#'
+echo 'PATH=$PATH:.'
+echo 'PATH=$PATH:/bin'
+echo 'PATH=$PATH:/usr/bin'
+echo 'PATH=$PATH:/usr/local/bin'
+echo 'PATH=$PATH:/opt/SUNWspro/bin'
+echo 'PATH=$PATH:/usr/sfw/bin'
+echo 'PATH=$PATH:/usr/sbin'
+
+echo "" 
+echo '#'
+echo '# LD_LIBRARY_PATH settings.'
+echo '#'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/SUNWspro/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/sfw/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib'
+echo "" 
+echo '#'
+echo '# IMS Diameter Related'
+echo '#'
+echo PLATFORM=solaris64
+
+echo DEBUG_BUILD=yes
+echo IMS_ROOT=/opt/IntelliNet/IDS-$IMS_VER
+echo ISS7_CONFIG_DIR=/opt/IntelliNet/IDS-$IMS_VER/config/
+echo ITS_MAN_PATH=/opt/IntelliNet/IDS-$IMS_VER/dbchelp/
+
+echo 'PATH=$PATH:$IMS_ROOT/bin'
+
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/lib'
+echo "" 
+echo export PATH LD_LIBRARY_PATH PLATFORM
+echo export IMS_ROOT 
+echo export ISS7_CONFIG_DIR
+echo export ITS_MAN_PATH
+echo export DEBUG_BUILD
+echo ulimit -c unlimited

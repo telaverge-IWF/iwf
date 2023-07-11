@@ -1,0 +1,1 @@
+/usr/bin/c++         CMakeFiles/static_test.dir/static_test.cpp.o  -o static_test  -L/usr/lib64/mysql -rdynamic ../driver/libmysqlcppconn.so.5.1.1.0 -lmysqlclient_r -lmysqlclient -lpthread -lz -lm -ldl -lssl -lcrypto -Wl,-rpath,/usr/lib64/mysql:/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver 

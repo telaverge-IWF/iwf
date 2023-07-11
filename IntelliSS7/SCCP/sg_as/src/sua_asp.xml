@@ -1,0 +1,398 @@
+<?xml version="1.0"?>
+
+<!-- Sample XML file for application configuration (INI). -->
+ 
+<Application name           = "sua_asp"
+             type           = "console-application"
+             globalStart    = "ANSI-SCCP"
+             binding        = "CPP"
+             library        = "libSUA-TESTD.so"
+             appSelector    = "APP_Selector"
+             preFunc        = "APP_PreFunc">
+ 
+    <AppOptions name = "traceFlushAfterWrite"         value = "yes"/>
+    <AppOptions name = "routeUniqueLinkCodesRequired" value = "yes"/>
+    <AppOptions name = "memPoolChecksOn"              value = "no"/>
+    />
+    <FaultTolerance
+        maxNumFtGroups      = "8"
+        maxNumProcesses     = "6"
+        maxNumNodes         = "1"
+        nodeId              = "0"
+        processId           = "5"
+        tcapFtGroupId       = "0"
+        sccpFtGroupId       = "0"
+        mtp3FtGroupId       = "0"
+        isupFtGroupId       = "0"
+        routingFtGroupId    = "0"
+        timersFtGroupId     = "0"
+        mgmtDataFtGroupId   = "0"
+    >
+
+        <Procedures>
+
+        </Procedures>
+
+        <Callbacks>
+
+        </Callbacks>
+
+        <FtGroups>
+
+            <FtGroup
+                ftGroupId      = "0"
+                ftGroupName    = "FtGroup0"
+            >
+
+                <DsmConfig
+                     dsmSize         = "20971520"
+                     dsmBaseAddress  = "0x80000000"
+                     dsmMaxNumTables = "256"
+                     dsmType         = "STUB"
+                />
+
+                <!-- Note: MUST include itself. -->
+                <!-- Note: nodeName and processName are optional attributes. -->
+
+                <FtGroupMembers>
+
+                    <FtGroupMember
+                        nodeId      = "0"
+                        nodeName    = "Node0"
+                        processId   = "5"
+                        processName = "Node0Process5"
+                    />
+
+                </FtGroupMembers>
+
+
+                <!-- Note: MUST NOT include itself. -->
+                <!-- Note: Master FtGroupMembers are tried in order. -->
+
+                <MasterFtGroupMembers>
+
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+
+                </Callbacks>
+
+            </FtGroup>
+
+        </FtGroups>
+
+    </FaultTolerance>
+    <!--/////////////// LINK SETS //////////////-->
+
+    <LinkSet id           = "0"
+             adjacentSTP  = "no"
+             family       = "ANSI"
+             numToStart   = "0">
+        <NI     value = "0x00"/>
+        <APC    value = "0x02"/>
+        <LPC    value = "0x01"/>
+    </LinkSet>
+
+    <!-- link set for external routing -->
+    <LinkSet id           = "1"
+             adjacentSTP  = "yes"
+             family       = "ANSI"
+             numToStart   = "1">
+        <NI     value = "0x00"/>
+        <APC    value = "0x000003"/>
+        <LPC    value = "0x000001"/>
+    </LinkSet>
+
+    <!--///////////////END of LINK SETS //////////////-->
+ 
+    <!--///////////////Route Info //////////////-->
+
+    <Route  type     = "localRoute"
+            style    = "dpc-sio-ssn"
+            family   = "ANSI"
+            linkSet  = "0"
+            priority = "0">
+        <DPC    value = "0x01"/>
+        <SIO    value = "0x03"/>
+        <SSN    value = "0x05"/>
+    </Route>
+
+    <Route   type     = "remoteRoute"
+             style    = "dpc-sio-ssn"
+             family   = "ANSI"
+             linkSet  = "1"
+             priority = "0">
+           <DPC   value = "0x02"/>
+           <SSN   value = "0x06" />
+           <SIO   value = "0x03"/>
+    </Route>
+
+    <!-- SCMG Route -->
+    <Route   type     = "remoteRoute"
+             style    = "dpc-sio-ssn"
+             family   = "ANSI"
+             linkSet  = "1"
+             priority = "0">
+           <DPC   value = "0x02"/>
+           <SSN   value = "0x01" />
+           <SIO   value = "0x03"/>
+    </Route>
+
+    <Route  type     = "routingKeyRoute"
+            family   = "ANSI"
+            style    = "dpc-sio-ssn">
+        <routingKey value = "0x01"/> 
+        <DPC        value = "0x1"/>
+        <SIO        value = "0x3"/>
+        <SSN        value = "0x5"/>
+    </Route>
+
+    <Route  type    = "concernedRoute"
+            style   = "dpc-opc-sio-ssn"
+            family       = "ANSI"
+            linkSet = "0"
+            priority = "0">
+        <DPC    value = "0x02"/>
+        <LPC    value = "0x01"/>
+        <SIO    value = "0x03"/>
+        <SSN    value =  "6"/>
+        <LSSN    value = "5"/>
+    </Route>
+
+    <Feature
+        name        = "Vendor Framework ANSI"
+        library     = "libVFrameD.so"
+        classRec    = "itsSS7STACK_ClassANSI"
+    />
+
+    <Feature
+        name        = "IntelliNet stack ANSI"
+        library     = "libANSI-VENDORD.so"
+        classRec    = "itsINTELLISS7_ClassANSI"
+    />
+
+    <Feature
+        name        = "DSM Data Class - STUB"
+        library     = "libDSM-STUBD.so"
+        classRec    = "itsDSM_StubImplClass"
+    />
+
+    <Feature
+        name        = "SCTP"
+        library     = "libSCTPD.so"
+        classRec    = "itsSCTP_Class"
+    />
+
+    <Feature
+        name        = "DBC Server Class"
+        library     = "libENGINED.so"
+        classRec    = "itsDBC_ServerClass"
+    />
+    
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--///////////////// UAL Manager config for M3UADraft ver 10 ///////////////-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
+
+    <!-- TODO: remove UAL feature from here. -->
+    <Feature
+        name        = "UAL_Manager"
+        library     = "libUALD.so"
+        classRec    = "itsUAL_Class"
+    />
+
+    <Feature
+        name        = "ANSI-SUA"
+        library     = "libANSI-SUAD.so"
+        classRec    = "itsSUA_ANSI_Class"
+    />
+ 
+    <ParserExtension library     = "libUALD.so"
+                     elementName = "UAL_Manager"
+                     startFunc   = "UAL_ParseStartFunc"
+                     stopFunc    = "UAL_ParseStop"
+                     xlateFunc   = "UAL_ResourceXlate"
+                     diffFunc    = "UAL_ExtensionDiff"
+    />
+
+    <UAL_Manager   useSCMGCallBack   = "no"
+                   heartBeat         = "off"
+                   hbInterval        = "5"
+                   ackTimer          = "600"
+                   pendingTimer      = "2"
+                   interworkingMode  = "endPointMode"
+                   localPointCode    = "0x1"
+                   aspId             = "1"
+                   version           = "1">
+
+              <AsInfo   routingKey       = "1"
+                        family           = "ANSI"
+                        isMember         = "yes"
+                        asTrafficMode    = "overRideMode"> 
+              </AsInfo>
+            
+    </UAL_Manager>
+
+
+    <!--/////////////////////////////////////////////////////////////////////////-->
+    <!--///////////////// End of UAL Manager config /////////////////////////////-->
+    <!--/////////////////////////////////////////////////////////////////////////-->
+
+    <ToolkitTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = ""/>
+    </ToolkitTrace>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <WorkerPool stackSize = "0">
+
+        <Transport  type   = "TaskQueue"
+                    count  = "4"
+                    family = "ANSI">
+
+             <Modifier value = "MTP3"/>
+             <Modifier value = "SCCP"/>
+
+             <Callbacks
+                 library          = "libSUA-TESTD.so"
+                 type             = "blocking"
+                 postInitialize   = "APP_PostInit"
+                 postNextEvent    = "APP_PostNextEvent"
+             />
+
+        </Transport> 
+
+    </WorkerPool>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <BorderPool stackSize = "0">
+        <Transport  name    = "MML Console"
+                    type    = "ServerSocket"
+                    family  = "">
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "127.0.0.1"
+                        serverPort      = "6789"
+            />
+
+            <Callbacks
+                type        = "debug-console"
+            />
+        </Transport>
+
+        <Transport  name    = "Test SCTP"
+                    type    = "Datagram"
+                    family  = "ANSI">
+
+            <Modifier value = "SCTP"/>
+            <Modifier value = "MTP3"/>
+
+            <DatagramData   localHostName   = "10.1.4.11"
+                            localPort       = "2960">
+                <Associate  value  = "ASP 1"/>
+            </DatagramData>
+
+            <SCTP   maxInStreams      = "32"
+                    numOutStreams     = "32"
+                    maxAttempts       = "5"
+                    cookieLife        = "30"
+                    hbOn              = "yes"
+                    initTimeOut       = "5,0"
+                    sendTimeOut       = "5,0"
+                    recvTimeOut       = "0,300"
+                    hbTimeOut         = "2,0"
+                    shutdownTimeOut   = "5,0"
+                    pmtuTimeOut       = "600,0"
+                    isClient          = "yes"
+                    payloadType       = "ANSI-SUA">
+            </SCTP>
+
+            <Callbacks
+                library         = ""
+                type            = "blocking"
+                preInitialize   = ""
+                postInitialize  = ""
+                postNextEvent   = ""
+                userDispatch    = ""
+            />
+
+       </Transport>
+
+       <Transport   name    = "ASP 1"
+                    type    = "Virtual"
+                    family  = "ANSI">
+
+            <Modifier value = "SCTP"/>
+            <Modifier value = "MTP3"/>
+
+            <DatagramData   socketDomain    = "INET"
+                            serverHostName  = "10.1.4.151"
+                            serverPort      = "2960">
+
+            </DatagramData>
+
+            <Link        id             = "0"
+                         family         = "ANSI"
+                         linkSet        = "1"
+                         initialActive  = "yes"
+                         terminalFixed  = "yes"
+                         dataLinkFixed  = "yes"
+                         priority       = "0"
+                         terminal       = "0"
+                         dataLink       = "0"
+            />
+
+       </Transport>
+
+    </BorderPool>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <SS7-Stacks>
+
+        <!--///////////////////////////////////////////////////////////-->
+
+        <IntelliNet>
+
+            <ANSI-SCCP variant = "WhiteBook">
+  
+                <Variant value = "WhiteBook"/>
+  
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                    <Debug    output = "file"/> 
+                </StackTrace>
+  
+                <Timers
+                    TstatInfo    = "30"
+                    TcoordChg    = "30"
+                    TignoreSST   = "30"
+                    TrtgStatInfo = "30"
+                    Tconnect     = "30"
+                    Trelease     = "10"
+                    Treset       = "20"
+                    Tias         = "300"
+                    Tiar         = "660"
+                    Tguard       = "240"
+                />
+  
+                <BehaviorControl
+                    PropagateIT   = "yes"
+                    PropagateERR  = "yes"
+                    PropagateSCMG = "yes"
+                    EnableSCMG    = "yes"
+                />
+  
+            </ANSI-SCCP>
+  
+        </IntelliNet>
+
+    </SS7-Stacks>
+
+ </Application>

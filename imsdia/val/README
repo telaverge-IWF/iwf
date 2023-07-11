@@ -1,0 +1,4 @@
+Vendor Adaptation Layer
+
+
+VAL defines an abstraction layer with which all Diameter implementations must comply.

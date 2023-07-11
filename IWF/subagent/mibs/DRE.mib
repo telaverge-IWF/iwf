@@ -1,0 +1,292 @@
+DRE DEFINITIONS ::= BEGIN
+
+IMPORTS
+    OBJECT-TYPE,
+    MODULE-IDENTITY,
+    NOTIFICATION-TYPE,
+	TEXTUAL-CONVENTION,
+    enterprises,
+    Integer32,
+    Unsigned32,
+    IpAddress,
+    Counter32   FROM SNMPv2-SMI
+    DisplayString   FROM SNMPv2-TC;
+
+dre MODULE-IDENTITY
+    LAST-UPDATED "201211300000Z"
+    ORGANIZATION "Diametriq LLC"
+    CONTACT-INFO
+        "1990 W. New Haven Avenue, Ste #303
+         Melbourne FL 32904
+         USA
+
+         Tel: +1 321 726 0686
+         Fax: +1 321 726 0683
+         email: aghosal@diametriq.com"
+    DESCRIPTION
+         "This object to be registered as Diametriq Diameter Routing Agent Development
+Pltaform."
+    ::= {enterprises 2763 1 2 }
+
+diametriq OBJECT IDENTIFIER ::= { enterprises 2763 }
+products   OBJECT IDENTIFIER ::= { diametriq 1 }
+
+--
+-- Textual Conventions
+--
+
+AlarmType ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the type of alarm."
+  SYNTAX INTEGER {
+    systemResourcesAlarm(1),
+    processStatusAlarm(2),
+    connectivityAlarm(3),
+    availabilityAlarm(4)
+}
+
+AlarmSeverity ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the severity of alarm."
+  SYNTAX INTEGER {
+    cleared(1),
+    warning(2),
+    minor(3),
+    major(4),
+    critical(5),
+    info(6)
+}
+
+ProbableCause ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the probable cause for the alarm generation."
+  SYNTAX INTEGER {
+    cpuhigherthresholdcrossed(1),
+    cpusecondlevelthresholdcrossed(2),
+    cpuminimumthresholdcrossed(3),
+    cpuusagebacktonormal(4),
+    memoryhigherthresholdcrossed(5),
+    memorysecondlevelthresholdcrossed(6),
+    memoryminimumthresholdcrossed(7),
+    memoryusagebacktonormal(8),
+    diskhigherthresholdcrossed(9),
+    diskusagebacktonormal(10),
+    mysqlConnectivityLost(11),
+    mysqlConnectivityRestored(12),
+    highpriorityProcessDown(13),
+    highpriorityProcessUp(14),
+    lowpriorityProcessDown(15),
+    lowpriorityProcessUp(16),
+    unplannedswitchovertostandby(17),
+    unplannedswitchovercomplete(18),
+    plannedswitchoverinitiated(19),
+    plannedswitchovercomplete(20),
+    configuredintefacedown(21),
+    configuredintefaceup(22),
+    dregracefulshutdown(23),
+    dreup(24),
+    bothnodesactiveinactivestandbyconfig(25),
+    activestandbyconfigrestored(26),
+    bothnodesstandbyinactivestandbyconfig(27),
+    standbynodenotavailable(28),
+    standbynoeavailable(29),
+    admininvalidcredentialscountreached(30),
+    messageratethresholdcrossedlicenseprovided(31),
+    messageratenowunderlicenseprovided(32),
+    dprreceivedwithcausedonotwanttotalktoyou(33),
+    dprreceivedwithcausebusy(34),
+    dprreceivedwithcausereboot(35),
+    messageratenowunderlicenseprovided(36),
+    licenseviolationerror(37),
+    dictionarytransformpluginload(38)
+}
+
+
+--Notifications
+
+dreNotification OBJECT IDENTIFIER ::= { dre 1 }
+
+
+dreNotificationSequenceNum   OBJECT-TYPE
+  SYNTAX                           Counter32
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          A consecutive number used to identify the faults."
+::= { drefaultNotification 1000 }
+
+dreFaultName                 OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..100))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Unique identification of the fault within DRE."
+::= { drefaultNotification 1001 }
+
+dreAlarmTime                 OBJECT-TYPE
+  SYNTAX                           Unsigned32 (1..4294967295)
+  UNITS                            "secs"
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          The time at which the fault occurred. This
+	  value is expressed in seconds since 00:00:00 UTC, January 1, 1970."
+::= { drefaultNotification 1002 }
+
+
+dreAlarmType                 OBJECT-TYPE
+  SYNTAX                           AlarmType
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          This represents  Alarm Type"
+::= { drefaultNotification 1003 }
+
+dreAlarmProbableCause        OBJECT-TYPE
+  SYNTAX                           ProbableCause
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Probable cause. Cause of the fault."
+::= { drefaultNotification 1004 }
+
+dreAlarmSeverity             OBJECT-TYPE
+  SYNTAX                           AlarmSeverity
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Perceived severity. Critical, Major, Minor, Warning or
+          Cleared."
+::= { drefaultNotification 1005 }
+
+dreAddText                   OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..100))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Additional text. This shall be optional free flow text which gives
+          additional information about the alarm."
+::= { drefaultNotification 1006 }
+
+dreAlarmId                   OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..10))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Alarm Id is used to uniquely identify an Alarm. The first 3 digits specify the component
+	  which has raised the alarm, next 3 digits specify the sub-component and last 3 digits
+          specifies alarm subid."
+::= { drefaultNotification 1007 }
+
+drefaultNotification OBJECT IDENTIFIER ::= { dreNotification 1 }
+
+dreClearedNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 0 }
+
+dreWarningNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 1 }
+
+dreMinorNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 2 }
+
+
+
+dreMajorNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 3 }
+
+
+
+dreCriticalNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 4 }
+
+
+dreInfoNotification NOTIFICATION-TYPE
+  OBJECTS {
+    dreAlarmId,
+    dreNotificationSequenceNum,
+    dreFaultName,
+    dreAlarmTime,
+    dreAlarmType,
+    dreAlarmProbableCause,
+    dreAlarmSeverity,
+    dreAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { drefaultNotification 5 }
+
+
+
+END
+
+
+

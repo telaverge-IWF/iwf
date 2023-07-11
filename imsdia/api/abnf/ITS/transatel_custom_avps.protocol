@@ -1,0 +1,346 @@
+ /* This avp's are specific to Transatel customer 
+    with vendor-Id 15044 */
+
+ protocol diameter.transatel_custom_avps < 4 15044 : "Specific Transatel Cutom AVPS" >; 
+
+
+ SCP-Action ::= 900  15044   Enumerated   V,M| | |     |N ;
+
+ CS-Information  ::= 901 Grouped     V,M| | |     |N ;
+
+ Call-Type  ::=  902 15044  Enumerated V,M| | |     |N ;
+
+ CAP-Control-Mode  ::= 990 15044 Enumerated   V,M| | |     |N ;
+
+ CAP-Is-FollowingOn  ::= 992 15044 Enumerated   V,M| | |     |N ;
+
+ Service-Control  ::= 1000      Grouped     V,M| | |     |N ;
+
+ CAP-Information  ::= 1100      Grouped     V,M| | |     |N ;
+
+ CAP-Service-Key  ::= 1101   15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Dialed-Digits  ::= 1102 15044  UTF8String   V,M|P| |     |N;
+
+ CAP-Called-TON   ::= 1103   15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-CLI  ::=  1104  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Calling-Category   ::=  1105 15044  Unsigned32   V,M|P| |     |N;
+
+ CAP-Location-Number    ::= 1106 15044 UTF8String   V,M|P| |     |N;
+
+ CAP-Redirecting-Number     ::=  1107 15044  UTF8String   V,M|P| |     |N;
+
+ CAP-Redirecting-Indicator      ::= 1108 15044 Unsigned32   V,M|P| |     |N;
+
+ CAP-Original-Redirecting-Reason    ::= 1109 15044 Unsigned32   V,M|P| |     |N;
+
+ CAP-Redirection-Counter    ::= 1110 15044 Unsigned32   V,M|P| |     |N;
+
+ CAP-Redirecting-Reason     ::= 1111  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-IMSI   ::=     1112  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-VLR-Number     ::=     1113 15044    UTF8String   V,M|P| |     |N;
+
+ CAP-Call-Reference     ::= 1118   15044  OctetString   V,M|P| |     |N;
+
+ CAP-MSC-Address    ::=     1119  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Called-NPI     ::=     1121  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-CLI-NOA    ::= 1122  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-CLI-NPI    ::= 1123  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-CLIR       ::= 1124  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Version    ::=     1125  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Bearer-Capability-Transfer     ::=     1126   15044      UTF8String   V,M|P| |     |N;
+
+ CAP-Bearer-Capability-Transfer-Rate    ::=     1127  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-GMSC-Address  ::=     1128  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Ext-Basic-Service-Code     ::=     1129  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Bearer-Capability      ::=     1130 15044    OctetString   V,M|P| |     |N;
+
+ CAP-SMSC-Address       ::=     1131   15044      UTF8String   V,M|P| |     |N;
+
+ CAP-SGSN-Address   ::=     1132  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-IMEI    ::=     1133 15044   UTF8String   V,M|P| |     |N; 
+
+ CAP-SM-StatusReportRequest     ::=     1134  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-SM-UserDataHeaderIndicator     ::=    1135   15044   UTF8String   V,M|P| |     |N; 
+
+ CAP-SM-ReplyPath   ::=     1136     15044    UTF8String   V,M|P| |     |N;
+
+ CAP-SM-VPFormat    ::=     1137    15044     UTF8String   V,M|P| |     |N;
+
+ CAP-SM-MessageTypeIndicator    ::=     1138 15044    UTF8String   V,M|P| |     |N;
+
+ CAP-SM-ProtocolID      ::=     1139   15044      UTF8String   V,M|P| |     |N;
+
+ CAP-SM-DCS     ::=     1140   15044      UTF8String   V,M|P| |     |N;
+
+ CAP-SM-ValidityPeriod      ::=     1141   15044      UTF8String   V,M|P| |     |N;
+
+ CAP-SM-RejectDuplicate     ::=     1142  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-SCCP-CallingGT     ::=     1143  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-SCCP-CalledGT      ::=     1144  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Bearer-Capability-Transfer-Mode    ::=     1145 15044    UTF8String   V,M|P| |     |N;
+
+ CAP-GSM-Forwarding-Pending     ::=     1146  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-TCAP-Remote-Transaction-Id     ::=     1147 15044    OctetString     V,M|P| |     |N;    
+
+ CAP-TCAP-Local-Transaction-Id      ::=     1148  15044   OctetString     V,M|P| |     |N;
+
+ CAP-CellID-AreaID-LAI      ::=     1149  15044   OctetString     V,M|P| |     |N;
+
+ CAP-Event-Type-BCSM    ::=     1150  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Event-Type-SMS     ::=     1151  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-TCAP-Error-Cause   ::=     1152  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-SCCP-Error-Cause   ::=     1153  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-ERBS-Information     ::=     1160    Grouped     V,M| | |     |N;
+
+ CAP-ERBS-Event-Specific-Information  ::=     1161  15044   OctetString     V,M|P| |     |N;
+
+ CAP-ERBS-LegId       ::=     1162  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-ERBS-MessageType     ::=     1163   15044  Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Information    ::=     1200    Grouped     V,M| | |     |N;
+
+ CAP-Announcement-Access-Number     ::=     1201 15044    UTF8String   V,M|P| |     |N;
+
+ CAP-Announcement-Access-Number-NOA     ::=     1220 15044    Unsigned32  V,M|P| |     |N;
+
+ CAP-Connect-Destination-Number     ::=     1203  15044   UTF8String   V,M|P| |     |N;
+        
+ CAP-Connect-Destination-Number-Nature  ::=     1204 15044    Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Destination-Number-INN  ::=     1221 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Generic-Number     ::=     1205 15044    UTF8String   V,M|P| |     |N;
+    
+ CAP-Connect-Calling-Category       ::=     1206  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Redirecting-Number     ::= 1207 15044    UTF8String   V,M|P| |     |N;
+ 
+ CAP-Connect-Redirecting-Number-NOA     ::= 1226 15044    Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Redirecting-Number-NPI     ::= 1227 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Redirecting-Number-ARI     ::= 1228 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Redirecting-Indicator      ::=     1208 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Original-Redirecting-Reason    ::=     1209  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Redirecting-Counter    ::=     1211  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Redirecting-Reason     ::=     1210  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-oCSI-Applicable    ::=     1212  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Original-Called-Number   ::=     1214  15044   UTF8String   V,M|P| |     |N;
+
+ CAP-Connect-Original-Called-Number-NOA   ::=     1231  15044   Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Original-Called-Number-NPI   ::=     1232  15044   Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Original-Called-Number-ARI   ::=     1233  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Suppression-Of-Announcement    ::=     1215  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Generic-Number-NOA     ::=     1216 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-Generic-Number-NPI     ::=     1217   15044  Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Generic-Number-NQI     ::=     1222   15044  Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Generic-Number-NII     ::=     1223  15044  Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Generic-Number-ARI     ::=     1224  15044  Unsigned32   V,M|P| |     |N;
+ 
+ CAP-Connect-Generic-Number-SCI     ::=     1225 15044  Unsigned32   V,M|P| |     |N;
+
+ CAP-Connect-MaxDuration    ::=     1218  15044   Unsigned32   V,M|P| |     |N;
+    
+ CAP-Connect-Destination-Number-NPI     ::=     1219  15044   Unsigned32   V,M|P| |     |N;
+
+ CAP-ACH-Information    ::= 1240    Grouped     V,M| | |     |N;
+
+ CAP-ACH-BeepTone   ::=     1241  15044   Enumerated   V,M| | |     |N;
+
+ CAP-RRBS-Information     ::=     1250    Grouped     V,M| | |     |N;
+
+ CAP-RRBS-NoAnswerTimeout     ::=     1251 15044    Unsigned32   V,M|P| |     |N;
+
+ CAP-Release-Cause  ::=   1230    Unsigned32  V,M |P| |       |N;
+
+ CAP-SM-SpecificInfo   ::=  1154    OctetString   V,M|P| |        |N;
+ 
+ SCP-Action ::= < Enumerated: 900 >
+	REJECT 11
+	CONTINUE 12
+	CONNECT 13
+	TRANSPARENT_FOLLOW_ON 14
+	FOLLOW_ON_CONTINUE 15
+	FOLLOW_ON_CONNECT 16
+	;
+	
+ CS-Information ::= < AVP Header: 901 15044 >
+    [ Call-Type ]
+    [ CAP-Information ]
+    ;
+
+ Call-Type ::= < Enumerated: 902 >
+	MO_VOICE 1
+	MT_VOICE 2
+	MO_SMS 3
+	MO_MMS 4
+	MT_FW 5
+	MO_FW 6
+	MT_SMS 7
+	;
+	
+ CAP-Control-Mode ::= < Enumerated: 990 >
+	NO_CONTROL 0
+	LOCAL_CONTROL 1
+	REMOTE_CONTROL 2
+	;
+
+ CAP-Is-FollowingOn ::= < Enumerated: 992 >
+	False 0
+	True 1
+	;
+ 
+ Service-Control ::= < AVP Header: 1000 15044 >
+    [ SCP-Action ]
+    [ CAP-Information ]
+    ;
+ 
+ CAP-Information ::= < AVP Header : 1100 15044 >
+    [ CAP-CellID-AreaID-LAI ]
+    [ CAP-Is-FollowingOn ]
+	[ CAP-Control-Mode ]
+    [ CAP-Event-Type-BCSM ]
+    [ CAP-Event-Type-SMS ]
+    [ CAP-Service-Key ]
+    [ CAP-Dialed-Digits ]
+    [ CAP-Called-TON ]
+    [ CAP-CLI ]
+    [ CAP-Calling-Category ]
+    [ CAP-Location-Number ]
+    [ CAP-Redirecting-Number ]
+    [ CAP-Redirecting-Indicator ]
+    [ CAP-Original-Redirecting-Reason ]
+    [ CAP-Redirection-Counter ]
+    [ CAP-Redirecting-Reason ]
+    [ CAP-IMSI ]
+    [ CAP-VLR-Number ]
+    [ CAP-Call-Reference ]
+    [ CAP-MSC-Address ]
+    [ CAP-Called-NPI ]
+    [ CAP-CLI-NPI ]
+    [ CAP-CLI-NOA ]
+    [ CAP-CLIR ]
+    [ CAP-Version ]
+    [ CAP-Bearer-Capability-Transfer ]
+    [ CAP-Bearer-Capability-Transfer-Rate ]
+    [ CAP-GMSC-Address ]
+    [ CAP-Ext-Basic-Service-Code ]
+    [ CAP-Bearer-Capability ]
+    [ CAP-SMSC-Address ]
+    [ CAP-SGSN-Address ]
+    [ CAP-IMEI ]
+    [ CAP-SM-StatusReportRequest ]
+    [ CAP-SM-UserDataHeaderIndicator ]
+    [ CAP-SM-ReplyPath ]
+    [ CAP-SM-VPFormat ]
+    [ CAP-SM-MessageTypeIndicator ]
+    [ CAP-SM-ProtocolID ]
+    [ CAP-SM-DCS ]
+    [ CAP-SM-ValidityPeriod ]
+    [ CAP-SM-RejectDuplicate ]
+    [ CAP-SCCP-CallingGT ]
+    [ CAP-SCCP-CalledGT ]
+    [ CAP-Bearer-Capability-Transfer-Mode ]
+    [ CAP-GSM-Forwarding-Pending ]
+    [ CAP-TCAP-Remote-Transaction-Id ]
+    [ CAP-TCAP-Local-Transaction-Id ]
+    [ CAP-ERBS-Information ]
+    [ CAP-ACH-Information ]
+    [ CAP-Connect-Information ]
+    [ CAP-RRBS-Information ]
+    [CAP-Release-Cause]
+    [CAP-SM-SpecificInfo]
+    [ CAP-TCAP-Error-Cause ]
+	;
+	
+ CAP-ERBS-Information ::= < AVP Header : 1160 15044 >
+	[ CAP-Event-Type-BCSM ]
+	[ CAP-Event-Type-SMS ]
+	[ CAP-ERBS-Event-Specific-Information ]
+	[ CAP-ERBS-LegId ]
+	[ CAP-ERBS-MessageType ]
+	;
+
+ CAP-Connect-Information ::= < AVP Header : 1200 15044 >
+	[ CAP-Announcement-Access-Number ]
+    [ CAP-Announcement-Access-Number-NOA ]
+	[ CAP-Connect-Destination-Number ]
+	[ CAP-Connect-Destination-Number-Nature ]
+	[ CAP-Connect-Destination-Number-NPI ]
+	[ CAP-Connect-Generic-Number ]
+	[ CAP-Connect-Calling-Category ]
+	[ CAP-Connect-Redirecting-Number ]
+	[ CAP-Connect-Redirecting-Indicator ]
+	[ CAP-Connect-Original-Redirecting-Reason ]
+	[ CAP-Connect-Redirecting-Counter ]
+	[ CAP-Connect-Redirecting-Reason ]
+	[ CAP-Connect-oCSI-Applicable ]
+	[ CAP-Connect-Suppression-Of-Announcement ]
+	[ CAP-Connect-Generic-Number-NOA ]
+	[ CAP-Connect-Generic-Number-NPI ]
+    [ CAP-Connect-Original-Called-Number ]
+	[ CAP-Connect-Destination-Number-INN ]
+	[ CAP-Connect-Generic-Number-NQI ]
+	[ CAP-Connect-Generic-Number-NII ]
+	[ CAP-Connect-Generic-Number-ARI ]
+	[ CAP-Connect-Generic-Number-SCI ]
+	[ CAP-Connect-Redirecting-Number-NOA ]
+	[ CAP-Connect-Redirecting-Number-NPI ]
+	[ CAP-Connect-Redirecting-Number-ARI ]
+    [ CAP-Connect-Original-Called-Number-NOA ]
+    [ CAP-Connect-Original-Called-Number-NPI ]
+    [ CAP-Connect-Original-Called-Number-ARI ]
+    [ CAP-Connect-MaxDuration ]
+	;
+	
+ CAP-ACH-Information ::= < AVP Header : 1240 15044 >
+	[ CAP-ACH-BeepTone ]
+	;
+
+ CAP-ACH-BeepTone ::= < Enumerated : 1241 >
+	False 0
+	True  1
+	;
+ 
+ CAP-RRBS-Information ::= < AVP Header : 1250 15044 >
+	[ CAP-RRBS-NoAnswerTimeout ]
+	; 

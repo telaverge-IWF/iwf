@@ -1,0 +1,110 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS IMSVERSION.227-7013 and FAR 5IMSVERSION27-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+#ident "$Id: Makefile-Jinterface,v 3.1 2008/03/31 10:33:22 nvijikumar Exp $"
+#
+############################################################################
+#
+# Makefile for Java Demo APPLICATIONPKG Interface Client Application
+#
+ifeq ($(DEBUG_BUILD),yes)
+export DBGSUFFIX= D
+endif
+ifeq ($(DEBUG_BUILD),no)
+export DBGSUFFIX=
+else
+export DBGSUFFIX=D
+endif
+#CLASSPATH
+CLASSPATH=.:$(JVAL_JARS)/diameter$(DBGSUFFIX).jar:$(JAPI_JARS)/diabaseapi$(DBGSUFFIX).jar:/opt/IntelliNet/APPLICATIONPKG-IMSVERSION/lib/diaPackageJarsapi$(DBGSUFFIX).jar:$(JIDC_JARS)/JIDC$(DBGSUFFIX).jar:/opt/IntelliNet/APPLICATIONPKG-IMSVERSION/lib/JSampleBaseApp$(DBGSUFFIX).jar:
+
+#
+# Java Packages
+#
+PACKAGES=src
+
+#
+# Jar
+#
+JARS=jar/JSampleINTERFACEApp$(DBGSUFFIX).jar
+                                                                                               
+#
+# 64bit/32bit Compilation
+#
+ifeq ($(PLATFORM),solaris64)
+D64=-d64
+else
+D64=
+endif
+
+#
+# Java Sources
+#
+SOURCES=$(wildcard $(patsubst %,%/*.java,$(subst .,/,$(PACKAGES))))
+
+ManifestFile=src/META-INF/MANIFEST.MF
+
+CLASSES=$(SOURCES:.java=.class)
+
+
+#
+# Pattern Rules
+#
+%.class: %.java
+	$(JAVAC) $<
+
+#
+# Targets
+#
+.PHONY: all doc clean report script
+
+all: script $(JARS)
+
+clean:
+	rm -rf $(JARS) $(patsubst %,%/*.class,$(subst .,/,$(PACKAGES))) docs/demo/ src/META-INF
+
+doc:
+	$(MKDIR) -p docs/demo/
+	$(JAVADOC) -d docs/demo/ \
+        -windowtitle 'Intellinet Demo Java IDC' \
+        -doctitle 'IntelliNet Demo Java IDC' \
+        -header '<b>Intellinet Distributed-Diameter Client</b>' \
+        $(PACKAGES)
+
+report:
+	@echo PATTERN='$(patsubst %,%/*.class,$(subst .,/,$(PACKAGES)))'
+	@echo CLASSES='$(subst \$,\$\$,$(wildcard $(patsubst %,%/*.class,$(subst .,/,$(PACKAGES)))))'
+
+script:
+	sh /opt/IntelliNet/APPLICATIONPKG-IMSVERSION/demo/src/MFGenerator.sh
+
+
+$(JARS): $(CLASSES)
+
+	$(JAR) cmf $(ManifestFile) $(JARS) $(SOURCES:.java=*.class)
+
+JAVAC=javac -classpath $(CLASSPATH) -g -Xlint:all $(D64)
+JAVAH=javah -force
+JAR=jar 
+JAVADOC=javadoc
+MKDIR=mkdir

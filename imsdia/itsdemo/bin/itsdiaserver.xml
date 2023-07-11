@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+
+<ITS-Diameter  version           = "1"
+               dictionaryFile    = "dictionary.xml" >
+
+   <LocalConfig>
+
+       <InbandSecurityId  value = "0"/>
+       <VendorId          value = "0"/>
+       <SupportedVendorId value = "10415"/>
+
+       <AuthAppId         value = "0"/>
+       <AuthAppId         value = "16777216"/>
+       <AuthAppId         value = "16777217"/>
+       <AuthAppId         value = "16777222"/>
+       <AccountingAppId   value = "3"/>
+       <AccountingAppId   value = "4"/>
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "0"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+         <!-- Exactly one of Auth or Accounting should be present -->
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+       <!-- Single HostInfo Only 1 Origin-Host/Origin-Realm in CER -->
+       <!-- mateHostName is required only incase of redundancy -->
+       <LocalHost  serverHostName = "nemo"
+                   realmName      = "india.internal.net" >
+           <!--    mateHostName   = "micky" -->
+
+           <!-- Multiple Transports (Max 4) -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+           </Transport>
+<!--
+           <Transport   type         = "SCTP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+
+                <ConfigData
+                    cookieLife      = "60000"
+                    hbOn            = "yes"
+                    hbTimeout       = "10000"
+                    initTimeout     = "3000"
+                    maxAttempts     = "16"
+                    maxInStreams    = "12"
+                    numOutStreams   = "12"
+                    recvTimeout     = "0,0"
+                    sendTimeout     = "0,0"
+                    shutdownTimeout = "300"
+                    sackDelay       = "5"
+                    asocMaxAttempt  = "16"
+                    rtoMax          = "60000"
+                    rtoMin          = "2000"
+                    rtoInitial      = "3000"
+                    sendBufSize     = "102400"
+                    recvBufSize     = "102400"
+                    pathmaxrxt      = "16" >
+                </ConfigData>
+
+           </Transport>
+-->
+
+       </LocalHost>
+
+       <SessionConfig>
+
+             <!-- 0 for Stateless, 1 for Stateful -->
+              <AuthSession  
+                        state          = "0"  
+                        timeout        = "40"
+                        lifetime       = "20"
+                        gracePeriod    = "10"
+                        retryAbort     = "30" >
+             
+              </AuthSession>
+
+              <!-- 0 for Stateless, 1 for Stateful -->
+              <AcctSession  
+                        state           = "0"  
+                        timeout         = "30"
+                        interimInterval = "30"
+                        realTime        = "30" >
+
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+    <Tls-Security
+       TlsType                      = "GNUTLS"
+       TlsTraceLevel                = "4"
+       TlsIdentityVerification      = "yes"
+       TlsCipherSuite               = "DIAMETER-ALL"
+       TlsCertificateType           = "X.509"
+       TlsCATrustFile               = "ca-cert.pem"
+       TlsCredentialFile            = "crl.pem"
+       TlsClientCertificateFile     = "ser-cert.pem"
+       TlsClientKeyFile             = "ser-key.pem"
+       TlsServerCertificateFile     = "ser-cert.pem"
+       TlsServerKeyFile             = "ser-key.pem">
+    </Tls-Security>
+
+   </LocalConfig>
+                            
+   <PeerConfig>
+
+       <Timer    name = "Tc"             value = "30" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "60" />
+  
+       <RetransmitInterval   value = "50"/>
+       <RetransmitCount      value = "1" />
+
+       <Peer    serverHostName = "nemocl"
+                realmName      = "india.internal.net" 
+                tlsEnabled     = "yes"
+                dscpEnabled     = "no">
+	
+           <!-- Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1911">
+           </Transport>
+           <!-- Dscp value range is 0-255 -->
+           <Dscp        value        = "0"/>
+
+           <Failover    enable         = "no"
+                        enableFailback = "no">
+
+               <AlternatePeer serverHostName = "nemocl1"
+                              realmName      = "india.internal.net" >
+
+               </AlternatePeer>
+
+           </Failover>
+
+       </Peer>
+
+       <Peer    serverHostName = "nemocl1"
+                realmName      = "india.internal.net" >
+
+           <!-- Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1913">
+           </Transport>
+
+       </Peer>
+
+   </PeerConfig>
+
+   <RealmConfig>
+
+        <!-- Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+                           redirect
+        -->
+
+        <Route     realmName        = "india.internal.net"
+                   localAction      = "local" > 
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "0"
+                         vendorId       = "10415"
+                         priority       = "0" >
+            </Destination>
+   
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777222"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl1"
+                         applicationId  = "0"
+                         vendorId       = "10415"
+                         priority       = "0" >
+            </Destination>
+   
+        </Route>
+
+	<Route     realmName        = "india.internal.net"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "nemocl" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig>
+
+</ITS-Diameter>

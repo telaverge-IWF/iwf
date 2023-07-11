@@ -1,0 +1,145 @@
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!--      (C) 2001 IntelliNet Technologies Inc. All Rights Reserved.         -->
+<!--             Manufactured in the United States of America.               -->
+<!--     1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        -->
+<!--                                                                         -->
+<!--  This product and related documentation is protected by copyright and   -->
+<!--  distributed under licenses restricting its use, copying, distribution  -->
+<!--  and decompilation.  No part of this product or related documentation   -->
+<!--  may be reproduced in any form by any means without prior written       -->
+<!--  authorization of IntelliNet Technologies and its licensors, if any.    -->
+<!--                                                                         -->
+<!--  RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      -->
+<!--  government is subject to restrictions as set forth in subparagraph     -->
+<!--  (c)(1)(ii) of the Rights in Technical Data and Computer Software       -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- CONTRACT: INTERNAL                                                      -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- ID: $Id: ITS_Precondition.html,v 9.1 2005/03/23 12:54:12 cvsadmin Exp $ -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<html>
+
+<head>
+<title>Class ITS_Precondition</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<!-- Header /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<p>
+  <i>
+    <img border="0" src="AsnModuleLogo.jpg" width="240" height="47" align="right"></img>
+  </i>
+</p>
+
+<p style="margin-bottom: 0">
+  <i>
+    <font size="3">
+      - IntelliSS7 Application Development Environment -  C++ API -
+    </font>
+  </i>
+</p>
+
+<hr size="4" style="margin-top: 0"></hr>
+
+<p align="left">
+  <u>
+    <font size="6">
+    Class ITS_Precondition
+    </font>
+  </u>
+</p>
+
+<p>
+  The class ITS_Precondition is related to IntelliSS7 assertion mechanism. If during execution time an assertion fails
+  (precondition, postcondition or assertion) a corresponding C++ exception is thrown. The class ITS_Precondition 
+  inherits from the class ITS_GenericException (part of IntelliSS7 Support classes). <b>A failed precondition most 
+  likely denotes an error in the application code written by the end-user</b>. See IntelliSS7 Support classes 
+  documentation for more information on ITS_GenericException and ITS_Precondition.
+</p>
+
+
+<!-- Class summary //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Class interface summary
+    </font>
+  </li>
+</ul>
+
+<p>
+  <a href="#GetDescription">GetDescription</a>
+</p>
+
+
+<!-- Public member functions ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Public member functions
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+          <b>Member function signature</b>
+        </a>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Member function summary</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetDescription">
+          <b>const std::string&amp; GetDescription()</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+	    The <b>GetDescription</b> member function is inherited from the class ITS_GenericException. It returns a string
+		(C++ type const std::string&amp;) containing the full description and the precise location of the failed
+		precondition.
+      </td>
+   </tr>
+  </table>
+</div>
+
+
+<!-- Footer (copyright notice) //////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<hr size="4"></hr>
+
+<p style="line-height: 100%; margin-left: 0; margin-top: 1; margin-bottom: 0" align="center">
+  <font size="2">
+    © 2001 IntelliNet Technologies, Inc. All rights reserved.
+  </font>
+</p>
+
+<br></br>
+
+</body>
+
+</html>
+
+
+

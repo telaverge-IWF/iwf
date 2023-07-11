@@ -1,0 +1,68 @@
+export PS1="${LOGNAME}@`uname -n`!$ "
+#ulimit -n 10000
+# General Path settings.
+# DONT MESS WITH THE ORDER OF DIRECTORIES HERE!
+HOME=`pwd`
+export HOME
+
+PATH=.:/usr/java/jdk1.5.0_06/bin
+PATH=$PATH:/bin
+PATH=$PATH:/sbin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/bin
+PATH=$PATH:/usr/sbin
+
+
+#
+# LD_LIBRARY_PATH settings.
+#
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+
+# IntelliSS7 Related
+
+export ITS_ROOT=$HOME/AcceleroCore
+export VENDOR_ROOT=$HOME/vendors
+export ITS_MAN_PATH=$IMS_ROOT/build/common/dbchelp
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/perl5/5.8.8/x86_64-linux-thread-multi/CORE/
+
+PATH=$PATH:$ITS_ROOT/common/bin/
+
+#
+# CVS Configuration
+#
+export PLATFORM=linux
+export DEBUG_BUILD=yes
+export LINUX64=yes
+
+export CATALINA_HOME=$HOME/jakarta-tomcat-5.5.9
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib
+export LD_LIBRARY_PATH
+
+export IMS_ROOT=$HOME/imsdia
+export IMS_TOOLS=$HOME/imstools
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/common/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/dframe/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/java/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/opendiameter/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/dcca/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/mtest/diameter/gx/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/mtest/diameter/s6a/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/mtest/diameter/rx_ts29214/lib
+ISS7_CONFIG_DIR=$ITS_ROOT/common/bin/
+
+
+
+export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+export ISS7_CONFIG_DIR
+export ITS_MAN_PATH

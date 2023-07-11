@@ -1,0 +1,25 @@
+M3UA Command
+
+SYNOPSIS
+    u_set_timers <tmrtype> <tmrval>
+
+DESCRIPTION
+   DESCRIPTION
+    This command sets UAL timers.
+
+PARAMETERS
+
+   tmrtype       Timer Type value
+                 Possible values
+                 HB_INTER   = 1
+                 ACK_TIMER  = 2
+                 PEND_TIMER = 3
+                 AUD_TIMER  = 4 
+
+   tmrval        Timer Value in sec
+
+EXAMPLE
+     >> u_set_timers 4 10
+
+     ***** audTimer Set ******
+

@@ -1,0 +1,82 @@
+###############################################################################
+#                                                                              #
+#      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.       #
+#              Manufactured in the United States of America.                   #
+#        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.          #
+#                                                                              #
+#     This product and related documentation is protected by copyright and     #
+#     distributed under licenses restricting its use, copying, distribution    #
+#     and decompilation.  No part of this product or related documentation     #
+#     may be reproduced in any form by any means without prior written         #
+#     authorization of IntelliNet Technologies and its licensors, if any.      #
+#                                                                              #
+#     RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the        #
+#     government is subject to restrictions as set forth in subparagraph       #
+#     (c)(1)(ii) of the Rights in Technical Data and Computer Software         #
+#     clause at DFARS 252.227-7013 and FAR 52.227-19.                          #
+#                                                                              #
+################################################################################
+#                                                                              #
+# CONTRACT: Internal                                                           #
+#                                                                              #
+################################################################################
+#
+#  ID: $Id: Makesctp,v 9.1 2005/03/23 12:51:40 cvsadmin Exp $
+#
+################################################################################
+
+#
+# get the vars
+#
+include $(ITS_ROOT)/config.vars
+
+
+CXXOBJS=test_receive_sctp.o
+        
+CXXSRCS=test_receive_sctp.cpp
+        
+ITS_LIBS=-lCCITT-ANSI-VENDORD \
+	 -lMAP-COMMON++ -lMAP-V6++ \
+	 -lCCITT-ANSI-TCAPD \
+         -lCCITT-ANSI-VENDORD \
+         -lANSI-SCCPD \
+         -lANSI-MTP3D \
+         -lCORE++D \
+         -lASN++D -lASND \
+         -lANSI-UALD \
+         -lSCTPD \
+         -lSUPPORT++D -lCORE++D
+
+LINK_FLAG = -L$(ITS_ROOT)/common/lib -L$(ITS_ROOT)/GSMMAP/lib \
+	    -L$(VENDOR_ROOT)/IntelliNet/lib -L$(ITS_ROOT)/TCAP/lib \
+	    -L$(ITS_ROOT)/SCCP/lib -L$(ITS_ROOT)/MTP3/lib
+
+
+CXXFLAGS := $(CXXFLAGS) -I$(ITS_ROOT)/common/include \
+          -I$(ITS_ROOT)/common/include/asn-cpp \
+          -I$(ITS_ROOT)/GSMMAP/include/itu \
+	  -I$(ITS_ROOT)/TCAP/include \
+	  -I$(ITS_ROOT)/SCCP/include \
+	  -I$(ITS_ROOT)/MTP3/include \
+	  -I$(ITS_ROOT)/MTP2/include \
+	  -DUSE_INTELLINET_STACK     \
+	  -DUSE_SOCKETS \
+	  -DUSE_ANSI_SCCP
+
+
+all: receive$(DBGSUFFIX)
+
+receive$(DBGSUFFIX): $(CXXOBJS)
+	$(CXX) -g $(LDFLAGS) \
+        $(LINK_FLAG) -o receive$(DBGSUFFIX) $(CXXOBJS) \
+        $(ITS_LIBS) $(SOCKLIBS) $(THREADLIBS)
+
+clean:
+	$(RM) $(CXXOBJS) receive$(DBGSUFFIX) *.err .depend
+            
+#
+# get the rules
+#
+include $(ITS_ROOT)/config.rules
+
+

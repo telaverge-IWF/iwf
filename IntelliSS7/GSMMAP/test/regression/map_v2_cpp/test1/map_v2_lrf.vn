@@ -1,0 +1,1284 @@
+
+mAP-DialoguePDU1a MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H,
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU1b MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU1c MAP-DialoguePDU ::= map-open: {
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+mAP-DialoguePDU1d MAP-DialoguePDU ::= map-open: {
+}
+
+
+mAP-DialoguePDU2 MAP-DialoguePDU ::= map-accept: {
+}
+
+
+mAP-DialoguePDU3 MAP-DialoguePDU ::= map-close: {
+}
+
+
+mAP-DialoguePDU4 MAP-DialoguePDU ::= map-refuse: {
+    reason invalidOriginatingReference
+}
+
+
+mAP-DialoguePDU5a MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userSpecificReason: NULL
+}
+
+
+mAP-DialoguePDU5b MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userResourceLimitation: NULL
+}
+
+
+mAP-DialoguePDU5c MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice resourceUnavailable: longTermResourceLimitation
+}
+
+
+mAP-DialoguePDU5d MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice applicationProcedureCancellation: remoteOperationsFailure
+}
+
+
+mAP-DialoguePDU6 MAP-DialoguePDU ::= map-providerAbort: {
+    map-ProviderAbortReason invalidPDU
+}
+
+locationInfo1 LocationInfo ::= roamingNumber: '112233445566778899'H
+locationInfo2 LocationInfo ::= msc-Number:    '112233445566778899'H
+
+
+updateLocationArg1 UpdateLocationArg ::= {
+    imsi '1122334455667788'H,
+    locationInfo locationInfo1,
+    vlr-Number '112233445566778899'H,
+    lmsi '11223344'H
+}
+
+
+updateLocationArg2 UpdateLocationArg ::= {
+    imsi '1122334455667788'H,
+    locationInfo locationInfo2,
+    vlr-Number '112233445566778899'H,
+}
+
+updateLocationRes1 UpdateLocationRes ::= hlr-Number: '112233445566778899'H
+
+
+updateLocationRes2 UpdateLocationRes ::= extensibleUpdateLocationRes: {
+    hlr-Number '112233445566778899'H
+}
+
+
+cancelLocationArg1 CancelLocationArg ::= imsi: '1122334455667788'H
+
+
+cancelLocationArg2 CancelLocationArg ::= imsi: '112233'H
+
+
+cancelLocationArg3 CancelLocationArg ::= imsi-WithLMSI: {
+    imsi '1122334455667788'H,
+    lmsi '11223344'H
+}
+
+
+purgeMS-Arg PurgeMS-Arg ::= { 
+    imsi '1122334455667788'H,
+    vlr-Number '112233445566778899'H
+} 
+
+sendIdentificationRes1 SendIdentificationRes ::= {
+    imsi '1122334455667788'H
+} 
+
+
+sendIdentificationRes2 SendIdentificationRes ::= {
+    imsi '1122334455667788'H,
+    authenticationSetList {
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	}
+    }
+} 
+
+
+sendIdentificationRes3 SendIdentificationRes ::= {
+    imsi '1122334455667788'H,
+    authenticationSetList {
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	},
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	},
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	},
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	},
+	{
+	    rand '11223344556677889900112233445566'H,
+	    sres '11223344'H,
+	    kc   '1122334455667788'H
+	}
+    }
+} 
+
+
+
+prepareHO-Arg1 PrepareHO-Arg ::= {
+}
+
+
+prepareHO-Arg2 PrepareHO-Arg ::= {
+    targetCellId '1122334455'H,
+    ho-NumberNotRequired NULL,
+    bss-APDU {
+	protocolId gsm-BSSMAP,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+prepareHO-Arg3 PrepareHO-Arg ::= {
+    targetCellId '11223344556677'H,
+    ho-NumberNotRequired NULL,
+    bss-APDU { 
+	protocolId gsm-BSSMAP,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+prepareHO-Res1 PrepareHO-Res ::= {
+}
+
+
+prepareHO-Res2 PrepareHO-Res ::= {
+    bss-APDU { 
+	protocolId gsm-BSSMAP,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+prepareHO-Res3 PrepareHO-Res ::= {
+    handoverNumber '1122334455667788990011223344556677889900'H
+}
+
+
+prepareHO-Res4 PrepareHO-Res ::= {
+    handoverNumber '1122334455667788990011223344556677889900'H,
+    bss-APDU { 
+	protocolId gsm-BSSMAP,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+performHO-Arg1 PerformHO-Arg ::= {
+    targetCellId  '1122334455'H,
+    servingCellId '1122334455'H, 
+    channelType '11'H,
+    classmarkInfo '11'H,
+    handoverPriority '11'H,
+    kc '1122334455667788'H
+}
+
+
+performHO-Arg2 PerformHO-Arg ::= {
+    targetCellId  '11223344556677'H,
+    servingCellId '11223344556677'H,
+    channelType '11223344556677889900'H,
+    classmarkInfo '1122'H,
+    handoverPriority '11'H,
+    kc '1122334455667788'H
+}
+
+
+performHO-Arg3 PerformHO-Arg ::= {
+    targetCellId  '11223344556677'H,
+    servingCellId '11223344556677'H,
+    channelType '11'H,
+    classmarkInfo '1122'H
+}
+
+
+prepareSubsequentHO-Arg PrepareSubsequentHO-Arg ::= {
+    targetCellId  '1122334455'H,
+    targetMSC-Number '1122334455667788990011223344556677889900'H,
+    bss-APDU {
+	protocolId gsm-BSSMAP,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+performSubsequentHO-Arg PerformSubsequentHO-Arg ::= {
+    targetCellId  '1122334455'H,
+    servingCellId '1122334455'H,
+    targetMSC-Number '1122334455667788990011223344556677889900'H,
+    classmarkInfo '1122'H
+}
+
+sendAuthenticationInfoArg1 SendAuthenticationInfoArg ::= '112233'H
+
+
+sendAuthenticationInfoArg2 SendAuthenticationInfoArg ::= '1122334455667788'H
+
+
+
+
+
+sendAuthenticationInfoRes1 SendAuthenticationInfoRes ::= {
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    }
+}
+
+
+sendAuthenticationInfoRes2 SendAuthenticationInfoRes ::= {
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    },
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    },
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    },
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    },
+    {
+	rand '11223344556677889900112233445566'H,
+	sres '11223344'H,
+	kc   '1122334455667788'H
+    }
+}
+
+equipmentStatus1 EquipmentStatus ::= whiteListed
+
+
+equipmentStatus2 EquipmentStatus ::= blackListed
+
+
+equipmentStatus3 EquipmentStatus ::= greyListed
+
+subscriberId1 SubscriberId ::= imsi: '112233'H
+subscriberId2 SubscriberId ::= imsi: '1122334455667788'H
+subscriberId3 SubscriberId ::= tmsi: '11'H
+subscriberId4 SubscriberId ::= tmsi: '11223344'H
+
+
+sendParametersArg1 SendParametersArg ::= {
+    subscriberId subscriberId1,
+    requestParameterList {
+	requestIMSI
+    }
+}
+
+
+sendParametersArg2 SendParametersArg ::= {
+    subscriberId subscriberId2,
+    requestParameterList {
+	requestIMSI,
+	requestKi
+    }
+}
+
+
+sendParametersArg3 SendParametersArg ::= {
+    subscriberId subscriberId3,
+    requestParameterList {
+	requestIMSI,
+	requestSubscriberData
+    }
+}
+
+
+sendParametersArg4 SendParametersArg ::= {
+    subscriberId subscriberId4,
+    requestParameterList {
+	requestAuthenticationSet
+    }
+}
+
+insertSubscriberDataArg1 SubscriberData ::= {
+}
+
+
+insertSubscriberDataArg2 InsertSubscriberDataArg ::= {
+    imsi '112233'H,
+}
+
+
+insertSubscriberDataArg3 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '1122334455667788990011223344556677889900'H,
+    category '11'H,
+    subscriberStatus operatorDeterminedBarring,
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			bearerService: '11'H, 
+			teleservice: '22'H
+
+		    }
+		}
+
+	    },
+	    cug-FeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		}
+	    }
+	},
+	ss-Data: {
+	    ss-Code '11'H,
+	    ss-Status '11'H,
+	    ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	    basicServiceGroupList {
+		bearerService: '11'H,
+		teleservice: '22'H
+	    }
+	}
+    },
+    odb-Data {
+	odb-GeneralData {ss-AccessBarred},
+	odb-HPLMN-Data {plmn-SpecificBarringType4}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H
+    }
+}
+
+
+insertSubscriberDataArg4 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '11'H,
+    category '11'H,
+    subscriberStatus serviceGranted,
+    bearerServiceList {
+	'11'H
+    },
+    teleserviceList {
+	'11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '11'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    callBarringFeatureList {
+		{
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 0,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options noCUG-Restrictions
+		}
+	    }
+	},
+	ss-Data: {
+	}
+    },
+    odb-Data {
+	odb-GeneralData {allOG-CallsBarred}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H
+    }
+}
+
+
+insertSubscriberDataRes1 InsertSubscriberDataRes ::= {
+}
+
+
+insertSubscriberDataRes2 InsertSubscriberDataRes ::= {
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    odb-GeneralData {ss-AccessBarred},
+    regionalSubscriptionResponse regionalSubscNotSupported
+}
+
+
+deleteSubscriberDataArg1 DeleteSubscriberDataArg ::= { 
+    imsi '112233'H
+} 
+
+
+deleteSubscriberDataArg2 DeleteSubscriberDataArg ::= { 
+    imsi '1122334455667788'H,
+    basicServiceList {
+	bearerService: '11'H,
+	teleservice: '22'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier '1122'H
+} 
+
+deleteSubscriberDataRes1 DeleteSubscriberDataRes ::= {
+}
+
+
+deleteSubscriberDataRes2 DeleteSubscriberDataRes ::= {
+    regionalSubscriptionResponse regionalSubscNotSupported
+}
+
+resetArg1 ResetArg ::= {
+    hlr-Number '11'H
+}
+
+
+resetArg2 ResetArg ::= {
+    networkResource rss,
+    hlr-Number '112233445566778899'H,
+    hlr-List {
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H
+    }
+}
+
+restoreDataArg1 RestoreDataArg ::= {
+    imsi '112233'H
+}
+
+
+restoreDataArg2 RestoreDataArg ::= {
+    imsi '1122334455667788'H,
+    lmsi '11223344'H
+}
+
+restoreDataRes1 RestoreDataRes ::= {
+    hlr-Number '11'H
+}
+
+
+restoreDataRes2 RestoreDataRes ::= {
+    hlr-Number '112233445566778899'H,
+    msNotReachable NULL
+}
+
+
+activateTraceModeArg1 ActivateTraceModeArg ::= {
+    traceReference '11'H,
+    traceType 0
+}
+
+
+activateTraceModeArg2 ActivateTraceModeArg ::= {
+    imsi '1122334455667788'H,
+    traceReference '1122'H,
+    traceType 255,
+    omc-Id '1122334455667788990011223344556677889900'H
+}
+
+
+deactivateTraceModeArg1 DeactivateTraceModeArg ::= {
+    traceReference '11'H
+}
+
+
+deactivateTraceModeArg2 DeactivateTraceModeArg ::= {
+    imsi '1122334455667788'H,
+    traceReference '1122'H
+}
+
+
+traceSubscriberActivityArg1 TraceSubscriberActivityArg ::= {
+    traceReference '11'H,
+    traceType 0
+}
+
+
+traceSubscriberActivityArg2 TraceSubscriberActivityArg ::= {
+    imsi '1122334455667788'H,
+    traceReference '1122'H,
+    traceType 255,
+    omc-Id '1122334455667788990011223344556677889900'H,
+    callReference '112233'H
+}
+
+
+noteInternalHO-Arg1 NoteInternalHO-Arg ::= {
+    handoverType interBSS
+}
+
+
+noteInternalHO-Arg2 NoteInternalHO-Arg ::= {
+    handoverType intraBSS,
+    targetCellId '11223344556677'H,
+    channelId {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+sendRoutingInfoArg1 SendRoutingInfoArg ::= {
+    msisdn '11'H
+}
+
+
+sendRoutingInfoArg2 SendRoutingInfoArg ::= {
+    msisdn '112334455667788990011223344556677889900'H,
+    cug-CheckInfo {
+	cug-Interlock '11223344'H,
+	cug-OutgoingAccess NULL
+    },
+    numberOfForwarding 5,
+    networkSignalInfo {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+sendRoutingInfoRes1 SendRoutingInfoRes ::= {
+    imsi '112233'H,
+    routingInfo roamingNumber: '11'H
+}
+
+
+sendRoutingInfoRes2 SendRoutingInfoRes ::= {
+    imsi '1122334455667788'H,
+    routingInfo forwardingData: {
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '11'H
+    },
+    cug-CheckInfo {
+	cug-Interlock '11223344'H,
+	cug-OutgoingAccess NULL
+    }
+}
+
+
+provideRoamingNumberArg1 ProvideRoamingNumberArg ::= {
+    imsi '112233'H
+}
+
+
+provideRoamingNumberArg2 ProvideRoamingNumberArg ::= {
+    imsi '1122334455667788'H,
+    msc-Number '112233445566778899'H,
+    msisdn '112233445566778899'H,
+    previousRoamingNumber '112233445566778899'H,
+    lmsi '11223344'H,
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    },
+    networkSignalInfo {
+	protocolId ets-300102-1,
+	signalInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+    }
+}
+
+
+registerSS-Arg1 RegisterSS-Arg ::= {
+    ss-Code '11'H
+}
+
+
+registerSS-Arg2 RegisterSS-Arg ::= {
+    ss-Code '11'H,
+    basicService bearerService: '11'H,
+    forwardedToNumber '11'H,
+    forwardedToSubaddress '11'H,
+    noReplyConditionTime 30
+}
+
+
+registerSS-Arg3 RegisterSS-Arg ::= {
+    ss-Code '11'H,
+    basicService teleservice: '11'H,
+    forwardedToNumber '1122334455667788990011223344556677889900'H,
+    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+    noReplyConditionTime 30
+}
+
+
+sS-ForBS-Code1 SS-ForBS-Code ::= {
+    ss-Code '11'H
+}
+
+
+sS-ForBS-Code2 SS-ForBS-Code ::= {
+    ss-Code '22'H,
+    basicService bearerService: '22'H
+}
+
+
+sS-ForBS-Code3 SS-ForBS-Code ::= {
+    ss-Code '33'H,
+    basicService teleservice: '33'H
+}
+
+interrogateSS-Res1 InterrogateSS-Res ::= ss-Status: '11'H
+
+
+interrogateSS-Res2a InterrogateSS-Res ::= forwardedToNumber: '11'H
+
+
+interrogateSS-Res2b InterrogateSS-Res ::= forwardedToNumber: '112233445566778899'H
+
+
+interrogateSS-Res3a InterrogateSS-Res ::= basicServiceGroupList: {
+    bearerService: '11'H
+}
+
+interrogateSS-Res3b InterrogateSS-Res ::= basicServiceGroupList: {
+    bearerService: '11'H,
+    teleservice: '22'H
+}
+
+
+interrogateSS-Res4a InterrogateSS-Res ::= forwardingFeatureList: {
+    {
+    }
+}
+
+
+interrogateSS-Res4b InterrogateSS-Res ::= forwardingFeatureList: {
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    },
+    {
+    }
+}
+
+
+interrogateSS-Res4c InterrogateSS-Res ::= forwardingFeatureList: {
+    {
+	basicService teleservice: '11'H,
+	ss-Status '22'H,
+	forwardedToNumber '11'H,
+	forwardedToSubaddress '22'H,
+	forwardingOptions '11'H,
+	noReplyConditionTime 30
+    },
+    {
+	basicService teleservice: '11'H,
+	ss-Status '22'H,
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '22'H,
+	noReplyConditionTime 30
+    }
+}
+
+
+interrogateSS-Res5a InterrogateSS-Res ::= cli-RestrictionInfo: {
+    ss-Status '11'H
+}
+
+
+interrogateSS-Res5b InterrogateSS-Res ::= cli-RestrictionInfo: {
+    ss-Status '22'H,
+    cliRestrictionOption temporaryDefaultAllowed
+}
+
+
+sS-UserData1 SS-UserData ::= "1"
+
+
+sS-UserData2 SS-UserData ::= "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890"
+
+uSSD-Arg1 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11'H
+}
+
+
+uSSD-Arg2 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+
+uSSD-Res1 USSD-Res ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String '11'H
+}
+
+
+uSSD-Res2 USSD-Res ::= {
+    ussd-DataCodingScheme '22'H,
+    ussd-String '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+guidanceInfo1 GuidanceInfo ::= enterPW
+
+
+guidanceInfo2 GuidanceInfo ::= enterNewPW
+
+
+guidanceInfo3 GuidanceInfo ::= enterNewPW-Again
+
+
+guidanceInfo4 GuidanceInfo ::= badPW-TryAgain
+
+guidanceInfo5 GuidanceInfo ::= badPW-FormatTryAgain
+
+beginSubscriberActivityArg1 BeginSubscriberActivityArg ::= {
+    imsi '112233'H,
+    originatingEntityNumber '11'H
+}
+
+
+beginSubscriberActivityArg2 BeginSubscriberActivityArg ::= {
+    imsi '1122334455667788'H,
+    originatingEntityNumber '112233445566778899'H
+}
+routingInfoForSM-Arg1 RoutingInfoForSM-Arg ::= {
+    msisdn '11'H,
+    sm-RP-PRI FALSE,
+    serviceCentreAddress '11'H
+}
+
+
+routingInfoForSM-Arg2 RoutingInfoForSM-Arg ::= {
+    msisdn '112233445566778899'H,
+    sm-RP-PRI TRUE,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    teleservice '11'H
+}
+routingInfoForSM-Res1 RoutingInfoForSM-Res ::= {
+    imsi '112233'H,
+    locationInfoWithLMSI {
+	locationInfo roamingNumber: '11'H
+
+    }
+}
+
+
+routingInfoForSM-Res2 RoutingInfoForSM-Res ::= {
+    imsi '1122334455667788'H,
+    locationInfoWithLMSI {
+	locationInfo msc-Number: '112233445566778899'H,
+	lmsi '11223344'H
+    },
+    mwd-Set TRUE
+}
+forwardSM-Arg1a ForwardSM-Arg ::= {
+    sm-RP-DA lmsi: '11223344'H,
+    sm-RP-OA msisdn: '11'H,
+    sm-RP-UI '11'H
+}
+
+
+forwardSM-Arg1b ForwardSM-Arg ::= {
+    sm-RP-DA imsi: '112233'H,
+    sm-RP-OA serviceCentreAddressOA: '11'H,
+    sm-RP-UI '11'H
+}
+
+
+forwardSM-Arg1c ForwardSM-Arg ::= {
+    sm-RP-DA roamingNumber: '11'H,
+    sm-RP-OA noSM-RP-OA: NULL,
+    sm-RP-UI '11'H
+}
+
+
+forwardSM-Arg1d ForwardSM-Arg ::= {
+    sm-RP-DA serviceCentreAddressDA: '11'H,
+    sm-RP-OA noSM-RP-OA: NULL,
+    sm-RP-UI '11'H
+}
+forwardSM-Arg2a ForwardSM-Arg ::= {
+    sm-RP-DA imsi: '1122334455667788'H,
+    sm-RP-OA msisdn: '112233445566778899'H,
+    sm-RP-UI '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    moreMessagesToSend NULL
+}
+
+
+forwardSM-Arg2b ForwardSM-Arg ::= {
+    sm-RP-DA roamingNumber: '112233445566778899'H,
+    sm-RP-OA serviceCentreAddressOA: '1122334455667788990011223344556677889900'H,
+    sm-RP-UI '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    moreMessagesToSend NULL
+}
+
+
+forwardSM-Arg2c ForwardSM-Arg ::= {
+    sm-RP-DA serviceCentreAddressDA: '1122334455667788990011223344556677889900'H,
+    sm-RP-OA noSM-RP-OA: NULL,
+    sm-RP-UI '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    moreMessagesToSend NULL
+}
+reportSM-DeliveryStatusArg1 ReportSM-DeliveryStatusArg ::= {
+    msisdn '11'H,
+    serviceCentreAddress '11'H
+}
+
+
+reportSM-DeliveryStatusArg2 ReportSM-DeliveryStatusArg ::= {
+    msisdn '112233445566778899'H,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    sm-DeliveryOutcome successfulTransfer
+}
+
+alertServiceCentreArg1 AlertServiceCentreArg ::= {
+    msisdn '11'H,
+    serviceCentreAddress '11'H
+}
+
+
+alertServiceCentreArg2 AlertServiceCentreArg ::= {
+    msisdn '112233445566778899'H,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H
+}
+informServiceCentreArg1 InformServiceCentreArg ::= {
+}
+
+
+informServiceCentreArg2 InformServiceCentreArg ::= {
+    storedMSISDN '112233445566778899'H,
+    mw-Status {sc-AddressNotIncluded, mnrf-Set, mcef-Set}
+}
+readyForSM-Arg1 ReadyForSM-Arg ::= {
+    imsi '112233'H,
+    alertReason ms-Present
+}
+
+
+readyForSM-Arg2 ReadyForSM-Arg ::= {
+    imsi '1122334455667788'H,
+    alertReason memoryAvailable
+}
+roamingNotAllowedCause1 RoamingNotAllowedCause ::= plmnRoamingNotAllowed
+
+
+roamingNotAllowedCause2 RoamingNotAllowedCause ::= operatorDeterminedBarring
+callBarringCause1 CallBarringCause ::= barringServiceActive
+
+
+callBarringCause2 CallBarringCause ::= operatorBarring
+cUG-RejectCause1 CUG-RejectCause ::= incomingCallsBarredWithinCUG
+
+
+cUG-RejectCause2 CUG-RejectCause ::= calledPartySS-InteractionViolation
+
+sS-IncompatibilityCause1 SS-IncompatibilityCause ::= {
+}
+
+
+sS-IncompatibilityCause2 SS-IncompatibilityCause ::= {
+    ss-Code '11'H,
+    basicService bearerService: '11'H,
+    ss-Status '11'H
+}
+
+
+sS-IncompatibilityCause3 SS-IncompatibilityCause ::= {
+    ss-Code '11'H,
+    basicService teleservice: '22'H,
+    ss-Status '22'H
+}
+pW-RegistrationFailureCause1 PW-RegistrationFailureCause ::= undetermined
+
+
+pW-RegistrationFailureCause2 PW-RegistrationFailureCause ::= newPasswordsMismatch
+sM-DeliveryFailureCause1 SM-DeliveryFailureCause ::=
+		sm-DeliveryFailureCauseWithDiagnostic: {
+	sm-EnumeratedDeliveryFailureCause memoryCapacityExceeded,
+	diagnosticInfo '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+
+
+sM-DeliveryFailureCause2 SM-DeliveryFailureCause ::=
+		sm-EnumeratedDeliveryFailureCause: subscriberNotSC-Subscriber
+

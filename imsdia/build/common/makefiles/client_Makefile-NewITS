@@ -1,0 +1,106 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+#     FILE: Makefile                                                       #
+#                                                                          #
+############################################################################
+#                                                                          #
+# $Id: client_Makefile-NewITS,v 3.1 2008/03/31 10:33:16 nvijikumar Exp $ 
+#
+# $Log: client_Makefile-NewITS,v $
+# Revision 3.1  2008/03/31 10:33:16  nvijikumar
+# Start GA 3.0
+#
+# Revision 1.4  2008/03/27 11:47:56  hbhatnagar
+# Converting 2.1 branch to CURRENT
+#
+# Revision 1.2.6.1  2007/03/13 09:31:13  rrath
+# Changes for clean-up
+#
+# Revision 1.2  2006/12/06 09:11:00  chandral
+# Modified Build scripts as GA Rel1.2
+#
+# Revision 1.5  2006/07/31 05:00:09  nvijikumar
+# Changes for new dir structure.
+#
+# Revision 1.4  2006/06/14 05:55:33  nvijikumar
+# included rfro application.
+#
+# Revision 1.3  2006/05/19 06:11:55  nvijikumar
+#
+# removed val library
+#
+# Revision 1.2  2006/05/18 11:18:55  nvijikumar
+# Client makefile changes
+#
+# Revision 1.1  2006/05/07 05:11:47  nvijikumar
+# Solaris and linux common base line Makefile
+#
+############################################################################
+
+include	$(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) -DDUMP $(ITS_DEFINES)
+
+CXXFLAGS:=$(CXXFLAGS) -g -I./ -DUNIX \
+        -I../include \
+	-I$(ITS_ROOT)/include \
+	-I$(IMS_ROOT)/include \
+	-I$(IMS_ROOT)/api/include 
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+          -lcxdxapi$(DBGSUFFIX) \
+          -lshapi$(DBGSUFFIX)   \
+          -lgqgqapi$(DBGSUFFIX) \
+	-lnasreqapi$(DBGSUFFIX) \
+          -lrfroapi$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+LIBS_OS:= -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:= -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),linux)
+LIBS_OS:= $(IMS_LIBS) \
+         -ldiaval$(DBGSUFFIX) \
+         -lIDSClient$(DBGSUFFIX)
+endif
+
+LIBS:= -L$(IMS_ROOT)/api/lib  \
+        $(LIBS_OS) 
+
+OBJS:= app.o sample_base.o sample_cxdx.o sample_sh.o sample_gq.o sample_rfro.o app_main.o
+
+# Restrict the user to give explicit targets
+all: ../bin/sampleClient$(DBGSUFFIX)
+
+../bin/sampleClient$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o \
+	$@ $(OBJS) $(LIBS) -lpthread $(SOCKLIBS) $(SYSLIBS) -ldl
+
+clean:
+	$(RM) ../bin/sampleClient$(DBGSUFFIX): $(OBJS) 
+

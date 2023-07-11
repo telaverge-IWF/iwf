@@ -1,0 +1,13 @@
+#!/bin/sh
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../lib:$ITS_ROOT/common/lib:/usr/local/lib
+
+export LD_LIBRARY_PATH
+rm core.*
+
+dmcTest
+
+
+exit 0
+
+

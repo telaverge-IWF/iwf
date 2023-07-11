@@ -1,0 +1,12 @@
+
+TTC TCAP Module :
+   tt_get_gen_cfg      TCAP Get General Config
+   tt_set_gen_cfg      TCAP Set General Config
+   tt_get_tmr          TCAP Get Timers
+   tt_set_tmr          TCAP Set Timers
+   tt_get_behavior     TCAP Get Behaviors
+   tt_set_behavior     TCAP Set Behaviors
+   tt_get_gen_peg      TCAP Get Peg
+   tt_clr_gen_peg      TCAP Clear Peg
+
+For details about any command use "help <command name>"

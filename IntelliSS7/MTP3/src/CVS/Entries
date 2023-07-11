@@ -1,0 +1,20 @@
+/.cvsignore/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/Makefile/9.5/Wed Jun  4 06:34:54 2008//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/build.targets/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/gendoc.in/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/generate/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/m3ua.c/9.19.2.1.4.6.4.1.20.2/Mon Sep 15 10:57:40 2014//TB-IWF-HP-0400-00
+/m3ua.dsp/9.2/Fri May  6 09:30:47 2005//TB-IWF-HP-0400-00
+/m3ua.dsw/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/m3ua_config_mgnt.c/1.5/Wed Jun  4 06:34:54 2008//TB-IWF-HP-0400-00
+/mtp3.c/9.1.168.1/Tue Sep 16 09:34:53 2014//TB-IWF-HP-0400-00
+/mtp3.dsp/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/mtp3.dsw/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:52:17 2005//TB-IWF-HP-0400-00
+/tandema.ide/9.1/Wed Mar 23 12:52:17 2005/-kb/TB-IWF-HP-0400-00
+/tandemi.ide/9.1/Wed Mar 23 12:52:17 2005/-kb/TB-IWF-HP-0400-00
+/tandemp.ide/9.1/Wed Mar 23 12:52:17 2005/-kb/TB-IWF-HP-0400-00
+/tmake/9.1/Wed Mar 23 12:52:18 2005//TB-IWF-HP-0400-00
+/win32.mak/9.1/Wed Mar 23 12:52:18 2005//TB-IWF-HP-0400-00
+D

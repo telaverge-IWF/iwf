@@ -1,0 +1,25 @@
+targets: $(LIBDIR)$(JSON_AR) dirs
+
+JSON_DEPENDS := $(JSON_OFILES:%.o=$(OBJDIR)%.d)
+JSON_OFILES := $(JSON_OFILES:%.o=$(OBJDIR)%.o)
+$(LIBDIR)$(JSON_AR): $(JSON_DEPENDS) $(JSON_OFILES)
+	$(AR) $@ $(JSON_OFILES)
+
+-include $(JSON_DEPENDS)
+
+
+dirs:
+	@for d in ${TARGETS_DIR}; do \
+		$(MAKE) -C $${d}; \
+	done
+
+targets.clean: JSON.clean dirsclean
+
+JSON.clean:
+	-rm -f $(LIBDIR)$(JSON_AR) $(JSON_OFILES) $(JSON_DEPENDS)
+
+dirsclean:
+	@for d in ${TARGETS_DIR}; do \
+		$(MAKE) -C $${d} clean; \
+	done
+

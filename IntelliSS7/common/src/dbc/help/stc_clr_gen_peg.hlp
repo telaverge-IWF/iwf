@@ -1,0 +1,38 @@
+
+ITU STC Command
+
+SYNOPSIS
+    stc_clr_gen_peg <pg>
+
+DESCRIPTION
+    This command clears a given STC peg type to 0.
+
+PARAMETERS
+
+    #pg         - peg id to be cleared
+
+                - ALL/all for All STC PEGS Values
+
+NOTE
+    The STC pegs ids are:
+
+    PEG_STC_IN_SERVICE                       0
+    PEG_STC_OUT_OF_SERVICE                   1
+    PEG_STC_CONGESTION                       2
+    PEG_STC_TRANSFER_REQ                     3
+    PEG_STC_TRANSFER_IND                     4
+
+    ALL_STC_PEGS                            99
+
+
+
+EXAMPLE
+
+>> stc_clr_gen_peg 4
+Clearing the Pegs for PEG_STC_TRANSFER_IND Now
+
+>> stc_clr_gen_peg all
+Clearing All ITU STC Pegs for  Now
+
+
+

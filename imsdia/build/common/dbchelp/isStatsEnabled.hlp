@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    isStatsEnabled
+
+DESCRIPTION
+    Prints Diameter Stack Statistics  Enabled or Not.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+
+      >> isStatsEnabled
+         ******** Statistics Disabled ********

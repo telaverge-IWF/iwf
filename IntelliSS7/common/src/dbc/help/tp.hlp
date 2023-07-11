@@ -1,0 +1,12 @@
+
+PRC TCAP Module :
+   tp_get_gen_cfg      TCAP Get General Config
+   tp_set_gen_cfg      TCAP Set General Config
+   tp_get_tmr          TCAP Get Timers
+   tp_set_tmr          TCAP Set Timers
+   tp_get_behavior     TCAP Get Behaviors
+   tp_set_behavior     TCAP Set Behaviors
+   tp_get_gen_peg      TCAP Get Peg
+   tp_clr_gen_peg      TCAP Clear Peg
+
+For details about any command use "help <command name>"

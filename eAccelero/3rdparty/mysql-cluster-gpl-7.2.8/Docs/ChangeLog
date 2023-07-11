@@ -1,0 +1,131 @@
+------------------------------------------------------------
+revno: 3977
+tags: clone-mysql-5.5.27-ndb-7.2.8-src-build
+committer: Martin Skold <Martin.Skold@oracle.com>
+branch nick: mysql-5.5-cluster-7.2
+timestamp: Thu 2012-08-16 17:04:01 +0200
+message:
+  Disabled new flaky test cases
+------------------------------------------------------------
+revno: 3976
+committer: Martin Skold <Martin.Skold@oracle.com>
+branch nick: mysql-5.5-cluster-7.2
+timestamp: Thu 2012-08-16 17:01:48 +0200
+message:
+  Bug#12623923  SERVER CAN CRASH AFTER FAILURE TO CREATE PRIMARY KEY WITH INNODB TABLES: Merged in main line patch, but it only fixes the scenario where indexes need to be dropped to rollback DDL statement, if indexes have been dropped they need to be put back, dodgy code. If engine doesn't handle this internally then it should declare it cannot handle multiple changes in on DDL command. Disable test case since it doesn't work with online alter implementation
+------------------------------------------------------------
+revno: 3975
+committer: Ole John Aske <ole.john.aske@oracle.com>
+branch nick: mysql-5.5-cluster
+timestamp: Tue 2012-08-14 13:23:36 +0200
+message:
+  Fix for Bug#14489398 CLUSTER BACKUP FAILS WHEN USING NDBMTD AND CONFIGURED MULTIPLE LQHS
+  
+  Fix regression introduced by push:
+  
+  3923 Ole John Aske	2012-05-23
+        This is the improved 'save_mem.patch' from Mikael R. patch set
+  
+  That push tried to save memory used for interthread communication buffers
+  by not allocated buffers between those threads which was assumed to not communicate.
+  LDM <-> LDM communication was one of the places where such buffers where removed.
+  
+  However, the BACKUP-block is part of the LDM thread, and during backup the 
+  first BACKUP instance in LDM thread#1 will act as client/coordinator. Thus
+  it *will* communicate with other LDM threads!
+  
+  This fix introduce special handling of LDM thread#1, and 'opens up' communication
+  between that thread and other LDM threads. Instead of writing a completely new
+  testcase to cover this fix, I have introduced 'ndb_restore_misc.cnf' which overrides
+  'MaxNoOfExecutionThreads=4' - Such that at least one of the existing backup-restore
+  tests are run with multiple LDM threads.
+  
+  If the BACKUP is later made full multithreaded, the changes to mt.cpp in
+  this patch should be reverted.
+------------------------------------------------------------
+revno: 3974 [merge]
+committer: Frazer Clement <frazer.clement@oracle.com>
+branch nick: mysql-5.5-cluster
+timestamp: Mon 2012-08-13 16:19:55 +0100
+message:
+  Merge 7.1->7.2
+    ------------------------------------------------------------
+    revno: 2555.755.61 [merge]
+    committer: Frazer Clement <frazer.clement@oracle.com>
+    branch nick: mysql-5.1-telco-7.1
+    timestamp: Mon 2012-08-13 16:06:12 +0100
+    message:
+      Merge 7.0->7.1
+        ------------------------------------------------------------
+        revno: 2555.752.48 [merge]
+        committer: Frazer Clement <frazer.clement@oracle.com>
+        branch nick: mysql-5.1-telco-7.0
+        timestamp: Mon 2012-08-13 16:04:51 +0100
+        message:
+          Merge 6.3->7.0
+            ------------------------------------------------------------
+            revno: 2555.760.6
+            committer: Frazer Clement <frazer.clement@oracle.com>
+            branch nick: mysql-5.1-telco-6.3
+            timestamp: Mon 2012-08-13 16:00:28 +0100
+            message:
+              Fix compile failure
+------------------------------------------------------------
+revno: 3973 [merge]
+committer: Frazer Clement <frazer.clement@oracle.com>
+branch nick: mysql-5.5-cluster
+timestamp: Mon 2012-08-13 15:03:42 +0100
+message:
+  Merge 7.1->7.2
+    ------------------------------------------------------------
+    revno: 2555.755.60 [merge]
+    committer: Frazer Clement <frazer.clement@oracle.com>
+    branch nick: mysql-5.1-telco-7.1
+    timestamp: Mon 2012-08-13 14:39:58 +0100
+    message:
+      Merge 7.0->7.1
+        ------------------------------------------------------------
+        revno: 2555.752.47 [merge]
+        committer: Frazer Clement <frazer.clement@oracle.com>
+        branch nick: mysql-5.1-telco-7.0-compile
+        timestamp: Mon 2012-08-13 14:03:29 +0100
+        message:
+          Merge 6.3->7.0
+            ------------------------------------------------------------
+            revno: 2555.760.5
+            committer: Frazer Clement <frazer.clement@oracle.com>
+            branch nick: mysql-5.1-telco-6.3
+            timestamp: Mon 2012-08-13 12:03:25 +0100
+            message:
+              Bug #14389746 INCOMPLETE REDO METADATA RELOAD LEADS TO REDO EXHAUSTION
+              
+              Fix problem with redo log metadata reload at node or system restart.
+              
+              The redo metadata reload mechanism is modified to avoid reading invalid
+              data.  This avoids later problems when iterating over this metadata. 
+              
+              A new test program (testRedo) is created, and added to the daily-basic 
+              suite.
+------------------------------------------------------------
+revno: 3972 [merge]
+committer: Martin Skold <Martin.Skold@oracle.com>
+branch nick: mysql-5.5-cluster-7.2
+timestamp: Mon 2012-08-13 11:33:22 +0200
+message:
+  Merged in 5.5.27
+    ------------------------------------------------------------
+    revno: 3069.174.80 [merge]
+    tags: mysql-5.5.27, clone-5.5.27-build
+    committer: Bjorn Munch <bjorn.munch@oracle.com>
+    branch nick: mysql-5.5
+    timestamp: Wed 2012-07-11 15:34:38 +0200
+    message:
+      Empty version change upmerge
+        ------------------------------------------------------------
+        revno: 2661.811.45
+        author: bjorn.munch@oracle.com
+        committer: Bjorn Munch <bjorn.munch@oracle.com>
+        branch nick: mysql-5.1
+        timestamp: Wed 2012-07-11 15:18:34 +0200
+        message:
+          Raise version number after cloning 5.1.65

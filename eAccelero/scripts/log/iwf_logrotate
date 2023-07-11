@@ -1,0 +1,22 @@
+/var/log/iwf/iwf_console_out.log
+/var/log/iwf/iwf_console_err.log
+/var/log/iwf/cmgr.log
+/var/log/iwf/cli.log
+/var/log/iwf/iwf_debug.log
+/var/log/iwf/iwf_error.log
+/var/log/iwf/avamgr_debug.log
+/var/log/iwf/avamgr_error.log
+/var/log/iwf/iwf_sigtran.log{
+    rotate 25
+    size 50M
+    compress
+    delaycompress
+    copytruncate
+    missingok
+    notifempty
+    firstaction
+    /opt/diametriq/iwf/scripts/archive.sh
+    endscript
+}
+ 
+ 

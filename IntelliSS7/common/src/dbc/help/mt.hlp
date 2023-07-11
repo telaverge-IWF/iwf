@@ -1,0 +1,24 @@
+
+
+TTC MTP3 Module :
+    mt_start              MTP3 Start Link Alignment
+    mt_get_gen_cfg        MTP3 Get General Config
+    mt_set_gen_cfg        MTP3 Set General Config
+    mt_deact_link         MTP3 Deactivate Link
+    mt_act_link           MTP3 Activate Link
+    mt_deact_ls           MTP3 Deactivate Link Set
+    mt_act_ls             MTP3 Activate Link Set
+    mt_get_link           MTP3 Get Info on specific link
+    mt_get_ls             MTP3 Dump Link Set
+    mt_get_gen_peg        MTP3 Get General Peg
+    mt_get_link_peg       MTP3 Get Link Peg
+    mt_clr_gen_peg        MTP3 Clear General Peg
+    mt_clr_link_peg       MTP3 Clear link Peg
+    mt_set_rpc            MTP3 Set Remote Point code
+    mt_rem_rpc            MTP3 Remove Remote Point code
+    mt_get_all_rpc        MTP3 Get All Remote Point codes
+    mt_get_all_lpc        MTP3 Get All Local Point codes
+    mt_shutdown           MTP3 Gracefully Shutdown node
+
+For details about any command use "help <command name>"
+

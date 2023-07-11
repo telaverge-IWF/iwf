@@ -1,0 +1,608 @@
+/**
+ * ETSI TS 129 209 V6.4.0 (2005-09) - Gq interface --Diameter Based Protocol
+ * ETSI TS 183 017 V1.1.1 (2006-03) - Gq' interface --Diameter Based Protocol
+ * Gq interface between an AF(Application Function) and the PDF(Policy Decission Function)
+ * Gq' interface between an AF(Application Function) and the SPDF(Service Policy Decission Function)
+ *
+ *
+ * Application Id in diameter header is zero for Gq and Gq' interfaces
+ * Auth-Application-Id must be set to 167777222 to discriminate between Base Protocol and GqGq' messages
+ */
+
+
+
+
+protocol diameter.gqgqprime.v6_gqprime < 0 10415: "ETSI TS 129 209 V6.4.0 (2005-09)" >;
+
+
+//////////////////
+// Derived AVPs //
+//////////////////
+
+/**
+ * The Session-Abort-Cause AVP (AVP code 500) is of type Enumerated, and determines the cause of a session abort
+ * request or of an RAR indicating a PDP context release. The following values are defined:
+ * <ul>
+ * <li> BEARER_RELEASED (0)<br>
+ * This value is used when the bearer has been deactivated as a result from normal signalling handling. For GPRS
+ * the bearer refers to the PDP Context.
+ * <li> INSUFFICIENT_SERVER_RESOURCES (1)<br>
+ * This value is used to indicate that the server is overloaded and needs to abort the session.
+ * <li> INSUFFICIENT_BEARER_RESOURCES (2)<br>
+ * This value is used when the bearer has been deactivated due to insufficient bearer resources at a transport
+ * gateway (e.g. GGSN for GPRS).
+ * </ul>
+ */
+Abort-Cause                                       ::=  500 /*6.5.1*/  Enumerated  M,V|P| |    |Y;
+
+/**
+ * The Access-Network-Charging-Address AVP (AVP code 501) is of type Address, and it indicates the IP Address of the
+ * network entity within the access network performing charging (e.g. the GGSN IP address). The
+ * Access-Network-Charging-Address AVP should not be forwarded over an inter-operator interface.
+ */
+Access-Network-Charging-Address                   ::=  501 /*6.5.2*/  Address     M,V|P| |    |Y;
+
+/**
+ * The Access-Network-Charging-Identifier AVP (AVP code 502) is of type Grouped, and contains a charging identifier
+ * (e.g. GCID) within the Access-Network-Charging-Identifier-Value AVP along with information about the flows
+ * transported within the corresponding bearer within the Flows AVP. If no Flows AVP is provided, the
+ * <p>
+ * Access-Network-Charging-Identifier-Value applies for all flows within the AF session.
+ * The Access-Network-Charging-Identifier AVP can be sent from the PDF to the AF. The AF may use this information
+ * for charging correlation with session layer.
+ */
+Access-Network-Charging-Identifier                ::=  502 /*6.5.3*/  Grouped     M,V|P| |    |Y;
+
+/**
+ * The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString, and contains a charging
+ * identifier (e.g. GCID).
+ */
+Access-Network-Charging-Identifier-Value          ::=  503 /*6.5.4*/  OctetString M,V|P| |    |Y;
+
+/**
+ * The AF-Application-identifier AVP (AVP code 504) is of type OctetString, and it contains information that identifies
+ * the particular service that the AF service session belongs to. This information may be used by the PDF to differentiate
+ * QoS for different application services. For example the AF-Application-Identifier may be used as additional
+ * information together with the Media-Type AVP when the QoS class for the bearer authorization at the Go interface is
+ * selected. The AF-Application-Identifier may be used also to complete the QoS authorization with application specific
+ * default settings in the PDF if the AF does not provide full Session-Component-Description information.
+ */
+AF-Application-Identifier                         ::=  504 /*6.5.5*/  OctetString M,V|P| |    |Y;
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505) is of type OctetString, contains the AF Charging Identifier that is
+ * sent by the AF. This information may be used for charging correlation with bearer layer.
+ */
+AF-Charging-Identifier                            ::=  505 /*6.5.6*/  OctetString M,V|P| |    |Y;
+
+/**
+ * The Authorization-Token AVP (AVP code 506) is of type OctetString, and contains the Authorization Token defined in
+ * the RFC 3520.
+ */
+Authorization-Token                               ::=  506 /*6.5.7*/  OctetString M,V|P| |    |Y;
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines a packet filter for an IP flow with the
+ * following information:
+ * <ul>
+ * <li> Direction (in or out).
+ * <li> Source and destination IP address (possibly masked).
+ * <li> Protocol.
+ * <li> Source and destination port (list or ranges).
+ * </ul>
+ * The IPFilterRule type shall be used with the following restrictions:
+ * <ul>
+ * <li> Only the Action "permit" shall be used.
+ * <li> No "options" shall be used.
+ * <li> The invert modifier "!" for addresses shall not be used.
+ * <li> The keyword "assigned" shall not be used.
+ * </ul>
+ * If any of these restrictions is not observed by the AF, the server shall send an error response to the AF containing the
+ * Experimental-Result-Code AVP with value FILTER_RESTRICTIONS.
+ * <p>
+ * The Flow description AVP shall be used to describe a single IP flow.
+ * <p>
+ * The direction "in" refers to uplink IP flows, and the direction "out" refers to downlink IP flows.
+ */
+Flow-Description                                  ::=  507 /*6.5.8 */IPFilterRule M,V|P| |    |Y;
+
+/**
+ * The Flow-Grouping AVP (AVP code 508) is of type Grouped, and it indicates that no other IP Flows shall be
+ * transported together with the listed IP Flows in the same PDP context(s).
+ * <p>
+ * If Flow-Grouping AVP(s) have been provided in earlier service information, but are not provided in subsequent service
+ * information, the old flow grouping remains valid.
+ * <p>
+ * If Flow-Grouping AVP(s) have been provided in earlier service information, and new Flow-Grouping AVP(s) are
+ * provided, the new flow grouping information replaces the previous information. Previous flow grouping information is
+ * invalidated even if the new Flow-Grouping AVP(s) affect other IP flows.
+ * <p>
+ * A Flow-Grouping AVP containing no Flows AVP may be used to invalidate flow grouping information provided in
+ * earlier service information. A Flow-Grouping AVP containing no Flows AVP shall not be supplied together with other
+ * Flow-Grouping AVP(s).
+ * <p>
+ * If earlier service information has already been provided, flow grouping information in subsequent service information
+ * shall not restrict the flow grouping further for IP flows already described in the previous service information. However,
+ * new IP flows described for the first time in the subsequent service information may be added to existing flow groups or
+ * in new flow groups.
+ */
+Flow-Grouping                                     ::=  508 /*6.5.9*/  Grouped     M,V|P| |    |Y;
+
+/**
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32, and it contains the ordinal number of the IP flow(s),
+ * assigned according to the rules in annex C of 3GPP TS 29.207.
+ */
+Flow-Number                                       ::=  509 /*6.5.10*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows via their flow identifiers.
+ * <p>
+ * If no Flow-Number AVP(s) are supplied, the Flows AVP refers to all Flows matching the media component number.
+ */
+Flows                                             ::=  510 /*6.5.11*/ Grouped     M,V|P| |    |Y;
+
+/**
+ * The Flow-Status AVP (AVP code 511) is of type Enumerated, and describes whether the IP flow(s) are enabled or
+ * disabled. The following values are defined:
+ * <ul>
+ * <li> ENABLED-UPLINK (0)<br>
+ * This value shall be used to enable associated uplink IP flow(s) and to disable associated downlink IP flow(s). If
+ * any downlink RTCP IP flow(s) are identified by the Flow_Usage AVP(s), those flow(s) shall be enabled.
+ * <li> ENABLED-DOWNLINK (1)<br>
+ * This value shall be used to enable associated downlink IP flow(s) and to disable associated uplink IP flow(s). If
+ * any uplink RTCP IP flow(s) are identified by the Flow_Usage AVP(s), those flow(s) shall be enabled.
+ * <li> ENABLED (2)<br>
+ * This value shall be used to enable all associated IP flow(s) in both directions.
+ * <li> DISABLED (3)<br>
+ * This value shall be used to disable all associated IP flow(s) in both directions. If any RTCP IP flow(s) are
+ * identified by the Flow_Usage AVP(s), those flow(s) shall be enabled.
+ * <li> REMOVED (4)<br>
+ * This value shall be used to remove all associated IP flow(s). The IP Filters for the associated IP flow(s) shall be
+ * removed. The associated IP flows shall not be taken into account when deriving the authorized QoS.
+ * </ul>
+ */
+Flow-Status                                       ::=  511 /*6.5.12*/ Enumerated  M,V|P| |    |Y;
+
+/**
+ * The Flow-Usage AVP (AVP code 512) is of type Enumerated, and provides information about the usage of IP Flows.
+ * The following values are defined:
+ * <ul>
+ * <li> NO_INFORMATION (0)<br>
+ * This value is used to indicate that no information about the usage of the IP flow is being provided
+ * <li> RTCP (1)<br>
+ * This value is used to indicate that an IP flow is used to transport RTCP.
+ * <li> NO_INFORMATION is the default value.
+ * </ul>
+ * NOTE: An AF may choose not to identify RTCP flows, e.g. in order to avoid that RTCP flows are always
+ * enabled by theserver.
+ */
+Flow-Usage                                        ::=  512 /*6.5.13*/ Enumerated  M,V|P| |    |Y;
+
+/**
+ * The Specific-Action AVP (AVP code 513) is of type Enumerated.
+ * <p>
+ * Within a PDF initiated Re-Authorization Request, the Specific-Action AVP determines the type of the action.
+ * <p>
+ * Within an initial AA request the AF may use the Specific-Action AVP to request specific actions from the server at the
+ * bearer events and to limit the contact to such bearer events where specific action is required. If the Specific-Action AVP
+ * is omitted within the initial AA request, no notification of any of the events defined below is requested.
+ * <p>
+ * The following values are defined:
+ * <ul>
+ * <li> SERVICE_INFORMATION_REQUEST (0)<br>
+ * Within a RAR, this value shall be used when the server requests the service information from the AF for the
+ * bearer event. In the AAR, this value indicates that the AF requests the server to demand service information at
+ * each bearer authorization.
+ * <li> CHARGING_CORRELATION_EXCHANGE (1)<br>
+ * Within a RAR, this value shall be used when the server reports the access network charging identifier to the AF.
+ * The Access-Network-Charging-Identifier AVP shall be included within the request. In the AAR, this value
+ * indicates that the AF requests the server to provide an access network charging identifier to the AF at each
+ * bearerestablishment/modification, when a new access network charging identifier becomes available.
+ * <li> INDICATION_OF_LOSS_OF_BEARER (2)<br>
+ * Within a RAR, this value shall be used when the server reports a loss of a bearer (e.g. in the case of GPRS PDP
+ * context bandwidth modification to 0 kbit) to the AF. In the AAR, this value indicates that the AF requests the
+ * server to provide a notification at the loss of a bearer.
+ * <li> INDICATION_OF_RECOVERY_OF_BEARER (3)<br>
+ * Within a RAR, this value shall be used when the server reports a recovery of a bearer (e.g. in the case of GPRS,
+ * PDP context bandwidth modification from 0 kbit to another value) to the AF. In the AAR, this value indicates
+ * that the AF requests the server to provide a notification at the recovery of a bearer.
+ * <li> INDICATION_OF_RELEASE_OF_BEARER (4)<br>
+ * Within a RAR, this value shall be used when the server reports the release of a bearer (e.g. PDP context removal
+ * for GPRS) to the AF. In the AAR, this value indicates that the AF requests the server to provide a notification at
+ * the removal of a bearer.
+ * <li> INDICATION_OF_ESTABLISHMENT_OF_BEARER (5)<br>
+ * Within a RAR, this value shall be used when the server reports the establishment of a bearer (e.g., PDP context
+ * activation for GPRS) to the AF. In the AAR, this value indicates that the AF requests the server to provide a
+ * notification at the establishment of a bearer. This value is not used by the Gq Protocol.
+ * </ul>
+ */
+Specific-Action                                   ::=  513 /*6.5.14*/ Enumerated  M,V|P| |    |Y;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and it indicates the maximum
+ * requested bandwidth in bits per second for a downlink IP flow. The bandwidth contains all the overhead coming from
+ * the IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+Max-Requested-Bandwidth-DL                        ::=  515 /*6.5.16*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The Max -Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and it indicates the maximum requested
+ * bandwidth in bits per second for an uplink IP flow. The bandwidth contains all the overhead coming from the IP-layer
+ * and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+Max-Requested-Bandwidth-UL                        ::=  516 /*6.5.17*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The Media-Component-Description AVP (AVP code 517) is of type Grouped, and it contains service information for a
+ * single media component within an AF session. It may be based on the SDI exchanged between the AF and the AF client
+ * in the UE. The information may be used by the server to determine authorized QoS and IP flow classifiers for bearer
+ * authorization and charging rule selection.
+ * <p>
+ * Within one Diameter message, a single IP flow shall not be described by more than one Media-Component-Description
+ * AVP.
+ * <p>
+ * Bandwidth information and Flow-Status information provided within the Media-Component-Description AVP applies
+ * to all those IP flows within the media component, for which no corresponding information is being provided within
+ * Media-Sub-Component AVP(s).
+ * <p>
+ * If a Media-Component-Description AVP is not supplied, or if optional AVP(s) within a Media-Component-Description
+ * AVP are omitted, but corresponding information has been provided in previous Diameter messages, the previous
+ * information for the corresponding IP flow(s) remains valid.
+ * <p>
+ * All IP flows within a Media-Component-Description AVP are permanently disabled by supplying a Flow Status AVP
+ * with value "REMOVED". The server may delete corresponding filters and state information.
+ */
+Media-Component-Description                       ::=  517 /*6.5.18*/ Grouped     M,V|P| |    |Y;
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it contains the ordinal number of the
+ * media component, assigned according to the rules in annex C of 3GPP TS 29.207.
+ */
+Media-Component-Number                            ::=  518 /*6.5.19*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The Media-Sub-Component AVP (AVP code 519) is of type Grouped, and it contains the requested QoS and filters for
+ * the set of IP flows identified by their common Flow-Identifier. The Flow-Identifier is defined in 3GPP TS 29.207.
+ * <p>
+ * Possible Bandwidth information and Flow-Status information provided within the Media-Sub-Component AVP takes
+ * precedence over information within the encapsulating Media Component Description AVP. If a Media-Sub-
+ * Component- AVP is not supplied, or if optional AVP(s) within a Media-Sub-Component AVP are omitted, but
+ * corresponding information has been provided in previous Diameter messages, the previous information for the
+ * corresponding IP flow(s) remains valid, unless new information is provided within the encapsulating Media-
+ * Component-Description AVP. If Flow-Description AVP(s) are supplied, they replace all previous Flow-Description
+ * AVP(s), even if a new Flow-Description AVP has the opposite direction as the previous Flow-Description AVP.
+ * <p>
+ * All IP flows within a Media-Sub-Component- AVP are permanently disabled by supplying a Flow Status AVP with
+ * value "REMOVED". The server may delete corresponding filters and state information.
+ */
+Media-Sub-Component                               ::=  519 /*6.5.20*/ Grouped     M,V|P| |    |Y;
+
+/**
+ * The Media-Type AVP (AVP code 520) is of type Enumerated, and it determines the media type of a session
+ * component. The media types indicate the type of media in the same way as the SDP media types with the same names
+ * defined in RFC 2327. The following values are defined:
+ * <ul>
+ * <li> AUDIO (0)
+ * <li> VIDEO (1)
+ * <li> DATA (2)
+ * <li> APPLICATION (3)
+ * <li> CONTROL (4)
+ * <li> TEXT (5)
+ * <li> MESSAGE (6)
+ * <li> OTHER (0xFFFFFFFF)
+ * </ul>
+ */
+Media-Type                                        ::=  520 /*6.5.21*/ Enumerated  M,V|P| |    |Y;
+
+/**
+ * The RR-Bandwidth AVP (AVP code 521) is of type Unsigned32, and it indicates the maximum required bandwidth in
+ * bits per second for RTCP receiver reports within the session component, as specified in RFC 3556. The bandwidth
+ * contains all the overhead coming from the IP-layer and the layers above, i.e. IP, UDP and RTCP.
+ */
+RR-Bandwidth                                      ::=  521 /*6.5.22*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The RS-Bandwidth AVP (AVP code 522) is of type Unsigned32, and it indicates the maximum required bandwidth in
+ * bits per second for RTCP sender reports within the session component, as specified in RFC 3556. The bandwidth
+ * contains all the overhead coming from the IP-layer and the layers above, i.e. IP, UDP and RTCP.
+ */
+RS-Bandwidth                                      ::=  522 /*6.5.23*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The SIP_Forking AVP (AVP code 523) is of type Enumerated, and describes if several SIP dialogues are related to one
+ * Diameter session.:
+ * <ul>
+ * <li> SINGLE_DIALOGUE (0)<br>
+ * This value is used to indicate that the Diameter session relates to a single SIP dialogue.
+ * This is the default value applicable if the AVP is omitted.
+ * <li> SEVERAL_DIALOGUES (1)<br>
+ * This value is used to indicate that the Diameter session relates to several SIP dialogues.
+ * </ul>
+ */
+SIP-Forking-Indication                            ::=  523 /*6.5.24*/ Enumerated  M,V|P| |    |Y;
+
+
+//////////////////
+// Enumerations //
+//////////////////
+
+Abort-Cause  ::= < Enumerated: 500 >
+                BEARER_RELEASED                  0
+                INSUFFICIENT_SERVER_RESOURCES    1
+                INSUFFICIENT_BEARER_RESOURCES    2
+                ;
+
+Specific-Action  ::= < Enumerated: 513 >
+                SERVICE_INFORMATION_REQUEST            0
+                CHARGING_CORRELATION_EXCHANGE          1
+                INDICATION_OF_LOSS_OF_BEARER           2
+                INDICATION_OF_RECOVERY_OF_BEARER       3
+                INDICATION_OF_RELEASE_OF_BEARER        4
+                INDICATION_OF_ESTABLISHMENT_OF_BEARER  5
+                INDICATION_OF_SUBSCRIBER_DETACHMENT    6
+                INDICATION_OF_RESERVATION_EXPIRATION   7
+                ;
+
+SIP-Forking-Indication  ::= < Enumerated: 523 >
+                SINGLE_DIALOGUE            0
+                SEVERAL_DIALOGUES          1
+                ;
+
+Flow-Status  ::= < Enumerated: 511 >
+                ENABLED_UPLINK            0
+                ENABLED_DOWNLINK          1
+                ENABLED                   2
+                DISABLED                  3
+                REMOVED                   4
+                ;
+
+Flow-Usage  ::= < Enumerated: 512 >
+                NO_INFORMATION            0
+                RTCP                      1
+                ;
+
+Media-Type  ::= < Enumerated: 520 >
+                AUDIO            0
+                VIDEO            1
+                DATA             2
+                APPLICATION      3
+                CONTROL          4
+                TEXT             5
+                MESSAGE          6
+                ;
+/*
+                OTHER            4294967296
+*/
+
+
+//////////////////
+// Grouped AVPs //
+//////////////////
+
+Flows ::= < AVP Header: 510 10415>
+                { Media-Component-Number}
+                *[ Flow-Number]
+                ;
+
+Access-Network-Charging-Identifier ::= < AVP Header: 502 10415>
+                { Access-Network-Charging-Identifier-Value}
+                *[ Flows ]
+                ;
+
+Flow-Grouping ::= < AVP Header: 508 10415>
+                *[Flows]
+                ;
+
+Media-Sub-Component ::= < AVP Header: 519 10415>
+	{ Flow-Number } 
+	0*2[ Flow-Description ]
+	[ Flow-Status ]
+	[ Flow-Usage ]
+	[ Max-Requested-Bandwidth-UL ]
+	[ Max-Requested-Bandwidth-DL ]
+	;
+
+Media-Component-Description ::= < AVP Header: 517 10415>
+        { Media-Component-Number }
+        *[ Media-Sub-Component ]
+        [ AF-Application-Identifier ]
+        [ Media-Type ]
+        [ Max-Requested-Bandwidth-UL ]
+        [ Max-Requested-Bandwidth-DL ]
+        [ Flow-Status ]
+        [ RS-Bandwidth ]
+        [ RR-Bandwidth ]
+        [ Reservation-Class ]
+        [ Reservation-Priority ]
+        ;
+
+
+//////////////////
+//   Commands  ///
+//////////////////
+
+/*
+ *The AAR command, indicated by the Command-Code field set to 265 and the 'R' bit set in the Command Flags field, is
+ *sent by an AF to the PDF / SPDF in order to request the authorization for the bearer usage for the AF session.
+ */
+
+AA-Request ::= < Diameter Header: 265, REQ, PXY >
+	< Session-Id >
+	{ Auth-Application-Id }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	*[ Media-Component-Description ]
+	*[ Flow-Grouping ]
+	[ AF-Charging-Identifier ]
+	[ SIP-Forking-Indication ]
+	*[ Specific-Action ]
+	[ User-Name ]
+	[ Binding-Information ]
+	[ Latching-Indication ]
+	[ Reservation-Priority ]
+	[ Globally-Unique-Address]
+	[ Authorization-Lifetime ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+	;
+
+/*
+ *The AAA command, indicated by the Command-Code field set to 265 and the 'R' bit cleared in the Command Flags
+ *field, is sent by the SPDF / PDF to the AF in response to the AAR command.
+*/
+
+AA-Answer ::= < Diameter Header: 265, PXY >
+	< Session-Id >
+	{ Auth-Application-Id }
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[Binding-Information]
+	[Reservation-Priority]
+        [ Authorization-Token ]
+	*[ Access-Network-Charging-Identifier ]
+	[ Access-Network-Charging-Address ]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	[ Authorization-Lifetime ]
+	[ Auth-Grace-Period ]
+	*[ Failed-AVP ]
+	*[ Proxy-Info ]
+	*[ AVP ]
+	;
+
+/*
+ *The RAR command, indicated by the Command-Code field set to 258 and the 'R' bit set in the Command Flags field, is
+ *sent by the SPDF / PDF to the AF in order to indicate a specific action.
+ *As an option, the AF may send an AAR command to the SPDF / PDF to update the service information when receiving an RAA
+ *command. However, application-specific authentication and/or authorization messages are not mandated for the Gq
+ *application in response to an RAR command.
+ *The values INDICATION_OF_LOSS_OF_BEARER, INDICATION_OF_RECOVERY_OF_BEARER and
+ *INDICATION_OF_RELEASE_OF_BEARER of the Specific-Action AVP shall not be combined with each other in an
+ *Re-Auth-Request.
+*/
+
+RA-Request  ::= < Diameter Header: 258, REQ, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ Destination-Host }
+	{ Auth-Application-Id }
+	*{ Specific-Action }
+	*[ Access-Network-Charging-Identifier ]
+	[ Access-Network-Charging-Address ]
+	*[ Flows ]
+	[ Abort-Cause ]
+	[ Origin-State-Id ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+	;
+
+/*
+ *The RAA command, indicated by the Command-Code field set to 258 and the 'R' bit cleared in the Command Flags
+ *field, is sent by the AF to the SPDF/ PDF in response to the RAR command.
+*/
+
+RA-Answer  ::= < Diameter Header: 258, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	*[ Media-Component-Description ]
+	*[ Flow-Grouping ]
+	[ Origin-State-Id ]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	*[ Failed-AVP ]
+	*[ Proxy-Info ]
+	*[ AVP ]
+	;
+
+/*
+ *The STR command, indicated by the Command-Code field set to 275 and the 'R' bit set in the Command Flags field, is
+ *sent by the AF to inform the SPDF / PDF that an authorized session shall be terminated.
+*/
+
+ST-Request  ::= < Diameter Header: 275, REQ, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ Termination-Cause }
+	{ Auth-Application-Id }
+	[ Destination-Host ]
+	*[ Class ]
+	[ Origin-State-Id ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+	;
+
+/*
+ *The STA command, indicated by the Command-Code field set to 275 and the 'R' bit cleared in the Command Flags
+ *field, is sent by the SPDF /PDF to the AF in response to the STR command.
+*/
+
+ST-Answer  ::= < Diameter Header: 275, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	*[ Failed-AVP ]
+	[ Origin-State-Id ]
+	*[ Redirect-Host ]
+	[ Redirect-Host-Usage ]
+	[ Redirect-Max-Cache-Time ]
+	*[ Proxy-Info ]
+	[ AVP ]
+	;
+
+/*
+ *The ASR command, indicated by the Command-Code field set to 274 and the 'R' bit set in the Command Flags field, is
+ *sent by the SPDF / PDF to inform the AF that all bearer resources for the authorized session have become unavailable.
+*/
+
+AS-Request  ::= < Diameter Header: 274, REQ, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ Destination-Host }
+	{ Auth-Application-Id }
+	{ Abort-Cause }
+	[ Origin-State-Id ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	[ AVP ]
+	;
+
+/*
+ *The ASA command, indicated by the Command-Code field set to 274 and the 'R' bit cleared in the Command Flags
+ *field, is sent by the AF to the SPDF / PDF in response to the ASR command.
+*/
+
+AS-Answer  ::= < Diameter Header: 274, PXY >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[ Origin-State-Id ]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	*[ Failed-AVP ]
+	*[ Redirect-Host ]
+        [ Redirect-Host-Usage ]
+        [ Redirect-Max-Cache-Time ]
+	*[ Proxy-Info ]
+	*[ AVP ]
+	;

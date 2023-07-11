@@ -1,0 +1,160 @@
+Build_Notes.txt
+===============
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document describes how to build the SSLRef 3.0 test application,
+providing an example of how SSLRef 3.0 can be built as part of your
+software project. It includes these sections:
+
+  - Building SSLRef 3.0
+  - Using the Sample Certificate
+  - Running the Test Application
+
+
+Building SSLRef 3.0
+-------------------
+First, install the cryptographic library of your choice (RSAREF or
+BSAFE).
+
+Place BSAFE in a directory called bsafe/. The bsafe/ directory
+should contain the BSAFE directories LIB, INCLUDE, etc. If you are
+using RSAREF, place RSAREF in a directory called rsaref/ within the
+sslref/ directory. This directory should contain all the RSAREF
+source files (not the documentation directory, etc.).
+
+For Windows, you should be ready to build. Type
+    nmake /f makefile.w32 CRYPTOLIB=BSAFE
+ or nmake /f makefile.w32 CRYPTOLIB=RSAREF, as appropriate.
+
+This will build the sample client/server app, "sslsampl". The target
+sslref.lib also works to build only the sslref library.
+
+You can also specify where to find RSAREF or BSAFE with a flag on the
+make command line of the form RSAREFDIR=path or BSAFEDIR=path.
+
+For Solaris, there are different targets for the BSAFE and RSAREF
+versions of the library and sample application. Enter either:
+    make -f makefile.solaris sslsampl-bsafe
+ or make -f makefile.solaris sslsampl-rsaref
+
+For Solaris, you cannot specify the location of your crypto library on
+the command line. You must either edit the make file or create an
+appropriate directory link to the source directory where RSAREF or
+BSAFE are stored.
+
+Because RSAREF does not include the RC4 algorithm, it must be provided
+seperately in order to support RC4 CipherSuites with RSAREF. This
+algorithm is interfaced in the file sslrc4.c.
+
+If you create your own make files or modify the ones supplied you must
+pass compile-time flags to the C compiler. To choose between RSAREF and
+BSAFE, specify a non-zero value for the compile-time flag RSAREF or
+BSAFE. Specify a value for the compile-time flag DEBUG between 0 and 5
+to activate expanded diagnostic output.
+
+To function as a server or with client certification, SSLRef 3.0
+requires two files:
+  certchain - contains a certificate chain in the following format:
+    For each certificate:
+      3 byte length
+      DER-encoded certificate
+  privateKey - is a PKCS-7 encoded private key.
+
+The private key filename and password are hard-coded into
+sample/testssl.c.
+
+
+Using the Sample Certificate
+----------------------------
+To function as a server or with client authentication, the sample
+application requires a certificate file including all certificates
+associated with that keypair. (The sample application's certificate
+file mechanism is an example of how certificates and keys can be
+stored. It is not a requirement of SSLRef. You may implement a
+different storage mechanism.)
+
+We have included a sample certificate file in /test.crt with the key
+in /private.key; the password for this certificate file is
+"password". The sample certificate file /test.crt must reside in the
+same directory as the make files. You are welcome to replace this
+certificate file with your own.
+
+The name of the signer file, and the password for encrypted private
+key are hard-coded into sample/testssl.c.
+
+Certificate files will typically include multiple certificates to
+form a "certificate chain". The order within the file is server cert
+to root cert and must not be changed.
+
+This certificate in the /test.crt file contains a test certificate.
+This test certificate was issued under a test CA (certificate
+authority) built using an alpha version of Consensus Development's
+Cert Plus toolkit. This certificate will, in time, expire.
+Consensus will continue to provide valid revisions to the SSLRef
+certificate available from its web site, <http://www.consensus.com>
+
+If you use this sample certificate file with Netscape Navigator or a
+Netscape server you will be warned that the certificate is not from
+a "known" certificate authority.
+
+To minimize these warnings, you can add the Consensus Development
+test heirarchy root certificate to Netscape Navigator by going to
+page
+    <http://www.consensus.com/certplus/ConsensusDevelopmentTestCA.cert>
+
+and approving the addition of this test CA to your site certificate
+database.
+
+With this test CA installed you can use Navigator to establish server
+authentication with the SSLRef test application. You can view or
+delete this test CA in the "Site Certificates" section "Security
+Preferences" of the Navigator.
+
+You can also add the test CA the Netscape Server using the
+instructions located at
+    <http://home.netscape.com/eng/security/downloadcert.html#server>
+
+and entering the following certificate into the server admin pages:
+
+-----BEGIN CERTIFICATE-----
+MIICsTCCAhoCAQEwDQYJKoZIhvcNAQEEBQAwgaAxCzAJBgNVBAYTAlVTMSowKAYD
+VQQKFCFDb25zZW5zdXMgRGV2ZWxvcG1lbnQgQ29ycG9yYXRpb24xKjAoBgNVBAsU
+ISoqIFRFU1RJTkcgQU5EIEVWQUxVQVRJT04gT05MWSAqKjE5MDcGA1UEAxQwQ29u
+c2Vuc3VzIERldmVsb3BtZW50IFRlc3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5MB4X
+DTk2MDkyNTAwMDAwMFoXDTk2MTIzMTEyNTk1OVowgaAxCzAJBgNVBAYTAlVTMSow
+KAYDVQQKFCFDb25zZW5zdXMgRGV2ZWxvcG1lbnQgQ29ycG9yYXRpb24xKjAoBgNV
+BAsUISoqIFRFU1RJTkcgQU5EIEVWQUxVQVRJT04gT05MWSAqKjE5MDcGA1UEAxQw
+Q29uc2Vuc3VzIERldmVsb3BtZW50IFRlc3QgQ2VydGlmaWNhdGUgQXV0aG9yaXR5
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCZfkFsDJsaJ8DpexH00mQbxoZd
+2bcbfYrUCYovSQfJkJFse3Bs/ecnsdCZkidNgayPIdpnbxaY/bRMgLOBroLSgo+T
+Lw8I7Z66DDtfVnulJdsdn5mn2GnOTK7cXDFfRJSa/SFCOEtWsZRk/MPflXHBCZ7U
+IQGgww0jt9IpBbX+xwIDAQABMA0GCSqGSIb3DQEBBAUAA4GBABBduurGQHZm67Hf
+tG7qIm1POChIXCOx8eGvkj+AWjxXiUmg/Ii/6Qsbu+C5JfBD9Ph9ncvrYRhcl4Ba
+r4e5N+i7BPU+b64y+AQYu89fd2MSeZtRdgTZw4Y8G9f2g4rjV+Lhd67FH/9hq7xd
+rrJDmTxuEyxPL/mxKhMdWaMWOHb7
+-----END CERTIFICATE-----
+
+With this test CA installed you can use SSLRef to establish client
+authentication with a Netscape Server. You can view and delete this test
+CA from the server admin pages.
+
+
+Running the Test Application
+----------------------------
+The SSL test client takes these command line options
+  -s  act as server
+  -c  act as client
+  -2  support only SSL2
+  -3  support only SSL3 <hostname> <port#>

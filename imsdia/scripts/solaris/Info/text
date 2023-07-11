@@ -1,0 +1,103 @@
+Detailed configuration information
+==================================
+
+The following directories contain detailed system information:
+-------------------------------------------------------------
+etc - a directory containing some files copied, with -p, from /etc :
+      Note: some of these file will be present only in certain configurations.
+
+        auto_master
+        defaultdomain
+        defaultrouter
+        dfs/dfstab
+        dfs/sharetab
+        default/init
+        ethers
+        hostname.* - can be multiple files
+        hosts
+        inetd.conf
+        inittab
+        mnttab
+        name_to_major
+        nodename
+        notrouter - if file exists
+        nsswitch.conf
+        path_to_inst
+        rpc
+        release - present for some OS only, eg: Solaris 2.5.1 HW4/97
+        resolv.conf - DNS only
+        services
+        ssphostname - on E10000 systems only. Contains the SSP's hostname
+        syslog.conf
+        system
+        vfstab
+
+        etc/inet - directory containing files compied from /etc/inet
+                netmasks
+                networks
+
+        etc/init.d - directory containing files compied from /etc/init.d
+                sysetup - useful to see if savecore is enabled in
+                          Solaris 2.3-2.6 systems. For 2.7 and up see
+                          dumpadm.out.
+
+messages - a directory containing error messages files copied from:
+           /var/adm/messages*
+
+imsdia     - a directory containing ISG information
+        /imsdia/config - directory containing IMS configuration
+        logs.tar.Z  - compressed tar archive of the logs
+
+dbgconsole - a directory containing DBGConsole information
+         dbgconsole.out      - contains output from 
+                             - e, i, irt, p, pr, rac, rar, stat, t, v, age
+
+netinfo - a directory containing some networking information:
+        arp-a.out     - output from arp -a
+        netstat-a.out - output from netstat -a
+        netstat-an.out- output from netstat -an
+        netstat-i.out - output from netstat -i
+        netstat-k.out - output from netstat -k
+        netstat-m.out - output from netstat -m
+        netstat-p.out - output from netstat -p
+        netstat-pn.out- output from netstat -pn
+        netstat-r.out - output from netstat -r
+        netstat-rn.out- output from netstat -rn
+        netstat-s.out - output from netstat -s
+        nfsstat.out   - output from nfsstat
+        nisshowcache-v.out - output from /usr/lib/nis/nisshowcache -v
+        rpcinfo.out   - output from rpcinfo
+        rpcinfo-m.out - output from rpcinfo -m
+        firewall-1_fw_ver.out - FireWall-1 version, present if
+                                FireWall-1 is installed. output from:
+                                /etc/fw/bin/fw ver
+
+patch+pkg - a directory containing patch and package listings installed on
+            the system:
+
+        patch-list    - patch listing summary.
+        patch_date    - date each patch was installed, ls -l /var/sadm/patch.
+        pkginfo-i.out - list fully installed pkgs.
+        pkginfo-l.out - long listing output.
+        pkginfo-p.out - list partially installed pkgs.
+        showrev.out   - output from "showrev".
+        showrev-p.out - output from "showrev -p".
+        modinfo.out   - loaded kernel module listings
+
+sysconfig - a directory containing system HW configuration:
+        dumpadm.out      - output from dumpadm, Solaris 2.7 and up, current
+                            dump  configuration.
+        eeprom.out       - output from eeprom
+        ifconfig-a.out   - output from ifconfig -a
+        kernel_ls-l.out  - output from ls -l /platform/`arch -k`/kernel
+                                        (Solaris 2.5 and higher)
+                                OR  ls -l /kernel (Solaris 2.3, 2.4)
+        prtconf-v.out    - output from prtconf -v
+        prtconf-vp.out   - output from prtconf -vp
+        prtconf-V.out    - output from prtconf -V (Solaris 2.5 and higher)
+        prtdiag-v.out    - output from prtdiag -v (if applicable)
+        psrinfo-v.out    - output from psrinfo -v
+        sysdef-d.out     - output from sysdef -d
+        sysdef.out       - output from sysdef
+        uptime.out       - output from uptime
+

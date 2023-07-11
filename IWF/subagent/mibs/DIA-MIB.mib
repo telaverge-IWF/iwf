@@ -1,0 +1,305 @@
+DIA-MIB DEFINITIONS ::= BEGIN
+
+IMPORTS
+    OBJECT-TYPE,
+    MODULE-IDENTITY,
+    NOTIFICATION-TYPE,
+    enterprises,
+    Integer32,
+    Unsigned32,
+    IpAddress,
+    Counter32   FROM SNMPv2-SMI
+    DisplayString   FROM SNMPv2-TC;
+
+diametriq OBJECT IDENTIFIER ::= { enterprises 2763 }
+products   OBJECT IDENTIFIER ::= { diametriq 1 }
+stacks     OBJECT IDENTIFIER ::= { products 1 }
+
+--
+-- Textual Conventions
+--
+
+diamib MODULE-IDENTITY
+    LAST-UPDATED "200409020000Z"
+    ORGANIZATION "Diametriq LLC"
+    CONTACT-INFO
+        "1990 W. New Haven Avenue, Ste #312
+         Melbourne FL 32904
+         USA
+
+         Tel: +1 321 726 0686
+         Fax: +1 321 726 0683
+         email: aghosal@diametriq.com"
+    DESCRIPTION
+         "This object to be registered as Diametriq Advanced Development
+Pltaform."
+    ::= { stacks 3 }
+
+AlarmType ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the type of alarm."
+  SYNTAX INTEGER {
+    communicationsAlarm(1),
+    qualityofServiceAlarm(2),
+    processingErrorAlarm(3),
+    hmiHeartbeatAlarm(4),
+    unknown(5),
+    congestionIndicationAlarm(6)
+}
+
+AlarmSeverity ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the severity of alarm."
+  SYNTAX INTEGER {
+    cleared(1),
+    warning(2),
+    minor(3),
+    major(4),
+    critical(5),
+    info(6)
+}
+
+ProbableCause ::= TEXTUAL-CONVENTION
+  STATUS            current
+  DESCRIPTION       "
+          Defines the probable cause for the alarm generation."
+  SYNTAX INTEGER {
+    sctportcpconnectionfailureassocloss(0),
+    sctportcpconnectionclosedassocclosed(1),
+    tcpconnectionfailandfailovertopeer(2),
+    sctportcpconnectionestablished(3),
+    tcpconnectionestablishandfailbacktoprimary(4),
+    cerorceaexchangefailure(5),
+    clientRegFailure(6),
+    tcpcommunicationfailurewithbackendapplication(7),
+    tcpcommunicationestablishedwithbackendapplication(8),
+    recievemsgfailurefrompeer(9),
+    peerstateclosed(10),
+    failedtotransmitmsgtopeer(11),
+    receivemsgfailfromIDC(12),
+    failedtotransmitmsgtoIDC(13),
+    diskfailure(14),
+    cpuutilisationmore(15),
+    queuefull(16),
+    unknowncause(17),
+    hungthread(18),
+    resultcodenotsuccess(19),
+    mismatchoriginhostororiginrealmwithpeertables(20),
+    versionmismatch(21),
+    messageforwardingfailure(22),
+    hmiHeartbeat(23),
+    peerTPSExceededLevel1(24),
+    peerTPSLevel1Abated(25),
+    peerTPSExceededLevel2(26),
+    peerTPSLevel2Abated(27),
+    peerTPSExceededLevel3(28),
+    peerTPSLevel3Abated(29),
+    overallTPSExceededLevel1(30),
+    overallTPSLevel1Abated(31),
+    overallTPSExceededLevel2(32),
+    overallTPSLevel2Abated(33),
+    overallTPSExceededLevel3(34),
+    overallTPSLevel3Abated(35),
+    sessionTableSizeExceededLevel1(36),
+    sessionTableSizeLevel1Abated(37),
+    sessionTableSizeExceededLevel2(38),
+    sessionTableSizeLevel2Abated(39),
+    routerQueueSizeExceededLevel1(40),
+    routerQueueSizeLevel1Abated(41),
+    routerQueueSizeExceededLevel2(42),
+    routerQueueSizeLevel2Abated(43),
+    routerQueueSizeExceededLevel3(44),
+    routerQueueSizeLevel3Abated(45),
+    peerDisconnectedDueToFlooding(46)
+
+}
+
+
+--Notifications
+
+diameterNotification OBJECT IDENTIFIER ::= { diamib 1 }
+
+
+diaNotificationSequenceNum   OBJECT-TYPE
+  SYNTAX                           Counter32
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          A consecutive number used to identify the faults."
+::= { diafaultNotification 1000 }
+
+diaFaultName                 OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..100))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Unique identification of the fault within diameter."
+::= { diafaultNotification 1001 }
+
+diaAlarmTime                 OBJECT-TYPE
+  SYNTAX                           Unsigned32 (1..4294967295)
+  UNITS                            "secs"
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          The time at which the fault occurred. This
+	  value is expressed in seconds since 00:00:00 UTC, January 1, 1970."
+::= { diafaultNotification 1002 }
+
+
+diaAlarmType                 OBJECT-TYPE
+  SYNTAX                           AlarmType
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          This represents  Alarm Type"
+::= { diafaultNotification 1003 }
+
+diaAlarmProbableCause        OBJECT-TYPE
+  SYNTAX                           ProbableCause
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Probable cause. Cause of the fault."
+::= { diafaultNotification 1004 }
+
+diaAlarmSeverity             OBJECT-TYPE
+  SYNTAX                           AlarmSeverity
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Perceived severity. Critical, Major, Minor, Warning or
+          Cleared."
+::= { diafaultNotification 1005 }
+
+diaAddText                   OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..100))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+          Additional text. This shall be optional free flow text which gives
+          additional information about the alarm."
+::= { diafaultNotification 1006 }
+
+diaAlarmId                   OBJECT-TYPE
+  SYNTAX                           DisplayString (SIZE(0..10))
+  MAX-ACCESS                       read-only
+  STATUS                           current
+  DESCRIPTION                      "
+	  Alarm Id is used to uniquely identify an Alarm. The first 3 digits specify the component
+          which has raised the alarm, next 3 digits specify the sub-component and last 3 digits
+          specifies alarm subid."
+::= { diafaultNotification 1007 }
+
+
+diafaultNotification OBJECT IDENTIFIER ::= { diameterNotification 1 }
+
+diaClearedNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 0 }
+
+diaWarningNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 1 }
+
+diaMinorNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 2 }
+
+
+
+diaMajorNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 3 }
+
+
+
+diaCriticalNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 4 }
+
+
+diaInfoNotification NOTIFICATION-TYPE
+  OBJECTS {
+    diaAlarmId,
+    diaNotificationSequenceNum,
+    diaFaultName,
+    diaAlarmTime,
+    diaAlarmType,
+    diaAlarmProbableCause,
+    diaAlarmSeverity,
+    diaAddText
+}
+STATUS            current
+  DESCRIPTION       "
+          This event contains a fault for the identified object."
+::= { diafaultNotification 5 }
+
+
+
+END
+
+
+

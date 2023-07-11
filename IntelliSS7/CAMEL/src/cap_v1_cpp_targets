@@ -1,0 +1,201 @@
+################################################################################
+#                                                                              #
+#      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.       #
+#              Manufactured in the United States of America.                   #
+#        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.          #
+#                                                                              #
+#     This product and related documentation is protected by copyright and     #
+#     distributed under licenses restricting its use, copying, distribution    #
+#     and decompilation.  No part of this product or related documentation     #
+#     may be reproduced in any form by any means without prior written         #
+#     authorization of IntelliNet Technologies and its licensors, if any.      #
+#                                                                              #
+#     RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the        #
+#     government is subject to restrictions as set forth in subparagraph       #
+#     (c)(1)(ii) of the Rights in Technical Data and Computer Software         #
+#     clause at DFARS 252.227-7013 and FAR 52.227-19.                          #
+#                                                                              #
+################################################################################
+#                                                                              #
+# CONTRACT: Internal                                                           #
+#                                                                              #
+################################################################################
+#
+#  ID: $Id: cap_v1_cpp_targets,v 9.1 2005/03/23 12:51:12 cvsadmin Exp $
+#
+################################################################################
+
+
+ASNCC=$(ITS_ROOT)/tools/bin/asncc_v2$(DBGSUFFIX)
+
+ASNCCFLAGS= -explicitChoice -cpp \
+            -cppNamespace cap_v1 -xmlCppDoc \
+            -u $(ITS_ROOT)/tools/bin/asncc_useful.asn
+
+CXXSRCASN=./cap_v1_lrf.asn
+
+CXXLIBTARGET=../lib/libCAP-V1++$(DBGSUFFIX).a
+
+CXXOBJS=cap_v1_additional_calling_party_number.o \
+        cap_v1_age_of_location_information.o \
+        cap_v1_bcsm_event.o \
+        cap_v1_bearer_capability.o \
+        cap_v1_call_reference_number.o \
+        cap_v1_called_party_bcd_number.o \
+        cap_v1_called_party_number.o \
+        cap_v1_calling_party_number.o \
+        cap_v1_calling_partys_category.o \
+        cap_v1_cause.o \
+        cap_v1_cell_id_fixed_length.o \
+        cap_v1_cell_id_or_lai.o \
+        cap_v1_connect_arg.o \
+        cap_v1_criticality_type.o \
+        cap_v1_destination_routing_address.o \
+        cap_v1_digits.o \
+        cap_v1_event_report_bcsm_arg.o \
+        cap_v1_event_specific_information_bcsm.o \
+        cap_v1_event_type_bcsm.o \
+        cap_v1_ext_basic_service_code.o \
+        cap_v1_ext_bearer_service_code.o \
+        cap_v1_ext_teleservice_code.o \
+        cap_v1_extension_container.o \
+        cap_v1_extension_field.o \
+        cap_v1_generic_number.o \
+        cap_v1_generic_numbers.o \
+        cap_v1_geographical_information.o \
+        cap_v1_high_layer_compatibility.o \
+        cap_v1_imsi.o \
+        cap_v1_initial_dp_arg.o \
+        cap_v1_isdn_address_string.o \
+        cap_v1_lai_fixed_length.o \
+        cap_v1_leg_id.o \
+        cap_v1_leg_type.o \
+        cap_v1_location_information.o \
+        cap_v1_location_number.o \
+        cap_v1_misc_call_info.o \
+        cap_v1_monitor_mode.o \
+        cap_v1_not_reachable_reason.o \
+        cap_v1_ocsi_applicable.o \
+        cap_v1_original_called_party_id.o \
+        cap_v1_pcs_extensions.o \
+        cap_v1_private_extension.o \
+        cap_v1_private_extension_list.o \
+        cap_v1_redirecting_party_id.o \
+        cap_v1_redirection_information.o \
+        cap_v1_release_call_arg.o \
+        cap_v1_request_report_bcsm_event_arg.o \
+        cap_v1_service_key.o \
+        cap_v1_subscriber_state.o \
+        cap_v1_suppression_of_announcement.o \
+        cap_v1_unavailable_network_resource.o
+
+CXXSRCS=
+
+CXXSRCSAUX=cap_v1_additional_calling_party_number.cpp \
+        cap_v1_age_of_location_information.cpp \
+        cap_v1_bcsm_event.cpp \
+        cap_v1_bearer_capability.cpp \
+        cap_v1_call_reference_number.cpp \
+        cap_v1_called_party_bcd_number.cpp \
+        cap_v1_called_party_number.cpp \
+        cap_v1_calling_party_number.cpp \
+        cap_v1_calling_partys_category.cpp \
+        cap_v1_cause.cpp \
+        cap_v1_cell_id_fixed_length.cpp \
+        cap_v1_cell_id_or_lai.cpp \
+        cap_v1_connect_arg.cpp \
+        cap_v1_criticality_type.cpp \
+        cap_v1_destination_routing_address.cpp \
+        cap_v1_digits.cpp \
+        cap_v1_event_report_bcsm_arg.cpp \
+        cap_v1_event_specific_information_bcsm.cpp \
+        cap_v1_event_type_bcsm.cpp \
+        cap_v1_ext_basic_service_code.cpp \
+        cap_v1_ext_bearer_service_code.cpp \
+        cap_v1_ext_teleservice_code.cpp \
+        cap_v1_extension_container.cpp \
+        cap_v1_extension_field.cpp \
+        cap_v1_generic_number.cpp \
+        cap_v1_generic_numbers.cpp \
+        cap_v1_geographical_information.cpp \
+        cap_v1_high_layer_compatibility.cpp \
+        cap_v1_imsi.cpp \
+        cap_v1_initial_dp_arg.cpp \
+        cap_v1_isdn_address_string.cpp \
+        cap_v1_lai_fixed_length.cpp \
+        cap_v1_leg_id.cpp \
+        cap_v1_leg_type.cpp \
+        cap_v1_location_information.cpp \
+        cap_v1_location_number.cpp \
+        cap_v1_misc_call_info.cpp \
+        cap_v1_monitor_mode.cpp \
+        cap_v1_not_reachable_reason.cpp \
+        cap_v1_ocsi_applicable.cpp \
+        cap_v1_original_called_party_id.cpp \
+        cap_v1_pcs_extensions.cpp \
+        cap_v1_private_extension.cpp \
+        cap_v1_private_extension_list.cpp \
+        cap_v1_redirecting_party_id.cpp \
+        cap_v1_redirection_information.cpp \
+        cap_v1_release_call_arg.cpp \
+        cap_v1_request_report_bcsm_event_arg.cpp \
+        cap_v1_service_key.cpp \
+        cap_v1_subscriber_state.cpp \
+        cap_v1_suppression_of_announcement.cpp \
+        cap_v1_unavailable_network_resource.cpp
+        
+CXXHDRS=
+
+CXXHDRSAUX=cap_v1_additional_calling_party_number.h \
+        cap_v1_age_of_location_information.h \
+        cap_v1_bcsm_event.h \
+        cap_v1_bearer_capability.h \
+        cap_v1_call_reference_number.h \
+        cap_v1_called_party_bcd_number.h \
+        cap_v1_called_party_number.h \
+        cap_v1_calling_party_number.h \
+        cap_v1_calling_partys_category.h \
+        cap_v1_cause.h \
+        cap_v1_cell_id_fixed_length.h \
+        cap_v1_cell_id_or_lai.h \
+        cap_v1_connect_arg.h \
+        cap_v1_criticality_type.h \
+        cap_v1_destination_routing_address.h \
+        cap_v1_digits.h \
+        cap_v1_event_report_bcsm_arg.h \
+        cap_v1_event_specific_information_bcsm.h \
+        cap_v1_event_type_bcsm.h \
+        cap_v1_ext_basic_service_code.h \
+        cap_v1_ext_bearer_service_code.h \
+        cap_v1_ext_teleservice_code.h \
+        cap_v1_extension_container.h \
+        cap_v1_extension_field.h \
+        cap_v1_generic_number.h \
+        cap_v1_generic_numbers.h \
+        cap_v1_geographical_information.h \
+        cap_v1_high_layer_compatibility.h \
+        cap_v1_imsi.h \
+        cap_v1_initial_dp_arg.h \
+        cap_v1_isdn_address_string.h \
+        cap_v1_lai_fixed_length.h \
+        cap_v1_leg_id.h \
+        cap_v1_leg_type.h \
+        cap_v1_location_information.h \
+        cap_v1_location_number.h \
+        cap_v1_misc_call_info.h \
+        cap_v1_monitor_mode.h \
+        cap_v1_not_reachable_reason.h \
+        cap_v1_ocsi_applicable.h \
+        cap_v1_original_called_party_id.h \
+        cap_v1_pcs_extensions.h \
+        cap_v1_private_extension.h \
+        cap_v1_private_extension_list.h \
+        cap_v1_redirecting_party_id.h \
+        cap_v1_redirection_information.h \
+        cap_v1_release_call_arg.h \
+        cap_v1_request_report_bcsm_event_arg.h \
+        cap_v1_service_key.h \
+        cap_v1_subscriber_state.h \
+        cap_v1_suppression_of_announcement.h \
+        cap_v1_unavailable_network_resource.h
+

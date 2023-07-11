@@ -1,0 +1,209 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+
+DIRLIST="include apps config lib c++include"
+
+INTELLI_INC="asn-c asn-cpp domxmlparser gdi mnt parse ssl rudp_msgs.h tali_msgs.h sctp_msgs.h gdi_msgs.h its_rudp.h its_dsm_sci.h"
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+
+IMS_VER=$1
+
+if [ "$IMS_VER" = "" ]
+then
+   echo Please enter the release version number.
+   echo Ex. make install_static_rd IMS_VER=3.2.0
+   exit 0
+fi
+
+echo "InstallDir is ./InstallDir  \n";
+RELEASE_DIR=$IMS_ROOT/../InstallDir
+RELEASE_IMSROOT=$RELEASE_DIR/IMSDIA-GA-$IMS_VER
+
+RELEASE_BIN_DIR=$RELEASE_IMSROOT/bin
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_LIB_DIR=$RELEASE_IMSROOT/lib
+RELEASE_INC_DIR=$RELEASE_IMSROOT/include
+RELEASE_APPS_DIR=$RELEASE_IMSROOT/apps
+RELEASE_MIBS_DIR=$RELEASE_IMSROOT/mibs
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+mkdir -p $RELEASE_INC_DIR
+
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_APPS_DIR
+mkdir -p $RELEASE_MIBS_DIR
+
+echo "Created the directory structure "
+
+for i in $DIRLIST
+do
+    if [ "$i" = "lib" ]
+    then
+     cp -r $IMS_ROOT/api/c++/lib/libbaseapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libcxdxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libgqgqapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/librfroapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libshapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libdccaapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libnasreqapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/dframe/lib/libITSDFrame$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $ITS_ROOT/common/lib/libENGINE*$DBGSUFFIX.so $RELEASE_LIB_DIR/.;
+     cp -r $ITS_ROOT/common/lib/libDRIVER++*$DBGSUFFIX.so $RELEASE_LIB_DIR/.;
+     cp -p $ITS_ROOT/common/lib/libDISPATCH++$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-STUB*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-GCS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libGCS-CLIENT*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libITS-REDUNDANCY*$DBGSUFFIX.so $RELEASE_LIB_DIR
+    
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/dcca/lib/libdccacore$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     ###### Copy OAM Libraries #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/lib/libsubagent.so $RELEASE_LIB_DIR
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/server/lib/libDiaOAMServerD.so $RELEASE_LIB_DIR
+
+     ###### Copy OAM Binary #######     
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/bin/subagent $RELEASE_DEMO_DIR/bin/
+     cp -r $SNMP_ROOT/agent/.libs/snmpd $RELEASE_DEMO_DIR/bin/
+
+     ###### Copy snmpd.conf #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/config/snmpd.conf $RELEASE_CFG_DIR
+
+     ###### Copy mibs & related *.txt files ######
+     cp -r $SNMP_ROOT/mibs/*.txt        $RELEASE_MIBS_DIR
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/mibs/DIA-MIB.mib $RELEASE_MIBS_DIR
+
+     ###### SNMP Libraries ######
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpmibs.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpagent.so.15.1.2        $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/helpers/.libs/libnetsnmphelpers.so.15.1.2   $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/apps/.libs/libnetsnmptrapd.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/snmplib/.libs/libnetsnmp.so.15.1.2           $RELEASE_LIB_DIR
+
+#### IntelliNet TLS wrapper lib
+     cp -p $ITS_ROOT/tls/lib/libITS-TLS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+#### Gnutls related libraries
+     cp -p $GNUTLS_ROOT/lib/.libs/libgnutls.so.11   $RELEASE_LIB_DIR
+     cp -p $GCRYPT_ROOT/src/.libs/libgcrypt.so.11   $RELEASE_LIB_DIR
+     cp -p $GPGERR_ROOT/src/.libs/libgpg-error.so.0 $RELEASE_LIB_DIR
+     cp -p $GNUTLS_ROOT/src/.libs/certtool          $RELEASE_IMSROOT/demo/bin
+     cp -p $OPENSSL_ROOT/libssl.a                   $RELEASE_LIB_DIR
+
+    if [ $SDK != "windriver" ]
+    then
+     if [ $PLATFORM = "linux" ]
+     then
+         cp -r $LKSCTP_ROOT/src/lib/.libs/libsctp.so.1.0.6 $RELEASE_LIB_DIR
+         echo " "
+     fi
+     if [ $PLATFORM = "linux" ]
+     then
+         cd $RELEASE_LIB_DIR
+         ln -s libsctp.so.1.0.6 libsctp.so.1
+         ln -s libsctp.so.1.0.6 libsctp.so
+         cd -
+     fi
+    fi
+     cd ../../..
+     echo "Copied libraries `pwd` "
+   fi
+   
+   if [ "$i" = "c++include" ]
+   then
+     mkdir -p $RELEASE_IMSROOT/api/include/diameter
+     cp -r $IMS_ROOT/api/c++/include/diameter/base $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/dcca $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/cxdx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/gqgqprime $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/sh $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/rfro $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/nasreq $RELEASE_IMSROOT/api/include/diameter/.;
+     echo "Copied includes"
+   fi
+   
+   if [ "$i" = "include" ]
+   then
+     mkdir -p $RELEASE_IMSROOT/AcceleroCore
+     cp -r $ITS_ROOT/common/include $RELEASE_IMSROOT/AcceleroCore/.;
+      \rm -rf $RELEASE_IMSROOT/AcceleroCore/include/platforms/*.h
+     cp -r $ITS_ROOT/common/include/platforms/its_$PLATFORM.h $RELEASE_IMSROOT/AcceleroCore/include/platforms/.
+
+     for j in $INTELLI_INC
+     do 
+	rm -rf $RELEASE_IMSROOT/AcceleroCore/include/$j
+     done
+
+     cp -r $IMS_ROOT/val/c++/include/di* $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/vendors/IntelliNet/include/dia_stack.h $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/vendors/IntelliNet/include/dia_mgmt.h $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/common/include/* $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/dframe/include/dia_frame.h $RELEASE_INC_DIR/.;
+
+     echo "Copied root includes"
+   fi
+   
+   if [ "$i" = "apps" ]
+   then
+
+    cp -r $IMS_ROOT/api/c++/mtest/diameter/app_stat/* $RELEASE_APPS_DIR
+ 
+    echo "Copied Apps Applications"
+   fi
+
+   if [ "$i" = "config" ]
+   then
+
+     if [ $PLATFORM = "linux" ]
+     then
+          if [ $SDK = "rmi" ]
+          then
+               cp -rp $IMS_ROOT/make.dirs.rmi $RELEASE_IMSROOT/make.dirs
+          elif [ $SDK = "windriver" ]
+          then
+               cp -rp $IMS_ROOT/make.dirs.wr $RELEASE_IMSROOT/make.dirs
+          else
+               cp -rp $IMS_ROOT/make.dirs $RELEASE_IMSROOT
+          fi
+     fi
+ 
+     echo "Copied config files"
+   fi
+
+done
+  
+find $RELEASE_IMSROOT/demo -name core.* -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT/apps/ -name *.o -print | xargs /bin/rm -rf
+  

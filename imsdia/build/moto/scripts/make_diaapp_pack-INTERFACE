@@ -1,0 +1,211 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+#!/bin/bash
+
+    echo "Select the New Interface type to build a InstallDir"
+    echo " 1. For GX API "
+    echo " 2. For TX API "
+    echo " 3. For RX API "
+    echo " 4. For WX API "
+    echo " 5. For TY API "
+    echo " 6. For CX-3GPP2 API "
+    echo " 7. For E2 API "
+    echo " 8. For E4 API "
+    echo " 9. For EAP API "
+    echo " 10. For MIP API "
+    echo " 11. For NASREQ API "
+    echo " 12. For RQ API "
+    echo " 13. For SH-3GPP2 API "
+    echo " 14. For WM API "
+    echo " 15. For s6a API "
+    echo " 16. For s13 API "
+    read apiType
+    
+    if [ $apiType = "1" ]
+    then
+	interface="gx"
+        APP_PKG="GX"
+    elif [ $apiType = "2" ]
+    then
+        interface="tx"
+        APP_PKG="TX"
+    elif [ $apiType = "3" ]
+    then
+        interface="rx"
+  	APP_PKG="RX"
+    elif [ "$apiType" = "4" ]
+    then
+        interface="wx"
+	APP_PKG="WX"
+    elif [ $apiType = "5" ]
+    then
+        interface="ty"
+ 	APP_PKG="TY"
+    elif [ $apiType = "6" ]
+    then
+        interface="cx_3gpp2"
+	APP_PKG="CX-3GPP2"
+    elif [ $apiType = "7" ]
+    then
+	interface="e2"
+	APP_PKG="E2"
+    elif [ $apiType = "8" ]
+    then
+     	interface="e4"
+	APP_PKG="E4"
+    elif [ $apiType = "9" ]
+    then
+	interface="eap"
+	APP_PKG="EAP"
+    elif [ $apiType = "10" ]
+    then
+	interface="mip"
+	APP_PKG="MIP"
+    elif [ $apiType = "11" ]
+    then
+	interface="nasreq"
+	APP_PKG="NASREQ"
+    elif [ $apiType = "12" ]
+    then
+	interface="rq"
+	APP_PKG="RQ"
+    elif [ $apiType = "13" ]
+    then
+ 	interface="sh_3gpp2"
+	APP_PKG="SH-3GPP2"
+    elif [ $apiType = "14" ]
+    then
+	interface="wm"
+	APP_PKG="WM"
+    elif [ $apiType = "15" ]
+    then
+        interface="s6a"
+	APP_PKG="S6A"
+    elif [ $apiType = "16" ]
+    then
+	interface="s13" 
+	APP_PKG="S13"
+    else
+        echo "Invalid entry"
+    fi
+
+DIRLIST="api config demo lib"
+
+INTELLI_INC="asn-c asn-cpp domxmlparser gdi mnt parse ssl rudp_msgs.h tali_msgs.h sctp_msgs.h gdi_msgs.h its_rudp.h its_dsm_sci.h"
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+IMS_VER=$1
+
+if [ "$IMS_VER" = "" ]
+then
+   echo Please enter the release version number.
+   echo Ex. make install_interfaces IMS_VER=3.2.0
+   exit 0
+fi
+
+echo "InstallDir is ./InstallDir  \n";
+RELEASE_DIR=$IMS_ROOT/../InstallDir
+RELEASE_IMSROOT=$RELEASE_DIR/$APP_PKG-$IMS_VER
+
+RELEASE_API_DIR=$RELEASE_IMSROOT/api
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_LIB_DIR=$RELEASE_IMSROOT/lib
+RELEASE_DEMO_DIR=$RELEASE_IMSROOT/demo
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+mkdir -p $RELEASE_API_DIR
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_DEMO_DIR
+
+echo "Created the directory structure "
+
+for i in $DIRLIST
+do
+    if [ "$i" = "lib" ]
+    then
+
+     cp -r $IMS_ROOT/api/c++/lib/lib$interface*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     if [ $interface = "sh_3gpp2" ]
+       then
+         cp -r $IMS_ROOT/api/c++/lib/libcx_3gpp2apiD.so $RELEASE_IMSROOT/lib/
+     fi
+     cd ../../..
+
+     echo "Copied libraries `pwd` "
+   fi
+   
+   if [ "$i" = "api" ]
+   then
+     mkdir -p $RELEASE_API_DIR/include/diameter
+     cp -r $IMS_ROOT/api/c++/include/diameter/$interface $RELEASE_API_DIR/include/diameter/.;
+
+     if [ $interface = "sh_3gpp2" ]
+       then
+         mkdir -p $RELEASE_API_DIR/include/diameter/cx_3gpp2
+         cp -r $IMS_ROOT/api/c++/include/diameter/cx_3gpp2/Cx_3gpp2AVP.h $RELEASE_API_DIR/include/diameter/cx_3gpp2/
+     fi
+     if [ $interface = "wm" ]
+       then
+         mkdir -p $RELEASE_API_DIR/include/diameter/eap
+         cp -r $IMS_ROOT/api/c++/include/diameter/eap/EapAVP.h $RELEASE_API_DIR/include/diameter/eap/
+         mkdir -p $RELEASE_API_DIR/include/diameter/nasreq
+         cp -r $IMS_ROOT/api/c++/include/diameter/nasreq/NasreqAVP.h $RELEASE_API_DIR/include/diameter/nasreq/
+     fi
+
+     echo "Copied includes"
+   fi
+
+     if [ "$i" = "demo" ]
+     then
+       cp -r $IMS_ROOT/api/c++/mtest/diameter/$interface/* $RELEASE_DEMO_DIR
+       cp -r $ITS_ROOT/GCS/bin/gcs_daemonD $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/gcs_daemon.ini $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/itsdiaserver.xml $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/api/c++/mtest/diameter/cx_3gpp2/bin/demo.xml.server $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/demo.xml.server.redun $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/dictionary.xml $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/itsdia-config-sample.xml $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/api/c++/mtest/diameter/cx_3gpp2/bin/demo.xml.client $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/demo.xml.client.redun $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/config/itsdiaclient.xml $RELEASE_DEMO_DIR/bin
+       cp -r $IMS_ROOT/api/c++/mtest/diameter/$interface/bin/Run.* $RELEASE_DEMO_DIR/bin
+       echo "Copied demo Application"
+     fi
+ 
+   if [ "$i" = "config" ]
+   then
+     cp -rp $IMS_ROOT/make.dirs $RELEASE_IMSROOT
+     echo "Copied config files"
+   fi
+done
+  
+find $RELEASE_IMSROOT/demo -name core.* -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT/demo -name *.o -print | xargs /bin/rm -rf

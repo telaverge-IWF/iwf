@@ -1,0 +1,20 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib:$LD_LIBRARY_PATH:../lib:$LD_LIBRARY_PATH:../../app_stat/lib:$IMS_ROOT/dframe/lib:$IMS_ROOT/vendors/IntelliNet/lib:$IMS_ROOT/apps/lib
+
+export LD_LIBRARY_PATH
+
+# USAGE
+# sampleS6DAppD -load -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost) 
+#            -dr (DestinationRealm) -configFile (xmlFileName)
+
+
+sampleS6DAppD -oh snoopycl -or india.internal.net -dh snoopy -dr india.internal.net -configFile demo.xml.client

@@ -1,0 +1,164 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make.dirs.solCC,v 3.9 2010/10/12 07:32:49 nvijikumar Exp $
+#
+# LOG: $Log: make.dirs.solCC,v $
+# LOG: Revision 3.9  2010/10/12 07:32:49  nvijikumar
+# LOG: -O2 Issue with STLPORT4 flag
+# LOG:
+# LOG: Revision 3.8  2010/09/20 06:36:18  nvijikumar
+# LOG: STLPORT4 support
+# LOG:
+# LOG: Revision 3.7  2010/04/29 06:40:29  nvijikumar
+# LOG: Fix for compilation issue on Sun CC - version 12
+# LOG:
+# LOG: Revision 3.6  2009/04/14 09:24:57  sureshj
+# LOG: HMI_ENABLE compilation flag removed.
+# LOG:
+# LOG: Revision 3.5  2009/04/07 14:47:49  sureshj
+# LOG: HMI_ENABLE compilation flag defined.
+# LOG:
+# LOG: Revision 3.4  2009/01/02 06:00:57  nvijikumar
+# LOG: Linking -lz as part of SYSLIB needed for TLS
+# LOG:
+# LOG: Revision 3.3  2008/09/04 10:52:23  sureshj
+# LOG: Fix for issue 1086. CER/CEA shouldn't check for common supported vendor-Id.
+# LOG:
+# LOG: Revision 3.2  2008/08/07 09:25:07  sureshj
+# LOG: Compilation flag (APPID_EXCLUSIVE)  added to disable the check
+# LOG: for vendorId and Supported VendorId.
+# LOG:
+# LOG: Revision 3.1  2008/03/31 10:32:59  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.6  2008/03/27 12:05:43  hbhatnagar
+# LOG: Converting 2.1 branch to CURRENT
+# LOG:
+# LOG: Revision 2.4.2.1  2008/03/25 13:39:56  rajesh
+# LOG: **As per Plan B**
+# LOG: Starting of Auth-Session related Timers are commented out. This is done because of performance degradation with session increase.
+# LOG:
+# LOG: Revision 2.4  2007/02/19 06:24:05  nvijikumar
+# LOG: Remove libssl library linking from all libs (Bridgewater issue).
+# LOG:
+# LOG: Revision 2.3  2006/11/03 13:53:03  nvijikumar
+# LOG: 64 bit compilation support.
+# LOG:
+# LOG: Revision 2.2  2006/10/24 11:59:51  nvijikumar
+# LOG: Included -lsctp library for SCTP support.
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:13:24  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.2  2006/06/21 10:36:24  nvijikumar
+# LOG: Modification for Copyright info.
+# LOG:
+# LOG: Revision 1.1  2006/06/02 12:48:56  yranade
+# LOG: Added solaris flags
+# LOG:
+# LOG: Revision 1.2  2006/05/29 10:11:31  yranade
+# LOG: Fix typo
+# LOG:
+# LOG: Revision 1.1  2006/05/26 14:26:33  yranade
+# LOG: Add CC Compiler options
+# LOG:
+#
+############################################################################
+# Java Specifics
+JAVACMD=java -jar
+DIAJARFILE=$(IMS_ROOT)/mag/bin/diamag.jar
+DNSLIB=/usr/lib/libresolv.so
+
+ifeq ($(CUSTOMIZE), bridgewater_planb)
+CUSTFLAG= -D_BRIDGE_WATER_PLAN_B
+endif
+
+# Compilation flag added to disable the check
+# for vendorId and Supported VendorId inside CER.
+#
+ifeq ($(APPID_EXCLUSIVE),yes)
+DEFINES:=$(DEFINES) -DAPP_ID_EXCLUSIVE
+endif
+
+#
+# Plaform Specifics... for Solaris 32bit 
+#
+ifeq ($(PLATFORM),solaris)
+CXX=CC
+CXXAR=CC
+CXXARFLAGS=-xar -o
+CXXSHAREDAR=CC
+CXXSHAREDARFLAGS=-G -z allextract -o
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM) $(CUSTFLAG) -DAPP_ID_EXCLUSIVE
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+SOFLAGS=-KPIC
+SOCKLIBS=-lnsl -lsocket -lsctp
+THREADLIBS=-lthread -lmtmalloc
+SYSLIBS=-ldl -lrt -lz 
+CXXSHAREDARFLAGS=-G -z allextract -o
+endif
+
+#
+# Plaform Specifics... for Solaris 64bit
+#
+ifeq ($(PLATFORM),solaris64)
+CXX=CC -xtarget=ultra -xarch=v9
+CXXAR=CC
+CXXARFLAGS=-xar -o
+CXXSHAREDAR=CC -xtarget=ultra -xarch=v9
+CXXSHAREDARFLAGS=-G -z allextract -o
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM) $(CUSTFLAG)
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+SOFLAGS=-KPIC
+SOCKLIBS=-lnsl -lsocket -lsctp
+THREADLIBS=-lthread -lmtmalloc
+SYSLIBS=-ldl -lrt -lz
+CXXSHAREDARFLAGS=-G -z allextract -o
+endif
+
+ifeq ($(USE_STLPORT4),yes)
+ifeq ($(DEBUG_BUILD),yes)
+CXXFLAGS=    -g -w $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS) -library=stlport4
+DBGSUFFIX= D
+else
+CXXFLAGS=    -g $(INCLS) $(DEFINES) -DNDEBUG $(SOFLAGS) -library=stlport4
+DBGSUFFIX=
+endif
+else
+ifeq ($(DEBUG_BUILD),yes)
+CXXFLAGS=    -g -w $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS)
+DBGSUFFIX= D
+else
+CXXFLAGS=    -g -O $(INCLS) $(DEFINES) -DNDEBUG $(SOFLAGS)
+DBGSUFFIX=
+endif
+endif
+
+

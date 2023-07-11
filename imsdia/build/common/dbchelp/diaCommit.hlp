@@ -1,0 +1,18 @@
+Diameter Command
+
+SYNOPSIS
+    diaCommit  <fileName> 
+
+DESCRIPTION
+    This command persist the current configuration in xml format 
+
+    File name will be appended by timestamp during which the file is generated
+
+PARAMETERS
+    fileName      File  Name to persist the configuration
+
+
+EXAMPLE
+    >> diaCommit test.xml 
+
+Successfully PeerConfiguration added

@@ -1,0 +1,43 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/ndbgeneral.dir/ndbzio.c.o"
+  "CMakeFiles/ndbgeneral.dir/File.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/md5_hash.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/Properties.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/socket_io.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/SimpleProperties.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/Parser.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/InputStream.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/SocketServer.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/SocketClient.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/SocketAuthenticator.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/OutputStream.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/NdbOut.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/BaseString.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/NdbSqlUtil.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/uucode.c.o"
+  "CMakeFiles/ndbgeneral.dir/random.c.o"
+  "CMakeFiles/ndbgeneral.dir/ndb_rand.c.o"
+  "CMakeFiles/ndbgeneral.dir/version.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/strdup.c.o"
+  "CMakeFiles/ndbgeneral.dir/ConfigValues.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/ndb_init.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/ndb_opts.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/basestring_vsnprintf.c.o"
+  "CMakeFiles/ndbgeneral.dir/Bitmask.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/SparseBitmask.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/require.c.o"
+  "CMakeFiles/ndbgeneral.dir/Vector.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/NdbPack.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/HashMap2.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/LinkedStack.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/decimal_utils.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/CharsetMap.cpp.o"
+  "CMakeFiles/ndbgeneral.dir/CharsetMapImpl.cpp.o"
+  "libndbgeneral.pdb"
+  "libndbgeneral.a"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang C CXX)
+  INCLUDE(CMakeFiles/ndbgeneral.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

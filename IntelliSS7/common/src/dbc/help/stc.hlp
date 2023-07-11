@@ -1,0 +1,10 @@
+
+ITU STC Module :
+
+    stc_get_gen_cfg        STC Get General Config
+    stc_set_gen_cfg        STC Set General Config
+    stc_get_gen_peg        STC Get Pegs
+    stc_clr_gen_peg        STC Clear Peg
+    stc_entry_table        STC view entry table 
+
+For details about any command use "help <command name>"

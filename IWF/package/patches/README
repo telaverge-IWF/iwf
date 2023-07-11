@@ -1,0 +1,54 @@
+Usage:./create_patch.py <Patch_config.json>
+
+
+Sample Patch Configuration json file 
+------------------------------------
+
+{
+    "patch-details": [           
+    {    
+        "patch-type" : "static",          // values can be "static" or "plugin"
+            "patch-number": 2,                //  values between 1 to 99
+            "dre-release": "dre-3.2.0-06",    // dre release version
+            "pre-patch-script" : "$DRE_ROOT/package/patch/scripts/pre_patch.sh",
+
+            "post-patch-script" : "$DRE_ROOT/package/patch/scripts/post_patch.sh",
+
+            "pre-uninstall-script" : "$DRE_ROOT/package/patch/scripts/pre_uninstall_patch.sh",
+            "post-uninstall-script" : "$DRE_ROOT/package/patch/scripts/post_uninstall_patch.sh",
+
+            "files": [
+            {
+                "source": "$EACC_ROOT/scripts/ha/standalone_to_ha.sh",
+                "target": "/opt/diametriq/dre/scripts/standalone_to_ha.sh"
+            },
+            {
+                "source": "$DRE_ROOT/controller/bin/dre_appD",
+                "target": "/opt/diametriq/dre/bin/dre_appD"
+            }
+        ]
+    }    
+
+    ]
+}
+
+
+Field Description
+-----------------
+"patch-type" - can be "static" or "plugin"
+"patch-number" - numerical values between 1 to 26
+"dre-release" - dre release version to which patch has to be created
+"pre-patch-script" - Path of the script to be executed before applying a patch. This script should contain the steps to be carried out before applying
+the patch
+
+"post-path-script" - This script should contain the steps to be carried out after applying
+the patch 
+
+"pre-uninstall-script" and "post-uninstall-script" fields contain the scripts to be executed
+before and after removal of the patch respectively
+
+"files" - files field contains all the files which are to be patched, its represented with "source"
+and "target" fields. "source" defines the path where the file has to be picked up (in the 
+        development environment) while creating the patch. "target" defines the path to be copied to
+while applying the patch in the target machine where DRE is installed
+

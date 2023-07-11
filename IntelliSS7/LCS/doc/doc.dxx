@@ -1,0 +1,39 @@
+/**@name GSM LCS BSSAP-LE Protocol Messages
+ *
+ * @memo    GSM LCS BSSAP-LE API message level classes
+ * @version 1.0
+ * @author  IntelliNet Technologies, Inc.
+ */
+//@{
+    //@Include: ../include/bssaple/*.h
+//@}
+
+/**@name GSM LCS BSSAP-LE Protocol Information Elements
+ *
+ * @memo    GSM LCS BSSAP-LE API information element level classes
+ * @version 1.0
+ * @author  IntelliNet Technologies, Inc.
+ */
+//@{
+    //@Include: ../include/bssaple/ie/*.h
+//@}
+
+/**@name GSM LCS BSSLAP Protocol Messages
+ *
+ * @memo    GSM LCS BSSLAP API message level classes
+ * @version 1.0
+ * @author  IntelliNet Technologies, Inc.
+ */
+//@{
+    //@Include: ../include/bsslap/*.h
+//@}
+
+/**@name GSM LCS BSSLAP Protocol Information Elements
+ *
+ * @memo    GSM LCS BSSLAP API information element level classes
+ * @version 1.0
+ * @author  IntelliNet Technologies, Inc.
+ */
+//@{
+    //@Include: ../include/bsslap/ie/*.h
+//@}

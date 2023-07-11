@@ -1,0 +1,13 @@
+#!/bin/sh
+
+rm core.*
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib:$LD_LIBRARY_PATH:../lib:../../../dframe/lib:../../../vendors/IntelliNet/lib:$ITS_ROOT/common/lib:../../../vendors/IntelliNet/dcca/lib:../../../mgmt/dms/lib
+
+
+export LD_LIBRARY_PATH
+
+DiaServerD -configFile itsIDS.xml
+#gdb DiaServerD 
+
+

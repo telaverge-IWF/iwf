@@ -1,0 +1,26 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+# Bring the system back to as it was before installation 
+#
+
+PKGDIR=$PKG-$VERSION
+
+if [ -d $BASEDIR/$PKGDIR  ]
+then
+    echo ""
+    echo "Removing $BASEDIR/$PKGDIR directory "
+    rm -r $BASEDIR/$PKGDIR
+    if [ $? -eq 0 ]
+    then
+         echo "DONE" 
+    fi
+    echo ""
+fi
+

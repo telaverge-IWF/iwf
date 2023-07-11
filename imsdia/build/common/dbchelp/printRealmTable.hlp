@@ -1,0 +1,54 @@
+Diameter Command
+
+SYNOPSIS
+    printRealmTable
+
+DESCRIPTION
+    This command prints all realm table entry.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+    >> printRealmTable
+------------------------------------------------------------
+-- Realm Table Begin --
+------------------------------------------------------------
+
+Size: <1>
+
+Entries:
+--------------------------------------------------
+Realm Name             = india.internal.net
+Local Action           = 0
+Proxy-Info AVP Enabled = no
+Default Peer Status    = 0
+ Peer     = nemo
+ AppId    = 0
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 16777216
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 16777217
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 16777222
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 4
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 1
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 5
+ VendorId = 0
+ Peer     = nemo
+ AppId    = 4
+ VendorId = 0
+--------------------------------------------------
+------------------------------------------------------------
+-- Realm Table End --
+------------------------------------------------------------
+

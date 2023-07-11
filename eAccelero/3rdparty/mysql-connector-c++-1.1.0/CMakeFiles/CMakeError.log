@@ -1,0 +1,592 @@
+Determining size of __int8 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3199273964/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3199273964.dir/build.make CMakeFiles/cmTryCompileExec3199273964.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3199273964.dir/HAVE_MS_INT8.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3199273964.dir/HAVE_MS_INT8.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT8.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT8.c:17:22: error: ‘__int8’ undeclared here (not in a function)
+ #define SIZE (sizeof(__int8))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT8.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3199273964.dir/HAVE_MS_INT8.c.o] Error 1
+gmake: *** [cmTryCompileExec3199273964/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT8.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(__int8))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of unsigned __int8 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec2317876434/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec2317876434.dir/build.make CMakeFiles/cmTryCompileExec2317876434.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec2317876434.dir/HAVE_MS_UINT8.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec2317876434.dir/HAVE_MS_UINT8.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:17:31: error: expected ‘)’ before ‘__int8’
+ #define SIZE (sizeof(unsigned __int8))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:17:31: error: expected ‘)’ before ‘__int8’
+ #define SIZE (sizeof(unsigned __int8))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:20:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 1000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:17:31: error: expected ‘)’ before ‘__int8’
+ #define SIZE (sizeof(unsigned __int8))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 100)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:17:31: error: expected ‘)’ before ‘__int8’
+ #define SIZE (sizeof(unsigned __int8))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:22:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:17:31: error: expected ‘)’ before ‘__int8’
+ #define SIZE (sizeof(unsigned __int8))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:23:12: note: in expansion of macro ‘SIZE’
+   ('0' +  (SIZE    % 10)),
+            ^
+gmake[1]: *** [CMakeFiles/cmTryCompileExec2317876434.dir/HAVE_MS_UINT8.c.o] Error 1
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec2317876434/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT8.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(unsigned __int8))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of __int16 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1801659303/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1801659303.dir/build.make CMakeFiles/cmTryCompileExec1801659303.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1801659303.dir/HAVE_MS_INT16.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1801659303.dir/HAVE_MS_INT16.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT16.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT16.c:17:22: error: ‘__int16’ undeclared here (not in a function)
+ #define SIZE (sizeof(__int16))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT16.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1801659303.dir/HAVE_MS_INT16.c.o] Error 1
+gmake: *** [cmTryCompileExec1801659303/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT16.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(__int16))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of unsigned __int16 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3773290929/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3773290929.dir/build.make CMakeFiles/cmTryCompileExec3773290929.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3773290929.dir/HAVE_MS_UINT16.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3773290929.dir/HAVE_MS_UINT16.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:17:31: error: expected ‘)’ before ‘__int16’
+ #define SIZE (sizeof(unsigned __int16))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:17:31: error: expected ‘)’ before ‘__int16’
+ #define SIZE (sizeof(unsigned __int16))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:20:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 1000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:17:31: error: expected ‘)’ before ‘__int16’
+ #define SIZE (sizeof(unsigned __int16))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 100)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:17:31: error: expected ‘)’ before ‘__int16’
+ #define SIZE (sizeof(unsigned __int16))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:22:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:17:31: error: expected ‘)’ before ‘__int16’
+ #define SIZE (sizeof(unsigned __int16))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:23:12: note: in expansion of macro ‘SIZE’
+   ('0' +  (SIZE    % 10)),
+            ^
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3773290929.dir/HAVE_MS_UINT16.c.o] Error 1
+gmake: *** [cmTryCompileExec3773290929/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT16.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(unsigned __int16))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of __int32 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec462314740/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec462314740.dir/build.make CMakeFiles/cmTryCompileExec462314740.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec462314740.dir/HAVE_MS_INT32.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec462314740.dir/HAVE_MS_INT32.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT32.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT32.c:17:22: error: ‘__int32’ undeclared here (not in a function)
+ #define SIZE (sizeof(__int32))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT32.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[1]: *** [CMakeFiles/cmTryCompileExec462314740.dir/HAVE_MS_INT32.c.o] Error 1
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec462314740/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT32.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(__int32))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of unsigned __int32 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec4100414793/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec4100414793.dir/build.make CMakeFiles/cmTryCompileExec4100414793.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec4100414793.dir/HAVE_MS_UINT32.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec4100414793.dir/HAVE_MS_UINT32.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:17:31: error: expected ‘)’ before ‘__int32’
+ #define SIZE (sizeof(unsigned __int32))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:17:31: error: expected ‘)’ before ‘__int32’
+ #define SIZE (sizeof(unsigned __int32))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:20:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 1000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:17:31: error: expected ‘)’ before ‘__int32’
+ #define SIZE (sizeof(unsigned __int32))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 100)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:17:31: error: expected ‘)’ before ‘__int32’
+ #define SIZE (sizeof(unsigned __int32))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:22:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:17:31: error: expected ‘)’ before ‘__int32’
+ #define SIZE (sizeof(unsigned __int32))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:23:12: note: in expansion of macro ‘SIZE’
+   ('0' +  (SIZE    % 10)),
+            ^
+gmake[1]: *** [CMakeFiles/cmTryCompileExec4100414793.dir/HAVE_MS_UINT32.c.o] Error 1
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec4100414793/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT32.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(unsigned __int32))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of __int64 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec1486831988/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec1486831988.dir/build.make CMakeFiles/cmTryCompileExec1486831988.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec1486831988.dir/HAVE_MS_INT64.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec1486831988.dir/HAVE_MS_INT64.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT64.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT64.c:17:22: error: ‘__int64’ undeclared here (not in a function)
+ #define SIZE (sizeof(__int64))
+                      ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT64.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+gmake[1]: *** [CMakeFiles/cmTryCompileExec1486831988.dir/HAVE_MS_INT64.c.o] Error 1
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec1486831988/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_INT64.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(__int64))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+
+Determining size of unsigned __int64 failed with the following output:
+Change Dir: /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec3260374428/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec3260374428.dir/build.make CMakeFiles/cmTryCompileExec3260374428.dir/build
+gmake[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec3260374428.dir/HAVE_MS_UINT64.c.o
+/usr/bin/cc    -o CMakeFiles/cmTryCompileExec3260374428.dir/HAVE_MS_UINT64.c.o   -c /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:17:31: error: expected ‘)’ before ‘__int64’
+ #define SIZE (sizeof(unsigned __int64))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:19:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:17:31: error: expected ‘)’ before ‘__int64’
+ #define SIZE (sizeof(unsigned __int64))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:20:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 1000)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:17:31: error: expected ‘)’ before ‘__int64’
+ #define SIZE (sizeof(unsigned __int64))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:21:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 100)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:17:31: error: expected ‘)’ before ‘__int64’
+ #define SIZE (sizeof(unsigned __int64))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:22:12: note: in expansion of macro ‘SIZE’
+   ('0' + ((SIZE / 10)%10)),
+            ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:17:31: error: expected ‘)’ before ‘__int64’
+ #define SIZE (sizeof(unsigned __int64))
+                               ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:23:12: note: in expansion of macro ‘SIZE’
+   ('0' +  (SIZE    % 10)),
+            ^
+gmake[1]: *** [CMakeFiles/cmTryCompileExec3260374428.dir/HAVE_MS_UINT64.c.o] Error 1
+gmake[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec3260374428/fast] Error 2
+
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/CMakeFiles/CheckTypeSize/HAVE_MS_UINT64.c:
+#include <sys/types.h>
+#include <stdint.h>
+#include <stddef.h>
+
+
+#undef KEY
+#if defined(__i386)
+# define KEY '_','_','i','3','8','6'
+#elif defined(__x86_64)
+# define KEY '_','_','x','8','6','_','6','4'
+#elif defined(__ppc__)
+# define KEY '_','_','p','p','c','_','_'
+#elif defined(__ppc64__)
+# define KEY '_','_','p','p','c','6','4','_','_'
+#endif
+
+#define SIZE (sizeof(unsigned __int64))
+char info_size[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)),
+  ']',
+#ifdef KEY
+  ' ','k','e','y','[', KEY, ']',
+#endif
+  '\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_size[argc];
+  (void)argv;
+  return require;
+}
+
+

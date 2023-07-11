@@ -1,0 +1,42 @@
+FILE(REMOVE_RECURSE
+  "CMakeFiles/ndbmemcache.dir/src/ClusterConnectionPool.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/Configuration.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/Config_v1.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ConnQueryPlanSet.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/DataTypeHandler.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ExpireTime.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ExternalValue.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/KeyPrefix.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/NdbInstance.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/Operation.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/QueryPlan.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/Record.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/TabSeparatedValues.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/TableSpec.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/atomics.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/debug.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/hash_item_util.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_configuration.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_engine_errors.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_error_logger.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_flush.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_pipeline.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/ndb_worker.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/thread_identifier.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/timing.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/workitem.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/workqueue.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/schedulers/S_sched.cc.o"
+  "CMakeFiles/ndbmemcache.dir/src/schedulers/Stockholm.cc.o"
+  "CMakeFiles/ndbmemcache.dir/extra/memcached/engines/default_engine/items.c.o"
+  "CMakeFiles/ndbmemcache.dir/extra/memcached/engines/default_engine/assoc.c.o"
+  "CMakeFiles/ndbmemcache.dir/extra/memcached/engines/default_engine/slabs.c.o"
+  "CMakeFiles/ndbmemcache.dir/src/embedded_default_engine.c.o"
+  "libndbmemcache.pdb"
+  "libndbmemcache.a"
+)
+
+# Per-language clean rules from dependency scanning.
+FOREACH(lang C CXX)
+  INCLUDE(CMakeFiles/ndbmemcache.dir/cmake_clean_${lang}.cmake OPTIONAL)
+ENDFOREACH(lang)

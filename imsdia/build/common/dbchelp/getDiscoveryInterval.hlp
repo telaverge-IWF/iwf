@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    getDiscoveryInterval
+
+DESCRIPTION
+    This command is used to get Peer Discovery Interval.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getDiscoveryInterval
+       Peer discovery Interval = 120 
+

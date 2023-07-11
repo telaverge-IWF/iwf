@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbconf.a  CMakeFiles/ndbconf.dir/Config.cpp.o CMakeFiles/ndbconf.dir/ConfigInfo.cpp.o CMakeFiles/ndbconf.dir/InitConfigFileParser.cpp.o CMakeFiles/ndbconf.dir/__/kernel/vm/mt_thr_config.cpp.o
+/usr/bin/ranlib libndbconf.a

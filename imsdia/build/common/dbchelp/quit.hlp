@@ -1,0 +1,12 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    quit                                                                                 
+DESCRIPTION
+    This command terminates the debug console.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> quit
+

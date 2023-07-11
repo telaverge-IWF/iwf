@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbmgmclient.a  CMakeFiles/ndbmgmclient.dir/CommandInterpreter.cpp.o
+/usr/bin/ranlib libndbmgmclient.a

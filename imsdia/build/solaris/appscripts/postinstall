@@ -1,0 +1,19 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# postinstall
+
+PKGDIR=$PKG-$VERSION
+   
+# Check to see if there was a previous version
+# of Package installed & it's configuration was
+# backed up. If it was copy the license file,
+# & configuration files.
+chown -R intelli $BASEDIR 
+echo "DONE"
+exit 0;

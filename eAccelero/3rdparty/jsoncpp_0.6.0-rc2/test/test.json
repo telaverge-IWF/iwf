@@ -1,0 +1,31 @@
+{
+    "realm-table" : [
+        {
+            "realm" : "intellinet.com",
+            "apps" : [
+                {
+                    "application-id" : 4,
+                    "lb-algo" : "imsidb"
+                },
+                {
+                    "application-id" : 8,
+                    "lb-algo" : "round-robin"
+                }
+            ]
+        },
+        {
+            "realm" : "diametriq.com",
+            "apps" : [
+                {
+                    "application-id" : 16627756,
+                    "lb-algo" : "imsidb"
+                },
+                {
+                    "application-id" : 4,
+                    "lb-algo" : "round-robin"
+                }
+            ]
+        }
+    ]
+}
+

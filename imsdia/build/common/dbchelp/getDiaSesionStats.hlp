@@ -1,0 +1,31 @@
+Diameter Command
+
+SYNOPSIS
+    getDiaSesionStats <clearFlag>
+
+DESCRIPTION
+    Prints All Sesion based message Statistics and if clear flag is set,
+    statistics will be reset.
+
+PARAMETERS
+    clearFlag     0 - don't reset
+                  1 - will reset statistics
+
+EXAMPLE
+
+       >> getDiaSesionStats 1
+-----------------------------------------------------------
+-- Dia Session Stats -- at Wed Dec 31 09:17:22 2008
+-----------------------------------------------------------
+    Message           : ReqIn   | ReqOut | AnsIn  | AnsOut |
+-----------------------------------------------------------
+Application Based     :        0|       0|       0|       0|
+Accounting            :        0|       0|       0|       0|
+Abort Session         :        0|       0|       0|       0|
+Re-Auth               :        0|       0|       0|       0|
+Session Terminate     :        0|       0|       0|       0|
+Msg with 'E' bit set  :        0|       0|       0|       0|
+-----------------------------------------------------------
+Decode Failures       :                0
+-----------------------------------------------------------
+

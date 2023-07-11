@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    disDiaCritTrace                                                                                 
+DESCRIPTION
+    This command disables the diameter stack Critical traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> disDiaCritTrace
+    *******Diameter Critical Traces are disabled*******
+

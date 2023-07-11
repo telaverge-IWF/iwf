@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_asp_up_tmr
+
+DESCRIPTION
+    This command set asp up Timer.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_asp_up_tmr 10
+
+********* SET NEW ASP UP TIMER *********
+
+ASP_UP_TIMER       = 10
+

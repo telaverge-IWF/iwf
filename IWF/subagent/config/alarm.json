@@ -1,0 +1,121 @@
+{
+    "alarms-config" : [
+    {
+        "alarm-id" : "000001001" ,
+        "alarm-string" : "High Priority Process {0} went down"
+    },
+    {
+	"alarm-id" : "000001002" ,
+	"alarm-string" : "High Priority Process {0} came back up"
+    },
+    {
+        "alarm-id" : "000001003" ,
+        "alarm-string" : "Low Priority Process {0) went down"
+    },
+    {
+        "alarm-id" : "000001004" ,
+        "alarm-string" : "Low Priority Process {0} came back up"
+    },
+    {
+        "alarm-id" : "000002001" ,
+        "alarm-string" : "Uplanned switch-over to standby node"
+    },
+    {
+        "alarm-id" : "000002002" ,
+        "alarm-string" : "Unplanned switch-over completed successfully"
+    },
+    {
+        "alarm-id" : "000002003" ,
+        "alarm-string" : "Planned switch-over initiated ( Manual )"
+    },
+    {
+        "alarm-id" : "000002004" ,
+        "alarm-string" : "Planned switch-over completed"
+    },
+    {
+        "alarm-id" : "000003001" ,
+        "alarm-string" : "Configured Ethernet interface {0} is down"
+    },
+    {
+        "alarm-id" : "000003002" ,
+        "alarm-string" : "All Ethernet interfaces came back up"
+    },
+    {
+        "alarm-id" : "000002005" ,
+        "alarm-string" : "Dual Active Node Condition in case of Active-Standby configuration"
+    },
+    {
+        "alarm-id" : "000002006" ,
+        "alarm-string" : "Returned from dual active state and only one node is active"
+    },
+    {
+        "alarm-id" : "000002007" ,
+        "alarm-string" : "Dual standby Node condition in case of Active-Standby configuration"
+    },
+    {
+        "alarm-id" : "000002008" ,
+        "alarm-string" : "Returned from dual standby state and only one node is active"
+    },
+    {
+        "alarm-id" : "000002009" ,
+        "alarm-string" : "Standby node not available in case of Active-Standby configuration"
+    },
+    {
+        "alarm-id" : "000002010" ,
+        "alarm-string" : "Standby node available"
+    },
+    {
+        "alarm-id" : "000001005" ,
+        "alarm-string" : "DRE graceful shutdown, hostname {0}"
+    },
+    {
+        "alarm-id" : "000001006" ,
+        "alarm-string" : "DRE back up"
+    },
+    {
+        "alarm-id" : "003000001" ,
+        "alarm-string" : "Mysql Connectivity Lost"
+    },
+    {
+        "alarm-id" : "003000002" ,
+        "alarm-string" : "Mysql Connectivity Restored"
+    },
+    {
+        "alarm-id" : "010002001" ,
+        "alarm-string" : "Message rate threshold crossed license provided."
+    },
+    {
+        "alarm-id" : "010002002" ,
+        "alarm-string" : "Message rate now under license provided."
+    },
+    {
+        "alarm-id" : "010001003" ,
+        "alarm-string" : "Received DPR with cause as DO_NOT_WANT_TO_TALK_TO_YOU,hostname {0}."
+    },
+    {
+        "alarm-id" : "010001004" ,
+        "alarm-string" : "Received DPR with cause as BUSY,hostname {0}."
+    },
+    {
+        "alarm-id" : "010001005" ,
+        "alarm-string" : "Received DPR with cause as REBOOT,hostname {0}."
+    },
+    {
+        "alarm-id" : "000001007" ,
+        "alarm-string" : "License violation error.{0}"
+    },
+    {
+        "alarm-id" : "010002006" ,
+        "alarm-string" : "Transform plugin {0}"
+    }
+
+    ],
+
+    "Logging" : [
+     {
+             "logChannel"    : 0, //logchannel will not be considered,by default logchannel wil be syslog
+             "logLevel"      : 3
+     }
+     ]
+
+}

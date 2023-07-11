@@ -1,0 +1,131 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make.dirs.rmi,v 1.3 2009/04/14 09:25:59 sureshj Exp $
+#
+# LOG: $Log: make.dirs.rmi,v $
+# LOG: Revision 1.3  2009/04/14 09:25:59  sureshj
+# LOG: HMI_ENABLE compilation flag removed
+# LOG:
+# LOG: Revision 1.2  2009/04/07 14:47:19  sureshj
+# LOG: HMI_ENABLE compilation flag defined.
+# LOG:
+# LOG: Revision 1.1  2008/12/31 06:38:01  gdalawai
+# LOG: Added make.dirs.rmi for RMI cross compiler. gdalawai
+# LOG:
+# LOG: Revision 3.1.2.1  2008/07/10 16:21:24  ssaxena
+# LOG: Compilation flag (APPID_EXCLUSIVE)  added to disable the check
+# LOG: for vendorId and Supported VendorId. (on the request of Motorola)
+# LOG:
+# LOG: Revision 3.1  2008/03/31 10:32:59  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.6  2008/03/27 12:05:43  hbhatnagar
+# LOG: Converting 2.1 branch to CURRENT
+# LOG:
+# LOG: Revision 2.3  2007/02/19 06:39:31  nvijikumar
+# LOG: Removed libssl library linking which is not used in ITS Diameter.
+# LOG:
+# LOG: Revision 2.2  2006/09/26 10:04:21  nvijikumar
+# LOG: Updated SOCKLIB for linux (sctp).
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:13:24  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.7  2006/06/21 10:36:24  nvijikumar
+# LOG: Modification for Copyright info.
+# LOG:
+# LOG: Revision 1.6  2006/06/19 14:40:51  yranade
+# LOG: Use fPIC on solaris with gcc
+# LOG:
+# LOG: Revision 1.5  2006/05/05 10:25:19  yranade
+# LOG: Some path related updates.
+# LOG:
+# LOG: Revision 1.4  2006/03/16 12:53:18  nvijikumar
+# LOG: Libraries included ( -lrt -lssl)
+# LOG:
+# LOG: Revision 1.3  2006/03/06 13:41:26  yranade
+# LOG: Link in lssl on solaris.
+# LOG:
+# LOG: Revision 1.2  2006/03/02 13:30:36  tpanda
+# LOG: Updates for integration with IntelliSS7
+# LOG:
+# LOG: Revision 1.1.1.1  2006/02/16 12:16:38  yranade
+# LOG: Create baseline imsdia project in CVS.
+# LOG:
+#
+############################################################################
+# Java Specifics
+JAVACMD=java -jar
+DIAJARFILE=$(IMS_ROOT)/mag/bin/diamag.jar
+CPATH=/opt/rmi/1.4/mipscross/nptl/bin/
+LPATH=/opt/rmi/1.4/mipscross/nptl/lib
+SLPATH=/home/build/lksctp-tools-1.0.8/src/lib/.libs/ /home/build/lksctp-tools-1.0.8/src/lib/.libs/libsctp.a
+NOWHOLEARCHIVE=-Wl,--no-whole-archive
+
+CXX=$(CPATH)mips64-unknown-linux-gnu-g++ -Wall -L$(LPATH) -D_GNU_SOURCE -pipe -Wno-deprecated -O2
+CXXAR=$(CPATH)mips64-unknown-linux-gnu-ar
+CXXARFLAGS=cruv
+CXXSHAREDAR=$(CPATH)mips64-unknown-linux-gnu-g++
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -L$(SLPATH) -o
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM)
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+
+# Compilation flag added to disable the check
+# for vendorId and Supported VendorId inside CER.
+#
+ifeq ($(APPID_EXCLUSIVE),yes)
+DEFINES:=$(DEFINES) -DAPP_ID_EXCLUSIVE
+endif
+
+#
+# Plaform Specifics... for Solaris 
+#
+ifeq ($(PLATFORM),solaris)
+#SOFLAGS=-fpic
+SOFLAGS=-fPIC
+SOCKLIBS=-lnsl -lsocket
+THREADLIBS=-lthread -lmtmalloc
+SYSLIBS=-ldl -lrt 
+CXXSHAREDARFLAGS=-G -z allextract -o
+endif
+
+# Plaform Specifics... for Linux
+ifeq ($(PLATFORM),linux)
+SOFLAGS=-fpic
+SOCKLIBS=-lsctp
+THREADLIBS=-lpthread
+SYSLIBS=-ldl -lrt 
+CXXSHAREDARFLAGS=-shared -Wl,--whole-archive -o
+endif
+
+ifeq ($(DEBUG_BUILD),yes)
+CXXFLAGS=    -g -w $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS)
+DBGSUFFIX= D
+else
+CXXFLAGS=    -O $(INCLS) $(DEFINES) -DNDEBUG $(SOFLAGS)
+DBGSUFFIX=
+endif

@@ -1,0 +1,213 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make_dist_jdiaapp_pack,v 3.2 2008/08/25 05:36:57 gdalawai Exp $
+#
+# LOG: $Log: make_dist_jdiaapp_pack,v $
+# LOG: Revision 3.2  2008/08/25 05:36:57  gdalawai
+# LOG: Removed copying libc_nonshared.a as dependency is removed. gdalawai
+# LOG:
+# LOG: Revision 3.1  2008/03/31 10:33:15  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.11  2008/03/27 11:47:56  hbhatnagar
+# LOG: Converting 2.1 branch to CURRENT
+# LOG:
+# LOG: Revision 2.2.6.4  2007/05/31 07:24:40  rrath
+# LOG: CLean-up
+# LOG:
+# LOG: Revision 2.2.6.3  2007/05/30 13:18:53  rrath
+# LOG: Change to create link for sctp lib
+# LOG:
+# LOG: Revision 2.2.6.2  2007/03/15 05:25:15  rrath
+# LOG: Removing Release build from Packages
+# LOG:
+# LOG: Revision 2.2.6.1  2007/03/13 09:30:34  rrath
+# LOG: Changes for clean-up
+# LOG:
+# LOG: Revision 1.1.2.1  2007/03/13 05:00:56  rrath
+# LOG: Copy script changes for Clean-up
+# LOG:
+# LOG: Revision 2.2  2006/12/06 09:11:00  chandral
+# LOG: Modified Build scripts as GA Rel1.2
+# LOG:
+# LOG: Revision 1.1  2006/07/31 04:46:59  nvijikumar
+# LOG: New file for Java package.
+# LOG:
+# LOG:
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/sh
+sctp=lksctp-tools-1.0.6
+
+DIRLIST="jar config lib scripts demo docs"
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+echo "ReleaseDir is ./ReleaseDir  \n";
+
+RELEASE_DIR=$IMS_ROOT/build/$PLATFORM/ReleaseDir
+
+RELEASE_IMSROOT=$RELEASE_DIR/JIDC-$IMS_VER
+
+RELEASE_API_DIR=$RELEASE_IMSROOT/api
+RELEASE_LIB_DIR=$RELEASE_API_DIR/lib
+RELEASE_JAR_DIR=$RELEASE_API_DIR/jar
+RELEASE_DOC_DIR=$RELEASE_API_DIR/docs
+RELEASE_SCRIPT_DIR=$RELEASE_IMSROOT/scripts
+RELEASE_LOGS_DIR=$RELEASE_IMSROOT/logs
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_CL_DIR=$RELEASE_IMSROOT/demo
+
+/bin/rm -rf $RELEASE_DIR
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_JAR_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_SCRIPT_DIR
+mkdir -p $RELEASE_LOGS_DIR
+mkdir -p $RELEASE_DOC_DIR
+mkdir -p $RELEASE_CL_DIR
+
+echo "Created the directory structure"
+
+for i in $DIRLIST
+do
+   #
+   # Copy libraries.
+   #
+   if [ "$i" = "lib" ]
+   then
+     cp -r $ITS_ROOT/common/lib/libDRIVER++*$DBGSUFFIX $RELEASE_LIB_DIR;
+     cp -r $ITS_ROOT/common/lib/libENGINE*$DBGSUFFIX $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/aim/client/lib/libIDSClient*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/aim/jclient/lib/libJIDC*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/val/java/lib/libdiajava*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/dframe/lib/libDFrame*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/opendiameter/lib/libdiavendor*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $XERCESCROOT/lib/libxerces-c.so.27.0 $RELEASE_LIB_DIR;
+     if [ $PLATFORM = "linux" ]
+     then
+         cp -r /usr/local/lib/libsctp.so.1.0.6 $RELEASE_LIB_DIR
+     fi
+     if [ $PLATFORM = "linux" ]
+     then
+         cd $RELEASE_LIB_DIR
+         ln -s libsctp.so.1.0.6 libsctp.so.1
+         ln -s libsctp.so.1.0.6 libsctp.so
+         cd - 
+     fi
+     cd $RELEASE_LIB_DIR
+     ln -s libxerces-c.so.27.0 libxerces-c.so
+     ln -s libxerces-c.so.27.0 libxerces-c.so.27
+     if [ $PLATFORM = "linux" ]
+     then
+         ln -s libsctp.so.1.0.6 libsctp.so.1
+         ln -s libsctp.so.1.0.6 libsctp.so
+     fi
+     cd ../../../..
+     echo "Copied libraries"
+   fi
+  
+   #
+   # Copy jar files.
+   # 
+   if [ "$i" = "jar" ]
+   then
+
+     cp -r $IMS_ROOT/api/java/lib/diaapi.jar $RELEASE_JAR_DIR/.;
+     cp -r $IMS_ROOT/val/java/lib/diameter.jar $RELEASE_JAR_DIR/.;
+     cp -r $IMS_ROOT/aim/jclient/jar/JIDC.jar $RELEASE_JAR_DIR/.;
+     cp -r $JAVOLUTION/javolution.jar $RELEASE_JAR_DIR/.;
+     echo "Copied jar files"
+   fi
+  
+   #
+   # Copy config files.
+   # 
+   if [ "$i" = "config" ]
+   then
+     bash ./profiles/sample_dist_jdiaap_profile > $RELEASE_CFG_DIR/Profile
+     echo "Copied config files"
+   fi
+
+   #
+   # Copying scripts.
+   #
+   if [ "$i" = "scripts" ]
+   then
+     cp -r $IMS_ROOT/scripts/$PLATFORM/* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/imsdia* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/viewdocs $RELEASE_SCRIPT_DIR
+     echo "Copied script files"
+   fi
+
+   #
+   # copy demo dir
+   #
+   if [ "$i" = "demo" ]
+   then
+     mkdir -p $RELEASE_CL_DIR/jar
+     mkdir -p $RELEASE_CL_DIR/bin
+     cp ../common/makefiles/jclient_Makefile $RELEASE_IMSROOT/Makefile
+     cp -r $IMS_ROOT/aim/jclient/demo/* $RELEASE_CL_DIR
+     cp -r $IMS_ROOT/aim/jclient/jar/JSampleApp.jar $RELEASE_CL_DIR/jar
+     rm -rf $RELEASE_CL_DIR/*.class
+     cp $IMS_ROOT/scripts/MFGenerator.sh $RELEASE_CL_DIR
+     cp $IMS_ROOT/demo/bin/dictionary.xml $RELEASE_CL_DIR/bin
+     cp $IMS_ROOT/config/dictionary.dtd $RELEASE_CL_DIR/bin
+     cp ../common/runscripts/JIDCRun.1 $RELEASE_CL_DIR/bin/Run.client1
+     cp ../common/runscripts/JIDCRun.2 $RELEASE_CL_DIR/bin/Run.client2
+     echo "Copied Java Client Demo"
+   fi
+  
+   #
+   # Generate docs it should run only after copying all include 
+   # and cpp files.
+   # 
+   if [ "$i" = "docs" ]
+   then
+     cd $RELEASE_DIR
+     cp $IMS_ROOT/build/removelog.sh .
+     ./removelog.sh
+     rm removelog.sh
+     cp -r $IMS_ROOT/docs/* $RELEASE_DOC_DIR
+     cp -r $IMS_ROOT/aim/jclient/docs/* $RELEASE_DOC_DIR
+     echo " Copied Docs"
+     cd ../
+   fi
+
+done
+
+find ./ReleaseDir -name CVS -type d -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT -name  core.* -print | xargs /bin/rm -rf
+

@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    disDiaTrace                                                                                 
+DESCRIPTION
+    This command disables all the diameter traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> disDiaTrace
+    *******All the diameter traces are disabled*******
+

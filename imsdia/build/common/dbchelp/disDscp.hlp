@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    Dscp  <hostName> <realmName> 
+
+DESCRIPTION
+    This command will disable the Dscp Value to Peer Configuration.
+
+PARAMETERS
+    <hostName>       Peer Host Peer Name
+    <realmName>      Peer Host Realm Name
+
+EXAMPLE
+	>> disDscp nemocl india.internal.net 
+           Disable Dscp Success

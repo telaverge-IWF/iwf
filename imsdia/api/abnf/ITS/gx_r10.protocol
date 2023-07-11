@@ -1,0 +1,1849 @@
+/**
+ * Diameter Based Protocol
+ * 3GPP TS 29212 V10.6.0
+ * 3GPP TS 29212-9.3.0-Gx
+ * Gx interface between an TPF(Traffice Plane Function) and the 
+ *                         CRF(Charging Rules Function)
+ * is used for provisioning service data flow based charging rules.
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 and RFC 4005
+ * Gx Re-used AVPs - from Diameter Credit Control and NAS Application
+ **/
+protocol diameter.gx_r10 < 16777238 10415: "ETSI TS 129 212 V10.6.0 " >;
+
+/**
+ * This is the dictionary Id used by DTF. This has to be unique.
+ * Refer to the excel "Diameter_Dictionary_Details.xlsx" for
+ * currently used ID's to avoid collisions.
+ */
+dict-id 4;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * CC-Request-Type AVP (AVP Code 416) is of type enumerated and contains 
+ * the reason for sending the Credit-Control request message.
+*/
+    CC-Request-Type                 ::= 416  0 /* 8.3 */ Enumerated  M|P| |  V  |Y;  /* RFC4006 */
+                                                                                
+/**
+ * CC-Request-Number AVP (AVP Code 415) is of type Unsigned32 and 
+ * identifies this request within one session. As Session-Id AVPs are 
+ * globally unique,the combination of Session-Id and CC-Request-Number is
+ * also globally unique and can be used in matching credit-control messages
+ * with confirmations.
+*/
+    CC-Request-Number               ::= 415  0 /* 8.2 */ Unsigned32  M|P| |  V  |Y;  /* RFC4006 */
+
+/**
+ * The Network-Request-Support AVP (AVP code 1024) is of type of Enumerated and
+ * indicates the UE and network support of the network initiated procedures.
+ */
+    Network-Request-Support   ::= 1024  /*5.3.24 */ Enumerated    M,V|P| |    |Y; /* 8.47,29212-930*/
+
+/**
+ * The IP-CAN-Type AVP (AVP code 1027) is of type Enumerated, and it
+ * shall indicate the type of Connectivity Access Network in which the user is connected.
+ */
+IP-CAN-Type ::= 1027  /*5.3.27 */ Enumerated     M,V|P| |    |Y; /* 8.47,29212-920*/
+
+/**
+ * The QoS-Negotiation AVP (AVP code 1029) is of type Enumerated. The value of
+ * the AVP indicates for a single PCC rule request if the PCRF is allowed to negotiate
+ * the QoS by supplying in the answer to this request an authorized QoS different from the requested QoS.
+ */
+QoS-Negotiation  ::= 1029  /*5.3.28*/ Enumerated    M,V|P| |    |Y; 
+
+/**
+ * The QoS-Upgrade AVP (AVP code 1030) is of type Enumerated. The value of the AVP
+ * indicates whether the SGSN supports that the GGSN upgrades the QoS in a Create PDP context
+ * response or Update PDP context response. If the SGSN does not support a QoS upgrade,
+ * the PCRF shall not provision an authorized QoS which is higher than the requested QoS
+ * for this IP CAN bearer. The setting is applicable to the bearer indicated in the request
+ * within the Bearer-Identifier AVP.
+ */
+QoS-Upgrade  ::= 1030  /*5.3.29 */ Enumerated    M,V|P| |    |Y; 
+
+/**
+ * The RAT-Type AVP (AVP code 1032) is of type Enumerated and is used to identify the radio access technology that is serving the UE.
+ */
+RAT-Type  ::= 1032  /*5.3.31 */ Enumerated    V|P| |  M  |Y; /* 29212-930*/
+
+/**
+ *The Revalidation-Time AVP (AVP code 1042) is of type Time. This value indicates the NTP time
+ *before which the PCEF will have to re-request PCC rules. This value shall be provided with the
+ *event trigger when REVALIDATION_TIMEOUT is provisioned via CCA or RAR
+ */
+Revalidation-Time ::= 1042  /* 5.3.41 */ Time  M,V|P| |    |Y;
+
+/**
+ *The Event-Report-Indication AVP (AVP code 1033) is of type Grouped. When sent from the PCRF to the PCEF,
+ *it is used to report an event coming from the Access Network GW (BBERF) and relevant info to the PCEF. 
+ *When sent from the PCEF to the PCRF, it is used to provide the information about the required event triggers 
+ *to the PCRF. Only Event-Trigger AVP will be supplied in this case. 
+ */
+ Event-Report-Indication  ::= 1033   /*5.3.30*/ Grouped   V|P| |  M  |Y;
+
+/**
+ * Subscription-Id AVP(AVP Code 443) is of type Grouped and is used to 
+ * identity the end user's subscription.
+*/
+    Subscription-Id                 ::= 443  0 /*8.46 */ Grouped     M|P| |  V  |Y;  /* RFC4006 */
+                                                                                
+/**
+ * Subscription-Id-Type AVP (AVP Code 450) is of type Enumerated and it is
+ * used to determine which type of identifier is carried by the 
+ * Subscription-Id AVP.
+*/
+    Subscription-Id-Type            ::= 450  0 /*8.47 */ Enumerated  M|P| |  V  |Y;  /* RFC4006 */                                                                                 
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may
+ * inform the destination host about the features that origin host supports.
+ * The Vendor-ID AVP and the Feature-List AVP shall together identify which
+ * feature list is carried in the Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been
+ * defined by 3GPP, the Vendor-ID AVP shall contain the vendor ID of 3GPP.
+ * Where the Supported-Feature AVP is used to identify features that have been
+ * defined by a vendor other than 3GPP, it shall contain the vendor ID of the
+ * specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the
+ * Feature-List-ID AVP shall differentiate those lists from one another.
+ */
+
+   Supported-Features        ::= 628 /* 6.3.29 */ Grouped       V|M| |    |N;
+
+/**
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity
+ * of a feature list.
+ */
+    Feature-List-ID       ::= 629 /* 6.3.30 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask
+ * indicating the supported * features of an application.
+ */
+    Feature-List          ::= 630 /* 6.3.31 */ Unsigned32    V| | | M  |N;
+
+/**
+ * Subscription-Id-Data AVP (AVP Code 444) is of type UTF8String and is 
+ * used to identify the end user.
+ */
+    Subscription-Id-Data            ::= 444  0 /*8.48 */ UTF8String  M|P| |  V  |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info AVP (AVP Code 458) is of type Grouped and allows
+ * the credit-control client to indicate the identity and capability of the 
+ * terminal the subscriber is using for the connection to network.
+*/
+    User-Equipment-Info             ::= 458  0 /* 8.49*/ Grouped      |P,M| | V |Y;  /* RFC4006 */
+                                                                                
+/**
+ * The User-Equipment-Info-Type AVP (AVP Code 459) is of type Enumerated 
+ * and defines the type of user equipment information contained in the 
+ * User-Equipment-Info-Value AVP.
+*/
+    User-Equipment-Info-Type        ::= 459  0 /* 8.50*/ Enumerated   |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info-Value AVP (AVP Code 460) is of type OctetString.
+ * The User-Equipment-Info-Type AVP defines which type of identifier is 
+ * used.
+*/
+    User-Equipment-Info-Value       ::= 460  0 /* 8.51*/ OctetString  |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The Service-Identifier AVP is of type Unsigned32 (AVP Code 439) and contains
+ * the identifier of a service. The specific service the request relates to is
+ * uniquely identified by the combination of Service-Context-Id and 
+ * Service-Identifier AVPs.
+ */
+    Service-Identifier              ::= 439  0 /* 8.28*/ Unsigned32    M|P| |  V  |Y; /*RFC4006*/
+
+/**
+ * The Rating-Group AVP is of type Unsigned32 (AVP Code 432) and contains the
+ * identifier of a rating group. All the services subject to the same rating 
+ * type are part of the same rating group. The specific rating group the 
+ * request relates to is uniquely identified by the combination of 
+ * Service-Context-Id and Rating-Group AVPs.
+ */
+    Rating-Group                    ::= 432  0 /* 8.29*/ Unsigned32    M|P| |  V  |Y; /*RFC4006*/
+
+/**
+ * RAIdentity AVP is of type UTF8String and contains the Routing Area Identity of the SGSN where the UE
+ * is registered. RAI use and structure is specified in 3GPP TS 23.003.
+ */
+RAI   ::= 909  /* 17.7.12*/ UTF8String   V,M|P| |     |Y; /* 3GPP TS 29.061-930 */
+
+/**
+ * 3GPP-User-Location-Info AVP is of type Octetstring. It indicates details of where the
+ *  UE is currenly located (e.g SAI or CGI).
+ */
+    Gx-3GPP-User-Location-Info   ::= 22   /*16.4.7  */ OctetString  V|P| |  M  |Y; /* 3GPP TS 29.061 -930*/
+
+/**
+ * The Bearer-Usage AVP (AVP code 1000) is of type Enumerated, and it shall 
+ * indicate how the bearer is being used. If the Bearer-Usage AVP has not been
+ * previously provided, its absence shall indicate that no specific information
+ * is available. If the Bearer-Usage AVP has been provided, its value shall 
+ * remain valid until it is provided the next time.
+ */
+    Bearer-Usage                                ::= 1000 /* 5.3.1  */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Install AVP (AVP code431001) is of type Grouped, and it is
+ * used to activate,install or modify charging rules for a bearer as instructed 
+ * from the CRF to TPF. 
+ * For installing a new rule or modifying a Charging Rule already installed, 
+ * Charging-Rule-Name AVP and Charging-Rule-Definition AVP shall be used.
+ * For activating a specific chargign rule predefined at the TPF, Charging-Rule
+ * -Name AVP is a reference that may be used for activating a group of charging
+ * rules predefined at the TPF. 
+ */
+    Charging-Rule-Install                       ::= 1001 /* 5.3.2  */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Remove AVP (AVP code 1002) is of type Grouped, and it is 
+ * used to deactivate or remove charging rules from a bearer.Charging-Rule-Name
+ * AVP is a reference for a specific charging rule at the TPF to be removed or
+ * for a specific charging rule predefined at the TPF to be deactivated. The 
+ * Charging-Rule-Base-Name AVP is a reference for a group of charging rules 
+ * predefined at the TPF to be deactivated.
+ */
+    Charging-Rule-Remove                        ::= 1002 /* 5.3.3  */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Definition AVP (AVP code 1003) is of type Grouped, and it
+ * defines the charging rule for a service flow sent by the CRF to the TPF.The
+ * Charging-Rule-Name AVP uniquely identifies the charging rule for a bearer 
+ * and it is used to reference to a charging rule in communication between the 
+ * TPF and the CRF. The Flow-Description AVP(s) determines the traffic that 
+ * belongs to the service flow. 
+ * If optional AVP(s) within a Charging-Rule-Definition AVP are omitted, but 
+ * corresponding information has been provided in previous Gx messages, the 
+ * previous information remains valid. If Flow-Description AVP(s) are supplied,  * they replace all previous Flow-Description AVP(s). If Flows AVP(s) are 
+ * supplied, they replace all previous Flows AVP(s).
+ */
+    Charging-Rule-Definition                    ::= 1003 /* 5.3.4  */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Base-Name AVP (AVP code 1004) is of type UTF8String, and 
+ * it indicates the name of a pre‑defined group of charging rules residing at 
+ * the TPF.
+ */
+    Charging-Rule-Base-Name                     ::= 1004 /* 5.3.5  */ UTF8String   M,V|P| |   |Y; 
+
+/**
+ * The Charging-Rule-Name AVP (AVP code 1005) is of type OctetString.  For 
+ * charging rules provided by the CRF it uniquely identifies a charging rule 
+ * for a bearer. For charging rules pre-defined at the TPF it uniquely 
+ * identifies a charging rule within the TPF.
+ */
+    Charging-Rule-Name                          ::= 1005 /* 5.3.6  */ OctetString   M,V|P| |   |Y; 
+
+/**
+ * The Event-Trigger AVP (AVP code 1006) is of type Enumerated,and it indicates
+ * an event that shall cause a re-request of charging rules.
+ */
+    Event-Trigger                               ::= 1006 /* 5.3.7  */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Metering-Method AVP (AVP code 1007) is of type Enumerated, and it 
+ * defines what parameters shall be metered for offline charging.
+ */
+    Metering-Method                  ::= 1007 /* 5.3.8  */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Offline AVP (AVP code 1008) is of type Enumerated,and it defines whether
+ * the offline charging interface from the TPF for the associated charging rule
+ * shall be enabled. The absence of this AVP indicates that the default 
+ * configuration shall be used.
+ */
+    Offline                  ::= 1008 /* 5.3.9  */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Online AVP (AVP code 1009) is of type Enumerated, and it defines whether
+ * the online charging interface from the TPF for the associated charging rule 
+ * shall be enabled. The absence of this AVP indicates that the default 
+ * configuration shall be used.
+ */
+    Online                                      ::= 1009 /* 5.3.10 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Precedence AVP (AVP code 1010) is of type Unsigned32, and it defines the
+ * precedence of a charging rule in case of overlapping charging rules. A 
+ * charging rule with the Precedence AVP with lower value shall take the 
+ * priority over a charging rule with the Precedence AVP with higher value. The
+ * Precedence AVP is also used to indicate the evaluation precedence of the TFT
+ * packet filters.
+ */
+    Precedence                  ::= 1010 /* 5.3.11 */ Unsigned32    M,V|P| |   |Y; 
+
+/**
+ * The Reporting-Level AVP (AVP code 1011) is of type Enumerated,and it defines
+ * on what level the TPF reports the usage for the related charging rule.
+ */
+    Reporting-Level                  ::= 1011 /* 5.3.12 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The TFT-Filter AVP (AVP code 1012) is of type IPFilterRule, and it contains 
+ * the flow filter for one TFT packet filter.The TFT-Filter AVP is derived from
+ * the Traffic Flow Template (TFT) defined in 3GPP TS 24.008. 
+ * The following information shall be sent:
+ *  -Action shall be set to "permit".
+ *  -Direction shall be set to "out".
+ *  -Protocol shall be set to the value provided within the TFT packet filter 
+ *    parameter "Protocol Identifier/Next Header Type".If the TFT packet filter 
+ *    parameter "Protocol Identifier/Next Header Type" is not provided within
+ *    the TFT packet filter, Protocol shall be set to "IP".
+ *  -Source IP address (possibly masked). The source IP address shall be 
+ *    derived from TFT packet filter parameters "Source address" and "Subnet 
+ *    Mask". The source IP address shall be set to "any", if no such 
+ *    information is provided in the TFT packet filter.
+ *  -Source and destination port (single value, list or ranges).The information
+ *    shall be derived from the corresponding TFT packet filter parameters.
+ *    Source and/or destination port(s) shall be omitted if such information is
+ *    not provided in the TFT packet filter.
+ *  -The Destination IP address shall be set to "assigned".
+ * The IPFilterRule type shall be used with the following restrictions:
+ *  -No options shall be used
+ *  -The invert modifier "!" for addresses shall not be used.
+ * The direction "out" refers to downlink direction.
+ */
+    TFT-Filter                                  ::= 1012 /* 5.3.13 */ IPFilterRule  M,V|P| |   |Y; 
+
+/**
+ * The TFT-Packet-Filter-Information AVP (AVP code 1013) is of type Grouped,and
+ * it contains the information from a single TFT packet filter including the 
+ * evaluation precedence, the filter and the Type-of-Service/Traffic Class sent
+ * from the TPF to the CRF. The TPF shall include one TFT-Packet-Filter-
+ * Information AVP for each TFT packet filters applicable at a PDP context
+ * in separate TFT-Packet-Filter-Information AVPs within each charging rule
+ * request. corresponding to that PDP context. TFT-Packet-Filter-Information 
+ * AVPs are derived from the Traffic Flow Template (TFT) defined in
+ * 3GPP TS 24.008. When SBLP is used the packet filters shall be omitted.
+ */
+    TFT-Packet-Filter-Information               ::= 1013 /* 5.3.14 */ Grouped       M,V|P| |   |Y; 
+
+/**
+ * The ToS-Traffic-Class AVP (AVP code 1014) is of type OctetString, and it 
+ * contains the Type-of-Service/Traffic-Class of a TFT packet filter as defined
+ * in 3GPP TS 24.008.
+ */
+    ToS-Traffic-Class                           ::= 1014 /* 5.3.15 */ OctetString   M,V|P| |   |Y; 
+
+/**
+ * The QoS-Information AVP (AVP code 1016) is of type Grouped, and it defines the QoS
+ * information for resources requested by the UE, an IP-CAN bearer, PCC rule, QCI or APN.
+ * When this AVP is sent from the PCEF to the PCRF, it indicates the requested QoS information
+ * associated with resources requested by the UE, an IP CAN bearer or the subscribed QoS
+ * information at APN level.
+ */
+    QoS-Information   ::= 1016  /*5.3.16 */ Grouped       M,V|P| |   |Y; /*29212 - 930*/
+
+/**
+ * The Charging-Rule-Report AVP (AVP code 1018) is of type Grouped, and
+ * it is used to report the status of PCC rules
+ */
+Charging-Rule-Report      ::= 1018  /*5.3.18*/ Grouped       M,V|P| |    |Y; 
+
+/**
+ * The PCC-Rule-Status AVP (AVP code 1019) is of type Enumerated, and describes
+ * the status of one or a group of PCC Rules.
+ */
+PCC-Rule-Status  ::= 1019 /* 5.3.19 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Rule-Failure-Code AVP (AVP code 1031) is of type Enumerated. It is sent
+ * by the PCEF to the PCRF within a Charging-Rule-Report AVP to identify the reason a PCC Rule is being reported.
+ */
+Rule-Failure-Code ::= 1031 /* 5.3.38 */ Enumerated    M,V|P| |   |Y; 
+
+/**
+ * The Filter-Id AVP (AVP Code 11) is of type UTF8String and contains the name
+ * of the filter list for this user. Zero or more Filter-Id AVPs MAY be sent
+ * in an authorisation answer.
+ */
+    Filter-Id                                  ::= 11   /* NASREQ*/ UTF8String    M|P| |  V  |Y; /* 6.7,RFC4005 */
+
+/**
+ * The Final-Unit-Indication AVP (AVP Code 430) is of type Grouped and indicates that
+ * the Granted-Service-Unit AVP in the Credit-Control-Answer, or in the AA answer,
+ * contains the final units for the service. After these units have expired, the Diameter
+ * credit-control client is responsible for executing the action indicated in the
+ * Final-Unit-Action AVP.
+ */
+Final-Unit-Indication    ::= 430  0 /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.34, RFC4006*/
+
+/**
+ * The Redirect-Server AVP (AVP Code 434) is of type Grouped and contains the address
+ * information of the redirect server (e.g., HTTP redirect server, SIP Server) with which
+ * the end user is to be connected when the account cannot cover the service cost.It MUST be
+ * present when the Final-Unit-Action AVP is set to REDIRECT.
+ */
+Redirect-Server  ::= 434  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.37,RFC4006*/
+
+/**
+ * The Redirect-Address-Type AVP (AVP Code 433) is of type Enumerated and defines the address
+ * type of the address given in the Redirect-Server-Address AVP.
+ */
+Redirect-Address-Type    ::= 433  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.38,RFC4006*/
+
+/**
+ * The Redirect-Server-Address AVP (AVP Code 435) is of type UTF8String and
+ * defines the address of the redirect server (eg: HTTP redirect server,
+ * SIP server) wih which the end user is to be connected when the account
+ * cannot cover the service cost.
+ */
+Redirect-Server-Address   ::= 435  /*RFC4006 */ UTF8String    M|P| |  V  |Y; /* 8.38,RFC4006*/
+
+/**
+ * The Final-Unit-Action AVP (AVP Code 449) is of type Enumerated and indicates to the credit-control
+ * client the action to be taken when the user's account cannot cover the service cost.
+ */
+Final-Unit-Action   ::= 449  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.35,RFC4006*/
+
+/**
+ * The Restriction-Filter-Rule AVP (AVP Code 438) is of type IPFilterRule and provides filter
+ * rules corresponding to services that are to remain accessible even if there are no more service
+ * units granted. The access device has to configure the specified filter rules for the subscriber
+ * and MUST drop all the packets not matching these filters.
+ */
+Restriction-Filter-Rule  ::= 438  /*RFC4006 */ IPFilterRule  M|P| |  V  |Y; /* 8.36,RFC4006 */
+
+/**
+ * The Access-Network-Charging-Address AVP (AVP code 501) is of type Address,
+ * and it indicates the IP Address of the network entity within the access
+ * network performing charging(e.g.PDSN IPaddress). The Access-Network-Charging
+ * -Address AVP should not be forwarded over an inter-operator interface.
+ */
+Access-Network-Charging-Address   ::= 501  /* 5.5.2  */ Address       M,V|P| |   |Y;
+
+/**
+ * The Access-Network-Charging-Identifier-Gx AVP (AVP code 1022) is of type Grouped.
+ * It contains a charging identifier (e.g. GCID) within the
+ * Access-Network-Charging-Identifier-Value AVP and the related PCC rule name(s)
+ * within the Charging-Rule-Name AVP(s) and/or within the Charging-Rule-Base-Name AVP(s).
+ * If the charging identifier applies to the entire IP CAN session, no Charging-Rule-Name
+ * AVPs or Charging-Rule-Base-Name AVPs need to be provided. Otherwise, all the
+ * Charging-Rule-Name AVPs or Charging-Rule-Base-Name AVPs corresponding to PCC rules
+ * associated to the provided Access-Network-Charging-Identifier-Value shall be included.
+ */
+Access-Network-Charging-Identifier-Gx   ::= 1022  /* 5.3.22*/ Grouped       M,V|P| |    |Y; 
+
+/**
+ * The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString,
+ * and contains a charging identifier (e.g. GCID).
+ */
+Access-Network-Charging-Identifier-Value     ::= 503   /* 16.4.7 */ OctetString   M,V|P| |   |Y;  /* 3GPP TS 29.214 V9.0*/
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for a
+ * downlink IP flow. The bandwidth contains all the overhead coming from the
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+Max-Requested-Bandwidth-DL  ::= 515  /* 6.5.16 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Max -Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and it
+ * indicates the maximum requested bandwidth in bits per second for an uplink
+ * IP flow. The bandwidth contains all the overhead coming from the IP-layer
+ * and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+Max-Requested-Bandwidth-UL  ::= 516  /* 6.5.17 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Guaranteed -Bitrate-UL AVP (AVP code 1026) is of type Unsigned32, and
+ * it indicates the guaranteed bitrate in bits per second for an uplink service data flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+ */
+Guaranteed-Bitrate-UL   ::= 1026  /* 5.3.26 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+  * The Guaranteed-Bitrate-DL AVP (AVP code 1025) is of type Unsigned32,
+  * and it indicates the guaranteed bitrate in bits per second for a downlink
+  * service data flow. The bandwidth contains all the overhead coming from the
+  * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+Guaranteed-Bitrate-DL  ::= 1025  /* 5.3.25 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Bearer-Identifier AVP (AVP code 1020) is of type OctetString, and
+ * it indicates the bearer to which specific information refers.
+ */
+Bearer-Identifier  ::= 1020   /* 5.3.20 */ OctetString   M,V|P| |   |Y;  
+
+/**
+ * The Bearer-Control-Mode AVP (AVP code 1023) is of type of Enumerated. It is sent from PCRF
+ * to PCEF and indicates the PCRF selected bearer control mode.
+ */
+Bearer-Control-Mode ::= 1023 /* 5.3.23 */ Enumerated    M,V|P| |   |Y; /* 29212 - 930 */
+
+/**
+ * The APN-Aggregated-Max-Bitrate-DL AVP (AVP code 1040) is of type Unsigned32,
+ * and it indicates the maximum aggregate bit rate in bits per seconds for the
+ * downlink direction across all non-GBR bearers related with the same APN.
+ */
+APN-Aggregate-Max-Bitrate-DL    ::= 1040  /* 5.3.39 */ Unsigned32   V|P| | M |Y;
+
+/**
+ * The APN-Aggregated-Max-Bitrate-UL AVP (AVP code 1041) is of type Unsigned32,
+ * and it indicates the maximum aggregate bit rate in bits per seconds for the
+ * uplink direction across all non-GBR bearers related with the same APN.
+ */
+APN-Aggregate-Max-Bitrate-UL    ::= 1041  /* 5.3.40 */ Unsigned32   V|P| | M  |Y;
+
+/**
+ * Session-Release-Cause AVP (AVP code 1045) is of type Enumerated, and determines the cause of
+ * release the IP-CAN session by the PCRF. The following values are defined:
+ */
+
+ Session-Release-Cause ::= 1045 /* 5.3.44 */ Enumerated    M,V|P| |   |Y; /* 29212 - 930 */
+
+/**
+ * The CoA-Information AVP (AVP code 1039) is of type Grouped, and it contains
+ * care-of-address and the tunnel information related to the care of address.
+ * The CoA-Information AVP is sent from the PCEF to the PCRF.
+ */
+CoA-Information      ::= 1039  /*5.3.37 */ Grouped       V|P| |  M  |Y; /*29212 - 930*/
+
+/**
+ * The CoA-IP-Address AVP (AVP Code 1035) is of type Address and contains the
+ * mobile node's care-of-address. The care-of-address type may be IPv4 or IPv6.
+ */
+CoA-IP-Address  ::= 1035  /* 5.3.33*/ Address   V|P| | M  |Y; /*3GPP TS 29.212 V9.1*/
+
+/**
+ * The Tunnel-Information AVP (AVP code 1038) is of type Grouped, and it contains
+ * the tunnel (outer) header information from a single IP flow. The Tunnel-Information
+ * AVP is sent from the PCEF to the PCRF and from the PCRF to the BBERF.
+ */
+Tunnel-Information      ::= 1038  /* 5.3.36 */ Grouped       V|P| |  M  |Y; /*29212 - 910*/
+
+/**
+  * The Tunnel-Header-Filter AVP (AVP code 1036) is of type IPFilterRule, and
+  * it defines the tunnel (outer) header filter information of a MIP tunnel where
+  * the associated QoS rules apply for the tunnel payload.
+ */
+Tunnel-Header-Filter       ::= 1036 /* 5.3.34 */ IPFilterRule  V|P| | M  |Y;
+
+/**
+ * The Tunnel-Header-Length AVP (AVP code 1037) is of type Unsigned32.
+ * This AVP indicates the length of the tunnel header in octets.
+ */
+Tunnel-Header-Length ::= 1037  /* 5.3.35 */ Unsigned32   V|P| | M  |Y;
+
+
+/**
+ * QoS-Class-Identifier AVP (AVP code 1028) is of type Enumerated, and it identifies a set of
+ * IP-CAN specific QoS parameters that define the authorized QoS, excluding the applicable
+ * bitrates and ARP for the IP-CAN bearer or service flow
+ */
+   QoS-Class-Identifier ::= 1028 /* 5.3.17 */ Enumerated    M,V|P| |   |Y; /* 29212 - 930 */
+
+/**
+ * The Allocation-Retention-Priority AVP (AVP code 1034) is of type Grouped, and it is used
+ * to indicate the priority of allocation and retention, the pre-emption capability and
+ * pre-emption vulnerability for the SDF if provided within the QoS-Information-AVP or
+ * for the EPS default bearer if provided within the Default-EPS-Bearer-QoS AVP.
+ * AVP code refered from 29230-910
+ */
+ Allocation-Retention-Priority  ::= 1034  /* 5.3.32 */ Grouped  V|P| |  M  |Y;  /* 3GPP TS 29.212 930*/
+
+
+/**
+ * The Priority-Level AVP (AVP code 1046) is of type Unsigned 32. The AVP is used for
+ * deciding whether a bearer establishment or modification request can be accepted or needs
+ * to be rejected in case of resource limitations (typically used for admission control
+ * of GBR traffic). The AVP can also be used to decide which existing bearers to pre-empt
+ * during resource limitations. The priority level defines the relative importance of a resource request.
+ */
+
+Priority-Level  ::= 1046  /* 5.3.45 */ Unsigned32    V|P| | M  |Y;  /* 3GPP TS 29.215 V9.1 */
+
+/**
+ * The Pre-emption-Capability AVP (AVP code 1047) is of type Enumerated.
+ * The AVP defines whether a service data flow can get resources that were already assigned to
+ * another service data flow with a lower priority level.
+ */
+
+Pre-emption-Capability ::= 1047 /* 5.3.46 */ Enumerated    V|P| | M  |Y; /* 29212 - 910 */
+
+/**
+ * The Pre-emption Vulnerability AVP (AVP code 1048) is of type Enumerated.
+ * The AVP defines whether a service data flow can lose the resources assigned to
+ * it in order to admit a service data flow with higher priority level.
+ */
+Pre-emption-Vulnerability ::= 1048 /* 5.3.47 */ Enumerated    V|P| | M  |Y; /* 29212 - 910 */
+
+
+/**
+ * The Default-EPS-Bearer-QoS AVP (AVP code 1049) is of type Grouped, and it defines the QoS information
+ * for the EPS default bearer. When this AVP is sent from the PCEF to the PCRF, it indicates the subscribed
+ * QoS for the default EPS bearer. When this AVP is sent from the PCRF to the PCEF, it indicates the
+ * authorized QoS for the default EPS bearer.
+ */
+   Default-EPS-Bearer-QoS           ::= 1049  /* 5.3.48 */ Grouped       V|P| |  M  |Y;  /* 3GPP TS 29.215 V9.1*/
+
+/**
+ * The Bearer-Operation AVP (AVP code 1021) is of type of Enumerated,
+ * and it indicates the bearer event that causes a request for PCC rules.
+ * This AVP shall be supplied if the bearer event relates to an IP CAN bearer initiated by the UE.
+ */
+ Bearer-Operation ::= 1021 /* 5.3.21 */ Enumerated    M,V|P| |   |Y; /* 29212 - 930 */
+
+/**
+ * The AN-GW-Address AVP (AVP code 1050) is of type Address, and it contains
+ * the IPv4 and/ or IPv6 (if available) address(es) of the access node gateway
+ * (SGW for 3GPP and AGW for non-3GPP networks).
+ */
+ AN-GW-Address    ::= 1050  /* 5.3.49 */ Address   V|P| |  M  |Y; /*3GPP TS 29.212 - 930*/
+
+/**
+ * The Security-Parameter-Index AVP (AVP code 1056) is of type OctetString, and
+ * it contains the security parameter index of the IPSec packet. One example is
+ * that of a TFT packet filter as defined in 3GPP TS 24.008 [13].
+ */
+Security-Parameter-Index     ::= 1056   /* 5.3.51 */ OctetString   V|P| |  M  |Y;  /* 3GPP TS 29212*/
+
+/**
+ * The Flow-Label AVP (AVP code 1057) is of type OctetString, and it contains the
+ * IPv6 flow label header field. One example is that of a TFT packet filter as defined in
+ * 3GPP TS 24.008 [13].
+ */
+Flow-Label  ::= 1057   /* 5.3.52 */ OctetString   V|P| | M  |Y;  /* 3GPP TS 29212 */
+
+/**
+ * The Packet-Filter-Content AVP (AVP code 1059) is of type IPFilterRule, and
+ * it contains the content of the packet filter as requested by the UE and required
+ * by the PCRF to create the PCC rules.
+ */
+Packet-Filter-Content  ::= 1059 /* 5.3.54 */ IPFilterRule  V|P| |  M  |Y;
+
+/**
+ * The Packet-Filter-Information AVP (AVP code 1061) is of type Grouped, and
+ * it contains the information from a single packet filter sent from the PCEF to
+ * the PCRF. Depending on the Packet-Filter-Operation included within the CCR
+ * command it may include the packet filter identifier, evaluation precedence,
+ * filter value, Type-of-Service/Traffic Class, the IPSec SPI, and the Flow Label.
+ */
+Packet-Filter-Information      ::= 1061  /*5.3.56 */ Grouped       V|P| |  M  |Y; /*29212-920*/
+
+/**
+ * The Packet-Filter-Operation AVP (AVP code 1062) is of type of Enumerated,
+ * and it indicates a UE initiated resource operation that causes a request for PCC rules.
+ */
+Packet-Filter-Operation       ::= 1062 /* 5.3.57 */ Enumerated    V|P| |  M  |Y; /* 29212-920 */
+
+/**
+ * The PDN-Connection-ID AVP (AVP code 1065) is of type OctetString, and it
+ * indicates the PDN connection to which specific information refers.
+ */
+PDN-Connection-ID     ::= 1065   /* 5.3.58 */ OctetString   V|P| |   |Y;  /* 3GPP TS 29.212 V10.6.0 */
+
+/**
+ * The Usage-Monitoring-Information AVP (AVP code 1067) is of type Grouped, and
+ * it contains the usage monitoring control information.
+ */
+Usage-Monitoring-Information   ::= 1067  /* 5.3.60 */ Grouped  V|P| |  M  |Y;  
+
+/**
+ * The Monitoring-Key AVP (AVP code 1066) is of type OctetString and is used for
+ * usage monitoring control purposes as an identifier to a usage monitoring control instance.
+ */
+Monitoring-Key  ::= 1066   /* 5.3.59 */ OctetString   V|P| | M  |Y;  /* 3GPP TS 29.212 V10.6.0*/
+
+/**
+ * Granted-Service-Unit AVP (AVP Code 431) is of type Grouped and contains the amount of
+ * units that the Diameter credit-control client can provide to the end user until the
+ * service must be released or the new Credit-Control-Request must be sent. A client is
+ * not required to implement all the unit types, and it must treat unknown or unsupported
+ * unit types in the answer message as an incorrect CCA answer.
+ */
+Granted-Service-Unit     ::= 431  0 /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.17, RFC4006*/
+
+/**
+ * The Tariff-Time-Change AVP (AVP Code 451) is of type Time. It is sent from the server to the
+ * client and includes the time in seconds since January 1, 1900, 00:00 UTC, when the tariff
+ * of the service will be changed.
+ */
+Tariff-Time-Change ::= 451  /*RFC4006 */ Time          M|P| |  V  |Y; /* 8.20,RFC4006 */
+
+/**
+ * The CC-Time AVP is of type Unsigned32 and indicates the length of the requested,
+ * granted, or used time in seconds.
+ */
+CC-Time  ::= 420  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /* 8.21,RFC4006 */
+
+/**
+ * The CC-Total-Octets AVP is of type Unsigned64 and contains the total number of requested,
+ * granted, or used octets regardless of the direction (sent or received).
+ */
+CC-Total-Octets  ::= 421  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.23,RFC4006 */
+
+/**
+ * The CC-Input-Octets AVP is of type Unsigned64 and contains the number of requested,
+ * granted, or used octets that can be/have been received from the end user.
+ */
+CC-Input-Octets  ::= 412  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.24, RFC4006 */
+
+/**
+ * The CC-Money AVP is of type Grouped and specifies the monetary amount in the given
+ * currency.  The Currency-Code AVP SHOULD be included.
+ */
+CC-Money   ::= 413  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.22, RFC4006*/
+
+/**
+ * The CC-Output-Octets AVP is of type Unsigned64 and contains the number of requested,
+ * granted, or used octets that can be/have been sent to the end user.
+ */
+CC-Output-Octets   ::= 414  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.25,RFC4006 */
+
+/**
+ * The CC-Service-Specific-Units AVP is of type Unsigned64 and specifies the number of
+ * service-specific units (e.g., number of events, points) given in a selected service.
+ * The service-specific units always refer to the service identified in the
+ * Service-Identifier AVP(or Rating-Group AVP when the Multiple-Services-Credit-Control AVP is used).
+ */
+CC-Service-Specific-Units  ::= 417  /*RFC4006 */ Unsigned64    M|P| |  V  |Y; /* 8.26,RFC4006 */
+
+/**
+ * The Currency-Code AVP is of type Unsigned32 and contains a currency code that specifies
+ * in which currency the values of AVPs containing monetary units were given.It is specified
+ * by using the numeric values defined in the ISO 4217 standard [ISO4217].
+ */
+Currency-Code  ::= 425  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /* 8.11,RFC4006*/
+
+/**
+ * The Used-Service-Unit AVP is of type Grouped (AVP Code 446) and contains the amount of used
+ * units measured from the point when the service became active or, if interim interrogations
+ * are used during the session, from the point when the previous measurement ended.
+ */
+Used-Service-Unit  ::= 446  0 /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.19,RFC4006*/
+
+/**
+ * Unit-Value AVP is of type Grouped (AVP Code 445) and specifies the units as decimal value.
+ * The Unit-Value is a value with an exponent;i.e., Unit-Value = Value-Digits AVP * 10^Exponent.
+ * This representation avoids unwanted rounding off.
+ */
+Unit-Value    ::= 445  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* 8.8,RFC4006*/
+
+/**
+ * The Value-Digits AVP is of type Integer64 (AVP Code 447) and contains the significant digits
+ * of the number.  If decimal values are needed to present the units, the scaling MUST be
+ * indicated with the related Exponent AVP.
+ */
+Value-Digits      ::= 447  /*RFC4006 */ Integer64     M|P| |  V  |Y; /* 8.10,RFC4006*/
+
+/**
+ * Exponent AVP is of type Integer32 (AVP Code 429) and contains the exponent value to
+ * be applied for the Value-Digit AVP within the Unit-Value AVP.
+ */
+Exponent  ::= 429  /*RFC4006 */ Integer32     M|P| |  V  |Y; /* 8.9,RFC4006*/
+
+/**
+  * The Usage-Monitoring-Level AVP (AVP code 1068) is of type Enumerated and is used by
+  * the PCRF to indicate whether the usage monitoring instance applies to the IP-CAN session
+  * or to one or more PCC rules.
+  */
+Usage-Monitoring-Level ::= 1068 /* 5.3.61 */ Enumerated    V|P| | M  |Y; /* 29212 - 910 */
+
+/**
+ * The Usage-Monitoring AVP (AVP code 1069) is of type Enumerated and is used by the PCRF
+ * to indicate that accumulated usage is to be reported by the PCEF regardless of whether a
+ * usage threshold is reached for certain usage monitoring key (within a Usage-Monitoring-Information AVP) .
+ */
+Usage-Monitoring-Report  ::= 1069 /* 5.3.62 */ Enumerated    V|P| | M  |Y; /* 29212 - 910 */
+
+/**
+ * The Usage-Monitoring-Support AVP (AVP code 1070) is of type Enumerated and is used by the
+ * PCRF to indicate whether usage monitoring shall be disabled for certain Monitoring Key.
+ */
+Usage-Monitoring-Support ::= 1070 /* 5.3.63 */ Enumerated    V|P| | M  |Y; /* 29212 - 910 */
+
+/**
+ *The CSG-Information-Reporting AVP (AVP code 1071) is of type Enumerated, it is sent from the PCRF
+ *to the PCEF to request the PCEF to report the user CSG information change to the OCS. 
+ */
+
+CSG-Information-Reporting  ::= 1071  /* 5.3.64 */  Enumerated  V|P| |  M  |Y;
+
+/**
+ * The Flow-Direction AVP (AVP code 1080) is of type Enumerated. It indicates the
+ * direction/directions that a filter is applicable, downlink only,
+ * uplink only or both down- and uplink (bidirectional).
+ */
+Flow-Direction  ::= 1080  /*5.3.65 */ Enumerated    V|P| |  M  |Y; /* ,*/
+
+/**
+ * The Packet-Filter-Identifier AVP (AVP code 1060) is of type OctetString, and
+ * it indicates the identity of the packet filter.  The packet filter identifier is
+ * assigned by the PCRF and within the scope of the PCRF is unique per UE.
+ */
+Packet-Filter-Identifier  ::= 1060   /* 5.3.55 */ OctetString      V|P| |  M  |Y;  /* 3GPP TS 29.212 */
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505)is of type OctetString,contains
+ * the AF Charging Identifier that is sent by the AF. This information may be 
+ * used for charging correlation with bearer layer.
+ */
+    AF-Charging-Identifier                      ::= 505  /* 6.5.6  */ OctetString   M,V|P| |   |Y;  /* 3GPP TS 29.209 V6.5 */
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines
+ * a packet filter for an IP flow with the following information:
+ * Direction (in or out).
+ * Source and destination IP address (possibly masked).
+ * Protocol.
+ * Source and destination port (list or ranges).
+ * The IPFilterRule type shall be used with the following restrictions:
+ *  Only the Action "permit" shall be used.
+ *  No "options" shall be used.
+ *  The invert modifier "!" for addresses shall not be used.
+ *  The keyword "assigned" shall not be used.
+ * If any of these restrictions is not observed by the AF,the server shall send
+ * an error response to the AF containing the Experimental-Result-Code AVP with
+ * value FILTER_RESTRICTIONS.
+ * The Flow description AVP shall be used to describe a single IP flow.
+ * The direction "in" refers to uplink IP flows, and the direction "out" refers
+ * to downlink IP flows.
+ */
+    Flow-Description                            ::= 507  /* 6.5.8  */ IPFilterRule  M,V|P| |   |Y;  /* 3GPP TS 29.209 V6.5 */
+
+/**
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32,and it contains the
+ * ordinal number of the IP flow(s), assigned according to the rules in annex A
+ * of 3GPP2 X.S0013-013-0.
+ */
+    Flow-Number                                 ::= 509  /* 6.5.10 */ Unsigned32    M,V|P| |   |Y;  /* 3GPP TS 29.209 V6.5 */
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows 
+ * via their flow identifiers.
+ * If no Flow-Number AVP(s) are supplied, the Flows AVP refers to all Flows 
+ * matching the media component number.
+ */
+    Flows                                       ::= 510  /* 6.5.11 */ Grouped       M,V|P| |   |Y;  /* 3GPP TS 29.209 V6.5 */
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it
+ * contains the ordinal number of the media component, assigned according to 
+ * the rules in annex A of 3GPP2 X.S0013-013-0.
+ */
+    Media-Component-Number                      ::= 518  /* 6.5.19 */ Unsigned32    M,V|P| |   |Y;  /* 3GPP TS 29.209 V6.5 */
+
+
+/**
+ * 3GPP-SGSN-Address AVP (AVP Code 6) is of type UTF8String and contains the 
+ * SGSN IP address that is used by the GTP control plane for the handling of 
+ * control messages. It may be used to identify the PLMN to which the user is 
+ * attached.
+ */
+    Gx-3GPP-SGSN-Address           ::= 6    /* 16.4.7 */ UTF8String    V|P| |  M  |Y;  /* 3GPP TS 29.061 V7.0*/
+
+/**
+ * 3GPP-SGSN-IPv6-Address AVP (AVP Code 15) is of type UTF8String and contains 
+ * the SGSN IPv6 address that is used by the GTP control plane for the handling
+ * of control messages. It may be used to identify the PLMN to which the user 
+ * is attached.
+ */
+    Gx-3GPP-SGSN-IPv6-Address                   ::= 15   /* 16.4.7 */ UTF8String    V|P| |  M  |Y;  /* 3GPP TS 29.061 V7.0*/
+
+/**
+ * 3GPP-SGSN-MCC-MNC AVP is of type UTF8String. It contains the MCC and MNC 
+ * extracted from the RAI within the Create PDP Context Request or Update PDP 
+ * Context Request message.
+ */
+    Gx-3GPP-SGSN-MCC-MNC                        ::= 18   /* 16.4.7 */ UTF8String    V|P| |  M  |Y;  /* 3GPP TS 29.061 V7.0*/ 
+
+/**
+ * 3GPP-RAT-Type AVP is of type OctetString. It indicates which Radio Access 
+ * Technology is currently serving the UE.
+ */
+    Gx-3GPP-RAT-Type        ::= 21   /* 16.4.7 */ OctetString   V|P| |  M  |Y;  /* 3GPP TS 29.061 V7.0*/
+
+/**
+ * 3GPP-MS-TimeZone AVP is of type OctetString. It indicates the offset between universal
+ * time and local time in steps of 15 minutes of where the MS currently resides.
+ */
+   Gx-3GPP-MS-TimeZone                      ::= 23   /*16.4.7  */ OctetString  V|P| |  M  |Y; /* 3GPP TS 29.061 V6.7*/
+
+/**
+ * The AVP 3GPP2-BSID (Code 5535/9010) is of type UTF8String and the data is formatted
+according to the 3GPP2 RADIUS VSA BSID defined in [5].
+ */
+  Gx-3GPP2-BSID  ::= 5535   /* 3GPP2 X.S0057-0_v2.0_091215 */ UTF8String    M,V|P| |   |N;  /* 3GPP2 X.S0057-0_v2.0_091215*/
+
+/**
+ * The Charging-Information AVP (AVP Code 618) is of type Grouped, and contains
+ * the addresses of the charging function.
+ */
+    Charging-Information                        ::= 618  /* 6.3.19 */ Grouped       M,V| | |   |N;  /* 3GPP TS 29.299 V7.1*/
+
+/**
+ * The Primary-Event-Charging-Function-Name AVP (AVP Code 619) is of type 
+ * DiameterURI. This AVP contains the address of the Primary Online Charging 
+ * Function.
+ */
+    Primary-Event-Charging-Function-Name        ::= 619  /* 6.3.20 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.299 V7.1*/
+
+/**
+ * The Secondary-Event-Charging-Function-Name AVP (AVP Code 620) is of type 
+ * DiameterURI. This AVP contains the address of the Secondary Online Charging 
+ * Function.
+ */
+    Secondary-Event-Charging-Function-Name      ::= 620  /* 6.3.21 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.299 V7.1*/
+
+/**
+ * The Primary-Charging-Collection-Function-Name AVP (AVP Code 621) is of type 
+ * DiameterURI. This AVP contains the address of the Primary Charging Data 
+ * Function. 
+ */
+    Primary-Charging-Collection-Function-Name   ::= 621  /* 6.3.22 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.299 V7.1*/
+
+/**
+ * The Secondary-Charging-Collection-Function-Name AVP (AVP Code 622) is of type 
+ * DiameterURI. This AVP contains the address of the Secondary Charging Data 
+ * Function.
+ */
+    Secondary-Charging-Collection-Function-Name ::= 622  /* 6.3.23 */ DiamURI       M,V| | |   |N;  /* 3GPP TS 29.299 V7.1*/
+
+/**
+ *The User-CSG-Information AVP (AVP code 2319) is of type Grouped and holds the user
+ *"Closed Subscriber Group" Information associated to CSG cell access: it comprises CSG
+ *ID within the PLMN, Access mode and indication on CSG membership for the user when hybrid
+ * access applies, as defined in TS 29.060 [225] for GPRS case, and in TS 29.274 [226] for EPC case
+ */
+    User-CSG-Information    ::= 2319    /*7.2.240A */ Grouped     M,V|P| |   |N;  /* 3GPP TS 32299*/
+
+/**
+ *
+ */
+ CSG-Id  ::= 1437      /*7.3.79*/      Unsigned32              M,V| | |    |N;
+
+/**
+ *The CSG-Access-Mode AVP (AVP code 2317) is of type Enumerated and holds the mode 
+ *in which the CSG cell User is accessing to, operates
+ */
+ Gx-CSG-Access-Mode   ::= 2317  /* */ Enumerated                M,V|P| |   |N;
+
+/**
+ *The CSG-Membership-Indication AVP (AVP code 2318) is of type Enumerated, and indicates the 
+ *UE is a member of the accessing CSG cell, if the access mode is Hybrid, as described in TS 
+ *29.060 [xx], and in TS 29.274 [xx]. If this indication is not present, this means the UE is a
+ *Not member of the CSG cell for hybrid access mode
+ */
+ Gx-CSG-Membership-Indication  ::= 2318  /* */ Enumerated                M,V|P| |   |N;
+ 
+/**
+ *
+ */
+  Trace-Data   ::= 1458  /*7.3.63*/     Grouped      M,V| | |     |N;
+
+
+ /**
+  *  See 3GPP 29272 section 7.3.64 for details.
+  */
+  Trace-Reference ::= 1459 /*7.3.64*/   OctetString  M,V| | |     |N;
+
+/*
+ */
+  Trace-Depth   ::= 1462 /*7.3.83*/  Enumerated    M,V| | |     |N;
+
+  Trace-NE-Type-List ::= 1463 /*7.3.68*/  OctetString  M,V| | |     |N;
+
+  Trace-Interface-List ::= 1464 /*7.3.69*/ OctetString M,V| | |     |N;
+
+  Trace-Event-List ::= 1465 /*7.3.70*/ OctetString M,V| | |     |N;
+
+  OMC-Id ::= 1466       /*7.3.71*/     OctetString M,V| | |     |N;
+
+  Trace-Collection-Entity::= 1487 /* 7.3.98*/ Address  M,V| | |     |N;
+
+  Rule-Activation-Time::= 1043 /* 5.3.42*/ Time  M,V|P | |     |Y;
+
+  Rule-Deactivation-Time::= 1044 /* 5.3.43*/ Time  M,V|P | |     |Y;
+
+  Resource-Allocation-Notification::= 1063 /* 5.3.50*/ Enumerated  V|P | |  M  |Y;
+
+  Charging-Correlation-Indicator::= 1073 /* 5.3.67*/ Enumerated  V|P | |  M  |Y;
+
+  Flow-Information ::= 1058 /*5.3.53*/ Grouped V|P | |  M  |Y;
+
+  Packet-Filter-Usage ::= 1072 /* 5.3.66 */ Enumerated	V|P | |  M  |Y;
+
+
+/**
+ * The Flow-Status AVP (AVP code 511) is of type Enumerated, and describes
+ * whether the IP flow(s) are enabled or disabled.
+ */
+    Flow-Status      ::= 511  /* 6.5.12 */ Enumerated   M,V|P| |   |Y;
+
+    AF-Signalling-Protocol ::= 2511  /* TS 29.214 Dummy AVP Code */ Enumerated   V|P| | M  |Y; 
+
+/**
+ * The Maximum-Bandwidth AVP (AVP code 1082) is of type Grouped, and it defines the maximum supported
+ * bandwidth within Max-Supported-Bandwidth-UL AVP and Max-Supported-Bandwidth-DL AVP. When this AVP is
+ * sent from the PCEF to the PCRF, it indicates the acceptable QoS information supported by the UE or VPLMN.
+ * The Max-Supported-Bandwidth-UL defines the maximum bit rate supported by the network for the uplink direction.
+ **/
+  Maximum-Bandwidth	::= 1082 /* 5.3.74 */ Grouped	V|P| | M |Y; 
+
+
+/**
+ * The Max-Supported-Bandwidth-DL AVP (AVP code 1083) is of type Unsigned32, and it indicates the maximum bit
+ * rate supported by the UE and the network for the downlink direction.
+ **/
+ Max-Supported-Bandwidth-DL	::= 1083 /* 5.3.75 */ Unsigned32	V|P| | M |Y;
+
+
+/**
+ * The Max-Supported-Bandwidth-UL AVP (AVP code 1084) is of type Unsigned32, and it indicates the maximum bit
+ * rate supported by the UE and the network for the uplink direction.
+ **/
+ Max-Supported-Bandwidth-UL	::= 1084 /* 5.3.76 */ Unsigned32	V|P| | M |Y;
+
+
+/**
+ * The Routing-Filter AVP (AVP code 1078) is of type Grouped and is sent from the PCEF to the PCRF.
+ * This AVP contains the information for a single routing filter .
+ **/
+ Routing-Filter		::= 1078 /* 5.3.72 */	Grouped		V|P| | M |Y;
+
+
+
+/**
+ * The Routing-IP-Address AVP (AVP Code 1079) is of type Address and contains the mobile node"s home 
+ * address or care-of-address. The address type may be IPv4 or IPv6.
+ **/
+ Routing-IP-Address	::= 1079 /* 5.3.73 */	Address		V|P| | M |Y;
+
+
+/**
+ * The Routing-Rule-Definition AVP (AVP code 1076) is of type Grouped, and it defines the IP flow 
+ * mobility routing rule sent by the PCEF to the PCRF.
+ **/
+ Routing-Rule-Definition	::= 1076 /* 5.3.70 */ Grouped	V|P| | M |Y;
+
+
+/**
+ * The Routing-Rule-Identifier AVP (AVP code 1077) is of type OctetString, and it defines a 
+ * unique identifier for IP flow mobility routing rule. 
+ **/
+ Routing-Rule-Identifier	::= 1077 /* 5.3.71 */ OctetString	V|P| | M |Y;
+
+
+/**
+ * The Routing-Rule-Install AVP (AVP code 1081 ) is of type Grouped, and it is used to install or
+ * modify IP flow mobility routing rules as instructed from the PCEF to the PCRF.
+ **/
+ Routing-Rule-Install		::= 1081 /* 5.3.68 */ Grouped		V|P| | M |Y;
+
+
+/**
+ * The Routing-Rule-Remove AVP (AVP code 1075) is of type Grouped, and it is used to remove IP 
+ * flow mobility routing rules for an IP CAN session from the PCRF.
+ **/
+ Routing-Rule-Remove		::= 1075 /* 5.3.69 */ Grouped           V|P| | M |Y;
+
+
+/**
+ * The Sponsor-Identity AVP (AVP code 531) is of type UTF8String and is used for sponsored 
+ * data connectivity purposes as an identifier of the sponsor.
+ **/
+ Sponsor-Identity	::= 531 /* 5.3.28 */ UTF8String	    V|P| | M |Y; /* TS 29.214 V10.6.0*/
+
+/**
+ * The Application-Service-Provider-Identity AVP (AVP code 532) is of type UTF8String and is used
+ * for sponsored data connectivity purposes as an identifier of the application service provider.
+ **/
+ Application-Service-Provider-Identity	::= 532 /* 5.3.29 */ UTF8String      V|P| | M |Y; /* TS 29.214 V10.6.0*/
+
+
+/**
+ * The Logical-Access-ID AVP (AVP code 302 13019) is of type OctetString. This AVP contains either a 
+ * Circuit-ID (as defined in RFC 3046 [11]) or a technology independent identifier.
+ **/
+ Logical-Access-ID	::= 302 /* 7.3.3 */ OctetString		V|M| |  |Y; /* ES 283 034 V2.2.0*/
+
+/**
+ * The Physical-Access-ID AVP (AVP code 313 13019) is of type UTF8String and identifies the physical access to which
+ * the user equipment is connected. It includes a port identifier and the identity of the access node where the port resides.
+ **/
+ Physical-Access-ID	::= 313 /* 7.3.14 */ UTF8String		V|M| |  |Y; /* ES 283 034 V2.2.0*/
+
+
+
+
+ 
+
+ 
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+    CC-Request-Type ::= < Enumerated: 416 >
+                INITIAL_REQUEST       1
+                UPDATE_REQUEST        2
+                TERMINATION_REQUEST   3
+                EVENT_REQUEST         4
+                ;  
+
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                END_USER_E164             0
+                END_USER_IMSI             1
+                END_USER_SIP_URI          2
+                END_USER_NAI              3
+                END_USER_PRIVATE          4
+                ;
+
+    User-Equipment-Info-Type ::= < Enumerated: 459 >
+                IMEISV         0
+                MAC            1
+                EUI64          2
+                MODIFIED_EUI64 3
+                ;
+
+  Bearer-Usage ::= < Enumerated: 1000 >
+        GENERAL           0
+        IMS_SIGNALLING    1
+        ;
+
+  Event-Trigger ::= < Enumerated: 1006 >
+        SGSN_CHANGE      	0
+        QOS_CHANGE       	1
+        RAT_CHANGE       	2
+        TFT_CHANGE       	3
+        PLMN_CHANGE	 	4
+	LOSS_OF_BEARER		5
+	RECOVERY_OF_BEARER	6
+	IP_CAN_CHANGE		7
+	QOS_CHANGE_EXCEEDING_AUTHORIZATION	11
+	RAI_CHANGE		12
+	USER_LOCATION_CHANGE	13
+	NO_EVENT_TRIGGERS	14
+	OUT_OF_CREDIT		15
+	REALLOCATION_OF_CREDIT	16
+	REVALIDATION_TIMEOUT	17
+	UE_IP_ADDRESS_ALLOCATE	18
+	UE_IP_ADDRESS_RELEASE	19
+	DEFAULT_EPS_BEARER_QOS_CHANGE		20
+	AN_GW_CHANGE		21
+	SUCCESSFUL_RESOURCE_ALLOCATION		22
+	RESOURCE_MODIFICATION_REQUEST		23
+	PGW_TRACE_CONTROL	24
+	UE_TIME_ZONE_CHANGE	25
+	TAI_CHANGE		26
+	ECGI_CHANGE		27
+	CHARGING_CORRELATION_EXCHANGE		28
+	APN_AMBR_MODIFICATION_FAILURE		29
+	USER_CSG_INFORMATION_CHANGE		30
+	USAGE_REPORT		33
+	DEFAULT_EPS_BEARER_QOS_MODIFICATION_FAILURE	34
+	USER_CSG_HYBRID_SUBSCRIBED_INFORMATION_CHANGE	35
+	USER_CSG_HYBRID_UNSUBSCRIBED_INFORMATION_CHANGE 36
+	ROUTING_RULE_CHANGE			37
+	MAX_MBR_APN_AMBR_CHANGE			38
+        ;
+
+  Metering-Method ::= < Enumerated: 1007 >
+        DURATION           0
+        VOLUME             1
+        DURATION_VOLUME    2
+        ;
+
+  Offline ::= < Enumerated: 1008 >
+        DISABLE_OFFLINE    0
+        ENABLE_OFFLINE     1
+        ;
+
+  Online ::= < Enumerated: 1009 >
+        DISABLE_ONLINE     0
+        ENABLE_ONLINE      1
+        ;
+
+  Reporting-Level ::= < Enumerated: 1011 >
+  	SERVICE_IDENTIFIER_LEVEL	0
+	RATING_GROUP_LEVEL		1
+	SPONSORED_CONNECTIVITY_LEVEL	2
+        ;
+
+  Network-Request-Support  ::= < Enumerated: 1024 >
+        NETWORK_REQUEST_NOT_SUPPORTED  0
+        NETWORK_REQUEST_SUPPORTED      1
+        ;
+
+  Packet-Filter-Operation ::= <  Enumerated: 1062 >
+       DELETION      0
+       ADDITION      1
+       MODIFICATION  2
+       ;
+
+  Bearer-Operation ::= < Enumerated: 1021 >
+       TERMINATION     0
+       ESTABLISHMENT   1
+       MODIFICATION    2
+       ;
+
+  Flow-Direction  ::= < Enumerated: 1080 >
+        UNSPECIFIED      0
+        DOWNLINK         1
+        UPLINK           2
+        BIDIRECTIONAL    3
+        ;
+
+  IP-CAN-Type  ::= < Enumerated: 1027 >
+        Gx_3GPP_GPRS         0
+        DOCSIS               1
+        xDSL                 2
+        WiMAX                3
+        Gx_3GPP2             4
+        Gx_3GPP_EPS          5
+        Non_3GPP_EPS         6
+        ;
+
+  RAT-Type ::= < Enumerated: 1032 >
+        WLAN           0
+	VIRTUAL	       1
+        UTRAN          1000
+        GERAN          1001
+        GAN            1002
+        HSPA_EVOLUTION 1003
+        EUTRAN         1004
+        CDMA2000_1X    2000
+        HRPD           2001
+        UMB            2002
+        EHRPD          2003
+        ;
+
+  QoS-Class-Identifier ::= < Enumerated: 1028 >
+        QCI_1          1
+        QCI_2          2
+        QCI_3          3
+        QCI_4          4
+        QCI_5          5
+        QCI_6          6
+        QCI_7          7
+        QCI_8          8
+        QCI_9          9
+        ;
+
+  Pre-emption-Capability ::= < Enumerated: 1047 >
+        PRE_EMPTION_CAPABILITY_ENABLED  0
+        PRE_EMPTION_CAPABILITY_DISABLED  1
+        ;
+
+  Pre-emption-Vulnerability ::= < Enumerated: 1048 >
+        PRE_EMPTION_VULNERABILITY_ENABLED  0
+        PRE_EMPTION_VULNERABILITY_DISABLED  1
+        ;
+
+  QoS-Negotiation  ::= < Enumerated: 1029 >
+        NO_QoS_NEGOTIATION        0
+        QoS_NEGOTIATION_SUPPORTED 1
+        ;
+  
+   QoS-Upgrade  ::= < Enumerated: 1030 >
+        QoS_UPGRADE_NOT_SUPPORTED   0
+        QoS_UPGRADE_SUPPORTED       1
+        ;
+
+  Final-Unit-Action ::= < Enumerated: 449 >
+        TERMINATE         0
+        REDIRECT          1
+        RESTRICT_ACCESS   2
+        ;
+
+  Redirect-Address-Type ::= < Enumerated: 433 >
+        IPv4_Address      0
+        IPv6_Address      1
+        URLocation        2
+        SIP_URI           3
+        ;
+
+  Gx-CSG-Access-Mode  ::= < Enumerated: 2317 >
+       Closed_Mode        0
+       Hybrid_Mode        1
+       ;
+ 
+  Gx-CSG-Membership-Indication ::= < Enumerated: 2318 >
+       Not_CSG_Member     0
+       CSG_Member         1
+       ;   
+
+  Usage-Monitoring-Level ::= < Enumerated: 1068 >
+       SESSION_LEVEL  0
+       PCC_RULE_LEVEL  1
+       ;
+
+  Usage-Monitoring-Report ::= < Enumerated:  1069>
+       USAGE_MONITORING_REPORT_REQUIRED   0
+       ;
+
+  Usage-Monitoring-Support ::= < Enumerated:  1070>
+       USAGE_MONITORING_DISABLED    0
+       ;
+
+  CSG-Information-Reporting ::= < Enumerated:  1071>
+       CHANGE_CSG_CELL                      0
+       CHANGE_CSG_SUBSCRIBED_HYBRID_CELL    1
+       CHANGE_CSG_UNSUBSCRIBED_HYBRID_CELL  2
+       ; 
+   
+  Rule-Failure-Code ::= < Enumerated: 1031 >
+       UNKNOWN_RULE_NAME         1
+       RATING_GROUP_ERROR        2
+       SERVICE_IDENTIFIER_ERROR  3
+       GW_PCEF_MALFUNCTION       4
+       RESOURCES_LIMITATION      5
+       MAX_NR_BEARERS_REACHED    6
+       UNKNOWN_BEARER_ID         7
+       MISSING_BEARER_ID         8
+       MISSING_FLOW_INFORMATION	 9
+       RESOURCE_ALLOCATION_FAILURE 10
+       UNSUCCESSFUL_QOS_VALIDATION 11
+       INCORRECT_FLOW_INFORMATION  12
+       PS_TO_CS_HANDOVER	   13
+       NO_BEARER_BOUND		   15
+       ;
+
+  PCC-Rule-Status ::= <  Enumerated: 1019 >
+       ACTIVE               0
+       INACTIVE             1
+       TEMPORARILY_INACTIVE 2
+       ;
+
+  Trace-Depth ::=  <Enumerated: 1462>
+       Minimum                                         0
+       Medium                                          1
+       Maximum                                         2
+       MinimumWithoutVendorSpecificExtension           3
+       MediumWithoutVendorSpecificExtension            4
+       MaximumWithoutVendorSpecificExtension           5
+       ;
+
+  Bearer-Control-Mode ::= < Enumerated: 1023 >
+       UE_ONLY             0
+       RESERVED            1
+       UE_NW               2
+       ;
+
+  Session-Release-Cause ::= < Enumerated: 1045 >
+       UNSPECIFIED_REASON            0
+       UE_SUBSCRIPTION_REASON        1
+       INSUFFICIENT_SERVER_RESOURCES 2
+       ;
+
+
+  Resource-Allocation-Notification ::= < Enumerated: 1063 >
+       ENABLE_NOTIFICATION         0
+       ;
+
+  Charging-Correlation-Indicator ::= < Enumerated: 1073 >
+       CHARGING_IDENTIFIER_REQUIRED    0
+        ;
+
+  Packet-Filter-Usage ::= < Enumerated: 1072>
+       SEND_TO_UE               1
+       ;
+
+  Flow-Status ::= < Enumerated: 511 >
+        ENABLED_UPLINK            0
+        ENABLED_DOWNLINK          1
+        ENABLED                   2
+        DISABLED                  3
+        REMOVED                   4
+        ;
+
+  AF-Signalling-Protocol ::= < Enumerated: 2511 >
+        NO_INFORMATION             0
+        SIP                        1
+        ;
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+    Subscription-Id ::= < AVP Header: 443 0 >
+                { Subscription-Id-Type }
+                { Subscription-Id-Data }
+                ;
+
+    User-Equipment-Info ::= < AVP Header: 458 0 >
+                { User-Equipment-Info-Type }
+                { User-Equipment-Info-Value }
+                ;
+
+  Flows ::= < AVP Header: 510 10415 >
+        { Media-Component-Number}
+        *[ Flow-Number]
+        ;
+
+  TFT-Packet-Filter-Information ::= < AVP Header: 1013 10415 >
+        [ Precedence ]
+        [ TFT-Filter ]
+        [ ToS-Traffic-Class ]
+        [ Security-Parameter-Index ]
+        [ Flow-Label ]
+	[ Flow-Direction ]
+        *[ AVP ]
+        ;
+
+  Charging-Rule-Install ::= < AVP Header: 1001 10415 >
+        *[ Charging-Rule-Definition ]
+        *[ Charging-Rule-Name ]
+        *[ Charging-Rule-Base-Name ]
+	[ Bearer-Identifier ]
+	[ Rule-Activation-Time ]
+	[ Rule-Deactivation-Time ]
+	[ Resource-Allocation-Notification ]
+	[ Charging-Correlation-Indicator ]
+        *[ AVP ]
+        ;
+
+  Charging-Rule-Remove ::= < AVP Header: 1002 10415 >
+        *[ Charging-Rule-Name ]
+        *[ Charging-Rule-Base-Name ]
+        *[ AVP ]
+        ;
+
+  Charging-Rule-Definition ::= < AVP Header: 1003 10415 >
+  	{ Charging-Rule-Name }
+  	[ Service-Identifier ]
+  	[ Rating-Group ]
+  	* [ Flow-Information ]
+  	[ Flow-Status ]
+  	[ QoS-Information ]
+  	[ Reporting-Level ]
+  	[ Online ]
+  	[ Offline ]
+  	[ Metering-Method ]
+  	[ Precedence ]
+  	[ AF-Charging-Identifier ]
+  	* [ Flows ]
+  	[ Monitoring-Key]
+  	[ AF-Signalling-Protocol ]
+  	[ Sponsor-Identity ]
+  	[ Application-Service-Provider-Identity ]
+  	*[ AVP ]
+  	;
+
+  Charging-Information ::= < AVP Header: 618 10415 >
+        [ Primary-Event-Charging-Function-Name ]
+        [ Secondary-Event-Charging-Function-Name ]
+        [ Primary-Charging-Collection-Function-Name ]
+        [ Secondary-Charging-Collection-Function-Name ]
+        *[ AVP]
+        ;
+
+   Supported-Features ::= < AVP Header : 628 10415 >
+                { Vendor-Id }
+                { Feature-List-ID }
+                { Feature-List }
+                *[ AVP ]
+                ;
+
+   Packet-Filter-Information ::= < AVP Header: 1061 10415 >
+        [ Packet-Filter-Identifier ]
+        [ Precedence ]
+        [ Packet-Filter-Content ]
+        [ ToS-Traffic-Class ]
+        [ Security-Parameter-Index ]
+        [ Flow-Label ]
+	[ Flow-Direction ]
+        *[ AVP ]
+        ;
+
+   QoS-Information ::=     < AVP Header: 1016 10415 >
+        [ QoS-Class-Identifier ]
+        [ Max-Requested-Bandwidth-UL ]
+        [ Max-Requested-Bandwidth-DL ]
+        [ Guaranteed-Bitrate-UL ]
+        [ Guaranteed-Bitrate-DL ]
+        [ Bearer-Identifier ]
+        [ Allocation-Retention-Priority]
+        [ APN-Aggregate-Max-Bitrate-UL]
+        [ APN-Aggregate-Max-Bitrate-DL]
+        * [AVP]
+        ;
+
+   Charging-Rule-Report ::= < AVP Header: 1018 10415 >
+        *[Charging-Rule-Name]
+        *[Charging-Rule-Base-Name]
+        [Bearer-Identifier]
+        [PCC-Rule-Status]
+        [Rule-Failure-Code]
+        [Final-Unit-Indication]
+        *[AVP]
+        ;
+
+   Final-Unit-Indication ::= < AVP Header: 430 >
+        { Final-Unit-Action }
+        *[ Restriction-Filter-Rule ]
+        *[ Filter-Id ]
+        [ Redirect-Server ]
+        ;
+ 
+   Redirect-Server ::= < AVP Header: 434 >
+        { Redirect-Address-Type }
+        { Redirect-Server-Address }
+        ;
+
+   Event-Report-Indication ::= < AVP Header: 1033 10415 >
+   	*[ Event-Trigger ]
+   	[ User-CSG-Information ]
+   	[ RAT-Type ]
+   	[ QoS-Information ]
+   	[ RAI ]
+   	[ Gx-3GPP-User-Location-Info ]
+   	[ Trace-Data ]
+   	[ Trace-Reference ]
+   	[ Gx-3GPP2-BSID ]
+   	[ Gx-3GPP-MS-TimeZone ]
+   	[ Gx-3GPP-SGSN-Address ]
+   	[ Gx-3GPP-SGSN-IPv6-Address ]
+   	[ Routing-IP-Address ]
+   	*[ AVP ]
+   	;
+
+   User-CSG-Information ::= 	< AVP Header: 2319 10415 >
+        { CSG-Id }
+        { Gx-CSG-Access-Mode } 
+	[ Gx-CSG-Membership-Indication ]
+        ;
+
+   Access-Network-Charging-Identifier-Gx ::=       < AVP Header: 1022 10415 >
+        { Access-Network-Charging-Identifier-Value}
+        *[ Charging-Rule-Base-Name ]
+        *[ Charging-Rule-Name ]
+        ;
+
+   CoA-Information ::= < AVP Header: 1039 10415 >
+        { Tunnel-Information }
+        { CoA-IP-Address }
+        *[AVP]
+        ;
+
+  Tunnel-Information ::= < AVP Header: 1038 10415 >
+        [ Tunnel-Header-Length ]
+        0*2[ Tunnel-Header-Filter ]
+        *[ AVP ]
+        ;
+
+  Usage-Monitoring-Information ::= < AVP Header: 1067 10415 >
+        [ Monitoring-Key ]
+        [ Granted-Service-Unit ]
+        [ Used-Service-Unit ]
+        [ Usage-Monitoring-Level ]
+        [ Usage-Monitoring-Report ]
+        [ Usage-Monitoring-Support ]
+        *[ AVP ]
+        ;
+
+  Granted-Service-Unit ::= < AVP Header: 431 >
+        [ Tariff-Time-Change ]
+        [ CC-Time ]
+        [ CC-Money ]
+        [ CC-Total-Octets ]
+        [ CC-Input-Octets ]
+        [ CC-Output-Octets ]
+        [ CC-Service-Specific-Units ]
+        *[ AVP ]
+        ;
+  Used-Service-Unit ::= < AVP Header: 446 >
+        [ Tariff-Time-Change ]
+        [ CC-Time ]
+        [ CC-Money ]
+        [ CC-Total-Octets ]
+        [ CC-Input-Octets ]
+        [ CC-Output-Octets ]
+        [ CC-Service-Specific-Units ]
+        *[ AVP ]
+        ;
+
+  CC-Money ::= < AVP Header: 413 >
+        { Unit-Value }
+        [ Currency-Code ]
+        ;
+
+  Unit-Value ::= < AVP Header: 445 >
+        { Value-Digits }
+        [ Exponent ]
+        ;
+
+  Default-EPS-Bearer-QoS  ::=  < AVP Header: 1049 10415 >
+        [ QoS-Class-Identifier ]
+        [ Allocation-Retention-Priority]
+        * [AVP]
+        ;
+
+  Trace-Data ::= <AVP Header: 1458 10415>
+        {Trace-Reference}
+        {Trace-Depth}
+        {Trace-NE-Type-List}
+        {Trace-Event-List}
+        {Trace-Collection-Entity}
+        [Trace-Interface-List]
+        [OMC-Id]
+        *[AVP]
+        ;
+
+  Allocation-Retention-Priority ::= < AVP Header: 1034 10415 >
+        {Priority-Level}
+        [Pre-emption-Capability]
+        [Pre-emption-Vulnerability]
+        ;
+
+  Flow-Information ::= < AVP Header: 1058 10415 >
+  	[ Flow-Description ]
+  	[ Packet-Filter-Identifier ]
+  	[ Packet-Filter-Usage ]
+  	[ ToS-Traffic-Class ]
+  	[ Security-Parameter-Index ]
+  	[ Flow-Label ]
+  	[ Flow-Direction ]
+  	*[ AVP ]
+  	;
+
+
+  Maximum-Bandwidth ::= < AVP Header: 1082 >
+  	[ Max-Supported-Bandwidth-UL ]
+	[ Max-Supported-Bandwidth-DL ]
+	*[ AVP ]
+	;
+
+  Routing-Filter ::= < AVP Header: 1078 10415 >
+	{ Flow-Description }
+	{ Flow-Direction }
+	[ ToS-Traffic-Class ]
+	[ Security-Parameter-Index ]
+	[ Flow-Label ]
+	*[ AVP ]
+	;
+
+  Routing-Rule-Definition ::= < AVP Header: 1076 10415 >
+  	{ Routing-Rule-Identifier }
+  	*[ Routing-Filter ]
+  	[ Precedence ]
+  	[ Routing-IP-Address ]
+  	*[ AVP ]
+  	;
+
+  Routing-Rule-Install ::= < AVP Header: 1081 10415 >
+  	*[ Routing-Rule-Definition ]
+  	*[ AVP ]
+  	;
+
+
+  Routing-Rule-Remove ::= < AVP Header: 1075 10415 >
+  	*[ Routing-Rule-Identifier ]
+  	*[ AVP ]
+	;
+
+
+
+
+
+
+
+
+
+
+    //////////////
+    // Commands //
+    //////////////
+
+/*
+ * The CCR command, indicated by the Command-Code field set to 272 and the 'R'
+ * bit set in the Command Flags field, is sent by the TPF to the CRF in order 
+ * to request charging rules for a bearer. The CCR command is also sent by the
+ * TPF to the CRF in order to indicate the termination of the bearer.
+ */
+
+
+
+CC-Request<CCR> ::= < Diameter Header: 272, REQ, PXY, 16777238 >
+	< Session-Id >
+	{ Auth-Application-Id }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ CC-Request-Type }
+	{ CC-Request-Number }
+	[ Destination-Host ]
+	[ Origin-State-Id ]
+	*[ Subscription-Id ]
+	*[ Supported-Features ]
+	[ Network-Request-Support ]
+	*[ Packet-Filter-Information ]
+	[ Packet-Filter-Operation ]
+	[ Bearer-Identifier ]
+	[ Bearer-Operation ]
+	[ Framed-IP-Address ]
+	[ Framed-IPv6-Prefix ]
+	[ IP-CAN-Type ]
+	[ Gx-3GPP-RAT-Type ]
+	[ RAT-Type ]
+	[ Termination-Cause ]
+	[ User-Equipment-Info ]
+	[ QoS-Information ]
+	[ QoS-Negotiation ]
+	[ QoS-Upgrade ]
+	[ Default-EPS-Bearer-QoS ]
+	0*2[ AN-GW-Address ]
+	[ Gx-3GPP-SGSN-MCC-MNC ]
+	[ Gx-3GPP-SGSN-Address ]
+	[ Gx-3GPP-SGSN-IPv6-Address ]
+	[ RAI ]
+	[ Gx-3GPP-User-Location-Info]
+	[ Gx-3GPP-MS-TimeZone ]
+	[ Called-Station-Id ]
+	[ PDN-Connection-ID ]
+	[ Bearer-Usage ]
+	[ Online ]
+	[ Offline ]
+	*[ TFT-Packet-Filter-Information ]
+	*[ Charging-Rule-Report]
+	*[ Event-Trigger]
+	[ Event-Report-Indication]
+	[ Access-Network-Charging-Address ]
+	*[ Access-Network-Charging-Identifier-Gx ]
+	*[ CoA-Information ]
+	*[ Usage-Monitoring-Information ]
+	[ Routing-Rule-Install ]
+	[ Routing-Rule-Remove ]
+	[ Maximum-Bandwidth ]
+	[ Logical-Access-ID ]
+	[ Physical-Access-ID ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+	;	
+
+
+
+
+
+/*
+ * The CCA command, indicated by the Command-Code field set to 272 and the 'R'
+ * bit cleared in the Command Flags field, is sent by the CRF to the TPF in 
+ * response to the CCR command.It is used to provision charging rules and event
+ * triggers for the bearer. The primary and secondary CCF and/or primary and 
+ * secondary OSC addresses may be included in the initial provisioning. 
+ */
+
+  
+
+CC-Answer<CCA> ::= < Diameter Header: 272, PXY, 16777238 >
+	< Session-Id >
+	{ Auth-Application-Id }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ CC-Request-Type }
+	{ CC-Request-Number }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	*[ Supported-Features ]
+	[ Bearer-Control-Mode ]
+	*[ Event-Trigger ]
+	[ Origin-State-Id ]
+	*[ Redirect-Host ]
+	[ Redirect-Host-Usage ]
+	[ Redirect-Max-Cache-Time ]
+	*[ Charging-Rule-Remove ]
+	*[ Charging-Rule-Install ]
+	[ Charging-Information ]
+	[ Online ]
+	[ Offline ]
+	*[ QoS-Information ]
+	[ Revalidation-Time ]
+	[ Default-EPS-Bearer-QoS ]
+	[ Bearer-Usage ]
+	[ Gx-3GPP-User-Location-Info]
+	*[ Usage-Monitoring-Information ]
+	*[ CSG-Information-Reporting ]
+	[ User-CSG-Information ]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	*[ Failed-AVP ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP ]
+	;
+
+
+
+
+/*
+ * The RAR command, indicated by the Command-Code field set to 258 and the 'R'
+ * bit set in the Command Flags field, is sent by the CRF to the TPF in order
+ * to indicate the provision of unsolicited charging rules for an existing
+ * bearer. The RAR command shall be followed by a CCR command from the TPF 
+ * requesting charging rules for the bearer in question.
+ */
+
+
+RA-Request<RAR> ::= < Diameter Header: 258, REQ, PXY, 16777238 >
+	< Session-Id >
+	{ Auth-Application-Id }
+	{ Origin-Host }
+	{ Origin-Realm }
+	{ Destination-Realm }
+	{ Destination-Host }
+	{ Re-Auth-Request-Type }
+	[ Session-Release-Cause ]
+	[ Origin-State-Id ]
+	*[ Event-Trigger ]
+	[ Event-Report-Indication ]
+	*[ Charging-Rule-Remove ]
+	*[ Charging-Rule-Install ]
+	[ Default-EPS-Bearer-QoS ]
+	*[ QoS-Information ]
+	[ Revalidation-Time ]
+	*[ Usage-Monitoring-Information ]
+	*[ Proxy-Info ]
+	*[ Route-Record ]
+	*[ AVP]
+	;
+
+
+
+
+/*
+ * The RAA command, indicated by the Command-Code field set to 258 and the 'R' 
+ * bit cleared in the Command Flags field, is sent by the TPF to the CRF in 
+ * response to the RAR command. 
+ */
+
+
+RA-Answer<RAA> ::= < Diameter Header: 258, PXY, 16777238 >
+	< Session-Id >
+	{ Origin-Host }
+	{ Origin-Realm }
+	[ Result-Code ]
+	[ Experimental-Result ]
+	[ Origin-State-Id ]
+	[ IP-CAN-Type ]
+	[ RAT-Type ]
+	0*2 [ AN-GW-Address ]
+	[ Gx-3GPP-SGSN-MCC-MNC ]
+	[ Gx-3GPP-SGSN-Address ]
+	[ Gx-3GPP-SGSN-IPv6-Address ]
+	[ RAI ]
+	[ Gx-3GPP-User-Location-Info ]
+	[ Gx-3GPP-MS-TimeZone ]
+	* [ Charging-Rule-Report]
+	[ Error-Message ]
+	[ Error-Reporting-Host ]
+	* [ Failed-AVP ]
+	* [ Proxy-Info ]
+	* [ AVP ]
+	;
+

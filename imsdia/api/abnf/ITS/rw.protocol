@@ -1,0 +1,1115 @@
+/**
+ * ITU Q.3303.3  -- Rw  Interface --Diameter Based Protocol
+ * The Rw  interface Between the Policy Decision Physical Entity (PD-PE) and the Policy 
+ * Enforcement Physical Entity (PE-PE) 
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+ protocol diameter.rw < 16777256  11502 : "ITU Q.3303.3" >;
+
+//////////////////
+// Derived AVPs //
+//////////////////
+/**
+ * The PI_Request_Type AVP (ITU-T AVP Code 1010) is of type Enumerated and contains the reason 
+ * for sending the Policy Install Request command. It MUST be present in all 
+ * Policy-Install-Request messages.
+ * Here we are using 5056  AVP Code instead of 1010 (given in specs).
+ * 1010 is using by Precedence  AVP .
+*/
+
+   PI_Request_Type	::=5056 /* Section  7.3.3.1*/ Enumerated	M, V|P| | |Y ;
+
+/**
+ * The PI-Request-Number AVP (ITU-T AVP Code 1011) is of type Unsigned32 and identifies 
+ * this request within one session. 
+ * Here we are using 5057  AVP Code instead of 1011 (given in specs).
+ * 1011 is using by  Reporting-Level   AVP .
+*/
+
+   PI-Request-Number	::=5057 /*Section 7.3.3.2*/ Unsigned32	 M, V|P| | |Y ;
+
+/**
+ * The Event-Trigger AVP (AVP code 1006) is of type Enumerated,and it indicates
+ * an event that shall cause a re-request of charging rules.
+ */
+   Event-Trigger  ::= 1006 /* 5.2.7  */ Enumerated    M,V|P| |   |Y;
+
+
+/**
+ * The Charging-Rule-Remove AVP (AVP code 1002) is of type Grouped, and it is used to 
+ * deactivate or remove Policy decisions from an IP-CAN session.
+*/
+
+   Charging-Rule-Remove  ::= 1002 /*  Section 7.3.3.38  */ Grouped       M,V|P| |   |Y;
+
+/**
+ * The Charging-Rule-Name AVP (AVP code 1005) is of type OctetString, and it defines a name for 
+ * Policy decision. For Policy decisions provided by the PD-PE, it uniquely identifies a Policy  
+ * decision. For Policy decisions predefined at the PE-PE, it uniquely identifies a Policy 
+ * decision within the PE-PE.
+*/
+   
+   Charging-Rule-Name ::=1005 /*    ITU Q.3303.3  7.3.3.41  */OctetString   M,V|P| |   |Y;
+
+/**
+ * The Charging-Rule-Base-Name AVP (AVP code 1004) is of type UTF8String, and it indicates 
+ * the name of a predefined group of Policy decisions residing at the PE-PE.
+*/
+   Charging-Rule-Base-Name ::=1004 /*    ITU Q.3303.3  7.3.3.40  */UTF8String  M,V|P| |   |Y;
+
+/**
+ * The Charging-Rule-Install AVP (AVP code 1001) is of type Grouped, and it is used to activate, 
+ * install or modify policy decisions as instructed from the PD-PE to the PE-PE. 
+*/
+   Charging-Rule-Install::= 1001 /*    ITU Q.3303.3 7.3.3.37   */ Grouped  M,V|P| |   |Y; 
+
+
+/**
+ * The Charging-Rule-Definition AVP (AVP code 1003) is of type Grouped, and it defines the 
+ * Policy decision for a service flow sent by the PD-PE to the PE-PE. The Charging-Rule-Name 
+ * AVP uniquely identifies the Policy decision and it is used to reference to a Policy decision 
+ * in communication between the PE-PE and the PD-PE. The Flow-Description AVP(s) determines 
+ * the traffic that belongs to the service flow. 
+*/
+   Charging-Rule-Definition ::= 1003 /*  ITU Q.3303.3   7.3.3.39 */ Grouped  M,V|P| |   |Y;
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines a
+ * packet filter for an IP flow
+*/
+   Flow-Description::= 507 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 6.5.4 */
+                                                           IPFilterRule M,V| P| | | Y ;
+
+/**
+ * The Flow-Status AVP (AVP code 511) is of type Enumerated, and describes
+ * whether the IP flow(s) are enabled or disabled.
+ */
+   Flow-Status      ::= 511  /*  ETSI TS 129 214 V8.8.0 6.5.12 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The Flow-Usage AVP (AVP code 512) is of type Enumerated, and provides
+ * information about the usage of IP Flows.
+ * NO_INFORMATION is the default value.
+ * NOTE: An AF may choose not to identify RTCP flows, e.g. in order to avoid
+ * that RTCP flows are always enabled by the server.
+ */
+   Flow-Usage   ::= 512  /* ETSI TS 129 214 V8.8.0  6.5.13 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The Binding-Information AVP (AVP code 450) is of type Grouped and is sent between the AF 
+ * and the SPDF in order to convey binding information required for NA(P)T, hosted NA(P)T 
+ * and NA(P)T-PT control.
+ * Here we are using 5064  AVP Code instead of 450 (given in specs).Because it was 
+ * conflicting with Subscription-Id-Type AVP.
+ */
+   Binding-Information   ::=  5064 13019 /*ETSI TS 183 017 V0.0.13 (2005-11)  gq'*/    Grouped     										V  | | | M  |Y;
+/**
+ *   
+*/
+   QoS-Information ::=1016  /* ITU Q.3303.3  7.3.3.49 */   Grouped   M,V| P| | | Y;
+
+/**
+ * The Bearer-Identifier AVP (AVP code 1020) is of type OctetString, and it indicates the
+ * bearer to which specific information refers.
+ * When present within a CC-Request Diameter command, subsequent AVPs within the CC-Request
+ * refer to the specific bearer identified by this AVP.
+ * The bearer identifier of an IP CAN bearer shall be unique within the corresponding
+ * IP CAN session. The bearer identifier shall be selected by the PCEF.
+*/
+   Bearer-Identifier ::=1020  /*3GPP TS 29.212 V9.2.0  5.3.20 */  OctetString  M,V| P| | | Y;
+
+/**
+ * The Logical-Access-ID AVP (AVP code 302 13019) is of type OctetString.
+ * This AVP contains either a Circuit-ID (as defined in RFC 3046 [11]) or a
+ * technology independent identifier.
+ */
+   Logical-Access-Id     ::= 302 /*ETSI ES 283 034 V1.5.0 (2008-04) 7.3.3*/                                                                                            OctetString   V|M| |  |Y;
+/**
+ * The Physical-Access-ID AVP (AVP code 313 13019) is of type UTF8String and
+ * identifies the physical access to which the user equipment is connected.
+ * It includes a port identifier and the identity of the access node where
+ * the port resides.
+ */
+   Physical-Access-Id  ::=313 /* ETSI ES 283 034 V1.5.0 (2008-04) 7.3.14*/ UTF8String
+                                                                                V|M| |  |Y;
+/**
+ * The Service-Identifier AVP is of type Unsigned32 (AVP Code 439) and contains
+ * the identifier of a service. The specific service the request relates to is
+ * uniquely identified by the combination of Service-Context-Id and
+ * Service-Identifier AVPs.
+ */
+   Service-Identifier    ::= 439  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /*8.28*/
+
+/**
+ * The Rating-Group AVP is of type Unsigned32 (AVP Code 432) and contains the
+ * identifier of a rating group. All the services subject to the same rating
+ * type are part of the same rating group. The specific rating group the
+ * request relates to is uniquely identified by the combination of
+ * Service-Context-Id and Rating-Group AVPs.
+ */
+   Rating-Group           ::= 432  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /*8.29*/
+
+/**
+ * QoS-class-Identifier AVP (AVP code 1028) is of type Enumerated, and it defines the maximum 
+ * authorized traffic class for the transport bearer or service flow.
+*/
+   QoS-class-Identifier  ::=  1028 /*  */  Enumerated    M|P| |  V  |Y;
+
+
+/**
+ * The Max -Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and it
+ * indicates the maximum requested bandwidth in bits per second for an uplink
+ * IP flow. The bandwidth contains all the overhead coming from the IP-layer
+ * and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-UL ::= 516  /* ETSI TS 129 214 V8.8.0  6.5.17 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for a
+ * downlink IP flow. The bandwidth contains all the overhead coming from the
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-DL ::= 515  /*  ETSI TS 129 214 V8.8.0 6.5.16 */ Unsigned32   M,V|P| |   |Y;
+
+/*
+ * The Guaranteed Bitrate-UL AVP (AVP code 1026) is of type Unsigned32, and it
+ * indicates the guaranteed bitrate in bits per second for an uplink service data flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+*/
+   Guaranteed-Bitrate-UL ::= 1026 /* 3GPP TS 29.212 V9.2.0  5.3.26 */ Unsigned32 M,V| P| | | Y;
+
+/**
+ * The Guaranteed-Bitrate-DL AVP (AVP code 1025) is of type Unsigned32, and it indicates
+ * the guaranteed bitrate in bits per second for a downlink service data flow. The
+ * bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+*/
+   Guaranteed-Bitrate-DL  ::=1025 /*3GPP TS 29.212 V9.2.0   5.3.25 */ Unsigned32 M,V| P| | | Y;
+
+/**
+ * The Traffic-Descriptor-UL AVP (ITU-T AVP Code 1012) is of type Grouped, and it indicates 
+ * complementary traffic characteristics in addition to maximum bandwidth. It is used to  
+ * control the bandwidth of traffic flows at the uplink direction. 
+ * Here we are using 5058  AVP Code instead of 1012 (given in specs).
+ * 1012 is using by TFT-Filter AVP .
+*/
+
+   Traffic-Descriptor-UL ::= 5058 /*7.3.3.3  */  Grouped  M,V| P| | | Y;
+
+/** 
+ * The Traffic-Descriptor-DL AVP (ITU-T AVP Code 1013) is of type Grouped, and it indicates 
+ * complementary traffic characteristics in addition to maximum bandwidth. It is used to 
+ * control the bandwidth of traffic flows at the downlink direction.
+ * Here we are using 5059  AVP Code instead of 1013 (given in specs).
+ * 1013 is using by TFT-Packet-Filter-Information   AVP .
+*/
+   Traffic-Descriptor-DL ::=5059 /* 7.3.3.4  */ Grouped  M,V| P| | | Y;
+
+/**
+ * The Maximum-Burst-Size AVP (ITU-T AVP Code 1014) is of type Unsigned32 and indicates the 
+ * peak burst size in octets. It is used to provision the peak burst size for traffic policing.
+ * Here we are using 5060  AVP Code instead of 1014 (given in specs).
+ * 1014 is using by ToS-Traffic-Class   AVP .
+
+*/
+   Maximum-Burst-Size ::= 5060 /*7.3.3.5  */ Unsigned32  M,V| P| | | Y;
+
+/**
+ * The Committed-Data-Rate AVP (ITU-T AVP Code 1015) is of type Unsigned32 and indicates the 
+ * average bandwidth in octets per second. It is used to provision the average bandwidth for 
+ * traffic policing.
+*/
+   Committed-Data-Rate::= 1015/*7.3.3.6  */ Unsigned32  M,V| P| | | Y;
+
+/**
+ * The Committed-Burst-Size AVP (ITU-T AVP Code 1016) is of type Unsigned32 and indicates the 
+ * committed burst size in octets. It is used to provision the committed burst size for traffic 
+ * policing.
+ * Here we are using 5061  AVP Code instead of 1016 (given in specs).
+ * 1016 is using by QoS-Information  AVP .
+*/
+   Committed-Burst-Size ::= 5061 /*7.3.3.7  */ Unsigned32  M,V| P| | | Y;
+
+/**
+ * The Excess-Burst-Size AVP (ITU-T AVP Code 1017) is of type Unsigned32 and indicates the 
+ * excess burst size in octets. It is used to provision the excess burst size for traffic policing.
+*/
+   
+   Excess-Burst-Size  ::= 1017 /*7.3.3.8  */ Unsigned32  M,V| P| | | Y;
+
+/**
+ * The Reservation-Priority AVP (AVP code 458) is of type Enumerated. The following values  
+ * are specified:
+*/
+   Reservation-Priority ::= 458 /*7.3.3.19 */Enumerated  M,V| P| | | Y;
+
+/**
+ * The ToS-Traffic-Class AVP (AVP code 1014) is of type OctetString, and it contains the 
+ * Type-of-Service/Traffic-Class of a TFT packet filter 
+*/
+   ToS-Traffic-Class ::=1014 /*7.3.3.48 */OctetString M,V| P| | | Y;
+
+/**
+ * The Latching-Indication AVP (AVP code 457) is of type Enumerated
+*/
+
+   Latching-Indication	::=457/*7.3.3.18*/Enumerated	V|P|	|M|Y;
+
+/**
+ * The Dynamic-Firewall-Working-Mode AVP (ITU-T AVP code 1002) is of type Enumerated, 
+ * and provides information about the working mode of the firewall with respect to the 
+ * IP flows of the user session.
+ * Here we are using 5055  AVP Code instead of 1002 (given in specs).
+ * 1002 is using by Charging-Rule-Remove AVP .
+*/
+   Dynamic-Firewall-Working-Mode ::=5055 /*7.3.3.10*/Enumerated    V|M,P | | |Y ;
+
+/**
+ * The QoS-Downgradable AVP (ITU-T AVP code 1001) is of type Enumerated, and it provides 
+ * information about the usage of IP Flows.
+ * Here we are using 5054  AVP Code instead of 1001 (given in specs).
+ * 1001 is using by  Charging-Rule-Install   AVP ..
+*/
+   QoS-Downgradable  ::=5054 /*7.3.3.11*/Enumerated    V|M,P | | |Y ;
+
+/**
+ * The Reporting-Level AVP (AVP code 1011) is of type Enumerated, and it defines on what 
+ * level the PE-PE reports the usage for the related Policy decision.
+*/
+   Reporting-Level ::=1011/*7.3.3.45 */Enumerated    M,V| P| | | Y;
+/**
+ * The Metering-Method AVP (AVP code 1007) is of type Enumerated, and it defines what 
+ * parameters shall be metered, for example, offline charging and/or other purposes
+*/
+   Metering-Method::=1007/*7.3.3.43*/Enumerated    M,V| P| | | Y;
+
+/**
+ * The Precedence AVP (AVP code 1010) is of type Unsigned32, and it defines the precedence of 
+ * a Policy decision in case of overlapping Policy decisions. A Policy decision with the 
+ * Precedence AVP with lower value shall take the priority over a Policy decision with the 
+ * Precedence AVP with higher value. The Precedence AVP is also used to indicate the evaluation 
+ * precedence of the Traffic Mapping Information filters (for GPRS the TFT packet filters).
+*/
+   Precedence ::= 1010  /* 7.3.3.44 */ Unsigned32  M,V| P| | | Y;
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505) is of type OctetString, and it contains the SCE 
+ * charging identifier that is sent by the SCE. This information may be used for charging  
+ * correlation with transport layer.
+*/
+   AF-Charging-Identifier::=505 /*7.3.3.23  */ OctetString M,V| P| | | Y;
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows via their 
+ * flow identifiers.
+*/
+   Flows ::=510 /*7.3.3.26 */  Grouped M,V| P| | | Y;
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it contains the 
+ * ordinal number of the media component
+*/
+   Media-Component-Number ::= 518  /*7.3.3.31  */ Unsigned32 M,V| P| | | Y;
+
+/**
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32, and it contains the ordinal 
+ * number of the IP flow(s),
+*/
+   Flow-Number ::=509 /*7.3.3.25  */ Unsigned32 M,V| P| | | Y;
+
+   Called-Station-ID ::=30 /*(Note 1)IETF RFC 4005 */UTF8String	M|P|	|V|Y;
+
+/**
+ * The Charging-Rule-Report AVP (AVP code 1018) is of type Grouped, and it is used to report 
+ * the status of a Policy decision (e.g., installation successful, removal, etc.).
+*/
+
+   Charging-Rule-Report	 ::= 1018	/*7.3.3.51*/ 	Grouped M,V| P| | | Y;
+
+/**
+ * The Access-Network-Charging-Address AVP (AVP code 501) is of type Address, and it indicates 
+ * the IP Address of the network entity within the access network performing charging (e.g., the 
+ * GGSN IP address). The Access-Network-Charging-Address AVP should not be forwarded over an 
+ * inter-operator interface.
+*/
+   Access-Network-Charging-Address ::=501  /*7.3.3.51*/ Address  M,V| P| | | Y; //unknown.
+
+/**
+ * The Access-Network-Charging-Identifier-Gx AVP (AVP code 1022) is of type Grouped.
+ * It contains a charging identifier (e.g. GCID) within the
+ * Access-Network-Charging-Identifier-Value AVP and the related PCC rule name(s)
+ * within the Charging-Rule-Name AVP(s) and/or within the Charging-Rule-Base-Name AVP(s).
+ * If the charging identifier applies to the entire IP CAN session, no Charging-Rule-Name
+ * AVPs or Charging-Rule-Base-Name AVPs need to be provided. Otherwise, all the
+ * Charging-Rule-Name AVPs or Charging-Rule-Base-Name AVPs corresponding to PCC rules
+ * associated to the provided Access-Network-Charging-Identifier-Value shall be included.
+ */
+   Access-Network-Charging-Identifier-Gx   ::= 1022  /* 7.3.3.58*/ Grouped       M,V|P| |    |Y;
+
+/**
+ * The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type OctetString,
+ * and contains a charging identifier (e.g. GCID).
+ */
+   Access-Network-Charging-Identifier-Value   ::= 503 /*3GPP TS 29.214 V9.0  16.4.7 */ OctetString 										  M,V|P| |   |Y; 
+
+/**
+ * The Bearer-Usage AVP (AVP code 1000) is of type Enumerated, and it shall indicate how the 
+ * bearer is being used. If the Bearer-Usage AVP has not been previously provided, its absence 
+ * shall indicate that no specific information is available. If the Bearer-Usage AVP has been  
+ * provided, its value shall remain valid until it is provided the next time. 
+*/
+   Bearer-Usage::= 1000  /* 7.3.3.58*/Enumerated  M,V|P| |    |Y;
+
+
+/**
+ * 7.3.3.52	PCC-Rule-Status AVP (All access types)
+ * The PCC-Rule-Status AVP (AVP code 1019) is of type Enumerated, and it describes the status  
+ * of a Policy decision. 
+*/
+ 
+   PCC-Rule-Status::=1019 /*7.3.3.52*/  Enumerated  M,V|P| |    |Y;
+
+/**
+ * The TFT-Packet-Filter-Information AVP (AVP code 1013) is of type Grouped, and it contains the 
+ * information from a single TFT packet filter including the evaluation precedence, the filter 
+ * and the Type-of-Service/Traffic-Class sent from the PE-PE to the PD-PE. The PE-PE shall 
+ * include one TFT-Packet-Filter-Information AVP for each TFT packet filters applicable at a 
+ * PDP context in separate TFT-Packet-Filter-Information AVPs within each Policy decision 
+ * request corresponding to that PDP context. TFT-Packet-Filter-Information AVPs are derived 
+ * from the traffic flow template (TFT). 
+*/
+
+   TFT-Packet-Filter-Information ::= 1013 /*7.3.3.47*/Grouped  M,V|P| |    |Y;
+
+/**
+ * The TFT-Filter AVP (AVP code 1012) is of type IPFilterRule, and it contains the flow filter  
+ * for one TFT packet filter. The TFT-Filter AVP is derived from the traffic flow template (TFT) 
+*/
+   TFT-Filter ::= 1012  /* 7.3.3.46 */  IPFilterRule M,V|P| |    |Y;
+
+/**
+ * The Authorization-Token AVP (AVP code 506) is of type OctetString, and contains the 
+ * Authorization Token 
+*/
+   Authorization-Token ::=506  /* 7.3.3.35   */ OctetString M,V|P| |    |Y;
+
+/**
+ * The Session-Abort-Cause AVP (AVP code 500) is of type Enumerated .
+ */
+   Abort-Cause  ::= 500  /* 7.3.3.22  */ Enumerated    M,V|P| |   |Y;
+
+/**
+ * The Removal-Cause AVP (ITU-T AVP Code 1018) is of type Enumerated, and it determines the cause 
+ * of a session abort request or of an RAR indicating a transport bearer release. 
+ * Here we are using 5062  AVP Code instead of 1018 (given in specs).
+ * 1018 is using by Charging-Rule-Repor  AVP .
+*/
+   Removal-Cause	::=5062     /*	7.3.3.9*/	Enumerated  M,V|P| |   |Y;
+
+/**
+ * The Bearer-Control-Mode AVP (AVP code 1023) is of type of Enumerated. When sent from PE-PE to 
+ * PD-PE, it indicates the UE preferred bearer control mode. When sent from PD-PE to PE-PE, 
+ * it indicates the PD-PE selected bearer control mode.
+ * If the Bearer-Control-Mode AVP has not been previously provided by the PE-PE, its absence 
+ * shall indicate the value UE_ONLY. If the Bearer-Control AVP has been provided, its value 
+ * shall remain valid until it is provided the next time.
+*/
+
+   Bearer-Control-Mode ::= 1023/* 7.3.3.59*/ Enumerated  M,V|P| |   |Y;
+
+   Rw-3GPP-GPRS-Negotiated-QoS-Profile ::=5 /* 3GPP TS 29.061 V6.7   16.4.7  */ 
+                                                         UTF8String  M,V|P| |   |Y; 
+
+   Rw-3GPP-RAT-Type  ::= 21/*3GPP TS 29.061 V6.7  Section 16.4.7  */ OctetString M,V|P| |   |Y;
+
+   Rw-3GPP-SGSN-Address	::=6  /*3GPP TS 29.061 V6.7  Section 16.4.7   */ UTF8String  M,V|P| |   |Y;
+
+   Rw-3GPP-SGSN-IPv6-Address ::=15/*3GPP TS 29.061 V8.2.0  */ UTF8String  M,V|P| |   |Y;
+
+   Rw-3GPP-SGSN-MCC-MNC	  ::=18/*3GPP TS 29.061  */ UTF8String  M,V|P| |   |Y;
+
+ 
+
+/**
+ * The Address-Realm AVP (AVP code 301) is of type OctetString and contains the address realm 
+ * in the form of a FQDN.
+*/
+   Address-Realm ::=301 /* 7.3.3.55  */OctetString M,V|P| |   |Y;
+
+/**
+ * The Bearer-Operation AVP (AVP code 1021) is of type of Enumerated, and it indicates the 
+ * bearer event that causes a request for Policy decisions. This AVP shall be supplied if the 
+ * bearer event relates to an IP-CAN bearer initiated by the UE.
+*/
+   Bearer-Operation::=1021 /*7.3.3.54  */Enumerated  M,V|P| |   |Y;
+
+
+/**
+ * The Network-Request-Support AVP (AVP code 1024) is of type of Enumerated, and it indicates 
+ * the UE and network support of the network requested bearer control mode.
+ * If the Network-Request-Support AVP has not been previously provided, its absence shall 
+ * indicate the value NETWORK_REQUEST NOT SUPPORTED. 
+ * If the Network-Request-Support AVP has been provided, its value shall remain valid until 
+ * it is provided the next time.
+*/
+
+   Network-Request-Support::=1024 /*7.3.3.60 */Enumerated  M,V|P| |   |Y;
+
+
+/**
+ * The Binding-Input-List AVP (AVP code 451) is of type Grouped, and it contains a list of 
+ * transport addresses for which a binding is requested. The PD-PE constructs the 
+ * Binding-Input-List using session description information.
+*/
+   Binding-Input-List ::= 451 /*7.3.3.13 */Grouped M,V|P| |   |Y;
+
+/**
+ * The Binding-Output-List  AVP (AVP code 452) is of type Grouped, and it contains a list of 
+ * transport addresses which are the result of the binding operation performed by the transport 
+ * plane functions. 
+*/
+
+   Binding-Output-List  ::= 452  /* 7.3.3.14 */ Grouped  M,V|P| |   |Y;
+
+
+/**
+ * The V4-Transport-Address AVP (AVP code 454) is of type Grouped and contains a single 
+ * IPv4 address and a single port number.
+*/
+   V4-Transport-Address ::=454 /* 7.3.3.16 */ Grouped   V|P|	|M|Y;
+					
+/**
+ * The V6-Transport-Address AVP (AVP code 453) is of type Grouped and contains a single IPv6 
+ * address and a single port number.
+*/
+   V6-Transport-Address ::=453 /* 7.3.3.15 */ Grouped  V|P|       |M|Y; 
+
+
+
+/**
+ * The Port-Number AVP (AVP code 455) is of type Unsigned32 and contains the end point port number.
+*/
+   Port-Number ::=455 /*7.3.3.17  */Unsigned32   V|P|       |M|Y;
+
+
+/**
+ * CC-Request-Type AVP is of type enumerated and contains the reason for sending the Credit-
+ * Control request message.
+ */
+   CC-Request-Type     ::= 416  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* clause 8.3,RFC4006*/
+
+/**
+ * CC-Request-Number is of type Unsigned32 and identifies this request within one session. As
+ * Session-Id AVPs are globally unique,the combination of Session-Id and CC-Request-Number is
+ * also globally unique and can be used in matching credit-control messages with confirmations.
+ */
+   CC-Request-Number   ::= 415  /*RFC4006 */ Unsigned32    M|P| |  V  |Y; /*clause 8.2,RFC4006 */
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The
+ * value 0xFFFFFFFF indicates that the NAS should allow the user to select
+ * an address (i.e:negotiated). The value 0xFFFFFFFE indicates that NAS
+ * should select an address for the user (e.g:assigned from a pool of
+ * addresses kept by NAS).
+ */
+   Framed-IP-Address                  ::= 8   /*RFC 4005 6.11.1*/   OctetString   |M| | V|Y;
+
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that
+ * specific IPv6 prefixes are desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+   Framed-IPv6-Prefix                 ::= 97  /*RFC 4005 6.11.6*/   OctetString   |M| |  V|Y;
+
+
+/**
+ * The User-Equipment-Info AVP (AVP Code 458) is of type Grouped and allows
+ * the credit-control client to indicate the identity and capability of the
+ * terminal the subscriber is using for the connection to network.
+ * Here we are using 5063  AVP Code instead of 458 (given in specs).Because it was 
+ * conflicting with Reservation-Priority AVP.
+*/
+   User-Equipment-Info             ::= 5063  0 /* 8.49*/ Grouped      |P,M| | V |Y;  /* RFC4006 */
+
+/**
+ * The User-Equipment-Info-Type AVP is of type Enumerated and defines the type of user equipment
+ * information contained in the User-Equipment-Info-Value AVP.
+ */
+   User-Equipment-Info-Type   ::= 459  /*RFC4006 */ Enumerated     |P,M| | V |Y; /* 8.50,RFC4006*/
+
+/**
+ * The User-Equipment-Info-Value AVP is of type OctetString. The User-Equipment-Info-Type AVP
+ * defines which type of identifier is used.
+ */
+   User-Equipment-Info-Value  ::= 460  /*RFC4006 */ OctetString    |P,M| | V |Y; /* 8.51,RFC4006 */
+
+/**
+ * Subscription-Id AVP is used to identity the end user's subscription and is of type Grouped.
+ */
+   Subscription-Id     ::= 443  /*RFC4006 */ Grouped       M|P| |  V  |Y; /* clause 8.46,RFC4006*/
+
+/**
+ * Subscription-Id-Type AVP is of type Enumerated and it is used to determine which type of
+ * identifier is carried by the Subscription-Id AVP.
+ */
+   Subscription-Id-Type  ::= 450  /*RFC4006 */ Enumerated    M|P| |  V  |Y; /* 8.47,RFC4006*/
+
+/**
+ * Subscription-Id-Data AVP is used to identity the end user and is of type UTF8String.
+ */
+   Subscription-Id-Data  ::= 444  /*RFC4006 */UTF8String     M|P| |  V  |Y; /* 8.48, RFC4006 */
+
+
+///////////////
+//Enumearted///
+///////////////
+
+	PI_Request_Type  ::=    < Enumerated: 5056 >
+				INITIAL_REQUEST      1
+		                UPDATE_REQUEST       2
+				TERMINATION_REQUEST  3
+                                ;
+
+
+	Event-Trigger ::= 	< Enumerated: 1006 >
+        			SGSN_CHANGE       0
+        			QOS_CHANGE        1
+        			RAT_CHANGE        2
+      				TFT_CHANGE        3
+        			PLMN_CHANGE       4
+        			;
+
+	Flow-Status ::=         < Enumerated: 511 >
+                                ENABLED_UPLINK            0
+                                ENABLED_DOWNLINK          1
+                                ENABLED                   2
+                                DISABLED                  3
+                                REMOVED                   4
+                                ;
+
+        Flow-Usage ::=          < Enumerated: 512 >
+                                NO_INFORMATION            0
+                                RTCP                      1
+                                ;
+
+
+        QoS-class-Identifier ::=< Enumerated:1028 >
+                		TRAFFIC_CLASS_A   0
+				TRAFFIC_CLASS_B   1
+				TRAFFIC_CLASS_C   2
+				TRAFFIC_CLASS_D   3
+				TRAFFIC_CLASS_E   4
+				TRAFFIC_CLASS_F   5
+				;
+	Reservation-Priority ::=<Enumerated:458>
+                                PRIORITY_ONE           1
+                                PRIORITY_TWO           2
+                                PRIORITY_THREE         3
+                                PRIORITY_FOUR          4
+                                PRIORITY_FIVE          5
+                                PRIORITY_SIX           6
+                                PRIORITY_SEVEN         7
+				;
+	Latching-Indication ::= <Enumerated:457>
+				LATCH    0
+				RELATCH  1
+				;
+
+	Dynamic-Firewall-Working-Mode ::=<Enumerated:5055>
+           			Static_Packet_Filtering   0
+				Dynamic_Packet_Filtering  1
+				Stateful_Inspection       2
+				Deep_Packet_Inspection    3
+				;
+
+	QoS-Downgradable ::= <Enumerated:5054>
+				NORMAL         0
+				MAY_DOWNGRADE  1
+				;
+
+
+        Reporting-Level ::= <Enumerated:1011>
+				SERVICE_IDENTIFIER_LEVEL  0
+				RATING_GROUP_LEVEL        1 
+				;
+
+
+	Metering-Method ::= <Enumerated:1007>
+			 	DURATION         0
+				VOLUME           1
+				DURATION_VOLUME  2
+				;
+
+
+	Bearer-Usage::=     <Enumerated:1000>
+    			        GENERAL           0
+				IMS_SIGNALLING    1
+			;
+
+	PCC-Rule-Status ::=  <Enumerated:1019>
+				ACTIVE               0
+				INACTIVE             1
+				TEMPORARY_INACTIVE   2
+				;
+
+	Abort-Cause ::=      < Enumerated: 500 >
+			        BEARER_RELEASED                  0
+        			INSUFFICIENT_SERVER_RESOURCES    1
+        			INSUFFICIENT_BEARER_RESOURCES    2
+        			;
+
+  	Removal-Cause ::=    < Enumerated: 5062 > 
+				Session_RELEASED               0
+				INSUFFICIENT_SERVER_RESOURCES  1
+				INSUFFICIENT_BEARER_RESOURCES  2
+				;
+
+
+	Bearer-Control-Mode::=< Enumerated: 1023>
+				UE_ONLY        0
+				NW_ONLY        1
+				UE_NW          2
+				;
+
+	Bearer-Operation::= <Enumerated:1021> 
+				RW_TERMINATION    0
+				RW_ESTABLISHMENT     1
+				RW_MODIFICATION      2 
+				;
+
+
+        Network-Request-Support::= <Enumerated:1024>  
+				NETWORK_REQUEST_NOT_SUPPORTED  0
+				NETWORK_REQUEST_SUPPORTED      1 
+				;
+
+	CC-Request-Type ::=       < Enumerated: 416 >
+                                INITIAL_REQUEST       1
+                                UPDATE_REQUEST        2
+                                TERMINATION_REQUEST   3
+               			EVENT_REQUEST         4
+                		;
+
+    	User-Equipment-Info-Type ::= < Enumerated: 459 >
+          			IMEISV         0
+                		MAC            1
+             			EUI64          2
+        		        MODIFIED_EUI64 3
+                		;
+
+    	Subscription-Id-Type ::= < Enumerated: 450 >
+        		        END_USER_E164             0
+               			END_USER_IMSI             1
+            			END_USER_SIP_URI          2
+                		END_USER_NAI              3
+               			END_USER_PRIVATE         4
+                		;
+
+///////////////
+//Grouped /////
+///////////////
+
+
+	Charging-Rule-Remove ::= < AVP Header: 1002 >
+				*[ Charging-Rule-Name ]
+				*[ Charging-Rule-Base-Name ]
+				*[ AVP ]
+				;
+
+	Charging-Rule-Install ::= < AVP Header: 1001 >
+				*[ Charging-Rule-Definition ]
+				*[ Charging-Rule-Name ]
+		        	*[ Charging-Rule-Base-Name ]
+				[ Bearer-Identifier ]
+				[ Logical-Access-Id]
+				[ Physical-Access-Id]
+		        	*[ AVP ]
+				;
+	
+	Charging-Rule-Definition ::= < AVP Header: 1003 >
+				{ Charging-Rule-Name }
+			        [ Service-Identifier ]    //4006
+				[ Rating-Group ]          //4006
+		        	*[ Flow-Description ]
+				[ Flow-Status ]
+			        [ Flow-Usage ]
+				[ Binding-Information ]
+				[ QoS-Information ]
+			        [ Latching-Indication ]
+				[ Dynamic-Firewall-Working-Mode ]
+		        	[ QoS-Downgradable ]
+				[ Reporting-Level ]
+				[ Metering-Method ]
+				[ Precedence ]
+				[ AF-Charging-Identifier ]
+				*[ Flows ]
+				*[ AVP ]
+				;
+
+   	Binding-Information  ::= < AVP Header: 5064 13019>
+        	        	{Binding-Input-List}
+                		[ Binding-Output-List ]
+                		*[ AVP ]
+				;	
+
+   	Binding-Input-List  ::= < AVP Header: 451 13019>
+        		        *[V6-Transport-Address]
+                		*[V4-Transport-Address]
+               			*[ AVP ]
+				;
+
+  	Binding-Output-List  ::= < AVP Header: 452 13019>
+        		        *[V6-Transport-Address]
+               			*[V4-Transport-Address]
+               			*[ AVP ]
+				;
+
+ 	V6-Transport-Address  ::= < AVP Header: 453 13019>
+        		        {Framed-IPv6-Prefix}
+              			{Port-Number}
+                		*[ AVP ]
+				;
+
+   	V4-Transport-Address  ::= < AVP Header: 454 13019>
+        		        {Framed-IP-Address}
+               			{Port-Number}
+              			*[ AVP ]
+				;
+
+   	QoS-Information ::= < AVP Header: 1016 >
+				[ QoS-class-Identifier ]
+				[ Max-Requested-Bandwidth-UL ]
+				[ Max-Requested-Bandwidth-DL ]
+				[ Guaranteed-Bitrate-UL ]
+				[ Guaranteed-Bitrate-DL ]
+				[ Bearer-Identifier ]
+			   	[ Traffic-Descriptor-UL ]
+			   	[ Traffic-Descriptor-DL ]
+				[ Reservation-Priority ]
+				[ ToS-Traffic-Class ]	
+				*[ AVP ]
+				;
+
+	Traffic-Descriptor-UL ::= < AVP Header: 5058 >
+                               	[ Maximum-Burst-Size ]
+                                [ Committed-Data-Rate ]
+                                [ Committed-Burst-Size ]
+                                [ Excess-Burst-Size ]
+				*[ AVP ]
+				;
+
+  	Traffic-Descriptor-DL::= < AVP Header: 5059 >
+				[ Maximum-Burst-Size ]
+                                [ Committed-Data-Rate ]
+                                [ Committed-Burst-Size ]
+                                [ Excess-Burst-Size ]
+                                *[ AVP ]
+                                ;
+
+	Flows::= 		< AVP Header: 510 >
+				{ Media-Component-Number}
+				*[ Flow-Number]
+				*[ AVP ]
+				;
+
+	Access-Network-Charging-Identifier-Gx ::= < AVP Header: 1022 >
+				            { Access-Network-Charging-Identifier-Value}
+     					    *[ Charging-Rule-Base-Name ]
+    					    *[ Charging-Rule-Name ]
+					    *[ AVP ]
+				    	    ;
+
+	Charging-Rule-Report ::= < AVP Header: 1018 >
+			        *[Charging-Rule-Name]
+			        *[Charging-Rule-Base-Name]
+ 			        [PCC-Rule-Status]
+   			        *[Charging-Rule-Definition]
+    				*[AVP]
+				;
+
+	TFT-Packet-Filter-Information ::= < AVP Header: 1013>
+                                                 [ Precedence ]
+                                                 [ TFT-Filter ]
+                                                 [ ToS-Traffic-Class ]
+						*[ AVP ] 
+						;
+
+       	User-Equipment-Info ::= 	< AVP Header: 5063 >
+                 			{ User-Equipment-Info-Type }
+                 			{ User-Equipment-Info-Value }
+                 			*[AVP]
+                 			;
+
+	Subscription-Id ::= 	< AVP Header: 443 >
+                 		{ Subscription-Id-Type }
+                 		{ Subscription-Id-Data }
+                 		*[AVP]
+                 		;
+
+
+///////////////
+//commands/////
+///////////////
+
+/**
+ * The PIR command, indicated by the Command-Code field set to 315 and the 'R' bit set in the 
+ * Command Flags field, is sent by the PD-PE to the PE-PE in order to originate a resource 
+ * control session in the Push mode as defined in [ITU-T Y.2111], and it contains policy 
+ * decision information of the QoS control, NAT traversal and NAPT control that is relevant 
+ * to the initiation. 
+*/
+
+   PI-Request ::= 	 < Diameter Header: 315, REQ, PXY >
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 { Destination-Host }
+				 { PI_Request_Type } 
+				 { PI-Request-Number } 
+			 	 [ Origin-State-Id ]
+			 	 [ Auth-Session-State ]
+			 	 [ Class ] 
+				*[ Event-Trigger ]
+				*[ Charging-Rule-Remove ]
+				*[ Charging-Rule-Install ] 
+				 [ QoS-Information ]
+				 [ User-Name ]                
+				 [ User-Equipment-Info ]      
+				 [ Called-Station-ID ]
+				 [ Reservation-Priority ]
+				 [ Authorization-Lifetime ] 
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/*
+ * The PIA command, indicated by the Command-Code field set to 315 and the 'R' bit cleared 
+ * in the Command Flags field, is sent by the PE-PE to the PD-PE in response to the PIR command.
+*/
+
+   PI-Answer  ::=  	< Diameter Header: 315, PXY >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { PI_Request_Type }
+				 { PI-Request-Number }
+				 [ Result-Code ]
+				*[ Charging-Rule-Report]
+				[ Access-Network-Charging-Address ]
+				*[ Access-Network-Charging-Identifier-Gx ]
+				 [ Experimental-Result ]
+				 [ Origin-State-Id ]
+			 	 [ Class ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ] 
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+				;
+/*
+ * The CCR command, indicated by the Command-Code field set to 272 and the 'R' bit set in the 
+ * Command Flags field, is sent by the PE-PE to the PD-PE in order to request policy decisions 
+ * for a bearer. The CCR command is also sent by the PE-PE to the PD-PE in order to indicate the 
+ * termination of the bearer.
+*/
+
+   CC-Request  ::= 	 < Diameter Header: 272, REQ, PXY >
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 { CC-Request-Type }
+				 { CC-Request-Number }
+				 [ Destination-Host ]
+				 [ Origin-State-Id ]
+			 	 [ Auth-Session-State ]
+			 	 [ Class ]
+				*[ Subscription-Id ]
+				 [ Bearer-Control-Mode ]
+				 [ Network-Request-Support ]
+				 [ Bearer-Identifier ]
+				 [ Bearer-Operation ]				 
+				 [Framed-IP-Address]
+				 [Framed-IPv6-Prefix]
+				 [Address-Realm]
+				 [ Termination-Cause ]  
+				 [ User-Name ]           
+				 [ User-Equipment-Info ]
+				 [ Called-Station-ID ]
+				 [ Bearer-Usage ]
+				*[ Charging-Rule-Report]
+				 [ Rw-3GPP-RAT-Type ]        
+				 [ Rw-3GPP-GPRS-Negotiated-QoS-Profile ]
+				 [ Rw-3GPP-SGSN-MCC-MNC ]
+				 [ Rw-3GPP-SGSN-Address ]
+				 [ Rw-3GPP-SGSN-IPv6-Address ]
+				*[ TFT-Packet-Filter-Information ]
+				*[ Event-Trigger]
+				 [ Access-Network-Charging-Address ]
+				*[ Access-Network-Charging-Identifier-Gx ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The CCA command, indicated by the Command-Code field set to 272 and the 'R' bit cleared in the 
+ * Command Flags field, is sent by the PD-PE to the PE-PE in response to the CCR command. It is 
+ * used to provision Policy decisions and event triggers for the bearer. The primary and secondary  
+ * CCF and/or primary and secondary OCS addresses may be included in the initial provisioning. 
+ * The Class AVP shall be present if the PD-PE has chosen stateless operation. In this case, the 
+ * Session-Id shall contain an arbitrary value.
+*/
+
+   CC-Answer ::=  	 < Diameter Header: 272, PXY >
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { CC-Request-Type }
+				 { CC-Request-Number }
+				 [ Result-Code ]
+                                 [ Experimental-Result ]
+                                 [ Bearer-Control-Mode ]
+				 [ Origin-State-Id ]
+			 	 [ Auth-Session-State ]
+			 	 [ Class ]
+				*[ Event-Trigger ]
+				*[ Charging-Rule-Remove ]
+				*[ Charging-Rule-Install ]
+				 [ QoS-Information ]
+				 [ Reservation-Priority ]
+				 [ Authorization-Lifetime ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+
+
+/**
+ * The RAR command, indicated by the Command-Code field set to 258 and the 'R' bit set in the 
+ * Command Flags field, is sent by the PD-PE to the PE-PE in order to modify policy decisions for 
+ * an  existing resource control session triggered by the modification request (i.e., AAR) from the 
+ * SCE or the change of network policy decisions. 
+ * NOTE - If the RAR command is received by the PE-PE without providing any operation on policy 
+ * decision information, the PE-PE shall respond with a CCR command requesting policy decisions.
+ * The PI-Request shall be used instead if the PD-PE has chosen stateless operation. In this case,  
+ * the Session-Id shall contain an arbitrary value.
+*/
+   RA-Request  ::= 	 < Diameter Header: 258, REQ, PXY >
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 { Destination-Host }
+				 { Re-Auth-Request-Type }
+			 	 [ Origin-State-Id ]
+			 	 [ Auth-Session-State ]
+			 	 [ Class ]
+				 [ Removal-Cause ]
+				*[ Event-Trigger ]
+				*[ Charging-Rule-Remove ]
+				*[ Charging-Rule-Install ]
+				 [ QoS-Information ]
+				 [ Reservation-Priority ]
+				 [ Authorization-Lifetime ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+/**
+ * The RAA command, indicated by the Command-Code field set to 258 and the 'R' bit cleared in 
+ * the Command Flags field, is sent by the PE-PE to the PD-PE in response to the RAR command.
+ * The PI-Answer shall be used instead if the PD-PE has chosen stateless operation. In this case, 
+ * the Session-Id shall contain an arbitrary value.
+*/
+
+  RA-Answer ::=  	 < Diameter Header: 258, PXY >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 [ Result-Code ]
+				*[ Charging-Rule-Report]
+				[ Access-Network-Charging-Address ]
+				*[ Access-Network-Charging-Identifier-Gx ]
+				 [ Experimental-Result ]
+				 [ Origin-State-Id ]
+				 [ Class ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ] 
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+				;
+
+
+/**
+ * The ASR command, indicated by the Command-Code field set to 274 and the 'R' bit set in the 
+ * Command Flags field, is sent by the PD-PE to inform the PE-PE that all transport resources 
+ * for the authorized session have become unavailable. 
+ * The PI-Request shall be used instead if the PD-PE has chosen stateless operation. 
+ * In this case, the Session-Id shall contain an arbitrary value.
+*/
+
+ AS-Request   ::= < Diameter Header: 274, REQ, PXY >
+			< Session-Id >
+			{ Origin-Host }
+			{ Origin-Realm }
+			{ Destination-Realm }
+			{ Destination-Host }
+			{ Auth-Application-Id }
+			{ Abort-Cause }
+			 [ Authorization-Token ]
+			 [ Origin-State-Id ]
+			*[ Proxy-Info ]
+			*[ Route-Record ]
+			 [ AVP ]
+			;
+
+/**
+ * The ASA command, indicated by the Command-Code field set to 274 and the 'R' bit cleared in 
+ * the Command Flags field, is sent by the PE-PE to the PD-PE in response to the ASR command. 
+ * The PI-Answer shall be used instead if the PD-PE has chosen stateless operation.
+*/
+ AS-Answer   ::=  < Diameter Header: 274, PXY >
+			< Session-Id >
+			{ Origin-Host }
+			{ Origin-Realm }
+			 [ Authorization-Token ]
+			 [ Result-Code ]
+			 [ Experimental-Result ]
+			 [ Origin-State-Id ]
+			 [ Error-Message ]
+			 [ Error-Reporting-Host ]
+			*[ Failed-AVP ]
+			*[ Redirect-Host ]
+			 [ Redirect-Host-Usage ]
+			 [ Redirect-Max-Cache-Time ]
+			*[ Proxy-Info ]
+			*[ AVP ]
+			;
+
+
+
+
+
+

@@ -1,0 +1,373 @@
+%PB{
+	option java_package = "com.diametriq.webagent";
+	option java_outer_classname = "OverloadControl";
+
+	import "Common.proto";
+
+    message CMFPeerTemplate {
+        optional fixed32 PeerTemplateId  = 1;
+        optional string PeerTemplateName = 2;
+        enum Status
+        {
+            NORMAL = 1;
+            HIGH   = 2;
+        }
+        optional Status Priority    = 3;
+        optional fixed32 MaxInTps   = 4;
+        optional fixed32 MaxOutTps  = 5;
+
+        enum Condition
+        {
+            PENDING_QUEUE           = 1;
+            AVERAGE_RESPONSE_TIME   = 2;
+            ERROR_RESPONSE_COUNT    = 3;
+            TPS                     = 4;
+            NONE                    = 5;
+        }
+        optional Condition outPeerCongCond =6;
+
+        enum DisconnectMisbehavingPeer
+        {
+            PEER_ENABLE  = 1;
+            PEER_DISABLE = 2;
+        }
+        optional DisconnectMisbehavingPeer disMisbehavePeer = 7;
+        optional fixed32 MaxAvgRespTime          = 8;
+
+        enum state
+        {
+            THROTTLE_ENABLE = 1;
+            THROTTLE_DISABLE = 2;
+        }
+        optional state Throttle         = 9;
+        optional fixed32 MaxErrResp     = 10;
+        optional fixed32 TimeWindow     = 11;
+        optional fixed32 MaxPendingReqs = 12;
+        optional fixed32 ErrRespResultCode = 13;
+    }
+
+    message CMFRealmTemplate {
+        optional fixed32 RealmTemplateId   = 1;
+        optional string RealmTemplateName  = 2;
+        optional fixed32 MaxInTps   = 3;
+        optional fixed32 MaxOutTps  = 4;
+        enum Status
+        {
+            NORMAL = 1;
+            HIGH = 2;
+        }
+        optional Status Priority = 5;
+    }
+
+    message TemplateReq {
+        required fixed32 RequestID = 1;
+        repeated CMFPeerTemplate PeerTemplates = 2;
+        repeated CMFRealmTemplate RealmTemplates = 3;
+    }
+
+    message TemplateResp {
+        required fixed32 ResponseID = 1;
+        optional fixed32 RequestID = 2;
+        repeated CMFPeerTemplate PeerTemplates = 3;
+        repeated CMFRealmTemplate RealmTemplates = 4;
+        repeated ErrorDetails ErrorDetails = 5;
+    }
+
+// New messages
+    message RuleConfig {
+        optional fixed32 RuleID         = 1;
+        optional string RuleName        = 2;
+        optional string RuleDescription = 3;
+        optional fixed32 trigger        = 4;
+        optional fixed32 level          = 5;
+        optional string Rule            = 6;
+        optional fixed32 action         = 7;
+        optional fixed32 Priority       = 8;
+        optional bool RuleStatus        = 9;
+    }
+
+    message RuleConfigReq {
+        optional fixed32 RequestID  = 1;
+        repeated string RuleNames   = 2;  //In case of fetch from GUI this has to be filled
+        repeated RuleConfig rules   = 3;  //In case of config fetch don’t fill these
+    }
+
+    message RuleConfigResp {
+        required fixed32 ResponseID         = 1;
+        repeated RuleConfig rules                 = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+
+    message CCPriority {
+        enum PriorityStatus{
+            LOW     = 1;
+            HIGH    = 2;
+        }
+        optional fixed32 cmdCode        = 1;
+        optional PriorityStatus priority   = 2;
+        optional string Description = 3;
+    }
+
+    message AppIdPriority {
+        enum PriorityStatus{
+            LOW     = 1;
+            HIGH    = 2;
+        }
+        optional fixed32 appId          = 1;
+        optional PriorityStatus priority   = 2;
+        optional string Description = 3;
+    }
+
+    message PriorityConfig {
+        optional fixed32 RequestID          = 1;
+        repeated CCPriority ccPriorities    = 2;
+        repeated AppIdPriority appPriorities= 3;
+    }
+
+    message PriorityConfigReq {
+        optional fixed32 RequestID          = 1;
+        repeated PriorityConfig priorities  = 2;
+    }
+
+    message PriorityConfigResp {
+        required fixed32 ResponseID         = 1;
+        repeated PriorityConfig priorities  = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+
+    message CMFTrigger {
+        optional fixed32 triggerID      = 1;
+        optional string trigger         = 2;
+        optional fixed32 triggerValue   = 3;
+        optional string Description     = 4;
+    }
+
+    message CMFTriggerReq {
+        optional fixed32 RequestID   = 1;
+    }
+
+    message CMFTriggerResp {
+        required fixed32 ResponseID         = 1;
+        repeated CMFTrigger triggers = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+
+    message CMFAction {
+        optional fixed32 actionID   = 1;
+        optional string action      = 2;
+        optional string Description = 3;
+    }
+
+    message CMFActionReq {
+        optional fixed32 RequestID   = 1;
+        repeated string ActionNames = 2;
+    }
+
+    message CMFActionResp {
+        required fixed32 ResponseID         = 1;
+        repeated CMFAction actions          = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+
+    message CMFActionTriggerReq {
+        optional fixed32 RequestID   = 1;
+        repeated CMFTrigger triggers = 2;
+    }
+
+    message CMFTriggerActionMapping {
+        required CMFTrigger trigger = 1;
+        repeated CMFAction action   = 2;
+    }
+
+    message CMFActionTriggerResp {
+        required fixed32 ResponseID               = 1;
+        repeated CMFTriggerActionMapping mappings = 2;
+        repeated ErrorDetails ErrorDetails        = 3;
+    }
+
+    message CMFLevel {
+        optional fixed32 levelID = 1;
+        optional string level    = 2;
+    }
+
+    message CMFLevelReq {
+        optional fixed32  RequestID = 1;
+        repeated CMFLevel levels    = 2;
+    }
+
+    message CMFLevelResp {
+        required fixed32 ResponseID = 1;
+        repeated CMFLevel levels    = 2;
+        repeated ErrorDetails ErrorDetails        = 3;
+    }
+
+    message CMFConfigReq {
+        optional fixed32 RequestID = 1;
+    }
+
+    message CMFConfigResp {
+        required fixed32 ResponseID     = 1;
+        repeated CMFLevel levels        = 2;
+        repeated CMFTriggerActionMapping mappings = 3;
+        repeated PriorityConfig pConfig = 4;
+        repeated RuleConfig rules             = 5;
+        repeated ErrorDetails ErrorDetails        = 6;
+    }
+    message TriggerState {
+        enum State{
+            Level0    = 0;
+            Level1    = 1;
+            Level2    = 2;
+            Level3    = 3;
+        }
+        optional CMFTrigger trigger     = 1;
+        optional State state     = 2;
+        optional fixed32 currentValue   = 3;
+        optional fixed32 maxValue       = 4;
+    }
+    message TriggerStateRequest {
+        optional fixed32 RequestID  = 1;
+        optional CMFTrigger trigger = 2;
+    }
+    message TriggerStateResponse {
+        optional fixed32 ResponseID     = 1;
+        repeated TriggerState states    = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+    message PeerTriggerState {
+        enum State{
+            Level0    = 0;
+            Level1    = 1;
+            Level2    = 2;
+            Level3    = 3;
+            Congested  = 4;
+        }
+        enum Direction {
+            from  = 1;
+            to    = 2;
+        }
+        optional string PeerName    = 1;
+        optional string RealmName   = 2;
+        optional TriggerState state = 3;
+        optional Direction direction= 4;
+    }
+    message PeerTriggerStateRequest {
+        optional fixed32 RequestID  = 1;
+        optional string PeerName    = 2;
+        optional string RealmName   = 3;
+    }
+    message PeerTriggerStateResponse {
+        optional fixed32 ResponseID             = 1;
+        repeated PeerTriggerState PeerStates    = 2;
+        repeated ErrorDetails ErrorDetails      = 3;
+    }
+    message RealmTriggerState {
+        enum State{
+            None      = 0;
+            Level1    = 1;
+            Level2    = 2;
+            Level3    = 3;
+        }
+        enum Direction {
+            from = 1;
+            to   = 2;
+        }
+        optional string RealmName   = 1;
+        optional TriggerState state = 2;
+        optional Direction direction= 3;
+    }
+    message RealmTriggerStateRequest {
+        optional fixed32 RequestId  = 1;
+        optional string RealmName   = 2;
+    }
+    message RealmTriggerStateResponse {
+        optional fixed32 ResponseID         = 1;
+        repeated RealmTriggerState states   = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+    message CMFLevelConfigRequest {
+        optional fixed32 RequestId = 1;
+        optional fixed32 triggerId = 2;
+    }
+    message CongestionLevel {
+        enum Level {
+            Level1 = 0;
+            Level2 = 1;
+            Level3 = 2;
+        }
+        optional Level level        = 1;
+        optional fixed32 congValue  = 2;
+        optional fixed32 abateValue = 3;
+    }
+    message LevelDetails {
+        optional CMFTrigger trigger     = 1;
+        repeated CongestionLevel levels = 2;
+    }
+    message CMFLevelConfigResponse {
+        optional fixed32 ResponseID         = 1;
+        repeated LevelDetails levels        = 2;
+        repeated ErrorDetails ErrorDetails  = 3;
+    }
+
+
+%PB}
+
+interface CMgrTemplateMethods
+{
+    HandleSetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+    HandleGetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+}
+interface CMgrCMFConfig
+{
+    HandleSetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+    HandleGetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+    HandleSetRuleConfig(RuleConfigReq Req, RuleConfigResp Resp)uses_PB;
+    HandleDeleteRuleConfig(RuleConfigReq Req, RuleConfigResp Resp)uses_PB;
+    HandleSetPriorityConfig(PriorityConfigReq Req, PriorityConfigResp Resp)uses_PB;
+    FetchCMFRuleConfiguration(RuleConfigReq Req, RuleConfigResp Resp)uses_PB;
+    FetchCMFPriorityConfiguration(PriorityConfigReq Req, PriorityConfigResp Resp)uses_PB;
+    FetchAllCMFTriggers(CMFTriggerReq Req, CMFTriggerResp Resp)uses_PB;
+    FetchAllCMFActions(CMFActionReq Req, CMFActionResp Resp)uses_PB;
+    FetchAllCMFLevels(CMFLevelReq Req, CMFLevelResp Resp)uses_PB;
+    FetchCMFActionsForTrigger(CMFActionTriggerReq Req, CMFActionTriggerResp Resp)uses_PB;
+}
+
+interface DiaMgtTemplateMethods
+{
+    HandleDreSetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+}
+interface DiaMgmtCMFConfig
+{
+    HandleDreSetTemplateConfigReqs(TemplateReq Req, TemplateResp Resp)uses_PB;
+    HandleDreSetRuleConfig(RuleConfigReq Req, RuleConfigResp Resp)uses_PB;
+    HandleDreSetCMFPriorityConfig(PriorityConfigReq Req, PriorityConfigResp Resp)uses_PB;
+}
+
+interface CMFStats {
+    FetchCMFSystemTriggerStates(TriggerStateRequest Req, TriggerStateResponse Resp)uses_PB;
+    FetchCMFDiaPeerTriggerStates(PeerTriggerStateRequest Req, PeerTriggerStateResponse Resp)uses_PB;
+    FetchCMFDiaRealmTriggerStates(RealmTriggerStateRequest Req, RealmTriggerStateResponse Resp)uses_PB;
+    FetchCMFLevelConfig(CMFLevelConfigRequest Req, CMFLevelConfigResponse Resp)uses_PB;
+}
+
+interface DREConfigTemplateResults
+{
+    SendDreTemplateConfigResult(TemplateResp Req, CMAPIRes Resp)uses_PB;
+}
+
+interface DRECMfConfigResults
+{
+    SendDreTemplateConfigResult(TemplateResp Req, CMAPIRes Resp)uses_PB;
+    SendCMFRuleConfigResult(RuleConfigResp Req, CMAPIRes Resp)uses_PB;
+    SendCMFPriorityConfigResult(PriorityConfigResp Req, CMAPIRes Resp)uses_PB;
+}
+
+interface DreTemplateFetch
+{
+    FetchDreTemplateConfiguration(TemplateReq Req, TemplateResp Resp)uses_PB;
+}
+interface CMFConfigFetch
+{
+    FetchCMFTemlateConfig(TemplateReq Req, TemplateResp Resp)uses_PB;
+    FetchCMFConfig(CMFConfigReq Req, CMFConfigResp resp)uses_PB;
+}

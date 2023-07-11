@@ -1,0 +1,16 @@
+/binlog.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/binlog_cache_stat.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/binlog_insert_delayed.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/binlog_truncate.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/blackhole.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/ctype_cp932.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/ctype_cp932_binlog.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/ctype_ucs_binlog.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/database.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/drop_table.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/drop_temp_table.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/implicit.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/insert_select-binlog.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/mix_innodb_myisam_binlog.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+/mix_innodb_myisam_side_effects.test/1.1.2.1/Fri Oct  5 12:37:15 2012//TB-IWF-HP-0400-00
+D

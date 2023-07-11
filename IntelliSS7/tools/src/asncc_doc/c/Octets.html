@@ -1,0 +1,287 @@
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!--      (C) 2000 IntelliNet Technologies Inc. All Rights Reserved.         -->
+<!--             Manufactured in the United States of America.               -->
+<!--     1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        -->
+<!--                                                                         -->
+<!--  This product and related documentation is protected by copyright and   -->
+<!--  distributed under licenses restricting its use, copying, distribution  -->
+<!--  and decompilation.  No part of this product or related documentation   -->
+<!--  may be reproduced in any form by any means without prior written       -->
+<!--  authorization of IntelliNet Technologies and its licensors, if any.    -->
+<!--                                                                         -->
+<!--  RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      -->
+<!--  government is subject to restrictions as set forth in subparagraph     -->
+<!--  (c)(1)(ii) of the Rights in Technical Data and Computer Software       -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- CONTRACT: INTERNAL                                                      -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- ID: $Id: Octets.html,v 9.1 2005/03/23 12:54:11 cvsadmin Exp $ -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<html>
+
+<head>
+<title>Class Interface ASN_Octets</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<!-- Header /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<p>
+  <i>
+    <img border="0" src="AsnModuleLogo.jpg" width="240" height="47" align="right"></img>
+  </i>
+</p>
+
+<p style="margin-bottom: 0">
+  <i>
+    <font size="3">
+      - IntelliSS7 Application Development Environment -  C API -
+    </font>
+  </i>
+</p>
+
+<hr size="4" style="margin-top: 0"></hr>
+
+<p align="left">
+  <u>
+    <font size="6">
+    Class Interface ASN_Octets
+    </font>
+  </u>
+</p>
+
+<p>
+  The class interface ASN_Octets allows handling encoded ASN.1 data values (array of bytes). The public interface is 
+  divided in two parts. The first part provides services allowing to store and retrieve encoded ASN.1 data values. 
+  The second part of the public interface provides additional services required by the ASN.1 runtime. These additional
+  services are not intended to be used by the end-user. The end-user should only use the services of the first part of 
+  the public interface (described in this page).
+</p>
+
+
+<!-- Class summary //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Class interface functions summary
+    </font>
+  </li>
+</ul>
+
+<p>
+  <a href="#ConstructDefault">ConstructDefault</a>
+  -
+  <a href="#ConstructWithArray">ConstructWithArray</a>
+  -
+  <a href="#Destruct">Destruct</a>
+  -
+  <a href="#GetArray">GetArray</a>
+  -
+  <a href="#GetSize">GetSize</a>
+  -
+  <a href="#SetArray">SetArray</a>
+  -
+  <a href="#Clone">Clone</a>
+  -
+  <a href="#Equals">Equals</a>
+  -
+  <a href="#Print">Print</a>
+  -
+  <a href="ToString">ToString</a>
+</p>
+
+
+<!-- Constructors/Destructors ///////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Constructors/Destructor functions
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+        <b>Constructor/Destructor function signature</b>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Constructor/Destructor function summary</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="ConstructDefault">
+          <b>ASN_Octets ASN_Octets_ConstructDefault()</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_Octets_ConstructDefault</b> constructor function allows creating an ASN_Octets object with an empty
+        contents (default constructor). The constructor function returns <b>NULL</b> if there is insufficient memory
+        available.
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="ConstructWithArray">
+          <b>ASN_Octets ASN_Octets_ConstructWithArray(const ITS_OCTET* array, size_t size)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_Octets_ConstructWithArray</b> constructor function allows creating an ASN_Octets object with a 
+        specified contents (<i>array</i> parameter of C type const ITS_OCTET* and <i>size</i> parameter of C type
+        size_t). The constructor function returns <b>NULL</b> if there is insufficient memory available.
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+	    <a name="Destruct">
+          <b>void ASN_Octets_Destruct(ASN_Octets object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_Octets_Destruct</b> destructor function allows destroying an ASN_Octets object.
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Public functions ///////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Public functions
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+        <b>Function signature</b>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Function summary</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetArray">
+          <b>const ITS_OCTET* ASN_Octets_GetArray(const ASN_Octets object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_Octets_GetArray</b> function returns the contents (array of bytes, C type const ITS_OCTET*) of an
+        ASN_Octets object.
+      </td>
+   </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetSize">
+          <b>size_t ASN_Octets_GetSize(const ASN_Octets object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_Octets_GetSize</b> function returns the current size (C type size_t) of an ASN_Octets object.
+      </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="SetArray">
+        <b>int ASN_Octets_SetArray(ASN_Octets object, const ITS_OCTET* array, size_t size)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       The <b>ASN_Octets_SetArray</b> function allows setting the contents (<i>array</i> parameter of C type const
+       ITS_OCTET* and <i>size</i> parameter of C type size_t) of an ASN_Octets object. If the setting is successful
+       the function returns <b>ITS_SUCCESS</b>. The function returns <b>ITS_ENOMEM</b> if there is insufficient memory
+       available.
+     </td>
+   </tr>
+   <tr>
+     <td align="left" width="33%">
+       <a name="Clone">
+         <b>ASN_Octets ASN_Octets_Clone(const ASN_Octets object)</b>
+       </a>
+     </td>
+     <td align="left">
+       The <b>ASN_Octets_Clone</b> function allows cloning an ASN_Octets object. The end-user is responsible for 
+       destroying the clone object. The function returns <b>NULL</b> if there is insufficient memory available.
+     </td>
+   </tr>
+   <tr>
+     <td align="left" width="33%">
+       <a name="Equals">
+         <b>ITS_BOOLEAN ASN_Octets_Equals(const ASN_Octets object, const ASN_Octets other)</b>
+       </a>
+     </td>
+     <td align="left">
+       The <b>ASN_Octets_Equals</b> function allows checking the equality of two ASN_Octets objects. The function 
+       returns <b>ITS_TRUE</b> if the two objects are equal and <b>ITS_FALSE</b> otherwise.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="Print">
+         <b>void ASN_Octets_Print(const ASN_Octets object)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       The <b>ASN_Octets_Print</b> function allows printing the contents of an ASN_Octets object to the standard output
+       at any time.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="ToString">
+         <b>char* ASN_Octets_ToString(const ASN_Octets object)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       The <b>ASN_Octets_ToString</b> function allows printing the contents of an ASN_Octets object to a character
+       string at any time and returns the character string. The end-user is responsible for freeing the returned
+       character string. The function returns <b>NULL</b> if there is insufficient memory available.
+     </td>
+   </tr>
+  </table>
+</div>
+
+
+<!-- Footer (copyright notice) //////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<hr size="4"></hr>
+
+<p style="line-height: 100%; margin-left: 0; margin-top: 1; margin-bottom: 0" align="center">
+  <font size="2">
+    © 2000 IntelliNet Technologies, Inc. All rights reserved.
+  </font>
+</p>
+
+<br></br>
+
+</body>
+
+</html>
+
+

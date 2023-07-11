@@ -1,0 +1,12 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enStatistics                                                                                 
+DESCRIPTION
+    This command enables Diameter Stack statistics.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+       >> enStatistics
+          Successfully Enabled statistics

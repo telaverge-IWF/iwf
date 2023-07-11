@@ -1,0 +1,13 @@
+#!/bin/sh
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/cvsroot/imsdia/aim/client/lib:$HOME/cvsroot/IntelliSS7/common/lib
+
+export LD_LIBRARY_PATH
+rm core.*
+
+client
+
+
+exit 0
+
+

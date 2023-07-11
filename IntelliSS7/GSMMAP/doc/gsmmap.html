@@ -1,0 +1,924 @@
+<HTML>
+<HEAD>
+<CENTER>
+<H2><BIG>IntelliSS7</BIG> <B>Application Developer's Toolkit</B></H2>
+</CENTER>
+<BR>
+</HEAD>
+<BODY>
+
+<TABLE ALIGN=JUSTIFY WIDTH=100% BGCOLOR=SILVER>
+<TR>
+    <TD ALIGN=LEFT><B>IntelliSS7 Interfaces</B></TD>
+    <TD ALIGN=RIGHT><B>GSMMAP Library</B></TD>
+</TR>
+</TABLE>
+<BR>
+<B>INTERFACE</B>
+<PRE>
+        GSMMAP_*
+    
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+        This interface defines the user's C programming model for GSMMAP.
+        It corresponds to the specifications detailed below:
+            Draft prETS 300 599: June 1995
+            European Digital cellular telecommunications system (Phase 2);
+                    Mobile Application Part (MAP)
+                Specification GSM 09.02 version 4.11.0
+    
+</PRE>
+<B>USAGE</B>
+<PRE>
+    
+
+</PRE>
+<HR>
+
+
+<A NAME=#topLocation></A><TABLE ALIGN=JUSTIFY WIDTH=100% BGCOLOR=SILVER>
+<TR>
+    <TD ALIGN=LEFT><B>IntelliSS7 Interfaces</B></TD>
+    <TD ALIGN=RIGHT><B>GSMMAP Library</B></TD>
+</TR>
+</TABLE>
+<BR>
+Functions in this interface:
+<BR>
+<TABLE WIDTH=100% BORDER=0>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-0.html>GSMMAP_SendUpdateLocationArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-1.html>GSMMAP_DecodeUpdateLocationArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-2.html>GSMMAP_SendUpdateLocationRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-3.html>GSMMAP_DecodeUpdateLocationRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-4.html>GSMMAP_SendCancelLocationArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-5.html>GSMMAP_DecodeCancelLocationArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-6.html>GSMMAP_SendPurgeMS_Arg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                            void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-7.html>GSMMAP_DecodePurgeMS_Arg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-8.html>GSMMAP_SendSendIdentificationArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-9.html>GSMMAP_DecodeSendIdentificationArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-10.html>GSMMAP_SendSendIdentificationRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-11.html>GSMMAP_DecodeSendIdentificationRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-12.html>GSMMAP_SendPerformHO_Arg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-13.html>GSMMAP_DecodePerformHO_Arg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-14.html>GSMMAP_SendPerformHO_Res( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-15.html>GSMMAP_DecodePerformHO_Res( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-16.html>GSMMAP_SendPrepareHO_Arg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-17.html>GSMMAP_DecodePrepareHO_Arg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-18.html>GSMMAP_SendPrepareHO_Res( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-19.html>GSMMAP_DecodePrepareHO_Res( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-20.html>GSMMAP_SendSendEndSignalArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                                 void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-21.html>GSMMAP_DecodeSendEndSignalArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                   void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-22.html>GSMMAP_SendProcessAccessSignallingArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-23.html>GSMMAP_DecodeProcessAccessSignallingArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-24.html>GSMMAP_SendForwardAccessSignallingArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-25.html>GSMMAP_DecodeForwardAccessSignallingArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-26.html>GSMMAP_SendPerformSubsequentHO_Arg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-27.html>GSMMAP_DecodePerformSubsequentHO_Arg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-28.html>GSMMAP_SendPerformSubsequentHO_Res( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-29.html>GSMMAP_DecodePerformSubsequentHO_Res( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-30.html>GSMMAP_SendPrepareSubsequentHO_Arg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-31.html>GSMMAP_DecodePrepareSubsequentHO_Arg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-32.html>GSMMAP_SendPrepareSubsequentHO_Res( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-33.html>GSMMAP_DecodePrepareSubsequentHO_Res( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-34.html>GSMMAP_SendSendAuthenticationInfoArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                          TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-35.html>GSMMAP_DecodeSendAuthenticationInfoArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                            void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-36.html>GSMMAP_SendSendAuthenticationInfoRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                          TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-37.html>GSMMAP_DecodeSendAuthenticationInfoRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                            void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-38.html>GSMMAP_SendCheckIMEIArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                             void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-39.html>GSMMAP_DecodeCheckIMEIArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-40.html>GSMMAP_SendCheckIMEIRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                             void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-41.html>GSMMAP_DecodeCheckIMEIRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-42.html>GSMMAP_SendSendParametersArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-43.html>GSMMAP_DecodeSendParametersArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-44.html>GSMMAP_SendSendParametersRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-45.html>GSMMAP_DecodeSendParametersRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-46.html>GSMMAP_SendInsertSubscriberDataArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-47.html>GSMMAP_DecodeInsertSubscriberDataArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-48.html>GSMMAP_SendInsertSubscriberDataRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-49.html>GSMMAP_DecodeInsertSubscriberDataRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-50.html>GSMMAP_SendDeleteSubscriberDataArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-51.html>GSMMAP_DecodeDeleteSubscriberDataArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-52.html>GSMMAP_SendDeleteSubscriberDataRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-53.html>GSMMAP_DecodeDeleteSubscriberDataRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-54.html>GSMMAP_SendResetArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                         void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-55.html>GSMMAP_DecodeResetArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-56.html>GSMMAP_SendRestoreDataArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                               void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-57.html>GSMMAP_DecodeRestoreDataArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-58.html>GSMMAP_SendRestoreDataRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                               void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-59.html>GSMMAP_DecodeRestoreDataRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-60.html>GSMMAP_SendActivateTraceModeArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                     TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-61.html>GSMMAP_DecodeActivateTraceModeArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                       void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-62.html>GSMMAP_SendDeactivateTraceModeArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                       TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-63.html>GSMMAP_DecodeDeactivateTraceModeArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                         void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-64.html>GSMMAP_SendTraceSubscriberActivityArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-65.html>GSMMAP_DecodeTraceSubscriberActivityArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-66.html>GSMMAP_SendNoteInternalHO_Arg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                   TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-67.html>GSMMAP_DecodeNoteInternalHO_Arg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                     void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-68.html>GSMMAP_SendSendIMSIArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                            void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-69.html>GSMMAP_DecodeSendIMSIArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-70.html>GSMMAP_SendSendIMSIRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                            void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-71.html>GSMMAP_DecodeSendIMSIRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-72.html>GSMMAP_SendSendRoutingInfoArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                   TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-73.html>GSMMAP_DecodeSendRoutingInfoArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                     void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-74.html>GSMMAP_SendSendRoutingInfoRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                   TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-75.html>GSMMAP_DecodeSendRoutingInfoRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                     void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-76.html>GSMMAP_SendProvideRoamingNumberArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-77.html>GSMMAP_DecodeProvideRoamingNumberArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-78.html>GSMMAP_SendProvideRoamingNumberRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-79.html>GSMMAP_DecodeProvideRoamingNumberRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-80.html>GSMMAP_SendRegisterSSArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-81.html>GSMMAP_DecodeRegisterSSArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-82.html>GSMMAP_SendRegisterSSRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-83.html>GSMMAP_DecodeRegisterSSRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-84.html>GSMMAP_SendEraseSSArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                           void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-85.html>GSMMAP_DecodeEraseSSArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-86.html>GSMMAP_SendEraseSSRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                           void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-87.html>GSMMAP_DecodeEraseSSRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-88.html>GSMMAP_SendActivateSSArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-89.html>GSMMAP_DecodeActivateSSArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-90.html>GSMMAP_SendActivateSSRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-91.html>GSMMAP_DecodeActivateSSRes( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-92.html>GSMMAP_SendDeactivateSSArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                                void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-93.html>GSMMAP_DecodeDeactivateSSArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                  void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-94.html>GSMMAP_SendDeactivateSSRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                                void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-95.html>GSMMAP_DecodeDeactivateSSRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                  void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-96.html>GSMMAP_SendInterrogateSSArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                                 void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-97.html>GSMMAP_DecodeInterrogateSSArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                   void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-98.html>GSMMAP_SendInterrogateSSRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                                 void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-99.html>GSMMAP_DecodeInterrogateSSRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                   void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-100.html>GSMMAP_SendProcessUnstructuredSS_DataArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                              TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-101.html>GSMMAP_DecodeProcessUnstructuredSS_DataArg( ITS_HANDLE handle,</A>
+                                                TCAP_CPT *cpt, void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-102.html>GSMMAP_SendProcessUnstructuredSS_DataRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                              TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-103.html>GSMMAP_DecodeProcessUnstructuredSS_DataRes( ITS_HANDLE handle,</A>
+                                                TCAP_CPT *cpt, void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-104.html>GSMMAP_SendProcessUnstructuredSS_RequestArg( ITS_HANDLE handle,</A>
+                                                 ITS_HDR *hdr, TCAP_CPT *cpt,
+                                                 void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-105.html>GSMMAP_DecodeProcessUnstructuredSS_RequestArg( ITS_HANDLE handle,</A>
+                                                   TCAP_CPT *cpt, void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-106.html>GSMMAP_SendProcessUnstructuredSS_RequestRes( ITS_HANDLE handle,</A>
+                                                 ITS_HDR *hdr, TCAP_CPT *cpt,
+                                                 void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-107.html>GSMMAP_DecodeProcessUnstructuredSS_RequestRes( ITS_HANDLE handle,</A>
+                                                   TCAP_CPT *cpt, void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-108.html>GSMMAP_SendUnstructuredSS_RequestArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                              TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-109.html>GSMMAP_DecodeUnstructuredSS_RequestArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                                void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-110.html>GSMMAP_SendUnstructuredSS_RequestRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                              TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-111.html>GSMMAP_DecodeUnstructuredSS_RequestRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                                void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-112.html>GSMMAP_SendUnstructuredSS_NotifyArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                         TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-113.html>GSMMAP_DecodeUnstructuredSS_NotifyArg( ITS_HANDLE handle,</A>
+                                           TCAP_CPT *cpt, void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-114.html>GSMMAP_SendRegisterPasswordArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                    TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-115.html>GSMMAP_DecodeRegisterPasswordArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                      void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-116.html>GSMMAP_SendRegisterPasswordRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                    TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-117.html>GSMMAP_DecodeRegisterPasswordRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                      void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-118.html>GSMMAP_SendGetPasswordArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                               void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-119.html>GSMMAP_DecodeGetPasswordArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                 void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-120.html>GSMMAP_SendGetPasswordRes( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                               void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-121.html>GSMMAP_DecodeGetPasswordRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                 void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-122.html>GSMMAP_SendBeginSubscriberActivityArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-123.html>GSMMAP_DecodeBeginSubscriberActivityArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-124.html>GSMMAP_SendSendRoutingInfoForSMArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-125.html>GSMMAP_DecodeSendRoutingInfoForSMArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-126.html>GSMMAP_SendSendRoutingInfoForSMRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-127.html>GSMMAP_DecodeSendRoutingInfoForSMRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-128.html>GSMMAP_SendForwardSMArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                             void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-129.html>GSMMAP_DecodeForwardSMArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-130.html>GSMMAP_SendReportSM_DeliveryStatusArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-131.html>GSMMAP_DecodeReportSM_DeliveryStatusArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-132.html>GSMMAP_SendReportSM_DeliveryStatusRes( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-133.html>GSMMAP_DecodeReportSM_DeliveryStatusRes( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-134.html>GSMMAP_SendNoteSubscriberPresentArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                         TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-135.html>GSMMAP_DecodeNoteSubscriberPresentArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                           void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-136.html>GSMMAP_SendAlertServiceCentreWOResult( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-137.html>GSMMAP_DecodeAlertServiceCentreWOResult( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-138.html>GSMMAP_SendInformServiceCentreArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                       TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-139.html>GSMMAP_DecodeInformServiceCentreArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                         void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-140.html>GSMMAP_SendAlertServiceCentreArg( ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-141.html>GSMMAP_DecodeAlertServiceCentreArg( ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-142.html>GSMMAP_SendReadyForSMArg( ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt,</A>
+                              void *data );
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-143.html>GSMMAP_DecodeReadyForSMArg( ITS_HANDLE handle, TCAP_CPT *cpt, void **data )</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-144.html>GSMMAP_EncodeUserInfo(void *data, int *len, char **buf)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-145.html>GSMMAP_DecodeUserInfo(char *usrInfo, int len, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-146.html>GSMMAP_EncodeDialoguePDU(PE *pe, void *data, int *len, char **buf)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=GSMMAP-147.html>GSMMAP_DecodeDialoguePDU(char *dlgPDU, int len, void **data)</A>;
+
+</PRE></TR>
+</TABLE>
+<BR>
+<BR>
+<CENTER>
+<A HREF=gsmmap_index.html>back</A>
+<BR>
+</CENTER>
+</BODY>
+</HTML>

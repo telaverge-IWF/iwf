@@ -1,0 +1,126 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: demo_Makefile-RDITS,v 3.4 2009/03/13 11:16:04 nvijikumar Exp $
+#
+#
+############################################################################
+#
+# Include the standard definitions
+#
+include $(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) $(ITS_DEFINES) 
+
+INCLS:=$(INCLS) $(ITS_INCLS) \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/include \
+        -I$(IMS_ROOT)/include/diameter \
+        -I$(IMS_ROOT)/demo/include \
+        -I../../api/include \
+        -I../../api/include/base \
+        -I../../api/include/sh \
+        -I../../api/include/cxdx \
+        -I../../api/include/rfro \
+        -I../../api/include/dcca \
+        -I../../api/include/rfro/ietf \
+        -I../../api/include/rfro/ims \
+        -I../../api/include/gqgqprime
+
+         
+APP_OBJS:=app.o app_common.o app_trace.o app_callbacks.o \
+          sample_base.o sample_sh.o   \
+          sample_cxdx.o sample_gq.o sample_sender.o \
+          app_stats.o app_mml.o sample_rfro.o
+
+OBJS:= app_main.o
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+          -lcxdxapi$(DBGSUFFIX) \
+          -lshapi$(DBGSUFFIX)   \
+          -lgqgqapi$(DBGSUFFIX) \
+          -lrfroapi$(DBGSUFFIX) \
+	-lnasreqapi$(DBGSUFFIX) \
+          -ldccacore$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+ifeq ($(TLS),yes)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastackt$(DBGSUFFIX)    \
+         -ldiaapp$(DBGSUFFIX)      \
+         -lITS-TLS$(DBGSUFFIX)
+else
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -ldiaapp$(DBGSUFFIX)
+endif
+endif
+
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -ldiaapp$(DBGSUFFIX)
+endif
+
+ifeq ($(PLATFORM),linux)
+ifeq ($(TLS),yes)
+LIBS_OS:=-ldiastackt$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -ldiaapp$(DBGSUFFIX)      \
+         -lITS-TLS$(DBGSUFFIX)
+else
+LIBS_OS:=-ldiastack$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -ldiaapp$(DBGSUFFIX)
+endif
+endif
+
+LIBS:=-L$(IMS_ROOT)/lib \
+      -L../lib \
+      -lENGINE$(DBGSUFFIX) \
+      -lDRIVER++$(DBGSUFFIX) \
+      $(LIBS_OS)
+      
+
+all: ../lib/libdiaapp$(DBGSUFFIX).so \
+     ../bin/sampleApp$(DBGSUFFIX)
+
+clean:
+	rm -f $(OBJS) $(APP_OBJS) \
+           ../lib/libdiaapp$(DBGSUFFIX).so \
+           ../bin/sampleApp$(DBGSUFFIX)
+
+../lib/libdiaapp$(DBGSUFFIX).so: $(APP_OBJS)
+	$(CXXSHAREDAR) $(CXXSHAREDARFLAGS) \
+        ../lib/libdiaapp$(DBGSUFFIX).so \
+        $(APP_OBJS) $(NOWHOLEARCHIVE)
+
+../bin/sampleApp$(DBGSUFFIX): $(OBJS)
+	$(QUANTIFY) $(CXX) $(CXXFLAGS) $(LDFLAGS) -o $@ $(OBJS) \
+        $(SOCKLIBS) $(THREADLIBS) $(SYSLIBS) $(LIBS)
+

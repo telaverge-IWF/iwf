@@ -1,0 +1,123 @@
+Change_History.txt
+==================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+SSLRef 3.0 Final Release
+------------------------
+* Fixed a bug in src/x509.c when RSAREF is being used: check modulus
+& exponent length before copying. Also, fixed a similar problem when
+loading private keys in sample/privkey.c.
+
+* Relaxed our requirement on when it's legal to receive a
+Certificate Request message; we will now accept one either before or
+after the Server Key Exchange message.
+
+* Fixed two minor ordering problems with resuming sessions: we were
+sending the server hello message before resuming the session, which
+meant we sometimes responded with one cipher suite, but instantiated
+another.
+
+* Changed the SSL 2.0 Client Hello parsing code to resume SSL
+3.0-encoded cipher suites first, even if they are late in the list,
+when we're instantiating an SSL 3 session.
+
+* Fixed some error-case leaks in BSAFE symmetric cipher setup.
+
+* Fixed a memory leak when the CheckCertificate callback returned an
+error.
+
+* Fixed a number of memory leaks when disposing of an SSL Context.
+
+* Fixed memory leaking from record structures in src/sslhdshk.c:
+SSLPrepareAndQueueMessage.
+
+* Fixed leak of key object in initialization of symmetric ciphers
+for BSAFE.
+
+* Leak patched when an error was bubbled up from
+SSLProcessProtocolMessage in SSLHandshakeProceed in ssltrspt.c
+
+* Introduced another handshake state, HandshakeChangeCipherSpec, to
+protect against an attack pointed out by Bruce Schneier and David
+Wagner in which an attacker deletes the change cipher spec message
+to keep the protocol stack from transitioning to a negotiated cipher
+suite. Now we will not accept a Finished message unless we've
+received a change cipher spec; thus, we will not enable data
+transfer until we've transitioned to the new spec.
+
+* Fixed bug in sample client's time routine: Mac time adjustment
+wasn't properly #ifdef'd.
+
+* Fixed bug in ssl2mesg.c: we now pin the version negotiated to SSL
+3.0 when we receive an SSL 2.0 message specifying a higher version
+(previously we would have gladly pretended to negotiate SSL 3.1,
+4.0, or whatever.)
+
+* Fixed a problem where a peer which sent an empty Certificate
+message would cause us to crash by dereferencing a null pointer in a
+certificate list.
+
+* SSLClose in ssltrspt.c was being overly aggressive on reporting
+SSLIOErr returned by the calls it made when connections closed, even
+if they closed gracefully without error. This is corrected.
+
+* Corrected an error in SSLEncodeAlert(); it was incorrectly setting
+rec->contents.data[0] = desc.
+
+* Corrected an error in 1024 bit certificate support in x509.c. This
+did not affect exportable 512 bit certificate support.
+
+* Month decoding was incorrect in ASNDecodeUTCTime(); dates always
+got decoded as one month later than they were.
+
+* Added #include <string.h> to ciphers.c.
+
+* A number of other minor changes
+
+
+SSLRef 3.0b2 Changes
+--------------------
+  Converted all source file names to 8.3:
+    Old                 New
+    privatekey.c        privkey.c
+    SSLTest.c           testssl.c
+    SSLTest.h           testssl.h
+    TestAlloc.c         testutil.c
+    TestDB.c            testdb.c
+    TestSocketIO.c      testio.c
+    VerisignRoots.c     verisign.c
+
+  Renamed "test" directory to "sample".
+
+  Moved from #including verisign.c to linking with it and defining
+  its definitions extern.
+
+  Created makefile.w32 to make for Win32 platforms.
+
+  Conditionalized out RC4 support for RSAREF build.
+
+  Removed Diffie-Hellman group generation & storage code; now we use
+  pre-defined groups created for SKIP.
+
+  Fixed two bugs with DHanon when using BSAFE.
+
+  Fixed problems in testio.c.
+
+  Added support for specifying hosts as dotted decimal IP addresses.
+
+  Fixed a bug encountered while using BSAFE client authentication.
+
+
+SSLRef 3.0b1 Changes
+--------------------
+  First release

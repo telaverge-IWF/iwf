@@ -1,0 +1,87 @@
+//
+// Grammar for exception compiler.
+//
+
+
+keywords:
+
+subsystem, is, end, number, prefix, option,
+reason, type, value, attribute, argument,
+include_h, include_cpp, exception.
+
+
+System:
+    SubSystem   NAME    NUMBER
+
+HeaderIncludesAndCode:
+    @{ cppCode @} (Optional : code to be inserted into the header file 
+                   if not followed by CppIncludesAndCode)
+			      (Mandatory: if followed by another cppcode)
+CppIncludesAndCode:
+    @{ cppCode @} (Optional : code to be inserted into cpp file)
+
+exceptionList:
+    /* empty */
+    | exceptionList exceptionSpec
+    | exceptionSpec
+
+exceptionSpec:
+    exceptionComments EXCEPTION NAME exceptionAttributes exceptionBody
+
+cppCode: 
+    <Any character>
+
+NAME:
+    [a-zA-Z]+[0-9a-zA-Z_]*
+
+NUMBER:
+    [0-9]+
+
+EXCEPTION:
+    'e''x''c''e''p''t''i''o''n'
+
+SEVERITY:
+    'C''r''i''t''i''c''a''l'
+    | 'M''a''j''o''r' 
+    | 'M''i''n''o''r'
+    | 'A''d''v''i''s''o''r''y'
+
+ARBLINE:
+    [A-Za-z0-9*@!%etc...]*
+
+arbLines:
+    arbLines ARBLINE
+
+
+exceptionComments:
+    '/''*' arbLines '*''/' |
+    '/''/' ARBLINE '\n'
+
+parameterList:
+    /* empty */
+    | parameter
+    | parameterList parameter 
+
+parameter:
+    NAME NAME ';' 
+    | NAME NAME ';' '[' IDENT ']'
+
+formatStr:
+    FORMATSTR '=' ARBLINE ';'
+
+snmpFlag:
+    't''r''u''e' | 'f''a''l''s''e'
+    
+exceptionAttributes:
+    '[' NUMBER ',' SEVERITY ',' snmpflag ']'
+
+exceptionBody:
+    parameterList formatStr
+
+    
+
+
+
+
+
+   

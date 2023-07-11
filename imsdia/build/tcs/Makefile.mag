@@ -1,0 +1,97 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+#  ID: $Id: Makefile.mag,v 1.3 2010/07/14 10:02:01 nvijikumar Exp $
+#
+#  LOG: $Log: Makefile.mag,v $
+#  LOG: Revision 1.3  2010/07/14 10:02:01  nvijikumar
+#  LOG: added rfro_v8 abnf to mag Makefile and opessl lib path in profile
+#  LOG:
+#  LOG: Revision 1.2  2010/06/17 05:23:06  nvijikumar
+#  LOG: Updates with more example code generation
+#  LOG:
+#  LOG: Revision 1.1  2010/06/16 12:40:24  nvijikumar
+#  LOG: New Files introduced for mag binary package
+#  LOG:
+#  LOG:
+#
+############################################################################
+
+include $(IMS_ROOT)/make.dirs
+
+RFRODIR=rfro
+SHDIR=sh
+CXDXDIR=cxdx
+GQGQDIR=gqgqprime
+
+APIDIR=../api
+CAPIDIR=$(APIDIR)
+
+APIINC=$(APIDIR)/include/diameter
+APISRC=$(APIDIR)/src/diameter
+
+ABNFSPECDIR=$(APIDIR)/abnf
+
+.PHONY: all 
+
+all: disp rfro_standalone 
+#all: disp rfro_standalone cxdx sh gqgq
+
+disp:
+	@echo "Generating for ITSDiameter"
+
+rfro_standalone:	
+	@echo "Generating the code using RfRo standalone Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+	--c++:$(CAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/rfro_standalone_v8.protocol
+
+cxdx:
+	@echo "Generating the code for CxDx Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx.protocol
+
+sh:
+	@echo "Generating the code for Sh Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/cxdx.protocol \
+        $(ABNFSPECDIR)/sh.protocol \
+
+gqgq:
+	@echo "Generating the code for GqGq' Protocol"
+	$(JAVACMD) $(DIAJARFILE) \
+        --c++:$(CAPIDIR) \
+        $(ABNFSPECDIR)/rfc3588.protocol \
+        $(ABNFSPECDIR)/nasreq.protocol \
+        $(ABNFSPECDIR)/gqgqprime.protocol
+
+clean:
+	$(RM) -rf $(APIINC)/rfro; \
+	$(RM) -rf $(APISRC)/rfro 
+

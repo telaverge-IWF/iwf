@@ -1,0 +1,26 @@
+
+PRC Get LPC Command
+
+SYNOPSIS
+    mp_get_all_lpc  
+
+DESCRIPTION
+   This command gets all local pointcode details.
+
+PARAMETERS
+   None
+
+
+EXAMPLE
+
+>> mp_get_all_lpc
+------------------------------
+Local PC:         <8>
+Family:      <CHINA>
+------------------------------
+------------------------------
+Local PC:         <7>
+Family:      <CHINA>
+------------------------------
+
+

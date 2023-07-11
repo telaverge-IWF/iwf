@@ -1,0 +1,14 @@
+/ndb_binlog_basic.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_ddl_multi.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_discover.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_format.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_ignore_db.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_index.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_apply_status.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_bin.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_transaction_id.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_multi.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_restore.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_unique_epoch.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_variants.result/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+D

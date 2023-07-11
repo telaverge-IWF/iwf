@@ -1,0 +1,19 @@
+/.cvsignore/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/Makefile/9.2/Fri May  9 14:48:51 2008//TB-IWF-HP-0400-00
+/dispatch.dsp/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/dispatch.dsw/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/dispatch_cpp.dsp/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ansi++.cpp/9.2/Tue Jul 19 05:40:46 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ansi.c/9.2/Tue Jul 19 05:40:46 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ccitt++.cpp/9.2/Tue Jul 19 05:40:46 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ccitt.c/9.2/Tue Jul 19 05:40:46 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_prc++.cpp/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_prc.c/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ttc++.cpp/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/its_disp_ss7_ttc.c/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/its_dispatch++.cpp/9.3/Wed Jan 10 11:15:07 2007//TB-IWF-HP-0400-00
+/its_dispatch.c/9.3.64.1/Tue Sep 16 09:34:53 2014//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:53:13 2005//TB-IWF-HP-0400-00
+/tandem.ide/9.1/Wed Mar 23 12:53:13 2005/-kb/TB-IWF-HP-0400-00
+/tandempp.ide/9.1/Wed Mar 23 12:53:15 2005/-kb/TB-IWF-HP-0400-00
+D

@@ -1,0 +1,44 @@
+#!/bin/ksh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+print "\nStartup Utility"
+print "Is all Diameter configuration complete ?"
+print "\n Continue <y/n> ? "
+read ans
+if [ $ans = "y" ]
+then
+   if [ ! -f /etc/rc3.d/S80dia ]
+   then
+      print "Enable Auto start (Boot-time startup) <y> ?"
+      read choice
+      if [ $choice = "y" ]
+      then
+           print "Enabling auto start of applications"
+           if [ -f /etc/rc3.d/A80dia ]
+           then
+              mv /etc/rc3.d/A80dia /etc/rc3.d/S80dia
+           fi
+           print "Auto-start enabled"
+           print "\n"
+      fi
+   else
+      print "Auto-start is enabled"
+   fi
+else
+   print "Complete the  Diameter configuration & re-run this script\n"
+   exit 0
+fi
+
+print " Starting DIAMon "
+if [ -x /opt/IntelliNet/IDS/bin/DIAMon ]
+then
+    /opt/IntelliNet/IDS/bin/DIAMon
+fi
+
+exit 0

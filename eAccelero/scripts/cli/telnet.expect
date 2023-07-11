@@ -1,0 +1,5 @@
+#!/usr/local/bin/expect 
+set timeout 20
+spawn telnet 127.0.0.1 8000
+expect "Username: "
+interact

@@ -1,0 +1,13 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# USAGE
+# java -jar ../jar/JSampleApp.jar  -load -oh (OriginHost) -or (OriginRealm) -dh # (DestinationHost) -dr (DestinationRealm) -sp (ServerPort) -srvip (ServerIp)
+# -contype (ConnectionType)
+
+java -jar ../jar/JSampleApp.jar -oh nemocl -or india.internal.net -dh nemo -dr india.internal.net -sp 9998 -srvip "172.16.3.1" -contype primary

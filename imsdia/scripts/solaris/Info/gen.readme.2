@@ -1,0 +1,34 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+echo "The following info was collected using UNIX tools (hostname, arch, etc)" >> README
+echo "----------------------------------------------------------------------" >> README
+echo "" >> README
+echo "Date: `date '+%Y.%m.%d'`" >> README
+showrev >> README
+
+SYSNAME=`prtconf|grep '^SUNW,'`
+if test -z "$SYSNAME"
+then
+    SYSNAME=`prtconf|grep '^CYRS,'`
+fi
+echo "System Type: $SYSNAME" >> README
+echo "Uptime: `uptime`" >> README
+echo "Swap-s:" >> README
+echo "`swap -s`" >> README
+echo "Swap-l:" >>README
+echo "`swap -l 2>&1`" >>README
+echo "Vmstat:" >> README
+echo "`vmstat`" >> README
+echo "" >> README
+echo "" >> README
+
+# Describe dir layout information for collected data
+cat ../Info/text >> README

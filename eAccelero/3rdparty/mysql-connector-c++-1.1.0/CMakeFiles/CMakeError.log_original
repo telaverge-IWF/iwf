@@ -1,0 +1,536 @@
+Determining size of __int8 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: ‘__int8’ undeclared here (not in a function)
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE __int8
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(__int8))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of unsigned __int8 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: expected ‘)’ before ‘__int8’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:26: error: expected ‘)’ before ‘__int8’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:27: error: expected ‘)’ before ‘__int8’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:28: error: expected ‘)’ before ‘__int8’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:29: error: expected ‘)’ before ‘__int8’
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE unsigned __int8
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(unsigned __int8))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of __int16 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: ‘__int16’ undeclared here (not in a function)
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE __int16
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(__int16))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of unsigned __int16 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: expected ‘)’ before ‘__int16’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:26: error: expected ‘)’ before ‘__int16’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:27: error: expected ‘)’ before ‘__int16’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:28: error: expected ‘)’ before ‘__int16’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:29: error: expected ‘)’ before ‘__int16’
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE unsigned __int16
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(unsigned __int16))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of __int32 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: ‘__int32’ undeclared here (not in a function)
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE __int32
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(__int32))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of unsigned __int32 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: expected ‘)’ before ‘__int32’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:26: error: expected ‘)’ before ‘__int32’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:27: error: expected ‘)’ before ‘__int32’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:28: error: expected ‘)’ before ‘__int32’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:29: error: expected ‘)’ before ‘__int32’
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE unsigned __int32
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(unsigned __int32))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of __int64 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: ‘__int64’ undeclared here (not in a function)
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE __int64
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(__int64))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+
+Determining size of unsigned __int64 failed with the following output:
+Change Dir: /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp
+
+Run Build Command:/usr/bin/gmake "cmTryCompileExec/fast"
+/usr/bin/gmake -f CMakeFiles/cmTryCompileExec.dir/build.make CMakeFiles/cmTryCompileExec.dir/build
+gmake[1]: Entering directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+/usr/bin/cmake -E cmake_progress_report /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building C object CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o
+/usr/bin/gcc   -DHAVE_SYS_TYPES_H -DHAVE_STDINT_H -DHAVE_STDDEF_H   -o CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o   -c /home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:25: error: expected ‘)’ before ‘__int64’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:26: error: expected ‘)’ before ‘__int64’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:27: error: expected ‘)’ before ‘__int64’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:28: error: expected ‘)’ before ‘__int64’
+/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp/CheckTypeSizeC.c:29: error: expected ‘)’ before ‘__int64’
+gmake[1]: *** [CMakeFiles/cmTryCompileExec.dir/CheckTypeSizeC.c.o] Error 1
+gmake[1]: Leaving directory `/home/athukral/mysql-connector-c++-1.1.0/CMakeFiles/CMakeTmp'
+gmake: *** [cmTryCompileExec/fast] Error 2
+
+CheckTypeSizeC.c:
+#define CHECK_TYPE_SIZE_TYPE unsigned __int64
+#ifdef CHECK_TYPE_SIZE_TYPE
+
+
+#ifdef HAVE_SYS_TYPES_H
+#  include <sys/types.h>
+#endif /* HAVE_SYS_TYPES_H */
+
+#ifdef HAVE_STDINT_H
+#  include <stdint.h>
+#endif /* HAVE_STDINT_H */
+
+#ifdef HAVE_STDDEF_H
+#  include <stddef.h>
+#endif /* HAVE_STDDEF_H */
+
+
+
+#ifdef __CLASSIC_C__
+# define const
+#endif
+
+#define SIZE (sizeof(unsigned __int64))
+const char info_sizeof[] =  {'I', 'N', 'F', 'O', ':', 's','i','z','e','o','f','[',
+  ('0' + ((SIZE / 10000)%10)),
+  ('0' + ((SIZE / 1000)%10)),
+  ('0' + ((SIZE / 100)%10)),
+  ('0' + ((SIZE / 10)%10)),
+  ('0' +  (SIZE    % 10)), 
+  ']','\0'};
+
+#ifdef __CLASSIC_C__
+int main(argc, argv) int argc; char *argv[];
+#else
+int main(int argc, char *argv[])
+#endif
+{
+  int require = 0;
+  require += info_sizeof[argc];
+  (void)argv;
+  return require;
+}
+
+#else  /* CHECK_TYPE_SIZE_TYPE */
+
+#  error "CHECK_TYPE_SIZE_TYPE has to specify the type"
+
+#endif /* CHECK_TYPE_SIZE_TYPE */
+
+

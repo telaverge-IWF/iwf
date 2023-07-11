@@ -1,0 +1,399 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--      Copyright 1999 IntelliNet Technologies, Inc. All Rights Reserved.     --
+--              Manufactured in the United States of America.                 --
+--        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        --
+--                                                                            --
+--    This product and related documentation is protected by copyright and    --
+--    distributed under licenses restricting its use, copying, distribution   --
+--    and decompilation.  No part of this product or related documentation    --
+--    may be reproduced in any form by any means without prior written        --
+--    authorization of IntelliNet Technologies and its licensors, if any.     --
+--                                                                            --
+--    RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the       --
+--    government is subject to restrictions as set forth in subparagraph      --
+--    (c)(1)(ii) of the Rights in Technical Data and Computer Software        --
+--    clause at DFARS 252.227-7013 and FAR 52.227-19.                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--
+--  ID: $Id: cap_v1_lrf.asn,v 9.1 2005/03/23 12:51:12 cvsadmin Exp $
+--
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+--  ASN.1 Module for CAMEL CAP Version 1 (CAP V1).
+--
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--
+--  Specification identification:
+--
+--      ETSI TS 101 046 V5.7.0 (from file ts_101046v050700p.pdf).
+--
+--      Digital cellular telecommunications system (Phase 2+);
+--      Customized Applications for Mobile network Enhanced Logic (CAMEL)
+--      CAMEL Application Part (CAP) specification
+--                        (GSM 09.78 version 5.7.0 Release 1996)
+--
+--
+
+CAP-V1
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+
+CallingPartysCategory ::= OCTET STRING (SIZE(1))
+
+HighLayerCompatibility ::= OCTET STRING (SIZE (highLayerCompatibilityLength))
+
+highLayerCompatibilityLength INTEGER ::= 2
+
+MiscCallInfo ::= SEQUENCE 
+{
+    messageType [0] ENUMERATED 
+    {
+        request      (0),
+        notification (1)
+    },
+    dpAssignment [1] ENUMERATED 
+    {
+        individualLine (0),
+        groupBased     (1),
+        officeBased    (2)
+    } OPTIONAL
+}
+
+MonitorMode ::= ENUMERATED 
+{
+    interrupted       (0),
+    notifyAndContinue (1),
+    transparent       (2)
+}
+
+RedirectionInformation ::= OCTET STRING (SIZE(2))
+
+ServiceKey ::= INTEGER (0..2147483647)
+
+IMSI ::= OCTET STRING (SIZE (3..8))
+
+ISDN-AddressString ::= OCTET STRING (SIZE (1..maxISDN-AddressLength))
+
+maxISDN-AddressLength  INTEGER ::= 9
+
+Ext-BasicServiceCode ::= CHOICE 
+{
+    ext-BearerService   [2] Ext-BearerServiceCode,
+    ext-Teleservice     [3] Ext-TeleserviceCode
+}
+
+Ext-BearerServiceCode ::= OCTET STRING (SIZE (1..5))
+
+Ext-TeleserviceCode ::= OCTET STRING (SIZE (1..5))
+
+LocationInformation ::= SEQUENCE 
+{
+    ageOfLocationInformation    AgeOfLocationInformation    OPTIONAL,
+    geographicalInformation [0] GeographicalInformation     OPTIONAL,
+    vlr-number              [1] ISDN-AddressString          OPTIONAL,
+    locationNumber          [2] LocationNumber              OPTIONAL,
+    cellIdOrLAI             [3] CellIdOrLAI                 OPTIONAL,
+    extensionContainer      [4] ExtensionContainer          OPTIONAL,
+    ...
+}
+
+AgeOfLocationInformation ::= INTEGER (0..32767)
+
+GeographicalInformation ::= OCTET STRING (SIZE (8))
+
+CellIdOrLAI ::= CHOICE 
+{
+    cellIdFixedLength   [0] CellIdFixedLength,
+    laiFixedLength      [1] LAIFixedLength
+}
+
+CellIdFixedLength ::= OCTET STRING (SIZE (7))
+
+LAIFixedLength ::= OCTET STRING (SIZE (5))
+
+ExtensionContainer ::= SEQUENCE 
+{
+    privateExtensionList    [0] PrivateExtensionList    OPTIONAL,
+    pcs-Extensions          [1] PCS-Extensions          OPTIONAL,
+    ...
+}
+
+PrivateExtensionList ::= SEQUENCE SIZE (1..maxNumOfPrivateExtensions) OF PrivateExtension
+
+PrivateExtension ::= SEQUENCE 
+{
+    extensionId     OBJECT IDENTIFIER,
+    extensionType   ANY OPTIONAL
+}
+
+
+maxNumOfPrivateExtensions  INTEGER ::= 10
+
+PCS-Extensions ::= SEQUENCE {...}
+
+SubscriberState ::= CHOICE 
+{
+    assumedIdle         [0] NULL,
+    camelBusy           [1] NULL,
+    netDetNotReachable  NotReachableReason,
+    notProvidedFromVLR  [2] NULL
+}
+
+NotReachableReason ::= ENUMERATED 
+{
+    msPurged (0),
+    imsiDetached (1),
+    restrictedArea (2),
+    notRegistered (3)
+}
+
+CallReferenceNumber ::= OCTET STRING (SIZE (1..8))
+
+SuppressionOfAnnouncement ::= NULL
+
+-- TYPE DEFINITIONS FOR CAP v.1 DATA TYPES FOLLOW
+-- Argument Data Types
+
+ConnectArg ::= SEQUENCE 
+{
+    destinationRoutingAddress  [0] DestinationRoutingAddress,
+    originalCalledPartyID      [6] OriginalCalledPartyID                                OPTIONAL,
+    extensions                 [10] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    genericNumbers             [14] GenericNumbers                                      OPTIONAL,
+    callingPartyNumber         [27] CallingPartyNumber                                  OPTIONAL,
+    callingPartysCategory      [28] CallingPartysCategory                               OPTIONAL,
+    redirectingPartyID         [29] RedirectingPartyID                                  OPTIONAL,
+    redirectionInformation     [30] RedirectionInformation                              OPTIONAL,
+    suppressionOfAnnouncement  [55] SuppressionOfAnnouncement                           OPTIONAL,
+    oCSIApplicable             [56] OCSIApplicable                                      OPTIONAL,
+    ...
+}
+
+EventReportBCSMArg ::= SEQUENCE 
+{
+    eventTypeBCSM                [0] EventTypeBCSM,
+    eventSpecificInformationBCSM [2] EventSpecificInformationBCSM                        OPTIONAL,
+    legID                        [3] LegID                                               OPTIONAL,
+    miscCallInfo                 [4] MiscCallInfo    DEFAULT(
+               "MiscCallInfo* miscCallInfo = new MiscCallInfo(&staticDesc);
+                MiscCallInfo::MessageType* messageType = new MiscCallInfo::MessageType((long)0);
+                miscCallInfo->SetMessageType(messageType);
+                staticDesc.SetCloneForDefaultFactory(miscCallInfo);"),
+    extensions                   [5] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+...
+}
+
+InitialDPArg ::= SEQUENCE 
+{
+    serviceKey                   [0] ServiceKey,
+    calledPartyNumber            [2] CalledPartyNumber                                    OPTIONAL,
+    callingPartyNumber           [3] CallingPartyNumber                                   OPTIONAL,
+    callingPartysCategory        [5] CallingPartysCategory                                OPTIONAL,
+    locationNumber               [10] LocationNumber                                      OPTIONAL,
+    originalCalledPartyID        [12] OriginalCalledPartyID                               OPTIONAL,
+    extensions                   [15] SEQUENCE SIZE(1..numOfExtensions) OF ExtensionField OPTIONAL,
+    highLayerCompatibility       [23] HighLayerCompatibility                              OPTIONAL,
+    additionalCallingPartyNumber [25] AdditionalCallingPartyNumber                        OPTIONAL,
+    bearerCapability             [27] BearerCapability                                    OPTIONAL,
+    eventTypeBCSM                [28] EventTypeBCSM                                       OPTIONAL,
+    redirectingPartyID           [29] RedirectingPartyID                                  OPTIONAL,
+    redirectionInformation       [30] RedirectionInformation                              OPTIONAL,
+    iMSI                         [50] IMSI                                                OPTIONAL,
+    subscriberState              [51] SubscriberState                                     OPTIONAL,
+    locationInformation          [52] LocationInformation                                 OPTIONAL,
+    ext-basicServiceCode         [53] Ext-BasicServiceCode                                OPTIONAL,
+    callReferenceNumber          [54] CallReferenceNumber                                 OPTIONAL,
+    mscAddress                   [55] ISDN-AddressString                                  OPTIONAL,
+    calledPartyBCDNumber         [56] CalledPartyBCDNumber                                OPTIONAL,
+    ...
+}
+
+ReleaseCallArg ::= Cause
+
+RequestReportBCSMEventArg ::= SEQUENCE 
+{
+    bcsmEvents [0] SEQUENCE SIZE (1..numOfBCSMEvents) OF BCSMEvent,
+    extensions [2] SEQUENCE SIZE (1..numOfExtensions) OF ExtensionField OPTIONAL,
+...
+}
+
+-- Indicates the BCSM related events for notification.
+-- Common Data Types
+AdditionalCallingPartyNumber ::= Digits
+
+-- Indicates the Additional Calling Party Number.
+BCSMEvent ::= SEQUENCE 
+{
+    eventTypeBCSM [0] EventTypeBCSM,
+    monitorMode   [1] MonitorMode,
+    legID         [2] LegID           OPTIONAL
+}
+
+-- Indicates the BCSM Event information for monitoring.
+BearerCapability ::= CHOICE 
+{
+    bearerCap [0] OCTET STRING (SIZE (2..maxBearerCapabilityLength))
+}
+
+-- Indicates the type of bearer capability connection to the user. For bearerCap, the value as
+-- described in ISUP (ETS 300 356-1 [4], User Service Information) shall be used.
+
+CalledPartyBCDNumber ::= OCTET STRING (SIZE (minCalledPartyBCDNumberLength .. maxCalledPartyBCDNumberLength))
+
+-- Indicates the Called Party Number, including service selection information. Refer to GSM
+-- 04.08 [25] for encoding. This data type carries only the "type of number", "numbering plan
+-- identification" and "number digit" fields defined in [25]; it does not carry the "called
+-- party BCD number IEI" or "length of called party BCD number contents".
+
+CalledPartyNumber ::= OCTET STRING (SIZE (minCalledPartyNumberLength .. maxCalledPartyNumberLength))
+-- Indicates the Called Party Number. Refer to ETS 300 356-1 [4] for encoding.
+
+CallingPartyNumber ::= OCTET STRING (SIZE (minCallingPartyNumberLength .. maxCallingPartyNumberLength))
+
+-- Indicates the Calling Party Number. Refer to ETS 300 356-1 [4] for encoding.
+
+Cause ::= OCTET STRING (SIZE (minCauseLength .. maxCauseLength))
+
+-- Indicates the cause for interface related information. Refer to the ETS 300 356-1 [4] Cause
+-- parameter for encoding. For the use of Cause and Location values refer to Q.850.
+-- Shall only include the cause value.
+
+DestinationRoutingAddress ::= SEQUENCE SIZE (1) OF CalledPartyNumber
+
+-- Indicates the Called Party Number.
+
+Digits ::= OCTET STRING (SIZE (minDigitsLength .. maxDigitsLength))
+
+-- Indicates the address signalling digits. Refer to the ETS 300 356-1 [4] Generic Number and
+-- Generic Digits parameters for encoding. The coding of the subfields "NumberQualifier" in
+-- Generic Number and "Type Of Digits" in Generic Digits are irrelevant to the CAP, the ASN.1
+-- tags are sufficient to identify the parameter. The ISUP format does not allow to exclude
+-- these subfields, therefor the value is network operator specific.
+--
+-- The following parameter should use Generic Number:
+-- AdditionalCallingPartyNumber for InitialDP
+
+EventSpecificInformationBCSM ::= CHOICE 
+{
+    oDisconnectSpecificInfo [7] SEQUENCE 
+    {
+        releaseCause [0] Cause OPTIONAL
+        --...--
+    },
+    tDisconnectSpecificInfo [12] SEQUENCE 
+    {
+        releaseCause [0] Cause OPTIONAL
+        --...--
+    }
+}
+
+-- Indicates the call related information specific to the event.
+EventTypeBCSM ::= ENUMERATED 
+{
+    collectedInfo         (2),
+    oAnswer               (7),
+    oDisconnect           (9),
+    termAttemptAuthorized (12),
+    tAnswer               (15),
+    tDisconnect           (17)
+}
+
+-- Values collectedInfo and termAttemptAuthorized can only be
+-- used for TDPs.
+-- ExtensionField ::= SEQUENCE {
+-- type EXTENSION.&id ({SupportedExtensions}),
+-- shall identify the value of an EXTENSION type
+-- criticality
+-- EXTENSION.&criticality ({SupportedExtensions}{@type}),
+-- value [1]EXTENSION.&ExtensionType
+-- ({SupportedExtensions}{@type})
+-- }
+
+CriticalityType     ::= ENUMERATED 
+{
+    ignore      (0),
+    abort       (1)
+}
+
+ExtensionField ::= SEQUENCE 
+{
+    type            INTEGER,
+    criticality     CriticalityType,
+    value           [1] ANY
+}
+
+--This parameter indicates an extension of an argument data type. Its content is network operator specific
+GenericNumber ::= OCTET STRING (SIZE(minGenericNumberLength.. maxGenericNumberLength))
+
+-- Indicates a generic number. Refer to ETS 300 356-1 [4] Generic number for encoding.
+GenericNumbers ::= SET SIZE(1..numOfGenericNumbers) OF GenericNumber
+
+LegID ::= CHOICE 
+{
+    sendingSideID   [0] LegType, -- used in operations sent from gsmSCF to gsmSSF
+    receivingSideID [1] LegType  -- used in operations sent from gsmSSF to gsmSCF
+}
+
+-- Indicates a reference to a specific party in a call.
+LegType ::= OCTET STRING (SIZE(1))
+
+leg1 LegType ::= '01'H
+
+leg2 LegType ::= '02'H
+
+LocationNumber ::= OCTET STRING (SIZE (minLocationNumberLength .. maxLocationNumberLength))
+
+-- Indicates the Location Number for the calling party. Refer to ETS 300 356-1 [4] for encoding.
+
+OriginalCalledPartyID ::= OCTET STRING (SIZE (minOriginalCalledPartyIDLength .. maxOriginalCalledPartyIDLength))
+
+-- Indicates the original called number. Refer to ETS 300 356-1 [4] Original Called Number for encoding.
+
+OCSIApplicable ::= NULL
+
+-- Indicates that the Originating CAMEL Subscription Information, if present, shall be applied on the
+-- outgoing call leg created with a Connect operation. For the use of this parameter see GSM 03.78 [16].
+
+RedirectingPartyID ::= OCTET STRING (SIZE (minRedirectingPartyIDLength .. maxRedirectingPartyIDLength))
+
+-- Indicates redirecting number. Refer to ETS 300 356-1 [4] Redirecting number for encoding.
+
+UnavailableNetworkResource ::= ENUMERATED 
+{
+    unavailableResources          (0),
+    componentFailure              (1),
+    basicCallProcessingException  (2)
+}
+
+-- Definition of range constants
+maxBearerCapabilityLength             INTEGER ::= 11
+minCalledPartyBCDNumberLength         INTEGER ::= 1
+maxCalledPartyBCDNumberLength         INTEGER ::= 41
+minCalledPartyNumberLength            INTEGER ::= 3
+maxCalledPartyNumberLength            INTEGER ::= 12
+minCallingPartyNumberLength           INTEGER ::= 2
+maxCallingPartyNumberLength           INTEGER ::= 10
+minCauseLength                        INTEGER ::= 2
+maxCauseLength                        INTEGER ::= 2
+minDigitsLength                       INTEGER ::= 3
+maxDigitsLength                       INTEGER ::= 11
+minGenericNumberLength                INTEGER ::= 3
+maxGenericNumberLength                INTEGER ::= 11
+minLocationNumberLength               INTEGER ::= 2
+maxLocationNumberLength               INTEGER ::= 10
+minOriginalCalledPartyIDLength        INTEGER ::= 2
+maxOriginalCalledPartyIDLength        INTEGER ::= 10
+minRedirectingPartyIDLength INTEGER ::= 2
+maxRedirectingPartyIDLength INTEGER ::= 10
+numOfBCSMEvents INTEGER ::= 10
+numOfExtensions INTEGER ::= 10
+numOfGenericNumbers INTEGER ::= 5
+END

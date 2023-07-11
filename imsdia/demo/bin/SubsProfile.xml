@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<IMSSubscription xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="CxDataType.xsd">
+
+  <PrivateID>user@homedomain.com</PrivateID>
+  <ServiceProfile>
+  	<PublicIdentity>
+	     <BarringIndication>1</BarringIndication>
+             <Identity> sip:user@3gppnetwork.com </Identity>
+	</PublicIdentity>
+	<PublicIdentity>
+	      <Identity> sip:user@anotherdomain.com </Identity>
+	</PublicIdentity>
+	<InitialFilterCriteria>
+	      <Priority>0</Priority>
+	      <TriggerPoint>
+		  <ConditionTypeCNF>1</ConditionTypeCNF>
+                  <SPT>
+                       	<ConditionNegated>0</ConditionNegated>
+			<Group>0</Group>
+			<Method>INVITE</Method>
+		  </SPT>
+		  <SPT>
+			<ConditionNegated>0</ConditionNegated>
+			<Group>0</Group>
+			<Method>MESSAGE</Method>
+		  </SPT>
+		  <SPT>
+			<ConditionNegated>0</ConditionNegated>
+			<Group>0</Group>
+			<Method>SUBSCRIBE</Method>
+		  </SPT>
+		  <SPT>
+			<ConditionNegated>0</ConditionNegated>
+			<Group>1</Group>
+			<Method>INVITE</Method>
+		  </SPT>
+		  <SPT>
+			<ConditionNegated>0</ConditionNegated>
+			<Group>1</Group>
+			<Method>MESSAGE</Method>
+		  </SPT>
+		  <SPT>
+			<ConditionNegated>1</ConditionNegated>
+			<Group>1</Group>
+			<SIPHeader>
+			<Header>From</Header>
+			<Content>"John Doe"</Content>
+			</SIPHeader>
+		   </SPT>
+		</TriggerPoint>
+		<ApplicationServer>
+			<ServerName>sip:AS1@3gppnetwork.com</ServerName>
+			<DefaultHandling>0</DefaultHandling>
+		</ApplicationServer>
+	</InitialFilterCriteria>
+   </ServiceProfile>
+</IMSSubscription>

@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_get_as_state <null>
+
+DESCRIPTION
+    This command displays M2UA ASP current State. 
+
+PARAMETERS
+    None
+
+EXAMPLE
+    >> mu_get_as_state 
+
+********* M2UA AS STATE *********
+
+AS STATE  : M2UA_AS_ACTIVE
+

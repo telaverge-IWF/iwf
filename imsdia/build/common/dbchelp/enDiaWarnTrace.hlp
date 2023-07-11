@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enDiaWarnTrace                                                                                 
+DESCRIPTION
+    This command enables the diameter Warning traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enDiaWarnTrace
+    *******Diameter Warning Traces are enabled*******
+

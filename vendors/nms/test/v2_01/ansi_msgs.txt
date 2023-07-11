@@ -1,0 +1,277 @@
+# Sample file to build ANSI ISUP C messages.
+#
+# Protocol: ANSI
+#
+# 
+###############################################################
+#
+# M	MsgCode
+# P	ParCode		DataTyp		Data
+
+# NOTE: Values may not be valid for data octets
+#
+###############################################################
+# Address Complete Message
+M	6				          # ACM
+P	11 	02 A1 B1                          # Backward Call Indicator
+P	03	03 F1 F2 F3			  # Access Transport
+P	12	02 40 B3			  # Cause Indicator
+P	0F	02 01 00			  # Information Indicators
+P	EF	09 01 02 03 04 05 06 07 08 09	  # Network Transport
+P	E1	01 33			          # Notification Indicator
+P	13	02 11 11			  # Redirection Information
+P	29	01 00				  # Opt Backward Call Indicators
+
+#P	C6	07 01 03 01 02 03 02 1A 1B 33	  # Business Group(NMS eats it?)
+#P	01	06 03 01 02 03 03 11 22 33	  # Call Reference
+
+###############################################################
+# Answer Message
+M	9					  # ANM
+P	03	03 F1 F2 F3			  # Access Transport
+P	11	02 A1 B1			  # Backward Call Indicator
+P	0F	02 01 00			  # Information Indicators
+P	EF	09 11 22 33 44 55 66 77 88 99	  # Network Transport
+P	E1	01 33				  # Notification Indicator
+P	29	01 00				  # Opt Backward Call Indicators
+
+#P	C6	07 01 03 01 02 03 02 1A 1B 33	  # Business Group(NMS eats it?)
+#P	01	06 03 01 02 03 03 11 22 33	  # Call Reference
+
+###############################################################
+# Blocking Acknowledgement Message
+M	15			                  # BLA
+
+
+###############################################################
+# Blocking Message
+M	13			                  # BLO
+
+###############################################################
+# Continuitry Check Request
+M	11					  # CCR
+
+
+###############################################################
+# Call Progress
+M	2C					  # CPG
+P       24      01 04                             # EventInformation
+P       03      03 F1 F2 F3                       # Access Transport
+P       11      02 FD 04                          # Backward Call Indicators
+P       12      02 C0 33                          # CauseIndicator
+P       29      01 00                             # OptBackwardCallInd
+P	0F	02 01 00			  # Information Indicators
+P	EF	09 11 22 33 44 55 66 77 88 99	  # Network Transport
+P	E1	01 33				  # Notification Indicator
+
+#P	C6	07 01 03 01 02 03 02 00 00 00	  # Business Group
+
+#P	01	06 03 01 02 03 03 11 22 33	# Call Reference (NMS eats it)
+
+###############################################################
+# Circuit Group Blocking
+M	18					# CGB
+P	15	01 01				# CircuitGrpSupervisionMsgType
+P	16	04 17 FE FF 7F			# RangeandStatus
+
+
+###############################################################
+# Circuit Group Blocking Acknowledgement Message
+M	1A			                  # CGBA
+P       15      01 01                             # CktGrpSupervisionMsgTypeInd.
+P	16	04 17 FE FF 7F			  # RangeandStatus
+
+
+###############################################################
+# Circuit Group Unblocking
+M	19					# CGU
+P       15      01 01                           # CktGrpSupervisionMsgTypeInd.
+P	16	04 17 FE FF 7F			# RangeandStatus
+
+###############################################################
+# Circuit Group Unblocking Acknowledgement Message
+M	1B			                  # CGUA
+P       15      01 01                             # CktGrpSupervisionMsgTypeInd.
+P	16	04 17 FE FF 7F			  # RangeandStatus
+
+###############################################################
+# Confusion Message
+M	2F					# CFN
+P	12	02 40 B3			# Cause Indicator
+
+
+###############################################################
+# Continuity Message
+M	05					# COT
+P	10	01 01				# Continuity Indicators
+
+
+###############################################################
+# Circuit Query Message
+M	2A					# CQM
+P	16	04 0A 00 00 00			# RangeandStatus
+
+
+###############################################################
+# Circuit Reservation Message
+M	EA					# CRM
+P	06	01 00				# NatureofConnectionIndicators
+
+
+###############################################################
+# Circuit Validation Response
+M	EB					# CVR
+P	E6	01 00				# CircuitValidationResponseInd
+P	E5	01 02				# CircuitGrpCharacteristicInd
+P       E8      1A 04 01 02 03 04 0B 01 02 03 04 05 06 07 08 09 10 00 01 02 03 04 05 06 07 08 09 10 00
+P       E9      0B 01 02 03 04 05 06 07 08 09 10 11  # CLLICode
+
+
+###############################################################
+# Circuit Validation Test 
+M	EC					# CVT
+
+
+###############################################################
+# Exit Message
+M	ED					# EXM
+P	E7	03 12 34 56			# OutgoingTrunkGroupNumber
+
+
+###############################################################
+# Forward Transfer
+M	08					# FOT
+#P	01	06 03 11 22 33 03 0A 0B 0C	# Call Reference (NMS eats it)
+
+
+###############################################################
+# Circuit Group Reset Message
+M	17					# GRS
+P	16	01 17				# RangeAndStatus
+
+
+###############################################################
+# Information Message
+M	04				  	# INF
+P	0F	02 03 10			# Information Indicators
+P	03	03 F5 F4 F3			# Access Transport
+P	C6	07 01 03 01 00 0 00 00 00 22	# Business Group
+P	0A	07 01 11 0A 04 77 44 33 23	# CallingPartyNum:(407)744-3332
+P	09	01 AA				# Calling Party's Category
+P	EB	07 01 02 0A 04 77 35 82 14	# Charge Number: (407)753-2841
+P	EA	01 99				# Originating Line Information
+P	0B	07 0A 0B 0A 04 87 76 32 19	# RedirectingNum: (407)867-2391
+P	13	02 11 11			# Redirection Information
+
+#P	01	06 03 11 22 33 03 0A 0B 0C	# Call Reference(NMS EATS IT)
+
+###############################################################
+# Information Request Mesage
+M	03					# INR
+P	0E	02 01 00			# InfoRequestIndicators
+#P	01	06 03 A1 A2 A3 03 A1 B1 C1	# Call Reference
+P	EF	09 11 22 33 44 55 66 77 88 99	# Network Transport
+
+
+###############################################################
+# Initial Address Message
+M	1					# IAM
+P	06	01 00				# NatureofConnectionIndicators
+P	07	02 20 01			# ForwardCallIndicators
+P	09	01 0A				# CallingParty'sCategory
+P	1D	03 C0 90 A2                     # UserServiceInfo
+P	04	07 03 10 0A 04 77 62 60 38	# CldPrtyN Norm:(407)726-0683
+#P       E3      08 11 22 33 44 03 12 34 56      # TransactionRequest
+#P	0A	07 03 10 0A 04 77 44 33 23	# CallingPartyNum: (407)744-3332
+P	C1	06 03 0A 04 78 96 23 11		# GenericDigits: (408)769-3211
+P	0B	07 0A 08 0A 04 87 76 32 19	# RedirectingNum: (407)867-2391
+P	13	02 11 11			# RedirectionInformation
+P	28	07 0A 3C 0A 04 77 44 33 23	# OriglCalledNum: (407)744-3332
+P	EE	01 A1				# CarrierSelectionInformation
+P	EB	07 01 02 0A 04 77 35 82 14	# ChargeNumber: (407)753-2841
+P	C3	05 01 02 03 04 05		# EgressServiceInfo
+P	03	03 F3 F4 F5			# AccessTransport
+P	EA	01 00				# OriginatingLineInformation
+
+#P	C0	08 00 03 10 0A 04 77 23 45 12	# GenericAddress: (407)732-5421
+#P	EF	03 11 22 33             	# NetworkTransport
+#P	C4	03 11 22 33			# Jurisdiction
+#P	0E	02 01 00			# InformationRequestIndicators
+#P	C0	08 0A 0B 0C 0A 04 77 23 45 12	# GenericAddress: (407)732-5421
+#P      23      04 22 04 12 34 00               # TransitNetworkSelection
+#P      C6      07 01 03 01 02 03 02 1A 1B 33   # Business Group
+#P      E2      05 F1 F2 F3 F4 F5               # ServiceActivation
+#P      EC      01 AC                           # ServiceCode
+#P      ED      01 DD                           # SpecialProcessingRequest
+
+#P	C5	03 21 12 04			# CarrierIdentification (3 digits)
+#P      C5      03 22 12 34                     # CarrierIdentification (4 digits)
+
+#P	01	06 03 01 02 03 03 11 22 33	# CallReference (NMS eats it)
+
+# IAM Optional parameters
+#P	E3	0F FFF 0A 12 34 56 78 90 AA BB CC DD EE	# TransactionRequest
+#P      C6      07 11 03 0a 0b 0c 02 0e 0f 01   # Business Group
+
+
+###############################################################
+# Loopback Acknowledgement Message
+M	24			                  # LPA	
+
+
+###############################################################
+# Pass Along Message: with Release Message
+M	28				        # PAM
+P      AA      01 0C                           # Message: REL
+P       12      02 C1 10                        # CauseIndicator
+
+#P	AA	01 03			        # Message: INR
+P	0E	02 01 00			# InfoRequestIndicators
+
+#P	AA	01 0C			        # Message: REL
+P	12	02 C1 10			# CauseIndicator
+
+
+###############################################################
+# Release Message
+M	0C					# REL
+P	12	02 C1 10			# CauseIndicator
+P	03	03 F3 F4 F5			# AccessTransport
+P	27	01 01				# AutomaticCongestionLevel
+#P	01	06 03 A1 A2 A3 03 A1 B1 C1	# CallReference
+#P	EB	07 01 02 0A 04 77 35 82 14	# ChargeNumber: (407)753-2841
+#P	C0	08 0A 0B 0C 0A 04 77 23 45 12	# GenericAddress: (407)732-5421
+
+
+###############################################################
+# Resume Message
+M	0E					# RES
+P	22	01 01				# SuspendResumeIndicator
+#P	01	06 03 A1 A2 A3 03 A1 B1 C1	# CallReference
+
+
+###############################################################
+# Release Complete Message
+M	10					# RLC
+
+
+###############################################################
+# Suspend Message
+M	0D					# SUS
+P	22	01 01				# SuspendResumeIndicator
+#P	01	06 03 A1 A2 A3 03 A1 B1 C1	# CallReference
+
+
+###############################################################
+# Unblocking Message
+M	14			                  # UBL	
+
+###############################################################
+# Unblocking Acknowledgement Message
+M	16			                  # UBA	
+
+
+
+###############################################################
+# Unequipped Circuit Identification Code
+M	2E					# UCIC

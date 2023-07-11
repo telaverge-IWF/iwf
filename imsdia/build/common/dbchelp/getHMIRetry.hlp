@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    getHMIRetry
+
+DESCRIPTION
+    This command is used to get HMI Retry Interval.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getHMIRetry
+       HMI Retry Interval = 1
+

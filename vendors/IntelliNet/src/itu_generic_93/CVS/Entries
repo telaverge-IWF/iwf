@@ -1,0 +1,25 @@
+/.cvsignore/9.1/Wed Mar 23 12:54:57 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:54:57 2005//TB-IWF-HP-0400-00
+/itu-csc_itu93.c/9.3/Wed Sep 14 09:49:20 2005//TB-IWF-HP-0400-00
+/itu-idle_itu93.c/9.3/Thu May  5 09:26:24 2005//TB-IWF-HP-0400-00
+/itu-isup_93.c/9.1/Wed Mar 23 12:54:57 2005//TB-IWF-HP-0400-00
+/itu-rcvd_in_anm_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-sent_out_anm_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-timers.c/9.1/Wed Mar 23 12:54:58 2005//TB-IWF-HP-0400-00
+/itu-validate_param.c/9.3/Thu May  5 09:32:51 2005//TB-IWF-HP-0400-00
+/itu-wait_cot_report_itu93.c/9.3/Wed Sep 14 09:47:24 2005//TB-IWF-HP-0400-00
+/itu-wait_in_acm_itu93.c/9.2/Thu Apr  7 05:19:58 2005//TB-IWF-HP-0400-00
+/itu-wait_in_anm_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_in_cot_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_in_res_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_in_rlc_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_out_acm_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_out_anm_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_out_gra_itu93.c/9.2/Wed Apr  6 07:17:24 2005//TB-IWF-HP-0400-00
+/itu-wait_out_rel_itu93.c/9.2/Wed Apr  6 07:17:23 2005//TB-IWF-HP-0400-00
+/itu-wait_out_res_itu93.c/9.2/Wed Apr  6 07:17:23 2005//TB-IWF-HP-0400-00
+/itu-wait_out_rlc_itu93.c/9.2/Wed Apr  6 07:17:23 2005//TB-IWF-HP-0400-00
+/itu-wait_out_rsc_itu93.c/9.2/Wed Apr  6 07:17:23 2005//TB-IWF-HP-0400-00
+/itu_generic_93.dsp/9.1/Wed Mar 23 12:55:00 2005//TB-IWF-HP-0400-00
+/itu_generic_state_itu93.c/9.2.42.1/Wed Sep 17 07:01:58 2014//TB-IWF-HP-0400-00
+D

@@ -1,0 +1,26 @@
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+ARCH=sparc
+RELDIR=$(HOME)/cvsroot/imsdia/build/Packages/
+PKGFILE=$(PKG)-$(ARCH)-$(VERSION)-$(PLATFORM)-$(IMSCXX)
+
+pkg:
+	cp ../pscripts/make_prototype . 
+	./make_prototype
+	cp ../pscripts/checkinstall .
+	cp ../pscripts/postinstall .
+	cp ../pscripts/preremove .
+	cp ../pscripts/postremove .
+	sh ../pscripts/pkginfo-$(PKG) >  ./pkginfo 
+	pkgmk -o -d /tmp -f prototype -a $(ARCH)
+	touch $(PKGFILE)
+	pkgtrans -s /tmp $(PKGFILE) $(PKG)
+	rm -r /tmp/$(PKG)
+	mv $(PKGFILE) $(RELDIR) 
+	

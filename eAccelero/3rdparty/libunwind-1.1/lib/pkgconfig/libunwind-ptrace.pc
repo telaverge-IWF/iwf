@@ -1,0 +1,10 @@
+prefix=/home/jvikram/sandbox/Customer-Releases/B-LNX602-0510-00-Dev/eAccelero/3rdparty/libunwind-1.1
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libunwind-ptrace
+Description: libunwind ptrace library
+Version: 1.1
+Requires: libunwind-generic libunwind
+Libs: -L${libdir} -lunwind-ptrace

@@ -1,0 +1,81 @@
+
+ITU ALCAP Command
+
+SYNOPSIS
+    ai_get_gen_peg <pg>
+
+DESCRIPTION
+    This command displays peg value based on the peg id.
+
+PARAMETERS
+
+   #peg      - The peg id to get the value 
+
+             - ALL/all for All ALCAP PEGS Values
+
+NOTE
+    The ALCAP pegs ids are:
+
+    PEG_ALCAP_TRANSFER_REQ                   0
+    PEG_ALCAP_TRANSFER_IND                   1
+    PEG_ALCAP_BLOCK_CONFIRM_RCVD             2
+    PEG_ALCAP_BLOCK_CONFIRM_SENT             3
+    PEG_ALCAP_BLOCK_REQUEST_RCVD             4
+    PEG_ALCAP_BLOCK_REQUEST_SENT             5
+    PEG_ALCAP_CONFUSION_RCVD                 6
+    PEG_ALCAP_CONFUSION_SENT                 7
+    PEG_ALCAP_ESTABLISH_CONFIRM_RCVD         8
+    PEG_ALCAP_ESTABLISH_CONFIRM_SENT         9
+    PEG_ALCAP_ESTABLISH_REQUEST_RCVD        10
+    PEG_ALCAP_ESTABLISH_REQUEST_SENT        11
+    PEG_ALCAP_RELEASE_CONFIRM_RCVD          12
+    PEG_ALCAP_RELEASE_CONFIRM_SENT          13
+    PEG_ALCAP_RELEASE_REQUEST_RCVD          14
+    PEG_ALCAP_RELEASE_REQUEST_SENT          15
+    PEG_ALCAP_RESET_CONFIRM_RCVD            16
+    PEG_ALCAP_RESET_CONFIRM_SENT            17
+    PEG_ALCAP_RESET_REQUEST_RCVD            18
+    PEG_ALCAP_RESET_REQUEST_SENT            19
+    PEG_ALCAP_UNBLOCK_CONFIRM_RCVD          20
+    PEG_ALCAP_UNBLOCK_CONFIRM_SENT          21
+    PEG_ALCAP_UNBLOCK_REQUEST_RCVD          22
+    PEG_ALCAP_UNBLOCK_REQUEST_SENT          23
+    PEG_ALCAP_UNRECOGNIZED_MSG              24
+    PEG_ALCAP_UNRECOGNIZED_PRM              25
+
+    ALL_ALCAP_PEGS			    99
+
+
+EXAMPLE
+     >> ai_get_gen_peg 1
+     Getting the Peg for PEG_ALCAP_TRANSFER_IND Now
+     value is 0
+
+     >> ai_get_gen_peg all
+     **************** ALCAP Pegs ****************
+     PEG_ALCAP_TRANSFER_REQ                   :0
+     PEG_ALCAP_TRANSFER_IND                   :0 
+     PEG_ALCAP_BLOCK_CONFIRM_RCVD             :0 
+     PEG_ALCAP_BLOCK_CONFIRM_SENT             :0 
+     PEG_ALCAP_BLOCK_REQUEST_RCVD             :0 
+     PEG_ALCAP_BLOCK_REQUEST_SENT             :0 
+     PEG_ALCAP_CONFUSION_RCVD                 :0
+     PEG_ALCAP_CONFUSION_SENT                 :0 
+     PEG_ALCAP_ESTABLISH_CONFIRM_RCVD         :0 
+     PEG_ALCAP_ESTABLISH_CONFIRM_SENT         :0
+     PEG_ALCAP_ESTABLISH_REQUEST_RCVD         :0
+     PEG_ALCAP_ESTABLISH_REQUEST_SENT         :0
+     PEG_ALCAP_RELEASE_CONFIRM_RCVD           :0
+     PEG_ALCAP_RELEASE_CONFIRM_SENT           :0
+     PEG_ALCAP_RELEASE_REQUEST_RCVD           :0
+     PEG_ALCAP_RELEASE_REQUEST_SENT           :0
+     PEG_ALCAP_RESET_CONFIRM_RCVD             :0
+     PEG_ALCAP_RESET_CONFIRM_SENT             :0
+     PEG_ALCAP_RESET_REQUEST_RCVD             :0
+     PEG_ALCAP_RESET_REQUEST_SENT             :0
+     PEG_ALCAP_UNBLOCK_CONFIRM_RCVD           :0
+     PEG_ALCAP_UNBLOCK_CONFIRM_SENT           :0
+     PEG_ALCAP_UNBLOCK_REQUEST_RCVD           :0
+     PEG_ALCAP_UNBLOCK_REQUEST_SENT           :0
+     PEG_ALCAP_UNRECOGNIZED_MSG               :0
+     PEG_ALCAP_UNRECOGNIZED_PRM               :0

@@ -1,0 +1,21 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_asp_inactive <iid>
+
+DESCRIPTION
+    This command send asp inactive for a given interface identifier.
+
+PARAMETERS
+    iid    Interface Identifer. Optional
+            Configured values for routing key identifiers can be found by 
+            displaying IID. Command for displaying IID is mu_get_all_iids.
+
+
+EXAMPLE
+    >> mu_asp_inactive 11
+
+    *********** ASP INACTIVE Sent *************
+
+

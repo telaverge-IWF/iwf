@@ -1,0 +1,11 @@
+#! /bin/bash
+#
+# Set this to particular user home dir
+###############################################################################
+
+
+
+DBGConsoleD -socket -configFile dbc_console.ini.client
+
+exit 0
+

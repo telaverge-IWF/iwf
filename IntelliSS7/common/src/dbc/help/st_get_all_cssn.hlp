@@ -1,0 +1,23 @@
+
+TTC SCCP Command
+
+SYNOPSIS
+    st_get_all_cssn
+
+DESCRIPTION
+    This command displays TTC SCCP concerned SSN entries.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> st_get_all_cssn
+    ------------------------------
+    pc           <2>
+    ni           <0>
+    ssn          <2>
+    cpc          <5>
+    cssn         <5>
+    inservice    <no>
+
+

@@ -1,0 +1,121 @@
+Src_Internals.txt
+=================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document describes the code used to implement SSLRef 3.0. Users of
+the library need not read this document to make use of the library;
+however, it may be helpful in some applications to understand how the
+library is implemented.
+
+The document contains these sections:
+
+  - Code File Summary
+  - Error Conditions
+  - Reading Data
+  - Processing Handshake Messages
+  - Writing Handshake Messages
+
+
+Code File Summary
+-----------------
+Data enters and leaves the library through functions in ssltrspt.c.
+These functions use functions in sslrec.c to encode and queue records
+for writing, and for reading and decoding incoming records.
+
+Handshake records are passed to functions in sslhdshk.c, based on the
+current state of the SSL connection and the type of message received.
+Specific functions in the handshake files (all named hdsk*.c) process
+specific message types and encode responses.
+
+All other files are utilities used to process certificates, data
+exchange, or other library functions.
+
+
+Error Conditions
+----------------
+Nearly all functions return an SSLErr, which is bubbled up through the
+call chain.
+
+Callback functions must also return a valid SSLErr including SSLNoErr.
+
+All non-zero values indication an error condition.
+
+Most errors are treated as fatal errors and bubbled upwards, cleaning up
+as necessary.
+
+Some specified error values are recognized as non-fatal later in the
+call chain. These errors are handled as appropriate.
+
+
+Reading Data
+------------
+In general, records are received when functions in ssltrspt.c call
+SSLReadRecord() (in sslrec.c). This can happen either because the user
+called SSLRead or because the handshake protocol is blocked waiting for
+input.
+
+SSLReadRecord() reads data from the network into a cache (in the field
+ctx->partialReadBuffer). It then assembles complete records from the
+data in the cache. Complete records are decrypted and their MACs
+verified. The results are returned to the caller.
+
+The caller, in ssltrspt.c, examines the content field of each record and
+either uses the data to satisfy application requests (in conjunction
+with a cache maintained in ctx->receivedDataBuffer), or passes handshake
+messages to the function SSLProcessProtocolMessage, which will pass
+handshake messages to SSLProcessHandshakeRecord in sslhdshk.c.
+
+When all the messages in the record have been processed, control is
+returned to the calling functions in ssltrspt.c. These functions will
+write any queued records and read additional records as necessary.
+
+
+Processing Handshake Messages
+-----------------------------
+SSLProcessHandshakeRecord() processes the handshake record, recovering
+the message type and length for each encapsulated handshake message. It
+then calls SSLProcessHandshakeMessage(), which takes action based on the
+handshake message type. It verifies the message is valid for the current
+state of the connection, it then dispatches to functions located in
+various files whose names begin with "hdsk". These functions have the
+form SSLErr SSLProcess[messagename](SSLBuffer buf, SSLContext *ctx).
+
+SSLProcess() functions validate and process the message, updating the
+SSLContext() to represent the data they have received.
+
+Next, SSLAdvanceHandshake() is called to take whatever action is
+necessary to update the context state based on the new context values
+set by SSLProcess[messagename](). This is where response handshake
+messages are generated, key material is generated, and ciphers are
+finally made ready.
+
+Finally, control returns up the call chain, allowing additional
+handshake messages to be processed.
+
+
+Writing Handshake Messages
+--------------------------
+Handshake messages are generated from SSLAdvanceHandshake() by calling
+SSLPrepareAndQueueMessage(). This function takes a function pointer and
+an SSLContext pointer as parameters. The function pointers are all to
+functions of the form: SSLErr SSLEncode[messagename](SSLRecord *rec,
+SSLContext *ctx). These functions take a pointer to an SSLRecord, rather
+than an SSLBuffer (as above), so they can be used to encode SSL Alerts
+when appropriate.
+
+SSLPrepareAndQueueMessage() then queues the message into a queue for
+writing. This queue is serviced by functions in ssltrspt.c. Queuing
+messages in this way facilitates support for non-blocking I/O without
+unduly complicating the connection state or the flow of the code.

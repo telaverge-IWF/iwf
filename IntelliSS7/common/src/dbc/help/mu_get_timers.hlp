@@ -1,0 +1,21 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_get_timers
+
+DESCRIPTION
+    This command displays all asp Timers.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> mu_get_timers
+
+********* ASP TIMERS IN Sec. *********
+ASP_UP_TIMER       = 2
+ASP_DOWN_TIMER     = 2
+ASP_ACTIVE_TIMER   = 2
+ASP_INACTIVE_TIMER = 2
+

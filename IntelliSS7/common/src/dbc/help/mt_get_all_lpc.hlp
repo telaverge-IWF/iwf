@@ -1,0 +1,26 @@
+
+TTC Get LPC Command
+
+SYNOPSIS
+    mt_get_all_lpc  
+
+DESCRIPTION
+   This command gets all local pointcode details.
+
+PARAMETERS
+   None
+
+
+EXAMPLE
+
+>> mt_get_all_lpc
+------------------------------
+Local PC:         <8>
+Family:      <JAPAN>
+------------------------------
+------------------------------
+Local PC:         <7>
+Family:      <JAPAN>
+------------------------------
+
+

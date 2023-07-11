@@ -1,0 +1,289 @@
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!--      (C) 2001 IntelliNet Technologies Inc. All Rights Reserved.         -->
+<!--             Manufactured in the United States of America.               -->
+<!--     1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        -->
+<!--                                                                         -->
+<!--  This product and related documentation is protected by copyright and   -->
+<!--  distributed under licenses restricting its use, copying, distribution  -->
+<!--  and decompilation.  No part of this product or related documentation   -->
+<!--  may be reproduced in any form by any means without prior written       -->
+<!--  authorization of IntelliNet Technologies and its licensors, if any.    -->
+<!--                                                                         -->
+<!--  RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      -->
+<!--  government is subject to restrictions as set forth in subparagraph     -->
+<!--  (c)(1)(ii) of the Rights in Technical Data and Computer Software       -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- CONTRACT: INTERNAL                                                      -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- ID: $Id: Octets.html,v 9.1 2005/03/23 12:54:12 cvsadmin Exp $ -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<html>
+
+<head>
+<title>Class Octets</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<!-- Header /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<p>
+  <i>
+    <img border="0" src="AsnModuleLogo.jpg" width="240" height="47" align="right"></img>
+  </i>
+</p>
+
+<p style="margin-bottom: 0">
+  <i>
+    <font size="3">
+      - IntelliSS7 Application Development Environment -  C++ API -
+    </font>
+  </i>
+</p>
+
+<hr size="4" style="margin-top: 0"></hr>
+
+<p align="left">
+  <u>
+    <font size="6">
+    Class Octets
+    </font>
+  </u>
+</p>
+
+<p>
+  The class Octets allows handling encoded ASN.1 data values (vector of bytes). It is directly based (i.e. containment
+  relationship) on the class std::vector&lt;byte&gt;, but provides additional services required by the ASN.1 runtime
+  (e.g. cursor used by the various encode/decode algorithms). These additional services are not intended to be used by
+  the end-user. The end-user should only use the service of the public interface described on this page.
+</p>
+
+
+<!-- Class summary //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Class interface summary
+    </font>
+  </li>
+</ul>
+
+<p>
+  <a href="#Octets">Octets</a>
+  -
+  <a href="#GetArray">GetArray</a>
+  -
+  <a href="#SetArray">SetArray</a>
+  -
+  <a href="#~Octets">~Octets</a>
+  -
+  <a href="#operator=">operator=</a>
+  -
+  <a href="#operator==">operator==</a>
+  -
+  <a href="#GetSize">GetSize</a>
+  -
+  <a href="#Equals">Equals</a>
+  -
+  <a href="#Print">Print</a>
+  -
+  <a href="#operator&lt;&lt;">Operator&lt;&lt;</a>
+</p>
+
+
+<!-- Constructors ///////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Constructors
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+        <a name="Octets">
+          <b>Constructor signature</b>
+        </a>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Constructor summary</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <b>Octet()</b>
+      </td>
+      <td valign="middle" align="left">
+        The first <b>Octets</b> constructor allows creating an empty Octets object (default contructor).
+      </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <b>Octets(const std::vector&lt;byte&gt;&amp; array)</b>
+     </td>
+     <td valign="middle" align="left">
+       The second <b>Octets</b> constructor allows creating an Octets object from a vector of bytes (<i>array</i>
+       parameter of C++ type const std::vector&lt;byte&gt;&amp;). The created Octets object contains the specified
+       vector of bytes.
+     </td>
+   </tr>
+  </table>
+</div>
+
+<!-- Public member functions ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Public member functions
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+          <b>Member function signature</b>
+        </a>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Member function summary</b>
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetArray">
+          <b>const std::vector&lt;byte&gt;&amp; GetArray() const</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>GetArray</b> member function returns the contents of an Octets object (vector of bytes, C++ type const
+        std::vector&lt;byte&gt;&amp;).
+      </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="SetArray">
+        <b>void SetArray(const std::vector&lt;byte&gt;&amp; array)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       The <b>SetArray</b> member function allows setting the contents of an Octets object from a vector of bytes 
+       (<i>array</i> parameter of C++ type const std::vector&lt;byte&gt;&amp;).
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="~Octets">
+        <b>~Octets()</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       <b>~Octets</b> is the standard C++ destructor for the class Octets.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="operator=">
+        <b>Octets& operator=(const Octets& rhs)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       <b>operator=</b> is the standard C++ assignment operator for the class Octets.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="operator==">
+        <b>bool operator==(const Octets& rhs) const</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       <b>operator==</b> is the standard C++ comparison operator for the class Octets.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="GetSize">
+        <b>size_t GetSize() const</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">     
+       The <b>GetSize</b> member function returns the number of bytes contained in an Octets object.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="Equals">
+        <b>bool Equals(const Octets& rhs) const</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">     
+       The <b>Equals</b> member function allows checking the equality of two Octets object. Two Octets objects are 
+       equal if and only if their contents (vector of bytes) are equal.
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="Print">
+        <b>void Print(std::ostream&amp; os) const</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">
+       The <b>Print</b> member function allows printing the contents of an Octets object to an output stream at any
+       time.       
+     </td>
+   </tr>
+   <tr>
+     <td valign="middle" align="left" width="33%">
+       <a name="operator&lt;&lt;">
+        <b>std::ostream&amp; operator&lt;&lt; (std::ostream&amp; os, Octets& octets)</b>
+       </a>
+     </td>
+     <td valign="middle" align="left">     
+       The stream output operator (i.e. operator&lt;&lt;) allows printing the contents of an Octets object to an output
+       stream at any time.
+     </td>
+   </tr>
+  </table>
+</div>
+
+
+<!-- Footer (copyright notice) //////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<hr size="4"></hr>
+
+<p style="line-height: 100%; margin-left: 0; margin-top: 1; margin-bottom: 0" align="center">
+  <font size="2">
+    © 2001 IntelliNet Technologies, Inc. All rights reserved.
+  </font>
+</p>
+
+<br></br>
+
+</body>
+
+</html>
+
+

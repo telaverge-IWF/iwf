@@ -1,0 +1,46 @@
+echo "Enter PATCH_ID  "
+read patchid
+
+echo "Cutomer name eg: QOB/PSIG"
+read CUS
+
+export OLD_PATCH_ID="2.2-00-00-CUS";
+export PATCH_ID=$patchid-$CUS;
+export PKG_DIR=$IMS_ROOT;
+
+
+mkdir $PATCH_ID
+mkdir -p $PATCH_ID/.patchfiles
+mkdir -p $PATCH_ID/.patchfiles/lib
+
+cp $IMS_ROOT/scripts/imsdiaPatchAdd $PATCH_ID/.patchfiles/
+cp $IMS_ROOT/scripts/imsdiaPatchRemove $PATCH_ID/.patchfiles/
+cp $IMS_ROOT/scripts/imsdiaPatchInfo $PATCH_ID/.patchfiles/
+cp $IMS_ROOT/scripts/imsdiapatch.txt $PATCH_ID/.patchfiles/
+cp $IMS_ROOT/scripts/lPatchRemove $PATCH_ID/.patchfiles/
+cp $IMS_ROOT/scripts/patch-README $PATCH_ID/.patchfiles/README
+
+
+cd $PATCH_ID/.patchfiles
+
+sed -e "s/$OLD_PATCH_ID/$PATCH_ID/g" imsdiaPatchAdd > /tmp/tempfileims
+mv /tmp/tempfileims imsdiaPatchAdd
+sed -e "s/$OLD_PATCH_ID/$PATCH_ID/g" lPatchRemove > /tmp/tempfileims
+mv /tmp/tempfileims lPatchRemove
+sed -e "s/$OLD_PATCH_ID/$PATCH_ID/g" README > /tmp/tempfileims
+mv /tmp/tempfileims README
+
+sed -e "s/w.x-y-z-CUS/w.x-y-z-$CUS/g" imsdiapatch.txt > /tmp/temp
+mv /tmp/temp imsdiapatch.txt
+
+
+mv imsdiaPatchAdd ../
+
+cd ../
+chmod +x imsdiaPatchAdd
+
+cp $IMS_ROOT/vendors/IntelliNet/lib/libdiastackD.so .patchfiles/lib/
+
+
+echo " Edit README file "
+

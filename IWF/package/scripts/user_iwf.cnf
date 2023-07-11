@@ -1,0 +1,93 @@
+                                             
+[dre]
+#Standalone mode=1, Active-Standby mode=2, Active-Cold-Standby mode=3,Active-Hot-Standby mode=4
+dre_install_mode=1
+
+[bonding]
+#Bonding configuration(optional)
+bonding=no
+
+#below bonding cfg are applicable if bonding=yes
+
+
+#format: ip_<bond name>=a.b.c.d/x
+#        interface1_<bond_name>=<devname>
+#        interface2_<bond_name>=<devname>
+#ip_bond0=10.1.33.100/24
+#interface1_bond0=eth1
+#interface2_bond0=eth2
+
+#ip_bond1=172.1.3.101/16
+#interface1_bond1=eth3
+#interface2_bond1=eth4
+
+#Mysql configuration
+[mysql]
+mysql_username=root
+mysql_password=intelliss7
+mysql_root_password=intelliss7
+
+#Local Host Configuration
+[local_host]
+host_name=dre
+realm_name=intellinet.com
+ip_address=172.16.3.111
+#public_ip_address=123.3.3.3
+
+#Only 3 combinations of transports supported while installation
+#1) Transport 1 , Transport 2  and Transport 3
+#2) Only Transport 1
+#3) Only Transport 3
+#comment/uncomment the transports accordingly
+
+#Transport 1
+transport_type=TCP
+port=21000
+
+#Transport 2
+#transport_type2=SCTP
+#port2=3868
+
+#Transport 3
+#transport_type3=TCP
+#secure_port=5658
+
+
+
+
+#TIPC Configuration
+[tipc]
+net_id=2344
+tipc_node_address=2.4.6
+bearer_name=eth:bond1
+
+#Alarms configuration
+[alarm]
+trap_sink_ip1=172.16.10.20
+trap_sink_ip2=172.16.10.21
+#trap_sink_ip<n>=
+
+#NTP server Configuration
+[ntp]
+ntp_server_ip=172.16.3.14
+
+#######################################################################
+#  THE BELOW CONFIGURATIONS ARE APPLICABLE ONLY IF dre_install_mode=2 #
+#######################################################################
+
+#Mysql Heartbeat configurations
+[mysql_heartbeat]
+mysql_local_ip=172.16.3.200
+mysql_mate_ip=172.16.3.202
+mysql_mate_hostname=server1
+ha_mode=master
+#virtual ip in cidr notation
+mysql_virtual_ip=172.16.3.200/16
+mysql_interface_name=eth0
+
+
+
+#rsync_configuration ( )
+
+
+

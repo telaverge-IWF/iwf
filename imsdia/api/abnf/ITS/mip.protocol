@@ -1,0 +1,666 @@
+/**
+   RFC 3588 - Diameter Base and Accounting Protocol
+   RFC 4004 - Diameter Mobile IPv4 Application
+ */
+protocol diameter.mip < 2 : "RFC 4004" >;
+
+                             //////////////////
+                             // Derived AVPs //
+                             //////////////////
+
+/**
+ * The MIP-Reg-Request AVP (AVP Code 320) is of type OctetString and
+ * contains the Mobile IPv4 Registration Request [MOBILEIP] sent by the
+ * mobile node to the foreign agent.
+ */
+    MIP-Reg-Request                    ::= 320   /*7.1*/       OctetString    M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Reg-Reply AVP (AVP Code 321) is of type OctetString and
+ * contains the Mobile IPv4 Registration Reply [MOBILEIP] sent by the
+ * home agent to the foreign agent.
+ */ 
+    MIP-Reg-Reply                      ::= 321   /*7.2*/       OctetString    M  |  P  |    |  V  | Y;
+
+
+/**
+ * The MIP-Mobile-Node-Address AVP (AVP Code 333) is of type Address and
+ * contains the mobile node's home IP address.
+ */
+    MIP-Mobile-Node-Address            ::= 333   /*7.3*/       Address        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Home-Agent-Address AVP (AVP Code 334) is of type Address and
+ * contains the mobile node's home agent IP address.
+ */
+    MIP-Home-Agent-Address             ::= 334   /*7.4*/       Address        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Feature-Vector AVP (AVP Code 337) is of type Unsigned32 and
+ * is added with flag values set by the foreign agent or by the AAAF
+ * owned by the same administrative domain as the foreign agent.
+ */
+    MIP-Feature-Vector                 ::= 337   /*7.5*/       Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MN-AAA-Auth AVP (AVP Code 322) is of type Grouped and contains
+ * some ancillary data to simplify processing of the authentication data
+ * in the Mobile IPv4 Registration Request [MOBILEIP, MIPCHAL] by the
+ * target AAA server.
+ */
+    MIP-MN-AAA-Auth                    ::= 322   /*7.6*/       Grouped       M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-MN-AAA-SPI AVP (AVP Code 341) is of type Unsigned32 and
+ * indicates the MSA by which the targeted AAA server (AAAH) should
+ * attempt to validate the Authenticator computed by the mobile node
+ * over the Registration Request data.
+ */
+    MIP-MN-AAA-SPI                     ::= 341   /*7.6.1*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+
+/**
+ * The MIP-Auth-Input-Data-Length AVP (AVP Code 338) is of type
+ * Unsigned32 and contains the length, in bytes, of the Registration
+ * Request data (data portion of MIP-Reg-Request AVP) that should be
+ * used as input to the algorithm, as indicated by the MN-AAA-SPI AVP,
+ * used to determine whether the Authenticator Data supplied by the
+ * mobile node is valid.
+ */
+    MIP-Auth-Input-Data-Length         ::= 338    /*7.6.2*/    Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Authenticator-Length AVP (AVP Code 339) is of type Unsigned32
+ * and contains the length of the authenticator to be validated by the
+ * targeted AAA server (i.e., AAAH).
+ */    
+    MIP-Authenticator-Length           ::= 339   /*7.6.3*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Authenticator-Offset AVP (AVP Code 340) is of type Unsigned32
+ * and contains the offset into the Registration Request Data, of the
+ * authenticator to be validated by the targeted AAA server (i.e.,
+ * AAAH).
+ */
+    MIP-Authenticator-Offset           ::= 340   /*7.6.4*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-FA-Challenge AVP (AVP Code 344) is of type OctetString and
+ * contains the challenge advertised by the foreign agent to the mobile
+ * node.  This AVP MUST be present in the AMR if the mobile node used
+ * the RADIUS-style MN-AAA computation algorithm [MIPCHAL].
+ */
+    MIP-FA-Challenge                   ::= 344    /*7.7*/      OctetString    M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Filter-Rule AVP (AVP Code 342) is of type IPFilterRule and
+ * provides filter rules that have to be configured on the foreign or
+ * home agent for the user.  The packet filtering rules are set by the
+ * AAAH by adding one or more MIP-Filter-Rule AVPs in the HAR if
+ * destined for the home agent and/or in the AMA if destined for the
+ * foreign agent.
+ */
+    MIP-Filter-Rule                    ::= 342    /*7.8*/      IPFilterRule    M  |  P  |    |  V  | Y;
+
+
+/**
+ * The MIP-Candidate-Home-Agent-Host AVP (AVP Code 336) is of type
+ * DiameterIdentity and contains the identity of a home agent in the
+ * foreign network that the AAAF proposes to be dynamically assigned to
+ * the mobile node.
+ */
+    MIP-Candidate-Home-Agent-Host      ::= 336    /*7.9*/      DiamIdent      M  |  P  |    |  V  | N;
+
+/**
+ * The MIP-Originating-Foreign-AAA AVP (AVP Code 347) is of type Grouped
+ * and contains the identity of the AAAF, which issues the AMR to the
+ * AAAH.  The MIP-Originating-Foreign-AAA AVP MUST only be used in cases
+ * when the home agent is or may be allocated in a foreign domain.  If
+ * the MIP-Originating-Foreign-AAA AVP is present in the AMR, the AAAH
+ * MUST copy it into the HAR.
+ */
+    MIP-Originating-Foreign-AAA        ::= 347   /*7.10*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Home-Agent-Host AVP (AVP Code 348) is of type Grouped and
+ * contains the identity of the assigned Home Agent.  If the MIP-Home-
+ * Agent-Host AVP is present in the AMR, the AAAH MUST copy it into the
+ * HAR.
+ */
+    MIP-Home-Agent-Host                ::= 348  /*7.11*/       Grouped      M  |  P  |    |  V  | N;
+
+/**
+ * The MIP-FA-to-MN-MSA AVP (AVP Code 326) is of type Grouped and
+ * contains the FA-MN session key.  This AVP is conveyed to the FA in an
+ * AMA message.  The MN allocates the MIP-FA-to-MN-SPI.  The FA creates
+ * an FA-MN authentication extension by using the session key and
+ * algorithm, and the MN verifies that extension by using the same
+ * session key and algorithm.
+ */
+    MIP-FA-to-MN-MSA                   ::= 326    /*9.1*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-FA-to-HA-MSA AVP (AVP Code 328) is of type Grouped and
+ * contains the FA-HA session key.  This AVP is conveyed to the FA in an
+ * AMA message.  The HA allocates the MIP-FA-to-HA-SPI.  The FA creates
+ * the FA-HA authentication extension by using the session key and
+ * algorithm, and the HA verifies that extension by using the same key
+ * and algorithm.
+ */
+    MIP-FA-to-HA-MSA                   ::= 328    /*9.2*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-HA-to-FA-MSA AVP (AVP Code 329) is of type Grouped and
+ * contains the Home Agent's session key, which it shares with the
+ * foreign agent.  This AVP is conveyed to the HA in an HAR message.
+ * The FA allocates the MIP-HA-to-FA-SPI.  The HA creates the HA-FA
+ * authentication extension by using the session key and algorithm, and
+ * the FA verifies that extension by using the same session key and
+ * algorithm.
+ */
+    MIP-HA-to-FA-MSA                   ::= 329    /*9.3*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-HA-to-MN-MSA AVP (AVP Code 332) is of type Grouped, and
+ * contains the HA-MN session key.  This AVP is conveyed to the HA in an
+ * HAR for FA COA Mobile IPv4 and in an AMA for collocated COA Mobile
+ * IPv4.  The MN allocates the MIP-HA-to-MN-SPI.  The HA creates the
+ * HA-MN authentication extension by using the session key and
+ * algorithm, and the MN verifies that extension by using the same key
+ * and algorithm.
+ */ 
+    MIP-HA-to-MN-MSA                   ::= 332    /*9.4*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-MN-to-FA-MSA AVP (AVP Code 325) is of type Grouped, and
+ * contains the MN-FA session nonce, which the mobile node uses to
+ * derive the MN-FA session key.  This AVP is conveyed to the HA in an
+ * HAR message.  The FA allocates the MIP-MN-to-FA-SPI.  The MN creates
+ * the MN-FA authentication extension by using the session key and
+ * algorithm, and the FA verifies that extension using the same key and
+ * algorithm. The home agent uses this AVP in the construction of the Mobile IP
+ * "Generalized MN-FA Key Generation Nonce Reply" extension [MIPKEYS].
+ */ 
+    MIP-MN-to-FA-MSA                   ::= 325    /*9.5*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-MN-to-HA-MSA AVP (AVP Code 331) is of type Grouped and
+ * contains the MN-HA session nonce, which the mobile node uses to
+ * derive the MN-HA session key.  This AVP is conveyed to the HA in an
+ * HAR message for FA COA Mobile IPv4 and in an AMR for collocated
+ * Mobile IPv4.  The HA allocates the MIP-MN-to-HA-SPI.  The MN creates
+ * the MN-FA authentication extension using the session key and algorithm, 
+ * and the HA verifies that extension using the same session key and algorithm.
+ * The Home Agent uses this AVP in the construction of the Mobile IP
+ * "Generalized MN-HA Key Generation Nonce Reply" extension [MIPKEYS].
+ */
+    MIP-MN-to-HA-MSA                   ::= 331    /*9.6*/      Grouped        M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Session-Key AVP (AVP Code 343) is of type OctetString and
+ * contains the Session Key for the associated Mobile IPv4
+ * authentication extension.  The HAAA selects the session key.
+ */
+    MIP-Session-Key                    ::= 343    /*9.7*/      OctetString    M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Algorithm-Type AVP (AVP Code 345) is of type Enumerated and
+ * contains the Algorithm identifier for the associated Mobile IPv4
+ * authentication extension.  The HAAA selects the algorithm type.
+ */
+    MIP-Algorithm-Type                 ::= 345    /*9.8*/      Enumerated     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Replay-Mode AVP (AVP Code 346) is of type Enumerated and
+ * contains the replay mode the Home Agent for authenticating the mobile
+ * node.  The HAAA selects the replay mode.
+ */
+    MIP-Replay-Mode                    ::= 346    /*9.9*/      Enumerated     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-FA-to-MN-SPI AVP (AVP Code 319) is of type Unsigned32, and it
+ * contains the Security Parameter Index the FA that and MN use to refer
+ * to the FA-MN mobility security association.  The MN allocates the
+ * SPI, and it MUST NOT have a value between zero (0) and 255, which is
+ * the reserved namespace defined in [MOBILEIP].
+ */
+    MIP-FA-to-MN-SPI                   ::= 319    /*9.10*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-FA-to-HA-SPI AVP (AVP Code 318) is of type Unsigned32 and
+ * contains the Security Parameter Index the FA and HA use to refer to
+ * the FA-HA mobility security association.  The HA allocates the SPI,
+ * and it MUST NOT have a value between zero (0) and 255, which is the
+ * reserved namespace defined in [MOBILEIP].
+ */ 
+    MIP-FA-to-HA-SPI                   ::= 318    /*9.11*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-Nonce AVP (AVP Code 335) is of type OctetString and contains
+ * the nonce sent to the mobile node for the associated authentication
+ * extension.  The mobile node follows the procedures in [MIPKEYS] to
+ * generate the session key used to authenticate Mobile IPv4
+ * registration messages.  The HAAA selects the nonce.
+ */
+    MIP-Nonce                 ::= 335    /*9.12*/     OctetString    M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-MSA-Lifetime AVP (AVP Code 367) is of type Unsigned32 and
+ * represents the period of time (in seconds) for which the session key
+ * or nonce is valid.  The associated session key or nonce, as the case
+ * may be, MUST NOT be used if the lifetime has expired; if the session
+ * key or nonce lifetime expires while the session to which it applies
+ * is still active, either the session key or nonce MUST be changed or
+ * the association Mobile IPv4 session MUST be terminated.
+ */
+    MIP-MSA-Lifetime                   ::= 367    /*9.13*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The MIP-HA-to-FA-SPI AVP (AVP Code 323) is of type Unsigned32 and
+ * contains the Security Parameter Index the HA and FA use to refer to
+ * the HA-FA mobility security association.  The FA allocates the SPI,
+ * and it MUST NOT have a value between zero (0) and 255, which is the
+ * reserved namespace defined in [MOBILEIP].
+ */
+    MIP-HA-to-FA-SPI                   ::= 323    /*9.14*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The Accounting-Input-Octets AVP (AVP Code 363) is of type Unsigned64,
+ * and contains the number of octets in IP packets received from the
+ * user.  This AVP MUST be included in all Accounting-Request messages
+ * and MAY be present in the corresponding Accounting-Answer messages as
+ * well.
+ * The flag Rule for this AVP is not mentioned in RFC 4004. Hence below
+ * mentioned rule is added by Hemant
+ */ 
+    Accounting-Input-Octets            ::= 363    /*10.1*/     Unsigned64     M  |  P  |    |  V  | Y;
+
+
+/**
+ * The Accounting-Output-Octets AVP (AVP Code 364) is of type Unsigned64
+ * and contains the number of octets in IP packets sent to the user.
+ * This AVP MUST be included in all Accounting-Request messages and MAY
+ * be present in the corresponding Accounting-Answer messages as well.
+ * The flag Rule for this AVP is not mentioned in RFC 4004. Hence below
+ * mentioned rule is added by Hemant
+ */
+     Accounting-Output-Octets          ::= 364    /*10.2*/     Unsigned64     M  |  P  |    |  V  | Y;
+
+/**
+ * The Acct-Session-Time AVP (AVP Code 46) is of type Unsigned32 and indicates
+ * the length of the current session in seconds.  This AVP MUST be
+ * included in all Accounting-Request messages and MAY be present in the
+ * corresponding Accounting-Answer messages as well.
+ * The flag Rule for this AVP is not mentioned in RFC 4004. Hence below
+ * mentioned rule is added by Hemant
+ */
+    Acct-Session-Time                  ::= 46    /*10.3*/     Unsigned32     M  |  P  |    |  V  | Y;
+
+/**
+ * The Accounting-Input-Packets (AVP Code 365) is of type Unsigned64 and
+ * contains the number of IP packets received from the user.  This AVP
+ * MUST be included in all Accounting-Request messages and MAY be
+ * present in the corresponding Accounting-Answer messages as well. 
+ * The flag Rule for this AVP is not mentioned in RFC 4004. Hence below
+ * mentioned rule is added by Hemant
+ */
+    Accounting-Input-Packets           ::= 365    /*10.4*/     Unsigned64     M  |  P  |    |  V  | Y;
+
+/**
+ * The Accounting-Output-Packets (AVP Code 366) is of type Unsigned64
+ * and contains the number of IP packets sent to the user.  This AVP
+ * MUST be included in all Accounting-Request messages and MAY be
+ * present in the corresponding Accounting-Answer messages as well.
+ * The flag Rule for this AVP is not mentioned in RFC 4004. Hence below
+ * mentioned rule is added by Hemant
+ */
+    Accounting-Output-Packets          ::= 366    /*10.5*/     Unsigned64     M  |  P  |    |  V  | Y;
+
+
+                             //////////////////////////
+                             ////// Enumerated AVPs ///
+                             //////////////////////////
+
+
+    MIP-Algorithm-Type            ::= < Enumerated : 345 >
+            HMAC_SHA_1                       2
+            ;
+
+    MIP-Replay-Mode               ::= < Enumerated : 346 >
+           NONE                              1
+           TIMESTAMPS                        2
+           NONCES                            3
+           ;
+
+
+                             ///////////////////
+                             // Grouped AVPs ///
+                             ///////////////////
+
+    MIP-MN-AAA-Auth               ::= < AVP Header: 322 >
+                                      { MIP-MN-AAA-SPI }
+                                      { MIP-Auth-Input-Data-Length }
+                                      { MIP-Authenticator-Length }
+                                      { MIP-Authenticator-Offset }
+                                      * [ AVP ]
+                                      ;
+
+    MIP-Originating-Foreign-AAA   ::= < AVP Header: 347 >
+                                      { Origin-Realm }
+                                      { Origin-Host }
+                                      * [ AVP ]
+                                      ;
+
+    MIP-Home-Agent-Host           ::= < AVP Header: 348 >
+                                      { Destination-Realm }
+                                      { Destination-Host }
+                                      * [ AVP ]
+                                      ;
+
+    MIP-FA-to-MN-MSA              ::= < AVP Header: 326 >
+                                      { MIP-FA-to-MN-SPI }
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Session-Key }
+                                      * [ AVP ]
+                                      ;
+
+    MIP-FA-to-HA-MSA              ::= < AVP Header: 328 >
+                                      { MIP-FA-to-HA-SPI }
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Session-Key }
+                                      * [ AVP ]
+                                      ;
+
+    MIP-HA-to-FA-MSA              ::= < AVP Header: 329 >
+                                      { MIP-HA-to-FA-SPI }
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Session-Key }
+                                      * [ AVP ]
+                                      ; 
+
+/**
+ * The AVP MIP-HA-to-MN-SPI is not available in RFC hence commenting out
+ */ 
+    MIP-HA-to-MN-MSA              ::= < AVP Header: 332 >
+                                      /*{ MIP-HA-to-MN-SPI }*/
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Replay-Mode }
+                                      { MIP-Session-Key }
+                                      * [ AVP ]
+                                      ;
+/**
+ * MIP-MN-FA-SPI is not available and hence commenting out
+ */
+    MIP-MN-to-FA-MSA              ::= < AVP Header: 325 >
+                                      /*{ MIP-MN-FA-SPI }*/
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Nonce }
+                                      * [ AVP ]
+                                      ;
+/**
+ * MIP-MN-HA-SPI is not available hence commenting out
+ */
+    MIP-MN-to-HA-MSA              ::= < AVP Header: 331 >
+                                      /*{ MIP-MN-HA-SPI }*/
+                                      { MIP-Algorithm-Type }
+                                      { MIP-Replay-Mode }
+                                      { MIP-Nonce }
+                                      * [ AVP ]
+                                      ;
+  
+
+
+
+                             ////////////////////
+                             //// Commands //////
+                             ////////////////////
+
+
+/**
+ * The AA-Mobile-Node-Request (AMR), indicated by the Command-Code field
+ * set to 260 and the 'R' bit set in the Command Flags field, is sent by
+ * an attendant (i.e., the Foreign Agent), acting as a Diameter client,
+ * to an AAAF in order to request the authentication and authorization
+ * of a mobile node.
+ */
+
+    AA-Mobile-Node-Request<AMR>   ::= < Diameter Header: 260, REQ, PXY, 2 >
+            < Session-Id >
+            { Auth-Application-Id }
+            { User-Name }
+            { Destination-Realm }
+            { Origin-Host }
+            { Origin-Realm }
+            { MIP-Reg-Request }
+            { MIP-MN-AAA-Auth }
+            [ Acct-Multi-Session-Id ]
+            [ Destination-Host ]
+            [ Origin-State-Id ]
+            [ MIP-Mobile-Node-Address ]
+            [ MIP-Home-Agent-Address ]
+            [ MIP-Feature-Vector ]
+            [ MIP-Originating-Foreign-AAA ]
+            [ Authorization-Lifetime ]
+            [ Auth-Session-State ]
+            [ MIP-FA-Challenge ]
+            [ MIP-Candidate-Home-Agent-Host ]
+            [ MIP-Home-Agent-Host ]
+            [ MIP-HA-to-FA-SPI ]
+            * [ Proxy-Info ]
+            * [ Route-Record ]
+            * [ AVP ]
+            ;
+
+
+
+/**
+ * The AA-Mobile-Node-Answer (AMA), indicated by the Command-Code field
+ * set to 260 and the 'R' bit cleared in the Command Flags field, is
+ * sent by the AAAH in response to the AA-Mobile-Node-Request message.
+ * The User-Name MAY be included in the AMA if it is present in the AMR.
+ */
+    AA-Mobile-Node-Answer<AMA>    ::= < Diameter Header: 260, PXY, 2 >
+            < Session-Id >
+            { Auth-Application-Id }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ Acct-Multi-Session-Id ]
+            [ User-Name ]
+            [ Authorization-Lifetime ]
+            [ Auth-Session-State ]
+            [ Error-Message ]
+            [ Error-Reporting-Host ]
+            [ Re-Auth-Request-Type ]
+            [ MIP-Feature-Vector ]
+            [ MIP-Reg-Reply ]
+            [ MIP-MN-to-FA-MSA ]
+            [ MIP-MN-to-HA-MSA ]
+            [ MIP-FA-to-MN-MSA ]
+            [ MIP-FA-to-HA-MSA ]
+            [ MIP-HA-to-MN-MSA ]
+            [ MIP-MSA-Lifetime ]
+            [ MIP-Home-Agent-Address ]
+            [ MIP-Mobile-Node-Address ]
+            * [ MIP-Filter-Rule ]
+            ;
+
+/**
+ * The AAA sends the Home-Agent-MIP-Request (HAR), indicated by the
+ * Command-Code field set to 262 and the 'R' bit set in the Command
+ * Flags field, to the Home Agent.  If the Home Agent is to be assigned
+ * in a foreign network, the HAR is issued by the AAAH and forwarded by
+* the AAAF to the HA if no redirect servers are involved. 
+*/
+    Home-Agent-MIP-Request<HAR>   ::= < Diameter Header: 262, REQ, PXY, 2 >
+            < Session-Id >
+            { Auth-Application-Id }
+            { Authorization-Lifetime }
+            { Auth-Session-State }
+            { MIP-Reg-Request }
+            { Origin-Host }
+            { Origin-Realm }
+            { User-Name }
+            { Destination-Realm }
+            { MIP-Feature-Vector }
+            [ Destination-Host ]
+            [ MIP-MN-to-HA-MSA ]
+            [ MIP-MN-to-FA-MSA ]
+            [ MIP-HA-to-MN-MSA ]
+            [ MIP-HA-to-FA-MSA ]
+            [ MIP-MSA-Lifetime ]
+            [ MIP-Originating-Foreign-AAA ]
+            [ MIP-Mobile-Node-Address ]
+            [ MIP-Home-Agent-Address ]
+            *[ MIP-Filter-Rule ]
+            [ Origin-State-Id ]
+            *[ Proxy-Info ]
+            *[ Route-Record ]
+            *[ AVP ]
+            ;
+
+
+/**
+* In response to a Home-Agent-MIP-Request, the Home Agent sends the
+* Home-Agent-MIP-Answer (HAA), indicated by the Command-Code field set
+* to 262 and the 'R' bit cleared in the Command Flags field, to its
+* local AAA server.
+*/
+    Home-Agent-MIP-Answer<HAA>    ::= < Diameter Header: 262, PXY, 2 >
+            < Session-Id >
+            { Auth-Application-Id }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ Acct-Multi-Session-Id ]
+            [ User-Name ]
+            [ Error-Reporting-Host ]
+            [ Error-Message ]
+            [ MIP-Reg-Reply ]
+            [ MIP-Home-Agent-Address ]
+            [ MIP-Mobile-Node-Address ]
+            [ MIP-FA-to-HA-SPI ]
+            [ MIP-FA-to-MN-SPI ]
+            [ Origin-State-Id ]
+            *[ Proxy-Info ]
+            *[ AVP ]
+            ;
+
+
+ /***********************************************************************
+ * Copyright (C) The Internet Society (2003).  All Rights Reserved.
+
+ * This document and translations of it may be copied and furnished to
+ * others, and derivative works that comment on or otherwise explain it
+ * or assist in its implementation may be prepared, copied, published
+ * and distributed, in whole or in part, without restriction of any
+ * kind, provided that the above copyright notice and this paragraph are
+ * included on all such copies and derivative works.  However, this
+ * document itself may not be modified in any way, such as by removing
+ * the copyright notice or references to the Internet Society or other
+ * Internet organizations, except as needed for the purpose of
+ * developing Internet standards in which case the procedures for
+ * copyrights defined in the Internet Standards process must be
+ * followed, or as required to translate it into languages other than
+ * English.
+
+ * The limited permissions granted above are perpetual and will not be
+ * revoked by the Internet Society or its successors or assigns.
+
+ * This document and the information contained herein is provided on an
+ * "AS IS" basis and THE INTERNET SOCIETY AND THE INTERNET ENGINEERING
+ * TASK FORCE DISCLAIMS ALL WARRANTIES, EXPRESS OR IMPLIED, INCLUDING
+ * BUT NOT LIMITED TO ANY WARRANTY THAT THE USE OF THE INFORMATION
+ * HEREIN WILL NOT INFRINGE ANY RIGHTS OR ANY IMPLIED WARRANTIES OF
+ * MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+ ***********************************************************************
+
+ * The Accounting-Request (ACR) command, indicated by the Command-Code
+ * field set to 271 and the Command Flags' 'R' bit set, is sent by a
+ * Diameter node, acting as a client, in order to exchange accounting
+ * information with a peer.
+ * <p>
+ * One of Acct-Application-Id and Vendor-Specific-Application-Id AVPs
+ * MUST be present.  If the Vendor-Specific-Application-Id grouped AVP
+ * is present, it must have an Acct-Application-Id inside.
+ */
+    Accounting-Request<ACR> ::= < Diameter Header: 271, REQ, PXY, 2 >
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Accounting-Record-Type }
+            { Accounting-Record-Number }
+            { Accounting-Input-Octets }  
+            { Accounting-Input-Packets }
+            { Accounting-Output-Octets }
+            { Accounting-Output-Packets }
+            { Acct-Multi-Session-Id }
+            { Acct-Session-Time }
+            { MIP-Feature-Vector }
+            { MIP-Home-Agent-Address }
+            { MIP-Mobile-Node-Address }
+            [ Acct-Application-Id ]
+            [ Vendor-Specific-Application-Id ]
+            [ User-Name ]
+            [ Accounting-Sub-Session-Id ]
+            [ Acct-Session-Id ]
+            [ Acct-Interim-Interval ]
+            [ Accounting-Realtime-Required ]
+            [ Origin-State-Id ]
+            [ Event-Timestamp ]
+          * [ Proxy-Info ]
+          * [ Route-Record ]
+          * [ AVP ]
+            ;
+
+
+/**
+ * The Accounting-Answer (ACA) command, indicated by the Command-Code
+ * field set to 271 and the Command Flags' 'R' bit cleared, is used to
+ * acknowledge an Accounting-Request command.  The Accounting-Answer
+ * command contains the same Session-Id and includes the usage AVPs only
+ * if CMS is in use when sending this command.  Note that the inclusion
+ * of the usage AVPs when CMS is not being used leads to unnecessarily
+ * large answer messages, and can not be used as a server's proof of the
+ * receipt of these AVPs in an end-to-end fashion.  If the Accounting-
+ * Request was protected by end-to-end security, then the corresponding
+ * ACA message MUST be protected by end-to-end security.
+ * <p>
+ * Only the target Diameter Server, known as the home Diameter Server,
+ * SHOULD respond with the Accounting-Answer command.
+ * <p>
+ * One of Acct-Application-Id and Vendor-Specific-Application-Id AVPs
+ * MUST be present.  If the Vendor-Specific-Application-Id grouped AVP
+ * is present, it must have an Acct-Application-Id inside.
+ */
+    Accounting-Answer<ACA> ::= < Diameter Header: 271, PXY, 2 >
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            { Accounting-Record-Type }
+            { Accounting-Record-Number }
+            [ Accounting-Input-Octets ]          
+            [ Accounting-Input-Packets ]
+            [ Accounting-Output-Octets ]
+            [ Accounting-Output-Packets ]
+            [ Acct-Multi-Session-Id ]
+            [ Acct-Session-Time ]      
+            [ MIP-Feature-Vector ]     
+            [ MIP-Home-Agent-Address  ]
+            [ MIP-Mobile-Node-Address ]
+            [ Acct-Application-Id ]
+            [ Vendor-Specific-Application-Id ]
+            [ User-Name ]
+            [ Accounting-Sub-Session-Id ]
+            [ Acct-Session-Id ]
+            [ Error-Reporting-Host ]
+            [ Acct-Interim-Interval ]
+            [ Accounting-Realtime-Required ]
+            [ Origin-State-Id ]
+            [ Event-Timestamp ]
+          * [ Proxy-Info ]
+          * [ AVP ]
+            ;
+

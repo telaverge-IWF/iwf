@@ -1,0 +1,267 @@
+#!/bin/bash
+
+RELEASE_DIR=$IMS_ROOT/build/$PLATFORM/ReleaseDir
+RELEASE_ROOT=$RELEASE_DIR/IMS-SRC-PSG-$IMS_VER
+
+cd $IMS_ROOT/build/$PLATFORM/
+rm -rf ./ReleaseDir
+
+cd -
+
+mkdir -p $RELEASE_IMSROOT
+mkdir -p $RELEASE_IMSROOT/AcceleroCore
+mkdir -p $RELEASE_IMSROOT/imsdia
+mkdir -p $RELEASE_IMSROOT/imstools
+
+##### INTELLISS7 #####
+
+RELEASE_ITSROOT=$RELEASE_ROOT/AcceleroCore
+RELEASE_IMSROOT=$RELEASE_ROOT/imsdia
+RELEASE_IMSTOOLS=$RELEASE_ROOT/imstools
+RELEASE_LOADSIM=$RELEASE_ROOT/diademo
+
+mkdir -p $RELEASE_ITSROOT
+mkdir -p $RELEASE_IMSROOT
+mkdir -p $RELEASE_IMSTOOLS
+mkdir -p $RELEASE_LOADSIM
+
+
+###### Copying Files from $ITS_ROOT
+
+cp $ITS_ROOT/config.vars.solaris  $RELEASE_ITSROOT/.
+cp $ITS_ROOT/config.vars.sol.gcc  $RELEASE_ITSROOT/.
+cp $ITS_ROOT/config.vars  $RELEASE_ITSROOT/config.vars.linux
+cp $ITS_ROOT/config.vars  $RELEASE_ITSROOT/.
+
+cp $ITS_ROOT/config.rules       $RELEASE_ITSROOT
+cp $ITS_ROOT/csubs $ITS_ROOT/esubs $ITS_ROOT/Makefile $RELEASE_ITSROOT
+cp $ITS_ROOT/tsubs $ITS_ROOT/Makefile $RELEASE_ITSROOT
+
+###### Copying Folders from $ITS_ROOT
+
+cp -R $ITS_ROOT/GCS  $RELEASE_ITSROOT
+cp -R $ITS_ROOT/common $RELEASE_ITSROOT
+cp -R $ITS_ROOT/ENGINE $RELEASE_ITSROOT
+cp -R $ITS_ROOT/tls $RELEASE_ITSROOT
+
+###### Removing unwanted Files and Folders from $ITS_ROOT
+
+rm -rf $RELEASE_ITSROOT/common/build.ord
+rm -rf $RELEASE_ITSROOT/common/doc
+
+cd $RELEASE_ITSROOT/common/bin
+rm -rf ctf_console.xml DefaultName.ini DiaServer.ini.dmp genkey genkeyD DiaClient.ini.dmp
+
+
+cd $RELEASE_ITSROOT/common/src
+rm -rf ctf
+
+cd dbc
+rm -rf build.targets help
+
+cd ../support/platforms
+rm -rf advunix DECUNIX genunix hpux vxworks WIN32
+
+cd ../../dispatch
+rm -rf tandempp.ide tandem.ide
+
+cd ../dsm-stub
+rm -rf tandem.ide
+
+cd ../../../GCS
+rm -rf doc include
+
+cd ../tls/include
+rm -rf gnutls openssl
+
+cd ../lib
+rm -rf gnutls openssl
+
+rm -rf $RELEASE_ITSROOT/common/src/dsm-nsk
+rm -rf $RELEASE_ITSROOT/common/src/dsm-sci
+rm -rf $RELEASE_ITSROOT/common/src/gdi
+rm -rf $RELEASE_ITSROOT/common/src/imal
+rm -rf $RELEASE_ITSROOT/common/src/asn-c
+rm -rf $RELEASE_ITSROOT/common/src/sctp
+rm -rf $RELEASE_ITSROOT/common/src/asn-cpp
+rm -rf $RELEASE_ITSROOT/common/src/mnt
+rm -rf $RELEASE_ITSROOT/common/src/domxmlparser
+rm -rf $RELEASE_ITSROOT/common/src/ALCAP
+rm -rf $RELEASE_ITSROOT/common/src/dsm-posix
+rm -rf $RELEASE_ITSROOT/common/src/MsgFileDll
+rm -rf $RELEASE_ITSROOT/common/src/parse
+rm -rf $RELEASE_ITSROOT/common/src/rudp
+rm -rf $RELEASE_ITSROOT/common/src/STC
+rm -rf $RELEASE_ITSROOT/common/src/SUA
+rm -rf $RELEASE_ITSROOT/common/src/tali
+rm -rf $RELEASE_ITSROOT/common/src/M3UA
+rm -rf $RELEASE_ITSROOT/common/src/M2UA
+rm -rf $RELEASE_ITSROOT/common/src/ual
+
+rm -rf $RELEASE_ITSROOT/common/src/itscore/crlicense.c
+rm -rf $RELEASE_ITSROOT/common/src/itscore/mcrlicense.c
+rm -rf $RELEASE_ITSROOT/common/src/itscore/prlicense.c
+rm -rf $RELEASE_ITSROOT/common/src/itscore/vrlicense.c
+rm -rf $RELEASE_ITSROOT/common/src/itscore/genkey.c
+rm -rf $RELEASE_ITSROOT/common/src/itscore/keylicense.c
+
+rm -rf $RELEASE_ITSROOT/common/bin/crlicense*
+rm -rf $RELEASE_ITSROOT/common/bin/prlicense*
+rm -rf $RELEASE_ITSROOT/common/bin/vrlicense*
+rm -rf $RELEASE_ITSROOT/common/bin/keylicense*
+rm -rf $RELEASE_ITSROOT/common/bin/mcrlicense*
+rm -rf $RELEASE_ITSROOT/common/bin/DBG*
+rm -rf $RELEASE_ITSROOT/common/include/asn-c
+rm -rf $RELEASE_ITSROOT/common/include/asn-cpp
+rm -rf $RELEASE_ITSROOT/common/include/mnt
+rm -rf $RELEASE_ITSROOT/common/include/parse
+rm -rf $RELEASE_ITSROOT/common/include/ssl
+rm -rf $RELEASE_ITSROOT/common/include/domxmlparser
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_advunix.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_genunix.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_win.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_vxworks.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_hpux.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_decunix.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/its_tandem.h
+rm -rf $RELEASE_ITSROOT/common/include/platforms/generic
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/hpux
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/WIN32
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/tandem
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/genunix
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/DECUNIX
+rm -rf $RELEASE_ITSROOT/common/src/itscore/platforms/vxworks
+rm -rf $RELEASE_ITSROOT/common/include/gdi
+rm -rf $RELEASE_ITSROOT/GCS/bin/gcs*
+rm -rf $RELEASE_ITSROOT/errss*
+
+rm -rf $RELEASE_ITSROOT/common/lib/lib*  ##### Removing generated libraries
+rm -rf $RELEASE_ITSROOT/tls/lib/lib*
+
+grep ctf $RELEASE_ITSROOT/common/src/ssubs |cut -d" " -f1-11 > $RELEASE_ITSROOT/common/src/ssubs-upd
+cp $RELEASE_ITSROOT/common/src/ssubs-upd $RELEASE_ITSROOT/common/src/ssubs
+rm -rf $RELEASE_ITSROOT/common/src/ssubs-upd
+
+find $RELEASE_ITSROOT -type f -name README -exec rm -rf {} \;
+find $RELEASE_ITSROOT -type f -name exports -exec rm -rf {} \;
+find $RELEASE_ITSROOT -type f -name src_exports -exec rm -rf {} \;
+find $RELEASE_ITSROOT -type f -name *.dsw -exec rm -rf {} \;
+find $RELEASE_ITSROOT -type f -name *.dsp -exec rm -rf {} \;
+
+#####  IMSDIA	#####
+#cp -r $IMS_ROOT/* $RELEASE_IMSROOT/.
+cp $IMS_ROOT/make.dirs.sol* $RELEASE_IMSROOT
+cp $IMS_ROOT/make.dirs $RELEASE_IMSROOT/make.dirs.linux
+cp $IMS_ROOT/make.dirs $RELEASE_IMSROOT
+mkdir -p $RELEASE_IMSROOT/api/abnf
+mkdir -p $RELEASE_IMSROOT/api/abnf/ITS
+mkdir -p $RELEASE_IMSROOT/api/c++
+mkdir -p $RELEASE_IMSROOT/api/c++/lib
+mkdir -p $RELEASE_IMSROOT/diademo
+cp -r $IMS_ROOT/api/c++/include $RELEASE_IMSROOT/api/c++/.
+cp -r $IMS_ROOT/api/c++/src $RELEASE_IMSROOT/api/c++/.
+cp -r $IMS_ROOT/common $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/itsdemo $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/dframe $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/val $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/vendors $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/mag $RELEASE_IMSROOT/.
+cp -r $IMS_ROOT/api/abnf/ITS $RELEASE_IMSROOT/api/abnf/.
+cp -r $IMS_ROOT/build/moto-psg/Makefile.mag $RELEASE_IMSROOT/mag/Makefile
+cp -r $IMS_ROOT/../diademo/* $RELEASE_LOADSIM
+
+mkdir -p $RELEASE_IMSROOT/api/c++/mtest/diameter
+cp -r $IMS_ROOT/api/c++/mtest/diameter/app $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+cp -r $IMS_ROOT/api/c++/mtest/diameter/app_stat $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+cp -r $IMS_ROOT/api/c++/mtest/diameter/base $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+
+cp -r $IMS_ROOT/api/c++/mtest/diameter/rx* $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+rm -rf $RELEASE_IMSROOT/api/c++/mtest/diameter/rx/src/Makefile.dist
+cp -r $RELEASE_IMSROOT/api/c++/mtest/diameter/rx/src/Makefile.stat $RELEASE_IMSROOT/api/c++/mtest/diameter/rx/src/Makefile
+rm -rf $RELEASE_IMSROOT/api/c++/mtest/diameter/rx_ts29214/src/Makefile.dist
+cp -r $RELEASE_IMSROOT/api/c++/mtest/diameter/rx_ts29214/src/Makefile.stat $RELEASE_IMSROOT/api/c++/mtest/diameter/rx_ts29214/src/Makefile
+
+cp -r $IMS_ROOT/api/c++/mtest/diameter/gx $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+rm -rf $RELEASE_IMSROOT/api/c++/mtest/diameter/gx/src/Makefile.dist
+cp -r $RELEASE_IMSROOT/api/c++/mtest/diameter/gx/src/Makefile.stat $RELEASE_IMSROOT/api/c++/mtest/diameter/gx/src/Makefile
+
+cp -r $IMS_ROOT/api/c++/mtest/diameter/s6a $RELEASE_IMSROOT/api/c++/mtest/diameter/.
+rm -rf $RELEASE_IMSROOT/api/c++/mtest/diameter/s6a/src/Makefile.dist
+cp -r $RELEASE_IMSROOT/api/c++/mtest/diameter/s6a/src/Makefile.stat $RELEASE_IMSROOT/api/c++/mtest/diameter/s6a/src/Makefile
+
+cp -r $IMS_ROOT/build/moto-psg/Makefile.root $RELEASE_IMSROOT/Makefile
+cp -r $IMS_ROOT/build/moto-psg/Makefile.api $RELEASE_IMSROOT/api/c++/Makefile
+cp -r $IMS_ROOT/build/moto-psg/Makefile.mtest $RELEASE_IMSROOT/api/c++/mtest/Makefile
+cp -r $IMS_ROOT/build/common/dbchelp  $RELEASE_IMSROOT/.
+
+cd $RELEASE_IMSROOT
+
+##### Remove unwanted source #####
+
+cp $IMS_ROOT/build/removelog.sh ../
+. ../removelog.sh
+echo "Removed all commit log entries from the source"
+rm -rf ../removelog.sh
+
+rm -rf val/java
+rm -rf api/java
+rm -rf api/c++/src/diameter/bcgi
+rm -rf api/c++/src/diameter/cx_3*
+rm -rf api/c++/src/diameter/e*
+rm -rf api/c++/src/diameter/rq
+rm -rf api/c++/src/diameter/s13
+rm -rf api/c++/src/diameter/s9
+rm -rf api/c++/src/diameter/sh_3*
+rm -rf api/c++/src/diameter/t*
+rm -rf api/c++/src/diameter/w*
+rm -rf errims*
+rm -rf itsdemo/bin/sampleAppD
+rm -rf vendors/opendiameter
+rm -rf vendors/IntelliNet/xml
+rm -rf vendors/tls
+rm -rf api/c++/include/diameter/bcgi
+rm -rf api/c++/include/diameter/cx_3*
+rm -rf api/c++/include/diameter/e*
+rm -rf api/c++/include/diameter/rq
+rm -rf api/c++/include/diameter/s13
+rm -rf api/c++/include/diameter/s9
+rm -rf api/c++/include/diameter/sh_3*
+rm -rf api/c++/include/diameter/t*
+rm -rf api/c++/include/diameter/w*
+find api/c++/mtest/diameter -type f -name sample* |grep bin | xargs rm
+
+
+cd $RELEASE_IMSROOT
+
+find . -type f -name lib*.a -exec rm -rf {} \;
+find . -type f -name lib*.so -exec rm -rf {} \;
+find . -type d -name test -exec rm -rf {} \; 2> /dev/null
+find . -type f -name *.o -exec rm -rf {} \;
+find . -type f -name *.hlp -exec rm -rf {} \;
+find . -type d -name CVS -exec rm -rf {} \; 2> /dev/null
+
+cp -r $IMS_ROOT/../imstools/net-snmp-*  $RELEASE_IMSTOOLS/.
+
+cd  $RELEASE_IMSTOOLS
+find . -type f -name lib*.a -exec rm -rf {} \;
+find . -type f -name lib*.so -exec rm -rf {} \;
+find . -type d -name test -exec rm -rf {} \; 2> /dev/null
+find . -type f -name *.o -exec rm -rf {} \;
+find . -type f -name *.hlp -exec rm -rf {} \;
+find . -type d -name CVS -exec rm -rf {} \; 2> /dev/null
+
+cd $RELEASE_LOADSIM
+find . -type f -name lib*.a -exec rm -rf {} \;
+find . -type f -name lib*.so -exec rm -rf {} \;
+find . -type d -name test -exec rm -rf {} \; 2> /dev/null
+find . -type f -name *.o -exec rm -rf {} \;
+find . -type f -name *.hlp -exec rm -rf {} \;
+find . -type d -name CVS -exec rm -rf {} \; 2> /dev/null
+
+cp -r  $IMS_ROOT/build/moto-psg/build.sh $RELEASE_ROOT
+cp -r  $IMS_ROOT/build/moto-psg/Profile* $RELEASE_ROOT
+
+cd $RELEASE_DIR
+
+tar -cvf $RELEASE_ROOT.tar *
+gzip *.tar

@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enDiaCritTrace                                                                                 
+DESCRIPTION
+    This command enables the diameter Critical traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enDiaCritTrace
+    *******DIameter Critical Traces are enabled*******
+

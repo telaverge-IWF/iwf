@@ -1,0 +1,14 @@
+Diameter Command
+
+SYNOPSIS
+    setDiscoveryInterval <interval>
+
+DESCRIPTION
+    This command is used to set the Peer Discovery Interval. 
+
+PARAMETERS
+    interval     Peer Discovery Interval
+
+EXAMPLE
+    >> setDiscoveryInterval 120
+       Peer discovery Timer set

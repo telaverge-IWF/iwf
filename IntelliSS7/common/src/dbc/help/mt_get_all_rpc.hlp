@@ -1,0 +1,30 @@
+
+TTC Get RPC Command
+
+SYNOPSIS
+    mt_get_all_rpc  
+
+DESCRIPTION
+   This command gets all remote pointcode .
+
+PARAMETERS
+   None
+
+
+EXAMPLE
+
+>>  mt_get_all_rpc
+------------------------------
+Remote PC:         <20>
+Family:      <JAPAN>
+SIO:         <128>
+status:      <DESTINATION_UNAVAILABLE>
+------------------------------
+------------------------------
+Remote PC:         <40>
+Family:      <JAPAN>
+SIO:         <128>
+status:      <DESTINATION_UNAVAILABLE>
+------------------------------
+
+

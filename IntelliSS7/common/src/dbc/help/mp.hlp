@@ -1,0 +1,28 @@
+
+
+PRC MTP3 Module :
+    mp_start              MTP3 Start Link Alignment
+    mp_get_gen_cfg        MTP3 Get General Config
+    mp_set_gen_cfg        MTP3 Set General Config
+    mp_deact_link         MTP3 Deactivate Link
+    mp_act_link           MTP3 Activate Link
+    mp_deact_ls           MTP3 Deactivate Link Set
+    mp_act_ls             MTP3 Activate Link Set
+    mp_get_link           MTP3 Get Info on specific link
+    mp_get_ls             MTP3 Dump Link Set
+    mp_get_gen_peg        MTP3 Get General Peg
+    mp_get_link_peg       MTP3 Get Link Peg
+    mp_clr_gen_peg        MTP3 Clear General Peg
+    mp_clr_link_peg       MTP3 Clear link Peg
+    mp_set_rpc            MTP3 Set Remote Point code
+    mp_rem_rpc            MTP3 Remove Remote Point code
+    mp_get_all_rpc        MTP3 Get All Remote Point codes
+    mp_get_all_lpc        MTP3 Get All Local Point codes
+    mp_shutdown           MTP3 Gracefully Shutdown node
+    mp_in_link            MTP3 Inhibit Link
+    mp_unin_link          MTP3 Unhibit Link
+    mp_lpo                MTP3 Set Local Processor Outage
+    mp_lpr                MTP3 Set Local Processor Recovery
+
+For details about any command use "help <command name>"
+

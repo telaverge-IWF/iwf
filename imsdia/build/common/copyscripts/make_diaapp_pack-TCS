@@ -1,0 +1,394 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make_diaapp_pack-TCS,v 1.15 2010/07/14 09:55:59 nvijikumar Exp $
+#
+# LOG: $Log: make_diaapp_pack-TCS,v $
+# LOG: Revision 1.15  2010/07/14 09:55:59  nvijikumar
+# LOG: copying other interface lib and include
+# LOG:
+# LOG: Revision 1.14  2010/07/09 08:59:34  nvijikumar
+# LOG: Copy TCS specific make.dirs file
+# LOG:
+# LOG: Revision 1.13  2010/07/03 09:33:51  nvijikumar
+# LOG: Support for both DEBUG and NDEBUG support
+# LOG:
+# LOG: Revision 1.12  2010/06/30 05:16:45  nvijikumar
+# LOG: Updated with SNMP libs/bin
+# LOG:
+# LOG: Revision 1.11  2010/06/30 04:30:09  nvijikumar
+# LOG: OAM lib added
+# LOG:
+# LOG: Revision 1.10  2010/06/30 04:24:06  nvijikumar
+# LOG: SSL updates
+# LOG:
+# LOG: Revision 1.9  2010/06/21 04:53:04  nvijikumar
+# LOG: updated XML for TCS
+# LOG:
+# LOG: Revision 1.8  2010/06/18 12:42:44  nvijikumar
+# LOG: bin name changed in tcsdemo
+# LOG:
+# LOG: Revision 1.7  2010/06/18 08:44:42  nvijikumar
+# LOG: removing copying of bcgi libraries
+# LOG:
+# LOG: Revision 1.6  2010/06/18 07:48:30  nvijikumar
+# LOG: TLS libs commented
+# LOG:
+# LOG: Revision 1.5  2010/06/18 04:21:58  nvijikumar
+# LOG: docs option moved to end
+# LOG:
+# LOG: Revision 1.4  2010/06/17 13:06:04  nvijikumar
+# LOG: Added README
+# LOG:
+# LOG: Revision 1.3  2010/06/17 05:31:22  nvijikumar
+# LOG: Copy OAM lib
+# LOG:
+# LOG: Revision 1.2  2010/06/17 05:24:09  nvijikumar
+# LOG: Copying more ABNF files
+# LOG:
+# LOG: Revision 1.1  2010/06/16 12:42:15  nvijikumar
+# LOG: New file for TCS build
+# LOG:
+# LOG: 
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+
+DIRLIST="apps include config lib scripts c++include demo dbchelp tcsdemo mag docs"
+
+INTELLI_INC="asn-c asn-cpp domxmlparser gdi mnt parse ssl rudp_msgs.h tali_msgs.h sctp_msgs.h gdi_msgs.h its_rudp.h its_dsm_sci.h"
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=*
+fi
+
+echo "ReleaseDir is ./ReleaseDir  \n";
+RELEASE_DIR=$IMS_ROOT/build/$PLATFORM/ReleaseDir
+RELEASE_IMSROOT=$RELEASE_DIR/IMSDIA-GA-$IMS_VER-$IMS_SUBVER
+
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_LIB_DIR=$RELEASE_IMSROOT/lib
+RELEASE_INC_DIR=$RELEASE_IMSROOT/include
+RELEASE_SCRIPT_DIR=$RELEASE_IMSROOT/scripts
+RELEASE_LOGS_DIR=$RELEASE_IMSROOT/logs
+RELEASE_DOC_DIR=$RELEASE_IMSROOT/doc
+RELEASE_HELP_DIR=$RELEASE_IMSROOT/dbchelp
+RELEASE_APPS_DIR=$RELEASE_IMSROOT/apps
+RELEASE_DEMO_DIR=$RELEASE_IMSROOT/demo
+RELEASE_MAG_DIR=$RELEASE_IMSROOT/mag
+
+/bin/rm -rf ./ReleaseDir
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+mkdir -p $RELEASE_INC_DIR
+
+mkdir -p $RELEASE_BIN_DIR
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_SCRIPT_DIR
+mkdir -p $RELEASE_LOGS_DIR
+mkdir -p $RELEASE_HELP_DIR
+mkdir -p $RELEASE_APPS_DIR
+mkdir -p $RELEASE_DEMO_DIR
+mkdir -p $RELEASE_DEMO_DIR/bin
+mkdir -p $RELEASE_MAG_DIR
+
+echo "Created the directory structure "
+
+for i in $DIRLIST
+do
+    if [ "$i" = "lib" ]
+    then
+     cp -r $IMS_ROOT/api/c++/lib/libbaseapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libcxdxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libgqgqapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/librfroapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libshapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libdccaapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libnasreqapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/dframe/lib/libITSDFrame$DBGSUFFIX.so $RELEASE_LIB_DIR;
+ 
+#### Extra Interface Libraries #####
+     cp -r $IMS_ROOT/api/c++/lib/libe2api$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libe4api$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libtxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libtyapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libgxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/librxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libwxapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libwdapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libwmapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libs6aapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/api/c++/lib/libs13api$DBGSUFFIX.so $RELEASE_LIB_DIR;
+####### end ##########
+
+
+     cp -r $ITS_ROOT/common/lib/libENGINE*$DBGSUFFIX.so $RELEASE_LIB_DIR/.;
+     cp -r $ITS_ROOT/common/lib/libDRIVER++*$DBGSUFFIX.so $RELEASE_LIB_DIR/.;
+     cp -p $ITS_ROOT/common/lib/libDISPATCH++$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-STUB*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+#### IntelliNet TLS wrapper lib 
+     cp -p $ITS_ROOT/tls/lib/libITS-SSLTLS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     #cp -p $ITS_ROOT/tls/lib/gnutls/solaris/certtool $RELEASE_IMSROOT/demo/bin
+     #cp -r $IMS_ROOT/api/c++/mtest/diameter/app/lib/*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/dcca/lib/libdcca*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     
+     #cp -r $IMS_ROOT/val/c++/lib/libdia*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+    
+     #OAM Lib 
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/server/lib/*$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/lib/libsubagent.so $RELEASE_LIB_DIR
+
+######### OPENSSL Libs################
+     cp -r /usr/sfw/lib/libssl.so.0.9.7 $RELEASE_LIB_DIR
+     cp -r /usr/sfw/lib/libssl_extra.so.0.9.7 $RELEASE_LIB_DIR
+     cp -r /usr/sfw/lib/libcrypto.so.0.9.7 $RELEASE_LIB_DIR
+     cp -r /usr/sfw/lib/libcrypto_extra.so.0.9.7 $RELEASE_LIB_DIR
+######### END #############
+
+
+     ###### SNMP Libraries ######
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpmibs.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpagent.so.15.1.2        $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/helpers/.libs/libnetsnmphelpers.so.15.1.2   $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/apps/.libs/libnetsnmptrapd.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/snmplib/.libs/libnetsnmp.so.15.1.2           $RELEASE_LIB_DIR
+
+     cd $RELEASE_LIB_DIR
+     ln -s libnetsnmpmibs.so.15.1.2 libnetsnmpmibs.so.15
+     ln -s libnetsnmpagent.so.15.1.2 libnetsnmpagent.so.15
+     ln -s libnetsnmphelpers.so.15.1.2 libnetsnmphelpers.so.15
+     ln -s libnetsnmptrapd.so.15.1.2 libnetsnmptrapd.so.15
+     ln -s libnetsnmp.so.15.1.2 libnetsnmp.so.15
+     ln -s libnetsnmp.so.15 libnetsnmp.so
+
+     cd ../../..
+     echo "Copied libraries `pwd` "
+   fi
+   
+   if [ "$i" = "c++include" ]
+   then
+     mkdir -p $RELEASE_IMSROOT/api/include/diameter
+     cp -r $IMS_ROOT/api/c++/include/diameter/base $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/cxdx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/dcca $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/gqgqprime $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/nasreq $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/rfro $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/sh $RELEASE_IMSROOT/api/include/diameter/.;
+
+#### Extra Interface Inculde #####
+     cp -r $IMS_ROOT/api/c++/include/diameter/e2 $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/e4 $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/tx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/ty $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/gx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/rx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/wx $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/wd $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/wm $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/s6a $RELEASE_IMSROOT/api/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/s13 $RELEASE_IMSROOT/api/include/diameter/.;
+####### end ##########
+
+     echo "Copied includes"
+   fi
+   
+   if [ "$i" = "include" ]
+   then
+     mkdir -p $RELEASE_IMSROOT/AcceleroCore
+     cp -r $ITS_ROOT/common/include $RELEASE_IMSROOT/AcceleroCore/.;
+     \rm -rf $RELEASE_IMSROOT/AcceleroCore/include/platforms/*.h
+     cp -r $ITS_ROOT/common/include/platforms/its_$PLATFORM.h $RELEASE_IMSROOT/AcceleroCore/include/platforms/.
+     if [ $PLATFORM = "solaris64" ]
+     then
+        cp -r $ITS_ROOT/common/include/platforms/its_solaris.h $RELEASE_IMSROOT/AcceleroCore/include/platforms/.
+     fi
+
+
+     for j in $INTELLI_INC
+     do 
+	rm -rf $RELEASE_IMSROOT/AcceleroCore/include/$j
+     done
+     cp -r $IMS_ROOT/val/c++/include/di* $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/vendors/IntelliNet/include/dia_stack.h $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/vendors/IntelliNet/include/dia_mgmt.h $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/common/include/* $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/dframe/include/dia_frame.h $RELEASE_INC_DIR/.;
+
+     echo "Copied root includes"
+   fi
+   
+   if [ "$i" = "demo" ]
+   then
+     cp -r $IMS_ROOT/itsdemo/* $RELEASE_IMSROOT/demo
+     cp -r $IMS_ROOT/config/* $RELEASE_IMSROOT/demo/bin/
+     cp -r $ITS_ROOT/common/bin/DBG*$DBGSUFFIX $RELEASE_IMSROOT/demo/bin
+     cp -r $IMS_ROOT/build/common/makefiles/demo_Makefile-NRDITS $RELEASE_IMSROOT/demo/src/Makefile
+
+     rm $RELEASE_IMSROOT/demo/bin/Makefile-Jinterface
+     rm $RELEASE_IMSROOT/demo/bin/MFGenerator.sh-Jinterface
+     rm $RELEASE_IMSROOT/demo/bin/MsgDump.txt
+     rm $RELEASE_IMSROOT/demo/src/*.o
+     rm $RELEASE_IMSROOT/demo/bin/gcs*
+     rm $RELEASE_IMSROOT/demo/bin/*.redun
+     rm $RELEASE_IMSROOT/demo/bin/itsIDS*
+     rm $RELEASE_IMSROOT/demo/bin/itsdiaserver1.xml
+     rm $RELEASE_IMSROOT/demo/bin/itsdiaserver2.xml
+     rm $RELEASE_IMSROOT/demo/bin/Run.Server1
+     rm $RELEASE_IMSROOT/demo/bin/Run.Server2
+     rm $RELEASE_IMSROOT/demo/bin/Run
+     rm $RELEASE_IMSROOT/demo/bin/sampleApp$DBGSUFFIX
+     rm $RELEASE_IMSROOT/demo/bin/*.pem
+     cp -r $IMS_ROOT/../diademo/tcs/bin/itsdia* $RELEASE_IMSROOT/demo/bin/.
+
+     echo "Copied demo Application"
+   fi
+   if [ "$i" = "tcsdemo" ]
+   then
+     cp -r $IMS_ROOT/../diademo/tcs $RELEASE_IMSROOT/tcsdemo
+     cp -r $ITS_ROOT/common/bin/DBG*$DBGSUFFIX $RELEASE_IMSROOT/tcsdemo/bin
+     cp -r $RELEASE_IMSROOT/demo/bin/RunDBC.* $RELEASE_IMSROOT/tcsdemo/bin/.
+
+     ###### Copy OAM Binary #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/bin/subagent $RELEASE_CFG_DIR
+     cp -r $SNMP_ROOT/agent/.libs/snmpd $RELEASE_CFG_DIR
+
+     rm $RELEASE_IMSROOT/tcsdemo/src/*.o
+     rm $RELEASE_IMSROOT/tcsdemo/lib/lib*
+     rm $RELEASE_IMSROOT/tcsdemo/bin/sampleApp$DBGSUFFIX
+     rm $RELEASE_IMSROOT/tcsdemo/bin/*.pem
+     echo "Copied TCS demo Application"
+   fi
+   if [ "$i" = "mag" ]
+   then
+     mkdir -p $RELEASE_IMSROOT/api/src/diameter
+     mkdir -p $RELEASE_IMSROOT/api/abnf
+     mkdir -p $RELEASE_IMSROOT/mag/bin
+     cp -r $IMS_ROOT/api/abnf/ITS/rfc3588.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/rfc4006.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/nasreq.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/rfro_standalone_v8.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/cxdx.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/sh.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/api/abnf/ITS/gqgqprime.protocol $RELEASE_IMSROOT/api/abnf
+     cp -r $IMS_ROOT/mag/bin/diamag.jar $RELEASE_IMSROOT/mag/bin
+     cp -r $IMS_ROOT/mag/bin/sablecc.jar $RELEASE_IMSROOT/mag/bin
+     cp -r $IMS_ROOT/build/tcs/Makefile.mag $RELEASE_IMSROOT/mag/Makefile
+     cp -r $IMS_ROOT/build/tcs/Makefile.api $RELEASE_IMSROOT/api/Makefile
+     cp -r $IMS_ROOT/build/tcs/README $RELEASE_IMSROOT/mag
+
+
+####### Extra Interface ABNF ##############
+#     cp -r $IMS_ROOT/api/abnf/ITS/e2.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/e4.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/tx.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/ty.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/gx.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/rx.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/wx.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/wd.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/wm.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/s6a.protocol $RELEASE_IMSROOT/api/abnf
+#     cp -r $IMS_ROOT/api/abnf/ITS/s13.protocol $RELEASE_IMSROOT/api/abnf
+########## End ##########
+
+
+     echo "Copied mag Application"
+   fi
+
+   if [ "$i" = "apps" ]
+   then
+     cp -r $IMS_ROOT/api/c++/mtest/diameter/app_stat/* $RELEASE_APPS_DIR
+
+   echo "Copied Apps Applications"
+   fi
+
+   if [ "$i" = "config" ]
+   then
+     if [ $PLATFORM = "solaris" ]
+     then
+         if [ $IMSCXX = "CC" ]
+         then
+#             cp -rp ../common/make.dirs.cc $RELEASE_IMSROOT/make.dirs
+             cp -rp $IMS_ROOT/make.dirs.tcs $RELEASE_IMSROOT/make.dirs
+             sh $IMS_ROOT/build/tcs/sample_diaap_profile.cc > $RELEASE_CFG_DIR/Profile
+         else
+             cp -rp ../common/make.dirs $RELEASE_IMSROOT/make.dirs
+             sh profiles/sample_diaap_profile > $RELEASE_CFG_DIR/Profile
+         fi
+     elif [ $PLATFORM = "linux" ]
+     then
+         cp -rp ../common/make.dirs $RELEASE_IMSROOT
+         sh profiles/sample_diaap_profile-GA > $RELEASE_CFG_DIR/Profile
+     elif [ $PLATFORM = "solaris64" ]
+     then
+         cp -rp ../common/make.dirs.cc $RELEASE_IMSROOT/make.dirs
+         sh profiles/sample_diaap_profile.64cc > $RELEASE_CFG_DIR/Profile
+     fi
+
+     ###### Copy snmpd.conf #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/config/snmpd.conf $RELEASE_CFG_DIR
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/mibs/DIA-MIB.mib $RELEASE_CFG_DIR
+     echo "Copied config files"
+   fi
+
+   if [ "$i" = "scripts" ]
+   then
+     cp -r $IMS_ROOT/scripts/$PLATFORM/* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/imsdia* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/viewdocs $RELEASE_SCRIPT_DIR
+     echo "Copied script files"
+   fi
+
+  if [ "$i" = "docs" ]
+  then
+    cp $IMS_ROOT/Doxyfile $RELEASE_IMSROOT
+    cd $RELEASE_IMSROOT
+    cp $IMS_ROOT/build/removelog.sh .
+    ./removelog.sh
+    rm removelog.sh
+    doxygen
+    rm -rf ./docs/latex
+    rm Doxyfile
+    cd ../..
+  fi
+
+  if [ "$i" = "dbchelp" ]
+  then
+    cp $IMS_ROOT/build/common/dbchelp/*.hlp $RELEASE_HELP_DIR
+    echo "Copied help files"
+  fi
+done
+  
+find $RELEASE_DIR -name CVS -type d -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT/demo -name core.* -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT/apps/ -name *.o -print | xargs /bin/rm -rf
+  

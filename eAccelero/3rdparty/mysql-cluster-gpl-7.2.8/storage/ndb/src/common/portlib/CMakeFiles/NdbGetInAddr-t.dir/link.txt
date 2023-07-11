@@ -1,0 +1,1 @@
+/usr/bin/c++    -fno-implicit-templates -fno-exceptions -fno-rtti   -O2 -g -DNDEBUG -DDBUG_OFF    CMakeFiles/NdbGetInAddr-t.dir/NdbTCP.cpp.o  -o NdbGetInAddr-t  -lpthread 

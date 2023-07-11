@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    enProxyInfoAvp <realmName>
+
+DESCRIPTION
+    This command enables proxy info AVP for Relay agent.
+
+PARAMETERS
+    realmName     Realm Name.
+
+EXAMPLE
+    >> enProxyInfoAvp india.internal.net
+
+       Successfully Proxy Info AVP Enabled
+

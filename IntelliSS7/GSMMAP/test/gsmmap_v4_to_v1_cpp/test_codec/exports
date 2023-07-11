@@ -1,0 +1,4 @@
+all		cpp		itu		Makefile
+all		cpp		itu		test_codec.dsw
+all		cpp		itu		test_codec.dsp
+all		cpp		itu		test_codec_main.cpp

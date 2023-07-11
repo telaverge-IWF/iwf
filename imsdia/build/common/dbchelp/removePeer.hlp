@@ -1,0 +1,20 @@
+Diameter Command
+
+SYNOPSIS
+    removePeer <hostName> <realmName>
+
+DESCRIPTION
+    This command removes peer entry from peer table.
+
+PARAMETERS
+
+    hostName      Host Name
+    
+    realmName     Realm Name.
+
+EXAMPLE
+    >> removePeer nemo india.internal.net
+
+       Successfully Peer removed
+
+NOTE: Statically added Peer can't be remove 

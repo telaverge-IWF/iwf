@@ -1,0 +1,88 @@
+
+CHK_FOR_OBJ_DIR := @if [ ! -d $(OBJDIR) ]; then\
+                        mkdir -p $(OBJDIR);\
+                        $(ECHO) "Creating $(OBJDIR)...";\
+                    fi
+CHK_FOR_LIB_DIR := @if [ ! -d $(LIBDIR) ]; then\
+                        mkdir -p $(LIBDIR);\
+                        $(ECHO) "Creating $(LIBDIR)...";\
+                    fi
+CHK_FOR_BIN_DIR := @if [ ! -d $(BINDIR) ]; then\
+                        mkdir -p $(BINDIR);\
+                        $(ECHO) "Creating $(BINDIR)...";\
+                    fi
+
+.PHONY: clean dirs dirsclean
+.DEFAULT: all
+
+all: targets
+
+checks:
+	@echo "Checking for env obj lib bin dirs..."
+	$(CHK_FOR_ENV)
+	$(CHK_FOR_OBJ_DIR)
+	$(CHK_FOR_LIB_DIR)
+	$(CHK_FOR_BIN_DIR)
+	@touch checks
+
+# Recipe copied from GNU Make manual, for reevaluating prerequisites
+# Since .d files are generated on the fly
+$(OBJDIR)%.d: $(SRCDIR)%.cpp
+	@$(ECHO) [GENDEP] $@ $<;
+	@set -e; rm -f $@; $(CXXDEP) $(CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,$(OBJDIR)\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
+$(OBJDIR)%.pb.d: $(SRCDIR)%.pb.cc
+	@$(ECHO) [GENDEP] $@ $<;
+	@set -e; rm -f $@; $(CXXDEP) $(CXXFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,$(OBJDIR)\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
+$(SRCDIR)%.pb.cc: $(SRCDIR)%.proto
+	${EACC_ROOT}/3rdparty/bin/protoc --cpp_out=. $^
+
+$(OBJDIR)%.o: $(SRCDIR)%.cpp
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+$(OBJDIR)%.o: $(SRCDIR)%.cc
+	$(CXX) -c $(CXXFLAGS) -o $@ $<
+
+$(OBJDIR)%.d: $(SRCDIR)%.c
+	@set -e; rm -f $@; $(CCDEP) $(CFLAGS) $< > $@.$$$$; \
+	sed 's,\($*\)\.o[ :]*,$(OBJDIR)\1.o $@ : ,g' < $@.$$$$ > $@; \
+	rm -f $@.$$$$
+
+$(OBJDIR)%.o: $(SRCDIR)%.c
+	$(CC) -c $(CFLAGS) -o $@ $<
+
+
+dynamic.rules: checks Makefile	$(EACC_ROOT)/Makefile.inc $(EACC_ROOT)/Makefile.rules
+	@rm -f dynamic.rules
+	@$(ECHO) -n "targets:" >> dynamic.rules
+	$(PRINT_BIN_TARGETS) >> dynamic.rules
+	$(PRINT_SO_TARGETS) >> dynamic.rules
+	$(PRINT_AR_TARGETS) >> dynamic.rules
+	@$(ECHO) -n " dirs" >> dynamic.rules
+	@$(ECHO) "\n" >> dynamic.rules
+	$(BIN_RULES) >> dynamic.rules
+	$(SO_RULES) >> dynamic.rules
+	$(AR_RULES) >> dynamic.rules
+	$(DIR_RULES) >> dynamic.rules
+	@$(ECHO) -n "targets.clean:" >> dynamic.rules
+	$(PRINT_BIN_CLEAN) >> dynamic.rules
+	$(PRINT_SO_CLEAN) >> dynamic.rules
+	$(PRINT_AR_CLEAN) >> dynamic.rules
+	@$(ECHO) -n " dirsclean" >> dynamic.rules
+	@$(ECHO) "\n" >> dynamic.rules
+	$(BIN_CLEAN) >> dynamic.rules
+	$(SO_CLEAN) >> dynamic.rules
+	$(AR_CLEAN) >> dynamic.rules
+	$(DIR_CLEAN) >> dynamic.rules
+
+clean: checks dynamic.rules targets.clean
+	-rm -f dynamic.rules checks
+	-rm -f $(SRCDIR)*.pb.cc $(SRCDIR)*.pb.h
+
+-include dynamic.rules
+

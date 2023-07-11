@@ -1,0 +1,20 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_asp_trid
+
+DESCRIPTION
+    This command shows asp transport identifier for ASP.
+
+PARAMETERS
+    None
+
+EXAMPLE
+    >> mu_asp_trid 
+
+********* ASP TRANSPORT ID *********
+
+    TRID     = 0x4e22
+
+

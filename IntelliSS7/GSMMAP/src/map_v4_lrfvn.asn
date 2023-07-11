@@ -1,0 +1,5116 @@
+--
+-- Copyright (C) 2000-2000 IntelliNet Technologies, Inc.  All rights reserved.
+--
+--
+-- $Id: map_v4_lrfvn.asn,v 9.1 2005/03/23 12:51:29 cvsadmin Exp $
+--
+-- $Log: map_v4_lrfvn.asn,v $
+-- Revision 9.1  2005/03/23 12:51:29  cvsadmin
+-- Begin PR6.5
+--
+-- Revision 8.2  2005/03/21 13:49:28  cvsadmin
+-- PR6.4.2 Source Propagated to Current
+--
+-- Revision 7.1  2002/08/26 22:08:46  mmiers
+-- Begin PR6.2
+--
+-- Revision 6.1  2002/02/28 16:13:20  mmiers
+-- Begin PR7.
+--
+-- Revision 5.1  2001/08/16 20:45:19  mmiers
+-- Start PR6.
+--
+-- Revision 4.1  2001/05/01 00:53:03  mmiers
+-- Begin PR5
+--
+-- Revision 3.1  2000/08/15 23:57:03  mmiers
+--
+-- Begin round 4.
+--
+-- Revision 1.1  2000/06/15 20:22:59  npopov
+-- ASN.1 value notation for testing MAP V4.
+--
+--
+
+
+MAP-V4 DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+
+MAP-DialoguePDU ::= CHOICE {
+    map-open          [0] MAP-OpenInfo,
+    map-accept        [1] MAP-AcceptInfo,
+    map-close         [2] MAP-CloseInfo,
+    map-refuse        [3] MAP-RefuseInfo,
+    map-userAbort     [4] MAP-UserAbortInfo,
+    map-providerAbort [5] MAP-ProviderAbortInfo
+}
+
+mAP-DialoguePDU1 MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H,
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU2 MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU3 MAP-DialoguePDU ::= map-open: {
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+mAP-DialoguePDU4 MAP-DialoguePDU ::= map-open: {
+}
+
+
+mAP-DialoguePDU5 MAP-DialoguePDU ::= map-accept: {
+}
+
+
+mAP-DialoguePDU6 MAP-DialoguePDU ::= map-close: {
+}
+
+
+mAP-DialoguePDU7 MAP-DialoguePDU ::= map-refuse: {
+    reason invalidOriginatingReference
+}
+
+
+mAP-DialoguePDU8 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userSpecificReason: NULL
+}
+
+
+mAP-DialoguePDU9 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userResourceLimitation: NULL
+}
+
+
+mAP-DialoguePDU10 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice resourceUnavailable: longTermResourceLimitation
+}
+
+
+mAP-DialoguePDU11 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice applicationProcedureCancellation: remoteOperationsFailure
+}
+
+
+mAP-DialoguePDU12 MAP-DialoguePDU ::= map-providerAbort: {
+    map-ProviderAbortReason invalidPDU
+}
+
+
+MAP-OpenInfo ::= SEQUENCE {
+    destinationReference    [0] AddressString   OPTIONAL,
+    originationReference    [1] AddressString   OPTIONAL,
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+}
+
+
+MAP-AcceptInfo ::= SEQUENCE {
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+}
+
+
+MAP-CloseInfo ::= SEQUENCE {
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+}
+
+
+MAP-RefuseInfo ::= SEQUENCE {
+    reason  Reason,
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+}
+
+
+Reason ::= ENUMERATED {
+    noReasonGiven               (0),
+    invalidDestinationReference (1),
+    invalidOriginatingReference (2)
+}
+
+
+MAP-UserAbortInfo ::= SEQUENCE {
+    map-UserAbortChoice MAP-UserAbortChoice,
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+}
+
+
+MAP-UserAbortChoice ::= CHOICE {
+    userSpecificReason  [0] NULL,
+    userResourceLimitation  [1] NULL,
+    resourceUnavailable [2] ResourceUnavailableReason,
+    applicationProcedureCancellation    [3] ProcedureCancellationReason
+}
+
+
+ResourceUnavailableReason ::= ENUMERATED {
+    shortTermResourceLimitation  (0),
+    longTermResourceLimitation  (1)
+}
+
+ProcedureCancellationReason ::= ENUMERATED {
+    handoverCancellation  (0),
+    radioChannelRelease  (1),
+    networkPathRelease  (2),
+    callRelease  (3),
+    associatedProcedureFailure  (4),
+    tandemDialogueRelease  (5),
+    remoteOperationsFailure  (6)}
+
+MAP-ProviderAbortInfo ::= SEQUENCE {
+    map-ProviderAbortReason MAP-ProviderAbortReason,
+    ...,
+    extensionContainer  ExtensionContainer  OPTIONAL
+    -- extensionContainer must not be used in version 2
+    }
+
+MAP-ProviderAbortReason ::= ENUMERATED {
+    abnormalDialogue  (0),
+    invalidPDU  (1)}
+
+
+MAP-UserInfo ::= SEQUENCE OF EXTERNAL
+
+
+mAP-UserInfo1 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    }
+}
+
+mAP-UserInfo2 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    }
+}
+
+
+mAP-UserInfo3 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    }
+}
+
+
+mAP-UserInfo4 MAP-UserInfo ::= {
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    }
+}
+
+
+
+UpdateLocationArg ::= SEQUENCE {
+    imsi                IMSI,
+    msc-Number      [1] ISDN-AddressString,
+    vlr-Number           ISDN-AddressString,
+    lmsi            [10] LMSI               OPTIONAL,
+    extensionContainer   ExtensionContainer OPTIONAL,
+    ...,
+    vlr-Capability  [6] VLR-Capability      OPTIONAL
+}
+
+extensionContainerv1 ExtensionContainer ::= {
+    privateExtensionList {
+	{
+	    extensionId {1 2 3 4 5},
+	    extensionType OCTET STRING: ''H
+	},
+	{
+	    extensionId {1 2 3 4 5},
+	    extensionType OCTET STRING: ''H
+	}
+    },
+    pcs-Extensions {}
+}
+
+
+updateLocationArg1 UpdateLocationArg ::= {
+    imsi		'1122334455667788'H,
+    msc-Number		'1122334455667788990011223344556677889900'H,
+    vlr-Number		'112233'H,
+    lmsi		'11223344'H,
+    extensionContainer  extensionContainerv1,
+    vlr-Capability {
+	supportedCamelPhases {phase1, phase2},
+	extensionContainer extensionContainerv1
+    }
+}
+
+
+updateLocationArg2 UpdateLocationArg ::= {
+    imsi		'1122334455667788'H,
+    msc-Number		'1122334455667788990011223344556677889900'H,
+    vlr-Number		'112233'H
+}
+
+
+VLR-Capability ::= SEQUENCE {
+    supportedCamelPhases    [0] SupportedCamelPhases    OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+UpdateLocationRes ::= SEQUENCE {
+    hlr-Number  ISDN-AddressString,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+updateLocationRes1 UpdateLocationRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+updateLocationRes2 UpdateLocationRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+CancelLocationArg ::= SEQUENCE {
+    identity        Identity,
+    cancellationType    CancellationType    OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+cancelLocationArg1 CancelLocationArg ::= {
+    identity        imsi: '1122334455667788'H
+}
+
+
+cancelLocationArg2 CancelLocationArg ::= {
+    identity        imsi-WithLMSI: {
+	imsi '1122334455667788'H,
+	lmsi '11223344'H
+    }
+}
+
+
+cancelLocationArg3 CancelLocationArg ::= {
+    identity        imsi: '1122334455667788'H,
+    cancellationType    subscriptionWithdraw,
+    extensionContainer  extensionContainerv1
+}
+
+
+Identity ::= CHOICE {
+    imsi            IMSI,
+    imsi-WithLMSI   IMSI-WithLMSI
+}
+
+
+CancellationType ::= ENUMERATED {
+    updateProcedure (0),
+    subscriptionWithdraw    (1),
+    ...
+}
+
+
+CancelLocationRes ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+cancelLocationRes1 CancelLocationRes ::= {
+}
+
+
+cancelLocationRes2 CancelLocationRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+PurgeMS-Arg ::= SEQUENCE {
+    imsi            IMSI,
+    vlr-Number  [0] ISDN-AddressString  OPTIONAL,
+    sgsn-Number [1] ISDN-AddressString  OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+purgeMS-Arg1 PurgeMS-Arg ::= {
+    imsi '1122334455667788'H
+}
+
+
+purgeMS-Arg2 PurgeMS-Arg ::= {
+    imsi        '1122334455667788'H,
+    vlr-Number  '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+PurgeMS-Res ::= SEQUENCE {
+    freezeTMSI      [0] NULL        OPTIONAL,
+    freezeP-TMSI    [1] NULL        OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+purgeMS-Res1 PurgeMS-Res ::= {
+}
+
+
+purgeMS-Res2 PurgeMS-Res ::= {
+    freezeTMSI      NULL,
+    freezeP-TMSI    NULL,
+    extensionContainer  extensionContainerv1
+}
+
+
+IMSI-WithLMSI ::= SEQUENCE {
+    imsi            IMSI,
+    lmsi            LMSI,
+    ...
+}
+
+
+SendIdentificationRes ::= SEQUENCE {
+    imsi            IMSI,
+    authenticationSetList   AuthenticationSetList   OPTIONAL,
+    ...
+}
+
+
+sendIdentificationRes1 SendIdentificationRes ::= {
+    imsi        '1122334455667788'H
+}
+
+
+sendIdentificationRes2 SendIdentificationRes ::= {
+    imsi        '1122334455667788'H,
+    authenticationSetList {
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	}
+    }
+}
+
+
+AuthenticationSetList ::= SEQUENCE (SIZE(1..5)) OF AuthenticationSet
+
+
+AuthenticationSet ::= SEQUENCE {
+    rand            RAND,
+    sres            SRES,
+    kc          Kc,
+    ...
+}
+
+
+RAND ::= OCTET STRING (SIZE (16))
+
+
+SRES ::= OCTET STRING (SIZE (4))
+
+
+Kc ::= OCTET STRING (SIZE (8))
+
+
+UpdateGprsLocationArg ::= SEQUENCE {
+    imsi            IMSI,
+    sgsn-Number ISDN-AddressString, 
+    sgsn-Address    GSN-Address,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+updateGprsLocationArg1 UpdateGprsLocationArg ::= {
+    imsi        '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    sgsn-Address '1122334455667788900112233445566'H
+}
+
+
+updateGprsLocationArg2 UpdateGprsLocationArg ::= {
+    imsi        '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    sgsn-Address '1122334455667788900112233445566'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+GSN-Address ::= OCTET STRING (SIZE (4..16))
+
+
+UpdateGprsLocationRes ::= SEQUENCE {
+    hlr-Number  ISDN-AddressString,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+updateGprsLocationRes1 UpdateGprsLocationRes ::= {
+    hlr-Number '1122334455667788'H
+}
+
+
+updateGprsLocationRes2 UpdateGprsLocationRes ::= {
+    hlr-Number  '1122334455667788'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+PrepareHO-Arg ::= SEQUENCE {
+    targetCellId    GlobalCellId    OPTIONAL,
+    ho-NumberNotRequired    NULL            OPTIONAL,
+    bss-APDU        ExternalSignalInfo  OPTIONAL,
+    ...
+}
+
+
+prepareHO-Arg1 PrepareHO-Arg ::= {
+}
+
+
+prepareHO-Arg2 PrepareHO-Arg ::= {
+    targetCellId    '11223344556677'H,
+    ho-NumberNotRequired    NULL,
+    bss-APDU {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+
+
+PrepareHO-Res ::= SEQUENCE {
+    handoverNumber  ISDN-AddressString  OPTIONAL,
+    bss-APDU        ExternalSignalInfo  OPTIONAL,
+    ...
+}
+
+
+prepareHO-Res1 PrepareHO-Res ::= {
+}
+
+
+prepareHO-Res2 PrepareHO-Res ::= {
+    handoverNumber  '1122334455667788'H,
+    bss-APDU        {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+
+
+PrepareSubsequentHO-Arg ::= SEQUENCE {
+    targetCellId    GlobalCellId,
+    targetMSC-Number    ISDN-AddressString,
+    bss-APDU        ExternalSignalInfo,
+    ...
+}
+
+
+prepareSubsequentHO-Arg1 PrepareSubsequentHO-Arg ::= {
+    targetCellId      '11223344556677'H,
+    targetMSC-Number  '11223344556677'H,
+    bss-APDU        {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+
+
+SendAuthenticationInfoArg ::= IMSI
+
+
+sendAuthenticationInfoArg1 SendAuthenticationInfoArg ::= '1122334455667788'H
+
+
+SendAuthenticationInfoRes ::= AuthenticationSetList
+
+
+sendAuthenticationInfoRes1 SendAuthenticationInfoRes ::= {
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	}
+}
+
+
+EquipmentStatus ::= ENUMERATED {
+    whiteListed  (0),
+    blackListed  (1),
+    greyListed  (2)
+}
+
+
+equipmentStatus1 EquipmentStatus ::= greyListed
+
+
+InsertSubscriberDataArg ::= SEQUENCE {
+    imsi                 [0] IMSI                  OPTIONAL,
+    COMPONENTS OF SubscriberData,
+    extensionContainer   [14] ExtensionContainer   OPTIONAL,
+    ...,
+    naea-PreferredCI     [15] NAEA-PreferredCI     OPTIONAL,
+    gprsSubscriptionData [16] GPRSSubscriptionData OPTIONAL,
+    roamingRestrictedInSgsnDueToUnsupportedFeature [23] NULL OPTIONAL,
+    networkAccessMode    [24] NetworkAccessMode    OPTIONAL
+}
+
+
+insertSubscriberDataArg1 SubscriberData ::= {
+}
+
+
+insertSubscriberDataArg2 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '1122334455667788990011223344556677889900'H,
+    category '11'H,
+    subscriberStatus operatorDeterminedBarring,
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		}
+
+	    },
+	    cug-FeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		}
+	    }
+	},
+	ss-Data: {
+	    ss-Code '11'H,
+	    ss-Status '11'H,
+	    ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	    basicServiceGroupList {
+		ext-BearerService: '11'H,
+		ext-Teleservice: '22'H
+	    }
+	}
+    },
+    odb-Data {
+	odb-GeneralData {ss-AccessBarred},
+	odb-HPLMN-Data {plmn-SpecificBarringType4}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H
+    }
+}
+
+
+NetworkAccessMode ::= ENUMERATED {
+    bothMSCAndSGSN  (0),
+    onlyMSC         (1),
+    onlySGSN        (2),
+    ...
+}
+
+
+GPRSDataList ::= SEQUENCE SIZE (1..maxNumOfPDP-Contexts) OF PDP-Context
+
+
+maxNumOfPDP-Contexts  INTEGER ::= 50
+
+
+PDP-Context ::= SEQUENCE {
+    pdp-ContextId   ContextId,
+    pdp-Type        [16] PDP-Type,
+    pdp-Address [17] PDP-Address    OPTIONAL,
+    qos-Subscribed  [18] QoS-Subscribed,
+    vplmnAddressAllowed [19] NULL   OPTIONAL,
+    apn         [20] APN    ,
+    extensionContainer  [21] ExtensionContainer OPTIONAL,
+    ...
+}
+
+
+ContextId ::= INTEGER (1..maxNumOfPDP-Contexts)
+
+
+GPRSSubscriptionData::= SEQUENCE {
+    completeDataListIncluded    NULL            OPTIONAL,
+    gprsDataList    [1] GPRSDataList,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+APN ::= IA5String (SIZE (1..63))
+
+
+PDP-Type ::= OCTET STRING (SIZE (2))
+
+
+PDP-Address ::= OCTET STRING (SIZE (4..16))
+
+
+QoS-Subscribed ::= OCTET STRING (SIZE (3))
+
+
+SubscriberData ::= SEQUENCE {
+    msisdn      [1] ISDN-AddressString  OPTIONAL,
+    category        [2] Category    OPTIONAL,
+    subscriberStatus    [3] SubscriberStatus    OPTIONAL,
+    bearerServiceList   [4] BearerServiceList   OPTIONAL,
+    teleserviceList [6] TeleserviceList OPTIONAL,
+    provisionedSS   [7] Ext-SS-InfoList OPTIONAL,
+    odb-Data        [8] ODB-Data    OPTIONAL,
+    roamingRestrictionDueToUnsupportedFeature  [9] NULL OPTIONAL,
+    regionalSubscriptionData    [10] ZoneCodeList   OPTIONAL,
+    vbsSubscriptionData [11] VBSDataList    OPTIONAL,
+    vgcsSubscriptionData    [12] VGCSDataList   OPTIONAL,
+    vlrCamelSubscriptionInfo    [13] VlrCamelSubscriptionInfo   OPTIONAL
+}
+
+
+Category ::= OCTET STRING (SIZE(1))
+
+
+SubscriberStatus ::= ENUMERATED {
+    serviceGranted            (0),
+    operatorDeterminedBarring (1)
+}
+
+
+BearerServiceList ::= SEQUENCE SIZE (1..maxNumOfBearerServices) OF
+						Ext-BearerServiceCode
+
+
+maxNumOfBearerServices  INTEGER ::= 50
+
+
+TeleserviceList ::= SEQUENCE SIZE (1..maxNumOfTeleservices) OF
+						Ext-TeleserviceCode
+
+
+maxNumOfTeleservices  INTEGER ::= 20
+
+
+ODB-Data ::= SEQUENCE {
+    odb-GeneralData ODB-GeneralData,
+    odb-HPLMN-Data  ODB-HPLMN-Data  OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+ODB-GeneralData ::= BIT STRING {
+    allOG-CallsBarred  (0),
+    internationalOGCallsBarred  (1),
+    internationalOGCallsNotToHPLMN-CountryBarred  (2),
+    interzonalOGCallsBarred (6),
+    interzonalOGCallsNotToHPLMN-CountryBarred (7),
+    interzonalOGCallsAndInternationalOGCallsNotToHPLMN-CountryBarred (8),
+    premiumRateInformationOGCallsBarred  (3),
+    premiumRateEntertainementOGCallsBarred  (4),
+    ss-AccessBarred  (5),
+    allECT-Barred (9),
+    chargeableECT-Barred (10),
+    internationalECT-Barred (11),
+    interzonalECT-Barred (12),
+    doublyChargeableECT-Barred (13),
+    multipleECT-Barred (14)
+} (SIZE (15..32))
+
+
+ODB-HPLMN-Data ::= BIT STRING {
+    plmn-SpecificBarringType1  (0),
+    plmn-SpecificBarringType2  (1),
+    plmn-SpecificBarringType3  (2),
+    plmn-SpecificBarringType4  (3)
+} (SIZE (4..32))
+
+
+Ext-SS-InfoList ::= SEQUENCE SIZE (1..maxNumOfSS) OF Ext-SS-Info
+
+
+Ext-SS-Info ::= CHOICE {
+    forwardingInfo  [0] Ext-ForwInfo,
+    callBarringInfo [1] Ext-CallBarInfo,
+    cug-Info        [2] CUG-Info,
+    ss-Data     [3] Ext-SS-Data,
+    emlpp-Info  [4] EMLPP-Info
+}
+
+
+Ext-ForwInfo ::= SEQUENCE {
+    ss-Code     SS-Code,
+    forwardingFeatureList   Ext-ForwFeatureList,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+Ext-ForwFeatureList ::= SEQUENCE SIZE (1..maxNumOfExt-BasicServiceGroups) OF
+							Ext-ForwFeature
+
+
+Ext-ForwFeature ::= SEQUENCE {
+    basicService    Ext-BasicServiceCode    OPTIONAL,
+    ss-Status   [4] Ext-SS-Status,
+    forwardedToNumber   [5] ISDN-AddressString  OPTIONAL,
+    forwardedToSubaddress   [8] ISDN-SubaddressString   OPTIONAL,
+    forwardingOptions   [6] Ext-ForwOptions OPTIONAL,
+    noReplyConditionTime    [7] Ext-NoRepCondTime   OPTIONAL,
+    extensionContainer  [9] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+Ext-SS-Status ::= OCTET STRING (SIZE (1..5))
+
+
+Ext-ForwOptions ::= OCTET STRING (SIZE (1..5))
+
+
+Ext-NoRepCondTime ::= INTEGER (1..100)
+
+
+Ext-CallBarInfo ::= SEQUENCE {
+    ss-Code     SS-Code,
+    callBarringFeatureList  Ext-CallBarFeatureList,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+Ext-CallBarFeatureList ::= SEQUENCE SIZE (1..maxNumOfExt-BasicServiceGroups) OF
+							Ext-CallBarringFeature
+
+
+Ext-CallBarringFeature ::= SEQUENCE {
+    basicService    Ext-BasicServiceCode    OPTIONAL,
+    ss-Status   [4] Ext-SS-Status,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+CUG-Info ::= SEQUENCE {
+    cug-SubscriptionList    CUG-SubscriptionList,
+    cug-FeatureList CUG-FeatureList OPTIONAL,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+CUG-SubscriptionList ::= SEQUENCE SIZE (0..maxNumOfCUG) OF CUG-Subscription
+
+
+CUG-Subscription ::= SEQUENCE {
+    cug-Index   CUG-Index,
+    cug-Interlock   CUG-Interlock,
+    intraCUG-Options    IntraCUG-Options,
+    basicServiceGroupList   Ext-BasicServiceGroupList   OPTIONAL,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+CUG-Index ::= INTEGER (0..32767)
+
+
+CUG-Interlock ::= OCTET STRING (SIZE (4))
+
+
+IntraCUG-Options ::= ENUMERATED {
+    noCUG-Restrictions  (0),
+    cugIC-CallBarred  (1),
+    cugOG-CallBarred  (2)
+}
+
+
+maxNumOfCUG  INTEGER ::= 10
+
+
+CUG-FeatureList ::= SEQUENCE SIZE (1..maxNumOfExt-BasicServiceGroups) OF
+								CUG-Feature
+
+
+Ext-BasicServiceGroupList ::= SEQUENCE (SIZE(1..maxNumOfExt-BasicServiceGroups)) OF
+							Ext-BasicServiceCode
+
+
+maxNumOfExt-BasicServiceGroups  INTEGER ::= 32
+
+
+CUG-Feature ::= SEQUENCE {
+    basicService    Ext-BasicServiceCode    OPTIONAL,
+    preferentialCUG-Indicator   CUG-Index   OPTIONAL,
+    interCUG-Restrictions   InterCUG-Restrictions,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+InterCUG-Restrictions::= OCTET STRING (SIZE (1))
+
+
+Ext-SS-Data ::= SEQUENCE {
+    ss-Code     SS-Code,
+    ss-Status   [4] Ext-SS-Status,
+    ss-SubscriptionOption   SS-SubscriptionOption   OPTIONAL,
+    basicServiceGroupList   Ext-BasicServiceGroupList   OPTIONAL,
+    extensionContainer  [5] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+ZoneCodeList ::= SEQUENCE (SIZE(1..maxNumOfZoneCodes)) OF ZoneCode
+
+
+ZoneCode ::= OCTET STRING (SIZE (2))
+
+
+maxNumOfZoneCodes  INTEGER ::= 10
+
+
+InsertSubscriberDataRes ::= SEQUENCE {
+    teleserviceList [1] TeleserviceList OPTIONAL,
+    bearerServiceList   [2] BearerServiceList   OPTIONAL,
+    ss-List     [3] SS-List OPTIONAL,
+    odb-GeneralData [4] ODB-GeneralData OPTIONAL,
+    regionalSubscriptionResponse [5] RegionalSubscriptionResponse OPTIONAL,
+    supportedCamelPhases    [6] SupportedCamelPhases    OPTIONAL,
+    extensionContainer  [7] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+insertSubscriberDataRes1 InsertSubscriberDataRes ::= {
+}
+
+
+insertSubscriberDataRes2 InsertSubscriberDataRes ::= {
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    odb-GeneralData {ss-AccessBarred},
+    regionalSubscriptionResponse regionalSubscNotSupported,
+    supportedCamelPhases {phase1, phase2},
+    extensionContainer  extensionContainerv1
+}
+
+
+RegionalSubscriptionResponse ::= ENUMERATED {
+    networkNode-AreaRestricted (0),
+    tooManyZoneCodes           (1),
+    zoneCodesConflict          (2),
+    regionalSubscNotSupported  (3)
+}
+
+
+DeleteSubscriberDataArg ::= SEQUENCE {
+    imsi            [0] IMSI,
+    basicServiceList    [1] BasicServiceList    OPTIONAL,
+    ss-List     [2] SS-List OPTIONAL,
+    roamingRestrictionDueToUnsupportedFeature [4] NULL  OPTIONAL,
+    regionalSubscriptionIdentifier  [5] ZoneCode    OPTIONAL,
+    vbsGroupIndication  [7] NULL        OPTIONAL,
+    vgcsGroupIndication [8] NULL     OPTIONAL,
+    camelSubscriptionInfoWithdraw   [9] NULL     OPTIONAL,
+    extensionContainer  [6] ExtensionContainer OPTIONAL,
+    ...,
+    gprsSubscriptionDataWithdraw    [10] GPRSSubscriptionDataWithdraw   OPTIONAL,
+    roamingRestrictedInSgsnDueToUnsuppportedFeature [11] NULL   OPTIONAL
+}
+
+
+deleteSubscriberDataArg1 DeleteSubscriberDataArg ::= {
+    imsi '1122334455667788'H
+}
+
+
+deleteSubscriberDataArg2 DeleteSubscriberDataArg ::= {
+    imsi        '1122334455667788'H,
+    basicServiceList {
+	ext-BearerService: '11'H,
+	ext-BearerService: '1122334455'H,
+	ext-Teleservice:   '11'H,
+	ext-Teleservice:   '1122334455'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier  '1122'H,
+    vbsGroupIndication  NULL,
+    vgcsGroupIndication NULL,
+    camelSubscriptionInfoWithdraw NULL,
+    extensionContainer  extensionContainerv1,
+    gprsSubscriptionDataWithdraw   allGPRSData: NULL,
+    roamingRestrictedInSgsnDueToUnsuppportedFeature NULL
+}
+
+
+deleteSubscriberDataArg3 DeleteSubscriberDataArg ::= {
+    imsi        '1122334455667788'H,
+    basicServiceList {
+	ext-BearerService: '11'H,
+	ext-BearerService: '1122334455'H,
+	ext-Teleservice:   '11'H,
+	ext-Teleservice:   '1122334455'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier  '1122'H,
+    vbsGroupIndication  NULL,
+    vgcsGroupIndication NULL,
+    camelSubscriptionInfoWithdraw NULL,
+    extensionContainer  extensionContainerv1,
+    gprsSubscriptionDataWithdraw contextIdList: {50, 1},
+    roamingRestrictedInSgsnDueToUnsuppportedFeature NULL
+}
+
+
+GPRSSubscriptionDataWithdraw ::= CHOICE {
+    allGPRSData NULL,
+    contextIdList   ContextIdList
+}
+
+
+ContextIdList ::= SEQUENCE (SIZE(1..maxNumOfPDP-Contexts)) OF ContextId
+
+
+BasicServiceList ::= SEQUENCE (SIZE(1..maxNumOfBasicServices)) OF
+							Ext-BasicServiceCode
+
+
+maxNumOfBasicServices  INTEGER ::= 70
+
+
+DeleteSubscriberDataRes ::= SEQUENCE {
+    regionalSubscriptionResponse [0] RegionalSubscriptionResponse OPTIONAL,
+    extensionContainer               ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+deleteSubscriberDataRes1 DeleteSubscriberDataRes ::= {
+}
+
+
+deleteSubscriberDataRes2 DeleteSubscriberDataRes ::= {
+    regionalSubscriptionResponse zoneCodesConflict,
+    extensionContainer  extensionContainerv1
+}
+
+
+VlrCamelSubscriptionInfo ::= SEQUENCE {
+    o-CSI       [0] O-CSI   OPTIONAL,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...,
+    ss-CSI      [2] SS-CSI  OPTIONAL
+}
+
+
+SS-CSI ::= SEQUENCE {
+    ss-CamelData    SS-CamelData,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+SS-CamelData  ::= SEQUENCE {
+    ss-EventList    SS-EventList,
+    gsmSCF-Address  ISDN-AddressString,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL, 
+    ...
+}
+
+
+SS-EventList  ::= SEQUENCE SIZE (1..maxNumOfCamelSSEvents) OF SS-Code
+
+
+maxNumOfCamelSSEvents INTEGER ::= 10
+
+
+O-CSI ::= SEQUENCE {
+    o-BcsmCamelTDPDataList  O-BcsmCamelTDPDataList,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    camelCapabilityHandling [0] CamelCapabilityHandling OPTIONAL
+}
+
+O-BcsmCamelTDPDataList ::= SEQUENCE SIZE (1..maxNumOfCamelTDPData) OF
+    O-BcsmCamelTDPData
+
+
+maxNumOfCamelTDPData  INTEGER ::= 10
+
+
+O-BcsmCamelTDPData ::= SEQUENCE {
+    o-BcsmTriggerDetectionPoint O-BcsmTriggerDetectionPoint,
+    serviceKey  ServiceKey,
+    gsmSCF-Address  [0] ISDN-AddressString,
+    defaultCallHandling [1] DefaultCallHandling,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...,
+    o-BcsmCamelTDP-Criteria [3] O-BcsmCamelTDP-Criteria OPTIONAL
+}
+
+
+ServiceKey ::= INTEGER (0..2147483647)
+
+
+O-BcsmTriggerDetectionPoint ::= ENUMERATED {
+    collectedInfo (2),
+    ...
+}
+
+
+O-BcsmCamelTDP-Criteria ::= SEQUENCE {
+    destinationNumberCriteria   [0] DestinationNumberCriteria   OPTIONAL,
+    basicServiceCriteria    [1] BasicServiceCriteria    OPTIONAL,
+    callTypeCriteria    [2] CallTypeCriteria    OPTIONAL,
+    ...
+}
+
+
+DestinationNumberCriteria  ::= SEQUENCE {
+    matchType   [0] MatchType,
+    destinationNumberList   [1] DestinationNumberList   OPTIONAL,
+    destinationNumberLengthList [2] DestinationNumberLengthList OPTIONAL,
+    ...
+}
+
+
+DestinationNumberList  ::= SEQUENCE (SIZE(1..maxNumOfCamelDestinationNumbers)) OF ISDN-AddressString
+
+
+DestinationNumberLengthList  ::= SEQUENCE SIZE (1..maxNumOfCamelDestinationNumberLengths) OF INTEGER(1..maxISDN-AddressLength)
+
+
+BasicServiceCriteria ::= SEQUENCE (SIZE(1..maxNumOfCamelBasicServiceCriteria)) OF
+							Ext-BasicServiceCode
+
+
+maxNumOfCamelDestinationNumbers  INTEGER ::= 10
+
+
+maxNumOfCamelDestinationNumberLengths  INTEGER ::= 3
+
+
+maxNumOfCamelBasicServiceCriteria  INTEGER ::= 5
+
+
+CallTypeCriteria ::= ENUMERATED {
+    forwarded       (0),
+    notForwarded    (1)
+}
+
+
+MatchType       ::= ENUMERATED {
+    inhibiting  (0),
+    enabling    (1)
+}
+
+
+DefaultCallHandling ::= ENUMERATED {
+    continueCall (0) ,
+    releaseCall (1) ,
+    ...
+}
+
+
+CamelCapabilityHandling ::= INTEGER(1..16) 
+
+
+SupportedCamelPhases ::= BIT STRING {
+    phase1 (0),
+    phase2 (1)
+} (SIZE (1..16))
+
+
+SendRoutingInfoForGprsArg ::= SEQUENCE {
+    imsi                [0] IMSI,
+    ggsn-Address        [1] GSN-Address OPTIONAL,
+    extensionContainer      [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sendRoutingInfoForGprsArg1 SendRoutingInfoForGprsArg ::= {
+    imsi        '1122334455667788'H
+}
+
+
+sendRoutingInfoForGprsArg2 SendRoutingInfoForGprsArg ::= {
+    imsi                '1122334455667788'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+SendRoutingInfoForGprsRes ::= SEQUENCE {
+    sgsn-Address        [0] GSN-Address,
+    ggsn-Address        [1] GSN-Address OPTIONAL,
+    mobileNotReachableReason        [2] AbsentSubscriberDiagnosticSM        OPTIONAL,
+    extensionContainer      [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sendRoutingInfoForGprsRes1 SendRoutingInfoForGprsRes ::= {
+    sgsn-Address        '11223344556677889900112233445566'H
+}
+
+
+sendRoutingInfoForGprsRes2 SendRoutingInfoForGprsRes ::= {
+    sgsn-Address        '11223344556677889900112233445566'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    mobileNotReachableReason 255,
+    extensionContainer  extensionContainerv1
+}
+
+
+FailureReportArg ::= SEQUENCE {
+    imsi                [0] IMSI,
+    ggsn-Number     [1] ISDN-AddressString  OPTIONAL,
+    ggsn-Address        [2] GSN-Address OPTIONAL,
+    extensionContainer      [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+failureReportArg1 FailureReportArg ::= {
+    imsi        '1122334455667788'H
+}
+
+
+failureReportArg2 FailureReportArg ::= {
+    imsi         '1122334455667788'H,
+    ggsn-Number  '112233445566778899'H,
+    ggsn-Address '11223344556677889900112233445566'H,
+    extensionContainer extensionContainerv1
+}
+
+
+FailureReportRes ::= SEQUENCE {
+    extensionContainer      [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+failureReportRes1 FailureReportRes ::= {
+}
+
+
+failureReportRes2 FailureReportRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+NoteMsPresentForGprsArg ::= SEQUENCE {
+    imsi                [0] IMSI,
+    sgsn-Address        [1] GSN-Address OPTIONAL,
+    ggsn-Address        [2] GSN-Address OPTIONAL,
+    extensionContainer      [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+noteMsPresentForGprsArg1 NoteMsPresentForGprsArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+noteMsPresentForGprsArg2 NoteMsPresentForGprsArg ::= {
+    imsi                '1122334455667788'H,
+    sgsn-Address        '11223344556677889900112233445566'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+NoteMsPresentForGprsRes ::= SEQUENCE {
+    extensionContainer      [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+noteMsPresentForGprsRes1 NoteMsPresentForGprsRes ::= {
+}
+
+
+noteMsPresentForGprsRes2 NoteMsPresentForGprsRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+ResetArg ::= SEQUENCE {
+    hlr-Number  ISDN-AddressString,
+    hlr-List        HLR-List        OPTIONAL,
+    ...
+}
+
+
+resetArg1 ResetArg ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+resetArg2 ResetArg ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    hlr-List    {
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H
+    }
+}
+
+
+RestoreDataArg ::= SEQUENCE {
+    imsi            IMSI,
+    lmsi            LMSI            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ... ,
+    vlr-Capability  [6] VLR-Capability  OPTIONAL
+}
+
+
+restoreDataArg1 RestoreDataArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+restoreDataArg2 RestoreDataArg ::= {
+    imsi            '1122334455667788'H,
+    lmsi            '11223344'H,
+    extensionContainer  extensionContainerv1,
+    vlr-Capability {
+	supportedCamelPhases {phase1, phase2},
+	extensionContainer extensionContainerv1
+    }
+}
+
+
+RestoreDataRes ::= SEQUENCE {
+    hlr-Number  ISDN-AddressString,
+    msNotReachable  NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+restoreDataRes1 RestoreDataRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+restoreDataRes2 RestoreDataRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    msNotReachable  NULL,
+    extensionContainer  extensionContainerv1
+}
+
+
+VBSDataList ::= SEQUENCE SIZE (1..maxNumOfVBSGroupIds) OF VoiceBroadcastData
+
+
+VGCSDataList ::= SEQUENCE SIZE (1..maxNumOfVGCSGroupIds) OF VoiceGroupCallData
+
+
+maxNumOfVBSGroupIds  INTEGER ::= 50
+
+
+maxNumOfVGCSGroupIds  INTEGER ::= 50
+
+
+VoiceGroupCallData  ::= SEQUENCE {
+    groupId     GroupId,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+VoiceBroadcastData ::= SEQUENCE {
+    groupid     GroupId,
+    broadcastInitEntitlement    NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+GroupId ::= OCTET STRING (SIZE(3))
+
+
+ProvideSubscriberInfoArg ::= SEQUENCE {
+    imsi        [0] IMSI,
+    lmsi        [1] LMSI    OPTIONAL,
+    requestedInfo   [2] RequestedInfo,
+    extensionContainer  [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+provideSubscriberInfoArg1 ProvideSubscriberInfoArg ::= {
+    imsi                '1122334455667788'H,
+    requestedInfo {
+    }
+}
+
+provideSubscriberInfoArg2 ProvideSubscriberInfoArg ::= {
+    imsi                '1122334455667788'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    }
+}
+
+
+provideSubscriberInfoArg3 ProvideSubscriberInfoArg ::= {
+    imsi            '1122334455667788'H,
+    lmsi            '11223344'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+
+ProvideSubscriberInfoRes ::= SEQUENCE {
+    subscriberInfo  SubscriberInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+provideSubscriberInfoRes1 ProvideSubscriberInfoRes ::= {
+    subscriberInfo {
+    }
+}
+
+
+provideSubscriberInfoRes2 ProvideSubscriberInfoRes ::= {
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+
+SubscriberInfo ::= SEQUENCE {
+    locationInformation [0] LocationInformation OPTIONAL,
+    subscriberState     [1] SubscriberState     OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+RequestedInfo ::= SEQUENCE {
+    locationInformation [0] NULL        OPTIONAL,
+    subscriberState     [1] NULL        OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+LocationInformation ::= SEQUENCE {
+    ageOfLocationInformation    AgeOfLocationInformation    OPTIONAL,
+    geographicalInformation [0] GeographicalInformation OPTIONAL,
+    vlr-number  [1] ISDN-AddressString  OPTIONAL,
+    locationNumber  [2] LocationNumber  OPTIONAL,
+    cellIdOrLAI [3] CellIdOrLAI OPTIONAL,
+    extensionContainer  [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+AgeOfLocationInformation ::= INTEGER (0..32767)
+
+
+GeographicalInformation ::= OCTET STRING (SIZE(8))
+
+
+LocationNumber ::= OCTET STRING (SIZE(2..10))
+
+
+SubscriberState ::= CHOICE {
+    assumedIdle [0] NULL,
+    camelBusy   [1] NULL,
+    netDetNotReachable  NotReachableReason,
+    notProvidedFromVLR  [2] NULL
+}
+
+
+NotReachableReason ::= ENUMERATED {
+    msPurged (0),
+    imsiDetached (1),
+    restrictedArea (2),
+    notRegistered (3)
+}
+
+
+AnyTimeInterrogationArg ::= SEQUENCE {
+    subscriberIdentity  [0] SubscriberIdentity,
+    requestedInfo   [1] RequestedInfo,
+    gsmSCF-Address  [3] ISDN-AddressString,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+anyTimeInterrogationArg1 AnyTimeInterrogationArg ::= {
+    subscriberIdentity imsi: '1122334455667788'H,
+    requestedInfo   {
+    },
+    gsmSCF-Address '112233445566778899'H
+}
+
+
+anyTimeInterrogationArg2 AnyTimeInterrogationArg ::= {
+    subscriberIdentity imsi: '1122334455667788'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    },
+    gsmSCF-Address '112233445566778899'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+AnyTimeInterrogationRes ::= SEQUENCE {
+    subscriberInfo  SubscriberInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+anyTimeInterrogationRes1 AnyTimeInterrogationRes ::= {
+    subscriberInfo {
+    }
+}
+
+
+anyTimeInterrogationRes2 AnyTimeInterrogationRes ::= {
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+
+SubscriberIdentity ::= CHOICE {
+    imsi        [0] IMSI,
+    msisdn      [1] ISDN-AddressString
+}
+
+
+ActivateTraceModeArg ::= SEQUENCE {
+    imsi            [0] IMSI        OPTIONAL,
+    traceReference  [1] TraceReference,
+    traceType       [2] TraceType,
+    omc-Id          [3] AddressString   OPTIONAL,
+    extensionContainer  [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+activateTraceModeArg1 ActivateTraceModeArg ::= {
+    traceReference '1122'H,
+    traceType      255
+}
+
+
+activateTraceModeArg2 ActivateTraceModeArg ::= {
+    imsi            '1122334455667788'H,
+    traceReference '1122'H,
+    traceType      255,
+    omc-Id         '1122334455667788990011223344556677889900'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+TraceReference ::= OCTET STRING (SIZE(1..2))
+
+
+TraceType ::= INTEGER (0..255)
+
+
+ActivateTraceModeRes ::= SEQUENCE {
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+activateTraceModeRes1 ActivateTraceModeRes ::= {
+}
+
+
+activateTraceModeRes2 ActivateTraceModeRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+DeactivateTraceModeArg ::= SEQUENCE {
+    imsi                [0] IMSI        OPTIONAL,
+    traceReference      [1] TraceReference,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+deactivateTraceModeArg1 DeactivateTraceModeArg ::= {
+    traceReference '1122'H
+}
+
+
+deactivateTraceModeArg2 DeactivateTraceModeArg ::= {
+    imsi                '1122334455667788'H,
+    traceReference      '1122'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+DeactivateTraceModeRes ::= SEQUENCE {
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+deactivateTraceModeRes1 DeactivateTraceModeRes ::= {
+}
+
+
+deactivateTraceModeRes2 DeactivateTraceModeRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+CUG-CheckInfo ::= SEQUENCE {
+    cug-Interlock   CUG-Interlock,
+    cug-OutgoingAccess  NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+NumberOfForwarding ::= INTEGER (1..5)
+
+
+SendRoutingInfoArg ::= SEQUENCE {
+    msisdn      [0] ISDN-AddressString,
+    cug-CheckInfo   [1] CUG-CheckInfo   OPTIONAL,
+    numberOfForwarding  [2] NumberOfForwarding  OPTIONAL,
+    interrogationType   [3] InterrogationType,
+    or-Interrogation    [4] NULL        OPTIONAL,
+    or-Capability   [5] OR-Phase    OPTIONAL,
+    gmsc-Address    [6] ISDN-AddressString,
+    callReferenceNumber [7] CallReferenceNumber OPTIONAL,
+    forwardingReason    [8] ForwardingReason    OPTIONAL,
+    basicServiceGroup   [9] Ext-BasicServiceCode    OPTIONAL,
+    networkSignalInfo   [10] ExternalSignalInfo OPTIONAL,
+    camelInfo   [11] CamelInfo  OPTIONAL,
+    suppressionOfAnnouncement   [12] SuppressionOfAnnouncement OPTIONAL,
+    extensionContainer  [13] ExtensionContainer OPTIONAL,
+    ...,
+    alertingPattern [14] AlertingPattern    OPTIONAL,
+    ccbs-Call   [15] NULL   OPTIONAL,
+    supportedCCBS-Phase [16]     SupportedCCBS-Phase    OPTIONAL
+}
+
+
+sendRoutingInfoArg1 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    interrogationType forwarding,
+    gmsc-Address '112233445566778899'H
+}
+
+
+sendRoutingInfoArg2 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    numberOfForwarding  5,
+    interrogationType   basicCall,
+    or-Interrogation    NULL,
+    or-Capability       127,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    forwardingReason    noReply,
+    basicServiceGroup   ext-BearerService: '11'H,
+    networkSignalInfo   {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    camelInfo           {
+	supportedCamelPhases {phase1, phase2}
+    },
+    suppressionOfAnnouncement NULL,
+    extensionContainer extensionContainerv1,
+    alertingPattern     '11'H,
+    ccbs-Call           NULL,
+    supportedCCBS-Phase 127
+}
+
+
+sendRoutingInfoArg3 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    numberOfForwarding  5,
+    interrogationType   basicCall,
+    or-Interrogation    NULL,
+    or-Capability       127,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    forwardingReason    noReply,
+    basicServiceGroup   ext-Teleservice: '1122334455'H,
+    networkSignalInfo   {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer extensionContainerv1
+    },
+    camelInfo           {
+	supportedCamelPhases {phase1, phase2},
+	suppress-T-CSI       NULL,
+	extensionContainer   extensionContainerv1
+    },
+    suppressionOfAnnouncement NULL,
+    extensionContainer        extensionContainerv1,
+    alertingPattern           '11'H,
+    ccbs-Call                 NULL,
+    supportedCCBS-Phase       127
+}
+
+
+SuppressionOfAnnouncement ::= NULL
+
+
+InterrogationType ::= ENUMERATED {
+    basicCall  (0),
+    forwarding  (1)
+}
+
+
+OR-Phase ::= INTEGER (1..127)
+
+
+CallReferenceNumber ::= OCTET STRING (SIZE (1..8))
+
+
+ForwardingReason ::= ENUMERATED {
+    notReachable  (0),
+    busy  (1),
+    noReply  (2)
+}
+
+
+SupportedCCBS-Phase ::= INTEGER (1..127) 
+
+
+SendRoutingInfoRes ::= SEQUENCE {
+    imsi            [9] IMSI        OPTIONAL,
+    extendedRoutingInfo ExtendedRoutingInfo OPTIONAL,
+    cug-CheckInfo   [3] CUG-CheckInfo   OPTIONAL,
+    cugSubscriptionFlag [6] NULL        OPTIONAL,
+    subscriberInfo  [7] SubscriberInfo  OPTIONAL,
+    ss-List     [1] SS-List OPTIONAL,
+    basicService    [5] Ext-BasicServiceCode    OPTIONAL,
+    forwardingInterrogationRequired [4] NULL        OPTIONAL,
+    vmsc-Address    [2] ISDN-AddressString  OPTIONAL,
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ... ,
+    naea-PreferredCI    [10] NAEA-PreferredCI   OPTIONAL,
+    ccbs-Indicators [11] CCBS-Indicators    OPTIONAL
+}
+
+
+sendRoutingInfoRes1 SendRoutingInfoRes ::= {
+}
+
+
+sendRoutingInfoRes2 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo roamingNumber: '112233445566778899'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+    },
+    ss-List        {
+	'11'H
+    },
+    basicService    ext-BearerService: '11'H,
+    forwardingInterrogationRequired    NULL,
+    vmsc-Address                       '112233445566778899'H,
+    extensionContainer                 extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC '112233'H
+    },
+    ccbs-Indicators {
+    }
+}
+
+
+sendRoutingInfoRes3 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo forwardingData: {
+	forwardedToNumber     '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer    extensionContainerv1
+    },
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    ss-List        {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    basicService    ext-Teleservice: '1122334455'H,
+    forwardingInterrogationRequired   NULL,
+    vmsc-Address                 '112233445566778899'H,
+    extensionContainer           extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC '112233'H,
+	extensionContainer  extensionContainerv1
+    },
+    ccbs-Indicators {
+	ccbs-Possible            NULL,
+	keepCCBS-CallIndicator   NULL,
+	extensionContainer       extensionContainerv1
+    }
+}
+
+
+sendRoutingInfoRes4 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo camelRoutingInfo:  {
+	forwardingData  {
+	    forwardedToNumber   '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions     '11'H,
+	    extensionContainer  extensionContainerv1
+	},
+	gmscCamelSubscriptionInfo {
+	    t-CSI {
+		t-BcsmCamelTDPDataList {
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address   '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address   '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    }
+		},
+		extensionContainer  extensionContainerv1,
+		camelCapabilityHandling 16
+	    },
+	    o-CSI {
+		o-BcsmCamelTDPDataList {
+		    {
+			o-BcsmTriggerDetectionPoint collectedInfo,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    }
+		},
+		extensionContainer  extensionContainerv1,
+		camelCapabilityHandling 16
+	    },
+	    extensionContainer  extensionContainerv1
+	},
+	extensionContainer  extensionContainerv1
+    },
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    ss-List        {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    basicService    ext-Teleservice: '1122334455'H,
+    forwardingInterrogationRequired   NULL,
+    vmsc-Address                      '112233445566778899'H,
+    extensionContainer                extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC   '112233'H,
+	extensionContainer  extensionContainerv1
+    },
+    ccbs-Indicators {
+	ccbs-Possible           NULL,
+	keepCCBS-CallIndicator  NULL,
+	extensionContainer      extensionContainerv1
+    }
+}
+
+
+CCBS-Indicators ::= SEQUENCE {
+    ccbs-Possible   [0] NULL        OPTIONAL,
+    keepCCBS-CallIndicator  [1] NULL        OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+RoutingInfo ::= CHOICE {
+    roamingNumber   ISDN-AddressString,
+    forwardingData  ForwardingData
+}
+
+
+routingInfo1 RoutingInfo ::= roamingNumber: '112233445566778899'H
+
+
+routingInfo2 RoutingInfo ::= forwardingData: {
+}
+
+
+routingInfo3 RoutingInfo ::= forwardingData: {
+    forwardedToNumber       '112233445566778899'H,
+    forwardedToSubaddress   '11223344556677889900112233445566778899001'H,
+    forwardingOptions       '11'H,
+    extensionContainer      extensionContainerv1
+}
+
+
+ForwardingData ::= SEQUENCE {
+    forwardedToNumber   [5] ISDN-AddressString  OPTIONAL,
+    -- When this datatype is sent from an HLR which supports CAMEL Phase 2
+    -- to a GMSC which supports CAMEL Phase 2 the GMSC shall not check the
+    -- format of the number
+    forwardedToSubaddress   [4] ISDN-SubaddressString   OPTIONAL,
+    forwardingOptions   [6] ForwardingOptions   OPTIONAL,
+    extensionContainer  [7] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+ProvideRoamingNumberArg ::= SEQUENCE {
+    imsi                [0] IMSI,
+    msc-Number          [1] ISDN-AddressString,
+    msisdn              [2] ISDN-AddressString  OPTIONAL,
+    lmsi                [4] LMSI        OPTIONAL,
+    gsm-BearerCapability [5] ExternalSignalInfo  OPTIONAL,
+    networkSignalInfo   [6] ExternalSignalInfo  OPTIONAL,
+    suppressionOfAnnouncement [7] SuppressionOfAnnouncement   OPTIONAL,
+    gmsc-Address        [8] ISDN-AddressString  OPTIONAL,
+    callReferenceNumber [9] CallReferenceNumber OPTIONAL,
+    or-Interrogation    [10] NULL   OPTIONAL,
+    extensionContainer  [11] ExtensionContainer OPTIONAL,
+    ... ,
+    alertingPattern     [12] AlertingPattern    OPTIONAL,
+    ccbs-Call           [13] NULL   OPTIONAL
+}
+
+
+provideRoamingNumberArg1 ProvideRoamingNumberArg ::= {
+    imsi                '1122334455667788'H,
+    msc-Number          '112233445566778899'H
+}
+
+
+provideRoamingNumberArg2 ProvideRoamingNumberArg ::= {
+    imsi                '1122334455667788'H,
+    msc-Number          '112233445566778899'H,
+    msisdn              '112233445566778899'H,
+    lmsi                '11223344'H,
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    networkSignalInfo   {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    suppressionOfAnnouncement NULL,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    or-Interrogation    NULL,
+    extensionContainer      extensionContainerv1,
+    alertingPattern     '11'H,
+    ccbs-Call           NULL
+}
+
+
+ProvideRoamingNumberRes ::= SEQUENCE {
+    roamingNumber   ISDN-AddressString,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+provideRoamingNumberRes1 ProvideRoamingNumberRes ::= {
+    roamingNumber       '112233445566778899'H
+}
+
+
+provideRoamingNumberRes2 ProvideRoamingNumberRes ::= {
+    roamingNumber       '112233445566778899'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+ResumeCallHandlingArg ::= SEQUENCE {
+    callReferenceNumber [0] CallReferenceNumber,
+    basicServiceGroup   [1] Ext-BasicServiceCode,
+    forwardingData  [2] ForwardingData,
+    imsi            [3] IMSI,
+    cug-CheckInfo   [4] CUG-CheckInfo   OPTIONAL,
+    o-CSI       [5] O-CSI   OPTIONAL,
+    extensionContainer  [7] ExtensionContainer  OPTIONAL,
+    ...,
+    ccbs-Possible   [8] NULL        OPTIONAL
+}
+
+
+resumeCallHandlingArg1 ResumeCallHandlingArg ::= {
+    callReferenceNumber '1122334455667788'H,
+    basicServiceGroup   ext-BearerService: '11'H,
+    forwardingData  {
+	forwardedToNumber   '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer  extensionContainerv1
+    },
+    imsi                '1122334455667788'H
+}
+
+
+resumeCallHandlingArg2 ResumeCallHandlingArg ::= {
+    callReferenceNumber '1122334455667788'H,
+    basicServiceGroup   ext-Teleservice: '1122334455'H,
+    forwardingData  {
+	forwardedToNumber   '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer  extensionContainerv1
+    },
+    imsi                '1122334455667788'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    o-CSI {
+	o-BcsmCamelTDPDataList {
+	    {
+		o-BcsmTriggerDetectionPoint collectedInfo,
+		serviceKey  2147483647,
+		gsmSCF-Address  '112233445566778899'H,
+		defaultCallHandling releaseCall,
+		extensionContainer  extensionContainerv1
+	    }
+	},
+	extensionContainer  extensionContainerv1,
+	camelCapabilityHandling 16
+    },
+    extensionContainer  extensionContainerv1,
+    ccbs-Possible       NULL
+}
+
+
+ResumeCallHandlingRes ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+resumeCallHandlingRes1 ResumeCallHandlingRes ::= {
+}
+
+
+resumeCallHandlingRes2 ResumeCallHandlingRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+CamelInfo ::= SEQUENCE {
+    supportedCamelPhases    SupportedCamelPhases,
+    suppress-T-CSI  NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+ExtendedRoutingInfo ::= CHOICE {
+    roamingNumber ISDN-AddressString,
+    forwardingData ForwardingData,  
+    camelRoutingInfo    [8] CamelRoutingInfo
+}
+
+
+CamelRoutingInfo ::= SEQUENCE {
+    forwardingData  ForwardingData  OPTIONAL,
+    gmscCamelSubscriptionInfo   [0] GmscCamelSubscriptionInfo,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+GmscCamelSubscriptionInfo ::= SEQUENCE {
+    t-CSI       [0] T-CSI   OPTIONAL,
+    o-CSI       [1] O-CSI   OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+T-CSI ::= SEQUENCE {
+    t-BcsmCamelTDPDataList  T-BcsmCamelTDPDataList,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    camelCapabilityHandling [0] CamelCapabilityHandling OPTIONAL
+}
+
+
+T-BcsmCamelTDPDataList ::= SEQUENCE (SIZE(1..maxNumOfCamelTDPData)) OF
+							T-BcsmCamelTDPData
+
+
+T-BcsmCamelTDPData ::= SEQUENCE {
+    t-BcsmTriggerDetectionPoint T-BcsmTriggerDetectionPoint,
+    serviceKey  ServiceKey,
+    gsmSCF-Address  [0] ISDN-AddressString,
+    defaultCallHandling [1] DefaultCallHandling,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+T-BcsmTriggerDetectionPoint ::= ENUMERATED {
+    termAttemptAuthorized(12),
+    ...
+}
+
+
+ProvideSIWFSNumberArg ::= SEQUENCE {
+    gsm-BearerCapability    [0] ExternalSignalInfo,
+    isdn-BearerCapability   [1] ExternalSignalInfo,
+    call-Direction  [2] CallDirection,
+    b-Subscriber-Address    [3] ISDN-AddressString,
+    chosenChannel   [4] ExternalSignalInfo,
+    lowerLayerCompatibility [5] ExternalSignalInfo  OPTIONAL,
+    highLayerCompatibility  [6] ExternalSignalInfo  OPTIONAL,
+    extensionContainer  [7] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+provideSIWFSNumberArg1 ProvideSIWFSNumberArg ::= {
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    isdn-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    call-Direction       '11'H,
+    b-Subscriber-Address '112233445566778899'H,
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    }
+}
+
+
+provideSIWFSNumberArg2 ProvideSIWFSNumberArg ::= {
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    isdn-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    call-Direction       '11'H,
+    b-Subscriber-Address '112233445566778899'H,
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    lowerLayerCompatibility {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    highLayerCompatibility {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+
+
+CallDirection ::= OCTET STRING (SIZE(1))
+
+
+ProvideSIWFSNumberRes ::= SEQUENCE {
+    sIWFSNumber [0] ISDN-AddressString,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+provideSIWFSNumberRes1 ProvideSIWFSNumberRes ::= {
+    sIWFSNumber '112233445566778899'H
+}
+
+
+provideSIWFSNumberRes2 ProvideSIWFSNumberRes ::= {
+    sIWFSNumber '112233445566778899'H,
+    extensionContainer extensionContainerv1
+}
+
+
+SIWFSSignallingModifyArg ::= SEQUENCE {
+    channelType [0] ExternalSignalInfo  OPTIONAL,
+    chosenChannel   [1] ExternalSignalInfo  OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sIWFSSignallingModifyArg1 SIWFSSignallingModifyArg ::= {
+}
+
+
+sIWFSSignallingModifyArg2 SIWFSSignallingModifyArg ::= {
+    channelType {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+
+
+SIWFSSignallingModifyRes ::= SEQUENCE {
+    chosenChannel   [0] ExternalSignalInfo  OPTIONAL,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sIWFSSignallingModifyRes1 SIWFSSignallingModifyRes ::= {
+}
+
+
+sIWFSSignallingModifyRes2 SIWFSSignallingModifyRes ::= {
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+
+
+SetReportingStateArg ::= SEQUENCE {
+    imsi            [0] IMSI        OPTIONAL,
+    lmsi            [1] LMSI        OPTIONAL,
+    ccbs-Monitoring [2] ReportingState  OPTIONAL,
+    extensionContainer  [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+setReportingStateArg1 SetReportingStateArg ::= {
+}
+
+
+setReportingStateArg2 SetReportingStateArg ::= {
+    imsi                '1122334455667788'H,
+    lmsi                '11223344'H,
+    ccbs-Monitoring     startMonitoring,
+    extensionContainer  extensionContainerv1
+}
+
+
+ReportingState ::= ENUMERATED {
+    stopMonitoring  (0),
+    startMonitoring (1),
+    ...
+}
+
+
+SetReportingStateRes ::= SEQUENCE{
+    ccbs-SubscriberStatus   [0] CCBS-SubscriberStatus   OPTIONAL,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+setReportingStateRes1 SetReportingStateRes ::= {
+}
+
+
+setReportingStateRes2 SetReportingStateRes ::= {
+    ccbs-SubscriberStatus ccbsNotReachable,
+    extensionContainer  extensionContainerv1
+}
+
+
+CCBS-SubscriberStatus ::= ENUMERATED {
+    ccbsNotIdle     (0),
+    ccbsIdle    (1),
+    ccbsNotReachable    (2),
+    ...
+}
+
+
+StatusReportArg ::= SEQUENCE {
+    imsi        [0] IMSI,
+    eventReportData [1] EventReportData OPTIONAL,
+    callReportdata  [2] CallReportData  OPTIONAL,
+    extensionContainer  [3] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+statusReportArg1 StatusReportArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+statusReportArg2 StatusReportArg ::= {
+    imsi                '1122334455667788'H,
+    eventReportData     {
+	ccbs-SubscriberStatus ccbsNotReachable,
+	extensionContainer  extensionContainerv1
+    },
+    callReportdata      {
+	monitoringMode  b-side,
+	callOutcome     busy,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+
+EventReportData ::= SEQUENCE {
+    ccbs-SubscriberStatus   [0] CCBS-SubscriberStatus   OPTIONAL,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+CallReportData ::= SEQUENCE {
+    monitoringMode  [0] MonitoringMode  OPTIONAL,
+    callOutcome [1] CallOutcome OPTIONAL,
+    extensionContainer  [2] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+MonitoringMode ::= ENUMERATED {
+    a-side      (0),
+    b-side      (1),
+    ...
+}
+
+
+CallOutcome ::= ENUMERATED {
+    success     (0),
+    failure     (1),
+    busy        (2),
+    ...
+}
+
+
+StatusReportRes ::= SEQUENCE {
+    extensionContainer  [0] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+statusReportRes1 StatusReportRes ::= {
+}
+
+
+statusReportRes2 StatusReportRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+
+RemoteUserFreeArg ::= SEQUENCE {
+    imsi            [0] IMSI,
+    callInfo        [1] ExternalSignalInfo,
+    ccbs-Feature    [2] CCBS-Feature,
+    translatedB-Number  [3] ISDN-AddressString,
+    replaceB-Number [4]     NULL        OPTIONAL,
+    alertingPattern [5] AlertingPattern OPTIONAL,
+    extensionContainer  [6] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+remoteUserFreeArg1 RemoteUserFreeArg ::= {
+    imsi             '1122334455667788'H,
+    callInfo         {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    ccbs-Feature     {
+    },
+    translatedB-Number  '112233445566778899'H
+}
+
+
+remoteUserFreeArg2 RemoteUserFreeArg ::= {
+    imsi                '1122334455667788'H,
+    callInfo         {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    ccbs-Feature     {
+	ccbs-Index          5,
+	b-subscriberNumber  '112233445566778899'H,
+	b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	basicServiceGroup   bearerService: '11'H
+    },
+    translatedB-Number  '112233445566778899'H,
+    replaceB-Number     NULL,
+    alertingPattern     '22'H,
+    extensionContainer  extensionContainerv1
+}
+
+
+RemoteUserFreeRes ::= SEQUENCE {
+    ruf-Outcome        [0] RUF-Outcome,
+    extensionContainer [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+remoteUserFreeRes1 RemoteUserFreeRes ::= {
+    ruf-Outcome         accepted
+}
+
+
+remoteUserFreeRes2 RemoteUserFreeRes ::= {
+    ruf-Outcome         udubFromBusyMS,
+    extensionContainer  extensionContainerv1
+}
+
+
+RUF-Outcome ::= ENUMERATED {
+    accepted (0),
+    rejected (1),
+    noResponseFromFreeMS (2), -- T4 Expiry
+    noResponseFromBusyMS (3), -- T10 Expiry
+    udubFromFreeMS (4),
+    udubFromBusyMS (5),
+    ...
+}
+
+
+RegisterSS-Arg ::= SEQUENCE {
+    ss-Code                   SS-Code,
+    basicService              BasicServiceCode    OPTIONAL,
+    forwardedToNumber     [4] AddressString   OPTIONAL,
+    forwardedToSubaddress [6] ISDN-SubaddressString   OPTIONAL,
+    noReplyConditionTime  [5] NoReplyConditionTime    OPTIONAL,
+    ...,
+    defaultPriority       [7] EMLPP-Priority  OPTIONAL
+}
+
+
+registerSS-Arg1 RegisterSS-Arg ::= {
+    ss-Code                   '11'H
+}
+
+
+registerSS-Arg2 RegisterSS-Arg ::= {
+    ss-Code                   '11'H,
+    basicService              bearerService: '11'H,
+    forwardedToNumber         '112233445566778899'H,
+    forwardedToSubaddress     '112233445566778899001122334455667788990011'H,
+    noReplyConditionTime      30,
+    defaultPriority           15
+}
+
+
+NoReplyConditionTime ::= INTEGER (5..30)
+
+
+SS-Info ::= CHOICE {
+    forwardingInfo  [0] ForwardingInfo,
+    callBarringInfo [1] CallBarringInfo,
+    ss-Data         [3] SS-Data
+}
+
+
+ForwardingInfo ::= SEQUENCE {
+    ss-Code     SS-Code     OPTIONAL,
+    forwardingFeatureList   ForwardingFeatureList,
+    ...
+}
+
+
+ForwardingFeatureList ::= SEQUENCE (SIZE(1..maxNumOfBasicServiceGroups)) OF ForwardingFeature
+
+
+ForwardingFeature ::= SEQUENCE {
+    basicService    BasicServiceCode    OPTIONAL,
+    ss-Status   [4] SS-Status   OPTIONAL,
+    forwardedToNumber   [5] ISDN-AddressString  OPTIONAL,
+    forwardedToSubaddress   [8] ISDN-SubaddressString   OPTIONAL,
+    forwardingOptions   [6] ForwardingOptions   OPTIONAL,
+    noReplyConditionTime    [7] NoReplyConditionTime    OPTIONAL,
+    ...
+}
+
+
+SS-Status ::= OCTET STRING (SIZE (1))
+
+
+ForwardingOptions ::= OCTET STRING (SIZE (1))
+
+
+CallBarringInfo ::= SEQUENCE {
+    ss-Code     SS-Code     OPTIONAL,
+    callBarringFeatureList  CallBarringFeatureList,
+    ...
+}
+
+
+CallBarringFeatureList ::= SEQUENCE (SIZE(1..maxNumOfBasicServiceGroups)) OF
+							CallBarringFeature
+
+
+CallBarringFeature ::= SEQUENCE {
+    basicService    BasicServiceCode    OPTIONAL,
+    ss-Status   [4] SS-Status   OPTIONAL,
+    ...
+}
+
+
+SS-Data ::= SEQUENCE {
+    ss-Code     SS-Code     OPTIONAL,
+    ss-Status   [4] SS-Status   OPTIONAL,
+    ss-SubscriptionOption   SS-SubscriptionOption   OPTIONAL,
+    basicServiceGroupList   BasicServiceGroupList   OPTIONAL,
+    ...,
+    defaultPriority EMLPP-Priority  OPTIONAL
+}   
+
+
+SS-SubscriptionOption ::= CHOICE {
+    cliRestrictionOption    [2] CliRestrictionOption,
+    overrideCategory    [1] OverrideCategory
+}
+
+
+CliRestrictionOption ::= ENUMERATED {
+    permanent  (0),
+    temporaryDefaultRestricted  (1),
+    temporaryDefaultAllowed  (2)
+}
+
+
+OverrideCategory ::= ENUMERATED {
+    overrideEnabled  (0),
+    overrideDisabled  (1)
+}
+
+
+SS-ForBS-Code ::= SEQUENCE {
+    ss-Code         SS-Code,
+    basicService    BasicServiceCode    OPTIONAL,
+    ...
+}
+
+
+sS-ForBS-Code1 SS-ForBS-Code ::= {
+    ss-Code         '11'H
+}
+
+
+sS-ForBS-Code2 SS-ForBS-Code ::= {
+    ss-Code         '11'H,
+    basicService    teleservice: '11'H
+}
+
+
+GenericServiceInfo ::= SEQUENCE {
+    ss-Status   SS-Status,
+    cliRestrictionOption    CliRestrictionOption    OPTIONAL,
+    ...,
+    maximumEntitledPriority [0] EMLPP-Priority  OPTIONAL,
+    defaultPriority [1] EMLPP-Priority  OPTIONAL,
+    ccbs-FeatureList    [2] CCBS-FeatureList    OPTIONAL
+}
+
+
+CCBS-FeatureList ::= SEQUENCE (SIZE(1..maxNumOfCCBS-Requests)) OF CCBS-Feature
+
+
+maxNumOfCCBS-Requests  INTEGER ::= 5
+
+
+CCBS-Feature ::= SEQUENCE {
+    ccbs-Index  [0] CCBS-Index  OPTIONAL,
+    b-subscriberNumber  [1] ISDN-AddressString  OPTIONAL,
+    b-subscriberSubaddress  [2] ISDN-SubaddressString   OPTIONAL,
+    basicServiceGroup   [3] BasicServiceCode    OPTIONAL,
+    ...
+}
+
+
+CCBS-Index ::= INTEGER (1..maxNumOfCCBS-Requests)
+
+
+InterrogateSS-Res ::= CHOICE {
+    ss-Status   [0] SS-Status,
+    basicServiceGroupList   [2] BasicServiceGroupList,
+    forwardingFeatureList   [3] ForwardingFeatureList,
+    genericServiceInfo  [4] GenericServiceInfo
+}
+
+
+interrogateSS-Res1 InterrogateSS-Res ::= ss-Status: '11'H
+
+
+interrogateSS-Res2 InterrogateSS-Res ::=  basicServiceGroupList: {
+    bearerService: '11'H,
+    teleservice: '22'H
+}
+
+
+interrogateSS-Res3 InterrogateSS-Res ::= forwardingFeatureList: {
+    {
+	basicService bearerService: '11'H,
+	ss-Status '11'H,
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '11'H,
+	noReplyConditionTime 30
+    },
+    {
+	basicService teleservice: '11'H,
+	ss-Status '22'H,
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '22'H,
+	noReplyConditionTime 30
+    }
+}
+
+
+interrogateSS-Res4 InterrogateSS-Res ::= genericServiceInfo: {
+    ss-Status               '11'H,
+    cliRestrictionOption    temporaryDefaultAllowed,
+    maximumEntitledPriority 0,
+    defaultPriority         15,
+    ccbs-FeatureList        {
+	{
+	    ccbs-Index             5,
+	    b-subscriberNumber     '112233445566778899'H,
+	    b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	    basicServiceGroup      bearerService: '11'H
+	}
+    }
+}
+
+
+USSD-Arg ::= SEQUENCE {
+    ussd-DataCodingScheme   USSD-DataCodingScheme,
+    ussd-String USSD-String,
+    ... ,
+    alertingPattern AlertingPattern OPTIONAL
+}
+
+
+uSSD-Arg1 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+
+
+uSSD-Arg2 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    alertingPattern     '22'H
+}
+
+
+USSD-Res ::= SEQUENCE {
+    ussd-DataCodingScheme   USSD-DataCodingScheme,
+    ussd-String USSD-String,
+    ...
+}
+
+
+uSSD-Res1 USSD-Res ::= {
+    ussd-DataCodingScheme '22'H,
+    ussd-String           '11'H
+}
+
+
+uSSD-Res2 USSD-Res ::= {
+    ussd-DataCodingScheme '22'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+
+
+USSD-DataCodingScheme ::= OCTET STRING (SIZE(1))
+
+
+USSD-String ::= OCTET STRING (SIZE(1..maxUSSD-StringLength))
+
+
+maxUSSD-StringLength  INTEGER ::= 160
+
+
+Password ::= NumericString (FROM("0"|"1"|"2"|"3"|"4"|"5"|"6"|"7"|"8"|"9")) (SIZE (4))
+
+
+password Password ::= "7537"
+
+
+GuidanceInfo ::= ENUMERATED {
+    enterPW          (0),
+    enterNewPW       (1),
+    enterNewPW-Again (2)
+}
+
+
+guidanceInfo GuidanceInfo ::= enterNewPW-Again
+
+
+SS-List ::= SEQUENCE (SIZE(1..maxNumOfSS)) OF SS-Code
+
+
+maxNumOfSS  INTEGER ::= 30
+
+
+SS-InfoList ::= SEQUENCE (SIZE(1..maxNumOfSS)) OF SS-Info
+
+
+sS-InfoList SS-InfoList ::= {
+    forwardingInfo: {
+	ss-Code '11'H,
+	forwardingFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	}
+    },
+    callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+    },
+    ss-Data: {
+	ss-Code '11'H,
+	ss-Status '11'H,
+	ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	basicServiceGroupList {
+	    bearerService: '11'H,
+	    teleservice: '22'H
+	}
+    }
+}
+
+
+BasicServiceGroupList ::= SEQUENCE (SIZE(1..maxNumOfBasicServiceGroups)) OF
+							BasicServiceCode
+
+
+maxNumOfBasicServiceGroups INTEGER ::= 13
+
+
+SS-InvocationNotificationArg ::= SEQUENCE {
+    imsi                  [0] IMSI,
+    msisdn                [1] ISDN-AddressString,
+    ss-Event              [2] SS-Code,
+    ss-EventSpecification [3] SS-EventSpecification   OPTIONAL,
+    extensionContainer    [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sS-InvocationNotificationArg1 SS-InvocationNotificationArg ::= {
+    imsi                  '1122334455667788'H,
+    msisdn                '112233445566778899'H,
+    ss-Event              '11'H
+}
+
+
+sS-InvocationNotificationArg2 SS-InvocationNotificationArg ::= {
+    imsi                  '1122334455667788'H,
+    msisdn                '112233445566778899'H,
+    ss-Event              '11'H,
+    ss-EventSpecification {
+	'11'H,
+	'1122334455667788990011223344556677889900'H
+    },
+    extensionContainer    extensionContainerv1
+}
+
+
+SS-InvocationNotificationRes ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sS-InvocationNotificationRes1 SS-InvocationNotificationRes ::= {
+}
+
+
+sS-InvocationNotificationRes2 SS-InvocationNotificationRes ::= {
+    extensionContainer    extensionContainerv1
+}
+
+
+SS-EventSpecification ::= SEQUENCE (SIZE(1..maxEventSpecification)) OF
+							AddressString
+
+
+maxEventSpecification  INTEGER ::= 2
+
+
+RegisterCC-EntryArg ::= SEQUENCE {
+    ss-Code     [0] SS-Code,
+    ccbs-Data   [1] CCBS-Data   OPTIONAL,
+    ...
+}
+
+
+registerCC-EntryArg1 RegisterCC-EntryArg ::= {
+    ss-Code '11'H
+}
+
+
+registerCC-EntryArg2 RegisterCC-EntryArg ::= {
+    ss-Code     '11'H,
+    ccbs-Data   {
+	ccbs-Feature        {
+	    ccbs-Index             5,
+	    b-subscriberNumber     '112233445566778899'H,
+	    b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	    basicServiceGroup      teleservice: '11'H
+	},
+	translatedB-Number         '112233445566778899'H,
+	serviceIndicator           {clir-invoked, camel-invoked},
+	callInfo                   {
+	    protocolId ets-300102-1,
+	    signalInfo '11'H,
+	    extensionContainer extensionContainerv1
+	},
+	networkSignalInfo          {
+	    protocolId ets-300102-1,
+	    signalInfo '11'H,
+	    extensionContainer extensionContainerv1
+	}
+    }
+}
+
+
+CCBS-Data ::= SEQUENCE {
+    ccbs-Feature    [0] CCBS-Feature,
+    translatedB-Number  [1] ISDN-AddressString,
+    serviceIndicator    [2] ServiceIndicator    OPTIONAL,
+    callInfo        [3] ExternalSignalInfo,
+    networkSignalInfo   [4] ExternalSignalInfo,
+    ...
+}
+
+
+ServiceIndicator ::= BIT STRING {
+    clir-invoked (0),
+    camel-invoked (1)
+} (SIZE(2..32))
+
+
+RegisterCC-EntryRes ::= SEQUENCE {
+    ccbs-Feature    [0] CCBS-Feature    OPTIONAL,
+    ...
+}
+
+
+registerCC-EntryRes1 RegisterCC-EntryRes ::= {
+}
+
+
+registerCC-EntryRes2 RegisterCC-EntryRes ::= {
+    ccbs-Feature     {
+	ccbs-Index          5,
+	b-subscriberNumber  '112233445566778899'H,
+	b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	basicServiceGroup   bearerService: '11'H
+    }
+}
+
+
+EraseCC-EntryArg ::= SEQUENCE {
+    ss-Code     [0] SS-Code,
+    ccbs-Index  [1] CCBS-Index  OPTIONAL,
+    ...
+}
+
+
+eraseCC-EntryArg1 EraseCC-EntryArg ::= {
+    ss-Code     '11'H
+}
+
+
+eraseCC-EntryArg2 EraseCC-EntryArg ::= {
+    ss-Code     '11'H,
+    ccbs-Index          5
+}
+
+
+EraseCC-EntryRes ::= SEQUENCE {
+    ss-Code     [0] SS-Code,
+    ss-Status   [1] SS-Status   OPTIONAL,
+    ...
+}
+
+
+eraseCC-EntryRes1 EraseCC-EntryRes ::= {
+    ss-Code     '11'H
+}
+
+
+eraseCC-EntryRes2 EraseCC-EntryRes ::= {
+    ss-Code     '11'H,
+    ss-Status '11'H
+}
+
+
+SS-Code ::= OCTET STRING (SIZE (1))
+
+
+allSS           SS-Code ::= '00000000'B
+    -- reserved for possible future use
+    -- all SS
+
+allLineIdentificationSS SS-Code ::= '00010000'B
+    -- reserved for possible future use
+    -- all line identification SS
+clip            SS-Code ::= '00010001'B
+    -- calling line identification presentation
+clir            SS-Code ::= '00010010'B
+    -- calling line identification restriction
+colp            SS-Code ::= '00010011'B
+    -- connected line identification presentation
+colr            SS-Code ::= '00010100'B
+    -- connected line identification restriction
+mci         SS-Code ::= '00010101'B
+    -- reserved for possible future use
+    -- malicious call identification
+
+allNameIdentificationSS SS-Code ::= '00011000'B
+    -- all name identification SS
+cnap                SS-Code ::= '00011001'B
+    -- calling name presentation
+
+    -- SS-Codes '00011010'B to '00011111'B are reserved for future 
+    -- NameIdentification Supplementary Service use.
+
+allForwardingSS SS-Code ::= '00100000'B
+    -- all forwarding SS
+cfu         SS-Code ::= '00100001'B
+    -- call forwarding unconditional
+allCondForwardingSS SS-Code ::= '00101000'B
+    -- all conditional forwarding SS
+cfb         SS-Code ::= '00101001'B
+    -- call forwarding on mobile subscriber busy
+cfnry           SS-Code ::= '00101010'B
+    -- call forwarding on no reply
+cfnrc           SS-Code ::= '00101011'B
+    -- call forwarding on mobile subscriber not reachable 
+cd              SS-Code ::= '00100100'B
+    -- call deflection
+
+allCallOfferingSS   SS-Code ::= '00110000'B
+    -- reserved for possible future use
+    -- all call offering SS includes also all forwarding SS
+ect             SS-Code ::= '00110001'B
+        -- explicit call transfer
+mah             SS-Code ::= '00110010'B
+    -- reserved for possible future use
+    -- mobile access hunting
+
+allCallCompletionSS SS-Code ::= '01000000'B
+    -- reserved for possible future use
+    -- all Call completion SS
+cw              SS-Code ::= '01000001'B
+    -- call waiting
+hold                SS-Code ::= '01000010'B
+    -- call hold
+ccbs-A          SS-Code ::= '01000011'B
+    -- completion of call to busy subscribers, originating side
+ccbs-B          SS-Code ::= '01000100'B
+    -- completion of call to busy subscribers, destination side
+    -- this SS-Code is used only in InsertSubscriberData
+
+allMultiPartySS SS-Code ::= '01010000'B
+    -- reserved for possible future use
+    -- all multiparty SS
+multiPTY        SS-Code ::= '01010001'B
+    -- multiparty
+
+allCommunityOfInterest-SS   SS-Code ::= '01100000'B
+    -- reserved for possible future use
+    -- all community of interest SS
+cug         SS-Code ::= '01100001'B
+    -- closed user group
+
+allChargingSS   SS-Code ::= '01110000'B
+    -- reserved for possible future use
+    -- all charging SS
+aoci            SS-Code ::= '01110001'B
+    -- advice of charge information
+aocc            SS-Code ::= '01110010'B
+    -- advice of charge charging
+
+allAdditionalInfoTransferSS SS-Code ::= '10000000'B
+    -- reserved for possible future use
+    -- all additional information transfer SS
+uus         SS-Code ::= '10000001'B
+    -- reserved for possible future use
+    -- UUS user-to-user signalling
+
+allBarringSS    SS-Code ::= '10010000'B
+    -- all barring SS
+barringOfOutgoingCalls  SS-Code ::= '10010001'B
+    -- barring of outgoing calls
+baoc            SS-Code ::= '10010010'B
+    -- barring of all outgoing calls
+boic            SS-Code ::= '10010011'B
+    -- barring of outgoing international calls
+boicExHC        SS-Code ::= '10010100'B
+    -- barring of outgoing international calls except those directed
+    -- to the home PLMN
+barringOfIncomingCalls  SS-Code ::= '10011001'B
+    -- barring of incoming calls
+baic            SS-Code ::= '10011010'B
+    -- barring of all incoming calls
+bicRoam         SS-Code ::= '10011011'B
+    -- barring of incoming calls when roaming outside home PLMN
+    -- Country
+
+allPLMN-specificSS  SS-Code ::= '11110000'B
+plmn-specificSS-1   SS-Code ::= '11110001'B
+plmn-specificSS-2   SS-Code ::= '11110010'B
+plmn-specificSS-3   SS-Code ::= '11110011'B
+plmn-specificSS-4   SS-Code ::= '11110100'B
+plmn-specificSS-5   SS-Code ::= '11110101'B
+plmn-specificSS-6   SS-Code ::= '11110110'B
+plmn-specificSS-7   SS-Code ::= '11110111'B
+plmn-specificSS-8   SS-Code ::= '11111000'B
+plmn-specificSS-9   SS-Code ::= '11111001'B
+plmn-specificSS-A   SS-Code ::= '11111010'B
+plmn-specificSS-B   SS-Code ::= '11111011'B
+plmn-specificSS-C   SS-Code ::= '11111100'B
+plmn-specificSS-D   SS-Code ::= '11111101'B
+plmn-specificSS-E   SS-Code ::= '11111110'B
+plmn-specificSS-F   SS-Code ::= '11111111'B
+
+allCallPrioritySS   SS-Code ::= '10100000'B
+    -- reserved for possible future use
+    -- all call priority SS
+emlpp           SS-Code ::= '10100001'B
+    -- enhanced Multilevel Precedence Pre-emption (EMLPP) service
+
+
+RoutingInfoForSM-Arg ::= SEQUENCE {
+    msisdn               [0] ISDN-AddressString,
+    sm-RP-PRI            [1] BOOLEAN,
+    serviceCentreAddress [2] AddressString,
+    extensionContainer   [6] ExtensionContainer  OPTIONAL,
+    ... ,
+    gprsSupportIndicator [7] NULL        OPTIONAL,
+    sm-RP-MTI            [8] SM-RP-MTI   OPTIONAL,
+    sm-RP-SMEA           [9] SM-RP-SMEA  OPTIONAL
+}
+
+
+routingInfoForSM-Arg1 RoutingInfoForSM-Arg ::= {
+    msisdn               '112233445566778899'H,
+    sm-RP-PRI            TRUE,
+    serviceCentreAddress '11'H
+}
+
+
+routingInfoForSM-Arg2 RoutingInfoForSM-Arg ::= {
+    msisdn               '112233445566778899'H,
+    sm-RP-PRI            FALSE,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1,
+    gprsSupportIndicator NULL,
+    sm-RP-MTI            10,
+    sm-RP-SMEA           '112233445566778899001122'H
+}
+
+
+SM-RP-MTI ::= INTEGER (0..10)
+
+
+SM-RP-SMEA ::= OCTET STRING (SIZE(1..12))
+
+
+RoutingInfoForSM-Res ::= SEQUENCE {
+    imsi                 IMSI,
+    locationInfoWithLMSI [0] LocationInfoWithLMSI,
+    extensionContainer   [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+routingInfoForSM-Res1 RoutingInfoForSM-Res ::= {
+    imsi                  '1122334455667788'H,
+    locationInfoWithLMSI  {
+	networkNode-Number '112233445566778899'H
+    }
+}
+
+
+routingInfoForSM-Res2 RoutingInfoForSM-Res ::= {
+    imsi                  '1122334455667788'H,
+    locationInfoWithLMSI  {
+	networkNode-Number  '112233445566778899'H,
+	lmsi                '11223344'H,
+	extensionContainer   extensionContainerv1,
+	gprsNodeIndicator   NULL,
+	additional-Number   msc-Number: '112233445566778899'H
+    },
+    extensionContainer   extensionContainerv1
+}
+
+
+LocationInfoWithLMSI ::= SEQUENCE {
+    networkNode-Number  [1] ISDN-AddressString,
+    lmsi            LMSI            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    gprsNodeIndicator   [5] NULL        OPTIONAL,
+    additional-Number   [6] Additional-Number   OPTIONAL 
+}
+
+
+Additional-Number ::= CHOICE {
+    msc-Number  [0] ISDN-AddressString,
+    sgsn-Number [1] ISDN-AddressString
+}
+
+
+MO-ForwardSM-Arg ::= SEQUENCE {
+    sm-RP-DA        SM-RP-DA,
+    sm-RP-OA        SM-RP-OA,
+    sm-RP-UI        SignalInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+mO-ForwardSM-Arg1 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        imsi: '1122334455667788'H,
+    sm-RP-OA        msisdn: '112233445566778899'H,
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Arg2 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        lmsi: '11223344'H,
+    sm-RP-OA        serviceCentreAddressOA: '11'H,
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Arg3 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        noSM-RP-DA: NULL,
+    sm-RP-OA        noSM-RP-OA: NULL,
+    sm-RP-UI        '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1
+}
+
+
+MO-ForwardSM-Res ::= SEQUENCE {
+    sm-RP-UI        SignalInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+mO-ForwardSM-Res1 MO-ForwardSM-Res ::= {
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Res2 MO-ForwardSM-Res ::= {
+    sm-RP-UI        '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1
+}
+
+
+MT-ForwardSM-Arg ::= SEQUENCE {
+    sm-RP-DA        SM-RP-DA,
+    sm-RP-OA        SM-RP-OA,
+    sm-RP-UI        SignalInfo,
+    moreMessagesToSend  NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+mT-ForwardSM-Arg1 MT-ForwardSM-Arg ::= {
+    sm-RP-DA        imsi: '1122334455667788'H,
+    sm-RP-OA        serviceCentreAddressOA: '11'H,
+    sm-RP-UI        '11'H
+}
+
+
+mT-ForwardSM-Arg2 MT-ForwardSM-Arg ::= {
+    sm-RP-DA           imsi: '1122334455667788'H,
+    sm-RP-OA           serviceCentreAddressOA: '11'H,
+    sm-RP-UI           '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    moreMessagesToSend NULL,
+    extensionContainer extensionContainerv1
+}
+
+
+MT-ForwardSM-Res ::= SEQUENCE {
+    sm-RP-UI        SignalInfo  OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+mT-ForwardSM-Res1 MT-ForwardSM-Res ::= {
+}
+
+
+mT-ForwardSM-Res2 MT-ForwardSM-Res ::= {
+    sm-RP-UI           '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer extensionContainerv1
+}
+
+
+SM-RP-DA ::= CHOICE {
+    imsi                   [0] IMSI,
+    lmsi                   [1] LMSI,
+    serviceCentreAddressDA [4] AddressString,
+    noSM-RP-DA             [5] NULL
+}
+
+
+SM-RP-OA ::= CHOICE {
+    msisdn                 [2] ISDN-AddressString,
+    serviceCentreAddressOA [4] AddressString,
+    noSM-RP-OA             [5] NULL
+}
+
+ReportSM-DeliveryStatusArg ::= SEQUENCE {
+    msisdn                           ISDN-AddressString,
+    serviceCentreAddress             AddressString,
+    sm-DeliveryOutcome               SM-DeliveryOutcome,
+    absentSubscriberDiagnosticSM [0] AbsentSubscriberDiagnosticSM OPTIONAL,
+    extensionContainer           [1] ExtensionContainer  OPTIONAL,
+    ...,
+    gprsSupportIndicator         [2] NULL        OPTIONAL,
+    deliveryOutcomeIndicator     [3] NULL        OPTIONAL,
+    additionalSM-DeliveryOutcome [4] SM-DeliveryOutcome  OPTIONAL,
+    additionalAbsentSubscriberDiagnosticSM [5] AbsentSubscriberDiagnosticSM OPTIONAL
+}
+
+
+reportSM-DeliveryStatusArg1 ReportSM-DeliveryStatusArg ::= {
+    msisdn                           '112233445566778899'H,
+    serviceCentreAddress             '11'H,
+    sm-DeliveryOutcome               successfulTransfer
+}
+
+
+reportSM-DeliveryStatusArg2 ReportSM-DeliveryStatusArg ::= {
+    msisdn                           '112233445566778899'H,
+    serviceCentreAddress             '1122334455667788990011223344556677889900'H,
+    sm-DeliveryOutcome               successfulTransfer,
+    absentSubscriberDiagnosticSM     255,
+    extensionContainer               extensionContainerv1,
+    gprsSupportIndicator             NULL,
+    deliveryOutcomeIndicator         NULL,
+    additionalSM-DeliveryOutcome     memoryCapacityExceeded,
+    additionalAbsentSubscriberDiagnosticSM 0
+}
+
+
+SM-DeliveryOutcome ::= ENUMERATED {
+    memoryCapacityExceeded  (0),
+    absentSubscriber        (1),
+    successfulTransfer      (2)
+}
+
+
+ReportSM-DeliveryStatusRes ::= SEQUENCE {
+    storedMSISDN    ISDN-AddressString  OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+reportSM-DeliveryStatusRes1 ReportSM-DeliveryStatusRes ::= {
+}
+
+
+reportSM-DeliveryStatusRes2 ReportSM-DeliveryStatusRes ::= {
+    storedMSISDN       '112233445566778899001122334455667788990011'H,
+    extensionContainer extensionContainerv1
+}
+
+
+AlertServiceCentreArg ::= SEQUENCE {
+    msisdn      ISDN-AddressString,
+    serviceCentreAddress    AddressString,
+    ...
+}
+
+
+alertServiceCentreArg AlertServiceCentreArg ::= {
+    msisdn               '112233445566778899001122334455667788990011'H,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H
+}
+
+
+InformServiceCentreArg ::= SEQUENCE {
+    storedMSISDN    ISDN-AddressString  OPTIONAL,
+    mw-Status   MW-Status   OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+informServiceCentreArg1 InformServiceCentreArg ::= {
+}
+
+
+informServiceCentreArg2 InformServiceCentreArg ::= {
+    storedMSISDN       '112233445566778899001122334455667788990011'H,
+    mw-Status          {sc-AddressNotIncluded, mnrf-Set, mcef-Set, mnrg-Set},
+    extensionContainer extensionContainerv1
+}
+
+
+MW-Status ::= BIT STRING {
+    sc-AddressNotIncluded (0),
+    mnrf-Set  (1),
+    mcef-Set  (2),
+    mnrg-Set  (3)
+} (SIZE (6..16))
+
+
+ReadyForSM-Arg ::= SEQUENCE {
+    imsi            [0] IMSI,
+    alertReason AlertReason,
+    alertReasonIndicator    NULL            OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+readyForSM-Arg1 ReadyForSM-Arg ::= {
+    imsi                 '1122334455667788'H,
+    alertReason          memoryAvailable
+}
+
+
+readyForSM-Arg2 ReadyForSM-Arg ::= {
+    imsi                 '1122334455667788'H,
+    alertReason          memoryAvailable,
+    alertReasonIndicator NULL,
+    extensionContainer   extensionContainerv1
+}
+
+
+ReadyForSM-Res ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+readyForSM-Res ReadyForSM-Res ::= {
+    extensionContainer   extensionContainerv1
+}
+
+
+AlertReason ::= ENUMERATED {
+    ms-Present       (0),
+    memoryAvailable  (1)
+}
+
+
+RoamingNotAllowedParam ::= SEQUENCE {
+    roamingNotAllowedCause  RoamingNotAllowedCause,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+roamingNotAllowedParam1 RoamingNotAllowedParam ::= {
+    roamingNotAllowedCause plmnRoamingNotAllowed
+}
+
+
+roamingNotAllowedParam2 RoamingNotAllowedParam ::= {
+    roamingNotAllowedCause  operatorDeterminedBarring,
+    extensionContainer      extensionContainerv1
+}
+
+
+RoamingNotAllowedCause ::= ENUMERATED {
+    plmnRoamingNotAllowed  (0),
+    operatorDeterminedBarring  (3)}
+
+
+CallBarredParam ::= CHOICE {
+    callBarringCause    CallBarringCause,
+    extensibleCallBarredParam   ExtensibleCallBarredParam
+}
+
+
+callBarredParam1 CallBarredParam ::= callBarringCause: barringServiceActive
+
+
+callBarredParam2 CallBarredParam ::=  extensibleCallBarredParam: {
+}
+
+
+callBarredParam3 CallBarredParam ::=  extensibleCallBarredParam: {
+    callBarringCause              operatorBarring,
+    extensionContainer            extensionContainerv1,
+    unauthorisedMessageOriginator NULL
+}
+
+
+CallBarringCause ::= ENUMERATED {
+    barringServiceActive  (0),
+    operatorBarring       (1)
+}
+
+ExtensibleCallBarredParam ::= SEQUENCE {
+    callBarringCause    CallBarringCause    OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ... ,
+    unauthorisedMessageOriginator [1] NULL OPTIONAL
+}
+
+
+CUG-RejectParam ::= SEQUENCE {
+    cug-RejectCause CUG-RejectCause OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+cUG-RejectParam1 CUG-RejectParam ::= {
+}
+
+
+cUG-RejectParam2 CUG-RejectParam ::= {
+    cug-RejectCause    incomingCallsBarredWithinCUG,
+    extensionContainer extensionContainerv1
+}
+
+
+CUG-RejectCause ::= ENUMERATED {
+    incomingCallsBarredWithinCUG  (0),
+    subscriberNotMemberOfCUG  (1),
+    requestedBasicServiceViolatesCUG-Constraints  (5),
+    calledPartySS-InteractionViolation  (7)
+}
+
+
+SS-IncompatibilityCause ::= SEQUENCE {
+    ss-Code     [1] SS-Code OPTIONAL,
+    basicService    BasicServiceCode    OPTIONAL,
+    ss-Status   [4] SS-Status   OPTIONAL,
+    ...
+}
+
+
+sS-IncompatibilityCause1 SS-IncompatibilityCause ::= {
+}
+
+
+sS-IncompatibilityCause2 SS-IncompatibilityCause ::= {
+    ss-Code         '11'H,
+    basicService    bearerService: '11'H,
+    ss-Status       '22'H
+}
+
+
+PW-RegistrationFailureCause ::= ENUMERATED {
+    undetermined  (0),
+    invalidFormat  (1),
+    newPasswordsMismatch  (2)
+}
+
+
+pW-RegistrationFailureCause PW-RegistrationFailureCause ::= undetermined
+
+
+SM-EnumeratedDeliveryFailureCause ::= ENUMERATED {
+    memoryCapacityExceeded  (0),
+    equipmentProtocolError  (1),
+    equipmentNotSM-Equipped  (2),
+    unknownServiceCentre  (3),
+    sc-Congestion  (4),
+    invalidSME-Address  (5),
+    subscriberNotSC-Subscriber  (6)
+}
+
+
+SM-DeliveryFailureCause ::= SEQUENCE {
+    sm-EnumeratedDeliveryFailureCause  SM-EnumeratedDeliveryFailureCause,
+    diagnosticInfo  SignalInfo  OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sM-DeliveryFailureCause1 SM-DeliveryFailureCause ::= {
+    sm-EnumeratedDeliveryFailureCause  subscriberNotSC-Subscriber
+}
+
+
+sM-DeliveryFailureCause2 SM-DeliveryFailureCause ::= {
+    sm-EnumeratedDeliveryFailureCause  subscriberNotSC-Subscriber,
+    diagnosticInfo       '11'H,
+    extensionContainer   extensionContainerv1
+}
+
+
+AbsentSubscriberSM-Param ::= SEQUENCE {
+    absentSubscriberDiagnosticSM  AbsentSubscriberDiagnosticSM    OPTIONAL,
+    extensionContainer            ExtensionContainer  OPTIONAL,
+    ...,
+    additionalAbsentSubscriberDiagnosticSM [0] AbsentSubscriberDiagnosticSM OPTIONAL
+}
+
+
+absentSubscriberSM-Param1 AbsentSubscriberSM-Param ::= {
+}
+
+
+absentSubscriberSM-Param2 AbsentSubscriberSM-Param ::= {
+    absentSubscriberDiagnosticSM  255,
+    extensionContainer            extensionContainerv1,
+    additionalAbsentSubscriberDiagnosticSM 0
+}
+
+
+AbsentSubscriberDiagnosticSM ::= INTEGER (0..255)
+
+
+SystemFailureParam ::= CHOICE {
+    networkResource              NetworkResource,
+    extensibleSystemFailureParam ExtensibleSystemFailureParam
+}
+
+
+systemFailureParam1 SystemFailureParam ::= networkResource: rss
+
+
+systemFailureParam2 SystemFailureParam ::= extensibleSystemFailureParam: {
+}
+
+
+systemFailureParam3 SystemFailureParam ::= extensibleSystemFailureParam: {
+    networkResource    pvlr,
+    extensionContainer extensionContainerv1
+}
+
+
+ExtensibleSystemFailureParam ::= SEQUENCE {
+    networkResource     NetworkResource OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+DataMissingParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+dataMissingParam1 DataMissingParam ::= {
+}
+
+
+dataMissingParam2 DataMissingParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+UnexpectedDataParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+unexpectedDataParam1 UnexpectedDataParam ::= {
+}
+
+
+unexpectedDataParam2 UnexpectedDataParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+FacilityNotSupParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+facilityNotSupParam1 FacilityNotSupParam ::= {
+}
+
+
+facilityNotSupParam2 FacilityNotSupParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+OR-NotAllowedParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+oR-NotAllowedParam1 OR-NotAllowedParam ::= {
+}
+
+
+oR-NotAllowedParam2 OR-NotAllowedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+UnknownSubscriberParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    unknownSubscriberDiagnostic UnknownSubscriberDiagnostic OPTIONAL
+}
+
+
+unknownSubscriberParam1 UnknownSubscriberParam ::= {
+}
+
+
+unknownSubscriberParam2 UnknownSubscriberParam ::= {
+    extensionContainer extensionContainerv1,
+    unknownSubscriberDiagnostic gprsSubscriptionUnknown
+}
+
+
+UnknownSubscriberDiagnostic ::= ENUMERATED {
+    imsiUnknown  (0),
+    gprsSubscriptionUnknown  (1),
+    ...
+}
+
+
+NumberChangedParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+numberChangedParam1 NumberChangedParam ::= {
+}
+
+
+numberChangedParam2 NumberChangedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+UnidentifiedSubParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+unidentifiedSubParam1 UnidentifiedSubParam ::= {
+}
+
+
+unidentifiedSubParam2 UnidentifiedSubParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+IllegalSubscriberParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+illegalSubscriberParam1 IllegalSubscriberParam ::= {
+}
+
+
+illegalSubscriberParam2 IllegalSubscriberParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+IllegalEquipmentParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+illegalEquipmentParam1 IllegalEquipmentParam ::= {
+}
+
+
+illegalEquipmentParam2 IllegalEquipmentParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+BearerServNotProvParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+bearerServNotProvParam1 BearerServNotProvParam ::= {
+}
+
+
+bearerServNotProvParam2 BearerServNotProvParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+TeleservNotProvParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+teleservNotProvParam1 TeleservNotProvParam ::= {
+}
+
+
+teleservNotProvParam2 TeleservNotProvParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+TracingBufferFullParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+tracingBufferFullParam1 TracingBufferFullParam ::= {
+}
+
+
+tracingBufferFullParam2 TracingBufferFullParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+NoRoamingNbParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+noRoamingNbParam1 NoRoamingNbParam ::= {
+}
+
+
+noRoamingNbParam2 NoRoamingNbParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+AbsentSubscriberParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    absentSubscriberReason  [0] AbsentSubscriberReason  OPTIONAL
+}
+
+
+absentSubscriberParam1 AbsentSubscriberParam ::= {
+}
+
+
+absentSubscriberParam2 AbsentSubscriberParam ::= {
+    extensionContainer     extensionContainerv1,
+    absentSubscriberReason noPageResponse
+}
+
+
+AbsentSubscriberReason ::= ENUMERATED {
+    imsiDetach (0),
+    restrictedArea (1),
+    noPageResponse (2),
+    ...
+}
+
+
+BusySubscriberParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...,
+    ccbs-Possible   [0] NULL        OPTIONAL,
+    ccbs-Busy   [1] NULL        OPTIONAL
+}
+
+
+busySubscriberParam1 BusySubscriberParam ::= {
+}
+
+
+busySubscriberParam2 BusySubscriberParam ::= {
+    extensionContainer extensionContainerv1,
+    ccbs-Possible      NULL,
+    ccbs-Busy          NULL
+}
+
+
+NoSubscriberReplyParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+noSubscriberReplyParam1 NoSubscriberReplyParam ::= {
+}
+
+
+noSubscriberReplyParam2 NoSubscriberReplyParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+ForwardingViolationParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+forwardingViolationParam1 ForwardingViolationParam ::= {
+}
+
+
+forwardingViolationParam2 ForwardingViolationParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+ForwardingFailedParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+forwardingFailedParam1 ForwardingFailedParam ::= {
+}
+
+
+forwardingFailedParam2 ForwardingFailedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+ATI-NotAllowedParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+aTI-NotAllowedParam1 ATI-NotAllowedParam ::= {
+}
+
+
+aTI-NotAllowedParam2 ATI-NotAllowedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+SubBusyForMT-SMS-Param ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ... ,
+    gprsConnectionSuspended NULL        OPTIONAL
+}
+
+
+subBusyForMT-SMS-Param1 SubBusyForMT-SMS-Param ::={
+}
+
+
+subBusyForMT-SMS-Param2 SubBusyForMT-SMS-Param ::={
+    extensionContainer extensionContainerv1,
+    gprsConnectionSuspended NULL
+}
+
+
+MessageWaitListFullParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+messageWaitListFullParam1 MessageWaitListFullParam ::= {
+}
+
+
+messageWaitListFullParam2 MessageWaitListFullParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+ResourceLimitationParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+resourceLimitationParam1 ResourceLimitationParam ::= {
+}
+
+
+resourceLimitationParam2 ResourceLimitationParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+NoGroupCallNbParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+noGroupCallNbParam1 NoGroupCallNbParam ::= {
+}
+
+
+noGroupCallNbParam2 NoGroupCallNbParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+IncompatibleTerminalParam ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+incompatibleTerminalParam1 IncompatibleTerminalParam ::= {
+}
+
+
+incompatibleTerminalParam2 IncompatibleTerminalParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+
+ShortTermDenialParam ::= SEQUENCE {
+    ...
+}
+
+
+shortTermDenialParam ShortTermDenialParam ::= {
+}
+
+
+LongTermDenialParam ::= SEQUENCE {
+    ...
+}
+
+
+longTermDenialParam LongTermDenialParam ::= {
+}
+
+
+TBCD-STRING ::= OCTET STRING
+
+
+AddressString ::= OCTET STRING (SIZE(1..maxAddressLength))
+
+
+maxAddressLength  INTEGER ::= 20
+
+
+ISDN-AddressString ::= AddressString (SIZE(1..maxISDN-AddressLength))
+
+
+maxISDN-AddressLength  INTEGER ::= 9
+
+
+ISDN-SubaddressString ::= OCTET STRING (SIZE(1..maxISDN-SubaddressLength))
+
+
+maxISDN-SubaddressLength INTEGER ::= 21
+
+
+ExternalSignalInfo ::= SEQUENCE {
+    protocolId  ProtocolId,
+    signalInfo  SignalInfo,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+SignalInfo ::= OCTET STRING (SIZE(1..maxSignalInfoLength))
+
+
+maxSignalInfoLength INTEGER ::= 200
+
+
+ProtocolId ::= ENUMERATED {
+    gsm-0408  (1),
+    gsm-0806  (2),
+    gsm-BSSMAP  (3),
+    -- Value 3 is reserved and must not be used
+    ets-300102-1  (4)
+}
+
+
+AlertingPattern ::= OCTET STRING (SIZE(1))
+
+
+alertingLevel-0   AlertingPattern ::= '00000000'B
+alertingLevel-1   AlertingPattern ::= '00000001'B
+alertingLevel-2   AlertingPattern ::= '00000010'B
+    -- all other values of Alerting level are reserved
+    -- Alerting Levels are defined in GSM 02.07
+    
+alertingCategory-1   AlertingPattern ::= '00000100'B
+alertingCategory-2   AlertingPattern ::= '00000101'B
+alertingCategory-3   AlertingPattern ::= '00000110'B
+alertingCategory-4   AlertingPattern ::= '00000111'B
+alertingCategory-5   AlertingPattern ::= '00001000'B
+    -- all other values of Alerting Category are reserved
+    -- Alerting categories are defined in GSM 02.07
+
+
+IMSI ::= TBCD-STRING (SIZE(3..8))
+
+
+ASCI-CallReference ::= TBCD-STRING (SIZE(1..8))
+
+
+TMSI ::= OCTET STRING (SIZE(1..4))
+
+
+SubscriberId ::= CHOICE {
+    imsi            [0] IMSI,
+    tmsi            [1] TMSI
+}
+
+
+subscriberId1 SubscriberId ::= imsi: '1122334455667788'H
+
+
+subscriberId2 SubscriberId ::= tmsi: '11223344'H
+
+
+IMEI ::= TBCD-STRING (SIZE(8))
+
+
+iMEI IMEI ::= '1122334455667788'H
+
+
+HLR-Id ::= IMSI
+
+
+HLR-List ::= SEQUENCE (SIZE(1..maxNumOfHLR-Id)) OF HLR-Id
+
+
+maxNumOfHLR-Id  INTEGER ::= 50
+
+
+LMSI ::= OCTET STRING (SIZE(4))
+
+
+GlobalCellId ::= OCTET STRING (SIZE(5..7))
+
+
+NetworkResource ::= ENUMERATED {
+    plmn  (0),
+    hlr  (1),
+    vlr  (2),
+    pvlr  (3),
+    controllingMSC  (4),
+    vmsc  (5),
+    eir  (6),
+    rss  (7)
+}
+
+
+NAEA-PreferredCI ::= SEQUENCE {
+    naea-PreferredCIC   [0] NAEA-CIC,
+    extensionContainer  [1] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+NAEA-CIC ::= OCTET STRING (SIZE (3))
+
+
+CellIdOrLAI ::= CHOICE {
+    cellIdFixedLength   [0] CellIdFixedLength,
+    laiFixedLength  [1] LAIFixedLength
+}
+
+
+CellIdFixedLength ::= OCTET STRING (SIZE (7))
+
+
+LAIFixedLength ::= OCTET STRING (SIZE (5))
+
+
+BasicServiceCode ::= CHOICE {
+    bearerService   [2] BearerServiceCode,
+    teleservice [3] TeleserviceCode
+}
+
+
+Ext-BasicServiceCode ::= CHOICE {
+    ext-BearerService   [2] Ext-BearerServiceCode,
+    ext-Teleservice [3] Ext-TeleserviceCode
+}
+
+
+EMLPP-Info ::= SEQUENCE {
+    maximumentitledPriority EMLPP-Priority,
+    defaultPriority EMLPP-Priority,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+EMLPP-Priority ::= INTEGER (0..15)
+
+
+priorityLevelA  EMLPP-Priority ::= 6
+priorityLevelB  EMLPP-Priority ::= 5
+priorityLevel0  EMLPP-Priority ::= 0
+priorityLevel1  EMLPP-Priority ::= 1
+priorityLevel2  EMLPP-Priority ::= 2
+priorityLevel3  EMLPP-Priority ::= 3
+priorityLevel4  EMLPP-Priority ::= 4
+
+
+TeleserviceCode ::= OCTET STRING (SIZE (1))
+
+
+Ext-TeleserviceCode ::= OCTET STRING (SIZE (1..5))
+
+
+allTeleservices TeleserviceCode ::= '00000000'B
+
+allSpeechTransmissionServices   TeleserviceCode ::= '00010000'B
+telephony       TeleserviceCode ::= '00010001'B
+emergencyCalls  TeleserviceCode ::= '00010010'B
+
+allShortMessageServices TeleserviceCode ::= '00100000'B
+shortMessageMT-PP   TeleserviceCode ::= '00100001'B
+shortMessageMO-PP   TeleserviceCode ::= '00100010'B
+
+allFacsimileTransmissionServices    TeleserviceCode ::= '01100000'B
+facsimileGroup3AndAlterSpeech   TeleserviceCode ::= '01100001'B
+automaticFacsimileGroup3    TeleserviceCode ::= '01100010'B
+facsimileGroup4 TeleserviceCode ::= '01100011'B
+
+-- The following non-hierarchical Compound Teleservice Groups
+-- are defined in TS GSM 02.30:
+allDataTeleservices TeleserviceCode ::= '01110000'B
+    -- covers Teleservice Groups 'allFacsimileTransmissionServices'
+    -- and 'allShortMessageServices'
+allTeleservices-ExeptSMS    TeleserviceCode ::= '10000000'B
+    -- covers Teleservice Groups 'allSpeechTransmissionServices' and
+    -- 'allFacsimileTransmissionServices'
+--
+-- Compound Teleservice Group Codes are only used in call
+-- independent supplementary service operations, i.e. they
+-- are not used in InsertSubscriberData or in
+-- DeleteSubscriberData messages.
+
+allVoiceGroupCallServices   TeleserviceCode ::= '10010000'B
+
+voiceGroupCall  TeleserviceCode ::= '10010001'B
+voiceBroadcastCall  TeleserviceCode ::= '10010010'B
+
+allPLMN-specificTS  TeleserviceCode ::= '11010000'B
+plmn-specificTS-1   TeleserviceCode ::= '11010001'B
+plmn-specificTS-2   TeleserviceCode ::= '11010010'B
+plmn-specificTS-3   TeleserviceCode ::= '11010011'B
+plmn-specificTS-4   TeleserviceCode ::= '11010100'B
+plmn-specificTS-5   TeleserviceCode ::= '11010101'B
+plmn-specificTS-6   TeleserviceCode ::= '11010110'B
+plmn-specificTS-7   TeleserviceCode ::= '11010111'B
+plmn-specificTS-8   TeleserviceCode ::= '11011000'B
+plmn-specificTS-9   TeleserviceCode ::= '11011001'B
+plmn-specificTS-A   TeleserviceCode ::= '11011010'B
+plmn-specificTS-B   TeleserviceCode ::= '11011011'B
+plmn-specificTS-C   TeleserviceCode ::= '11011100'B
+plmn-specificTS-D   TeleserviceCode ::= '11011101'B
+plmn-specificTS-E   TeleserviceCode ::= '11011110'B
+plmn-specificTS-F   TeleserviceCode ::= '11011111'B
+
+
+BearerServiceCode ::= OCTET STRING (SIZE (1))
+
+
+Ext-BearerServiceCode ::= OCTET STRING (SIZE (1..5))
+
+
+allBearerServices   BearerServiceCode ::= '00000000'B
+
+allDataCDA-Services BearerServiceCode ::= '00010000'B
+dataCDA-300bps  BearerServiceCode ::= '00010001'B
+dataCDA-1200bps BearerServiceCode ::= '00010010'B
+dataCDA-1200-75bps  BearerServiceCode ::= '00010011'B
+dataCDA-2400bps BearerServiceCode ::= '00010100'B
+dataCDA-4800bps BearerServiceCode ::= '00010101'B
+dataCDA-9600bps BearerServiceCode ::= '00010110'B
+general-dataCDA BearerServiceCode ::= '00010111'B
+
+allDataCDS-Services BearerServiceCode ::= '00011000'B
+dataCDS-1200bps BearerServiceCode ::= '00011010'B
+dataCDS-2400bps BearerServiceCode ::= '00011100'B
+dataCDS-4800bps BearerServiceCode ::= '00011101'B
+dataCDS-9600bps BearerServiceCode ::= '00011110'B
+general-dataCDS BearerServiceCode ::= '00011111'B
+
+allPadAccessCA-Services BearerServiceCode ::= '00100000'B
+padAccessCA-300bps  BearerServiceCode ::= '00100001'B
+padAccessCA-1200bps BearerServiceCode ::= '00100010'B
+padAccessCA-1200-75bps  BearerServiceCode ::= '00100011'B
+padAccessCA-2400bps BearerServiceCode ::= '00100100'B
+padAccessCA-4800bps BearerServiceCode ::= '00100101'B
+padAccessCA-9600bps BearerServiceCode ::= '00100110'B
+general-padAccessCA BearerServiceCode ::= '00100111'B
+
+allDataPDS-Services BearerServiceCode ::= '00101000'B
+dataPDS-2400bps BearerServiceCode ::= '00101100'B
+dataPDS-4800bps BearerServiceCode ::= '00101101'B
+dataPDS-9600bps BearerServiceCode ::= '00101110'B
+general-dataPDS BearerServiceCode ::= '00101111'B
+
+allAlternateSpeech-DataCDA  BearerServiceCode ::= '00110000'B
+
+allAlternateSpeech-DataCDS  BearerServiceCode ::= '00111000'B
+
+allSpeechFollowedByDataCDA  BearerServiceCode ::= '01000000'B
+
+allSpeechFollowedByDataCDS  BearerServiceCode ::= '01001000'B
+
+-- The following non-hierarchical Compound Bearer Service
+-- Groups are defined in TS GSM 02.30:
+allDataCircuitAsynchronous  BearerServiceCode ::= '01010000'B
+    -- covers "allDataCDA-Services", "allAlternateSpeech-DataCDA" and
+    -- "allSpeechFollowedByDataCDA"
+allAsynchronousServices BearerServiceCode ::= '01100000'B
+    -- covers "allDataCDA-Services", "allAlternateSpeech-DataCDA",
+    -- "allSpeechFollowedByDataCDA" and "allPadAccessCDA-Services"
+allDataCircuitSynchronous   BearerServiceCode ::= '01011000'B
+    -- covers "allDataCDS-Services", "allAlternateSpeech-DataCDS" and
+    -- "allSpeechFollowedByDataCDS"
+allSynchronousServices  BearerServiceCode ::= '01101000'B
+    -- covers "allDataCDS-Services", "allAlternateSpeech-DataCDS",
+    -- "allSpeechFollowedByDataCDS" and "allDataPDS-Services"
+--
+-- Compound Bearer Service Group Codes are only used in call
+-- independent supplementary service operations, i.e. they
+-- are not used in InsertSubscriberData or in
+-- DeleteSubscriberData messages.
+
+allPLMN-specificBS  BearerServiceCode ::= '11010000'B
+plmn-specificBS-1   BearerServiceCode ::= '11010001'B
+plmn-specificBS-2   BearerServiceCode ::= '11010010'B
+plmn-specificBS-3   BearerServiceCode ::= '11010011'B
+plmn-specificBS-4   BearerServiceCode ::= '11010100'B
+plmn-specificBS-5   BearerServiceCode ::= '11010101'B
+plmn-specificBS-6   BearerServiceCode ::= '11010110'B
+plmn-specificBS-7   BearerServiceCode ::= '11010111'B
+plmn-specificBS-8   BearerServiceCode ::= '11011000'B
+plmn-specificBS-9   BearerServiceCode ::= '11011001'B
+plmn-specificBS-A   BearerServiceCode ::= '11011010'B
+plmn-specificBS-B   BearerServiceCode ::= '11011011'B
+plmn-specificBS-C   BearerServiceCode ::= '11011100'B
+plmn-specificBS-D   BearerServiceCode ::= '11011101'B
+plmn-specificBS-E   BearerServiceCode ::= '11011110'B
+plmn-specificBS-F   BearerServiceCode ::= '11011111'B
+
+
+ExtensionContainer ::= SEQUENCE {
+    privateExtensionList    [0]PrivateExtensionList OPTIONAL, 
+    pcs-Extensions  [1]PCS-Extensions   OPTIONAL,
+    ...
+}
+
+PrivateExtensionList ::= SEQUENCE (SIZE(1..maxNumOfPrivateExtensions)) OF PrivateExtension
+
+
+PrivateExtension ::= SEQUENCE {
+    extensionId     OBJECT IDENTIFIER,
+    extensionType   ANY OPTIONAL
+}
+    
+
+maxNumOfPrivateExtensions INTEGER ::= 10
+
+
+PCS-Extensions ::= SEQUENCE {
+    ...
+}
+
+
+PrepareGroupCallArg ::= SEQUENCE {
+    teleservice Ext-TeleserviceCode,
+    asciCallReference   ASCI-CallReference,
+    codec-Info  CODEC-Info,
+    cipheringAlgorithm  CipheringAlgorithm,
+    groupKeyNumber  [0]GroupKeyNumber   OPTIONAL,
+    groupKey        [1]Kc       OPTIONAL,
+    priority        [2]EMLPP-Priority   OPTIONAL,
+    uplinkFree  [3] NULL        OPTIONAL,
+    extensionContainer  [4] ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+prepareGroupCallArg1 PrepareGroupCallArg ::= {
+    teleservice         '11'H,
+    asciCallReference   '11'H,
+    codec-Info          '1122334455'H,
+    cipheringAlgorithm  '11'H
+}
+
+
+prepareGroupCallArg2 PrepareGroupCallArg ::= {
+    teleservice         '1122334455'H,
+    asciCallReference   '1122334455667788'H,
+    codec-Info          '11223344556677889900'H,
+    cipheringAlgorithm  '11'H,
+    groupKeyNumber      15,
+    groupKey            '1122334455667788'H,
+    priority            15,
+    uplinkFree          NULL,
+    extensionContainer extensionContainerv1
+}
+
+
+PrepareGroupCallRes ::= SEQUENCE {
+    groupCallNumber     ISDN-AddressString,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+prepareGroupCallRes1 PrepareGroupCallRes ::= {
+    groupCallNumber     '112233445566778899'H
+}
+
+
+prepareGroupCallRes2 PrepareGroupCallRes ::= {
+    groupCallNumber    '112233445566778899'H,
+    extensionContainer extensionContainerv1
+}
+
+
+SendGroupCallEndSignalArg ::= SEQUENCE {
+    imsi                IMSI               OPTIONAL,
+    extensionContainer  ExtensionContainer OPTIONAL,
+    ...
+}
+
+
+sendGroupCallEndSignalArg1 SendGroupCallEndSignalArg ::= {
+}
+
+
+sendGroupCallEndSignalArg2 SendGroupCallEndSignalArg ::= {
+    imsi                  '1122334455667788'H,
+    extensionContainer    extensionContainerv1
+}
+
+
+SendGroupCallEndSignalRes ::= SEQUENCE {
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+sendGroupCallEndSignalRes1 SendGroupCallEndSignalRes ::= {
+}
+
+
+sendGroupCallEndSignalRes2 SendGroupCallEndSignalRes ::= {
+    extensionContainer    extensionContainerv1
+}
+
+
+ForwardGroupCallSignallingArg ::= SEQUENCE {
+    imsi            IMSI            OPTIONAL,
+    uplinkRequestAck    [0] NULL        OPTIONAL,
+    uplinkReleaseIndication [1] NULL        OPTIONAL,
+    uplinkRejectCommand [2] NULL        OPTIONAL,
+    uplinkSeizedCommand [3] NULL        OPTIONAL,
+    uplinkReleaseCommand    [4] NULL        OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+forwardGroupCallSignallingArg1 ForwardGroupCallSignallingArg ::= {
+}
+
+
+forwardGroupCallSignallingArg2 ForwardGroupCallSignallingArg ::= {
+    imsi                    '1122334455667788'H,
+    uplinkRequestAck        NULL,
+    uplinkReleaseIndication NULL,
+    uplinkRejectCommand     NULL,
+    uplinkSeizedCommand     NULL,
+    uplinkReleaseCommand    NULL,
+    extensionContainer      extensionContainerv1
+}
+
+
+ProcessGroupCallSignallingArg ::= SEQUENCE {
+    uplinkRequest   [0] NULL        OPTIONAL,
+    uplinkReleaseIndication [1] NULL        OPTIONAL,
+    releaseGroupCall    [2] NULL        OPTIONAL,
+    extensionContainer  ExtensionContainer  OPTIONAL,
+    ...
+}
+
+
+processGroupCallSignallingArg1 ProcessGroupCallSignallingArg ::= {
+}
+
+
+processGroupCallSignallingArg2 ProcessGroupCallSignallingArg ::= {
+    uplinkRequest           NULL,
+    uplinkReleaseIndication NULL,
+    releaseGroupCall        NULL,
+    extensionContainer      extensionContainerv1
+}
+
+
+GroupKeyNumber ::= INTEGER (0..15)
+
+
+CODEC-Info ::= OCTET STRING (SIZE (5..10))
+
+
+CipheringAlgorithm ::= OCTET STRING (SIZE (1))
+
+
+END
+

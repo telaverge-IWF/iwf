@@ -1,0 +1,17 @@
+
+TTC TCAP Command
+
+SYNOPSIS
+    tt_get_tmr
+
+DESCRIPTION
+    This command displays TTC TCAP timers and their values. 
+    TTC TCAP has only one configurable timer.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> tt_get_tmr
+
+

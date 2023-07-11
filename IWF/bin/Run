@@ -1,0 +1,23 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$VENDOR_ROOT/IntelliNet/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/MTP3/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/GSMMAP/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../common/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+unset ISS7_CONFIG_DIR
+
+rm -f core.* 2> /dev/null
+
+CMD="./IWFD -oh mme -or diametriq.com -dh iwf -dr diametriq.com -configFile iwf.xml"
+
+
+if [ $# -eq 0 ]; then
+    RUN=$CMD
+else
+    RUN="gdb --args $CMD"
+fi
+
+$RUN
+

@@ -1,0 +1,23 @@
+
+PRC SCCP Module :
+    sp_get_gen_cfg        SCCP Get General Config
+    sp_set_gen_cfg        SCCP Set General Config
+    sp_get_all_ssn        SCCP Get All Subsystem Entries
+    sp_set_rssn           SCCP Set Remote Subsystem Entry
+    sp_rem_rssn           SCCP Remove Remote Subsystem Entry
+    sp_set_lssn           SCCP Set Local Subsystem Entry
+    sp_rem_lssn           SCCP Remove Local Subsystem Entry
+    sp_get_all_cssn       SCCP Get All Concerned SSN Entry
+    sp_set_cssn           SCCP Set Concerned SSN Entry
+    sp_rem_cssn           SCCP Remove Concerned SSN Entry
+    sp_send_ssa           SCCP Send Sub System Allowed
+    sp_send_ssp           SCCP Send Sub System Prohibited
+    sp_send_sst           SCCP Send Sub System Test
+    sp_get_behavior       SCCP Get Behaviors
+    sp_set_behavior       SCCP Set Behaviors
+    sp_get_tmr            SCCP Get Timer
+    sp_set_tmr            SCCP Set Timer
+    sp_get_gen_peg        SCCP Get Pegs
+    sp_clr_gen_peg        SCCP Clear Peg
+
+For details about any command use "help <command name>"

@@ -1,0 +1,2212 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--      Copyright 1999 IntelliNet Technologies, Inc. All Rights Reserved.     --
+--              Manufactured in the United States of America.                 --
+--        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        --
+--                                                                            --
+--    This product and related documentation is protected by copyright and    --
+--    distributed under licenses restricting its use, copying, distribution   --
+--    and decompilation.  No part of this product or related documentation    --
+--    may be reproduced in any form by any means without prior written        --
+--    authorization of IntelliNet Technologies and its licensors, if any.     --
+--                                                                            --
+--    RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the       --
+--    government is subject to restrictions as set forth in subparagraph      --
+--    (c)(1)(ii) of the Rights in Technical Data and Computer Software        --
+--    clause at DFARS 252.227-7013 and FAR 52.227-19.                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--                                                                            --
+--  CONTRACT: INTERNAL                                                        --
+--                                                                            --
+--------------------------------------------------------------------------------
+--
+--  ID: $Id: cap_v2_lrf.asn,v 9.1 2005/03/23 12:51:12 cvsadmin Exp $
+--
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+--  ASN.1 Module for CAMEL CAP Version 2 (CAP V2).
+--
+--  LRF (Local Reference Format) version (from specification).
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--
+--  Specification identification:
+--
+--      ETSI TS 101 046 V7.0.0 (from file ts_101046v070000p0.zip).
+--
+--      Digital cellular telecommunications system (Phase 2+);
+--      Customized Applications for Mobile network Enhanced Logic (CAMEL)
+--      Stage 2
+--
+--
+
+
+--
+--  Modules currently not generated (and therefore commented out with the 
+--  comment prefix '-''-'"not impl "):
+--
+--  o   CAP-Operations - contains ASN.1 macros (OPERATIONS).  
+--
+--  o   CAP-Codes - contains operation and error code values that are 
+--      hand-written, not generated.
+--  
+--  o   CAP-ASEs - contains macros (APPLICATION-SERVICE-ELEMENT).
+-- 
+--  o   APPLICATION-CONTEXT macros - Application contexts are hand-written, not
+--      generated.
+--
+--  o   Class Definitions - contains class definitions.
+--
+
+--
+--  Only one module (named CAP-V2) is used. All information related to modules
+--  import and export is commented out with the comment prefix '-''-'
+--  "not used ".
+--
+
+--
+--  The EXTENSION class is not used. The ExtensionField type has been modified
+--  modified to use a type ANY. Should be similar for the encoding/decoding.
+--  Original type and class definitions commented out with the comment prefix
+--  '-''-'"change for compiler " or '-''-'"not impl ".
+--
+
+--
+--  The following ASN.1 types have been added (copied from their respective
+--  ASN.1 modules, see import clauses of CAP-DataTypes).
+--
+-- 
+-- IN ITU CS1 types:
+-- 
+-- CallingPartysCategory
+-- HighLayerCompatibility
+-- Integer4
+-- InvokeID
+-- LegID
+-- MiscCallInfo
+-- MonitorMode
+-- RedirectionInformation
+-- ServiceKey
+-- 
+-- 
+-- IN ITU CS2 types:
+-- 
+-- BothwayThroughConnectionInd
+-- 
+-- 
+-- GSM MAP V4 (Phase 2+) types:
+-- 
+-- IMSI
+-- ISDN-AddressString
+-- Ext-BasicServiceCode
+-- NAEA-CIC
+-- LocationInformation
+-- SubscriberState
+-- CallReferenceNumber
+-- SuppressionOfAnnouncement
+-- 
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Added global module definition (begin).
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+CAP-V2
+
+DEFINITIONS
+
+IMPLICIT TAGS
+
+::=
+
+BEGIN
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP Operations.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--not impl CAP-Operations {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) 
+--not impl gsm-Network(1) modules(3) cap-operations(50) version2(1)}
+--  This module contains the type definitions for the CAP v.2 operations.
+--not impl 
+--not impl DEFINITIONS ::=
+--not impl BEGIN
+--not impl IMPORTS
+--not impl OPERATION
+--not impl FROM TCAPMessages {ccitt recommendation q 773 modules(2) messages(1) version2(2)}
+--  error types
+--not impl     Cancelled,
+--not impl     CancelFailed,
+--not impl     ETCFailed,
+--not impl     ImproperCallerResponse, 
+--not impl     MissingCustomerRecord,
+--not impl     MissingParameter,
+--not impl     ParameterOutOfRange,
+--not impl     RequestedInfoError,
+--not impl     TaskRefused,
+--not impl     UnavailableResource,
+--not impl     UnexpectedComponentSequence,
+--not impl     UnexpectedDataValue,
+--not impl     UnexpectedParameter,
+--not impl     UnknownLegID,
+--not impl     SystemFailure
+--not impl FROM CS1-Errors {ccitt(0) identified-organization(4) etsi(0) inDomain(1) in-network(1) modules(0) cs1-errors(1) version1(0)}
+--not impl 
+--  CAP v.2 argument types
+--not impl     ApplyChargingArg,
+--not impl     ApplyChargingReportArg,
+--not impl     AssistRequestInstructionsArg,
+--not impl     CallInformationReportArg,
+--not impl     CallInformationRequestArg,
+--not impl     CancelArg,
+--not impl     ConnectArg,
+--not impl     ConnectToResourceArg,
+--not impl     EstablishTemporaryConnectionArg,
+--not impl     EventReportBCSMArg,
+--not impl     FurnishChargingInformationArg,
+--not impl     InitialDPArg,
+--not impl     PlayAnnouncementArg,
+--not impl     PromptAndCollectUserInformationArg,
+--not impl     ReceivedInformationArg,
+--not impl     ReleaseCallArg,
+--not impl     RequestReportBCSMEventArg,
+--not impl     ResetTimerArg,
+--not impl     SendChargingInformationArg,
+--not impl     SpecializedResourceReportArg
+--not impl 
+--not impl FROM CAP-DataTypes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3) cap-datatypes(52) version2(1)};
+--  TYPE DEFINITIONS FOR CAP v.2 OPERATIONS FOLLOW
+--  gsmSCF-gsmSSF operations
+--not impl 
+--not impl ActivityTest                        ::= OPERATION
+--not impl     RESULT
+--not impl 
+--  Direction: gsmSCF -> gsmSSF or gsmSCF -> gsmSRF or gsmSCF -> assistSSF, Timer: Tat
+--  This operation is used to check for the continued existence of a relationship between the 
+--  gsmSCF and gsmSSF, gsmSCF and gsmSRF or gsmSCF and assistSSF. If the relationship is still in existence, then the gsmSSF, gsmSRF or assistSSF will respond. 
+--..If no reply is received, then the gsmSCF will assume that the gsmSSF, gsmSRF or assistSSF
+-- has failed in some way and will take the appropriate action.
+--not impl 
+--not impl ApplyCharging                   ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ApplyChargingArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedParameter,
+--not impl         UnexpectedDataValue,
+--not impl         ParameterOutOfRange,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnknownLegID
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -> gsmSSF, Timer: Tac
+--  This operation is used for interacting from the gsmSCF with the gsmSSF CSE-controlled call
+--  duration charging mechanism.
+--not impl 
+--not impl ApplyChargingReport             ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ApplyChargingReportArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedParameter,
+--not impl         UnexpectedDataValue,
+--not impl         ParameterOutOfRange,
+--not impl         SystemFailure,
+--not impl         TaskRefused
+--not impl 
+--not impl         }
+--not impl 
+--  Direction: gsmSSF -> gsmSCF, Timer: Tacr
+--  The ApplyChargingReport operation provides the feedback from the gsmSSF to the gsmSCF for the 
+--  CSE-controlled call duration charging mechanism.
+--not impl 
+--not impl AssistRequestInstructions           ::= OPERATION
+--not impl     ARGUMENT
+--not impl AssistRequestInstructionsArg
+--not impl     ERRORS {
+--not impl         MissingCustomerRecord,
+--not impl         MissingParameter,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSSF -> gsmSCF: gsmSRF -> gsmSCF, Timer: Tari
+--  This operation is used when there is an assist or handoff procedure and may be sent by the 
+--  gsmSSF or gsmSRF to the gsmSCF. This operation may be sent by the gsmSSF or gsmSRF to
+--  the gsmSCF, when the initiating gsmSSF has set up a connection to the gsmSRF or to the 
+--  assisting gsmSSF as a result of receiving an EstablishTemporaryConnection from the gsmSCF.
+--not impl  
+--not impl CallInformationReport               ::= OPERATION
+--not impl     ARGUMENT
+--not impl         CallInformationReportArg
+--not impl 
+--  Direction: gsmSSF ?? gsmSCF, Timer: Tcirp  
+--  This operation is used to send specific call information for a single call to the gsmSCF as 
+--  requested by the gsmSCF in a previous CallInformationRequest.
+--not impl 
+--not impl CallInformationRequest              ::= OPERATION
+--not impl     ARGUMENT
+--not impl         CallInformationRequestArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         ParameterOutOfRange,
+--not impl         RequestedInfoError,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedParameter,
+--not impl         UnknownLegID
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, Timer: Tcirq  
+--  This operation is used to request the gsmSSF to record specific information about a single 
+--  call and report it to the gsmSCF (with a CallInformationReport operation). 
+--not impl 
+--not impl Cancel                          ::= OPERATION
+--not impl     ARGUMENT
+--not impl         CancelArg
+--not impl     ERRORS {
+--not impl         CancelFailed
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, or gsmSCF ?? gsmSRF, Timer: Tcan   
+
+--  When this operation is sent from gsmSCF to gsmSSF, then all outstanding requests will be cancelled.
+--  The following outstanding requests will be cancelled: RequestReportBCSMEvent, ApplyChargingReport,
+--  CallInformationReport.
+--
+--  When this operation is sent from gsmSCF to gsmSRF, then the indicated previous operation will be
+--  cancelled.
+--  The following operations may be cancelled: PlayAnnouncement and PromptAndCollectUserInformation.
+--not impl 
+--not impl Connect                         ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ConnectArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -> gsmSSF, Timer: Tcon
+--  This operation is used to request the gsmSSF to perform the call processing actions to route 
+--  or forward a call to a specified destination. To do so, the gsmSSF may or may not use 
+--  destination information from the calling party (e.g., dialled digits) and existing call setup 
+--  information depending on the information provided by the gsmSCF.
+--not impl 
+--not impl ConnectToResource               ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ConnectToResourceArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, Timer: Tctr  
+--  This operation is used to connect a call from the physical entity containing the gsmSSF to the 
+--  physical entity containing the gsmSRF. 
+--not impl 
+--not impl Continue                            ::= OPERATION
+--not impl 
+--  Direction: gsmSCF -> gsmSSF, Timer: Tcue
+--  This operation is used to request the gsmSSF to proceed with call processing at the DP at 
+--  which it previously suspended call processing to await gsmSCF instructions (i.e., proceed to 
+--  the next point in call in the BCSM). The gsmSSF continues call processing without 
+--  substituting new data from gsmSCF.
+--not impl 
+--not impl DisconnectForwardConnection         ::= OPERATION
+--not impl     ERRORS {
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence 
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, Timer: Tdfc  
+--  This operation is used to disconnect a forward temporary connection or a connection to a 
+--  resource. 
+--not impl 
+--not impl EstablishTemporaryConnection        ::= OPERATION
+--not impl     ARGUMENT
+--not impl         EstablishTemporaryConnectionArg
+--not impl     ERRORS {
+--not impl         ETCFailed,
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, Timer: Tetc  
+--  This operation is used to create a connection to a resource (e.g. to 
+--  play an announcement, to collect user information); it implies the use of the assist procedure.
+--not impl 
+--not impl EventReportBCSM                 ::= OPERATION
+--not impl     ARGUMENT
+--not impl         EventReportBCSMArg
+--not impl 
+--  Direction: gsmSSF -> gsmSCF, Timer: Terb
+--  This operation is used to notify the gsmSCF of a call-related event (e.g., BCSM events such 
+--  as answer or disconnect) previously requested by the gsmSCF in a RequestReportBCSMEvent 
+--  operation.
+--not impl 
+--not impl FurnishChargingInformation      ::= OPERATION
+--not impl     ARGUMENT
+--not impl         FurnishChargingInformationArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSCF ?? gsmSSF, Timer: Tfci 
+--  This operation is used to request the gsmSSF to generate, register a call record or to 
+--  include some information in the default call record. The registered call record is intended 
+--  for off line charging of the call.
+--not impl 
+--not impl InitialDP                           ::= OPERATION
+--not impl     ARGUMENT
+--not impl         InitialDPArg
+--not impl     ERRORS {
+--not impl         MissingCustomerRecord,
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSSF -> gsmSCF, Timer: Tidp
+--  This operation is used after a TDP to indicate request for service.
+--not impl 
+--not impl ReleaseCall                     ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ReleaseCallArg
+--not impl 
+--  Direction: gsmSCF -> gsmSSF, Timer: Trc
+--  This operation is used to tear down an existing call at any phase of the call for all 
+--  parties involved in the call.
+--not impl 
+--not impl RequestReportBCSMEvent  ::= OPERATION
+--not impl     ARGUMENT
+--not impl         RequestReportBCSMEventArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter,
+--not impl         UnknownLegID
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -> gsmSSF, Timer: Trrb
+--  This operation is used to request the gsmSSF to monitor for a call-related event (e.g., BCSM 
+--  events such as answer or disconnect), then send a notification or request for instructions
+--  back to the gsmSCF when the event is detected.
+--not impl 
+--not impl 
+--not impl ResetTimer                      ::= OPERATION
+--not impl     ARGUMENT
+--not impl         ResetTimerArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         TaskRefused,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -? gsmSSF, Timer: Trt 
+--  This operation is used to request the gsmSSF to refresh an application timer in the gsmSSF.
+--not impl 
+--not impl SendChargingInformation             ::= OPERATION
+--not impl     ARGUMENT
+--not impl         SendChargingInformationArg
+--not impl     ERRORS {
+--not impl         MissingParameter,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedParameter,
+--not impl         ParameterOutOfRange,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnknownLegID
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -? gsmSSF, Timer: Tsci
+--  This operation is used to instruct the gsmSSF on the charging informationwhich the gsmSSF 
+--  shall send to the Mobile Station by means of GSM access signalling.
+--not impl 
+--  gsmSCF-gsmSRF Operations
+--not impl 
+--  AssistRequestInstructions
+--  gsmSRF -? gsmSCF
+--  Refer to previous description of this operation in the gsmSCF-gsmSSF operations clause.
+--  Cancel
+--  gsmSCF -? gsmSRF
+--  Refer to previous description of this operation in the gsmSCF-gsmSSF operations clause.
+--not impl 
+--not impl PlayAnnouncement ::= OPERATION
+--not impl     ARGUMENT
+--not impl         PlayAnnouncementArg
+--not impl     ERRORS {
+--not impl         Cancelled,
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         UnavailableResource,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter
+--not impl         }
+--not impl     LINKED {
+--not impl         SpecializedResourceReport
+--not impl         }
+--  Direction: gsmSCF -? gsmSRF, Timer: Tpa 
+--  This operation is to be used after Establish Temporary Connection (assist procedure with 
+--  a second gsmSSF) or a Connect to Resource (no assist) operation. It may be used for inband 
+--  interaction with a Mobile Station. In the former case, the gsmSRF is usually collocated 
+--  with the gsmSSF for standard tones (congestion tone etc.) or standard announcements. In 
+--  the latter case, the gsmSRF is always collocated with the gsmSSF in the MSC. Any error is 
+--  returned to the gsmSCF. When the gsmSRF is colocated with the gsmSSF, this operation is 
+--  relayed from the gsmSCF to the gsmSRF via the gsmSSF. The timer associated with this 
+--  operation must be of a sufficient duration to allow its linked operation to be correctly 
+--  correlated.
+--not impl 
+--not impl PromptAndCollectUserInformation         ::= OPERATION
+--not impl     ARGUMENT
+--not impl         PromptAndCollectUserInformationArg
+--not impl     RESULT
+--not impl         ReceivedInformationArg
+--not impl     ERRORS {
+--not impl         Cancelled,
+--not impl         ImproperCallerResponse,
+--not impl         MissingParameter,
+--not impl         SystemFailure,
+--not impl         TaskRefused,
+--not impl         UnavailableResource,
+--not impl         UnexpectedComponentSequence,
+--not impl         UnexpectedDataValue,
+--not impl         UnexpectedParameter 
+--not impl         }
+--not impl 
+--  Direction: gsmSCF -? gsmSRF, Timer: Tpc 
+--  This operation is used to interact with a user to collect information. When the gsmSRF 
+--  is colocated with the gsmSSF, this operation is relayed from the gsmSCF to the gsmSRF 
+--  via the gsmSSF.
+--not impl 
+--not impl SpecializedResourceReport               ::= OPERATION
+--not impl     ARGUMENT
+--not impl         SpecializedResourceReportArg
+--not impl 
+--  Direction: gsmSRF -? gsmSCF, Timer: Tsrr 
+--  This operation is used as the response to a PlayAnnouncement operation when the announcement 
+--  completed report indication is set. When the gsmSRF is colocated with the gsmSSF, this 
+--  operation is relayed from the gsmSRF to the gsmSCF via the gsmSSF.
+--not impl 
+--not impl END
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP DataTypes.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+------------------------------------------------------------
+------------------------------------------------------------
+-- Added ASN.1 types.
+------------------------------------------------------------
+------------------------------------------------------------
+
+------------------------------------------------------------
+-- IN ITU CS1 types.
+------------------------------------------------------------
+--
+-- CallingPartysCategory
+-- HighLayerCompatibility
+-- Integer4
+-- InvokeID
+-- LegID
+-- MiscCallInfo
+-- MonitorMode
+-- RedirectionInformation
+-- ServiceKey
+-- 
+
+CallingPartysCategory ::= OCTET STRING (SIZE(1))
+
+HighLayerCompatibility ::= OCTET STRING (SIZE (highLayerCompatibilityLength))
+
+highLayerCompatibilityLength INTEGER ::= 2
+
+Integer4 ::= INTEGER (0..2147483647)
+
+InvokeID ::= INTEGER (-128..127)
+
+LegID ::= CHOICE {
+    sendingSideID   [0] LegType,
+    receivingSideID [1] LegType
+    }
+
+MiscCallInfo ::= SEQUENCE {
+    messageType [0] ENUMERATED {
+        request(0),
+        notification(1)
+    },
+    dpAssignment [1] ENUMERATED {
+        individualLine(0),
+        groupBased(1),
+        officeBased(2)
+    } OPTIONAL
+}
+
+MonitorMode ::= ENUMERATED {
+    interrupted(0),
+    notifyAndContinue(1),
+    transparent(2)
+}
+
+RedirectionInformation ::= OCTET STRING (SIZE(2))
+
+ServiceKey ::= INTEGER (0..2147483647)
+
+------------------------------------------------------------
+-- IN ITU CS2 types.
+------------------------------------------------------------
+--
+-- BothwayThroughConnectionInd
+--
+
+BothwayThroughConnectionInd ::= ENUMERATED {
+    bothwayPathRequired	(0),
+    bothwayPathNotRequired	(1)
+}
+
+
+ 
+------------------------------------------------------------
+-- GSM MAP V4 (Phase 2+) types (see file map_v4_lrf.asn).
+------------------------------------------------------------
+-- 
+-- IMSI
+-- ISDN-AddressString
+-- Ext-BasicServiceCode
+-- NAEA-CIC
+-- LocationInformation
+-- SubscriberState
+-- CallReferenceNumber
+-- SuppressionOfAnnouncement
+-- 
+
+IMSI ::= OCTET STRING (SIZE (3..8))
+
+ISDN-AddressString ::= OCTET STRING (SIZE (1..maxISDN-AddressLength))
+maxISDN-AddressLength  INTEGER ::= 9
+
+Ext-BasicServiceCode ::= CHOICE {
+    ext-BearerService   [2] Ext-BearerServiceCode,
+    ext-Teleservice     [3] Ext-TeleserviceCode}
+
+Ext-BearerServiceCode ::= OCTET STRING (SIZE (1..5))
+
+Ext-TeleserviceCode ::= OCTET STRING (SIZE (1..5))
+
+NAEA-CIC ::= OCTET STRING (SIZE (3))
+
+LocationInformation ::= SEQUENCE {
+    ageOfLocationInformation    AgeOfLocationInformation    OPTIONAL,
+    geographicalInformation [0] GeographicalInformation     OPTIONAL,
+    vlr-number              [1] ISDN-AddressString          OPTIONAL,
+    locationNumber          [2] LocationNumber              OPTIONAL,
+    cellIdOrLAI             [3] CellIdOrLAI                 OPTIONAL,
+    extensionContainer      [4] ExtensionContainer          OPTIONAL,
+    ...}
+
+AgeOfLocationInformation ::= INTEGER (0..32767)
+
+GeographicalInformation ::= OCTET STRING (SIZE (8))
+
+CellIdOrLAI ::= CHOICE {
+    cellIdFixedLength   [0] CellIdFixedLength,
+    laiFixedLength      [1] LAIFixedLength}
+
+CellIdFixedLength ::= OCTET STRING (SIZE (7))
+
+LAIFixedLength ::= OCTET STRING (SIZE (5))
+
+ExtensionContainer ::= SEQUENCE {
+    privateExtensionList    [0] PrivateExtensionList    OPTIONAL, 
+    pcs-Extensions          [1] PCS-Extensions          OPTIONAL,
+    ...}
+
+PrivateExtensionList ::= SEQUENCE SIZE (1..maxNumOfPrivateExtensions) OF PrivateExtension
+
+PrivateExtension ::= SEQUENCE {
+    extensionId     OBJECT IDENTIFIER,
+    extensionType   ANY OPTIONAL
+    }
+    
+
+maxNumOfPrivateExtensions  INTEGER ::= 10
+
+PCS-Extensions ::= SEQUENCE {...}
+
+SubscriberState ::= CHOICE {
+    assumedIdle         [0] NULL,
+    camelBusy           [1] NULL,
+    netDetNotReachable  NotReachableReason,
+    notProvidedFromVLR  [2] NULL
+}
+
+NotReachableReason ::= ENUMERATED {
+    msPurged (0),
+    imsiDetached (1),
+    restrictedArea (2),
+    notRegistered (3)
+}
+
+CallReferenceNumber ::= OCTET STRING (SIZE (1..8))
+
+SuppressionOfAnnouncement ::= NULL
+
+------------------------------------------------------------
+------------------------------------------------------------
+------------------------------------------------------------
+
+
+
+--not used
+--not used CAP-DataTypes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3)cap-datatypes(52) version2(1)}
+--not used
+--  This module contains the type definitions for the CAP v.2 data types.
+--not used
+--not used DEFINITIONS IMPLICIT TAGS ::=
+--not used BEGIN
+--not used     IMPORTS
+--not used
+--  CAP Classes
+--not used
+--not used     EXTENSION,
+--not used     
+--not used     SupportedExtensions
+--not used FROM CAP-Classes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3) cap-classes(54) version2(1)}
+--not used 
+--  This module contains the class definitions for CAP v.2.
+--not used 
+-- CS1 Parameters   
+--not used 
+--not used     CallingPartysCategory,
+--not used     
+--not used     HighLayerCompatibility,
+--not used     Integer4,
+--not used     InvokeID,
+--not used     LegID,
+--not used     MiscCallInfo,
+--not used     MonitorMode,
+--not used     RedirectionInformation,
+--not used     ServiceKey
+--not used FROM CS1-DataTypes { ccitt(0) identified-organization(4) etsi(0) inDomain(1)
+--not used in-network(1) modules(0) cs1-datatypes(2) version1(0)}
+--not used 
+--not used     BothwayThroughConnectionInd
+--not used FROM CS2-datatypes { ccitt(0) identified-organization(4) etsi(0) inDomain(1) 
+--not used in-network(1) CS2(20) modules(0) in-cs2-datatypes (0) version1(0)}
+--not used 
+--not used     IMSI,
+--not used     ISDN-AddressString,
+--not used     Ext-BasicServiceCode,
+--not used     NAEA-CIC
+--not used FROM MAP-CommonDataTypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-CommonDataTypes(18) version4(4)}
+--not used 
+--not used     LocationInformation,
+--not used     SubscriberState
+--not used FROM MAP-MS-DataTypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-MS-DataTypes(11) version4(4)}
+--not used 
+--not used     CallReferenceNumber,
+--not used     SuppressionOfAnnouncement
+--not used FROM MAP-CH-DataTypes { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0)
+--not used gsm-Network(1) modules(3) map-CH-DataTypes(13) version4(4)}
+--not used ;
+--not used 
+--  TYPE DEFINITIONS FOR CAP v.2 DATA TYPES FOLLOW
+
+--  Argument Data Types
+
+ApplyChargingArg                    ::= SEQUENCE {
+    aChBillingChargingCharacteristics   [0] AChBillingChargingCharacteristics,
+    partyToCharge                       [2] SendingSideID                       
+                                            DEFAULT(
+                                                "SendingSideID* sendingSideID = new SendingSideID(&staticDesc);
+                                                 std::vector<byte> array;
+                                                 array.push_back(0x01U);
+                                                 LegType* legType = new LegType(array);
+                                                 sendingSideID->SetChoiceSendingSideID(legType);
+                                                 staticDesc.SetCloneForDefaultFactory(sendingSideID);"), --sendingSideID:leg1,
+    extensions                          [3] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                        ExtensionField          OPTIONAL,
+    ...
+    }
+
+--  The partyToCharge parameter indicates the party in the call to which the ApplyCharging 
+--  operation should be applied.
+
+ApplyChargingReportArg              ::= CallResult
+
+
+AssistRequestInstructionsArg        ::= SEQUENCE {
+    correlationID                       [0] CorrelationID,
+    iPSSPCapabilities                   [2] IPSSPCapabilities,
+    extensions                          [3] SEQUENCE SIZE(1..numOfExtensions)   OF 
+                                                            ExtensionField      OPTIONAL,
+    ...
+    }
+
+--  OPTIONAL denotes network operator specific use. The value of the correlationID may be the 
+--  Called Party Number supplied by the initiating gsmSSF.
+
+CallInformationReportArg            ::= SEQUENCE {
+    requestedInformationList            [0] RequestedInformationList,
+    extensions                          [2] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    legID                               [3] ReceivingSideID                     OPTIONAL,
+    ...
+    }
+
+CallInformationRequestArg           ::= SEQUENCE {
+    requestedInformationTypeList        [0] RequestedInformationTypeList,
+    extensions                          [2] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    legID                               [3] SendingSideID                       OPTIONAL,
+    ...
+    }
+
+CancelArg                           ::= CHOICE {
+    invokeID                            [0] InvokeID,
+    allRequests                         [1] NULL
+}
+
+ConnectArg                          ::= SEQUENCE {
+    destinationRoutingAddress           [0] DestinationRoutingAddress,
+    alertingPattern                     [1] AlertingPattern                     OPTIONAL,
+    originalCalledPartyID               [6] OriginalCalledPartyID               OPTIONAL,
+    extensions                          [10] SEQUENCE SIZE(1..numOfExtensions)  OF 
+                                                            ExtensionField      OPTIONAL,
+    callingPartysCategory               [28] CallingPartysCategory              OPTIONAL,
+    redirectingPartyID                  [29] RedirectingPartyID                 OPTIONAL,
+    redirectionInformation              [30] RedirectionInformation             OPTIONAL,
+    genericNumbers                      [14] GenericNumbers                     OPTIONAL,
+    suppressionOfAnnouncement           [55] SuppressionOfAnnouncement          OPTIONAL,
+    oCSIApplicable                      [56] OCSIApplicable                     OPTIONAL,
+    ...,
+    na-Info                         [57] NA-Info                            OPTIONAL
+    }
+--  na-Info is included at the discretion of the gsmSCF operator.
+
+
+ConnectToResourceArg                ::= SEQUENCE {
+    resourceAddress                     CHOICE {
+            ipRoutingAddress                [0] IPRoutingAddress,
+            none                            [3] NULL
+            },
+    extensions                          [4] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    serviceInteractionIndicatorsTwo     [7] ServiceInteractionIndicatorsTwo     OPTIONAL,
+    ...
+    }
+
+EstablishTemporaryConnectionArg     ::= SEQUENCE {
+    assistingSSPIPRoutingAddress        [0] AssistingSSPIPRoutingAddress,
+    correlationID                       [1] CorrelationID                       OPTIONAL,
+    scfID                               [3] ScfID                               OPTIONAL,
+    extensions                          [4] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    serviceInteractionIndicatorsTwo     [7] ServiceInteractionIndicatorsTwo     OPTIONAL,
+    ...,
+    na-info                         [50] NA-Info                            OPTIONAL
+    }
+--  na-info is included at the discretion of the
+--  gsmSCF operator.
+
+EventReportBCSMArg                  ::= SEQUENCE {
+    eventTypeBCSM                       [0] EventTypeBCSM,
+    eventSpecificInformationBCSM        [2] EventSpecificInformationBCSM        OPTIONAL,
+    legID                               [3] ReceivingSideID                     OPTIONAL,
+    miscCallInfo                        [4] MiscCallInfo    DEFAULT(
+                                                "MiscCallInfo* miscCallInfo = new MiscCallInfo(&staticDesc);
+                                                 MiscCallInfo::MessageType* messageType = new MiscCallInfo::MessageType((long)0);
+                                                 miscCallInfo->SetMessageType(messageType);
+                                                 staticDesc.SetCloneForDefaultFactory(miscCallInfo);"), --{messageType request},
+    extensions                          [5] SEQUENCE SIZE(1..numOfExtensions)   OF 
+                                                            ExtensionField      OPTIONAL,
+    ...
+    }
+
+FurnishChargingInformationArg       ::= FCIBillingChargingCharacteristics
+
+
+InitialDPArg                        ::= SEQUENCE {
+    serviceKey                          [0] ServiceKey,
+    calledPartyNumber                   [2] CalledPartyNumber                   OPTIONAL,
+    callingPartyNumber                  [3] CallingPartyNumber                  OPTIONAL,
+    callingPartysCategory               [5] CallingPartysCategory               OPTIONAL,
+    iPSSPCapabilities                   [8] IPSSPCapabilities                   OPTIONAL,
+    locationNumber                      [10] LocationNumber                     OPTIONAL,
+    originalCalledPartyID               [12] OriginalCalledPartyID              OPTIONAL,
+    extensions                          [15] SEQUENCE SIZE(1..numOfExtensions)  OF 
+                                                            ExtensionField      OPTIONAL,
+    highLayerCompatibility              [23] HighLayerCompatibility             OPTIONAL,
+    additionalCallingPartyNumber        [25] AdditionalCallingPartyNumber       OPTIONAL,
+    bearerCapability                    [27] BearerCapability                   OPTIONAL,
+    eventTypeBCSM                       [28] EventTypeBCSM                      OPTIONAL,
+    redirectingPartyID                  [29] RedirectingPartyID                 OPTIONAL,
+    redirectionInformation              [30] RedirectionInformation             OPTIONAL,
+    iMSI                                [50] IMSI                               OPTIONAL,
+    subscriberState                     [51] SubscriberState                    OPTIONAL,
+    locationInformation                 [52] LocationInformation                OPTIONAL,
+    ext-basicServiceCode                [53] Ext-BasicServiceCode               OPTIONAL,
+    callReferenceNumber                 [54] CallReferenceNumber                OPTIONAL,
+    mscAddress                          [55] ISDN-AddressString                 OPTIONAL,
+    calledPartyBCDNumber                [56] CalledPartyBCDNumber               OPTIONAL,
+    timeAndTimezone                     [57] TimeAndTimezone                    OPTIONAL,
+    gsm-ForwardingPending               [58] NULL                               OPTIONAL,
+        ...,
+    initialDPArgExtension               [59] InitialDPArgExtension              OPTIONAL
+
+    }
+
+InitialDPArgExtension               ::= SEQUENCE {
+    naCarrierInformation                [0] NACarrierInformation                OPTIONAL,
+    gmscAddress                         [1] ISDN-AddressString                  OPTIONAL,
+    ...
+
+    
+}
+
+
+--  If iPSSPCapabilities is not present then this denotes that a colocated gsmSRF is not 
+--  supported by the gsmSSF. If present, then the gsmSSF supports a colocated gsmSRF capable 
+--  of playing announcements via elementaryMessageIDs and variableMessages, the playing of
+--  tones and the collection of DTMF digits. Other supported capabilities are explicitly 
+--  detailed in the IPSSPCapabilities parameter itself.
+
+--  naCarrierInformation is included at the discretion of the gsmSSF operator.
+
+PlayAnnouncementArg                 ::= SEQUENCE {
+    informationToSend                   [0] InformationToSend,
+    disconnectFromIPForbidden           [1] BOOLEAN                             DEFAULT TRUE,
+    requestAnnouncementComplete         [2] BOOLEAN                             DEFAULT TRUE,
+    extensions                          [3] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                        ExtensionField          OPTIONAL,
+    ...
+    }
+
+PromptAndCollectUserInformationArg  ::= SEQUENCE {
+    collectedInfo                       [0] CollectedInfo,
+    disconnectFromIPForbidden           [1] BOOLEAN                             DEFAULT TRUE,
+    informationToSend                   [2] InformationToSend                   OPTIONAL,
+    extensions                          [3] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                        ExtensionField          OPTIONAL,
+    ...
+    }
+
+ReceivedInformationArg              ::= CHOICE {
+    digitsResponse                      [0] Digits
+    }
+
+ReleaseCallArg                      ::= Cause
+
+RequestReportBCSMEventArg           ::= SEQUENCE {
+    bcsmEvents                          [0] SEQUENCE SIZE (1..numOfBCSMEvents)  OF BCSMEvent,
+    extensions                          [2] SEQUENCE SIZE (1..numOfExtensions)  OF 
+                                                            ExtensionField      OPTIONAL,
+    ...
+    }
+
+--  Indicates the BCSM related events for notification.
+
+ResetTimerArg                       ::= SEQUENCE {
+    timerID                             [0] TimerID                             DEFAULT tssf,
+    timervalue                          [1] TimerValue,
+    extensions                          [2] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    ...
+    }
+
+SendChargingInformationArg      ::= SEQUENCE {
+    sCIBillingChargingCharacteristics   [0] SCIBillingChargingCharacteristics,
+    partyToCharge                       [1] SendingSideID,
+    extensions                          [2] SEQUENCE SIZE(1..numOfExtensions)   OF
+                                                            ExtensionField      OPTIONAL,
+    ...
+    }
+
+SpecializedResourceReportArg        ::=  NULL
+
+--  Common Data Types
+
+AChBillingChargingCharacteristics       ::= 
+    OCTET STRING (SIZE(minAChBillingChargingLength .. maxAChBillingChargingLength)) 
+--not impl     (CONSTRAINED BY { -- -- shall be the result of the BER-encoded value of the type CAMEL-AChBillingChargingCharacteristics -- --})
+
+--  The AChBillingChargingCharacteristics parameter specifies the charging related information to 
+--  be provided by the gsmSSF and the conditions on which this information has to be reported back 
+--  to the gsmSCF with the ApplyChargingReport operation. The value of the 
+--  AchBillingChargingCharacteristics of type OCTET STRING carries a value of the ASN.1 data type : 
+--  CAMEL-AchBillingChargingCharacteristics. The normal encoding rules are used to encode this 
+--  value. 
+--  The violation of the UserDefinedConstraint shall be handled as an ASN.1 syntax error.
+
+AdditionalCallingPartyNumber        ::= Digits
+
+--  Indicates the Additional Calling Party Number.
+
+AlertingPattern                     ::= OCTET STRING (SIZE (3))
+
+--  The encoding of the last octet of this parameter is as defined in GSM 09.02 [Reference 14].
+--  Only the last octet is used. The remaining octets shall be sent with all bits set to zero. 
+--  The receiving side shall ignore the first two octets.
+
+AOCBeforeAnswer                     ::= SEQUENCE {
+    aOCInitial                          [0] CAI-GSM0224,
+    aOCSubsequent                       [1] AOCSubsequent                       OPTIONAL
+    }
+
+AOCSubsequent                       ::= SEQUENCE {
+    cAI-GSM0224                         [0] CAI-GSM0224 ,
+    tariffSwitchInterval                [1] INTEGER (1..86400)                  OPTIONAL
+    }
+    
+--   tariffSwitchInterval is measured in 1 second units
+
+ApplicationTimer                    ::= INTEGER (0..2047)
+
+--  Used by the gsmSCF to set a timer in the gsmSSF. The timer is in seconds.
+
+AssistingSSPIPRoutingAddress        ::= Digits
+
+--  Indicates the destination address of the gsmSRF for the assist procedure.
+
+BCSMEvent                           ::= SEQUENCE {
+    eventTypeBCSM                       [0] EventTypeBCSM,
+    monitorMode                         [1] MonitorMode,
+    legID                               [2] LegID                               OPTIONAL,
+    dPSpecificCriteria                  [30] DPSpecificCriteria                 OPTIONAL
+    }
+
+--  Indicates the BCSM Event information for monitoring.
+
+BearerCapability                    ::= CHOICE {
+    bearerCap                           [0] OCTET STRING (SIZE (2..maxBearerCapabilityLength))
+    }   
+
+--  Indicates the type of bearer capability connection to the user. For bearerCap, the value as
+--  described in ISUP (ETS 300 356-1 [3], User Service Information) shall be used.
+
+CAI-GSM0224                         ::= SEQUENCE {
+    e1                                  [0] INTEGER (0..8191)                   OPTIONAL,
+    e2                                  [1] INTEGER (0..8191)                   OPTIONAL,
+    e3                                  [2] INTEGER (0..8191)                   OPTIONAL,
+    e4                                  [3] INTEGER (0..8191)                   OPTIONAL,
+    e5                                  [4] INTEGER (0..8191)                   OPTIONAL,
+    e6                                  [5] INTEGER (0..8191)                   OPTIONAL,
+    e7                                  [6] INTEGER (0..8191)                   OPTIONAL
+    }
+
+--  Indicates Charge Advice Information to the Mobile Station. For information regarding
+--  parameter usage, refer to GSM 02.40 [26].
+
+CalledPartyBCDNumber                ::= OCTET STRING (SIZE (minCalledPartyBCDNumberLength .. 
+                                        maxCalledPartyBCDNumberLength))
+
+--  Indicates the Called Party Number, including service selection information. Refer to GSM 
+--  04.08 [25] for encoding. This data type carries only the "type of number", "numbering plan
+--  identification" and "number digit" fields defined in [25]; it does not carry the "called
+--  party BCD number IEI" or "length of called party BCD number contents".
+
+CalledPartyNumber                   ::= OCTET STRING (SIZE (minCalledPartyNumberLength ..
+                                                        maxCalledPartyNumberLength))
+
+--  Indicates the Called Party Number. Refer to ETS 300 356-1 [3] for encoding.
+
+CallingPartyNumber                  ::= OCTET STRING (SIZE (minCallingPartyNumberLength ..
+                                                         maxCallingPartyNumberLength))
+
+--  Indicates the Calling Party Number. Refer to ETS 300 356-1 [3] for encoding.
+
+CallResult                          ::= OCTET STRING (SIZE (minCallResultLength ..
+                                                    maxCallResultLength))
+--not impl                                         (CONSTRAINED BY {-- -- shall be the result of the BER-encoded value of type CAMEL-CallResult -- --})
+
+-- The violation of the UserDefinedConstraint shall be handled as an ASN.1 syntax error.
+
+--  This parameter provides the gsmSCF with the charging related information previously requested
+--  using the ApplyCharging operation. This shall include the partyToCharge parameter as
+--  received in the related ApplyCharging operation to correlate the result to the request.
+
+CAMEL-AChBillingChargingCharacteristics ::= CHOICE {
+    timeDurationCharging                    [0] SEQUENCE {
+            maxCallPeriodDuration               [0] INTEGER (1..864000),
+            releaseIfdurationExceeded           [1] ReleaseIfDurationExceeded   OPTIONAL,
+            tariffSwitchInterval                [2] INTEGER (1..86400)          OPTIONAL
+        }
+    }
+--  tariffSwitchInterval is measured in 1 second units.
+--  maxCallPeriodDuration is measured in100 millisecond units
+
+CAMEL-CallResult                        ::= CHOICE {
+    timeDurationChargingResult              [0] SEQUENCE {
+        partyToCharge                           [0] ReceivingSideID,
+        timeInformation                         [1] TimeInformation,
+        callActive                              [2] BOOLEAN                 DEFAULT TRUE
+        }
+    }
+
+CAMEL-FCIBillingChargingCharacteristics ::= CHOICE{
+    fCIBCCCAMELsequence1            [0] SEQUENCE {
+        freeFormatData                  [0] OCTET STRING (SIZE (minFCIBillingChargingDataLength..
+                                                                maxFCIBillingChargingDataLength)),
+        partyToCharge                   [1] SendingSideID                   
+                                            DEFAULT(
+                                                "SendingSideID* sendingSideID = new SendingSideID(&staticDesc);
+                                                 std::vector<byte> array;
+                                                 array.push_back(0x01U);
+                                                 LegType* legType = new LegType(array);
+                                                 sendingSideID->SetChoiceSendingSideID(legType);
+                                                 staticDesc.SetCloneForDefaultFactory(sendingSideID);") --sendingSideID:leg1
+        }
+    }
+
+CAMEL-SCIBillingChargingCharacteristics ::= CHOICE {
+    aOCBeforeAnswer                         [0] AOCBeforeAnswer,
+    aOCAfterAnswer                          [1] AOCSubsequent
+    }
+
+Cause                               ::= OCTET STRING (SIZE (minCauseLength .. maxCauseLength))
+
+--  Indicates the cause for interface related information. Refer to the ETS 300 356-1 [3] Cause 
+--  parameter for encoding. For the use of Cause and Location values refer to Q.850.
+--  Shall only include the cause value.
+
+
+CollectedDigits                     ::= SEQUENCE {
+    minimumNbOfDigits                   [0] INTEGER (1..16)                 DEFAULT 1,
+    maximumNbOfDigits                   [1] INTEGER (1..16),
+    endOfReplyDigit                     [2] OCTET STRING (SIZE (1..2))          OPTIONAL,
+    cancelDigit                         [3] OCTET STRING (SIZE (1..2))          OPTIONAL,
+    startDigit                          [4] OCTET STRING (SIZE (1..2))          OPTIONAL,
+    firstDigitTimeOut                   [5] INTEGER (1..127)                    OPTIONAL,
+    interDigitTimeOut                   [6] INTEGER (1..127)                    OPTIONAL,
+    errorTreatment                      [7] ErrorTreatment              DEFAULT stdErrorAndInfo,
+    interruptableAnnInd                 [8] BOOLEAN                             DEFAULT TRUE,
+    voiceInformation                    [9] BOOLEAN                             DEFAULT FALSE,
+    voiceBack                           [10] BOOLEAN                            DEFAULT FALSE
+    }
+
+--  The use of voiceBack and the support of voice recognition via voiceInformation is 
+--  network operator specific. The endOfReplyDigit, cancelDigit, and startDigit parameters 
+--  have been designated as OCTET STRING, and are to be encoded as BCD, one digit per octet 
+--  only, contained  in the four least significant bits of each OCTET. 
+--  The usage is service dependent.
+
+CollectedInfo                       ::= CHOICE {
+    collectedDigits                     [0] CollectedDigits
+    }
+
+CorrelationID                       ::= Digits
+
+--  used by gsmSCF for correlation with a previous operation. Refer to clauses 9.5 and 9.15 
+--  for a description of the procedures associated with this parameter.
+
+DateAndTime                         ::= OCTET STRING (SIZE(7))
+
+--  DateAndTime is BCD encoded. The year digit indicating millenium occupies bits 0-3 of 
+--  the first octet, and the year digit indicating century occupies bits 4-7 of the first octet. 
+--  The year digit indicating decade occupies bits 0-3 of the second octet, whilst the digit
+--  indicating the year within the decade occupies bits 4-7 of the second octet.
+--  The most significant month digit occupies bits 0-3 of the third octet, and the least 
+--  significant month digit occupies bits 4-7 of the third octet. 
+--  The most significant day digit occupies bits 0-3 of the fourth octet, and the least significant 
+--  day digit occupies bits 4-7 of the fourth octet. 
+--  The most significant hours digit occupies bits 0-3 of the fifth octet, and the least significant 
+--  digit occupies bits 4-7 of the fifth octet. 
+--  The most significant minutes digit occupies bits 0-3 of the sixth octet, and the least 
+--  significant digit occupies bits 4-7 of the sixth octet. 
+--  The most significant seconds digit occupies bits 0-3 of the seventh octet, and the least seconds 
+--  significant digit occupies bits 4-7 of the seventh octet. 
+--  For the encoding of digits in an octet, refer to the timeAndtimezone parameter.
+
+DestinationRoutingAddress           ::= SEQUENCE SIZE (1) OF CalledPartyNumber
+
+--  Indicates the Called Party Number.
+
+Digits                              ::= OCTET STRING (SIZE (minDigitsLength .. maxDigitsLength))
+
+--  Indicates the address signalling digits. Refer to the ETS 300 356-1 [3] Generic Number 
+--  and Generic Digits parameters for encoding. The coding of the subfields "NumberQualifier" 
+--  in Generic Number and "Type Of Digits" in Generic Digits are irrelevant to the CAP, the 
+--  ASN.1 tags are sufficient to identify the parameter. The ISUP format does not allow to 
+--  exclude these subfields, therefore they shall be sent.  The value is network operator specific.
+--
+--  The following parameters should use Generic Number:
+--  AdditionalCallingPartyNumber for InitialDP
+--  AssistingSSPIPRoutingAddress for EstablishTemporaryConnection
+--  CorrelationID for AssistRequestInstructions
+--
+--  The following parameters should use Generic Digits:
+--  CorrelationID in EstablishTemporaryConnection
+--  number in VariablePart
+--  digitsResponse in ReceivedInformationArg
+--  Note that when CorrelationID is transported in Generic Digits, then the digits shall 
+--  always be BCD encoded.
+
+DPSpecificCriteria                  ::= CHOICE {
+    applicationTimer                    [1] ApplicationTimer
+    }
+
+--  The gsmSCF may set a timer in the gsmSSF for the NoAnswer event. If the user does not 
+--  answer the call within the allocated time, the gsmSSF reports the event to the gsmSCF.
+
+ErrorTreatment                      ::= ENUMERATED {
+    stdErrorAndInfo                     (0),
+    help                                (1),
+    repeatPrompt                        (2) 
+    }
+
+--  stdErrorAndInfo means returning the "ImproperCallerResponse" error in the event of an error
+--  condition during collection of user info.
+
+EventSpecificInformationBCSM        ::=  CHOICE {
+    routeSelectFailureSpecificInfo      [2] SEQUENCE {
+        failureCause                        [0] Cause                           OPTIONAL,
+        ...
+        },
+    oCalledPartyBusySpecificInfo        [3] SEQUENCE {
+        busyCause                           [0]Cause                            OPTIONAL,
+        ...
+        },
+    oNoAnswerSpecificInfo               [4] SEQUENCE {
+        -- no specific info defined-
+        ...
+        },
+    oAnswerSpecificInfo                 [5] SEQUENCE {
+        -- no specific info defined-
+        ...
+        },
+    oDisconnectSpecificInfo             [7] SEQUENCE {
+        releaseCause                        [0] Cause                           OPTIONAL,
+        ...
+        },
+    tBusySpecificInfo                   [8] SEQUENCE {
+        busyCause                           [0] Cause                           OPTIONAL,
+        callForwarded                       [50] NULL                           OPTIONAL,
+        ...
+        },
+    tNoAnswerSpecificInfo               [9] SEQUENCE {
+        callForwarded                       [50] NULL                           OPTIONAL,
+
+        ...
+        },
+    tAnswerSpecificInfo                 [10] SEQUENCE {
+        -- no specific info defined-
+        ...
+        },
+    tDisconnectSpecificInfo             [12] SEQUENCE {
+        releaseCause                        [0] Cause                           OPTIONAL,
+        ...
+        }
+
+    }
+
+--  Indicates the call related information specific to the event.
+
+EventTypeBCSM                       ::= ENUMERATED {
+    collectedInfo                       (2),
+    routeSelectFailure                  (4),
+    oCalledPartyBusy                    (5),
+    oNoAnswer                           (6),
+    oAnswer                             (7),
+    oDisconnect                         (9),
+    oAbandon                            (10),
+    termAttemptAuthorized               (12),
+    tBusy                               (13),
+    tNoAnswer                           (14),
+    tAnswer                             (15),
+    tDisconnect                         (17),
+    tAbandon                            (18)
+    }
+
+--  Values collectedInfo and termAttemptAuthorized can only be
+--  used for TDPs.
+
+--change for compiler ExtensionField                      ::= SEQUENCE {
+--change for compiler     type                                EXTENSION.&id ({SupportedExtensions}),      
+-- shall identify the value of an EXTENSION type
+--change for compiler     criticality                         CriticalityType     DEFAULT ignore,
+--change for compiler     value                               [1]  EXTENSION.&ExtensionType({SupportedExtensions}{@type})
+--change for compiler     }
+
+--  This parameter indicates an extension of an argument data type. Its content is network 
+--  operator specific
+
+------------------------------------------------------------
+-- Replacement for type ExtensionField.
+------------------------------------------------------------
+
+CriticalityType     ::= ENUMERATED {
+        ignore      (0),
+        abort       (1)
+        } 
+
+ExtensionField ::= SEQUENCE {
+    type            INTEGER,
+    criticality     CriticalityType,
+    value           [1] ANY
+    }
+
+
+FCIBillingChargingCharacteristics   ::= OCTET STRING (SIZE (minFCIBillingChargingLength ..
+                                                    maxFCIBillingChargingLength))
+--not impl                                         (CONSTRAINED BY { -- -- shall be the result of the BER-encoded value of type CAMEL-FCIBillingChargingCharacteristics -- -- })
+
+--  This parameter indicates the billing and/or charging characteristics.
+-- The violation of the UserDefinedConstraint shall be handled as an ASN.1 syntax error.
+
+GenericNumber                       ::= OCTET STRING (SIZE(minGenericNumberLength..
+                                                            maxGenericNumberLength))
+
+--  Indicates a generic number. Refer to ETS 300 356-1 [3] Generic number for encoding.
+
+GenericNumbers                      ::= SET SIZE(1..numOfGenericNumbers) OF GenericNumber
+
+
+InbandInfo                          ::= SEQUENCE {
+    messageID                           [0] MessageID,
+    numberOfRepetitions                 [1] INTEGER (1..127)                    OPTIONAL,
+    duration                            [2] INTEGER (0..32767)                  OPTIONAL,
+    interval                            [3] INTEGER (0..32767)                  OPTIONAL
+    }
+
+--  Interval is the time in seconds between each repeated announcement. Duration is the 
+--  total amount of time in seconds, including repetitions and intervals. The end of 
+--  announcement is either the end of duration or numberOfRepetitions, whatever comes 
+--  first. Duration with value 0 indicates infinite duration.
+
+InformationToSend                   ::= CHOICE {
+    inbandInfo                          [0] InbandInfo,
+    tone                                [1] Tone
+    }
+
+IPRoutingAddress                    ::= CalledPartyNumber
+
+--  Indicates the routing address for the IP.
+
+IPSSPCapabilities                   ::= OCTET STRING (SIZE (minIPSSPCapabilitiesLength..
+                                                            maxIPSSPCapabilitiesLength))
+
+--  Indicates the gsmSRF resources available. The parameter has two parts, a standard and a 
+--  bilateral part. The standard part indicates capabilities defined as optional in CAP V.2 
+--  that shall be recognised (but not necessarily supported)  by a CAP V.2 gsmSCF. The bilateral 
+--  part contains further information that is not specified in the present document, but which is set 
+--  according to bilateral agreements between network operators and/or equipment vendors.
+--  The last octet of the standard part is indicated by bit 7 being set to 0, otherwise Bit 7 of 
+--  a standard part octet is set to 1 indicating that the standard part continues in the following 
+--  octet. Coding  is as follows:
+--  
+
+--  Octet 1                 Standard Part for CAP V.2
+--  Bit Value               Meaning
+--  0   0                   IPRoutingAddress not supported
+--      1                   IPRoutingAddress supported
+--  1   0                   VoiceBack not supported
+--      1                   VoiceBack supported
+--  2   0                   VoiceInformation not supported, via speech recognition
+--      1                   VoiceInformation supported, via speech recognition
+--  3   0                   VoiceInformation not supported, via voice recognition
+--      1                   VoiceInformation supported, via voice recognition
+--  4   0                   Generation of voice announcements from Text not supported
+--      1                   Generation of voice announcements from Text supported
+--  5   -                   Reserved
+--  6   -                   Reserved
+--  7   0                   End of standard part
+--      1                   This value is reserved in CAP V.2
+--
+--  Octets 2 to 4           Bilateral Part: Network operator / equipment vendor specific
+
+LegType                             ::= OCTET STRING (SIZE(1))
+    leg1 LegType    ::= '01'H
+    leg2 LegType    ::= '02'H
+
+LocationNumber                      ::= OCTET STRING (SIZE (minLocationNumberLength..maxLocationNumberLength))
+
+--  Indicates the Location Number for the calling party. Refer to ETS 300 356-1 [3] for encoding.
+
+MessageID                           ::= CHOICE {
+        elementaryMessageID             [0] Integer4,
+        text                            [1] SEQUENCE {
+            messageContent                  [0] IA5String (SIZE(minMessageContentLength..
+                                                                maxMessageContentLength)),
+            attributes                      [1] OCTET STRING (SIZE (minAttributesLength..
+                                                                maxAttributesLength))  OPTIONAL
+            },
+        elementaryMessageIDs            [29] SEQUENCE SIZE (1..numOfMessageIDs) OF Integer4,
+        variableMessage                 [30] SEQUENCE {
+            elementaryMessageID             [0] Integer4,
+            variableParts                   [1] SEQUENCE SIZE (1..5)            OF VariablePart
+            }
+        }
+
+-- Use of the text parameter is  network operator/equipment vendor specific.
+
+NACarrierInformation                ::= SEQUENCE { 
+        naCarrierId                     [0] NAEA-CIC                                OPTIONAL,
+        naCICSelectionType              [1] NACarrierSelectionInfo                  OPTIONAL,
+        ...}
+
+NACarrierSelectionInfo              ::= OCTET STRING (SIZE (1))
+--  NA carrier selection information octet carries the same values as ANSI
+--  ISUP T1.113:        '00'H - not indicated or not explicitly provided
+--                      '01'H - subscribed not dialed
+--                      '02'H - subscribed and dialed
+--                      '03'H - subscribed with dialing undetermined
+--                      '04'H - dialed CIC not subscribed
+
+NAOliInfo                           ::= OCTET STRING (SIZE (1))
+--  NA Oli information takes the same value as defined in ANSI ISUP T1.113
+--  e.g.     '3D'H  - Decimal value 61 - Cellular Service (Type 1)
+--           '3E'H  - Decimal value 62 - Cellular Service (Type 2)
+--           '3F'H  - Decimal value 63 - Cellular Service (roaming)
+
+NAChargeNumber                      ::= OCTET STRING (SIZE (2..7))
+--  This parameter uniquely identifies the chargeable number for a call sent into a North American
+-- long distance carrier. It transports the ChargeNumber Parameter Field
+--  as defined in ANSI ISUP T1.113. This provides
+--  - 1 octet for the nature of address indicator field, plus
+--  - 1 octet for a numbering plan field, plus
+--  - up to 5 octets for the address signal (up to 10 digits)
+
+--  The Charge Number in ANSI T1.113 normally contains a 10 digit national number within the North
+--  American Numbering Plan (NANP); longer (e.g. international) charge numbers are not supported in
+--  T1.113
+
+
+NA-Info                         ::= SEQUENCE {
+    naCarrierInformation                [0] NACarrierInformation                OPTIONAL,
+    naOliInfo                           [1] NAOliInfo                           OPTIONAL,
+    naChargeNumber                      [2] NAChargeNumber                      OPTIONAL,
+    ...}
+
+
+OriginalCalledPartyID               ::= OCTET STRING (SIZE (minOriginalCalledPartyIDLength ..
+                                              maxOriginalCalledPartyIDLength))
+
+--  Indicates the original called number. Refer to ETS 300 356-1 [3] Original Called Number 
+--  for encoding.
+
+OCSIApplicable                      ::= NULL
+
+--  Indicates that the Originating CAMEL Subscription Information, if present, shall be 
+--  applied on the outgoing call leg created with a Connect operation. For the use of this 
+--  parameter see GSM 03.78 [15].
+
+ReceivingSideID                     ::= CHOICE {receivingSideID [1] LegType}
+
+-- used to identify LegID  in operations sent from gsmSSF to gsmSCF
+
+RedirectingPartyID                  ::= OCTET STRING (SIZE (minRedirectingPartyIDLength ..
+                                                maxRedirectingPartyIDLength))
+
+--  Indicates redirecting number. Refer to ETS 300 356-1 [3] Redirecting number for encoding.
+
+ReleaseIfDurationExceeded           ::= SEQUENCE {
+        tone                            BOOLEAN DEFAULT FALSE,
+        ...,
+        extensions                      [10] SEQUENCE SIZE(1..numOfExtensions)          OF 
+                                                                ExtensionField          OPTIONAL
+        }
+
+--  Indicates that the call shall be released, with optional warning tone.
+RequestedInformationList        ::= SEQUENCE SIZE (1..numOfInfoItems) OF RequestedInformation
+
+RequestedInformationTypeList    ::= SEQUENCE SIZE (1..numOfInfoItems) OF RequestedInformationType
+
+RequestedInformation                ::= SEQUENCE {
+    requestedInformationType            [0] RequestedInformationType,
+    requestedInformationValue           [1] RequestedInformationValue
+    }
+
+RequestedInformationType            ::= ENUMERATED {
+    callAttemptElapsedTime              (0),
+    callStopTime                        (1),
+    callConnectedElapsedTime            (2),
+    releaseCause                        (30)
+    }
+
+RequestedInformationValue           ::= CHOICE {
+    callAttemptElapsedTimeValue         [0] INTEGER (0..255),
+    callStopTimeValue                   [1] DateAndTime,
+    callConnectedElapsedTimeValue       [2] Integer4,
+    releaseCauseValue                   [30] Cause
+    }
+
+-- The callAttemptElapsedTimeValue is specified in seconds. The unit for the
+-- callConnectedElapsedTimeValue is 100 milliseconds.
+
+ScfID                               ::= OCTET STRING (SIZE (minScfIDLength..maxScfIDLength))
+
+-- defined by network operator. Indicates the SCF identifier.
+
+SCIBillingChargingCharacteristics   ::= OCTET STRING (SIZE (minSCIBillingChargingLength ..
+                                                    maxSCIBillingChargingLength))
+--not impl                                         (CONSTRAINED BY {-- -- shall be the result of the BER-encoded value of type CAMEL-SCIBillingChargingCharacteristics -- --})
+
+-- Indicates AOC information to be sent to a Mobile Station
+-- The violation of the UserDefinedConstraint shall be handled as an ASN.1 syntax error.
+
+SendingSideID                       ::= CHOICE {sendingSideID  [0] LegType}
+
+-- used to identify LegID in operations sent from gsmSCF to gsmSSF
+
+ServiceInteractionIndicatorsTwo     ::= SEQUENCE {
+    bothwayThroughConnectionInd         [2] BothwayThroughConnectionInd             OPTIONAL
+    }
+
+TimeInformation                     ::= CHOICE {
+    timeIfNoTariffSwitch                [0] TimeIfNoTariffSwitch,
+    timeIfTariffSwitch                  [1] TimeIfTariffSwitch
+    }
+
+-- Indicates call duration information
+
+TimeIfNoTariffSwitch                ::= INTEGER(0..864000)
+
+-- TimeIfNoTariffSwitch is measured in 100 millisecond intervals
+
+TimeIfTariffSwitch                  ::= SEQUENCE {
+    timeSinceTariffSwitch               [0] INTEGER(0..864000),
+    tariffSwitchInterval                [1] INTEGER(1..864000)                      OPTIONAL
+    }
+
+-- timeSinceTariffSwitch and tariffSwitchInterval are measured in 100 millisecond intervals
+
+TimerID                             ::= ENUMERATED {
+    tssf                                (0)
+    }
+
+-- Indicates the timer to be reset.
+
+TimerValue                          ::= Integer4
+
+-- Indicates the timer value (in seconds)
+
+TimeAndTimezone                     ::= OCTET STRING (SIZE(minTimeAndTimezoneLength..
+                                                            maxTimeAndTimezoneLength))
+
+--  Indicates the time and timezone, relative to GMT. This parameter BCD encoded. 
+--  The year digit indicating millenium occupies bits 0-3 of the first octet, and the year 
+--  digit indicating century occupies bits 4-7 of the first octet. 
+--  The year digit indicating decade occupies bits 0-3 of the second octet, whilst the digit 
+--  indicating the year within the decade occupies bits 4-7 of the second octet. 
+--  The most significant month digit occupies bits 0-3 of the third octet, and the least 
+--  significant month digit occupies bits 4-7 of the third octet. 
+--  The most significant day digit occupies bits 0-3 of the fourth octet, and the least 
+--  significant day digit occupies bits 4-7 of the fourth octet. 
+--  The most significant hours digit occupies bits 0-3 of the fifth octet, and the least 
+--  significant hours digit occupies bits 4-7 of the fifth octet. 
+--  The most significant minutes digit occupies bits 0-3 of the sixth octet, and the least 
+--  significant minutes digit occupies bits 4-7 of the sixth octet. 
+--  The most significant seconds digit occupies bits 0-3 of the seventh octet, and the least 
+--  significant seconds digit occupies bits 4-7 of the seventh octet.
+--
+--  The timezone information occupies the eigth octet. For the encoding of Timezone refer to 
+--  Reference [28], GSM 03.40.
+--
+--  The BCD digits are packed and encoded as follows:
+--
+--  Bit  7  6  5   4  |  3  2  1  0 
+--       2nd digit    | 1st digit          Octet 1
+--       3rd digit    | 4th digit          Octet 2
+--                       ..                   ..
+--       nth digit    | n-1th digit        Octet m
+--
+--       0000       digit 0
+--       0001       digit 1
+--       0010       digit 2
+--       0011       digit 3
+--       0100       digit 4
+--       0101       digit 5
+--       0110       digit 6
+--       0111       digit 7
+--       1000       digit 8
+--       1001       digit 9
+--       1010       spare
+--       1011       spare
+--       1100       spare
+--       1101       spare
+--       1110       spare
+--       1101       spare
+--
+-- where the leftmost bit of the digit is either bit 7 or bit 3 of the octet.
+
+Tone                                    ::= SEQUENCE {
+    toneID                                  [0] Integer4,
+    duration                                [1] Integer4            OPTIONAL
+    }
+
+-- The duration specifies the length of the tone in seconds, value 0 indicates infinite duration.
+
+VariablePart                            ::= CHOICE {
+    integer                                 [0] Integer4,
+    number                                  [1] Digits,
+                                                -- Generic digits
+    time                                    [2] OCTET STRING (SIZE(2)),
+                                                -- HH:MM, BCD coded
+    date                                    [3] OCTET STRING (SIZE(4)), 
+                                                -- YYYYMMDD, BCD coded
+    price                                   [4] OCTET STRING (SIZE(4))
+    }
+
+--  Indicates the variable part of the message. Time is BCD encoded. 
+--  The most significant hours digit occupies bits 0-3 of the first octet, and the least 
+--  significant digit occupies bits 4-7 of the first octet. The most significant minutes digit 
+--  occupies bits 0-3 of the second octet, and the least significant digit occupies bits 4-7 
+--  of the second octet. 
+--
+--  Date is BCD encoded. The year digit indicating millenium occupies bits 0-3 of the first octet, 
+--  and the year digit indicating century occupies bits 4-7 of the first octet. The year digit 
+--  indicating decade occupies bits 0-3 of the second octet, whilst the digit indicating the year 
+--  within the decade occupies bits 4-7 of the second octet.
+--  The most significant month digit occupies bits 0-3 of the third octet, and the least 
+--  significant month digit occupies bits 4-7 of the third octet. The most significant day digit 
+--  occupies bits 0-3 of the fourth octet, and the least significant day digit occupies bits 4-7 
+--  of the fourth octet.
+--  Price is BCD encoded. The digit indicating hundreds of thousands occupies bits 0-3 of the 
+--  first octet, and the digit indicating tens of thousands occupies bits 4-7 of the first octet.
+--  The digit indicating thousands occupies bits 0-3 of the second octet, whilst the digit 
+--  indicating hundreds occupies bits 4-7 of the second octet. The digit indicating tens occupies 
+--  bits 0-3 of the third octet, and the digit indicating 0 to 9 occupies bits 4-7 of the third 
+--  octet. The tenths digit occupies bits 0-3 of the fourth octet, and the hundredths digit 
+--  occupies bits 4-7 of the fourth octet.
+--
+--  For the encoding of digits in an octet, refer to the timeAndtimezone parameter
+--
+--  Definition of range constants
+
+minAChBillingChargingLength         INTEGER ::= 5
+maxAChBillingChargingLength         INTEGER ::= 177
+minAttributesLength                 INTEGER ::= 2
+maxAttributesLength                 INTEGER ::= 10
+maxBearerCapabilityLength           INTEGER ::= 11
+minCallResultLength                 INTEGER ::= 12
+maxCallResultLength                 INTEGER ::= 24
+minCalledPartyBCDNumberLength       INTEGER ::= 1
+maxCalledPartyBCDNumberLength       INTEGER ::= 41
+minCalledPartyNumberLength          INTEGER ::= 3
+maxCalledPartyNumberLength          INTEGER ::= 12
+minCallingPartyNumberLength         INTEGER ::= 2
+maxCallingPartyNumberLength         INTEGER ::= 10
+minCauseLength                      INTEGER ::= 2
+maxCauseLength                      INTEGER ::= 2
+minDigitsLength                     INTEGER ::= 2
+maxDigitsLength                     INTEGER ::= 11
+minFCIBillingChargingDataLength     INTEGER ::= 1       
+maxFCIBillingChargingDataLength     INTEGER ::= 40      
+minFCIBillingChargingLength         INTEGER ::= 5       
+maxFCIBillingChargingLength         INTEGER ::= 49      
+minGenericNumberLength              INTEGER ::= 3
+maxGenericNumberLength              INTEGER ::= 11
+minIPSSPCapabilitiesLength          INTEGER ::= 1
+maxIPSSPCapabilitiesLength          INTEGER ::= 4
+minLocationNumberLength             INTEGER ::= 2
+maxLocationNumberLength             INTEGER ::= 10
+minMessageContentLength             INTEGER ::= 1
+maxMessageContentLength             INTEGER ::= 127
+minOriginalCalledPartyIDLength      INTEGER ::= 2
+maxOriginalCalledPartyIDLength      INTEGER ::= 10
+minRedirectingPartyIDLength         INTEGER ::= 2
+maxRedirectingPartyIDLength         INTEGER ::= 10
+minScfIDLength                      INTEGER ::= 2
+maxScfIDLength                      INTEGER ::= 10
+minSCIBillingChargingLength         INTEGER ::= 4
+maxSCIBillingChargingLength         INTEGER ::= 69
+minTimeAndTimezoneLength            INTEGER ::= 8
+maxTimeAndTimezoneLength            INTEGER ::= 8
+numOfBCSMEvents                     INTEGER ::= 10
+numOfExtensions                     INTEGER ::= 10
+numOfGenericNumbers                 INTEGER ::= 5
+numOfInfoItems                      INTEGER ::= 4
+numOfMessageIDs                     INTEGER ::= 5
+
+--not used 
+--not used END
+--not used 
+
+-- The maxACHBillingChargingLength allows 160 octets for the possible inclusion of extension fields
+-- of the releaseIfDurationExceeded subparameter.
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------- 
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP Codes.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--not impl CAP-Codes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3) cap-codes(53) version2(1)}
+--not impl 
+--  This module contains the operation and error code assignments for the CAP v.2 application 
+--  protocol.
+--not impl 
+--not impl DEFINITIONS ::=
+--not impl BEGIN
+--not impl 
+--  OPERATION AND ERROR CODE ASSIGNMENTS FOR THE CAP v.2 PROTOCOL FOLLOWS
+--not impl 
+--not impl IMPORTS
+--not impl 
+--  operation types
+--not impl 
+--not impl     ActivityTest,
+--not impl     ApplyCharging,
+--not impl     ApplyChargingReport,
+--not impl     AssistRequestInstructions,
+--not impl     CallInformationReport,
+--not impl     CallInformationRequest,
+--not impl     Cancel,
+--not impl     Connect,
+--not impl     ConnectToResource,
+--not impl     Continue,
+--not impl     DisconnectForwardConnection,
+--not impl     EstablishTemporaryConnection,
+--not impl     EventReportBCSM,
+--not impl     FurnishChargingInformation,
+--not impl     InitialDP,
+--not impl     PlayAnnouncement,
+--not impl     PromptAndCollectUserInformation,
+--not impl     ReleaseCall,
+--not impl     RequestReportBCSMEvent,
+--not impl     ResetTimer,
+--not impl     SendChargingInformation,
+--not impl     SpecializedResourceReport
+--not impl FROM CAP-Operations { ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3) cap-operations(50) version2(1)}
+--not impl 
+--  CS1 error types
+--not impl 
+--not impl     Cancelled,
+--not impl     CancelFailed, 
+--not impl     ETCFailed,
+--not impl     ImproperCallerResponse, 
+--not impl     MissingCustomerRecord,
+--not impl     MissingParameter,
+--not impl     ParameterOutOfRange,
+--not impl     RequestedInfoError,
+--not impl     TaskRefused,
+--not impl     UnavailableResource,
+--not impl     UnexpectedComponentSequence,
+--not impl     UnexpectedDataValue,
+--not impl     UnexpectedParameter,
+--not impl     UnknownLegID,
+--not impl     SystemFailure
+--not impl FROM CS1-Errors {ccitt(0) identified-organization(4) etsi(0) inDomain(1) in-network(1) modules(0) cs1-errors(1) version1(0)}
+--not impl 
+--  CAP error types
+--not impl 
+--not impl     
+--not impl 
+--  the operations are grouped by the identified ASEs.
+--
+--  gsmSCF activation ASE
+--not impl 
+--not impl initialDP                               InitialDP                       ::= localValue 0
+--not impl 
+-- SCF/gsmSRF activation of assist ASE
+--not impl 
+--not impl assistRequestInstructions               AssistRequestInstructions       ::= localValue 16
+--not impl 
+-- Assist connection establishment ASE
+--not impl 
+--not impl establishTemporaryConnection            EstablishTemporaryConnection    ::= localValue 17
+--not impl 
+-- Generic disconnect resource ASE
+--not impl 
+--not impl disconnectForwardConnection             DisconnectForwardConnection     ::= localValue 18
+--not impl 
+-- Non-assisted connection establishment ASE
+--not impl 
+--not impl connectToResource                       ConnectToResource               ::= localValue 19
+--not impl 
+--  Connect ASE (elementary gsmSSF function)
+--not impl 
+--not impl connect                                 Connect                         ::= localValue 20
+--not impl 
+--  Call handling ASE (elementary gsmSSF function)
+--not impl 
+--not impl releaseCall                             ReleaseCall                     ::= localValue 22
+--not impl 
+--  BCSM Event handling ASE
+--not impl 
+--not impl requestReportBCSMEvent                  RequestReportBCSMEvent          ::= localValue 23
+--not impl eventReportBCSM                         EventReportBCSM                 ::= localValue 24
+--not impl 
+--  gsmSSF call processing ASE
+--not impl 
+--not impl continue                                Continue                        ::= localValue 31
+--not impl 
+-- Timer ASE
+--not impl 
+--not impl resetTimer                              ResetTimer                      ::= localValue 33
+--not impl 
+-- Billing ASE
+--not impl 
+--not impl furnishChargingInformation              FurnishChargingInformation      ::= localValue 34
+--not impl 
+-- Charging ASE
+--not impl 
+--not impl applyCharging                           ApplyCharging                   ::= localValue 35
+--not impl applyChargingReport                     ApplyChargingReport             ::= localValue 36
+--not impl 
+-- Call report ASE
+--not impl 
+--not impl callInformationReport                   CallInformationReport           ::= localValue 44
+--not impl callInformationRequest                  CallInformationRequest          ::= localValue 45
+--not impl 
+-- Signalling control ASE
+--not impl 
+--not impl sendChargingInformation                 SendChargingInformation         ::= localValue 46
+--not impl 
+-- Specialized resource control ASE
+--not impl 
+--not impl playAnnouncement                        PlayAnnouncement                ::= localValue 47
+--not impl promptAndCollectUserInformation         PromptAndCollectUserInformation ::= localValue 48
+--not impl specializedResourceReport               SpecializedResourceReport       ::= localValue 49
+--not impl 
+-- Cancel ASE
+--not impl 
+--not impl cancel                                  Cancel                          ::= localValue 53
+--not impl 
+--  Activity Test ASE
+--not impl activityTest                            ActivityTest                    ::= localValue 55
+--not impl 
+--  ERROR codes
+--not impl 
+--not impl cancelled                               Cancelled                       ::= localValue 0
+--not impl cancelFailed                            CancelFailed                    ::= localValue 1
+--not impl eTCFailed                               ETCFailed                       ::= localValue 3
+--not impl improperCallerResponse                  ImproperCallerResponse          ::= localValue 4
+--not impl missingCustomerRecord                   MissingCustomerRecord           ::= localValue 6
+--not impl missingParameter                        MissingParameter                ::= localValue 7
+--not impl parameterOutOfRange                     ParameterOutOfRange             ::= localValue 8
+--not impl requestedInfoError                      RequestedInfoError              ::= localValue 10
+--not impl systemFailure                           SystemFailure                   ::= localValue 11
+--not impl taskRefused                             TaskRefused                     ::= localValue 12
+--not impl unavailableResource                     UnavailableResource             ::= localValue 13
+--not impl unexpectedComponentSequence             UnexpectedComponentSequence     ::= localValue 14
+--not impl unexpectedDataValue                     UnexpectedDataValue             ::= localValue 15
+--not impl unexpectedParameter                     UnexpectedParameter             ::= localValue 16
+--not impl unknownLegID                            UnknownLegID                    ::= localValue 17
+--not impl 
+--not impl 
+--not impl END
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------- 
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- CAP ASEs.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--not impl CAP-ASEs {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3) cap-ases(55) version2(1)}
+--not impl 
+--  This module contains grouping of operations by the identified ASEs for the CAP v.2 application.
+--
+--not impl 
+--not impl DEFINITIONS ::=
+--not impl BEGIN
+--not impl 
+--  GROUPING OF OPERATIONS BY THE IDENTIFIED ASEs FOR THE CAP v.2 PROTOCOL FOLLOWS
+--not impl 
+--not impl IMPORTS
+--not impl 
+--  macros
+--not impl 
+--not impl APPLICATION-SERVICE-ELEMENT
+--not impl FROM Remote-Operations-Notation-Extension {joint-iso-ccitt remote-operations(4) notation-extension(2)}
+--not impl 
+--  operation codes
+--not impl 
+--not impl     activityTest,
+--not impl     applyCharging,
+--not impl     applyChargingReport,
+--not impl     assistRequestInstructions,
+--not impl     callInformationReport,
+--not impl     callInformationRequest,
+--not impl     cancel,
+--not impl     connect,
+--not impl     connectToResource,
+--not impl     continue,
+--not impl     disconnectForwardConnection,
+--not impl     establishTemporaryConnection,
+--not impl     eventReportBCSM,
+--not impl     furnishChargingInformation,
+--not impl     initialDP,
+--not impl     playAnnouncement,
+--not impl     promptAndCollectUserInformation,
+--not impl     releaseCall,
+--not impl     requestReportBCSMEvent,
+--not impl     resetTimer,
+--not impl     sendChargingInformation,
+--not impl     specializedResourceReport
+--not impl 
+--not impl FROM CAP-Codes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3)cap-codes(53) version2(1)}
+--not impl ;
+--  APPLICATION SERVICE ELEMENTS
+--not impl 
+--not impl GSM-SCF-activation-ASE                      ::= APPLICATION-SERVICE-ELEMENT
+--not impl 
+    -- consumer is gsmSSF
+--not impl 
+--not impl CONSUMER INVOKES {
+--not impl initialDP
+--not impl         }
+--not impl 
+--not impl GSM-SCF-GSM-SRF-activation-of-assist-ASE    ::= APPLICATION-SERVICE-ELEMENT
+--not impl 
+    -- consumer is gsmSSF/gsmSRF
+--not impl CONSUMER INVOKES {
+--not impl assistRequestInstructions
+--not impl         }
+--not impl Assist-connection-establishment-ASE         ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl establishTemporaryConnection
+--not impl         }
+--not impl 
+--not impl Generic-disconnect-resource-ASE             ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl disconnectForwardConnection
+--not impl         }
+--not impl 
+--not impl Non-assisted-connection-establishment-ASE   ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl connectToResource
+--not impl         }
+--not impl 
+--not impl Connect-ASE                                 ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl connect
+--not impl         }
+--not impl 
+--not impl Call-handling-ASE                           ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl releaseCall
+--not impl         }
+--not impl 
+--not impl BCSM-event-handling-ASE                     ::= APPLICATION-SERVICE-ELEMENT
+    -- consumer is gsmSSF
+--not impl CONSUMER INVOKES {
+--not impl eventReportBCSM
+--not impl         }
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl requestReportBCSMEvent
+--not impl         }
+--not impl 
+--not impl GSM-SSF-call-processing-ASE                 ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl continue
+--not impl         }
+--not impl 
+--not impl Timer-ASE                                   ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl resetTimer
+--not impl         }
+--not impl 
+--not impl Billing-ASE                                 ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl furnishChargingInformation
+--not impl         }
+--not impl 
+--not impl Charging-ASE                                ::= APPLICATION-SERVICE-ELEMENT
+    -- consumer is gsmSSF
+--not impl CONSUMER INVOKES {
+--not impl applyChargingReport
+--not impl         }
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl applyCharging
+--not impl         }
+--not impl 
+--not impl Call-report-ASE                             ::= APPLICATION-SERVICE-ELEMENT
+    -- consumer is SSF
+--not impl CONSUMER INVOKES {
+--not impl callInformationReport
+--not impl         }
+    -- supplier is SCF
+--not impl SUPPLIER INVOKES {
+--not impl callInformationRequest
+--not impl         }
+--not impl 
+--not impl Signalling-control-ASE                      ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is SCF
+--not impl SUPPLIER INVOKES {
+--not impl sendChargingInformation
+--not impl         }
+--not impl 
+--not impl Specialized-resource-control-ASE            ::= APPLICATION-SERVICE-ELEMENT
+    -- consumer is SSF/gsmSRF
+--not impl CONSUMER INVOKES {
+--not impl specializedResourceReport
+--not impl         }
+    -- supplier is SCF
+--not impl SUPPLIER INVOKES {
+--not impl         playAnnouncement,
+--not impl         promptAndCollectUserInformation
+--not impl         }
+--not impl 
+--not impl Cancel-ASE                                  ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is SCF
+--not impl SUPPLIER INVOKES {
+--not impl cancel
+--not impl         }
+--not impl 
+--not impl Activity-test-ASE                           ::= APPLICATION-SERVICE-ELEMENT
+    -- supplier is gsmSCF
+--not impl SUPPLIER INVOKES {
+--not impl activityTest
+--not impl         }
+--not impl 
+--not impl END
+--not impl 
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-------------------------------------------------------------------------------- 
+
+
+-- Macros ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- APPLICATION-CONTEXT.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+--not impl 
+--not impl APPLICATION-CONTEXT MACRO ::=
+--not impl BEGIN
+--not impl TYPE NOTATION       ::= Symmetric | InitiatorConsumerOf ResponderConsumerOf | empty
+--not impl VALUE NOTATION      ::= value(VALUE OBJECT IDENTIFIER)
+--not impl Symmetric           ::= "OPERATIONS OF" "{" ASEList "}"
+--not impl InitiatorConsumerOf ::= "INITIATOR CONSUMER OF" "{" ASEList "}" | empty
+--not impl ResponderConsumerOf ::= "RESPONDER CONSUMER OF" "{" ASEList "}" | empty
+--not impl ASEList             ::= ASE | ASEList "," ASE
+--not impl ASE                 ::= type    -- -- shall reference an APPLICATION-SERVICE-ELEMENT type.
+--not impl 
+--not impl END
+--not impl 
+--not impl 
+--not impl CAP-v2-gsmSSF-to-gsmSCF-AC APPLICATION-CONTEXT
+-- dialogue initiated by gsmSSF with InitialDP
+--not impl INITIATOR CONSUMER OF {
+--not impl     GSM-SCF-activation-ASE,
+--not impl     Assist-connection-establishment-ASE,
+--not impl     Non-assisted-connection-establishment-ASE,
+--not impl     Generic-disconnect-resource-ASE,
+--not impl     Connect-ASE,
+--not impl     Call-handling-ASE,
+--not impl     BCSM-event-handling-ASE,
+--not impl     Charging-ASE,
+--not impl     GSM-SSF-call-processing-ASE,
+--not impl     Timer-ASE,
+--not impl     Billing-ASE,
+--not impl     Call-report-ASE,
+--not impl     Signalling-control-ASE,
+--not impl     Specialized-resource-control-ASE,
+--not impl     Cancel-ASE,
+--not impl     Activity-test-ASE
+--not impl     }
+--not impl ::= {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) ac(0)
+--not impl cap-gsmssf-to-gsmscf(50) version2(1)};
+--not impl 
+--not impl CAP-v2-assist-gsmSSF-to-gsmSCF-AC   APPLICATION-CONTEXT
+-- dialogue initiated by gsmSSF with AssistRequestInstructions
+--not impl INITIATOR CONSUMER OF {
+--not impl     GSM-SCF-GSM-SRF-activation-of-assist-ASE,
+--not impl     Generic-disconnect-resource-ASE,
+--not impl     Non-assisted-connection-establishment-ASE,
+--not impl     Timer-ASE,
+--not impl     Specialized-resource-control-ASE,
+--not impl     Cancel-ASE,
+--not impl     Activity-test-ASE
+--not impl     }
+--not impl ::= {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) ac(0)
+--not impl cap-assist-handoff-gsmssf-to-gsmscf(51) version2(1)};
+--not impl 
+--not impl 
+--not impl CAP-v2-gsmSRF-to-gsmSCF-AC  APPLICATION-CONTEXT
+-- dialogue initiated by gsmSRF with AssistRequestInstructions
+--not impl INITIATOR CONSUMER OF {
+--not impl     GSM-SCF-GSM-SRF-activation-of-assist-ASE,
+--not impl     Specialized-resource-control-ASE,
+--not impl     Cancel-ASE,
+--not impl     Activity-test-ASE
+--not impl     }
+--not impl ::= {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) ac(0)cap-gsmSRF-to-gsmscf(52) version2(1)};
+--not impl CAP-Classes {ccitt(0) identified-organization(4) etsi(0) mobileDomain(0) gsm-Network(1) modules(3)
+--not impl cap-classes(54) version2(1)}
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+-- Module ----------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Class Definitions.
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--not impl 
+--  This module contains the class definitions for CAP v.2.
+--not impl 
+--not impl DEFINITIONS ::=
+--not impl 
+--not impl BEGIN
+--not impl 
+--not impl IMPORTS
+--not impl 
+--not impl Code 
+--not impl 
+--not impl FROM Remote-Operations-Information-Objects {joint-iso-ccitt remote-operations(4) informationObjects(5) version1(0)}
+--not impl ;
+--not impl 
+--not impl EXTENSION           ::= CLASS {
+--not impl     &ExtensionType,
+--not impl     &criticality    CriticalityType DEFAULT ignore,
+--not impl     &id Code
+--not impl     }
+--not impl WITH SYNTAX {
+--not impl     EXTENSION-SYNTAX    &ExtensionType,
+--not impl     CRITICALITY &criticality,
+--not impl     IDENTIFIED BY   &id
+--not impl     }
+--not impl 
+--not impl CriticalityType     ::= ENUMERATED {
+--not impl         ignore      (0),
+--not impl         abort       (1)
+--not impl         } 
+--not impl 
+-- Only value Global OBJECT IDENTIFIER is used for &id
+-- Only the value ignore (0) is used for &criticality.
+-- Example of addition of an extension named ''Some Network Specific Indicator'' of type
+-- BOOLEAN, with criticality ''ignore'' and to be identified with object ID ''ccitt(0)
+-- identified-organization(4) organisation(x) gsm(x) capextension'':
+-- Example of definition using the above information object class:
+--
+-- SomeNetworkSpecificIndicator  EXTENSION ::= {
+--  EXTENSION-SYNTAX    BOOLEAN
+--  CRITICALITY         ignore
+--  IDENTIFIED BY       global : xxxxxx
+--  }
+--not impl 
+--not impl firstExtension EXTENSION ::= {
+--not impl     EXTENSION-SYNTAX    NULL,
+--not impl     CRITICALITY ignore,
+--not impl     IDENTIFIED BY   global:{xxxxxx}
+--not impl     }
+--not impl SupportedExtensions EXTENSION ::= {firstExtension-- --full set of network operator extensions-- -- }
+--not impl END
+--not impl PARAMETER SEQUENCE {
+--not impl     problem     [0] ENUMERATED {
+--not impl         unknownOperation(0),
+--not impl         tooLate(1),
+--not impl         operationNotCancellable(2)},
+--not impl     operation   [1] InvokeID
+--not impl     }
+--  The operation failed to be cancelled.
+--not impl 
+--not impl PARAMETER ENUMERATED {
+--not impl     unknownRequestedInfo(1),
+--not impl     requestedInfoNotAvailable(2)
+--not impl     }
+--not impl PARAMETER
+--not impl UnavailableNetworkResource
+--not impl UnavailableNetworkResource ::= ENUMERATED {
+--not impl     unavailableResources(0),
+--not impl     componentFailure(1),
+--not impl     basicCallProcessingException(2),
+--not impl     resourceStatusFailure(3),
+--not impl     endUserFailure(4)
+--not impl }
+--not impl 
+--not impl PARAMETER ENUMERATED {
+--not impl     generic(0),
+--not impl     unobtainable(1),
+--not impl     congestion(2)
+--not impl     }
+--not impl 
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+-- Added global module definition (end).
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+END
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------

@@ -1,0 +1,14 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    stop-traffic
+                                                                                
+DESCRIPTION
+    This command stops the traffic generated during load test
+    by using command start-traffic.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> stop-traffic
+

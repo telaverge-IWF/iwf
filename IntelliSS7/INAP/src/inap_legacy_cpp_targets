@@ -1,0 +1,232 @@
+################################################################################
+#                                                                              #
+#      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.       #
+#              Manufactured in the United States of America.                   #
+#        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.          #
+#                                                                              #
+#     This product and related documentation is protected by copyright and     #
+#     distributed under licenses restricting its use, copying, distribution    #
+#     and decompilation.  No part of this product or related documentation     #
+#     may be reproduced in any form by any means without prior written         #
+#     authorization of IntelliNet Technologies and its licensors, if any.      #
+#                                                                              #
+#     RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the        #
+#     government is subject to restrictions as set forth in subparagraph       #
+#     (c)(1)(ii) of the Rights in Technical Data and Computer Software         #
+#     clause at DFARS 252.227-7013 and FAR 52.227-19.                          #
+#                                                                              #
+################################################################################
+#                                                                              #
+# CONTRACT: Internal                                                           #
+#                                                                              #
+################################################################################
+#
+#  ID: $Id: inap_legacy_cpp_targets,v 9.1 2005/03/23 12:51:44 cvsadmin Exp $
+#
+################################################################################
+
+ASNCC=$(ITS_ROOT)/tools/bin/asncc$(DBGSUFFIX)
+
+ASNCCFLAGS= -cpp -f -u $(ITS_ROOT)/tools/bin/asncc_useful.asn
+
+CXXSRCASN=./INAP_LRF.asn
+
+CXXLIBTARGET=../lib/libINAP++$(DBGSUFFIX).a
+
+
+CXXOBJS= \
+	ActivateServiceFilteringArg.o \
+	AnalysedInformationArg.o \
+	AnalyseInformationArg.o \
+	ApplyChargingArg.o \
+	ApplyChargingReportArg.o \
+	AssistRequestInstructionsArg.o \
+	CallGapArg.o \
+	CallInformationReportArg.o \
+	CallInformationRequestArg.o \
+	CancelArg.o \
+	CancelStatusReportRequestArg.o \
+	CollectedInformationArg.o \
+	CollectInformationArg.o \
+	ConnectArg.o \
+	ConnectToResourceArg.o \
+	DpSpecificCommonParameters.o \
+	EstablishTemporaryConnectionArg.o \
+	EventNotificationChargingArg.o \
+	EventReportBCSMArg.o \
+	FurnishChargingInformationArg.o \
+	HoldCallInNetworkArg.o \
+	InitialDPArg.o \
+	InitiateCallAttemptArg.o \
+	MidCallArg.o \
+	OAnswerArg.o \
+	OCalledPartyBusyArg.o \
+	ODisconnectArg.o \
+	ONoAnswerArg.o \
+	OriginationAttemptAuthorizedArg.o \
+	PlayAnnouncementArg.o \
+	PromptAndCollectUserInformationArg.o \
+	ReceivedInformationArg.o \
+	ReleaseCallArg.o \
+	RequestCurrentStatusReportArg.o \
+	RequestCurrentStatusReportResultArg.o \
+	RequestEveryStatusChangeReportArg.o \
+	RequestFirstStatusMatchReportArg.o \
+	RequestNotificationChargingEventArg.o \
+	RequestReportBCSMEventArg.o \
+	ResetTimerArg.o \
+	RouteSelectFailureArg.o \
+	SelectFacilityArg.o \
+	SelectRouteArg.o \
+	SendChargingInformationArg.o \
+	ServiceFilteringResponseArg.o \
+	SpecializedResourceReportArg.o \
+	StatusReportArg.o \
+	TAnswerArg.o \
+	TBusyArg.o \
+	TDisconnectArg.o \
+	TermAttemptAuthorizedArg.o \
+	TNoAnswerArg.o 
+
+CXXSRCS=
+
+CXXSRCSAUX=AChBillingChargingCharacteristics.cpp \
+        AccessCode.cpp ActivateServiceFilteringArg.cpp \
+        AdditionalCallingPartyNumber.cpp AlertingPattern.cpp \
+        AnalyseInformationArg.cpp AnalysedInformationArg.cpp \
+        ApplicationTimer.cpp ApplyChargingArg.cpp \
+        ApplyChargingReportArg.cpp AssistRequestInstructionsArg.cpp \
+        AssistingSSPIPRoutingAddress.cpp BCSMEvent.cpp \
+        BearerCapability.cpp CGEncountered.cpp \
+        CallGapArg.cpp CallInformationReportArg.cpp \
+        CallInformationRequestArg.cpp CallResult.cpp \
+        CalledPartyBusinessGroupID.cpp CalledPartyNumber.cpp \
+        CalledPartySubaddress.cpp CallingPartyBusinessGroupID.cpp \
+        CallingPartyNumber.cpp CallingPartySubaddress.cpp \
+        CallingPartysCategory.cpp CancelArg.cpp \
+        CancelStatusReportRequestArg.cpp Carrier.cpp \
+        Cause.cpp ChargeNumber.cpp ChargingEvent.cpp CollectInformationArg.cpp \
+        CollectedDigits.cpp CollectedInfo.cpp CollectedInformationArg.cpp \
+        ConnectArg.cpp ConnectToResourceArg.cpp ControlType.cpp \
+        CorrelationID.cpp CounterAndValue.cpp CounterID.cpp \
+        CountersValue.cpp CutAndPaste.cpp DateAndTime.cpp \
+        DestinationRoutingAddress.cpp Digits.cpp DisplayInformation.cpp \
+        DpSpecificCommonParameters.cpp DpSpecificCriteria.cpp Duration.cpp \
+        ErrorTreatment.cpp EstablishTemporaryConnectionArg.cpp \
+        EventNotificationChargingArg.cpp EventReportBCSMArg.cpp \
+        EventSpecificInformationBCSM.cpp EventSpecificInformationCharging.cpp \
+        EventTypeBCSM.cpp EventTypeCharging.cpp ExtensionField.cpp \
+        FCIBillingChargingCharacteristics.cpp FacilityGroup.cpp \
+        FacilityGroupMember.cpp FeatureCode.cpp FeatureRequestIndicator.cpp \
+        FilteredCallTreatment.cpp FilteringCharacteristics.cpp \
+        FilteringCriteria.cpp \
+        FilteringTimeOut.cpp ForwardCallIndicators.cpp ForwardingCondition.cpp \
+        FurnishChargingInformationArg.cpp GapCriteria.cpp GapIndicators.cpp \
+        GapOnService.cpp GapTreatment.cpp HighLayerCompatibility.cpp \
+        HoldCallInNetworkArg.cpp HoldCause.cpp IPAvailable.cpp \
+        IPRoutingAddress.cpp IPSSPCapabilities.cpp \
+        ISDNAccessRelatedInformation.cpp \
+        InbandInfo.cpp InformationToSend.cpp InitialDPArg.cpp \
+        InitiateCallAttemptArg.cpp Integer4.cpp Interval.cpp InvokeID.cpp \
+        LegID.cpp LegType.cpp LocationNumber.cpp MaximumNumberOfCounters.cpp \
+        MessageID.cpp MidCallArg.cpp MiscCallInfo.cpp MonitorMode.cpp \
+        NumberOfDigits.cpp NumberingPlan.cpp OAnswerArg.cpp \
+        OCalledPartyBusyArg.cpp \
+        ODisconnectArg.cpp ONoAnswerArg.cpp OriginalCalledPartyID.cpp \
+        OriginationAttemptAuthorizedArg.cpp PlayAnnouncementArg.cpp \
+        PromptAndCollectUserInformationArg.cpp ReceivedInformationArg.cpp \
+        RedirectingPartyID.cpp RedirectionInformation.cpp ReleaseCallArg.cpp \
+        ReportCondition.cpp RequestCurrentStatusReportArg.cpp \
+        RequestCurrentStatusReportResultArg.cpp \
+        RequestEveryStatusChangeReportArg.cpp \
+        RequestFirstStatusMatchReportArg.cpp \
+        RequestNotificationChargingEventArg.cpp \
+        RequestReportBCSMEventArg.cpp RequestedInformation.cpp \
+        RequestedInformationList.cpp RequestedInformationType.cpp \
+        RequestedInformationTypeList.cpp RequestedInformationValue.cpp \
+        ResetTimerArg.cpp ResourceID.cpp ResourceStatus.cpp \
+        ResponseCondition.cpp \
+        RouteList.cpp RouteSelectFailureArg.cpp \
+        SCIBillingChargingCharacteristics.cpp \
+        SFBillingChargingCharacteristics.cpp ScfID.cpp SelectFacilityArg.cpp \
+        SelectRouteArg.cpp SendChargingInformationArg.cpp \
+        ServiceAddressInformation.cpp ServiceFilteringResponseArg.cpp \
+        ServiceInteractionIndicators.cpp ServiceKey.cpp \
+        ServiceProfileIdentifier.cpp \
+        ServingAreaID.cpp SpecializedResourceReportArg.cpp StatusReportArg.cpp \
+        TAnswerArg.cpp TBusyArg.cpp TDisconnectArg.cpp TNoAnswerArg.cpp \
+        TermAttemptAuthorizedArg.cpp TerminalType.cpp TimerID.cpp \
+        TimerValue.cpp Tone.cpp TravellingClassMark.cpp TriggerType.cpp \
+        UnavailableNetworkResource.cpp VariablePart.cpp
+
+CXXHDRS=
+
+CXXHDRSAUX=AChBillingChargingCharacteristics.h \
+        AccessCode.h ActivateServiceFilteringArg.h \
+        AdditionalCallingPartyNumber.h AlertingPattern.h \
+        AnalyseInformationArg.h AnalysedInformationArg.h \
+        ApplicationTimer.h ApplyChargingArg.h \
+        ApplyChargingReportArg.h AssistRequestInstructionsArg.h \
+        AssistingSSPIPRoutingAddress.h BCSMEvent.h \
+        BearerCapability.h CGEncountered.h \
+        CallGapArg.h CallInformationReportArg.h \
+        CallInformationRequestArg.h CallResult.h \
+        CalledPartyBusinessGroupID.h CalledPartyNumber.h \
+        CalledPartySubaddress.h CallingPartyBusinessGroupID.h \
+        CallingPartyNumber.h CallingPartySubaddress.h \
+        CallingPartysCategory.h CancelArg.h \
+        CancelStatusReportRequestArg.h Carrier.h \
+        Cause.h ChargeNumber.h ChargingEvent.h CollectInformationArg.h \
+        CollectedDigits.h CollectedInfo.h CollectedInformationArg.h \
+        ConnectArg.h ConnectToResourceArg.h ControlType.h \
+        CorrelationID.h CounterAndValue.h CounterID.h \
+        CountersValue.h CutAndPaste.h DateAndTime.h \
+        DestinationRoutingAddress.h Digits.h DisplayInformation.h \
+        DpSpecificCommonParameters.h DpSpecificCriteria.h Duration.h \
+        ErrorTreatment.h EstablishTemporaryConnectionArg.h \
+        EventNotificationChargingArg.h EventReportBCSMArg.h \
+        EventSpecificInformationBCSM.h EventSpecificInformationCharging.h \
+        EventTypeBCSM.h EventTypeCharging.h ExtensionField.h \
+        FCIBillingChargingCharacteristics.h FacilityGroup.h \
+        FacilityGroupMember.h FeatureCode.h FeatureRequestIndicator.h \
+        FilteredCallTreatment.h FilteringCharacteristics.h \
+        FilteringCriteria.h \
+        FilteringTimeOut.h ForwardCallIndicators.h ForwardingCondition.h \
+        FurnishChargingInformationArg.h GapCriteria.h GapIndicators.h \
+        GapOnService.h GapTreatment.h HighLayerCompatibility.h \
+        HoldCallInNetworkArg.h HoldCause.h IPAvailable.h \
+        IPRoutingAddress.h IPSSPCapabilities.h \
+        ISDNAccessRelatedInformation.h \
+        InbandInfo.h InformationToSend.h InitialDPArg.h \
+        InitiateCallAttemptArg.h Integer4.h Interval.h InvokeID.h \
+        LegID.h LegType.h LocationNumber.h MaximumNumberOfCounters.h \
+        MessageID.h MidCallArg.h MiscCallInfo.h MonitorMode.h \
+        NumberOfDigits.h NumberingPlan.h OAnswerArg.h \
+        OCalledPartyBusyArg.h \
+        ODisconnectArg.h ONoAnswerArg.h OriginalCalledPartyID.h \
+        OriginationAttemptAuthorizedArg.h PlayAnnouncementArg.h \
+        PromptAndCollectUserInformationArg.h ReceivedInformationArg.h \
+        RedirectingPartyID.h RedirectionInformation.h ReleaseCallArg.h \
+        ReportCondition.h RequestCurrentStatusReportArg.h \
+        RequestCurrentStatusReportResultArg.h \
+        RequestEveryStatusChangeReportArg.h \
+        RequestFirstStatusMatchReportArg.h \
+        RequestNotificationChargingEventArg.h \
+        RequestReportBCSMEventArg.h RequestedInformation.h \
+        RequestedInformationList.h RequestedInformationType.h \
+        RequestedInformationTypeList.h RequestedInformationValue.h \
+        ResetTimerArg.h ResourceID.h ResourceStatus.h \
+        ResponseCondition.h \
+        RouteList.h RouteSelectFailureArg.h \
+        SCIBillingChargingCharacteristics.h \
+        SFBillingChargingCharacteristics.h ScfID.h SelectFacilityArg.h \
+        SelectRouteArg.h SendChargingInformationArg.h \
+        ServiceAddressInformation.h ServiceFilteringResponseArg.h \
+        ServiceInteractionIndicators.h ServiceKey.h \
+        ServiceProfileIdentifier.h \
+        ServingAreaID.h SpecializedResourceReportArg.h StatusReportArg.h \
+        TAnswerArg.h TBusyArg.h TDisconnectArg.h TNoAnswerArg.h \
+        TermAttemptAuthorizedArg.h TerminalType.h TimerID.h \
+        TimerValue.h Tone.h TravellingClassMark.h TriggerType.h \
+        UnavailableNetworkResource.h VariablePart.h
+

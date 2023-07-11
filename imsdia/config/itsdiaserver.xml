@@ -1,0 +1,306 @@
+<?xml version="1.0"?>
+
+<ITS-Diameter  version                = "1"
+               productName            = "IntelliNet Peer"
+               enableDefaultRouting   = "0"
+               addOriginStateIdOpt    = "0"
+               peerNotificationsToApp = "0"
+               enableHexDump          = "1"
+               localIpv6DscpValue     = "0"
+               disableStackInitiatedSTR = "0"
+               dictionaryFile         = "dictionary.xml" >
+
+   <LocalConfig>
+
+       <InbandSecurityId  value = "0"/>
+       <VendorId          value = "0"/>
+       <SupportedVendorId value = "10415"/>
+       <SupportedVendorId value = "5535"/>
+       <SupportedVendorId value = "13019"/>
+
+       <AuthAppId         value = "0"/>
+       <AuthAppId         value = "16777216"/>
+       <AuthAppId         value = "16777217"/>
+       <AuthAppId         value = "16777222"/>
+       <AuthAppId         value = "16777224"/>
+       <AuthAppId         value = "16777229"/>
+       <AuthAppId         value = "16777219"/>
+       <AuthAppId         value = "55557"/>
+       <AuthAppId         value = "55559"/>
+       <AuthAppId         value = "16777231"/>
+       <AuthAppId         value = "1"/>
+       <AuthAppId         value = "2"/>
+       <AuthAppId         value = "5"/>
+       <AuthAppId         value = "4"/>
+
+       <!-- AuthAppId "0xffffffff" is required only for Relay Agent Support-->
+       <!-- <AuthAppId         value = "0xffffffff"/> -->
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "0"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+
+       <!-- Single HostInfo Only 1 Origin-Host/Origin-Realm in CER -->
+       <!-- mateHostName is required only incase of redundancy -->
+       <LocalHost  serverHostName = "nemo"
+                   realmName      = "india.internal.net" >
+           <!--    mateHostName   = "micky" -->
+
+           <!-- Multiple Transports (Max 4) -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+           </Transport>
+<!--
+           <Transport   type         = "SCTP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1912">
+           </Transport>
+-->
+
+       </LocalHost>
+
+       <SessionConfig>
+
+              <AuthSession  
+                        timeout        = "40"
+                        lifetime       = "20"
+                        gracePeriod    = "10" >
+             
+              </AuthSession>
+
+              <AcctSession  
+                        timeout         = "30"
+                        interimInterval = "30">
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+   <!-- Added the Security related configuration parameters -->
+   <Tls-Security
+       TlsType                      = "GNUTLS"
+       TlsTraceLevel                = "4"
+       TlsIdentityVerification      = "yes"
+       TlsCipherSuite               = "DIAMETER-ALL"
+       TlsCertificateType           = "X.509"
+       TlsCATrustFile               = "ca-cert.pem"
+       TlsCredentialFile            = "crl.pem"
+       TlsClientCertificateFile     = "ser-cert.pem"
+       TlsClientKeyFile             = "ser-key.pem"
+       TlsServerCertificateFile     = "ser-cert.pem"
+       TlsServerKeyFile             = "ser-key.pem">
+   </Tls-Security>
+
+    <QueueMgmt  enable                = "no"
+                downStreamThreadCount = "2"
+                upStreamThreadCount   = "1">
+    </QueueMgmt>
+
+   </LocalConfig>
+                            
+   <PeerConfig>
+
+       <Timer    name = "Tc"             value = "30" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "60" />
+  
+       <Peer    serverHostName = "nemocl"
+                realmName      = "india.internal.net"
+                tlsEnabled     = "yes"
+                dscpEnabled     = "no">
+
+           <!-- Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1911">
+           </Transport>
+           <!-- Dscp value range is 0-255 -->
+           <Dscp        value        = "0"/>
+
+           <Failover    enable         = "no"
+                        enableFailback = "no">
+
+               <AlternatePeer serverHostName = "nemocl1"
+                              realmName      = "india.internal.net" >
+
+               </AlternatePeer>
+
+           </Failover>
+
+       </Peer>
+
+       <Peer    serverHostName = "nemocl1"
+                realmName      = "india.internal.net" >
+
+           <!-- Multiple Transports but only of different
+                types ie. TCP or SCTP
+                If SCTP is specified it will be tried first
+           -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.1"
+                        port         = "1913">
+           </Transport>
+
+       </Peer>
+
+   </PeerConfig>
+
+   <RealmConfig>
+
+        <!-- Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+        -->
+
+        <!-- proxyInfoAvpEnabled is required for Relay Support
+             Values: yes/no
+        -->
+
+
+        <Route     realmName        = "india.internal.net"
+                   localAction      = "local" > 
+                   <!-- proxyInfoAvpEnabled = "yes" -->
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "0"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+   
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777217"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777222"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "4"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777224"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777229"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777219"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "55557"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "55559"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "16777231"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "1"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "2"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl"
+                         applicationId  = "5"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "nemocl1"
+                         applicationId  = "0"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+   
+        </Route>
+
+	<Route     realmName        = "india.internal.net"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "nemocl" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig>
+
+</ITS-Diameter>

@@ -1,0 +1,18 @@
+#! /bin/ksh
+
+export USER_ROOT=~cbascon
+export ITS_ROOT=$USER_ROOT/cvsroot/IntelliSS7
+export VENDOR_ROOT=$USER_ROOT/cvsroot/vendors
+
+export LD_LIBRARY_PATH=$ITS_ROOT/common/lib:$VENDOR_ROOT/IntelliNet/lib:.:$ITS_ROOT/SCCP/lib:$LD_LIBRARY_PATH:$ITS_ROOT/SCCP/lib
+
+export ISS7_CONFIG_DIR=
+
+ldd sua_testD
+
+#./sua_testD sgp opc 2 dpc 1 ossn 6 dssn 5 -configFile sua_sgp.xml
+./sua_testD asp opc 1 dpc 2 ossn 5 dssn 6 -configFile sua_asp.xml
+#gdb sua_testD $1
+
+exit 0
+

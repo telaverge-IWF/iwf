@@ -1,0 +1,24 @@
+#!/bin/sh
+#!/bin/sh
+########################################################################
+#
+# Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/aim/client/lib:$ITS_ROOT/common/lib:$IMS_ROOT/val/c++/lib:../../app_dist/lib
+
+export LD_LIBRARY_PATH
+rm core.*
+
+# USAGE
+#sampleWgClientD  -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost)
+#        -dr (DestinationRealm) -sp (Server Port) -srvip ( Server IP Address)
+#        -contype (Connection Type: primary / backup )
+
+sampleWgClientD -oh nemo -or india.internal.net -dh nemocl -dr india.internal.net -sp 9999 -srvip "172.16.3.1" -contype primary
+
+exit 0

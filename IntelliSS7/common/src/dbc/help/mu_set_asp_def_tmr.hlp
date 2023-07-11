@@ -1,0 +1,21 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_asp_def_tmr
+
+DESCRIPTION
+    This command set ASP default Timers.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_asp_def_tmr 
+
+********* SET DEFAULT TIMERS *********
+ASP_UP_TIMER       = 2
+ASP_DOWN_TIMER     = 2
+ASP_ACTIVE_TIMER   = 2
+ASP_INACTIVE_TIMER = 2
+

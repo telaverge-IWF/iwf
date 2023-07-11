@@ -1,0 +1,129 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: Makefile.api,v 1.2 2010/06/17 05:23:06 nvijikumar Exp $
+#
+# LOG: $Log: Makefile.api,v $
+# LOG: Revision 1.2  2010/06/17 05:23:06  nvijikumar
+# LOG: Updates with more example code generation
+# LOG:
+# LOG: Revision 1.1  2010/06/16 12:40:24  nvijikumar
+# LOG: New Files introduced for mag binary package
+# LOG:
+# LOG:
+#
+############################################################################
+#
+# Makefile for IntelliNet Diameter Messaging API Libraries
+#
+include $(IMS_ROOT)/make.dirs
+
+CXXFLAGS:=$(CXXFLAGS) -Iinclude -I$(IMS_ROOT)/include
+
+#
+# Protocols to be built
+#
+
+RFROPROTO=diameter.rfro \
+          diameter.rfro.ims
+
+CXDXPROTO=diameter.cxdx
+
+SHPROTO=diameter.sh
+
+GQGQPROTO=diameter.gqgqprime
+
+
+RFROSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(RFROPROTO))))
+RFROOBJS=$(RFROSRCS:.cpp=.o)
+
+CXDXSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(CXDXPROTO))))
+CXDXOBJS=$(CXDXSRCS:.cpp=.o)
+
+SHSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(SHPROTO))))
+SHOBJS=$(SHSRCS:.cpp=.o)
+
+GQGQSRCS=$(wildcard $(patsubst %,src/%/*.cpp,$(subst .,/,$(GQGQPROTO))))
+GQGQOBJS=$(GQGQSRCS:.cpp=.o)
+
+CMNOBJECTS=$(RFROOBJS) 
+#CMNOBJECTS=$(RFROOBJS) $(CXDXOBJS) $(SHOBJS) $(GQGQOBJS)
+
+
+#
+# Library names
+#
+
+RFROLIB=../lib/librfroapi
+CXDXLIB=../lib/libcxdxapi
+SHLIB=../lib/libshapi
+GQGQLIB=../lib/libgqgqapi
+
+#
+# Targets
+#
+.PHONY: all clean
+
+all: $(RFROLIB)$(DBGSUFFIX).a $(RFROLIB)$(DBGSUFFIX).so 
+
+#all: $(RFROLIB)$(DBGSUFFIX).a $(RFROLIB)$(DBGSUFFIX).so \
+     $(CXDXLIB)$(DBGSUFFIX).a $(CXDXLIB)$(DBGSUFFIX).so \
+     $(SHLIB)$(DBGSUFFIX).a   $(SHLIB)$(DBGSUFFIX).so   \
+     $(GQGQLIB)$(DBGSUFFIX).a $(GQGQLIB)$(DBGSUFFIX).so 
+
+	 
+realclean clean:
+	rm -f $(RFROLIB)$(DBGSUFFIX).a  $(RFROLIB)$(DBGSUFFIX).so  \
+	$(CMNOBJECTS)
+
+#realclean clean:
+#	rm -f $(RFROLIB)$(DBGSUFFIX).a  $(RFROLIB)$(DBGSUFFIX).so \
+	$(CXDXLIB)$(DBGSUFFIX).a $(CXDXLIB)$(DBGSUFFIX).so \
+	$(SHLIB)$(DBGSUFFIX).a   $(SHLIB)$(DBGSUFFIX).so   \
+	$(GQGQLIB)$(DBGSUFFIX).a $(GQGQLIB)$(DBGSUFFIX).so \
+	$(CMNOBJECTS)
+
+$(RFROLIB)$(DBGSUFFIX).a: $(RFROOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(RFROLIB)$(DBGSUFFIX).a $(RFROOBJS)
+
+$(RFROLIB)$(DBGSUFFIX).so: $(RFROOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(RFROLIB)$(DBGSUFFIX).so $(RFROOBJS) $(NOWHOLEARCHIVE)
+
+$(CXDXLIB)$(DBGSUFFIX).a: $(CXDXOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(CXDXLIB)$(DBGSUFFIX).a $(CXDXOBJS)
+
+$(CXDXLIB)$(DBGSUFFIX).so: $(CXDXOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(CXDXLIB)$(DBGSUFFIX).so $(CXDXOBJS) $(NOWHOLEARCHIVE)
+
+$(SHLIB)$(DBGSUFFIX).a: $(SHOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(SHLIB)$(DBGSUFFIX).a $(SHOBJS)
+
+$(SHLIB)$(DBGSUFFIX).so: $(SHOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(SHLIB)$(DBGSUFFIX).so $(SHOBJS) $(NOWHOLEARCHIVE)
+
+$(GQGQLIB)$(DBGSUFFIX).a: $(GQGQOBJS)
+	$(CXXAR) $(CXXARFLAGS) $(GQGQLIB)$(DBGSUFFIX).a $(GQGQOBJS)
+
+$(GQGQLIB)$(DBGSUFFIX).so: $(GQGQOBJS)
+	$(CXX) $(CXXSHAREDARFLAGS) $(GQGQLIB)$(DBGSUFFIX).so $(GQGQOBJS) $(NOWHOLEARCHIVE)
+

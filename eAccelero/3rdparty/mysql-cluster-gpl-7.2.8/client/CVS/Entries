@@ -1,0 +1,22 @@
+/CMakeLists.txt/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/client_priv.h/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/completion_hash.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/completion_hash.h/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/echo.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/get_password.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/my_readline.h/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysql.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysql_plugin.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysql_upgrade.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqladmin.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqlbinlog.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqlcheck.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqldump.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqlimport.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqlshow.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqlslap.c/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/mysqltest.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/readline.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/sql_string.cc/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+/sql_string.h/1.1.2.1/Fri Oct  5 12:37:13 2012//TB-IWF-HP-0400-00
+D

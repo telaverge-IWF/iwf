@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    disDiaWarnTrace                                                                                
+DESCRIPTION
+    This command disables the diameter warning traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> disDiaWarnTrace
+    *******Diameter Warning Traces are disabled*******
+

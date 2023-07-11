@@ -1,0 +1,4 @@
+debug		c	itu	libINAP-CS1++D.a	INAP-CS1++D.lib
+debug		c	itu	libINAP-CS1D.a	INAP-CS1D.lib
+release		c	itu	libINAP-CS1.a	INAP-CS1.lib
+release		c	itu	libINAP-CS1++.a INAP-CS1++.lib

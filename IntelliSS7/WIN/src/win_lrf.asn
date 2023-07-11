@@ -1,0 +1,1355 @@
+--------------------------------------------------------------------------------
+--                                                                            --
+--      Copyright 1999 IntelliNet Technologies, Inc. All Rights Reserved.     --
+--              Manufactured in the United States of America.                 --
+--        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        --
+--                                                                            --
+--    This product and related documentation is protected by copyright and    --
+--    distributed under licenses restricting its use, copying, distribution   --
+--    and decompilation.  No part of this product or related documentation    --
+--    may be reproduced in any form by any means without prior written        --
+--    authorization of IntelliNet Technologies and its licensors, if any.     --
+--                                                                            --
+--    RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the       --
+--    government is subject to restrictions as set forth in subparagraph      --
+--    (c)(1)(ii) of the Rights in Technical Data and Computer Software        --
+--    clause at DFARS 252.227-7013 and FAR 52.227-19.                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--                                                                            --
+-- CONTRACT: INTERNAL                                                         --
+--                                                                            --
+--------------------------------------------------------------------------------
+--
+--  ID: $Id: win_lrf.asn,v 9.1 2005/03/23 12:52:45 cvsadmin Exp $
+--
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+-- ASN.1 Module for WIN.
+--
+-- LRF (Local Reference Format) version.
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+WIN DEFINITIONS IMPLICIT TAGS ::=
+
+BEGIN
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+--  WIN Parameters.
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+AlertCode ::= OCTET STRING (SIZE(2..200))
+
+AllOrNone ::=   ENUMERATED
+{
+    notUsed                                 (0),
+    allChangesMustSucceedOrNoneShouldApply  (1),
+    treatEachChangeIndependently            (2)
+}
+
+AccessDeniedReason ::= ENUMERATED
+{
+    notUsed                     (0),
+    unassignedDirectoryNumber   (1),
+    inactive                    (2),
+    busy                        (3),
+    terminationDenied           (4),
+    noPageResponse              (5),
+    unavailable                 (6),
+    serviceRejectedbyMS         (7),
+    serviceRejectedbySystem     (8),
+    serviceTypeMismatch         (9),
+    serviceDenied               (10)
+
+}
+
+ActionCode ::= OCTET STRING (SIZE(1..200))
+
+AnnouncementCode ::= OCTET STRING (SIZE(4..200))
+
+AnnouncementList ::= SEQUENCE SIZE(1..20) OF CHOICE
+{ 
+    announcementCode    [76] AnnouncementCode
+}
+
+AvailabilityType ::= OCTET STRING (SIZE(1..200))
+
+
+BillingID ::= OCTET STRING (SIZE(7))
+
+BorderCellAccess ::= OCTET STRING (SIZE(1))
+
+CallingPartyName ::=    OCTET STRING (SIZE(1..200)) 
+
+CallingPartyDigits1 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartyDigits2 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartyNumberDigits1 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartyNumberDigits2 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartyNumberString1 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartyNumberString2 ::= OCTET STRING (SIZE(5..200))
+
+CallingPartySubaddress ::= OCTET STRING (SIZE(1..20))
+
+CarrierDigits ::= OCTET STRING (SIZE(5..200))
+
+CDMAPrivateLongCodeMask ::= OCTET STRING (SIZE(6))
+
+CDMASlotCycleIndex ::= OCTET STRING (SIZE(1))
+
+CDMAStationClassMark ::= OCTET STRING (SIZE(1..200))
+
+Change  ::= ENUMERATED
+{
+    notused         (0),
+    setDataItemToDefaultValue                   (1),
+    addDataItem                                 (2),
+    deleteDataItem                              (3),
+    replaceDataItemWithAssociatedDataValue      (4)
+}
+
+ConditionallyDeniedReason ::= ENUMERATED
+{
+    notUsed     (0),
+    waitable    (1) 
+}
+
+ConferenceCallingIndicator ::= OCTET STRING (SIZE(1..200))
+
+ControlChannelData ::= OCTET STRING (SIZE(4))
+
+DataValue   ::= OCTET STRING (SIZE(1..200))
+
+DataID  ::=     OCTET STRING (SIZE(1..200))
+
+DataAccessElement   ::= [250] SEQUENCE
+{
+    dataID          [251]    DataID,
+    change          [248]    Change      OPTIONAL,
+    dataValue       [256]    DataValue   OPTIONAL
+}
+
+DataAccessElementList ::= SEQUENCE (SIZE(1..20)) OF DataAccessElement 
+
+DataBaseKey ::= OCTET STRING (SIZE(1..200))
+
+DataResult ::=  ENUMERATED
+{
+    notUsed         (0),
+    successful      (1),
+    unsuccessfulUnspecified (3),
+    unsuccessfulNoDefaultValueAvailable (4)
+}
+
+DataUpdateResult ::=  [254]  SEQUENCE
+{
+    dataID      [251]    DataID,
+    dataResult  [253]    DataResult
+}
+
+DataUpdateResultList    ::= SEQUENCE (SIZE(1..20)) OF DataUpdateResult 
+
+Digits ::= OCTET STRING (SIZE(5..200))
+
+DigitsCarrier ::= OCTET STRING (SIZE(5..200))
+
+DigitCollectionControl ::= OCTET STRING (SIZE(12..200))
+
+DigitsDestination ::= OCTET STRING (SIZE(5..200))
+
+DisplayText ::= OCTET STRING (SIZE(1..200))
+
+DestinationDigits ::= OCTET STRING (SIZE(5..200))
+
+DestinationAddress ::= CHOICE   
+{
+    globalTitle     [261]    GlobalTitle ,
+    pC-SSN          [32]        PC-SSN
+}
+
+
+DMH-AccountCodeDigits ::= OCTET STRING (SIZE(5..200))
+
+DMH-AlternateBillingDigits ::= OCTET STRING (SIZE(5..200))
+
+DMH-BillingDigits ::= OCTET STRING (SIZE(5..200))
+
+DMH-RedirectionIndicator ::= ENUMERATED
+{
+    notSpecified        (0),
+    cFU                 (1),
+    cFB                 (2),
+    cFNA                (3),
+    cFO                 (4),
+    cDUnspecified       (5),
+    cDPSTN              (6),
+    cDPrivate           (7),
+    pSTNTandem          (8),
+    privateTandem       (9),
+    busy                (10),
+    inactive            (11),
+    unassigned          (12),
+    terminationDenied   (13),
+    cDFailure           (14),
+    eCT                 (15),
+    mAH                 (16),
+    fA                  (17),
+    abandonedCallLeg    (18),
+    pCACallRefused      (19),
+    sCACallRefused      (20),
+    dialogue            (21),
+    cFD                 (22),
+    cDLocal             (23),
+    voiceMailRetrieval  (24)
+}
+
+ExecuteScript   ::= SEQUENCE
+{
+    scriptName          [268]    ScriptName,
+    scriptArgument      [267]    ScriptArgument  OPTIONAL
+}
+
+ExtendedMSCID ::= OCTET STRING (SIZE(4))
+
+ExtendedSystemMyTypeCode ::= OCTET STRING (SIZE(2))
+
+ElectronicSerialNumber ::= OCTET STRING (SIZE(4))
+
+FailureCause ::= OCTET STRING (SIZE(2..200))
+
+FailureType ::= ENUMERATED
+{
+    notUsed                 (0),
+    callAbandoned           (1),
+    resourceDisconnect      (2),
+    failureatMSC            (3),
+    sSFTexpiration          (4)
+}
+
+FeatureResult ::= ENUMERATED
+{
+    notUsed         (0),
+    unsuccessful    (1),
+    successful      (2)
+}
+
+GlobalTitle ::= OCTET STRING (SIZE(2..32))
+
+GroupInformation ::= OCTET STRING (SIZE(4..200))
+
+InterMSCCircuitID ::= OCTET STRING (SIZE(2))
+
+IntersystemTermination ::= SEQUENCE
+{ 
+    destinationDigits           [87]    DestinationDigits, 
+    mSCID                       [21]    MSCID, 
+    accessDeniedReason          [20]    AccessDeniedReason          OPTIONAL, 
+    billingID                   [1]     BillingID                   OPTIONAL, 
+    carrierDigits               [86]    CarrierDigits               OPTIONAL, 
+    electronicSerialNumber      [9]     ElectronicSerialNumber      OPTIONAL, 
+    legInformation              [144]   LegInformation              OPTIONAL, 
+    mobileDirectoryNumber       [93]    MobileDirectoryNumber       OPTIONAL, 
+    mobileIdentificationNumber  [8]     MobileIdentificationNumber  OPTIONAL, 
+    mSCIdentificationNumber     [94]    MSCIdentificationNumber     OPTIONAL, 
+    routingDigits               [150]   RoutingDigits               OPTIONAL, 
+    terminationTriggers         [122]   TerminationTriggers         OPTIONAL
+}
+
+LegInformation ::= OCTET STRING (SIZE(4..200))
+
+LocalTermination ::= SEQUENCE
+{ 
+    electronicSerialNumber      [9]     ElectronicSerialNumber, 
+    mobileIdentificationNumber  [8]     MobileIdentificationNumber, 
+    terminationTreatment        [121]   TerminationTreatment, 
+    alertCode                   [75]    AlertCode                   OPTIONAL, 
+    carrierDigits               [86]    CarrierDigits               OPTIONAL, 
+    destinationDigits           [87]    DestinationDigits           OPTIONAL, 
+    legInformation              [144]   LegInformation              OPTIONAL, 
+    mobileDirectoryNumber       [93]    MobileDirectoryNumber       OPTIONAL, 
+    oneTimeFeatureIndicator     [97]    OneTimeFeatureIndicator     OPTIONAL, 
+    routingDigits               [150]   RoutingDigits               OPTIONAL, 
+    terminationTriggers         [122]   TerminationTriggers         OPTIONAL, 
+    voiceMailboxPIN             [159]   VoiceMailboxPIN             OPTIONAL, 
+    voiceMailboxNumber          [160]   VoiceMailboxNumber          OPTIONAL
+}
+
+LocationAreaID ::= OCTET STRING (SIZE(2))
+
+MobileDirectoryNumber ::= OCTET STRING (SIZE(5..200))
+
+
+MobileIdentificationNumber ::= OCTET STRING (SIZE(5))
+
+ModificationRequest ::= [262] SEQUENCE
+{
+    serviceDataAccessElementList    [271]    ServiceDataAccessElementList,
+    allOrNone                       [247]    AllOrNone   OPTIONAL,
+    ...
+}
+
+ModificationRequestList ::= SEQUENCE OF ModificationRequest 
+
+ModificationResult ::=  [292] CHOICE
+{
+    dataResult      [253]    DataResult,
+    serviceDataResultList   [273]    ServiceDataResultList
+}   
+
+ModificationResultList ::=  SEQUENCE OF ModificationResult 
+
+MSCID ::= OCTET STRING (SIZE(3))
+
+MSCIN ::= OCTET STRING (SIZE(5..200))
+
+MSCIdentificationNumber ::= OCTET STRING (SIZE(5..200))
+
+NoAnswerTime ::= OCTET STRING (SIZE(1..200))
+
+OneTimeFeatureIndicator ::= OCTET STRING (SIZE(2..200))
+
+OriginationTriggers ::= OCTET STRING (SIZE(3..255))
+
+PACAIndicator ::= OCTET STRING (SIZE(1..200))
+
+PageIndicator ::= OCTET STRING (SIZE(1..200))
+
+PC-SSN ::= OCTET STRING (SIZE(5))
+
+PilotBillingID ::= OCTET STRING (SIZE(7))
+
+PilotNumber ::= OCTET STRING (SIZE(5..200))
+
+PreferredLanguageIndicator ::= OCTET STRING (SIZE(1..200))
+
+PrivateSpecializedResource  ::= OCTET STRING (SIZE(1..200))
+
+PSTNTermination ::= SEQUENCE
+{ 
+    destinationDigits           [87]    DestinationDigits, 
+    carrierDigits               [86]    CarrierDigits               OPTIONAL, 
+    electronicSerialNumber      [9]     ElectronicSerialNumber      OPTIONAL, 
+    legInformation              [144]   LegInformation              OPTIONAL, 
+    mobileIdentificationNumber  [8]     MobileIdentificationNumber  OPTIONAL, 
+    routingDigits               [150]   RoutingDigits               OPTIONAL, 
+    terminationTriggers         [122]   TerminationTriggers         OPTIONAL
+}
+
+QualificationInformationCode ::= ENUMERATED
+{
+    notUsed                 (0),
+    noInformation           (1),
+    validationOnly          (2),
+    validationAndProfile    (3),
+    profileOnly             (4)
+}
+
+ReceivedSignalQuality ::= INTEGER (0..255)
+
+RedirectingPartyName ::=    OCTET STRING (SIZE(5..200))
+
+RedirectingNumberDigits ::= OCTET STRING (SIZE(5..200))
+
+RedirectingNumberString ::= OCTET STRING (SIZE(5..200))
+
+RedirectingSubaddress ::= OCTET STRING (SIZE(1..20))
+
+RedirectionReason ::= ENUMERATED
+{ 
+    notUsed         (0),
+    busy            (1),
+    noAnswer        (2),
+    unconditional   (3),
+    noPageResponse  (4),
+    unavailable     (5),
+    unroutable      (6),
+    callAccepted    (7),
+    callRefused     (8)
+}
+
+ReportType ::= ENUMERATED
+{
+    notUsed                         (0),
+    unspecifiedSecurityViolation    (1),
+    mINorESNMismatch                (2),
+    rANDCMismatch                   (3),
+    sSDUpdateFailed                 (5),
+    cOUNTMismatch                   (7),
+    uniqueChallengeFailed           (9),
+    unsolicitedBaseStationChallenge (10),
+    sSDUpdateNoResponse             (11),
+    cOUNTUpdateNoResponse           (12),
+    uniqueChallengeNoResponse       (13),
+    aUTHRMismatch                   (14),
+    tERMTYPMismatch                 (15),
+    missingAuthenticationParams     (16)
+}
+
+
+ResumePIC ::= ENUMERATED
+{
+    notUsed                         (0),
+    continueCallProcessing          (1),
+    collectInformationPIC           (2),
+    analyzeInformationPIC           (3),
+    selectRoutePIC                  (4),
+    authorizeOriginationAttemptPIC  (5),
+    authorizeCallSetupPIC           (6),
+    sendCallPIC                     (7),
+    oAlertingPIC                    (8),
+    oActivePIC                      (9),
+    oSuspendedPIC                   (10),
+    oNullPIC                        (11),
+    selectFacilityPIC               (32),
+    presentCallPIC                  (33),
+    authorizeTerminationAttemptPIC  (34),
+    tAlertingPIC                    (35),
+    tActive                         (36),
+    tSuspended                      (37),
+    tNullPIC                        (38)
+}
+
+RoutingDigits ::= OCTET STRING (SIZE(5..200))
+
+ScriptArgument  ::= OCTET STRING (SIZE(1..96))
+
+ScriptName  ::= OCTET STRING (SIZE(1..6))
+
+ScriptResult    ::= OCTET STRING (SIZE(1..96))
+
+SenderIdentificationNumber ::= OCTET STRING (SIZE(5..200))
+
+ServiceDataAccessElement ::= [270] SEQUENCE
+{
+    dataAccessElementList   [250]    DataAccessElementList,
+    serviceID               [246]    ServiceID   OPTIONAL,
+    ...
+}
+
+ServiceDataAccessElementList ::= SEQUENCE (SIZE(1..20)) OF ServiceDataAccessElement 
+
+ServiceDataResult ::= [272]  SEQUENCE
+{
+    dataUpdateResultList    [255]    DataUpdateResultList,
+    serviceID               [246]    ServiceID   OPTIONAL,
+    ...
+}
+
+ServiceDataResultList::= SEQUENCE (SIZE(1..20)) OF ServiceDataResult
+
+
+ServiceID ::= OCTET STRING (SIZE(1..4))
+
+ServingCellID ::= OCTET STRING (SIZE(2))
+
+SignalQuality ::= INTEGER (0..255)
+
+SignalingMessageEncryptionKey ::= OCTET STRING (SIZE(8))
+
+SMS-Address ::= OCTET STRING (SIZE(5..200))
+
+SMS-MessageWaitingIndicator ::= NULL
+
+SpecializedResource ::= OCTET STRING (SIZE(1..200))
+
+SPINIPIN ::= OCTET STRING (SIZE(5..200))
+
+SPINITriggers ::= OCTET STRING (SIZE(4..100))
+
+SSDNotShared ::= ENUMERATED
+{
+    notUsed     (0),
+    discardSSD  (1)
+}
+
+SSDUpdateReport ::= OCTET STRING (SIZE(1..200))
+
+StationClassMark ::= OCTET STRING (SIZE(1))
+
+SystemAccessData ::= OCTET STRING (SIZE(5))
+
+SystemAccessType ::= ENUMERATED
+{
+    notUsed                 (0),
+    unspecified             (1),
+    flashRequest            (2),
+    autonomousRegistration  (3),
+    callOrigination         (4),
+    pageResponse            (5),
+    noAccess                (6),
+    powerDownRegistration   (7),
+    sMSPageResponse         (8)
+}
+
+SystemCapabilities ::= OCTET STRING (SIZE(1))
+
+SystemMyTypeCode ::= ENUMERATED
+{
+    notUsed                 (0),
+    eDS                     (1),
+    astronet                (2),
+    aTTNetworkSystems       (3),
+    ericsson                (4),
+    gTE                     (5),
+    motorola                (6),
+    nEC                     (7),
+    nortel                  (8),
+    novatel                 (9),
+    plexsys                 (10),
+    digitalEquipmentCorp    (11),
+    inet                    (12),
+    bellcore                (13),
+    alcatelSEL              (14),
+    tandem                  (15),
+    qualcomm                (16),
+    aldiscon                (17),
+    celcore                 (18),
+    telos                   (19),
+    stanilite               (20),
+    coralSystem             (21),
+    synacomTechnology       (22)
+}
+
+TargetCellID ::= OCTET STRING (SIZE(2))
+
+TargetMeasurementList ::= SEQUENCE SIZE(1..20) OF CHOICE
+{ 
+    targetMeasurementInformation    [157]   TargetMeasurementInformation
+}
+
+TargetMeasurementInformation ::= SEQUENCE
+{
+    targetCellID    [3]     TargetCellID, 
+    signalQuality   [11]    SignalQuality
+}
+
+TDMABurstIndicator ::= OCTET STRING (SIZE(1))
+
+TDMACallMode ::= OCTET STRING (SIZE(1))
+
+TDMAChannelData ::= OCTET STRING (SIZE(5))
+
+TerminalType ::= ENUMERATED
+{
+    notUsed             (0),
+    notDistinguished    (1),
+    iS-54-B             (2),
+    iS-136              (3),
+    iS-95               (32),
+    iS-95-A             (33),
+    iS-88               (64),
+    iS-94               (65),
+    iS-91               (66)
+}
+
+TerminationAccessType ::= OCTET STRING (SIZE(1..200))
+
+TerminationList ::= SEQUENCE SIZE(1..20) OF CHOICE
+{ 
+    intersystemTermination  [89]    IntersystemTermination, 
+    localTermination        [91]    LocalTermination, 
+    pSTNTermination         [95]    PSTNTermination 
+}
+
+TerminationRestrictionCode ::= ENUMERATED
+{
+    notUsed             (0),
+    terminationDenied   (1),
+    unrestricted        (2),
+    notSpecified        (3) 
+}
+
+TerminationTreatment ::= OCTET STRING (SIZE(1..200))
+
+TerminationTriggers ::= OCTET STRING (SIZE(2..200))
+
+TimeDateOffset ::= INTEGER (-720..780)
+
+TransactionCapability ::= OCTET STRING (SIZE(0..200))
+
+TriggerCapability ::=   OCTET STRING (SIZE(1..3))
+
+TriggerType ::= ENUMERATED
+{
+    allCalls                            (1),
+    doubleIntroductionStar              (2),
+    singleIntroductionStar              (3),
+    reservedforHomeSystemFeatureCode    (4),
+    doubleIntroductionPound             (5),
+    singleIntroductionPound             (6),
+    revertiveCall                       (7),
+    zeroDigit                               (8),
+    oneDigit                                (9),
+    twoDigit                                (10),
+    threeDigit                              (11),
+    fourDigit                               (12),
+    fiveDigit                               (13),
+    sixDigit                                (14),
+    sevenDigit                              (15),
+    eightDigit                              (16),
+    nineDigit                               (17),
+    tenDigit                                (18),
+    elevenDigit                             (19),
+    twelveDigit                             (20),
+    thirteenDigit                               (21),
+    fourteenDigit                               (22),
+    fifteenDigit                                (23),
+    localCall                           (24),
+    intraLATATollCall                   (25),
+    interLATATollCall                   (26),
+    worldzoneCall                       (27),
+    internationalCall                   (28),
+    unrecognizedNumber                  (29),
+    priorAgreement                      (30),
+    specificCalledPartyDigitStirng      (31),
+    mobileTermination                   (32),
+    advancedTermination                 (33),
+    location                            (34),
+    terminatingResourceAvailable        (64),
+    tBusy                               (65),
+    tNoAnswer                           (66),
+    tnoPageResponse                     (67),
+    tUnroutable                         (68),
+    reservedforTDPRDPtypeValue          (220),
+    reservedforTDPNDPtypeValue          (221),
+    reservedforEDPRDPtypeValue          (222),
+    reservedforEDPNDPtypeValue          (223)
+}
+
+TriggerAddressList ::= SET SIZE(1..20) OF TriggerList
+
+TriggerList ::= [278] SET
+{
+    destinationAddress  [286]    DestinationAddress,
+    wINTriggerList      [283]        WINTriggerList
+}
+
+
+
+TrunkStatus ::= ENUMERATED
+{
+    idle    (0),
+    blocked (1)
+}
+
+UpdateCount ::= ENUMERATED
+{
+    notUsed     (0),
+    updateCount (1)
+}
+
+UsageIndicator ::= ENUMERATED
+{
+    unspecified     (0),
+    sentPaidCall    (1),
+    thirdNumberBill (2)
+}
+
+VoiceMailboxPIN ::= OCTET STRING (SIZE(5..200))
+ 
+VoiceMailboxNumber ::= OCTET STRING (SIZE(5..200))
+
+VoicePrivacyMask ::= OCTET STRING (SIZE(66))
+
+WINCapability ::= SET
+{
+    triggerCapability       [277]    TriggerCapability           OPTIONAL,
+    wINOperationsCapability [281]    WINOperationsCapability     OPTIONAL
+} 
+
+WINOperationsCapability ::= OCTET STRING (SIZE(1))
+
+WINTriggerList ::=  OCTET STRING (SIZE(2..200))
+
+
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+--
+--  WIN Operations.
+--
+--------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+
+
+--
+-- NOTE: The FeatureRequestIL PDU is exactly the same as in ANSI-41D. It is 
+--       reproduced here so that the standalone WIN API has the Invoke as well as
+--       the Return Result components for each operation.
+--
+FeatureRequestIL ::= [PRIVATE 18] SET
+{
+    digits                                  [4]     Digits,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    billingID                               [1]     BillingID                               OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    conferenceCallingIndicator              [137]   ConferenceCallingIndicator              OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mSCID                                   [21]    MSCID                                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL
+}
+
+
+FeatureRequestRRL ::= [PRIVATE 18] SET 
+{
+    featureResult                           [18]    FeatureResult,
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    conferenceCallingIndicator              [137]   ConferenceCallingIndicator              OPTIONAL,
+    digits                                  [4]     Digits                                  OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pACAIndicator                           [146]   PACAIndicator                           OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    resumePIC                               [266]   ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL
+}
+
+InterSystemPageIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    alertCode                               [75]    AlertCode                               OPTIONAL,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyDigits1                     [80]    CallingPartyDigits1                     OPTIONAL,
+    callingPartyDigits2                     [81]    CallingPartyDigits2                     OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    cDMASlotCycleIndex                      [166]   CDMASlotCycleIndex                      OPTIONAL,
+    cDMAStationClassMark                    [59]    CDMAStationClassMark                    OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    extendedMSCID                           [53]    ExtendedMSCID                           OPTIONAL,
+    extendedSystemMyTypeCode                [54]    ExtendedSystemMyTypeCode                OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mSCID                                   [21]    MSCID                                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pageIndicator                           [71]    PageIndicator                           OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingPartyName                    [245]   RedirectingPartyName                    OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationTreatment                    [121]   TerminationTreatment                    OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL
+}
+
+InterSystemSetupIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    interMSCCircuitID                       [6]     InterMSCCircuitID,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    cDMAPrivateLongCodeMask                 [67]    CDMAPrivateLongCodeMask                 OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    signalingMessageEncryptionKey           [45]    SignalingMessageEncryptionKey           OPTIONAL,
+    voicePrivacyMask                        [48]    VoicePrivacyMask                        OPTIONAL
+}
+
+LocationRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    digits                                  [4]     Digits,
+    mSCID                                   [21]    MSCID,
+    systemMyTypeCode                        [22]    SystemMyTypeCode,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingPartyName                    [245]   RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL,
+    triggerType                             [279]   TriggerType                         OPTIONAL,
+    wINCapability                           [280]   WINCapability                       OPTIONAL
+}
+
+LocationRequestRRL ::= [PRIVATE 18] IMPLICIT SET {
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    mSCID                                   [21]    MSCID,
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    digitsCarrier                           [4]     DigitsCarrier                           OPTIONAL,
+    digitsDestination                       [4]     DigitsDestination                       OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    resumePIC                               [266]   ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL
+}
+
+
+OriginationRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    digitsdialed                            [4]     Digits,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    mSCID                                   [21]    MSCID,
+    originationTriggers                     [98]    OriginationTriggers,
+    transactionCapability                   [123]   TransactionCapability,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    triggerType                             [279]   TriggerType                         OPTIONAL,
+    wINCapability                           [280]   WINCapability                       OPTIONAL
+}
+
+
+OriginationRequestRRL ::= [PRIVATE 18] IMPLICIT SET {
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    digitsdialed                            [4]     Digits                                  OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    resumePIC                               [266]   ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL
+}
+
+QualificationRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    qualificationInformationCode            [17]    QualificationInformationCode,
+    systemMyTypeCode                        [22]    SystemMyTypeCode,
+    mSCID                                   [21]    MSCID                                   OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    systemAccessType                        [34]    SystemAccessType                        OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL,
+    wINCapability                           [280]   WINCapability                       OPTIONAL
+}
+
+RegistrationNotificationIL ::= [PRIVATE 18] IMPLICIT SET {
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    mSCID                                   [21]    MSCID,
+    qualificationInformationCode            [17]    QualificationInformationCode,
+    systemMyTypeCode                        [22]    SystemMyTypeCode,
+    availabilityType                        [90]    AvailabilityType                        OPTIONAL,
+    borderCellAccess                        [58]    BorderCellAccess                        OPTIONAL,
+    controlChannelData                      [55]    ControlChannelData                      OPTIONAL,
+    extendedMSCID                           [53]    ExtendedMSCID                           OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    receivedSignalQuality                   [72]    ReceivedSignalQuality                   OPTIONAL,
+    reportType                              [44]    ReportType                              OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    sMS-Address                             [104]   SMS-Address                             OPTIONAL,
+    sMS-MessageWaitingIndicator             [118]   SMS-MessageWaitingIndicator             OPTIONAL,
+    systemAccessData                        [56]    SystemAccessData                        OPTIONAL,
+    systemAccessType                        [34]    SystemAccessType                        OPTIONAL,
+    systemCapabilities                      [49]    SystemCapabilities                      OPTIONAL,
+    terminalType                            [47]    TerminalType                            OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL,
+    wINCapability                           [280]   WINCapability                       OPTIONAL
+}
+
+RoutingRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    mSCID                                   [21]    MSCID,
+    systemMyTypeCode                        [22]    SystemMyTypeCode,
+    alertCode                               [75]    AlertCode                               OPTIONAL,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    destinationDigits                       [87]    DestinationDigits                       OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingPartyName                    [245]   RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    terminationTreatment                    [121]   TerminationTreatment                    OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL,
+    voiceMailboxNumber                      [160]   VoiceMailboxNumber                      OPTIONAL,
+    voiceMailboxPIN                         [159]   VoiceMailboxPIN                         OPTIONAL
+}
+
+TransferToNumberRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    electronicSerialNumber                  [9]     ElectronicSerialNumber,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber,
+    redirectionReason                       [19]    RedirectionReason,
+    systemMyTypeCode                        [22]    SystemMyTypeCode,
+    billingID                               [1]     BillingID                               OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    originatingmSCID                        [21]    MSCID                                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL
+}
+
+UnsolicitedResponseRRL ::= [PRIVATE 18] IMPLICIT SET {
+    alertCode                               [75]    AlertCode                               OPTIONAL,
+    billingID                               [1]     BillingID                               OPTIONAL,
+    callingPartyName                        [243]    CallingPartyName                    OPTIONAL,
+    callingPartyDigits1                     [80]    CallingPartyDigits1                     OPTIONAL,
+    callingPartyDigits2                     [81]    CallingPartyDigits2                     OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    extendedMSCID                           [53]    ExtendedMSCID                           OPTIONAL,
+    extendedSystemMyTypeCode                [54]    ExtendedSystemMyTypeCode                OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingPartyName                    [245]   RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    terminationTreatment                    [121]   TerminationTreatment                    OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]   TriggerAddressList                  OPTIONAL
+}
+
+
+ServiceRequestIL ::= [PRIVATE 18] IMPLICIT SET {
+    serviceID                               [246]   ServiceID,
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    availabilityType                        [90]    AvailabilityType                        OPTIONAL,
+    billingID                               [1]     BillingID                               OPTIONAL,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    conditionallyDeniedReason               [162]   ConditionallyDeniedReason               OPTIONAL,
+    dataAccessElementList                   [249]   DataAccessElementList               OPTIONAL,
+    digitsdialed                            [4]     Digits                                  OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber              OPTIONAL,
+    mSCID                                   [21]    MSCID                                   OPTIONAL,
+    mSCIN                                   [94]    MSCIN                                   OPTIONAL,
+    pC-SSN                                  [32]    PC-SSN                                  OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingPartyName                    [245]   RedirectingPartyName                OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    redirectionReason                       [19]    RedirectionReason                       OPTIONAL,
+    senderIdentificationNumber              [103]   SenderIdentificationNumber              OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL,
+    timeDateOffset                          [275]   TimeDateOffset                         OPTIONAL,
+    transactionCapability                   [123]   TransactionCapability                   OPTIONAL,
+    triggerType                             [279]   TriggerType                         OPTIONAL,
+    wINCapability                           [280]   WINCapability                       OPTIONAL
+}
+
+ServiceRequestRRL ::= [PRIVATE 18] IMPLICIT SET {
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    alertCode                               [75]    AlertCode                               OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyName                        [243]   CallingPartyName                    OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    digitsdialed                            [4]     Digits                                  OPTIONAL,
+    displayText                             [244]   DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingNumberString                 [101]   RedirectingNumberString                 OPTIONAL,
+    redirectingPartyName                    [245]   RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    resumePIC                               [266]   ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL
+}
+
+AnalyzedInformationIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    digits                                  [4]     Digits,
+    mSCID                                   [21]    MSCID,
+    transactionCapability                   [123]   TransactionCapability,
+    triggerType                             [279]    TriggerType,
+    wINCapability                           [280]    WINCapability,
+    callingPartyName                        [243]    CallingPartyName                    OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    conferenceCallingIndicator              [137]   ConferenceCallingIndicator              OPTIONAL,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber                  OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber              OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingPartyName                    [245]    RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL
+}
+
+AnalyzedInformationRRL ::= [PRIVATE 18] IMPLICIT SET {
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    conferenceCallingIndicator              [137]   ConferenceCallingIndicator              OPTIONAL,
+    digitsdialed                            [4]     Digits                                  OPTIONAL,
+    displayText                             [244]    DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    resumePIC                               [266]    ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]    TriggerAddressList                  OPTIONAL
+}
+
+
+ConnectionFailureReportIL ::= [PRIVATE 18] IMPLICIT SET {
+    failureType                             [260]    FailureType,    
+    failureCause                            [259]    FailureCause                        OPTIONAL    
+}
+
+ConnectResourceIL ::= [PRIVATE 18] IMPLICIT SET {
+    destinationDigits                       [87]    DestinationDigits,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL
+}
+
+--DisconnectResourceIL
+--    No parameters.
+
+FacilitySelectedAndAvailableIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    mSCID                                   [21]    MSCID,
+    transactionCapability                   [123]   TransactionCapability,
+    triggerType                             [279]    TriggerType,
+    wINCapability                           [280]    WINCapability,
+    callingPartyName                        [243]    CallingPartyName                    OPTIONAL,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber                  OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber              OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingPartyName                    [245]    RedirectingPartyName                OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL
+}
+
+FacilitySelectedAndAvailableRRL ::= [PRIVATE 18] IMPLICIT SET {
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    alertCode                               [75]    AlertCode                               OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    displayText                             [244]    DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    noAnswerTime                            [96]    NoAnswerTime                            OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    resumePIC                               [266]    ResumePIC                           OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]    TriggerAddressList                  OPTIONAL
+}
+
+
+-- InstructionRequestIL
+-- InstructionRequestRRL (no parameters for both)
+
+
+
+ModifyIL ::= [PRIVATE 18] IMPLICIT SET {
+    dataBaseKey     [252]    DataBaseKey,
+    modificationRequestList     [263]    ModificationRequestList
+}
+
+ModifyRRL ::= [PRIVATE 18] IMPLICIT SET {
+    modificationResultList      [264]    ModificationResultList
+}
+
+-- ResetTimerIL (no parameters)
+
+SearchIL ::= [PRIVATE 18] IMPLICIT SET {
+    dataBaseKey     [252]    DataBaseKey,
+    serviceDataAccessElementList        [271]    ServiceDataAccessElementList
+}
+
+SearchRRL ::= [PRIVATE 18] IMPLICIT SET {
+    serviceDataAccessElementList        [271]    ServiceDataAccessElementList
+}
+
+
+SeizeResourceIL ::= [PRIVATE 18] IMPLICIT SET {
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL,
+    privateSpecializedResource              [265]    PrivateSpecializedResource          OPTIONAL,
+    specializedResource                     [274]    SpecializedResource                 OPTIONAL
+}
+
+
+SeizeResourceRRL ::= [PRIVATE 18] IMPLICIT SET {
+    destinationDigits                       [87]    DestinationDigits
+}
+
+SRFDirectiveIL ::= [PRIVATE 18] IMPLICIT SET {
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    digitCollectionControl                  [139]   DigitCollectionControl                  OPTIONAL,
+    executeScript                           [258]    ExecuteScript                       OPTIONAL
+}
+
+SRFDirectiveRRL ::= [PRIVATE 18] IMPLICIT SET {
+    digitsdialed                            [4]     Digits                                  OPTIONAL,
+    scriptResult                            [269]    ScriptResult                        OPTIONAL
+}
+
+
+TbusyIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    mSCID                                   [21]    MSCID,
+    transactionCapability                   [123]   TransactionCapability,
+    triggerType                             [279]    TriggerType,
+    wINCapability                           [280]    WINCapability,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber                  OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber              OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    redirectionReason                       [19]    RedirectionReason                       OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL
+}
+
+TBusyRRL ::= [PRIVATE 18] IMPLICIT SET {
+
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    displayText                             [244]    DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    resumePIC                               [266]    ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]    TriggerAddressList                  OPTIONAL
+}
+
+
+TNoAnswerIL ::= [PRIVATE 18] IMPLICIT SET {
+    billingID                               [1]     BillingID,
+    mSCID                                   [21]    MSCID,
+    transactionCapability                   [123]   TransactionCapability,
+    triggerType                             [279]    TriggerType,
+    wINCapability                           [280]    WINCapability,
+    callingPartyNumberDigits1               [80]    CallingPartyNumberDigits1               OPTIONAL,
+    callingPartyNumberDigits2               [81]    CallingPartyNumberDigits2               OPTIONAL,
+    callingPartySubaddress                  [84]    CallingPartySubaddress                  OPTIONAL,
+    electronicSerialNumber                  [9]     ElectronicSerialNumber                  OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    legInformation                          [144]   LegInformation                          OPTIONAL,
+    locationAreaID                          [33]    LocationAreaID                          OPTIONAL,
+    mobileDirectoryNumber                   [93]    MobileDirectoryNumber                   OPTIONAL,
+    mobileIdentificationNumber              [8]     MobileIdentificationNumber              OPTIONAL,
+    mSCIdentificationNumber                 [94]    MSCIdentificationNumber                 OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotBillingID                          [169]   PilotBillingID                          OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    preferredLanguageIndicator              [147]   PreferredLanguageIndicator              OPTIONAL, 
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    redirectingSubaddress                   [102]   RedirectingSubaddress                   OPTIONAL,
+    redirectionReason                       [19]    RedirectionReason                       OPTIONAL,
+    servingCellID                           [2]     ServingCellID                           OPTIONAL,
+    systemMyTypeCode                        [22]    SystemMyTypeCode                        OPTIONAL,
+    terminationAccessType                   [119]   TerminationAccessType                   OPTIONAL
+}
+
+TNoAnswerRRL ::= [PRIVATE 18] IMPLICIT SET {
+    accessDeniedReason                      [20]    AccessDeniedReason                      OPTIONAL,
+    actionCode                              [128]   ActionCode                              OPTIONAL,
+    announcementList                        [130]   AnnouncementList                        OPTIONAL,
+    callingPartyNumberString1               [82]    CallingPartyNumberString1               OPTIONAL,
+    callingPartyNumberString2               [83]    CallingPartyNumberString2               OPTIONAL,
+    carrierDigits                           [86]    CarrierDigits                           OPTIONAL,
+    displayText                             [244]    DisplayText                         OPTIONAL,
+    dMH-AccountCodeDigits                   [140]   DMH-AccountCodeDigits                   OPTIONAL,
+    dMH-AlternateBillingDigits              [141]   DMH-AlternateBillingDigits              OPTIONAL,
+    dMH-BillingDigits                       [142]   DMH-BillingDigits                       OPTIONAL,
+    dMH-RedirectionIndicator                [88]    DMH-RedirectionIndicator                OPTIONAL,
+    groupInformation                        [163]   GroupInformation                        OPTIONAL,
+    oneTimeFeatureIndicator                 [97]    OneTimeFeatureIndicator                 OPTIONAL,
+    pilotNumber                             [168]   PilotNumber                             OPTIONAL,
+    redirectingNumberDigits                 [100]   RedirectingNumberDigits                 OPTIONAL,
+    resumePIC                               [266]    ResumePIC                           OPTIONAL,
+    routingDigits                           [150]   RoutingDigits                           OPTIONAL,
+    terminationList                         [120]   TerminationList                         OPTIONAL,
+    terminationTriggers                     [122]   TerminationTriggers                     OPTIONAL,
+    triggerAddressList                      [276]    TriggerAddressList                  OPTIONAL
+}
+
+
+END

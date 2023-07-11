@@ -1,0 +1,93 @@
+About_Docs.txt
+==============
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you
+don't accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of
+Mountain View, California <http://home.netscape.com/> and Consensus
+Development Corporation of Berkeley, California
+<http://www.consensus.com>.
+
+
+Preface
+-------
+This document describes the purpose of each of the documentation
+files included in the SSLRef 3.0 package. This document contains
+these sections:
+
+  - Root Documentation
+  - Contents of the doc Folder
+
+
+Root Documentation
+------------------
+About_SSLRef300.txt
+  Describes the general contents of the SSLRef 3.0 package and
+  recommends where to look for specific information about using
+  SSLRef 3.0.
+
+LICENSE.txt
+  Contains the specific licensing terms for use of the SSLRef 3.0
+  package. You must agree to be bound by these terms before using any
+  other SSLRef 3.0 document.
+
+
+Contents of the doc Folder
+--------------------------
+About_Docs.txt is this document.
+
+API_Details.pdf
+  Provides detailed documentation about each API call. These details
+  include descriptions of data structures, parameters, return values,
+  error conditions and affects on the state of the library. This
+  document is in Adobe Acrobat format. Freely distributed Acrobat
+  Reader software is available for most platforms from Adobe at
+  <http://www.adobe.com/acrobat/readstep.html>
+
+API_Introduction.txt
+  Describes getting started with the SSLRef 3.0 API. It provides a
+  summary description of how the library works and points to other
+  documents which provide the details.
+
+Build_Notes.txt
+  Describes how to build the test software included with the package.
+  These provide examples of how to build the SSLRef library and link it
+  with your software.
+
+Change_History.txt
+  Describes known bugs and changes made to the product in each release.
+
+Implementation_Notes.txt
+  Describes the goals, strategy and limitations of the SSLRef 3.0
+  implementation of the SSL 3.0 protocol.
+
+Porting_Notes.txt
+  Provides information helpful to people porting SSLRef 3.0 to other
+  platforms.
+
+Src_Files.txt
+  Describes the purpose of each of the source files included in the
+  SSLRef 3.0 package.
+
+Src_Internals.txt
+  Provides some information about the workings of the internals of the
+  SSLRef library. This information is not necessary to use the library
+  but can be helpful to some applications.
+
+ssl-talk-faq.txt
+  Provides a summary of FAQ (Frequently Asked Questions) found on the
+  SSL-Talk discussion list regarding technical implemenation issues
+  of the SSL protocol. Also included within the SSL-Talk FAQ are
+  frequently asked questions on SSLRef.
+
+SSLRef_2_to_3.txt
+  Provides information helpful to people replacing SSLRef 2.0 with
+  SSLRef 3.0.
+
+Useful_Links.txt
+  Provides a list of Internet resources useful for learning more about
+  SSL and related security technologies.

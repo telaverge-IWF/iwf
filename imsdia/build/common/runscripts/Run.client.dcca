@@ -1,0 +1,16 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# USAGE
+# sampleAppD -load -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost) 
+#            -dr (DestinationRealm) -configFile (xmlFileName)
+
+sampleDccaAppD -oh nemocl -or india.internal.net -dh nemo -dr india.internal.net -configFile demo.xml.client 
+
+exit 0
+

@@ -1,0 +1,63 @@
+{
+    "Replication-Config": {
+        "No-Of-Async-Threads" :4,
+        "No-Of-Sync-Threads" : 4,
+
+        //below configurations should not be changed!
+        "Couchbase-Config": {
+        //Host-Name to connect to couchbase
+        "Host-Name": "localhost",
+        //Port number at which couchbase is listening.
+        "Port": 8091,
+        //Password to be used while creating a bucket.
+        "Password": "diametriq@123",
+        //Retry Conn Max, if set to 0 it will retry indefinitely until connection succeeds
+        //Else it will retry the set number of times
+        "Retry-Conn-Max": 10
+        }
+      /*  "Replica-Config": [
+        {
+            //Name of the replica. These names should not be changed
+            // and are supposed to be useful only for developers.
+            "Replica-Name": "DiameterSession",
+
+            //Size of the replica in MB.
+            "Replica-Size": 1024,
+
+            //Time-To-Live for items in Replica cache
+            //0 - Means they will never be removed.
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "SessionBindingMap",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "IPV4CalledStationIdMap",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "IPV6CalledStationIdMap",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "THFSubscriberContextTable",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "THFSessionContextTable",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        },
+        {
+            "Replica-Name": "IMSISessionBindingMap",
+            "Replica-Size": 1024,
+            "Replica-TTL": 0
+        }
+        ]*/
+    }
+}

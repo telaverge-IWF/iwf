@@ -1,0 +1,300 @@
+
+insertSubscriberDataArg1 SubscriberData ::= {
+}
+
+
+insertSubscriberDataArg2 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '1122334455667788990011223344556677889900'H,
+    category '11'H,
+    subscriberStatus operatorDeterminedBarring,
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		}
+
+	    },
+	    cug-FeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		}
+	    }
+	},
+	ss-Data: {
+	    ss-Code '11'H,
+	    ss-Status '11'H,
+	    ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	    basicServiceGroupList {
+		ext-BearerService: '11'H,
+		ext-Teleservice: '22'H
+	    }
+	}
+    },
+    odb-Data {
+	odb-GeneralData {ss-AccessBarred},
+	odb-HPLMN-Data {plmn-SpecificBarringType4}
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H
+    }
+}

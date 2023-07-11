@@ -1,0 +1,91 @@
+ISUP General Note 1:
+In C_ISUP: CIC has been replaced by Global Call Reference (GCR).
+GCR is over 8 bytes while CIC is over two bytes.
+For current dev. assuming that size of GCR is the same size as the CIC.
+
+ISUP General Note 2:
+In The ISUP library:
+ISUP_MessageSanityCheck_CCITT:
+Currently I use the description to check if params are present.
+The description should follow the variant description for the msg.
+If we do not find the param: I return an Error: ITS_BADISUPMESSAGE.
+This behavior is not 100% correct because of the "param compatibility"
+parameter. We are allowed to forward a param that we do not know.
+
+Note 2:
+Timers Definition for T5
+	Even though ITU Q.764 specs says that T5 is between 5-15 minutes, it seems
+	common that the default value is 1 minute.
+
+Note 3:
+CPC_OGCAnsState5_CCITT() and CPC_ICCAnsState6_CCIIT() and other state: 
+RLC msg:
+	I am not quit sure if we should forward the RLC to the application. Simply
+	because: Excel will send a "cause failure PPL event Indication" (this is
+	not a RLC), and Newnet stack delivers a "CALL_FAILURE primitive". But
+	(at least for now) in our case we are NOT flexible at all (ISUP msg or
+	nothing else), so for now CPC forwards the RLC message to the APP.
+
+Note 4
+CPC_IdleState0_CCITT():
+IAM msg from SPRC:
+	Checking Xl SDL, the first thing they seems to check is the congestion.
+	Can we do that in our stuff. In other words: from RUDP or MTP3, does
+	the Transport will send us this kind of information (as en event,
+	CallBacks, others ...) ???? For now, we do not check the Congestion,
+	since I do not know how to check it.
+
+Note 5
+CPC_IdleState0_CCITT():
+IAM msg from APP: Do we need to check for Test Call?? Did not find it in XL
+                  CPC SDL.
+
+Note 6:
+Unexpected Msg for State: 
+	if a msg is unexpected for a state (assuming this is not a bug in ITS ISUP
+	stack). ITU Q.764 and XL reset the circuit. This is nice, but how about 
+	C-ISUP. For now do nothing. 
+
+Note 7:
+__ISUP_IsMsgCallControlMsg_CCITT: 
+	I am not quite sure if those msgs are call related or not (but for C-ISUP
+	it is ok since not supported):
+	ISUP_MSG_FOT /* Forward Transfer */
+	ISUP_MSG_LPA /* LoopBack Ack */
+
+Note 8: 
+CPC_WaitForACMState1_CCITT:
+SAM msg:
+	From XL SDL: app must let know stack that app is expecting SAM, so
+	stack can start T35. Once stack receives SAM from SPRC, it disable T35.
+	Nothing about that from Newnet (even though in their Timer table, they
+	"support" T35). Q.764 (2.2.5) is talking about end-of-pulsing signal (ST).
+	I would assume that T35 is not valid for C-ISUP ?????
+	Still waiting to hear from Cisco BTW !!!
+
+Note 9:
+mutiple states (except wait for RLC):
+Received RLC:
+	When we receive a RLC from SRC, we send a "call failure" (no true but...)
+    indication to APP, then send a REL to SPRC. What about if we receive RLC
+	from APP (which I do not handle by the way): forward it to SPRC (but 
+	what is the state of Call ???) or "convert" it into REL with cause: call
+	failure ???? XL SDL: does not make diff because CPC receives a RELEASE
+	REQUEST from APP (maybe L3P or L4 layer changes the request or SDL says:
+	"Do not handle this case")
+
+
+
+Note 1 (Fixed):
+CPC_OGCAnsState6_CCIIT() and CPC_ICCAnsState_CCIIT(): 
+PAM Msg:
+	If PAM msg is from application: Excel checks if PAM is allowed.
+	If PAM is not allowed, PAM will not forward to SPRC.
+	What does that mean ??
+	Checking Newnet manual (ISUP CCITT): PAM can be sent in backward
+	direction as soon as physical connection between two endpoints is
+	established. Then PAM can be sent in both directions.
+	Was not able to find information in ITU Q.76x.
+	For now assuming we can forward PAM from app to SPRC.
+	Fix: Forget Newnet.  When receiving IAM, There is a PAM method
+	  available/not available indicator in fwd indicators. 

@@ -1,0 +1,9 @@
+
+ITU ALCAP Module :
+
+    ai_get_gen_cfg        ALCAP Get General Config
+    ai_set_gen_cfg        ALCAP Set General Config
+    ai_get_gen_peg        ALCAP Get Pegs
+    ai_clr_gen_peg        ALCAP Clear Peg
+
+For details about any command use "help <command name>"

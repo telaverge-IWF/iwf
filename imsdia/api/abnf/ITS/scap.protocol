@@ -1,0 +1,575 @@
+/**
+ * RFC 3588 - Diameter Base and 
+ * Accounting Protocol
+ * scap Protocol
+ *
+ * NOTE:-
+ * As per request from the AceComm we are changing the AppId in the
+ * Header of ACR/ACA message from 19302 to 0. Also we are changing the 
+ * Interface AppId from 19302 to 0, which is also used as  registration AppId 
+ * in Distributed client and server setup. However, the VendorId of the SCAP
+ * protocol remains the same (ie 193 as mentioned in Vendor-Specfic-AppId).
+ */
+
+protocol diameter.scap < 0  193 : "Ericsson Information CCN Programmer's Guide" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+    /**
+     * The Abnormal-Termination-Reason AVP is of type Enumerated and contains
+     * information about a reason for abnormal service termination in a Serving
+     * Element.
+     */
+
+    Abnormal-Termination-Reason        ::= 600  /*3.3.3*/      Enumerated     M,V| | |   | N;
+
+    /**
+     * The Accounting-Correlation-Id AVP is type of UTF8String and contains
+     * information to correlate charging information generated for different
+     * components or domains of a service, for example, transport and service level.
+     * Valid length of the decoded UTF8String is 1..255 octets.
+     * For example, a multimedia service where the service is delivered from a
+     * Serving Element and the bearer of the service is GPRS. The service will be
+     * charged both by the Serving Element and through the GRPS domain. By
+     * using the Accounting-Correlation-Id AVP the two charges can be correlated
+     * and may result in inhibiting the charge from one of the domains.
+     */
+
+    Accounting-Correlation-Id          ::= 605 /*3.3.3*/       UTF8String     M,V|  |    |   | N;
+
+    /**
+     * The Check Balance Result AVP (AVP Code 422) is of type Enumerated and
+     * contains the result of the balance check. This AVP is applicable only when
+     * the Requested-Action AVP indicates CHECK_BALANCE in the Credit-Control-
+     * Request command.
+     */
+    Check-Balance-Result               ::= 422  /*RFC4006 */ Enumerated   M,V| |  |  |N; /* 8.6,RFC4006 */
+
+
+    /**
+     * The Cost AVP is of type Float64 and contains the cost estimate of a service
+     * in case of a price enquiry or the accumulated cost in the case of a charging
+     * session.
+     * Note : This is charging output data from the Service (PPS) point of view. The 
+     * value can be either positive or negative.
+     */
+    Cost                               ::= 603 /*3.3.3*/       Float64        M,V|  |    |   | N; 
+
+
+    /**
+     * The Cost-Information AVP is of type Grouped and is used to return cost
+     * information in the Accounting-Answer command. The included Cost AVP
+     * contains the cost of the service and the Currency-Code specifies in which
+     * currency the cost is given.
+     * The Cost-Information AVP included in the Accounting-Answer command with
+     * the Accounting-Record-Type set to INT ERIM_RECORD contains the
+     * accumulated cost for the session without taking any credit-reservation into
+     * account. The Cost-Information AVP included in the Accounting-Answer command with
+     * the Accounting-Record-Type set to EVENT _RECORD or ST OP_RECORD
+     * contains the total cost for the requested service.
+     */
+    Cost-Information                   ::= 604 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Currency-Code AVP is of type Unsigned32 and contains a currency code
+     * that specifies in which currency the values of AVPs containing monetary units
+     * were given. It is specified using the numeric values defined in the ISO 4217
+     * standard.
+     * Note: The Service allows two currencies on a system level, one local and Euro.
+     */
+    Currency-Code                      ::= 544 /*3.3.3*/       Unsigned32     M,V|  |    |   | N;
+
+
+    /**
+     * The Event-Timestamp AVP is of type Time and is given as the four most
+     * significant octets of a time stamp in the NTP format, according to the
+     * recommendations in the Diameter Base Protocol. In practice, this means that
+     * the time stamp consists of the number of seconds since January first, 1900
+     * with respect to the Coordinated Universal Time (UTC).
+     * In the first Accounting-Request command, the AVP contains the date/time
+     * when the service is requested in the Serving Element. In the succeeding
+     * Accounting-Request commands, it contains the time of the event that
+     * triggered the sending of the Accounting-Request command, for example,
+     * mid-session service event or expiry of granted units.
+     * Note:
+     * AVP Data: This is the UTC time received from the Serving Element. It contains 
+     * the time of the event that triggered the sending of the ACR.
+     * The specified value range assumes that no time zone is given (Service-
+     * Parameter-Type=13). If given, a negative time zone will increase the
+     * lower limit and a positive time zone will decrease the lower limit with the
+     * corresponding number of hours.
+     * Valid length (L) or value (V) : 1990-01-01 00:00:00 .. 2036-02-07 06:28:16 (V)
+     * Applicable on-line service rating parameters: DaysOfWeek, SpecialDates, TimeOfDay
+     */
+
+    Event-Timestamp                    ::= 610 /*3.3.3*/       Time           M,V|  |    |   | N; 
+
+    /**
+     * The Exponent AVP is of type Integer32 and contains the exponent value to be
+     * applied for the Value-Digits AVP within the Unit-Value AVP.
+     */
+
+    Exponent                           ::= 616 /*3.3.3*/       Integer32      M,V|  |    |   | N;
+
+    /**
+     * The Filter-Id AVP is of type UTF8String and contains the name of the filter
+     * list for this user. Zero or more Filter-Id AVPs MAY be sent in an
+     * authorisation answer.
+     */
+    Filter-Id                          ::= 11   /* NASREQ*/ UTF8String    M,V| | |    |N; /* 6.7,RFC4005 */
+
+
+    /**
+     * The Final-Unit-Action AVP (AVP Code 449) is of type Enumerated and indicates to the credit-control
+     * client the action to be taken when the user's account cannot cover the service cost.
+     */
+    Final-Unit-Action                  ::= 449  /*RFC4006 */ Enumerated    M,V| | |    |N; /* 8.35,RFC4006*/
+
+
+    /**
+     * The Final-Unit-Indication AVP (AVP Code 430) is of type Grouped and indicates that
+     * the Granted-Service-Unit AVP in the Credit-Control-Answer, or in the AA answer,
+     * contains the final units for the service. After these units have expired, the Diameter
+     * credit-control client is responsible for executing the action indicated in the
+     * Final-Unit-Action AVP.
+     */
+    Final-Unit-Indication              ::= 430  /*RFC4006 */ Grouped       M,V| | |   |N; /* 8.34, RFC4006*/
+
+
+
+    /**
+     * Granted-Service-Unit AVP is of type Grouped and contains the amount of
+     * units that the Diameter credit control client can provide to the end user until
+     * the service must be released or the new Accounting-Request must be sent.
+     * The Unit-Value AVP contains the granted units and the Unit-Type AVP defines
+     * the type of the unit.
+     * If the Unit-Type A VP is set to time in the Accounting-Ans wer command, the
+     * Unit Value AVP specifies the granted time in seconds.
+     * If the Unit-TypeAVP is set to volume in the Accounting-Answer command, the
+     * Unit-Value AVP specifies the granted volume in bytes.
+     * If the Unit-TypeAVP is set to events in the Accounting-Answer command, the
+     * Unit-Value AVP specifies the granted number of event units given in a
+     * selected service.
+     * If the Unit-TypeAVP is set to money in the Accounting-Answer command, the
+     * Unit-Value AVP specifies the granted monetary amount in the given currency.
+     * If the unit type is money, a Currency-Code AVP MUST be included.
+     * Note : The same restrictions for the AVPs contained in the 
+     * Granted-Service-Unit AVP applies as for AVPs contained in the Requested-Service-Unit AVP.
+     */ 
+
+    Granted-Service-Unit               ::= 602 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /** 
+     * The Original-Subscription-Id AVP is of type Grouped and contains the original
+     * contents of the Subscription-Id AVP if the end user identity in that AVP has
+     * been modified. It includes a Subscr iption-Id-Type AVP that defines the
+     * identifier type and a Subscription-Id-Data AVP that holds the identifier.
+     * AVP data                                             Valid length(L) or value(V)
+     * Subscription-Id Type 0..4 (V)
+     * Subscription-Id-Data for Subscription-Id-Type = 0    1..15 (L)
+     * Subscription-Id-Data for Subscription-Id-Type = 1   1..15 (L)
+     * Subscription-Id-Data for Subscription-Id-Type = 2   1..255 (L)
+     * Subscription-Id-Data for Subscription-Id-Type = 3   1..255 (L)
+     * Subscription-Id-Data for Subscription-Id-Type = 4   1..255 (L) 
+     */  
+
+    Original-Subscription-Id          ::= 559 /*3.3.3*/        Grouped        M,V|  |    |   | N;
+
+    /**
+     * The Redirect-Address-Type AVP (AVP Code 433) is of type Enumerated and defines the address
+     * type of the address given in the Redirect-Server-Address AVP.
+     */
+    Redirect-Address-Type              ::= 433  /*RFC4006 */ Enumerated    M,V|| |   |N; /* 8.38,RFC4006*/
+
+    /**
+     * The Redirect-Server-Address AVP (AVP Code 435) is of type UTF8String and
+     * defines the address of the redirect server (eg: HTTP redirect server,
+     * SIP server) wih which the end user is to be connected when the account
+     * cannot cover the service cost.
+     */
+    Redirect-Server-Address            ::= 435  /*RFC4006 */ UTF8String    M|P| |  V  |Y; /* 8.38,RFC4006*/
+
+
+    /**
+     * The Redirect-Server AVP (AVP Code 434) is of type Grouped and contains the address
+     * information of the redirect server (e.g., HTTP redirect server, SIP Server) with which
+     * the end user is to be connected when the account cannot cover the service cost.It MUST be
+     * present when the Final-Unit-Action AVP is set to REDIRECT.
+     */
+    Redirect-Server                    ::= 434  /*RFC4006 */ Grouped       M,V| | |    |N; /* 8.37,RFC4006*/
+
+
+    /**
+     * The Restriction-Filter-Rule AVP (AVP Code 438) is of type IPFilterRule and provides filter
+     * rules corresponding to services that are to remain accessible even if there are no more service
+     * units granted. The access device has to configure the specified filter rules for the subscriber
+     * and MUST drop all the packets not matching these filters.
+     */
+    Restriction-Filter-Rule            ::= 438  /*RFC4006 */ IPFilterRule  M,V| | |   |N; /* 8.36,RFC4006 */
+
+
+    /**
+     * The Requested-Action AVP is of type Enumerated and contains the requested 
+     * action requested by the Client. The Requested-Action AVP is used in 
+     * Accounting-Request commands where the Accounting-Record-Type AVP is set to 
+     * EVENT_RECORD. The identifier can be one of the following:
+     * DIRECT_DEBITING  0
+     * Direct debiting indicates that the request is to decrease the end user's 
+     * account according to information specified in the Requested-Service-Unit 
+     * AVP and/or Service-Parameter-Info AVP. The Granted-Service Unit AVP in the
+     * Accounting-Answer command contains the debited units.
+     * REFUND_ACCOUNT   1
+     * Refund account indicates that the request is to increase the end user's
+     * account according to information specified in the Requested-Service-Unit
+     * AVP and/or Service-Parameter-Info AVP. The Granted-Service Unit AVP
+     * in the Accounting-Answer command contains the refunded units.
+     */
+    Requested-Action                   ::= 615 /*3.3.3*/       Enumerated     M,V|  |    |   | N;
+
+
+    /**
+     * The Requested-Service-Unit AVP is of type Grouped and contains the amount of
+     * requested units specified by the Diameter credit control client. The included
+     * Unit-Value AVP contains the requested Unit-Value and the Unit-Type AVP 
+     * defines the type of the unit. If the Unit-Type AVP is set to time in the 
+     * Accounting-Request command, the Unit-Value AVP specifies the requested time 
+     * in seconds. If the Unit-Type AVP is set to volume in the Accounting-Request 
+     * command, the Unit-Value AVP specifies the requested volume in bytes.
+     * If the Unit-TypeAVP is set to events in the Accounting-Request command, the
+     * Unit-Value AVP specifies the used number of event units given in a selected
+     * service. If the Unit-Type AVP is set to mone y in the Accounting-Request command,
+     * the Unit-Value AVP specifies the monetary amount in the given currency. If
+     * the unit type is money, a Currency-Code AVP MUST be included. 
+     */
+    Requested-Service-Unit             ::= 606 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Service-Parameter-Info AVP is of type Grouped and contains the service 
+     * specific parameters used in rating. The included Service-Parameter-Type AVP
+     * defines the parameter type and the Service-Parameter-Value contains the parameter 
+     * value. 
+     */
+    Service-Parameter-Info             ::= 607 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Service-Parameter-Type AVP is of type Unsigned32 and defines the type of
+     * service specific parameter. The applicable types are defined between the 
+     * Service Element and PPS. 
+     */
+    Service-Parameter-Type             ::= 608 /*3.3.3*/       Unsigned32     M,V|  |    |   | N;
+
+    /**
+     * The Service-Parameter-Value AVP is of type UTF8String and contains the 
+     * value of the Service-Parameter-Type.
+     */
+
+    Service-Parameter-Value            ::= 609 /*3.3.3*/       UTF8String     M,V|  |    |   | N;
+
+
+    /**
+     * The Subscription-Id AVP is used to identify the end user's subscription 
+     * and is of type Grouped. This AVP includes a Subscription-Id-Type AVP that 
+     * defines the identifier type and a Subscription-Id-Data AVP that holds the identifier.
+     */
+    Subscription-Id                    ::= 553 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Subscription-Id-Data AVP contains the identifier of an end user and is of
+     * type UTF8String. The Subscription-Id-Type AVP defines which type of
+     * identifier that is used. 
+     */
+    Subscription-Id-Data               ::= 554 /*3.3.3*/       UTF8String     M,V|  |    |   | N;
+
+
+    /**
+     * The Subscription-Id-Type AVP is of type Enumerated and it is used to 
+     * determine which type of identifier is carried by the Subscription-Id AVP and
+     * the Original-Subscription-Id AVP. The identifier can have one of the 
+     * following values:
+     * END_USER_MSISDN    0
+     * The identifier is in international MSISDN format, according to the ITU-T
+     * E.164 numbering plan defined in Ref [6] and Ref [7].
+     * END_USER_IMSI      1
+     * The identifier is in international IMSI format, according to the ITU-T E.212
+     * numbering plan defined in Ref [8] and Ref [9].
+     * END_USER_SIP_URL   2
+     * The identifier is in the form of a SIP URL as defined in Ref [10].
+     * END_USER_NAI       3
+     * The identifier is in the form of a Network Access Identifier as defined in
+     * Ref [11].
+     * END_USER_PRIVATE   4
+     * The identifier is operator defined. 
+     */
+    Subscription-Id-Type               ::= 555 /*3.3.3*/       Enumerated     M,V|  |    |   | N;
+
+
+    /**
+     * The Unit-Type AVP is of type Enumerated and contains the type of unit carried
+     * by the Unit-Value AVP. The unit type can be one of the following:
+     * SERVICE_CREDIT_TIME    0
+     * The unit is of type time, given in seconds.
+     * SERVICE_CREDIT_VOLUME  1
+     * The unit is of type volume, given in bytes.
+     * SERVICE_CREDIT_EVENT   2
+     * The unit is of type event, given as a number of events. 
+     */
+    Unit-Type                          ::= 611 /*3.3.3*/       Enumerated     M,V|  |    |   | N;
+
+
+    /**
+     * The Unit-Value AVP is of type Grouped. The value can be time in seconds,
+     * volume in bytes, number of event units or monetary amount depending on the
+     * given unit type. The Unit-Value is a value together with an exponent, that is,
+     * Unit-Value = Value-Digits AVP * 10^Exponent. This representation avoids
+     * unwanted rounding off. For example the value of 2,3 is represented as Value-
+     * Digits = 23 and Exponent = -1. The absence of exponent part must be
+     * interpreted as exponent being equal to zero.
+     */
+    Unit-Value                         ::= 612 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Used-Service-Unit AVP is of type Grouped and contains the amount of
+     * used units measured from the point when the service became active or, in
+     * case of interim interrogations are used during the session, from the point
+     * when the previous measurement ended. The included Unit-Type AVP defines
+     * the type of the unit and the Unit-Value AVP contains the used amount.
+     * If the Unit-TypeAVP is set to time in the Accounting-Request command, the
+     * Unit-Value AVP specifies the used time in seconds.
+     * If the Unit-Type AVP is set to v olume in the Accounting-Request command,
+     * the Unit-Value AVP specifies the used volume in bytes.
+     * If the Unit-TypeAVP is set to events in the Accounting-Request command, the
+     * Unit-Value AVP specifies the used number of event units given in a selected
+     * service.
+     * If the Unit-Type AVP is set to mone y in the Accounting-Request command,
+     * the Unit-Value AVP specifies the used monetary amount in the given
+     * currency. If the unit type is money, a Currency-Code AVP MUST be included. 
+     */
+    Used-Service-Unit                  ::= 613 /*3.3.3*/       Grouped        M,V|  |    |   | N;
+
+
+    /**
+     * The Value-Digits AVP is of type Unsigned64 and contains the number of
+     * seconds, volume in bytes, number of service specific units or monetary
+     * amount depending on the given Unit-TypeAVP. If decimal values are needed
+     * to present the units, the scaling MUSTbe indicated with the related Exponent
+     * AVP. For example for the monetary amount $0,05 the value of Value-Digits
+     * AVP MUSTbe set to 5 and the scaling MUSTbe indicated with the Exponent
+     * AVP set to -2.
+     */
+    Value-Digits                       ::= 617 /*3.3.3*/       Unsigned64     M,V|  |    |   | N;
+
+
+                             //////////////////////////
+                             ////// Enumerated AVPs ///
+                             ////////////////////////// 
+
+    Abnormal-Termination-Reason ::= < Enumerated: 600 >
+                SERVING_ELEMENT_TERMINATION    0
+                CONNECTION_TO_USER_BROKEN      1
+                ;
+    
+    Check-Balance-Result ::= < Enumerated: 422 >
+                ENOUGH_CREDIT    0
+                NO_CREDIT        1
+                ;
+
+    Final-Unit-Action ::= < Enumerated: 449 >
+                TERMINATE         0
+                REDIRECT          1
+                RESTRICT_ACCESS   2
+                ;
+
+    Redirect-Address-Type ::= < Enumerated: 433 >
+                IPv4_Address      0
+                IPv6_Address      1
+                URLocation        2
+                SIP_URI           3
+                ;
+
+    Requested-Action ::= < Enumerated: 615 >
+                DIRECT_DEBITING    0
+                REFUND_ACCOUNT     1
+                ;
+
+    Subscription-Id-Type ::=  < Enumerated: 555 >
+                END_USER_MSISDN    0
+                END_USER_IMSI      1
+                END_USER_SIP_URL   2
+                END_USER_NAI       3
+                END_USER_PRIVATE   4
+                ;
+                
+    Unit-Type ::=  < Enumerated: 611 >
+                SERVICE_CREDIT_TIME     0
+                SERVICE_CREDIT_VOLUME   1
+                SERVICE_CREDIT_EVENT    2
+                ;
+
+
+
+                                  
+                             ///////////////////
+                             // Grouped AVPs ///
+                             /////////////////// 
+
+    Cost-Information ::= < AVP Header: 604 193 >
+                { Cost }
+                { Currency-Code }
+                ;
+
+
+  Final-Unit-Indication ::= < AVP Header: 430 193 >
+                 { Final-Unit-Action }
+                 *[ Restriction-Filter-Rule ]
+                 *[ Filter-Id ]
+                 [ Redirect-Server ]
+                 ;
+
+    Granted-Service-Unit  ::= < AVP Header: 602 193 >
+                { Unit-Type }
+                { Unit-Value }
+                [ Currency-Code ]
+                ;
+
+    Original-Subscription-Id  ::= < AVP Header: 559 193 >
+                { Subscription-Id-Data }
+                { Subscription-Id-Type }
+                ;
+
+    Redirect-Server ::= < AVP Header: 434 193 >
+                 { Redirect-Address-Type }
+                 { Redirect-Server-Address }
+                 ;
+
+    Requested-Service-Unit ::= < AVP Header: 606 193 >
+                { Unit-Type }
+                { Unit-Value }
+                [ Currency-Code ]
+                ;
+
+    Service-Parameter-Info ::= < AVP Header: 607 193 >
+                { Service-Parameter-Type }
+                { Service-Parameter-Value }  
+                ;
+
+    Subscription-Id ::= < AVP Header: 553 193 >
+                { Subscription-Id-Data }
+                { Subscription-Id-Type } 
+                ;  
+
+    Unit-Value ::= < AVP Header: 612 193 >
+                { Value-Digits }
+                [ Exponent ]
+                ;
+
+    Used-Service-Unit ::= < AVP Header: 613 193 >
+                { Unit-Type }
+                { Unit-Value }
+                [ Currency-Code ]
+                ;
+
+
+
+    //////////////
+    // Commands //
+    //////////////
+
+    /**
+     * The Accounting-Request (ACR) command, indicated by the Command-Code
+     * field set to 271 and the Command Flags' 'R' bit set, is sent by a
+     * Diameter node, acting as a client, in order to exchange accounting
+     * information with a peer.
+     * One of Acct-Application-Id and Vendor-Specific-Application-Id AVPs
+     * MUST be present.  If the Vendor-Specific-Application-Id grouped AVP
+     * is present, it must have an Acct-Application-Id inside.
+     * The Accounting-Request command is used for sending service charging
+     * specific information to the Diameter SCAP Server.
+     * NOTE:- As per request from the AceComm we are changing the AppId in the
+     * Header of ACR message from 19302 to 0.
+     */ 
+    Accounting-Request<ACR> ::= < Diameter Header: 271, REQ, PXY, 0 >
+                                < Session-Id >
+                                { Origin-Host }
+                                { Origin-Realm }
+                                { Destination-Realm }
+                                { Accounting-Record-Type }
+                                { Accounting-Record-Number }
+                                [ Vendor-Specific-Application-Id ]
+                                [ User-Name ]
+                                [ Acct-Session-Id ]
+                                /* Accounting-RADIUS-Session-Id is changed to Acct-Session-Id.*/
+                                [ Acct-Multi-Session-Id ]
+                                /* Accounting-Multi-Session-Id is changed to Acct-Multi-Session-Id.*/
+                                [ Acct-Interim-Interval ]
+                                /* Accounting-Interim-Interval is changed to Acct-Interim-Interval.*/
+                                [ Origin-State-Id ]
+                                [ Subscription-Id ]
+                                [ Original-Subscription-Id ]
+                                [ Requested-Action ]
+                                [ Event-Timestamp ]
+                                [ Requested-Service-Unit]
+                                [ Used-Service-Unit ]
+                          0*20  [ Service-Parameter-Info ]
+                                [ Abnormal-Termination-Reason ]
+                                [ Accounting-Correlation-Id ]
+                              * [ Proxy-Info ]
+                              * [ Route-Record ]
+                              * [ AVP]
+                                ; 
+    /**
+     * The Accounting-Answer (ACA) command, indicated by the Command-Code
+     * field set to 271 and the Command Flags' 'R' bit cleared, is used to
+     * acknowledge an Accounting-Request command.  The Accounting-Answer
+     * command contains the same Session-Id and includes the usage AVPs only
+     * if CMS is in use when sending this command.  Note that the inclusion
+     * of the usage AVPs when CMS is not being used leads to unnecessarily
+     * large answer messages, and can not be used as a server's proof of the
+     * receipt of these AVPs in an end-to-end fashion.  If the Accounting-
+     * Request was protected by end-to-end security, then the corresponding
+     * ACA message MUST be protected by end-to-end security.
+     * Only the target Diameter Server, known as the home Diameter Server,
+     * SHOULD respond with the Accounting-Answer command.
+     * One of Acct-Application-Id and Vendor-Specific-Application-Id AVPs
+     * MUST be present.  If the Vendor-Specific-Application-Id grouped AVP
+     * is present, it must have an Acct-Application-Id inside.
+     * The Accounting-Answer command (ACA) is used for acknowledging that the
+     * Accounting-Request operation has been performed and to indicate the
+     * outcome of the operation.
+     * NOTE:- As per request from the AceComm we are changing the AppId in the 
+     * Header of ACA message from 19302 to 0.
+     */
+
+    Accounting-Answer<ACA> ::= < Diameter Header: 271, PXY, 0 >
+                               < Session-Id >
+                               { Result-Code }
+                               { Origin-Host }
+                               { Origin-Realm }
+                               { Accounting-Record-Type }
+                               { Accounting-Record-Number }
+                               [ Vendor-Specific-Application-Id ]
+                               [ User-Name ]
+                               [ Acct-Session-Id ] 
+                              /* Accounting-RADIUS-Session-Id is changed to Acct-Session-Id.*/
+                               [ Acct-Multi-Session-Id ]
+                              /* Accounting-Multi-Session-Id is changed to Acct-Multi-Session-Id.*/
+                               [ Error-Reporting-Host ]
+                               [ Acct-Interim-Interval ]
+                              /* Accounting-Interim-Interval is changed to Acct-Interim-Interval.*/
+                               [ Origin-State-Id ]
+                               [ Subscription-Id ]
+                               [ Granted-Service-Unit ]
+                               [ Cost-Information ]
+                               [ Final-Unit-Indication ]
+                               [ Check-Balance-Result ]
+                             * [ Proxy-Info ]
+                             * [ AVP ]
+                               ;

@@ -1,0 +1,5 @@
+mAP-DialoguePDU1 MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H,
+    originationReference '1122334455667788990011223344556677889900'H
+}
+

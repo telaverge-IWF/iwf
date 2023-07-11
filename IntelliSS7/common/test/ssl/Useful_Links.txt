@@ -1,0 +1,100 @@
+Useful_Links.txt
+================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document lists internet resource and web links that may be
+useful in searching for more information about SSL 3.0 and related
+security issues.
+
+
+SSL
+---
+You can subscribe to the SSL-Talk discussion list by sending email
+to <mailto:ssl-talk-request@netscape.com> and putting the word
+"subscribe" in the **SUBJECT** line. To unsubscribe, send email to
+<mailto:ssl-talk-request@netscape.com> and put the word
+"unsubscribe" in the **SUBJECT** line.
+
+The Frequently Asked Questions (FAQ) for the SSL-Talk discussion
+list is also available in the /doc directory. An updated text
+version of the FAQ is posted periodically on to the SSL-Talk
+discussion list, and is also available at
+    <http://www.consensus.com/security/ssl-talk-faq.txt>
+    <ftp://ftp.consensus.com/pub/security/ssl-talk-faq.txt>
+
+An HTML version of the most current version of the SSL-Talk FAQ
+is available at
+    <http://www.consensus.com/security/ssl-talk-faq.html>.
+
+The current draft of the SSL Protocol:
+    <http://home.netscape.com/newsref/std/SSL.html>
+
+Netscape's Security Page:
+    <http://home.netscape.com/info/security-doc.html>
+
+SSLeay and SSLapps FAQ:
+    <http://www.psy.uq.oz.au/~ftp/Crypto/>
+
+RSAREF
+------
+RSAREF Package:
+    <ftp://ftp.rsa.com/rsaref/README>
+
+RSAREF Toolkit Home Page:
+    <http://www.consensus.com/rsaref/>
+
+RSAREF Frequently Asked Questions:
+    <http://www.consensus.com/rsaref/rsaref-faq/>
+
+
+SSLREF
+------
+The FAQ for SSLRef is part of the SSL-Talk FAQ, and is available
+at
+    <http://www.consensus.com/security/ssl-talk-sec07.html#7.1>
+
+
+SSL Plus
+--------
+Consensus Security Toolkit for SSL Home Page:
+    <http://www.consensus.com/sslplus/>
+
+The FAQ for SSL-Plus is part of the SSL-Talk FAQ, and is available
+at
+    <http://www.consensus.com/security/ssl-talk-sec07.html#7.2>
+
+
+Digital Signatures
+------------------
+VeriSign DigitalID Center:
+    <http://digitalid.verisign.com/>
+
+VeriSign's Home Page:
+    <http://www.verisign.com/>
+
+
+General Cryptography
+--------------------
+RSA Lab's Frequently Asked Questions:
+    <http://www.rsa.com/rsalabs/faq/faq_home.html>
+
+Quadralay's Cryptography Archive:
+    <http://www.quadralay.com/www/Crypt/Crypt.html>
+
+Cypherpunk's Archive:
+    <ftp://ftp.csua.berkeley.edu/pub/cypherpunks/>
+
+RSA Data Security's Home Page:
+    <http://www.rsa.com/>

@@ -1,0 +1,23 @@
+/AbstractJPABaseTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/BigIntegerTypesTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/BlobTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/ClobTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/DateAsSqlDateTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/DateAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/DatetimeAsSqlTimestampTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/DatetimeAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/DecimalTypesTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/Driver.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/EmbeddedTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/Ignore.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/JpaLoad.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/LazyTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/PersistenceTestCase.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/SingleEMFTestCase.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/SingleEMTestCase.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/SlowTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/TimeAsSqlTimeTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/TimeAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/TimestampAsSqlTimestampTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+/TimestampAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:20 2012//TB-IWF-HP-0400-00
+D/model////

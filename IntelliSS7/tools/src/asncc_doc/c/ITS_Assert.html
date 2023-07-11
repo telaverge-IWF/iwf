@@ -1,0 +1,98 @@
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!--      (C) 2000 IntelliNet Technologies Inc. All Rights Reserved.         -->
+<!--             Manufactured in the United States of America.               -->
+<!--     1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        -->
+<!--                                                                         -->
+<!--  This product and related documentation is protected by copyright and   -->
+<!--  distributed under licenses restricting its use, copying, distribution  -->
+<!--  and decompilation.  No part of this product or related documentation   -->
+<!--  may be reproduced in any form by any means without prior written       -->
+<!--  authorization of IntelliNet Technologies and its licensors, if any.    -->
+<!--                                                                         -->
+<!--  RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      -->
+<!--  government is subject to restrictions as set forth in subparagraph     -->
+<!--  (c)(1)(ii) of the Rights in Technical Data and Computer Software       -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- CONTRACT: INTERNAL                                                      -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- ID: $Id: ITS_Assert.html,v 9.1 2005/03/23 12:54:11 cvsadmin Exp $ -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<html>
+
+<head>
+<title>ASN C Runtime Assert (macro ASN_C_ASSERT)</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<!-- Header /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<p>
+  <i>
+    <img border="0" src="AsnModuleLogo.jpg" width="240" height="47" align="right"></img>
+  </i>
+</p>
+
+<p style="margin-bottom: 0">
+  <i>
+    <font size="3">
+      - IntelliSS7 Application Development Environment -  C API -
+    </font>
+  </i>
+</p>
+
+<hr size="4" style="margin-top: 0"></hr>
+
+<p align="left">
+  <u>
+    <font size="6">
+    ASN C Runtime Assert (macro ASN_C_ASSERT)
+    </font>
+  </u>
+</p>
+
+<p>
+  The ASN C Runtime Assert mechanism (available through the macro ASN_C_ASSERT) is part of ASN C Runtime assertion
+  mechanism. Assertions are used extensively by the ASN C Runtime. Assertions are a way to embed formal specifications
+  in the code and therefore a way to provide a clean and simple mechanism for checking assumptions at runtime (in debug
+  build only). If during execution time an assertion fails then a diagnostic message (including the precise location)
+  is reported. On Unix the diagnostic message is simply printed to the standard error. On Windows NT and Windows 2000
+  the ASN C Runtime assertion mechanism relies on the C runtime debug features (including the use of the _ASSERTE macro
+  defined in crtdbg.h, see Visual C++ documentation for more information). 
+</p>
+
+<br></br>
+
+<p>
+  Assertions can be used everywhere it is necessary to assert an assumption, except at the locations where a
+  precondition or a postcondition can be used. 
+</p>
+
+
+<!-- Footer (copyright notice) //////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<hr size="4"></hr>
+
+<p style="line-height: 100%; margin-left: 0; margin-top: 1; margin-bottom: 0" align="center">
+  <font size="2">
+    © 2000 IntelliNet Technologies, Inc. All rights reserved.
+  </font>
+</p>
+
+<br></br>
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,34 @@
+1) Compilation procedure
+
+   Use the following command to compile source
+   make os=[linux/solaris] platform=[x86/pp50] tls=[yes/no] sdk=[rmi/windriver]
+   Ex. 
+     -->  To compile for WindRiver
+          make os=linux platform=pp50 tls=yes sdk=windriver
+     -->  To compile for RMI
+          make os=linux platform=pp50 tls=yes sdk=rmi
+     -->  To compile for x86
+          make os=linux platform=x86 tls=yes 
+
+2) Installation Procedure
+
+   Installation procedure for Static Non Redundancy
+   --> make install_static_nrd IMS_VER=version
+       Ex. make install_static_nrd IMS_VER=3.2.0
+
+   Installation procedure for Static Redundancy
+   --> make install_static_rd IMS_VER=version
+   
+   Installation procedure for Distributed Server Non Redundancy
+   --> make install_dist_srv_nrd IMS_VER=version
+
+   Installation procedure for Distributed Server Redundancy
+   --> make install_dist_srv_rd IMS_VER=version
+
+   Installation procedure for Distributed Client
+   --> make install_dist_client IMS_VER=version
+
+   Installation procedure for Interfaces
+   --> make install_interfaces IMS_VER=version
+  
+

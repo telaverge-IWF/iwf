@@ -1,0 +1,304 @@
+Begin test...
+
+--------------------------------------------------
+Printing ASN.1 value before encoding...
+
+InsertSubscriberDataArg (SEQUENCE)
+{
+    IMSI (OCTET STRING)
+    [ 01 02 03 04 ]
+
+    ISDN_AddressString (OCTET STRING)
+    [ 11 22 33 44 55 ]
+
+    Category (OCTET STRING)
+    [ 66 ]
+
+    SubscriberStatus (ENUMERATED)
+    [ ServiceGranted(0) ]
+
+    BearerServiceList (SEQUENCE OF)
+    {
+        BearerServiceCode (OCTET STRING)
+        [ AA ]
+    
+        BearerServiceCode (OCTET STRING)
+        [ BB ]
+    }
+
+    TeleserviceList (SEQUENCE OF)
+    {
+        TeleserviceCode (OCTET STRING)
+        [ CC ]
+    
+        TeleserviceCode (OCTET STRING)
+        [ DD ]
+    
+        TeleserviceCode (OCTET STRING)
+        [ EE ]
+    }
+
+    SS_InfoList (SEQUENCE OF)
+    {
+        SS_Info (CHOICE)
+        {
+            ForwardingInfo (SEQUENCE)
+            {
+                SS_Code (OCTET STRING)
+                [ 33 ]
+            
+                ForwardingFeatureList (SEQUENCE OF)
+                {
+                    ForwardingFeature (SEQUENCE)
+                    {
+                        BasicServiceCode (CHOICE)
+                        {
+                            BearerServiceCode (OCTET STRING)
+                            [ 44 ]
+                        }
+                    
+                        ISDN_SubaddressString (OCTET STRING)
+                        [ 01 02 03 04 05 06 07 08 ]
+                    }
+                }
+            }
+        }
+    
+        SS_Info (CHOICE)
+        {
+            CUG_Info (SEQUENCE)
+            {
+                CUG_SubscriptionList (SEQUENCE OF)
+                {
+                    CUG_Subscription (SEQUENCE)
+                    {
+                        CUG_Index (INTEGER)
+                        [ 1999 ]
+                    
+                        CUG_Interlock (OCTET STRING)
+                        [ 11 22 33 44 ]
+                    
+                        IntraCUG_Options (ENUMERATED)
+                        [ NoCUG_Restrictions(0) ]
+                    }
+                
+                    CUG_Subscription (SEQUENCE)
+                    {
+                        CUG_Index (INTEGER)
+                        [ 2001 ]
+                    
+                        CUG_Interlock (OCTET STRING)
+                        [ 44 33 22 11 ]
+                    
+                        IntraCUG_Options (ENUMERATED)
+                        [ NoCUG_Restrictions(0) ]
+                    }
+                }
+            }
+        }
+    
+        SS_Info (CHOICE)
+        {
+            SS_Data (SEQUENCE)
+            {
+                SS_SubscriptionOption (CHOICE)
+                {
+                    CliRestrictionOption (ENUMERATED)
+                    [ TemporaryDefaultRestricted(1) ]
+                }
+            }
+        }
+    }
+
+    ODB_Data (SEQUENCE)
+    {
+        ODB_GeneralData (BIT STRING)
+        [ 101010 ]
+    
+        ODB_HPLMN_Data (BIT STRING)
+        [ 0101 ]
+    }
+}
+
+
+--------------------------------------------------
+Printing ASN.1 encoded value...
+
+[ 30 6F 80 04 01 02 03 04 81 05 
+  11 22 33 44 55 82 01 66 83 01 
+  00 A4 06 04 01 AA 04 01 BB A6 
+  09 04 01 CC 04 01 DD 04 01 EE 
+  A7 3D A0 14 04 01 33 30 0F 30 
+  0D 82 01 44 88 08 01 02 03 04 
+  05 06 07 08 A2 20 30 1E 30 0D 
+  02 02 07 CF 04 04 11 22 33 44 
+  0A 01 00 30 0D 02 02 07 D1 04 
+  04 44 33 22 11 0A 01 00 A3 03 
+  82 01 01 A8 08 03 02 02 A8 03 
+  02 04 50                      ]
+
+
+--------------------------------------------------
+Printing ASN.1 value after decoding...
+
+InsertSubscriberDataArg (SEQUENCE)
+{
+    IMSI (OCTET STRING)
+    [ 01 02 03 04 ]
+
+    ISDN_AddressString (OCTET STRING)
+    [ 11 22 33 44 55 ]
+
+    Category (OCTET STRING)
+    [ 66 ]
+
+    SubscriberStatus (ENUMERATED)
+    [ ServiceGranted(0) ]
+
+    BearerServiceList (SEQUENCE OF)
+    {
+        BearerServiceCode (OCTET STRING)
+        [ AA ]
+    
+        BearerServiceCode (OCTET STRING)
+        [ BB ]
+    }
+
+    TeleserviceList (SEQUENCE OF)
+    {
+        TeleserviceCode (OCTET STRING)
+        [ CC ]
+    
+        TeleserviceCode (OCTET STRING)
+        [ DD ]
+    
+        TeleserviceCode (OCTET STRING)
+        [ EE ]
+    }
+
+    SS_InfoList (SEQUENCE OF)
+    {
+        SS_Info (CHOICE)
+        {
+            ForwardingInfo (SEQUENCE)
+            {
+                SS_Code (OCTET STRING)
+                [ 33 ]
+            
+                ForwardingFeatureList (SEQUENCE OF)
+                {
+                    ForwardingFeature (SEQUENCE)
+                    {
+                        BasicServiceCode (CHOICE)
+                        {
+                            BearerServiceCode (OCTET STRING)
+                            [ 44 ]
+                        }
+                    
+                        ISDN_SubaddressString (OCTET STRING)
+                        [ 01 02 03 04 05 06 07 08 ]
+                    }
+                }
+            }
+        }
+    
+        SS_Info (CHOICE)
+        {
+            CUG_Info (SEQUENCE)
+            {
+                CUG_SubscriptionList (SEQUENCE OF)
+                {
+                    CUG_Subscription (SEQUENCE)
+                    {
+                        CUG_Index (INTEGER)
+                        [ 1999 ]
+                    
+                        CUG_Interlock (OCTET STRING)
+                        [ 11 22 33 44 ]
+                    
+                        IntraCUG_Options (ENUMERATED)
+                        [ NoCUG_Restrictions(0) ]
+                    }
+                
+                    CUG_Subscription (SEQUENCE)
+                    {
+                        CUG_Index (INTEGER)
+                        [ 2001 ]
+                    
+                        CUG_Interlock (OCTET STRING)
+                        [ 44 33 22 11 ]
+                    
+                        IntraCUG_Options (ENUMERATED)
+                        [ NoCUG_Restrictions(0) ]
+                    }
+                }
+            }
+        }
+    
+        SS_Info (CHOICE)
+        {
+            SS_Data (SEQUENCE)
+            {
+                SS_SubscriptionOption (CHOICE)
+                {
+                    CliRestrictionOption (ENUMERATED)
+                    [ TemporaryDefaultRestricted(1) ]
+                }
+            }
+        }
+    }
+
+    ODB_Data (SEQUENCE)
+    {
+        ODB_GeneralData (BIT STRING)
+        [ 101010 ]
+    
+        ODB_HPLMN_Data (BIT STRING)
+        [ 0101 ]
+    }
+}
+
+
+--------------------------------------------------
+Access ASN.1 value content after decoding...
+
+
+IMSI (OCTET STRING)
+[ 01 02 03 04 ]
+
+
+IMSI raw content: { 0x01, 0x02, 0x03, 0x04 }
+
+BearerServiceList has <2> element(s).
+
+BearerServiceCode (OCTET STRING)
+[ AA ]
+
+
+BearerServiceCode raw content: { 0xAA }
+
+SS_InfoList has <3> element(s).
+
+ForwardingFeatureList has <1> element(s).
+
+ForwardingFeature (SEQUENCE)
+{
+    BasicServiceCode (CHOICE)
+    {
+        BearerServiceCode (OCTET STRING)
+        [ 44 ]
+    }
+
+    ISDN_SubaddressString (OCTET STRING)
+    [ 01 02 03 04 05 06 07 08 ]
+}
+
+
+ISDN_SubaddressString (OCTET STRING)
+[ 01 02 03 04 05 06 07 08 ]
+
+
+ForwardedToSubaddress raw content: 
+{ 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08 }
+End of test...
+Type any key to quit...

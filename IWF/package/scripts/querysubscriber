@@ -1,0 +1,12 @@
+#!/bin/bash
+
+PRODUCT=iwf
+source /opt/diametriq/${PRODUCT}/scripts/package_functions.sh
+USERNAME=`GetMysqlUsername`
+PASSWORD=`GetMysqlPassword`
+IP=`GetMysqlIpAddress`
+PORT=`GetMysqlPort`
+
+my="mysql  --host=$IP --user=$USERNAME --password=$PASSWORD --port=$PORT --database=SUBSCRIBER -se"
+
+${my} "$1\G"

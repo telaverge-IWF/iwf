@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    discoverPeer <hostname> <realmName>
+
+DESCRIPTION
+    This command is used to add Peer to Peer Discovery List.
+
+PARAMETERS
+    hostname     Host Name
+    realmName    Realm Name
+
+EXAMPLE
+    >> discoverPeer Alice india.internal.net
+       Successfully added Peer to Discovery List
+
+

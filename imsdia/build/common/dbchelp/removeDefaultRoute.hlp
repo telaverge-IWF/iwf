@@ -1,0 +1,18 @@
+Diameter Command
+ 
+SYNOPSIS
+    removeDefaultRoute 
+ 
+DESCRIPTION
+    This command will remove the default realm route.
+ 
+PARAMETERS
+    None. 
+ 
+ 
+EXAMPLE
+    >> removeDefaultRoute 
+
+       Removed Default Route 
+ 
+

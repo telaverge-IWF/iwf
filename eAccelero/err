@@ -1,0 +1,53 @@
+make[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[2]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[3]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+[  1%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_art_resultset.cpp.o
+[  1%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_art_rset_metadata.cpp.o
+[  2%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_connection.cpp.o
+[  3%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_debug.cpp.o
+[  4%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_driver.cpp.o
+[  5%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_metadata.cpp.o
+[  5%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_parameter_metadata.cpp.o
+[  6%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_prepared_statement.cpp.o
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_prepared_statement.cpp: In member function ‘virtual void sql::mysql::MySQL_Prepared_Statement::setNull(unsigned int, int)’:
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_prepared_statement.cpp:900:17: warning: variable ‘p’ set but not used [-Wunused-but-set-variable]
+  BufferSizePair p = allocate_buffer_for_type(t);
+                 ^
+[  7%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_ps_resultset.cpp.o
+[  8%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_ps_resultset_metadata.cpp.o
+[  9%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_resultbind.cpp.o
+[  9%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_resultset.cpp.o
+[ 10%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_resultset_metadata.cpp.o
+[ 11%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_statement.cpp.o
+[ 12%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_util.cpp.o
+[ 13%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/mysql_warning.cpp.o
+In file included from /opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_warning.cpp:25:0:
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_warning.h: In copy constructor ‘sql::mysql::MySQL_Warning::MySQL_Warning(const sql::mysql::MySQL_Warning&)’:
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_warning.h:45:36: warning: ‘sql::mysql::MySQL_Warning::next’ will be initialized after [-Wreorder]
+   boost::scoped_ptr<MySQL_Warning> next;
+                                    ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_warning.h:44:27: warning:   ‘const sql::SQLString sql::mysql::MySQL_Warning::descr’ [-Wreorder]
+   const sql::SQLString    descr;
+                           ^
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0/driver/mysql_warning.cpp:97:2: warning:   when initialized here [-Wreorder]
+  MySQL_Warning::MySQL_Warning(const MySQL_Warning& w)
+  ^
+[ 13%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/mysql_client_api.cpp.o
+[ 14%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/library_loader.cpp.o
+[ 15%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/mysql_native_driver_wrapper.cpp.o
+[ 16%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/mysql_native_connection_wrapper.cpp.o
+[ 16%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/mysql_native_statement_wrapper.cpp.o
+[ 17%] Building CXX object driver/CMakeFiles/mysqlcppconn.dir/nativeapi/mysql_native_resultset_wrapper.cpp.o
+Linking CXX shared library libmysqlcppconn.so
+/usr/bin/ld: cannot find -lmysqlclient
+collect2: error: ld returned 1 exit status
+make[3]: *** [driver/libmysqlcppconn.so.5.1.1.0] Error 1
+make[3]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[2]: *** [driver/CMakeFiles/mysqlcppconn.dir/all] Error 2
+make[2]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[1]: *** [all] Error 2
+make[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0 **failed** to compile
+make: *** [all] Error 255

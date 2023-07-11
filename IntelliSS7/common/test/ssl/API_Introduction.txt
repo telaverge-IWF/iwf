@@ -1,0 +1,228 @@
+API_Introduction.txt
+====================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com>.
+
+
+Preface
+-------
+This document describes getting started with the SSLRef 3.0 API. It
+provides a summary description of how the library works and points to
+other documents which provide the details.
+
+If you are familiar with SSLRef 2.0, you also may find SSLRef_2_to_3.txt
+helpful.
+
+This document contains these sections:
+
+  - SSL Connection Scenario
+  - What SSLRef Provides
+  - What You Must Provide
+  - Basic Library Architecture
+
+
+SSL Connection Scenario
+-----------------------
+Before describing how SSLRef 3.0 works, it is helpful to see what it
+must accomplish. The basic SSLRef 3.0 connection scenario is to
+  - create the SSLContext structure
+  - set appropriate fields in the SSLContext
+  - establish a network connection
+  - update the SSLContext with session-specific information
+  - handshake, transfer data, and terminate the SSL connection
+  - close the network connection
+
+To accomplish those steps, you must direct SSLRef 3.0 through these
+specific tasks:
+  - Create an SSLContext (malloc using SSLContextSize)
+  - Initialize SSLContext (ConfigureGenericSSLSession)
+  - Read and Add Certificates to SSLContext (AddCertificates)
+  - Read and Add Private Key to SSLContext (ReadPrivateKey)
+  - SSLSetProtocolVersion
+  - SSLSetProtocolSide
+  - open network connection (non-SSL call)
+  - SSLSetIORef with a pointer to the network connection
+  - SSLSetPeerID (not required)
+  - SSLHandshake
+  - SSLRead/SSLWrite
+  - SSLClose
+  - close network connection (non-SSL call)
+  - SSLDeleteContext
+
+Items in parenthethese indicate relevant calls to SSLRef 3.0 and
+associated sample code (TestSSL.c). API calls begin with the letters
+'SSL'. These API calls are declared in ssl.h and described in
+API_Details.pdf.
+
+
+What SSLRef Provides
+--------------------
+As a reference implementation, SSLRef provides an example of how to
+implement a working version of the SSL 3.0 protocol. As described in the
+SSL Connection Scenario, this requires negotiating a connection with an
+SSL peer, exchanging encrypted data, and maintaining all the associated
+buffers and connection state information.
+
+SSLRef 3.0 includes API calls to
+  - Create and Maintain Connection Data Structures
+  - View and Modify Connection State Information
+  - Negotiate SSL 3.0 and SSL 2.0 Connections
+  - Securely Exchange Data Using SSL 3.0 and SSL 2.0
+
+Each SSLRef 3.0 connection is independent of all others at runtime. Each
+connection can be configured as either client or server. Each connection
+supports independent certificate chains, even as a client. Optionally,
+each SSL connection is resumable, minimizing handshake time for repeat
+connections. Also, SSLRef 3.0 is fully thread-safe. A detailed list of
+SSLRef capabilities is included in Implementation_Notes.txt.
+
+Lastly, SSLRef 3.0 uses callbacks that you provide to handle all
+platform-specific tasks. This enables you to taylor SSLRef 3.0 to the
+strengths of your environment.
+
+
+What You Must Provide
+---------------------
+Wherever possible, platform-specific functionality is abstracted into
+callback functions which you must provide. All callback functions are
+passed a reference parameter which you may use to maintain
+connection-specific information required by the callback function.
+
+Callback functions must provide these capabilities:
+  - Memory Allocation
+  - Network Access
+  - Current Time in seconds since 1/1/1970
+
+There are specific API calls to set these callback functions for each
+SSL connection. These API calls are declared in ssl.h and described in
+API_Details.pdf. Note that these callback functions also must be
+thread-safe if SSLRef is used in a multi-thread environment.
+
+SSLRef 3.0 also requires that you provide code to support public-private
+keypairs. The library is designed for you to drop in either RSAREF or
+BSAFE. With some limited modifications, you could add support for other
+public/private keypair architechtures.
+
+SSRef 3.0 supports only a limited number of Cipher Suites:
+    SSL_NULL_WITH_NULL_NULL
+    SSL_RSA_WITH_NULL_MD5
+    SSL_RSA_EXPORT_WITH_RC4_40_MD5
+    SSL_RSA_WITH_DES_CBC_SHA
+    SSL_DH_anon_WITH_DES_CBC_SHA
+
+These Cipher Suites were chosen to provide a variety of examples and
+should be sufficient for basic SSL applications. However, you must add
+any others you require. You should find this implementation will serve
+as a suitable template for all other available Cipher Suites.
+
+Other information about platform-specific issues with SSLRef are
+described in Porting_Notes.txt. Information describing specific
+limitations of the SSLRef 3.0 implementation of SSL 3.0 are described in
+Implementation_Notes.txt.
+
+
+Basic Library Architecture
+--------------------------
+Before an SSL connection can exist, SSLRef 3.0 requires certain data
+structures be in place.
+
+SSLRef 3.0 encapsulates all data structures associated with an SSL
+connection in a single SSLContext structure. The SSLContext structure
+must be unique for each SSL connection and is passed as a parameter to
+most SSLRef 3.0 calls. This allows SSLRef 3.0 to be used in a
+thread-safe manner.
+
+There are API calls to set each field of the SSLContext structure. These
+calls specify
+  - client or server connection
+  - desired protocol version
+  - private keys, including exportable key
+  - list of distinguished names
+  - peer identifier to support session resumption
+  - allocation callback functions and reference parameter
+  - time callback functions and reference parameter
+  - randomness callback functions and reference parameter
+  - I/O callback functions and reference parameter
+  - resumable session database callback functions and reference
+    parameter
+
+All API calls begin with the letters 'SSL', are declared in ssl.h and
+are described in API_Details.pdf.
+
+The exact order of setting fields in the SSLContext structure is
+generally unimportant. However, The allocation callbacks should be set
+early because some calls use them to set the fields of the SSLContext.
+Typically a generic SSLContext structure is created with
+session-independent data, and then it is duplicated using
+SSLDuplicateContext() to create a unique instance for each session.
+
+After configuring a connection-specific SSLContext, you can initiate the
+SSL protocol handshake with SSLHandshake(). The details of the handshake
+negotiation will differ depending on SSLContext settings such as
+Protocol Side (client or server) and Protocol Version. (Protocol Version
+specifies how to proceed when the SSL peer might be using SSL 2.0.)
+
+SSLHandshake() causes data to be exchanged (read and written) with the
+SSL peer. All the data transport mechanisms are encapsulated in the I/O
+callbacks you provide. This allows the SSLRef library to remain
+independent of the underlying transport mechanisms. It also allows
+existing unsecure connections to be converted to SSL connections and
+back, if necessary.
+
+After the SSL connection is established (handshake is complete), data
+can be securely exchanged using SSLRead() and SSLWrite(). SSLRead(),
+SSLWrite(), and SSLHandshake() all support non-blocking I/O provided the
+underlying Read() and Write() callbacks support it.
+
+When an attempt is made to read data from the connection, SSLRef must
+buffer the data until a complete SSL record is received. The record is
+then decrypted and made available to the caller.
+
+The caller will never be given more data than it requests with
+SSLRead(), but the amount available in SSLRef's buffers bears little
+relationship to the amount available on the physical connection. When
+SSLRead() is called, SSLRef first attempts to satify the request from
+its buffers, the it will attempt to read as much data as it can to
+satisfy the caller's request. Typically more data is read than the
+caller requested bacuase SSL requires a complete record to decrypt the
+contained data. The extra data is buffered until the next request.
+
+Anytime SSLRef detects that it cannot satisfy the caller's request
+because insufficient data has been received, SSLRef returns
+SSLWouldBlockErr and how much data was read. To receive the rest of
+the data, the caller should call SSLRef again to request a new chunk
+of data. SSLRef relies on the I/O callback functions to return
+SSLWouldBlockErr when a request cannot be satisfied without
+blocking. This is not required if you do not intend to take
+advantage of the support for non-blocking I/O.
+
+SSLWrite() is similar to SSLRead() in how it uses SSLWouldBlockErr
+to indicate an unsatisfied I/O request. SSLWrite() generally accepts
+all the data supplied by the caller, encrypts and packages it into
+SSL records, and then adds it to an internal write queue. Then the
+queue is serviced, calling the Write() callback to attempt to write
+all the data in the queue. If the Write() callback returns
+SSLWouldBlockErr, this error is returned to the caller of SSLWrite()
+(or possibly SSLRead() or SSLHandshake()). SSLWrite() also specifies
+how much data was written to the write queue (not the connection).
+You must check for SSLWouldBlockErr and make calls to
+SSLServiceWriteQueue() to process the write queue, even if you have
+no new data to be written.
+
+When you have finished exchanging data, call SSLClose() to gracefully
+terminate the SSL session. This allows the SSL peer to determine if it
+has received all the data that was sent.
+
+There are a variety of other API calls, most of which are used to
+configure the SSLContext structure. All API calls are declared in ssl.h.
+All API calls are described in API_Details.pdf. Lastly, the source files
+that implement the API are described in Src_Files.txt.
+

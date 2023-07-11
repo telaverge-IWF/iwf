@@ -1,0 +1,4751 @@
+
+----------------------------------------
+--                                                                            --
+--      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.     --
+--              Manufactured in the United States of America.                 --
+--        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        --
+--                                                                            --
+--    This product and related documentation is protected by copyright and    --
+--    distributed under licenses restricting its use, copying, distribution   --
+--    and decompilation.  No part of this product or related documentation    --
+--    may be reproduced in any form by any means without prior written        --
+--    authorization of IntelliNet Technologies and its licensors, if any.     --
+--                                                                            --
+--    RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the       --
+--    government is subject to restrictions as set forth in subparagraph      --
+--    (c)(1)(ii) of the Rights in Technical Data and Computer Software        --
+--    clause at DFARS 252.227-7013 and FAR 52.227-19.                         --
+--                                                                            --
+----------------------------------------
+--                                                                            --
+--  CONTRACT: INTERNAL                                                        --
+--                                                                            --
+----------------------------------------
+
+--
+----------------------------------------
+
+----------------------------------------
+----------------------------------------
+--
+--  ASN.1 Module for INAP CS-2
+--
+--  LRF (Local Reference Format) version (from recommendation).
+--
+----------------------------------------
+----------------------------------------
+
+--
+--  Recommendation identification:
+--
+--      ITU-T	Q.1228 (10/95)
+--
+--      INTERFACE  RECOMMENDATION FOR  INTELLIGENT  NETWORK  CS-2
+--
+
+
+--
+--  Only the ASN.1 module IN CS-2 Data Types is generated. Other modules are not
+--  generated.
+--
+
+--
+--  The name of the module has been changed to "INAP-CS2". All the information
+--  related to module import and export is commented out with the comment prefix
+--  '-''-'"not used ". 
+--
+
+
+
+
+----------------------------------------
+----------------------------------------
+
+
+INAP-CS2
+
+
+
+DEFINITIONS IMPLICIT TAGS ::=
+BEGIN
+
+
+ AccessCode  --{PARAMETERS-BOUND : bound}-- ::= LocationNumber --{bound}--
+-- An access code from a business group dialling plan attendant access codes, access codes to escape
+-- to the public network, access code to access a private facility/network, and feature access codes.
+-- Uses the LocationNumber format which is based on the Q.763 Location Number format.
+-- The Nature of Address indicator field shall be set to "Spare" (value 00000000).
+-- The Numbering Plan Indicator field shall be set to "Spare" (value 000).
+-- Of local significance.
+
+AccountNumber ::= NumericString (SIZE (1..151)) 
+
+AChBillingChargingCharacteristics  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE 
+(minAChBillingChargingLength..maxAChBillingChargingLength))
+-- The AChBillingChargingCharacteristics parameter specifies the charging related information
+-- to be provided by the SSF and the conditions on which this information has to be reported
+-- back to the SCF with the ApplyChargingReport operation.
+-- Examples of charging related information to be provided by the SSF may be: bulk counter
+-- values, costs, tariff change and time of charge, time stamps, durations, etc.
+-- Examples of conditions on which the charging related information are to be reported may be:
+-- threshold value reached, timer expiration, tariff change, end of connection configuration, etc
+
+ActionIndicator  ::= ENUMERATED {
+activate 	(1) ,
+deactivate	(2) ,
+retrieve	(3)
+	}
+-- indicates the action to be performed by the ManageTriggerData operation (activate, deactivate
+-- or retrieve the status of a TDP.
+
+ 
+ActionPerformed  ::= ENUMERATED {
+activated		(1) ,
+deactivated	(2) ,
+alreadyActive	(3) ,
+alreadyInactive	(4) ,
+isActive		(5) ,
+isInactive	(6)
+	}
+-- indicates the result of the operation ManageTriggerData 
+-- activated: response of activate TDP
+-- deactivated: response of deactivate TDP
+-- alreadyActive: response of activate TDP
+-- alreadyInactive: response of deactivate TDP
+-- isActive: response of retrieve status of TDP
+-- isInactive: response of retrieve status of TDP
+
+ActivableServices ::= BIT STRING {
+	callingLineIdentificationPresentation (1),
+	callingLineIdentificationRestriction (2),
+	connectedLineIdentificationPresentation (3),
+	connectedLineIdentificationRestriction (4),
+	callForwardingOnNoReply (5),
+	callForwardingUnconditional (6),
+	callForwardingOnBusy (7),
+	callForwardingOnNotReachable (8),
+	reverseCharging (9),
+	adviceOfChargeOnStart (10),
+	adviceOfChargeAtEnd (11),
+	adviceOfChargeDuringCall (12),
+	timeDependentRouting (13),
+	callingPartingDependentRouting (14),
+	outgoingCallBarring (15),
+	incomingCallBarring (16)
+	}
+
+ AdditionalCallingPartyNumber  --{PARAMETERS-BOUND : bound}-- ::= Digits --{bound}--
+-- Indicates the Additional Calling Party Number. Refer to Q.763 for encoding.
+
+AlertingPattern ::= OCTET STRING (SIZE(3))
+-- Indicates a specific pattern that is used to alert a subscriber (e.g. distinctive ringing, tones, etc.). 
+-- Only applies if SSF is the terminating local exchange for the subscriber. Refer to the Q.931 
+-- Signal parameter for encoding.
+
+ApplicationTimer ::=INTEGER (0..2047)
+-- Used by the SCF to set a timer in the SSF. The timer is in seconds.
+
+ AssistingSSPIPRoutingAddress  --{PARAMETERS-BOUND : bound}-- ::= Digits --{bound}--
+-- Indicates the destination address of the SRF for the assist procedure.
+
+ BackwardGVNS  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE(
+					minBackwardGVNSLength..maxBackwardGVNSLength))
+-- Indicates the GVNS Backward information. Refer to Q.735, §6 for encoding.
+
+BackwardServiceInteractionInd ::= SEQUENCE {
+	conferenceTreatmentIndicator	[1] OCTET STRING (SIZE(1))	OPTIONAL,
+	-- acceptConferenceRequest	‘xxxx xx01’B
+	-- rejectConferenceRequest	‘xxxx xx10’B
+	-- network default is accept conference request,
+ 
+	callCompletionTreatmentIndicator	[2] OCTET STRING (SIZE(1))	OPTIONAL
+	-- acceptCallCompletionServiceRequest	‘xxxx xx01’B,
+	-- rejectCallCompletionServiceRequest	‘xxxx xx10’B
+	-- network default is accept call completion service request 
+	}
+
+
+BCSMEvent  --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	eventTypeBCSM	[0] EventTypeBCSM,
+	monitorMode	[1] MonitorMode,
+	legID	[2] LegID	OPTIONAL,
+	dpSpecificCriteria    [30] DpSpecificCriteria OPTIONAL
+	}
+-- Indicates the BCSM Event information for monitoring.
+
+BCUSMEvent ::= SEQUENCE{
+	eventType	[0] EventTypeBCUSM,
+	monitorMode	[1] MonitorMode
+	}
+
+BearerCapabilities ::= BIT STRING {
+	speech (0),
+	bc64kbits (1),
+	bc2x64kbits (2),
+	bc384kbits (3),
+	bc1536kbits (4),
+	bc1920kbits (5),
+	multirate (6),
+	restrictedDigitalInfo (7),
+	bc3-1khzAudio (8),
+	bc7khzAudio (9),
+	video (10)
+	}
+BearerCapability  --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	bearerCap	[0] OCTET STRING (SIZE(2..maxBearerCapabilityLength)),
+	tmr	[1] OCTET STRING (SIZE(1))
+	}
+-- Indicates the type of bearer capability connection to the user. For bearerCapability, either 
+-- DSS 1 (Q.931) or the ISUP User Service Information (Q.763) encoding can be used. Refer 
+-- to the Q.763 Transmission Medium Requirement parameter for tmr encoding.
+
+BothwayThroughConnectionInd ::= ENUMERATED {
+	bothwayPathRequired	(0),
+	bothwayPathNotRequired	(1)
+	}
+
+CallConditions  --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	userAbandon	[0] NULL,
+	callFailure	[1] CauseValue,
+	noReply	[2] INTEGER, -- time expressed in seconds
+	callRelease	[3] NULL,
+	ss-invocation	[4] InvokableService,
+	creditLimitReached	[5] INTEGER,
+	callDuration	[6] INTEGER,
+	calledNumber	[7] NumberMatch --{bound}--,
+	answeredCall	[8] NULL
+	}
+ 
+CalledPartyBusinessGroupID ::= OCTET STRING
+-- Indicates the business group of the called party. The value of this octet string is network 
+-- operator specific.
+
+CalledPartyNumber  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE
+					(minCalledPartyNumberLength..
+maxCalledPartyNumberLength))
+-- Indicates the Called Party Number. Refer to Q.763 for encoding.
+
+CalledPartySubaddress ::= OCTET STRING
+-- Indicates the Called Party Subaddress. Refer to Q.931 for encoding.
+
+-- CallIdentifier  ::= INTEGER (1..2147483647)
+
+CallingPartyBusinessGroupID ::= OCTET STRING
+-- Indicates the business group of the calling party. The value of this octet string is network 
+-- operator specific.
+
+CallingPartyNumber  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minCallingPartyNumberLength..
+			maxCallingPartyNumberLength))
+-- Indicates the Calling Party Number. Refer to Q.763 for encoding.
+
+CallingPartySubaddress ::= OCTET STRING
+-- Indicates the Calling Party Subaddress. Refer to Q.931 for encoding.
+
+CallingPartysCategory ::= OCTET STRING (SIZE(1))
+-- Indicates the type of calling party (e.g. operator, payphone, ordinary subscriber). Refer to Q.763 
+-- for encoding.
+
+CallProcessingOperationCorrelationID ::=ENUMERATED {
+	aLERTing(1),
+	sETUP(5),
+	cONNect(7),
+	dISConnect(69),
+	rELease(77),
+	rELeaseCOMPlete(90),
+	fACility(98)
+	}
+
+CallRecord  --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	callDuration	 [0] Duration, 
+	callingPartyNumber	 [1] CallingPartyNumber --{bound}--, 
+	calledPartyNumber	 [2] CalledPartyNumber --{bound}-- 
+	}
+
+CallResult  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (minCallResultLength..
+			maxCallResultLength))
+
+ 
+-- This parameter provides the SCF with the charging related information previously requested
+-- using the ApplyCharging operation. This shall include the partyToCharge parameter as
+-- received in the related ApplyCharging operation to correlate the result to the request
+-- The remaining content is network operator specific.
+-- Examples of charging related information to be provided by the SSF may be: bulk counter values,
+-- costs, tariff change and time of change, time stamps, durations, etc.
+-- Examples of conditions on which the charging related information are to be reported may be:
+-- threshold value reached, timer expiration, tariff change, end of connection configuration, etc.
+
+CallSegmentID  --{PARAMETERS-BOUND : bound}-- ::= INTEGER (1..numOfCSs)
+
+initialCallSegment INTEGER ::= 1
+-- the initial call segment represents the call segment that was there when the CSA was created, ie. the CS where
+-- the trigger took place or the CS that was created by an InitateCallAttempt within a TC-BEGIN message.
+
+CallUnrelatedDpSpecificCommonParameters  --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	serviceAddressInformation	[0] ServiceAddressInformation,
+	callingPartyNumber	[1] CallingPartyNumber --{bound}--	OPTIONAL,
+	locationNumber	[2] LocationNumber --{bound}--	OPTIONAL,
+	terminalType	[3] TerminalType	DEFAULT isdn,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions) OF
+			      ExtensionField --{bound}--	OPTIONAL
+--	...
+	}
+
+Carrier ::= OCTET STRING
+-- Contains the carrier selection and carrier ID fields.
+-- Carrier selection is one octet and is encoded as:
+-- 00000000		No indication
+-- 00000001		Selected carrier code pre subscribed and not input by calling party
+-- 00000010		Selected carrier identification code pre subscribed and input by calling party   
+-- 00000011		Selected carrier identification code pre subscribed, no indication of whether input by calling party
+-- 00000100 		Selected carrier identification code not pre subscribed and input by calling party 
+-- 00000101
+-- 	to		Spare
+-- 11111110
+-- 11111111		Reserved
+--
+-- Carrier ID has a one octet field indicating the number of digits followed by the digits encoded using BCD
+-- Detailed coding is for further study. It is of local significance and carrying it through the ISUP is for further study
+
+Cause  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (minCauseLength..
+							maxCauseLength))
+-- Indicates the cause for interface related information. Refer to the Q.763 Cause parameter for encoding.
+-- For the use of cause and location values refer to Q.850
+
+CauseValue ::= OCTET STRING (SIZE (1)) --type extracted from Cause parameter in Q.763.
+
+CGEncountered ::= ENUMERATED {
+	noCGencountered(0),
+	manualCGencountered(1),
+	scpOverload(2)
+	}
+-- Indicates the type of automatic call gapping encountered, if any.
+
+ 
+ChargeNumber  --{PARAMETERS-BOUND : bound}-- ::= LocationNumber 
+-- Information sent in either direction indicating the chargeable number for the call and consisting
+-- of the odd/even indicator, nature of address indicator, numbering plan indicator, and address signals.
+-- Uses the LocationNumber format which is based on the Q.763 Location Number format
+-- For example, the ChargeNumber may be a third party number to which a call is billed for the 3rd party billing 
+-- service. In this case, the calling party may request operator assistance to charge the call to,
+-- for example, their home number.
+
+ChargingEvent  --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	eventTypeCharging	[0] EventTypeCharging --{bound}--,
+	monitorMode	[1] MonitorMode,
+	legID	[2] LegID	OPTIONAL
+	}
+-- This parameter indicates the charging event  type and corresponding
+-- monitor mode and LedID
+
+ChargingParameters   --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	unitsPerInterval	[0] INTEGER (0..maxUnitsPerInterval),
+	timePerInterval	[1] INTEGER (0..maxTimePerInterval),
+	scalingFactor	[2] INTEGER (0..maxScalingFactor),
+	initialUnitIncrement	[3] INTEGER (0..maxInitialUnitIncrement) 	OPTIONAL,
+	unitsPerDataInterval	[4] INTEGER (0..maxUnitsPerDataInterval) 	OPTIONAL,
+	segmentsPerDataInterval	[5] INTEGER (0..maxSegmentsPerDataInterval) 	OPTIONAL,
+	initialTimeInterval	[6] INTEGER (0..maxInitialTimeInterval)  	OPTIONAL
+	}
+
+CollectedDigits ::= SEQUENCE {
+	minimumNbOfDigits	[0] INTEGER (1..127)	DEFAULT 1,
+	maximumNbOfDigits	[1] INTEGER (1..127),
+	endOfReplyDigit	[2] OCTET STRING (SIZE (1..2))	OPTIONAL,
+	cancelDigit	[3] OCTET STRING (SIZE (1..2))	OPTIONAL,
+	startDigit	[4] OCTET STRING (SIZE (1..2))	OPTIONAL,
+	firstDigitTimeOut	[5] INTEGER (1..127)	OPTIONAL,
+	interDigitTimeOut	[6] INTEGER (1..127)	OPTIONAL,
+	errorTreatment	[7] ErrorTreatment	DEFAULT reportErrorToScf,
+	interruptableAnnInd	[8] BOOLEAN	DEFAULT TRUE,
+	voiceInformation	[9] BOOLEAN	DEFAULT FALSE,
+	voiceBack	[10] BOOLEAN	DEFAULT FALSE
+	}
+-- The use of voiceBack is network operator specific.
+-- The endOfReplyDigit, cancelDigit, and startDigit parameters have been designated as OCTET STRING, 
+-- and are to be encoded as  BCD, one digit per octet only, contained
+-- in the four least significant bits of each OCTET. The usage is service dependent.
+
+CollectedInfo ::= CHOICE {
+	collectedDigits	[0] CollectedDigits,
+	iA5Information	[1] BOOLEAN
+	}
+
+
+-- Contains the operation value (object identifier), error value, etc. within the UNI APDU, in addition also contains
+-- the parameter set/sequence for the operation invocation/return result ot return error/reject on UNI. See Q.932
+-- for encoding
+ 
+
+-- If componentInfo is chosen, then it is necessary to use this parameter in sequence with ComponentType and
+-- ComponentCorrelationID
+-- If relayedComponent is chosen, then ComponentType and ComponentCorrelationID may not be used in the 
+-- sequence
+
+ComponentCorrelationID ::= INTEGER
+
+ComponentType ::= ENUMERATED {
+	any (0),
+	invoke (1),
+	rResult (2),
+	rError (3),
+	rReject (4)
+	}
+
+
+ConnectedNumberTreatmentInd ::= ENUMERATED {
+	noINImpact	(0),
+	presentationRestricted	(1),
+	presentCalledINNumber	(2)
+	}
+
+
+Constraints ::= SEQUENCE {
+	maximumNumberOfDigits	[1] INTEGER (1..127),
+	minimumNumberOfDigits	[2] INTEGER (1..127),
+	typeOfRequestedInfo	[3] InfoType DEFAULT numericString,
+	numberOfAllowedRetries	[4] INTEGER (0..127) DEFAULT 0
+	}
+
+
+ControlConditionByCallParty ::= SEQUENCE {
+	endOfMessageSendingDigit	[0] OCTET STRING (SIZE(1..2))	OPTIONAL,
+	replayDigit	[1] OCTET STRING (SIZE(1..2))	OPTIONAL
+	}
+
+ControlType ::= ENUMERATED {
+	sCPOverloaded(0),
+	manuallyInitiated(1),
+	destinationOverload(2)
+	-- other values FFS
+	}
+
+CorrelationID --{PARAMETERS-BOUND : bound}-- ::= Digits --{bound}--
+-- used by SCF for correlation with a previous operation. Refer to clause 17 for a description of the procedures 
+-- associated with this parameter.
+
+CounterAndValue ::= SEQUENCE {
+		counterID	[0] CounterID,
+		counterValue	[1] Integer4
+		}
+
+CounterID ::= INTEGER (0..99)
+-- Indicates the counters to be incremented.
+-- The counterIDs can be addressed by using the last digits of the dialed number.
+
+ 
+CountersValue ::= SEQUENCE SIZE(0..numOfCounters) OF CounterAndValue
+
+Credit --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+		currency	CurrencyValue --{bound}--, 
+		units	CreditUnit
+			}
+
+CreditUnit ::= INTEGER (0..maxCreditUnit) 
+
+CriticalityType ::= ENUMERATED {
+		ignore(0),
+		abort(1)
+		} 
+
+CSAID --{PARAMETERS-BOUND : bound}-- ::= INTEGER (1..numOfCSAs)
+-- Indicates the SSF CSA identifier
+
+CurrencyID ::= PrintableString (SIZE (3) ) -- ISO 639 code
+
+CurrencyValue --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	currency	CurrencyID,
+	amount	INTEGER (0..maxAmount) 
+	}
+
+CutAndPaste ::= INTEGER (0..22)
+-- Indicates the number of digits to be deleted. Refer to Q.1224 for additional information.
+
+DateAndTime ::= OCTET STRING (SIZE(6))
+-- Indicates, amongst others, the start time for activate service filtering. Coded as YYMMDDHHMMSS
+-- with each digit coded BCD. 
+-- The first octet contains YY and the remaining items are sequenced following.
+-- For example, 1993 September 30th, 12:15:01 would be encoded as:
+-- Bits 				HGFE		DCBA
+-- leading octet	3	9
+-- 				9	0
+-- 				0	3
+-- 				2	1
+-- 				5	1
+-- 				1	0
+
+DestinationRoutingAddress --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE(1..3) OF CalledPartyNumber --{bound}--
+-- Indicates the list of Called Party Numbers (primary and alternates).
+
+Digits --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (minDigitsLength..maxDigitsLength))
+-- Indicates the address signalling digits. Refer to the Q.763 Generic Number and Generic Digits parameters 
+-- for encoding. The coding of the subfields 'NumberQualifier' in Generic Number and 'TypeOfDigits' in
+-- Generic Digits are irrelevant to the INAP, the ASN.1 tags are sufficient to identify the parameter.
+-- The ISUP format does not allow to exclude these subfields, therefore the value is network operator specific.
+-- The following parameters should use Generic Number: 
+-- CorrelationID for AssistRequestInstructions, AssistingSSPIPRoutingAddress for EstablishTemporaryConnection,
+ 
+-- calledAddressValue for all occurrences,callingAddressValue for all occurrences.
+-- The following parameters should use Generic Digits: prefix, all 
+-- other CorrelationID occurrences, dialledNumber filtering criteria, callingLineID filtering criteria, lineID for 
+-- ResourceID
+-- type, digitResponse for ReceivedInformationArg, iNServiceControlLow / iNServiceControlHighfor MidCallInfoType,
+-- iNServiceControlCode for MidCallInfo.
+
+DisplayInformation --{PARAMETERS-BOUND : bound}-- ::= IA5String (SIZE 
+							(minDisplayInformationLength..
+			maxDisplayInformationLength))
+-- Indicates the display information.
+-- Delivery of DisplayInformation parameter to Private Networks cannot be guaranteed due to signalling 
+-- interworking problems, solutions are currently under study
+
+DpSpecificCommonParameters --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	serviceAddressInformation	[0] ServiceAddressInformation,
+	bearerCapability	[1] BearerCapability --{bound}--	OPTIONAL,
+	calledPartyNumber	[2] CalledPartyNumber --{bound}--	OPTIONAL,
+	callingPartyNumber	[3] CallingPartyNumber --{bound}--	OPTIONAL,
+	callingPartysCategory	[4] CallingPartysCategory	OPTIONAL,
+	iPSSPCapabilities	[5] IPSSPCapabilities --{bound}--	OPTIONAL,
+	iPAvailable	[6] IPAvailable --{bound}--	OPTIONAL,
+	iSDNAccessRelatedInformation	[7] ISDNAccessRelatedInformation	OPTIONAL,
+	cGEncountered	[8] CGEncountered	OPTIONAL,
+	locationNumber	[9] LocationNumber --{bound}--	OPTIONAL,
+	serviceProfileIdentifier	[10] ServiceProfileIdentifier	OPTIONAL,
+	terminalType	[11] TerminalType	OPTIONAL,
+	extensions	[12] SEQUENCE SIZE(1..numOfExtensions)	OF
+			 ExtensionField --{bound}--	OPTIONAL,
+	chargeNumber	[13] ChargeNumber --{bound}--	OPTIONAL,
+	servingAreaID	[14] ServingAreaID --{bound}--	OPTIONAL,
+	serviceInteractionIndicators	[15] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	iNServiceCompatibilityIndication	[16] INServiceCompatibilityIndication --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[17] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	uSIServiceIndicator	[18] USIServiceIndicator --{bound}--	OPTIONAL,
+	uSIInformation	[19] USIInformation --{bound}--	OPTIONAL,
+	forwardGVNS	[20] ForwardGVNS --{bound}--	OPTIONAL,
+	createdCallSegmentAssociation	[21] CSAID --{bound}--	OPTIONAL,
+	...
+	}
+
+
+-- OPTIONAL for iPSSPCapabilities, iPAvailable, and cGEncountered denotes network operator specific use.
+-- OPTIONAL for callingPartyNumber, and callingPartysCategory refer to clause 17 for 
+-- the trigger detection point processing rules to specify when these parameters are included in the 
+-- message. bearerCapability should be appropriately coded as speech.
+
+DpSpecificCriteria --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+		numberOfDigits	[0] NumberOfDigits,
+		applicationTimer	[1] ApplicationTimer,
+		midCallControlInfo	[2] MidCallControlInfo --{bound}--
+		}
+
+-- The SCF may specify the number of digits to be collected by the SSF for the CollectedInfo event.
+-- When all digits are collected, the SSF reports the event to the SCF.
+-- The SCF may set a timer in the SSF for the No Answer event. If the user does not answer the call 
+-- within the allotted time, the SSF reports the event to the SCF
+ 
+
+Duration ::= INTEGER (-2..86400)
+-- Values are seconds
+
+ElementaryMessageID ::= Integer4
+
+Entry ::=CHOICE {
+	agreements	[0] OBJECT IDENTIFIER,
+	networkSpecific	[1] Integer4
+	}
+
+ErrorTreatment ::= ENUMERATED {
+		reportErrorToScf(0),
+		help(1),
+		repeatPrompt(2) 
+		}
+-- reportErrorToScf means returning the "ImproperCallerResponse" error in the event of an error
+-- condition during collection of user info.
+
+EventSpecificInformationBCSM --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	collectedInfoSpecificInfo	[0] SEQUENCE {
+			calledPartynumber	[0] CalledPartyNumber --{bound}--,
+			...
+			},
+	analysedInfoSpecificInfo	[1] SEQUENCE {
+			calledPartynumber	[0] CalledPartyNumber --{bound}--,
+			...
+			},
+	routeSelectFailureSpecificInfo	[2] SEQUENCE {
+			failureCause	[0] Cause --{bound}--	OPTIONAL,
+			...
+			},
+	oCalledPartyBusySpecificInfo	[3] SEQUENCE {
+			busyCause	[0] Cause --{bound}--	OPTIONAL,
+			...
+			},
+	oNoAnswerSpecificInfo	[4] SEQUENCE {
+			-- no specific info defined --
+			...
+			},
+	oAnswerSpecificInfo	[5] SEQUENCE {
+			
+
+			    backwardGVNS	[0] BackwardGVNS --{bound}-- 						OPTIONAL,
+			...
+			},
+	oMidCallSpecificInfo	[6] SEQUENCE {
+			connectTime	[0] Integer4	OPTIONAL,
+			oMidCallInfo	[1] MidCallInfo --{bound}-- 						OPTIONAL,
+			...
+			},
+ 
+	oDisconnectSpecificInfo	[7] SEQUENCE {
+			releaseCause	[0] Cause --{bound}--								OPTIONAL,
+			connectTime	[1] Integer4	OPTIONAL,
+			 ...
+			},
+	tBusySpecificInfo	[8] SEQUENCE {
+			busyCause	[0] Cause --{bound}--								OPTIONAL,
+			 ...
+			},
+	tNoAnswerSpecificInfo	[9] SEQUENCE {
+			-- no specific info defined --
+			 ...
+			},
+	tAnswerSpecificInfo	[10] SEQUENCE {
+			-- no specific info defined --
+			...
+			},
+	tMidCallSpecificInfo	[11] SEQUENCE {
+			connectTime	[0] Integer4	OPTIONAL,
+			tMidCallInfo	[1] MidCallInfo --{bound}-- 						OPTIONAL,
+			 ...
+			},
+	tDisconnectSpecificInfo	[12] SEQUENCE {
+			releaseCause	[0] Cause --{bound}--								OPTIONAL,
+			connectTime	[1] Integer4	OPTIONAL,
+			 ...
+			},
+	oTermSeizedSpecificInfo	[13] SEQUENCE {
+			-- no specific info defined  
+
+			 ...
+			},
+	oSuspended	[14] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	tSuspended	[15] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	origAttemptAuthorized	[16] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	oReAnswer	[17] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	tReAnswer	[18] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+ 
+	facilitySelectedAndAvailable	[19] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	callAccepted	[20] SEQUENCE {
+			-- no specific info defined  
+			 ...
+			},
+	oAbandon	[21] SEQUENCE {
+			abandonCause	[0] Cause --{bound}--	OPTIONAL,
+			...
+			},
+	tAbandon	[22] SEQUENCE {
+			abandonCause	[0] Cause --{bound}--	OPTIONAL,
+			...
+			}
+	}
+-- Indicates the call related information specific to the event.
+-- The connectTime indicates the duration between the received answer indication from the called party side
+-- and the release of the connection for ODisconnect, OException, TDisconnect, or TException or between
+-- the received answer indication from the called party side and the time of detection of the required
+-- mid call event.
+-- The unit for the connectTime is 100 milliseconds
+EventSpecificInformationCharging --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE 
+							(minEventSpecificInformationChargingLength..
+			  maxEventSpecificInformationChargingLength))
+-- defined by network operator.
+-- Indicates the charging related information specific to the event.
+-- An example data type definition for this parameter is given below:
+--		chargePulses		[0] Integer4,
+--		chargeMessages		[1] OCTET STRING (SIZE (min..max))
+EventTypeBCSM ::= ENUMERATED {
+	origAttemptAuthorized(1),
+	collectedInfo(2),
+	analysedInformation(3),
+	routeSelectFailure(4),
+	oCalledPartyBusy(5),
+	oNoAnswer(6),
+	oAnswer(7),
+	oMidCall(8),
+	oDisconnect(9),
+	oAbandon(10),
+	termAttemptAuthorized(12),
+	tBusy(13),
+	tNoAnswer(14),
+	tAnswer(15),
+	tMidCall(16),
+	tDisconnect(17),
+	tAbandon(18),
+	oTermSeized(19),
+	oSuspended(20),
+	tSuspended(21),
+	origAttempt(22),
+	termAttempt(23),
+	oReAnswer(24),
+	tReAnswer(25),
+	facilitySelectedAndAvailable(26),
+	callAccepted(27)
+	}
+
+ 
+-- Indicates the BCSM detection point event. Refer to Q.1224 for additional information on the events.
+-- Values origAttemptAuthorized and termAttemptAuthorized can only be used for TDPs
+
+EventTypeBCUSM ::= ENUMERATED{
+		componentReceived(127),
+		associationReleaseRequested(126)
+		}
+
+EventTypeCharging --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE
+							(minEventTypeChargingLength..
+			maxEventTypeChargingLength))
+
+-- This parameter indicates the charging event type. Its content is network operator specific.
+-- 
+-- An example data type definition for this parameter is given below:
+-- EventTypeCharging ::= ENUMERATED {
+-- 				chargePulses (0),
+-- 				chargeMessages (1)
+-- 				}
+--  ExtensionField {PARAMETERS-BOUND : bound} ::= SEQUENCE {
+--  type	EXTENSION.&id ({SupportedExtensions {bound}}),      
+			-- shall identify the value of an EXTENSION type
+--	 criticality	CriticalityType	DEFAULT ignore,
+--	 value	[1] EXTENSION.&ExtensionType 	
+--			     ({SupportedExtensions {bound}}{@type})
+--	 }
+--This parameter indicates an extension of an argument data type. Its content is network operator specific
+
+FacilityGroup ::= CHOICE {
+	trunkGroupID	[0] INTEGER,
+	privateFacilityID	[1] INTEGER,
+	huntGroup	[2] OCTET STRING,
+	routeIndex	[3] OCTET STRING
+	}
+-- Indicates the particular group of facilities to route the call. huntGroup and routeIndex are encoded as 
+-- network operator specific.
+
+FacilityGroupMember ::= INTEGER
+-- Indicates the specific member of a trunk group or multi-line hunt group.
+
+FailureCause	::= OCTET STRING
+-- FailureCause is FFS.  The cording should be specified to be able to handle unsuccessful situation
+-- for TDP activation/deactivation.  
+
+FCIBillingChargingCharacteristics --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE 
+							(minFCIBillingChargingLength..
+			  maxFCIBillingChargingLength))
+-- This parameter indicates the billing and/or charging characteristics. Its content is network operator specific.
+-- An example datatype definition for this parameter is given below:
+-- FCIBillingChargingCharacteristics ::= CHOICE {
+-- 	completeChargingrecord		[0] OCTET STRING (SIZE (min..max)),
+--	correlationID				[1] CorrelationID,
+--	scenario2Dot3				[2] SEQUENCE {
+--							chargeParty		[0] LegID 	OPTIONAL,
+--							chargeLevel		[1] OCTET STRING (SIZE (min..max))
+--													OPTIONAL,
+ 
+--							chargeItems		[2] SET OF Attribute	OPTIONAL
+--							}
+--	}
+-- Depending on the applied charging scenario the following information elements can be included
+-- (refer to Q.1214 Appendix II):
+-- complete charging record (scenario 2.2)
+-- charge party (scenario 2.3)
+-- charge level (scenario 2.3)
+-- charge items (scenario 2.3)
+-- correlationID (scenario 2.4)
+
+FeatureCode --{PARAMETERS-BOUND : bound}-- ::= LocationNumber --{bound}--
+-- The two-digit feature code preceded by "*" or "11".
+-- Uses the LocationNumber format which is based on the Q.763 Location Number format.
+-- The Nature of Address indicator field shall be set to "Spare" (value 00000000).
+-- The Numbering Plan Indicator field shall be set to "Spare" (value 000)
+-- Used for stimulus signalling (Q.932).
+
+FeatureRequestIndicator ::= ENUMERATED {
+	hold(0),
+	retrieve(1),
+	featureActivation(2),
+	spare1(3),
+	sparen(127)
+	}
+-- Indicates the feature activated (e.g. a switch-hook flash, feature activation). Spare values reserved 
+-- for future use.
+
+FilteredCallTreatment --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	sFBillingChargingCharacteristics	[0] SFBillingChargingCharacteristics --{bound}--,
+	informationToSend	[1] InformationToSend --{bound}--	OPTIONAL,
+	maximumNumberOfCounters	[2] MaximumNumberOfCounters	OPTIONAL,
+	releaseCause	[3] Cause --{bound}--	OPTIONAL
+	}
+-- If releaseCause is not present, the default value is the same as the ISUP cause value decimal 31.
+-- If informationToSend is present, the call will be released after the end of the announcement 
+-- with the indicated or default releaseCause.
+-- If maximumNumberOfCounters is not present, ServiceFilteringResponse will be sent with 
+-- CountersValue::= SEQUENCE SIZE (0) OF CountersAndValue
+
+FilteringCharacteristics ::= CHOICE {
+	interval	[0] INTEGER (1..32000),
+	numberOfCalls	[1] Integer4
+	}
+-- Indicates the severity of the filtering and the point in time when the ServiceFilteringResponse is to be sent. 
+-- If = interval, every interval of time the next call leads to an InitialDP and a ServiceFilteringResponse is sent to 
+-- the SCF. The interval is specified in seconds.
+-- If = NumberOfCalls, every N calls the Nth call leads to an InitialDP and a ServiceFilteringResponse 
+-- is sent to the SCF.
+-- If ActivateServiceFiltering implies several counters - filtering on several dialled numbers -,
+-- the numberOfCalls would include calls to all the dialled numbers.
+
+FilteringCriteria --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	dialledNumber	[0] Digits --{bound}--,
+	callingLineID	[1] Digits --{bound}--,
+	serviceKey	[2] ServiceKey,
+ 
+	addressAndService	[30] SEQUENCE {
+			calledAddressValue	[0] Digits --{bound}--,
+			serviceKey	[1] ServiceKey,
+			callingAddressValue	[2] Digits --{bound}--
+						OPTIONAL,
+			locationNumber	[3] LocationNumber --{bound}--							OPTIONAL
+			}
+	}
+-- In case calledAddressValue is specified, the numbers to be filtered are from calledAddressValue
+-- up to and including calledAddressValue + maximumNumberOfCounters-1.
+-- The last two digits of calledAddressvalue can not exceed 100-maximumNumberOfCounters.
+
+FilteringTimeOut ::= CHOICE {
+	duration	[0] Duration,
+	stopTime	[1] DateAndTime
+	}
+-- Indicates the maximum duration of the filtering. When the timer expires, a ServiceFilteringResponse 
+-- is sent to the SCF.
+
+ForwardCallIndicators ::= OCTET STRING (SIZE(2))
+-- Indicates the Forward Call Indicators. Refer to Q.763 for encoding
+
+ForwardGVNS --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE(
+			minForwardGVNSLength..
+			maxForwardGVNSLength))
+-- Indicates the GVNS Forward information. Refer to Q.735, §6 for encoding.
+
+ForwardingCondition ::= ENUMERATED {
+	busy(0),
+	noanswer(1),
+	any(2)
+	}
+-- Indicates the condition that must be met to complete the connect.
+
+ForwardServiceInteractionInd ::= SEQUENCE {
+	conferenceTreatmentIndicator	[1] OCTET STRING (SIZE(1))	OPTIONAL,
+	-- acceptConferenceRequest	‘xxxx xx01’,B
+	-- rejectConferenceRequest	‘xxxx xx10’B
+	-- network default is accept conference request
+	callDiversionTreatmentIndicator	[2] OCTET STRING (SIZE(1))	OPTIONAL,
+	-- callDiversionAllowed	‘xxxx xx01’B
+	-- callDiversionNotAllowed	‘xxxx xx10’B
+	-- network default is Call Diversion allowed
+	callOfferingTreatmentIndicator	[3] OCTET STRING (SIZE(1))	OPTIONAL 
+	-- callOfferingNotAllowed	‘xxxx xx01’B,
+	-- callOfferingAllowed		‘xxxx xx10’B
+	-- network default is Call Offering not allowed
+	}
+
+GapCriteria --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	calledAddressValue	[0] Digits --{bound}--,
+	gapOnService	[2] GapOnService,
+	gapAllInTraffic	[3] NULL,
+ 
+	calledAddressAndService	[29] SEQUENCE {
+			calledAddressValue	[0] Digits --{bound}--,
+			serviceKey	[1] ServiceKey
+			},
+	callingAddressAndService	[30] SEQUENCE {
+			callingAddressValue	[0] Digits --{bound}--,
+			serviceKey	[1] ServiceKey,
+			locationNumber	[2] LocationNumber --{bound}--						OPTIONAL
+			}
+	}
+-- Both calledAddressValue and callingAddressValue can be
+-- incomplete numbers, in the sense that a limited amount of digits can be given.
+--
+-- For the handling of numbers starting with the same digit string refer to the detailed procedure
+-- of the CallGap operation in 3.3
+
+GapOnService ::= SEQUENCE {
+	serviceKey	[0] ServiceKey,
+	dpCriteria	[1] EventTypeBCSM	OPTIONAL
+	}
+GapIndicators ::= SEQUENCE {
+	duration	[0] Duration,
+	gapInterval	[1] Interval
+	}
+-- Indicates the gapping characteristics. No gapping when gapInterval equals 0, and gap all calls when 
+-- gapInterval equals -1.
+
+GapTreatment  --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	informationToSend	[0] InformationToSend --{bound}--,
+	releaseCause	[1] Cause --{bound}--,
+	both	[2] SEQUENCE {
+			 informationToSend	[0] InformationToSend --{bound}--,
+			 releaseCause	[1] Cause --{bound}--
+			 }
+	}
+-- The default value for Cause is the same as in ISUP.
+
+GenericName  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE(
+				minGenericNameLength..
+				maxGenericNameLength))
+
+GenericNumber  --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE(
+				minGenericNumberLength..
+				maxGenericNumberLength))
+-- Refer to Q.763 Generic Number for encoding.
+
+GenericNumbers --{PARAMETERS-BOUND : bound}-- ::= SET SIZE(1..numOfGenericNumbers) OF GenericNumber --{bound}--
+
+ 
+HighLayerCompatibilities ::= BIT STRING {
+	telephony (0),
+	facsimileGroup2-3 (1),
+	facsimileGroup4classeI (2),
+	teletexMixedMode (3),
+	teletexProcessableMode (4),
+	teletexBasicMode (5),
+	syntaxBasedVideotex (6),
+	internationalVideotex (7),
+	telexService (8),
+	messageHandlingSystem (9),
+	osiApplication (10),
+	audioVisual (11)
+	}
+HighLayerCompatibility ::= OCTET STRING (SIZE (highLayerCompatibilityLength))
+-- Indicates the teleservice. For encoding, DSS1 (Q.931) is used.
+
+HoldCause ::= OCTET STRING	-- defined by network operator.
+-- Indicates the cause for holding the call.
+
+InbandInfo  --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	messageID	[0] MessageID --{bound}--,
+	numberOfRepetitions	[1] INTEGER (1..127)	OPTIONAL,
+	duration	[2] INTEGER (0..32767)	OPTIONAL,
+	interval	[3] INTEGER (0.. 32767)	OPTIONAL
+	}
+-- Interval is the time in seconds between each repeated announcement. Duration is the total
+-- amount of time in seconds, including repetitions and intervals.
+-- The end of announcement is either the end of duration or numberOfRepetitions, whatever comes first.
+-- duration with value 0 indicates infinite duration
+
+InformationToRecord --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	messageID	[0] ElementaryMessageID	OPTIONAL,
+	messageDeletionTimeOut	[1] INTEGER (1..3600)	OPTIONAL,
+	timeToRecord	[3] INTEGER (0..maxRecordingTime)	OPTIONAL,
+	controlDigits	[4] SEQUENCE {
+		endOfRecordingDigit	[0] OCTET STRING (SIZE(1..2))	OPTIONAL,
+		cancelDigit	[1] OCTET STRING (SIZE(1..2))	OPTIONAL,
+		replayDigit	[2] OCTET STRING (SIZE(1..2))	OPTIONAL,
+		restartRecordingDigit	[3] OCTET STRING (SIZE(1..2))	OPTIONAL,
+		restartAllowed	[4] BOOLEAN 	DEFAULT FALSE,
+		replayAllowed	[5] BOOLEAN 	DEFAULT FALSE
+		}
+	}
+
+InformationToSend --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	inbandInfo	[0] InbandInfo --{bound}--,
+	tone	[1] Tone,
+	displayInformation	[2] DisplayInformation --{bound}--
+	}
+
+InfoToSend --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	messageID	[0] MessageID --{bound}--,
+	toneId	[1] ToneId,
+	displayInformation	[2] DisplayInformation --{bound}--
+	}
+
+ 
+InfoType ::= ENUMERATED {
+	numericString (0),
+	characterString (1),
+	iA5String (2)
+	}
+INServiceCompatibilityIndication --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE (1..numOfInServiceCompatibilityIndLength) OF Entry
+
+INServiceCompatibilityResponse	 ::= Entry
+
+Integer4 ::= INTEGER(0..2147483647)
+
+InteractionStrategy ::= ENUMERATED {
+	stopOnError (1),
+	bestEffort (2)
+}
+
+Interval ::= INTEGER (-1..60000)
+-- Units are milliseconds. A -1 value denotes infinite.
+
+InvokableService ::= ENUMERATED {
+	callingLineIdentificationRestriction (1),
+	connectedLineIdentificationRestriction (2),
+	callWaiting (3),
+	callHold (4),
+	reverseCharging (5),
+	explicitCallTransfer (6),
+	callCompletionOnBusySubscriber (7)
+	}
+
+
+
+
+-- Operation invoke identifier.
+
+IPAvailable --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+			minIPAvailableLength..maxIPAvailableLength))
+-- defined by network operator.
+-- Indicates that the resource is available.
+
+IPRoutingAddress --{PARAMETERS-BOUND : bound}-- ::= CalledPartyNumber --{bound}--
+-- Indicates the routing address for the IP.
+
+IPSSPCapabilities --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minIPSSPCapabilitiesLength..
+			maxIPSSPCapabilitiesLength))
+-- defined by network operator.
+-- Indicates the SRF resources available at the SSP.
+
+ISDNAccessRelatedInformation ::= OCTET STRING
+-- Indicates the destination user network interface related information. Refer to the Q.763 Access 
+-- Transport parameter for encoding.
+
+Language ::= PrintableString (SIZE (3) ) -- ISO 639 codes only; 
+
+
+ 
+LegID ::= CHOICE {
+	sendingSideID	[0] LegType,
+	receivingSideID	[1] LegType
+	}
+-- Indicates a reference to a specific party in a call. OPTIONAL denotes network operator specific use 
+-- with a choice of unilateral ID assignment or bilateral ID assignment.
+-- OPTIONAL for LegID also denotes the following:
+--when only one party exists in the call, this parameter is not needed (as no ambiguity exists);
+--when more than one party exists in the call, one of the following alternatives applies:
+--	 1. LegID is present and indicates which party is concerned.
+--	 2. LegID is not present and a default value is assumed (e.g. calling party in the case of the 
+--	    ApplyCharging operation).
+-- Choice between these two alternatives is kept a network operator option.
+
+LegType ::= OCTET STRING (SIZE(1))
+
+leg1 LegType ::= '01'H
+
+leg2 LegType ::= '02'H
+
+LocationNumber --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minLocationNumberLength..
+			maxLocationNumberLength))
+-- Indicates the Location Number for the calling party. Refer to Q.763 (White book) for encoding.
+
+MailBoxID --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE(
+				minMailBoxIDLength..maxMailBoxIDLength))
+
+MaximumNumberOfCounters ::= INTEGER (1..numOfCounters)
+
+Media ::= ENUMERATED {
+	voiceMail (0),
+	faxGroup3 (1),
+	faxGroup4 (2)
+	}
+
+Message ::= ENUMERATED{
+	rELease(77),
+	rELeaseCOMPlete(90),
+	fACility(98)
+}
+-- Specifies the message to be used for sending the component.  
+
+MessageID --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	elementaryMessageID	[0] Integer4,
+	text	[1] SEQUENCE {
+			messageContent	[0] IA5String (SIZE (				minMessageContentLength..
+			maxMessageContentLength)),
+			attributes	[1] OCTET STRING (SIZE (							minAttributesLength..
+			maxAttributesLength)) 
+							OPTIONAL
+			 },
+ 
+	elementaryMessageIDs	[29] SEQUENCE SIZE (1.. numOfMessageIDs) OF Integer4,
+	variableMessage	[30] SEQUENCE {
+			 elementaryMessageID	[0] Integer4,
+			 variableParts	[1] SEQUENCE SIZE (1..5) 				 OF VariablePart --{bound}--
+			 }
+	}
+-- OPTIONAL denotes network operator specific use.
+
+MidCallControlInfo --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE (
+		minMidCallControlInfoNum .. 
+		maxMidCallControlInfoNum) OF SEQUENCE {
+			midCallInfoType		[0]	MidCallInfoType --{bound}--,
+			midCallReportType	[1]	ENUMERATED {
+									inMonitoringState(0),
+									inAnyState(1)
+								} DEFAULT inMonitoringState
+			}
+
+MidCallInfo --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	iNServiceControlCode	[0] Digits --{bound}--
+	}
+
+MidCallInfoType --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	iNServiceControlCodeLow	[0] Digits --{bound}--,
+	iNServiceControlCodeHigh	[1] Digits --{bound}--	OPTIONAL
+	}
+
+MiscCallInfo ::= SEQUENCE {
+	messageType	[0] ENUMERATED {
+			 request(0),
+			 notification(1)
+			 },
+dpAssignment	[1] ENUMERATED {
+			 individualLine(0),
+			 groupBased(1),
+			 officeBased(2)
+			 }	OPTIONAL
+	}
+-- Indicates detection point related information.
+
+MonitorMode  ::= ENUMERATED {
+	interrupted(0),
+	notifyAndContinue(1),
+	transparent(2)
+	}
+-- Indicates the event is relayed and/or processed by the SSP.
+-- If this parameter is used in the context of charging events, the following definitions apply for the
+-- handling of charging events:
+-- Interrupted means that the SSF notifies the SCF of the charging event using
+-- EventNotificationCharging, does not process the event but discard it.
+-- NotifyAndContinue means that SSF notifies the SCF of the charging event using
+-- EventNotificationCharging, and continues processing the event or signal without waiting for SCF instructions.
+-- Transparent means that the SSF does not notify the SCF of the event. This value is used to end the monitoring
+-- of a previously requested charging event. Previously requested charging events are monitored
+-- until ended by a transparent monitor mode, or until the end of the connection configuration.
+-- For the use of this parameter in the context of BCSM events refer to clause 17.
+
+ 
+Notification ::= ENUMERATED {
+	userAbandon (0),
+	callFailure (1),
+	noReply (2),
+	callRelease (3),
+	ssInvocation (4),
+	creditLimitReached (5),
+	callDuration (6),
+	calledNumber (7),
+	answeredCall (8)
+	}
+
+NotificationInformation --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	userAbandonSpecificInfo	[0] SEQUENCE {...},
+	callFailureSpecificInfo	[1] SEQUENCE {
+			failureCause	[0] Cause --{bound}--		OPTIONAL,
+			...},
+	noReplySpecificInfo	[2] SEQUENCE {...},
+	callReleaseSpecificInfo	[3] SEQUENCE {
+			releaseCause	[0] Cause --{bound}--		OPTIONAL,
+			timeStamp	[1] DateAndTime		OPTIONAL, 
+			...},
+	ssInvocationSpecificInfo	[4] SEQUENCE {
+			invokedService	[0] InvokableService,
+			...},
+	creditLimitReachedSpecificInfo	[5] SEQUENCE {
+			timeStamp	[0] DateAndTime		OPTIONAL,
+			...},
+	callDurationSpecificInfo	[6] SEQUENCE {
+			timeStamp	[0] DateAndTime		OPTIONAL,
+			...},
+	calledNumberSpecificInfo	[7] SEQUENCE {
+			calledNumber	[0] CalledPartyNumber --{bound}--	OPTIONAL,
+			...},
+	answeredCallSpecificInfo	[8] SEQUENCE {
+			timeStamp	[0] DateAndTime		OPTIONAL,
+			...}
+	}
+
+NumberingPlan ::= OCTET STRING (SIZE(1))
+-- Indicates the numbering plan for collecting the user information. Refer to the Q.763 Numbering Plan 
+-- Indicator field for encoding.
+
+NumberMatch --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	initialMatch	[0] CalledPartyNumber --{bound}--,
+	totalMatch	[1] CalledPartyNumber --{bound}--
+	}
+
+NumberOfDigits ::= INTEGER (1..255)
+-- Indicates the number of digits to be collected
+
+OperationCode ::= CHOICE {
+	globalCode	OBJECT IDENTIFIER,
+	local	INTEGER
+	}
+-- contains the operation value, or error value (object identifier), or problem value of the FACILITY IE, 
+-- and the argument, the result, or the reject part of the same FACILITY IE that are received with DSS1  
+-- message from the user.  (see Q.932 8.2.2 for encoring)
+ 
+
+OriginalCalledPartyID --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE 
+							(minOriginalCalledPartyIDLength..
+			  maxOriginalCalledPartyIDLength)) 
+-- Indicates the original called number. Refer to the Q.763 Original Called Number for encoding.
+
+ProfileIdentifier --{PARAMETERS-BOUND : bound}--  ::= CHOICE {
+access	[0]  CalledPartyNumber --{bound}--,
+group		[1]  FacilityGroup
+ }
+-- Please note that 'CalledPartyNumber' is used to address a subscriber access line.
+--The data type was reused from the existing types to avoid the definition of a new one.
+
+Reason --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING(SIZE(
+		minReasonLength..maxReasonLength))
+
+ReceivedInformation --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE (
+							minReceivedInformationLength..
+			maxReceivedInformationLength) OF IA5String 
+--size limit to be added
+
+ReceivedStatus ::=ENUMERATED {
+	messageComplete (0),
+	messageInterrupted (1),
+	messageTimeOut (2)
+	}
+
+RecordedMessageID ::= Integer4 
+
+RedirectingPartyID --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minRedirectingPartyIDLength..
+			maxRedirectingPartyIDLength))
+-- Indicates redirecting number. Refer to the Q.763 Redirecting number for encoding.
+
+RedirectionInformation ::= OCTET STRING (SIZE(2))
+-- Indicates redirection information. Refer to the Q.763 Redirection Information for encoding.
+
+RegistratorIdentifier  ::= OCTET STRING
+
+
+ReportCondition ::= ENUMERATED {
+	statusReport(0),
+	timerExpired(1),
+	canceled(2)
+	}
+-- ReportCondition specifies the cause of sending "StatusReport"operation to the SCF
+
+RequestedInformationList --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE (1..numOfInfoItems) OF RequestedInformation --{bound}--
+
+RequestedInformationTypeList ::= SEQUENCE SIZE (1..numOfInfoItems) OF RequestedInformationType
+
+RequestedInformation --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	requestedInformationType	[0] RequestedInformationType,
+	requestedInformationValue	[1] RequestedInformationValue --{bound}--
+	}
+
+ 
+RequestedInformationType ::= ENUMERATED {
+	callAttemptElapsedTime(0),
+	callStopTime(1),
+	callConnectedElapsedTime(2),
+	calledAddress(3),
+	releaseCause(30)
+	}
+
+RequestedInformationValue --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	callAttemptElapsedTimeValue	[0] INTEGER (0..255),
+	callStopTimeValue	[1] DateAndTime,
+	callConnectedElapsedTimeValue	[2] Integer4,
+	calledAddressValue	[3] Digits --{bound}--,
+
+	releaseCauseValue	[30] Cause --{bound}--
+	}
+
+-- The callAttemptElapsedTimeValue is specified in seconds. The unit for the
+-- callConnectedElapsedTimeValue is 100 milliseconds
+
+RequestedNotifications --{PARAMETERS-BOUND : bound}-- ::= SET OF CallConditions --{bound}--
+
+RequestedType ::= INTEGER (0 .. 127) 
+
+RequestedUTSI --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	uSIServiceIndicator	[0] USIServiceIndicator --{bound}--,
+	uSImonitorMode	[1] USIMonitorMode,
+	legID	[2] LegID	DEFAULT(
+                             "LegID* legId = new LegID(&staticDesc);
+                              std::vector<byte> array;
+                              array.push_back(0x01U);
+                              LegType* legType = new LegType(array);
+                              legId->SetChoiceSendingSideID(legType);
+                              staticDesc.SetCloneForDefaultFactory(legId);") --sendingSideID:leg1
+	}
+
+RequestedUTSIList --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE 										(minRequestedUTSINum..
+			  maxRequestedUTSINum) OF  RequestedUTSI --{bound}--
+
+
+ResourceID --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	lineID	[0] Digits --{bound}--,
+	facilityGroupID	[1] FacilityGroup,
+	facilityGroupMemberID	[2] INTEGER,
+	trunkGroupID	[3] INTEGER
+	}
+-- Indicates a logical identifier for the physical termination resource.
+
+ResourceStatus ::= ENUMERATED {
+	busy(0),
+	idle(1)
+	}
+
+ResponseCondition ::= ENUMERATED {
+	intermediateResponse(0),
+	lastResponse(1)
+-- additional values are for further study
+	}
+ 
+-- ResponseCondition is used to identify the reason why ServiceFilteringResponse operation is sent.
+-- intermediateresponse identifies that service filtering is running and the interval time is expired and
+-- a call is received, or that service filtering is running and the threshold value is reached.
+-- lastResponse identifies that the duration time is expired and service filtering has been finished or
+-- that the stop time is met and service filtering has been finished.
+
+RouteList --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE(1..3) OF OCTET STRING (SIZE (minRouteListLength..maxRouteListLength))
+-- Indicates a list of trunk groups or a route index. See Q.1224 for additional information on this item.
+
+RoutingAddress --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	routingProhibited	[0] NULL,
+	destinationRoutingAddress	[1] DestinationRoutingAddress --{bound}--
+	}
+
+ScfAddress --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (minScfAddressLength..maxScfAddressLength))
+-- ISDN address 
+
+ScfID --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE 		(minScfIDLength..maxScfIDLength))
+-- defined by network operator.
+-- Indicates the SCF identity.
+-- Used to derive the INAP address of the SCF to establish a connection between a requesting FE
+-- and the specified SCF.
+-- When ScfID is used in an operation which may cross an internetwork boundary, its encoding must
+-- be understood in both networks; this requires bilateral agreement on the encoding.
+-- A possible encoding is the SCCP address of the SCF, as defined in 3.5/Q.713.
+-- Other encoding schemes are also possible.
+
+SCIBillingChargingCharacteristics --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minSCIBillingChargingLength..
+			maxSCIBillingChargingLength))
+-- This parameter indicates the billing and/or charging characteristics. Its content is network operator specific.
+-- An example datatype definition for this parameter is given below:
+-- SCIBillingChargingCharacteristics  ::= CHOICE {
+-- 	chargeLevel			[0] OCTET STRING (SIZE (min..max),
+-- 	chargePulses			[1] Integer4,
+-- 	chargeMessages		[2] OCTET STRING (SIZE (min..max)
+--	}
+-- Depending on the applied charging scenario the following information elements
+-- can be included (refer to Q.1214 Appendix II):
+-- chargeLevel (scenario 3.2)
+-- chargePulses (scenario 3.2)
+-- chargeMessages (scenario 3.2)
+
+ServiceAddressInformation ::= SEQUENCE {
+	serviceKey	[0] ServiceKey	OPTIONAL,
+	miscCallInfo	[1] MiscCallInfo,
+	triggerType	[2] TriggerType	OPTIONAL
+	}
+
+-- Information that represents the result of trigger analysis and allows the SCF to choose the appropriate service logic
+
+ServiceInteractionIndicators --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE ( 
+							minServiceInteractionIndicatorsLength..
+			maxServiceInteractionIndicatorsLength))
+ 
+-- Indicators which are exchanged between SSP and SCP to resolve interactions between IN based services
+-- and network based services, respectively between different IN based services.
+-- The contents are network specific.
+-- Note this parameter is kept in CS2 for backward compatibility to CS-1R, for CS2 see new
+-- parameter ServiceInteractionIndicatorsTwo
+
+ServiceInteractionIndicatorsTwo ::= 	SEQUENCE {
+	forwardServiceInteractionInd	[0] ForwardServiceInteractionInd	OPTIONAL,
+	-- applicable to operations IDP, CON, ICA.
+	backwardServiceInteractionInd	[1] BackwardServiceInteractionInd	OPTIONAL,
+	-- applicable to operations IDP, CON, CTR, ETC.
+	bothwayThroughConnectionInd	[2] BothwayThroughConnectionInd	OPTIONAL,
+	-- applicable to operations CTR, ETC.
+	suspendTimer	[3] SuspendTimer	OPTIONAL,
+	-- applicable to operations CON, ICA.
+	connectedNumberTreatmentInd	[4] ConnectedNumberTreatmentInd	OPTIONAL,
+	-- applicable to operations CON, CTR, ETC.
+	suppressCallDiversionNotification	[5] BOOLEAN 	OPTIONAL,
+	-- applicable to CON, ICA
+	suppressCallTransferNotification	[6] BOOLEAN 	OPTIONAL,
+	-- applicable to CON, ICA
+	allowCdINNoPresentationInd	[7] BOOLEAN	OPTIONAL,
+	-- applicable to CON, ICA
+	-- indicates whether the Number Presentation not allowed indicator of the ISUP
+	-- "called IN number" shall be set to presentation allowed (TRUE) or presentation not allowed (FALSE)
+	userDialogueDurationInd	[8] BOOLEAN	DEFAULT TRUE,
+	-- applicable when interaction with the user is required, if the interaction
+	-- TRUE means the user interaction may last longer than 90 seconds. Otherwise the 
+	-- indicator should be set to FALSE.
+	-- used for delaying ISUP T9 timer.
+	...
+	}
+-- Indicators which are exchanged between SSP and SCP to resolve interactions between IN based services
+-- and network based services, respectively between different IN based services.
+
+ServiceKey ::= Integer4
+-- Information that allows the SCF to choose the appropriate service logic.
+
+ServiceProfileIdentifier ::= OCTET STRING
+-- Indicates a particular ISDN terminal. Refer to Q.932 for encoding.
+
+ServingAreaID --{PARAMETERS-BOUND : bound}-- ::= LocationNumber --{bound}--
+-- Identifies the local serving area where a network provider operates. Uses the LocationNumber
+-- format which is based on the Q.763 Location Number format.
+-- The Nature of Address indicator field shall be set to "Spare" (value 00000000).
+-- The Numbering Plan Indicator field shall be set to "Spare" (value 000).
+-- Defined by the network operator.
+
+SFBillingChargingCharacteristics --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+							minSFBillingChargingLength..
+			maxSFBillingChargingLength))
+-- This parameter indicates the billing and/or charging characteristics for filtered calls.
+-- Its content is network operator specific
+SubscriberId --{PARAMETERS-BOUND : bound}-- ::= GenericNumber --{bound}--
+
+ 
+SupplementaryServices ::= BIT STRING {
+	callingLineIdentificationPresentation (1),
+	callingLineIdentificationRestriction (2),
+	connectedLineIdentificationPresentation (3),
+	connectedLineIdentificationRestriction (4),
+	callForwardingOnNoReply (5),
+	callForwardingUnconditional (6),
+	callForwardingOnBusy (7),
+	callForwardingOnNotReachable (8),
+	callWaiting (9),
+	callHold (10),
+	reverseCharging (11),
+	explicitCallTransfer (12),
+	callCompletionOnBusySubscriber (13),
+	adviceOfChargeOnStart (14),
+	adviceOfChargeAtEnd (15),
+	adviceOfChargeDuringCall (16),
+	timeDependentRouting (17),
+	callingPartingDependentRouting (18),
+	outgoingCallBarring (19),
+	incomingCallBarring (20)
+	}
+
+SuspendTimer ::= INTEGER (0..120) --value in seconds
+
+TargetLineIdentifier --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	individual	[0] CalledPartyNumber --{bound}--,
+	group	[1] FacilityGroup
+	}
+
+TerminalType ::= ENUMERATED {
+	unknown(0),
+	dialPulse(1),
+	dtmf(2),
+	isdn(3),
+	isdnNoDtmf(4),
+	spare(16)
+	}
+-- Identifies the terminal type so that the SCF can specify, to the SRF, the appropriate type of capability 
+-- (voice recognition, DTMF, display capability, etc.). Since present signalling systems do not convey 
+-- terminal type, this parameter applies only at originating or terminating local exchanges.
+
+TimerID ::= ENUMERATED {
+	tssf(0)
+	-- others ffs
+	}
+-- Indicates the timer to be reset.
+
+TimerValue ::= Integer4
+-- Indicates the timer value (in seconds).
+
+Tone ::= SEQUENCE {
+	toneID	[0] Integer4,
+	duration	[1] Integer4	OPTIONAL
+	}
+-- The duration specifies the length of the tone in seconds, value 0 indicates infinite duration.
+ 
+ToneId ::= CHOICE {
+	local	[0] Integer4,
+	global	[1] OBJECT IDENTIFIER
+	}
+
+TraceInformation --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE OF TraceItem --{bound}--
+
+TraceItem --{PARAMETERS-BOUND : bound}-- ::= SET {scf [0] ScfID --{bound}--,...}
+
+TravellingClassMark --{PARAMETERS-BOUND : bound}-- ::= LocationNumber --{bound}--
+-- Indicates travelling class mark information. 
+-- Uses the LocationNumber format which is based on the Q.763 Location Number format.
+-- The Nature of Address indicator field shall be set to "Spare" (value 00000000).
+-- The Numbering Plan Indicator field shall be set to "Spare" (value 000).
+-- Maximum 2 digits.
+
+TriggerDataIdentifier --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	triggerID	[0] EventTypeBCSM,
+	profileIdentifier	[1] ProfileIdentifier --{bound}--,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			     ExtensionField --{bound}--	OPTIONAL
+	}
+-- It is for further study whether al TDP types really apply
+
+
+TriggerType ::= ENUMERATED {
+		featureActivation(0),
+		verticalServiceCode(1),
+		customizedAccess(2),
+		customizedIntercom(3),
+		emergencyService(12),
+		aFR(13),
+		sharedIOTrunk(14),
+		offHookDelay(17),
+		channelSetupPRI(18),
+		tNoAnswer(25),
+		tBusy(26),
+		oCalledPartyBusy(27),
+		oNoAnswer(29),
+		originationAttemptAuthorized(30),
+		oAnswer(31),
+		oDisconnect(32),
+		termAttemptAuthorized(33),
+		tAnswer(34),
+		tDisconnect(35)
+	-- Private (ffs)
+		}
+-- The type of trigger which caused call suspension
+-- 4-11: Reserved; 15,16: Reserved; 19-24: Reserved
+
+UnavailableNetworkResource ::= ENUMERATED {
+	unavailableResources(0),
+	componentFailure(1),
+	basicCallProcessingException(2),
+	resourceStatusFailure(3),
+	endUserFailure(4)
+	}
+-- Indicates the network resource that failed.
+ 
+
+UserCredit --{PARAMETERS-BOUND : bound}-- ::= Credit --{bound}--
+
+UserInfo --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE OF UserInformation --{bound}--
+
+UserInformation --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	infoToSend	[0] InfoToSend --{bound}--,
+	constraints	[1] Constraints,
+	errorInfo	[2] InfoToSend --{bound}-- OPTIONAL
+	}
+
+UserInteractionModes ::= BIT STRING {
+	voiceMessage (0),
+	tone (1),
+	display (2)
+	}
+
+USIInformation --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+			minUSIInformationLength..maxUSIInformationLength))
+
+
+USIMonitorMode ::= ENUMERATED {
+	monitoringActive	(0),
+	monitoringInactive	(1)
+	}
+
+--  Indicates if the monitoring relationship for the specified UTSI IE should be activated or deactivated.
+
+
+USIServiceIndicator --{PARAMETERS-BOUND : bound}-- ::= OCTET STRING (SIZE (
+			minUSIServiceIndicatorLength..
+			maxUSIServiceIndicatorLength))
+
+
+VariablePart --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	integer	[0] Integer4,
+	number	[1] Digits --{bound}--,	-- Generic digits
+	time	[2] OCTET STRING (SIZE(2)),	-- HH:MM, BCD coded
+	date	[3] OCTET STRING (SIZE(3)),	-- YYMMDD, BCD coded
+	price	[4] OCTET STRING (SIZE(4))
+	}
+-- Indicates the variable part of the message.
+-- BCD coded variable parts are encoded as described in the examples below.
+-- For example, time = 12:15 would be encoded as:
+--	Bits					HGFE 		DCBA
+-- 	leading octet	2	1
+--			5	1
+-- date = 1993 September 30th would be encoded as:
+--	Bits					HGFE		DCBA
+--	leading octet 	3	9
+--			9	0
+--			0	3 
+
+ 
+-- The Definition of range of constants Follows
+highLayerCompatibilityLength	INTEGER ::= 2
+minCauseLength	INTEGER ::= 2
+numOfCounters	INTEGER ::= 100
+numOfInfoItems	INTEGER ::= 5
+
+maxCreditUnit 	INTEGER ::= 65536
+
+
+
+-- This module contains the type definitions for the IN CS2 errors.
+-- Where a parameter  of type CHOICE is tagged with a specific tag value, the tag is automatically 
+-- replaced with an EXPLICIT tag of the same value.   
+
+
+
+-- not impl ERROR ::= {
+-- not impl 	CODE	errcode-canceled
+-- not impl 	}
+ 
+-- The operation has been canceled.
+
+-- not impl cancelFailed ERROR ::= {
+-- not impl 	PARAMETER 	SEQUENCE {
+-- not impl 			problem	[0] ENUMERATED {
+-- not impl 				unknownOperation(0),
+-- not impl 				tooLate(1),
+-- not impl 				operationNotCancellable(2)
+-- not impl 				},
+-- not impl 			operation	[1] InvokeID
+-- not impl 			}
+-- not impl 	CODE	errcode-cancelFailed
+-- not impl 	}
+-- The operation failed to be canceled.
+-- not impl 
+-- not impl chainingRefused ERROR ::= {
+-- not impl 	CODE	errcode-chainingRefused
+-- not impl 	}
+-- not impl 
+-- not impl 
+-- not impl eTCFailed ERROR ::= {
+-- not impl 	CODE 	errcode-eTCFailed
+-- not impl 	}
+-- The establish temporary connection failed.
+-- not impl 
+-- not impl improperCallerResponse ERROR ::= {
+-- not impl 	CODE 	errcode-improperCallerResponse
+-- not impl 	}
+-- The caller response was not as expected.
+-- not impl 
+-- not impl missingCustomerRecord ERROR ::= {
+-- not impl 	CODE 	errcode-missingCustomerRecord
+-- not impl 	}
+-- The Service Logic Program could not be found in the SCF.
+-- not impl 
+-- not impl missingParameter ERROR ::= {
+-- not impl 	CODE 	errcode-missingParameter
+-- not impl 	}
+-- An expected optional parameter was not received.
+-- not impl 
+-- not impl parameterOutOfRange ERROR ::= {
+-- not impl 	CODE 	errcode-parameterOutOfRange
+-- not impl 	}
+-- The parameter was not as expected (e.g. missing or out of range).
+-- not impl 
+-- not impl requestedInfoError ERROR ::= {
+-- not impl 	PARAMETER	 ENUMERATED {
+-- not impl 			unknownRequestedInfo(1),
+-- not impl 			requestedInfoNotAvailable(2)
+			-- other values FFS
+-- not impl 			}
+-- not impl 	CODE 	errcode-requestedInfoError
+-- not impl 	}
+-- The requested information cannot be found.
+-- not impl 
+ -- not impl 
+-- not impl systemFailure ERROR ::= {
+-- not impl 	PARAMETER	UnavailableNetworkResource
+-- not impl 	CODE 	errcode-systemFailure
+-- not impl 	}
+-- The operation could not be completed due to a system failure at the serving physical entity.
+-- not impl 
+-- not impl taskRefused ERROR ::= {
+-- not impl 	PARAMETER	ENUMERATED {
+-- not impl 			generic(0),
+-- not impl 			unobtainable (1),
+-- not impl 			congestion(2)
+			--other values FFS
+-- not impl 			}
+-- not impl 	CODE 	errcode-taskRefused
+-- not impl 	}
+-- An entity normally capable of the task requested cannot or chooses not to perform the task at this 
+-- time.  This includes error situations like congestion and unobtainable address as used in e.g. the 
+-- connect operation.)
+
+-- not impl unavailableResource ERROR ::= {
+-- not impl 	CODE 	errcode-unavailableResource
+-- not impl 	}
+-- A requested resource is not available at the serving entity.
+-- not impl 
+-- not impl unexpectedComponentSequence ERROR ::= {
+-- not impl 	CODE 	errcode-unexpectedComponentSequence
+-- not impl 	}
+-- An incorrect sequence of Components was received (e.g.“DisconnectForwardConnection” 
+-- followed by “PlayAnnouncement”).
+-- not impl 
+-- not impl unexpectedDataValue ERROR ::= {
+-- not impl 	CODE 	errcode-unexpectedDataValue
+-- not impl 	}
+-- The data value was not as expected (e.g. routing number expected but billing number received)
+-- not impl 
+-- not impl unexpectedParameter ERROR ::= {
+-- not impl 	CODE 	errcode-unexpectedParameter
+-- not impl 	}
+-- A parameter received was not expected.
+-- not impl 
+-- not impl unknownLegID ERROR ::= {
+-- not impl 	CODE 	errcode-unknownLegID
+-- not impl 	}
+-- Leg not known to the SSF.
+-- not impl 
+-- not impl unknownResource ERROR ::= {
+-- not impl 	CODE 	errcode-unknownResource
+-- not impl 	}
+-- Resource whose status is being requested is not known to the serving entity.
+-- not impl 
+-- not impl  
+-- not impl 
+-- not impl 
+-- not impl 
+-- the operations are grouped by the identified operation packages.
+-- SCF activation Package
+-- not impl 	opcode-initialDP		Code ::= local : 
+-- Basic BCP DP Package
+-- not impl 	opcode-originationAttemptAuthorized	Code ::= local : 1
+-- not impl 	opcode-collectedInformation		Code ::= local : 2
+-- not impl 	opcode-analysedInformation		Code ::= local : 3
+-- not impl 	opcode-routeSelectFailure		Code ::= local : 4
+-- not impl 	opcode-oCalledPartyBusy		Code ::= local : 5
+-- not impl 	opcode-oNoAnswer		Code ::= local : 6
+-- not impl 	opcode-oAnswer		Code ::= local : 7
+-- not impl 	opcode-oDisconnect		Code ::= local : 8
+-- not impl 	opcode-termAttemptAuthorized	Code ::= local : 9
+-- not impl 	opcode-tBusy		Code ::= local : 10
+-- not impl 	opcode-tNoAnswer		Code ::= local : 11
+-- not impl 	opcode-tAnswer		Code ::= local : 12
+-- not impl 	opcode-tDisconnect		Code ::= local : 13
+-- not impl 
+-- not impl 	opcode-facilitySelectedAndAvailable	Code ::= local : 80
+-- not impl 	opcode-originationAttempt		Code ::= local : 81
+-- not impl 	opcode-terminationAttempt		Code ::= local : 82
+-- not impl 	opcode-oAbandon		Code ::= local : 83
+-- Advanced BCP DP Package
+-- not impl 	opcode-oMidCall		Code ::= local : 14
+-- not impl 	opcode-tMidCall		Code ::= local : 15
+-- not impl 
+-- not impl 	opcode-oSuspended		Code ::= local : 84
+-- not impl 	opcode-tSuspended		Code ::= local : 85
+-- not impl 
+-- not impl  
+-- SCF/SRF activation of assist Package
+-- not impl 	opcode-assistRequestInstructions	Code ::= local : 16
+-- Assist connection establishment Package
+-- not impl 	opcode-establishTemporaryConnection	Code ::= local : 17
+-- Generic disconnect resource Package
+-- not impl 	opcode-disconnectForwardConnection	Code ::= local : 18
+-- not impl 	opcode-dFCWithArgument		Code ::= local : 86
+-- Non-assisted connection establishment Package
+-- not impl 	opcode-connectToResource		Code ::= local : 19
+-- Connect Package (elementary SSF function)
+-- not impl 	opcode-connect		Code ::= local : 20
+-- Call handling Package (elementary SSF function)
+-- not impl 	opcode-holdCallInNetwork		Code ::= local : 21
+-- not impl 	opcode-releaseCall		Code ::= local : 22
+-- BCSM Event handling Package
+-- not impl 	opcode-requestReportBCSMEvent	Code ::= local : 23
+-- not impl 	opcode-eventReportBCSM		Code ::= local : 24
+-- Charging Event handling Package
+-- not impl 	opcode-requestNotificationChargingEvent	Code ::= local : 25
+-- not impl 	opcode-eventNotificationCharging	Code ::= local : 26
+-- SSF call processing Package
+-- not impl 	opcode-collectInformation		Code ::= local : 27
+-- not impl 	opcode-analyseInformation		Code ::= local : 28
+-- not impl 	opcode-selectRoute		Code ::= local : 29
+-- not impl 	opcode-selectFacility		Code ::= local : 30
+-- not impl 	opcode-continue		Code ::= local : 31
+-- not impl 	opcode-authorizeTermination		Code ::= local : 87
+
+-- SCF call initiation Package
+-- not impl 	opcode-initiateCallAttempt		Code ::= local : 32
+-- Timer Package
+-- not impl 	opcode-resetTimer		Code ::= local : 33
+-- Billing Package
+-- not impl 	opcode-furnishChargingInformation	Code ::= local : 34
+-- Charging Package
+-- not impl 	opcode-applyCharging		Code ::= local : 35
+-- not impl 	opcode-applyChargingReport		Code ::= local : 36
+-- Status reporting Package
+-- not impl 	opcode-requestCurrentStatusReport	Code ::= local : 37
+-- not impl 	opcode-requestEveryStatusChangeReport	Code ::= local : 38
+-- not impl 	opcode-requestFirstStatusMatchReport	Code ::= local : 39
+-- not impl 	opcode-statusReport		Code ::= local : 40
+-- Traffic management Package
+-- not impl 	opcode-callGap		Code ::= local : 41
+-- Service management Package
+-- not impl 	opcode-activateServiceFiltering	Code ::= local : 42
+-- not impl 	opcode-serviceFilteringResponse	Code ::= local : 43
+-- not impl  
+-- Call report Package
+-- not impl 	opcode-callInformationReport		Code ::= local : 44
+-- not impl 	opcode-callInformationRequest	Code ::= local : 45
+-- Signalling control Package
+-- not impl 	opcode-sendChargingInformation	Code ::= local : 46
+-- Specialized resource control Package
+-- not impl 	opcode-playAnnouncement		Code ::= local : 47
+-- not impl 	opcode-promptAndCollectUserInformation	Code ::= local : 48
+-- not impl 	opcode-specializedResourceReport	Code ::= local : 49
+ -- Cancel Package
+-- not impl 	opcode-cancel		Code ::= local : 53
+-- not impl 	opcode-cancelStatusReportRequest	Code ::= local : 54
+-- Activity Test Package
+-- not impl 	opcode-activityTest		Code ::= local : 55
+-- CPH Response Package
+-- not impl 	opcode-continueWithArgument	Code ::= local : 88
+-- not impl 	opcode-createCallSegmentAssociation	Code ::= local : 89
+-- not impl 	opcode-disconnectLeg		Code ::= local : 90
+-- not impl 	opcode-mergeCallSegments		Code ::= local : 91
+-- not impl 	opcode-moveCallSegments		Code ::= local : 92
+-- not impl 	opcode-moveLeg		Code ::= local : 93 
+-- not impl 	opcode-reconnect		Code ::= local : 94
+-- not impl 	opcode-splitLeg		Code ::= local : 95
+-- Exception Inform Package
+-- not impl 	opcode-entityReleased		Code ::= local : 96
+-- Trigger Management Package
+-- not impl 	opcode-manageTriggerData		Code ::= local : 97
+-- USI Handling Package
+-- not impl 	opcode-requestReportUTSI		Code ::= local : 98
+-- not impl 	opcode-sendSTUI		Code ::= local : 100
+-- not impl 	opcode-reportUTSI		Code ::= local : 101
+-- Facility IE Handling Package
+-- not impl 	opcode-sendFacilityInformation	Code ::= local : 102
+-- not impl 	opcode-requestReportFacilityEvent	Code ::= local : 103
+-- not impl 	opcode-eventReportFacility		Code ::= local : 104
+-- not impl 
+
+
+
+-- SRF/SCF interface
+-- not impl 	opcode-promptAndReceiveMessage	Code ::= local : 107
+-- not impl 	opcode-scriptInformation		Code ::= local : 108
+-- not impl 	opcode-scriptEvent		Code ::= local : 109
+-- not impl 	opcode-scriptRun		Code ::= local : 110
+-- not impl 	opcode-scriptClose		Code ::= local : 111
+
+-- SCF/SCF interface
+-- not impl 	opcode-establishChargingRecord	Code ::= local : 112
+-- not impl 	opcode-handlingInformationRequest	Code ::= local : 113
+-- not impl 	opcode-handlingInformationResult	Code ::= local : 114
+-- not impl 	opcode-networkCapability		Code ::= local : 115
+-- not impl 	opcode-notificationProvided		Code ::= local : 116
+ 
+-- not impl 	opcode-confirmedNotificationProvided	Code ::= local : 117
+-- not impl 	opcode-provideUserInformation	Code ::= local : 118
+-- not impl 	opcode-confirmedReportChargingInformation	Code ::= local : 119
+-- not impl 	opcode-reportChargingInformation	Code ::= local : 120
+-- not impl 	opcode-requestNotification		Code ::= local : 121
+
+-- CUSF/SCF interface
+-- not impl 	opcode-activationReceivedAndAuthorized	Code ::= local : 122
+-- not impl 	opcode-initiateAssociation		Code ::= local : 123
+-- not impl 	opcode-associationReleaseRequested	Code ::= local : 124
+-- not impl 	opcode-componentReceived		Code ::= local : 125
+-- not impl 	opcode-releaseAssociation		Code ::= local : 126
+-- not impl 	opcode-requestReportBCUSMEvent	Code ::= local : 127
+-- not impl 	opcode-sendComponent		Code ::= local : 130
+
+
+
+-- not impl 	errcode-canceled		Code ::= local : 0
+-- not impl 	errcode-cancelFailed		Code ::= local : 1
+-- not impl 	errcode-eTCFailed		Code ::= local : 3
+-- not impl 	errcode-improperCallerResponse	Code ::= local : 4
+-- not impl 	errcode-missingCustomerRecord	Code ::= local : 6
+-- not impl 	errcode-missingParameter		Code ::= local : 7
+-- not impl 	errcode-parameterOutOfRange	Code ::= local : 8
+-- not impl 	errcode-requestedInfoError		Code ::= local : 10
+-- not impl 	errcode-systemFailure		Code ::= local : 11
+-- not impl 	errcode-taskRefused		Code ::= local : 12
+-- not impl 	errcode-unavailableResource		Code ::= local : 13
+-- not impl 	errcode-unexpectedComponentSequence	Code ::= local : 14
+-- not impl 	errcode-unexpectedDataValue		Code ::= local : 15
+-- not impl 	errcode-unexpectedParameter		Code ::= local : 16
+-- not impl 	errcode-unknownLegID		Code ::= local : 17
+-- not impl 	errcode-unknownResource		Code ::= local : 18
+
+-- Error codes for the new IN CS2 error types follows 
+-- not impl 	errcode-scfReferral		Code ::= local : 21
+-- not impl 	errcode-scfTaskRefused		Code ::= local : 22
+-- not impl 	errcode-chainingRefused		Code ::= local : 23
+-- not impl 
+
+
+-- not impl ssf ROS-OBJECT-CLASS ::= {
+-- not impl 	INITIATES	{inCs2SsfToScfGeneric|
+-- not impl 			inCs2SsfToScfDpSpecific|
+-- not impl 			inCs2AssistHandoffSsfToScf|
+-- not impl 			inCs2SsfToScfServiceManagement}
+-- not impl 	RESPONDS	{inCs2ScfToSsfGeneric|
+-- not impl 			inCs2ScfToSsfDpSpecific|
+-- not impl 			inCs2ScfToSsfTrafficManagement|
+-- not impl 			inCs2SsfToScfServiceManagement|
+-- not impl 			inCs2ScfToSsfStatusReporting}
+-- not impl 	ID		id-rosObject-ssf}
+-- not impl 
+-- not impl srf ROS-OBJECT-CLASS ::= {
+-- not impl 	INITIATES	{srf-scf-contract} 
+-- not impl 	ID		id-rosObject-srf
+-- not impl 	}
+-- not impl 
+-- not impl cusf ROS-OBJECT-CLASS ::= {
+-- not impl 	INITIATES					{cusf-scf-contract} 
+-- not impl 	RESPONDS					{scf-cusf-contract } 
+-- not impl 	ID						id-rosObject-cusf}
+-- not impl 
+-- not impl dssp  ROS-OBJECT-CLASS ::= {
+-- not impl 	BOTH	{dsspContract}
+-- not impl 	ID		id-rosObject-dssp
+-- not impl 	}
+-- not impl 
+-- not impl scf ROS-OBJECT-CLASS ::= {
+-- not impl 	INITIATES	{inCs2ScfToSsfGeneric|
+-- not impl 			inCs2ScfToSsfDpSpecific|
+-- not impl 			inCs2ScfToSsfTrafficManagement|
+-- not impl 			inCs2ScfToSsfServiceManagement|
+-- not impl 			inCs2ScfToSsfTriggerManagement|
+-- not impl 			inCs2ScfToSsfStatusReporting |
+-- scf to cusf contracts
+-- not impl 			scf-cusf-contract | 
+-- not impl 			scf-cusf-contract | 
+-- scf to scf contracts
+-- not impl 			scf-scfContract |
+-- not impl 			dsspContract |
+-- sdf to scf contracts
+-- not impl 			dapContract
+-- not impl 			}
+-- not impl 	RESPONDS	{inCs2SsfToScfGeneric|
+-- not impl 			inCs2SsfToScfDpSpecific|
+-- not impl 			inCs2AssistHandoffSsfToScf|
+-- not impl 			inCs2SsfToScfServiceManagement|
+-- cusf to scf contracts
+-- not impl 			cusf-scf-contract | 
+-- srf to scf contracts
+-- not impl 			srf-scf-contract |
+-- not impl  
+-- scf to scf contracts
+-- not impl 			scf-scfContract |
+-- not impl 			dsspContract 
+-- not impl 
+-- not impl 			}
+-- not impl 	ID		id-rosObject-scf}
+
+-- not impl EXTENSION ::= CLASS {
+-- not impl 	&ExtensionType,
+-- not impl 	&criticality	CriticalityType DEFAULT ignore,
+-- not impl 	&id	Code
+-- not impl 	}
+-- not impl WITH SYNTAX {
+-- not impl 	EXTENSION-SYNTAX	&ExtensionType
+-- not impl 	CRITICALITY	&criticality
+-- not impl 	IDENTIFIED BY	&id
+-- not impl 	}
+
+-- Example of addition of an extension named 'Some Network Specific Indicator' of type
+-- BOOLEAN, with criticality 'abort' and to be identified as extension number 1
+-- Example of definition using the above information object class:
+--
+-- SomeNetworkSpecificIndicator  EXTENSION ::= {
+-- 	EXTENSION-SYNTAX    BOOLEAN
+--	CRITICALITY         abort
+--	IDENTIFIED BY       local : 1
+--	}
+
+-- Example of transfer syntax, using the ExtensionField datatype as specified in section 4.1.
+-- Assuming the value of the extension is set to TRUE, the extensions parameter
+-- becomes a Sequence of type INTEGER ::= 1, criticality ENUMERATED ::= 1 and value [1]
+-- EXPLICIT BOOLEAN ::= TRUE.
+--
+-- Use of Q.1400 defined Extension is ffs
+-- In addition the extension mechanism marker is used to identify the future minor additions to INAP.
+
+-- not impl firstExtension EXTENSION ::= {
+-- not impl 	EXTENSION-SYNTAX	NULL
+-- not impl 	CRITICALITY	ignore
+-- not impl 	IDENTIFIED BY	local:1
+-- not impl 	}
+-- firstExtension is just an example.
+-- not impl SupportedExtensions  {PARAMETERS-BOUND : bound}  EXTENSION ::= {firstExtension , ...
+-- full set of network operator extensions
+ --}
+
+-- SupportedExtension is the full set of the network operator extensions.
+
+-- not impl UISCRIPT ::= CLASS {
+-- not impl 	&SpecificInfo	OPTIONAL,
+-- not impl 	&Result	OPTIONAL,
+-- not impl 	&id	Code
+-- not impl 	}
+-- not impl 
+-- not impl WITH SYNTAX {
+-- not impl 	[WITH-SPECIFICINFO 	&SpecificInfo]
+-- not impl 	[WITH-RESULT 	&Result]
+-- not impl 	IDENTIFIED BY 	&id
+-- not impl }
+-- not impl 
+-- not impl  
+-- not impl firstScript UISCRIPT ::=
+-- not impl 	{
+-- not impl 	IDENTIFIED BY local:1
+-- not impl 	}
+-- firstScript is just an example.
+
+-- not impl SupportedUIScripts {PARAMETERS-BOUND : bound}  UISCRIPT ::= {firstScript , ...
+-- full set of User Interaction script 
+--} 
+-- SupportedUIScripts is the full set of User Interaction scripts.
+-- not impl inEmptyUnbind OPERATION ::= {
+-- not impl 	RETURN RESULT	FALSE
+-- not impl 	ALWAYS RESPONDS	FALSE }
+-- not impl emptyConnectionPackage CONNECTION-PACKAGE ::= {
+-- not impl 	BIND	emptyBind
+-- not impl 	UNBIND	inEmptyUnbind
+-- not impl 	RESPONDER UNBIND 	TRUE
+-- not impl 	ID		id-package-emptyConnection
+-- not impl 	}
+-- not impl PARAMETERS-BOUND ::= CLASS
+-- not impl {
+-- not impl 	&minAChBillingChargingLength	INTEGER,
+-- not impl 	&maxAChBillingChargingLength	INTEGER,
+-- not impl 	&minAttributesLength		INTEGER,
+-- not impl 	&maxAttributesLength		INTEGER,
+-- not impl 	&minBackwardGVNSLength		INTEGER,
+-- not impl 	&maxBackwardGVNSLength		INTEGER,
+-- not impl 	&maxBearerCapabilityLength		INTEGER,
+-- not impl 	&minCalledPartyNumberLength	INTEGER,
+-- not impl 	&maxCalledPartyNumberLength	INTEGER,
+-- not impl 	&minCallingPartyNumberLength	INTEGER,
+-- not impl 	&maxCallingPartyNumberLength	INTEGER,
+-- not impl 	&minCallResultLength		INTEGER,
+-- not impl 	&maxCallResultLength		INTEGER,
+-- not impl 	&maxCauseLength		INTEGER,
+-- not impl 	&minDigitsLength		INTEGER,
+-- not impl 	&maxDigitsLength		INTEGER,
+-- not impl 	&minDisplayInformationLength	INTEGER,
+-- not impl 	&maxDisplayInformationLength	INTEGER,
+-- not impl 	&minEventSpecificInformationChargingLength	INTEGER,
+-- not impl 	&maxEventSpecificInformationChargingLength	INTEGER,
+-- not impl 	&minEventTypeChargingLength	INTEGER,
+-- not impl 	&maxEventTypeChargingLength	INTEGER,
+-- not impl 	&minFCIBillingChargingLength	INTEGER,
+-- not impl 	&maxFCIBillingChargingLength	INTEGER,
+-- not impl 	&minForwardGVNSLength		INTEGER,
+-- not impl 	&maxForwardGVNSLength		INTEGER,
+-- not impl 	&minGenericNameLength		INTEGER,
+-- not impl 	&maxGenericNameLength		INTEGER,
+-- not impl 	&minGenericNumberLength		INTEGER,
+-- not impl 	&maxGenericNumberLength		INTEGER,
+-- not impl 	&maxInitialTimeInterval		INTEGER,
+-- not impl 	&maxINServiceCompatibilityIndLength	INTEGER,
+-- not impl 	&minIPAvailableLength		INTEGER,
+-- not impl 	&maxIPAvailableLength		INTEGER,
+-- not impl 	&minIPSSPCapabilitiesLength		INTEGER,
+-- not impl 	&maxIPSSPCapabilitiesLength	INTEGER,
+-- not impl 	&minLocationNumberLength		INTEGER,
+-- not impl 	&maxLocationNumberLength		INTEGER,
+-- not impl 	&minMailBoxIDLength		INTEGER,
+-- not impl 	&maxMailBoxIDLength		INTEGER,
+-- not impl 	&minMessageContentLength		INTEGER,
+-- not impl  
+-- not impl 	&maxMessageContentLength		INTEGER,
+-- not impl 	&minMidCallControlInfoNum		INTEGER,
+-- not impl 	&maxMidCallControlInfoNum		INTEGER,
+-- not impl 	&minOriginalCalledPartyIDLength	INTEGER,
+-- not impl 	&maxOriginalCalledPartyIDLength	INTEGER,
+-- not impl 	&minReasonLength		INTEGER,
+-- not impl 	&maxReasonLength		INTEGER,
+-- not impl 	&minReceivedInformationLength	INTEGER,
+-- not impl 	&maxReceivedInformationLength 	INTEGER,
+-- not impl 	&maxRecordedMessageUnits		INTEGER,
+-- not impl 	&maxRecordingTime		INTEGER,
+-- not impl 	&minRedirectingPartyIDLength	INTEGER,
+-- not impl 	&maxRedirectingPartyIDLength	INTEGER,
+-- not impl 	&minRequestedUTSINum 		INTEGER,
+-- not impl 	&maxRequestedUTSINum 		INTEGER,
+-- not impl 	&minRouteListLength		INTEGER,
+-- not impl 	&maxRouteListLength		INTEGER,
+-- not impl 	&minScfIDLength		INTEGER,
+-- not impl 	&maxScfIDLength		INTEGER,
+-- not impl 	&minScfAddressLength		INTEGER,
+-- not impl 	&maxScfAddressLength		INTEGER,
+-- not impl 	&minSCIBillingChargingLength	INTEGER,
+-- not impl 	&maxSCIBillingChargingLength	INTEGER,
+-- not impl 	&minServiceInteractionIndicatorsLength	INTEGER,
+-- not impl 	&maxServiceInteractionIndicatorsLength	INTEGER,
+-- not impl 	&minSFBillingChargingLength	INTEGER,
+-- not impl 	&maxSFBillingChargingLength	INTEGER,
+-- not impl 	&minUSIInformationLength		INTEGER,
+-- not impl 	&maxUSIInformationLength		INTEGER,
+-- not impl 	&minUSIServiceIndicatorLength	INTEGER,
+-- not impl 	&maxUSIServiceIndicatorLength	INTEGER,
+-- not impl 	&numOfBCSMEvents		INTEGER,
+-- not impl 	&numOfBCUSMEvents		INTEGER,
+-- not impl 	&numOfChargingEvents		INTEGER,
+-- not impl 	&numOfCSAs		INTEGER,
+-- not impl 	&numOfCSs		INTEGER,
+-- not impl 	&numOfExtensions		INTEGER,
+-- not impl 	&numOfGenericNumbers		INTEGER,
+-- not impl 	&numOfInServiceCompatibilityIndLength	INTEGER,
+-- not impl 	&numOfLegs		INTEGER,
+-- not impl 	&numOfMessageIDs		INTEGER,
+-- not impl 	&maxAmount		INTEGER,
+-- not impl 	&maxInitialUnitIncrement		INTEGER,
+-- not impl 	&maxScalingFactor		INTEGER,
+-- not impl 	&maxSegmentsPerDataInterval		INTEGER,
+-- not impl 	&maxTimePerInterval		INTEGER,
+-- not impl 	&maxUnitsPerDataInterval 		INTEGER,
+-- not impl 	&maxUnitsPerInterval		INTEGER,
+-- not impl 	&ub-maxUserCredit		INTEGER,
+-- not impl 	&ub-nbCall		INTEGER
+-- not impl }
+-- not impl WITH SYNTAX
+-- not impl {
+-- not impl 	MINIMUM-FOR-ACH-BILLING-CHARGING	&minAChBillingChargingLength
+-- not impl 	MAXIMUM-FOR-ACH-BILLING-CHARGING	&maxAChBillingChargingLength
+-- not impl 	MINIMUM-FOR-ATTRIBUTES		&minAttributesLength
+-- not impl 	MAXIMUM-FOR-ATTRIBUTES		&maxAttributesLength
+-- not impl 	MAXIMUM-FOR-BACKWARD-GVNS	&minBackwardGVNSLength
+-- not impl  
+-- not impl 	MAXIMUM-FOR-BACKWARD-GVNS	&maxBackwardGVNSLength
+-- not impl 	MAXIMUM-FOR-BEARER-CAPABILITY	&maxBearerCapabilityLength
+-- not impl 	MINIMUM-FOR-CALLED-PARTY-NUMBER	&minCalledPartyNumberLength
+-- not impl 	MAXIMUM-FOR-CALLED-PARTY-NUMBER	&maxCalledPartyNumberLength
+-- not impl 	MINIMUM-FOR-CALLING-PARTY-NUMBER	&minCallingPartyNumberLength
+-- not impl 	MAXIMUM-FOR-CALLING-PARTY-NUMBER	&maxCallingPartyNumberLength
+-- not impl 	MINIMUM-FOR-CALL-RESULT		&minCallResultLength
+-- not impl 	MAXIMUM-FOR-CALL-RESULT		&maxCallResultLength
+-- not impl 	MAXIMUM-FOR-CAUSE		&maxCauseLength
+-- not impl 	MINIMUM-FOR-DIGITS		&minDigitsLength
+-- not impl 	MAXIMUM-FOR-DIGITS		&maxDigitsLength
+-- not impl 	MINIMUM-FOR-DISPLAY		&minDisplayInformationLength
+-- not impl 	MAXIMUM-FOR-DISPLAY		&maxDisplayInformationLength
+-- not impl 	MINIMUM-FOR-EVENT-SPECIFIC-CHARGING	&minEventSpecificInformationChargingLength
+-- not impl 	MAXIMUM-FOR-EVENT-SPECIFIC-CHARGING	&maxEventSpecificInformationChargingLength
+-- not impl 	MINIMUM-FOR-EVENT-TYPE-CHARGING	&minEventTypeChargingLength
+-- not impl 	MAXIMUM-FOR-EVENT-TYPE-CHARGING	&maxEventTypeChargingLength
+-- not impl 	MINIMUM-FOR-FCI-BILLING-CHARGING	&minFCIBillingChargingLength
+-- not impl 	MAXIMUM-FOR-FCI-BILLING-CHARGING	&maxFCIBillingChargingLength
+-- not impl 	MINIMUM-FOR-FORWARD-GVNS	&minForwardGVNSLength
+-- not impl 	MAXIMUM-FOR-FORWARD-GVNS	&maxForwardGVNSLength
+-- not impl 	MINIMUM-FOR-GENERIC-NAME	&minGenericNameLength
+-- not impl 	MAXIMUM-FOR-GENERIC-NAME	&maxGenericNameLength
+-- not impl 	MINIMUM-FOR-GENERIC-NUMBER	&minGenericNumberLength
+-- not impl 	MAXIMUM-FOR-GENERIC-NUMBER	&maxGenericNumberLength
+-- not impl 	MAXIMUM-FOR-INITIAL-TIME-INTERVAL	&maxInitialTimeInterval
+-- not impl 	MAXIMUM-FOR-InSERVICE-COMPATIBILITY	&maxINServiceCompatibilityIndLength
+-- not impl 	MINIMUM-FOR-IP-AVAILABLE		&minIPAvailableLength
+-- not impl 	MAXIMUM-FOR-IP-AVAILABLE	&maxIPAvailableLength
+-- not impl 	MINIMUM-FOR-IP-SSP-CAPABILITIES	&minIPSSPCapabilitiesLength
+-- not impl 	MAXIMUM-FOR-IP-SSP-CAPABILITIES	&maxIPSSPCapabilitiesLength
+-- not impl 	MINIMUM-FOR-LOCATION-NUMBER	&minLocationNumberLength
+-- not impl 	MAXIMUM-FOR-LOCATION-NUMBER	&maxLocationNumberLength
+-- not impl 	MINIMUM-FOR-MAIL-BOX-ID		&minMailBoxIDLength
+-- not impl 	MAXIMUM-FOR-MAIL-BOX-ID		&maxMailBoxIDLength
+-- not impl 	MINIMUM-FOR-MESSAGE-CONTENT	&minMessageContentLength
+-- not impl 	MAXIMUM-FOR-MESSAGE-CONTENT	&maxMessageContentLength
+-- not impl 	MINIMUM-FOR-MID-CALL-CONTROL-INFO	&minMidCallControlInfoNum
+-- not impl 	MAXIMUM-FOR-MID-CALL-CONTROL-INFO	&maxMidCallControlInfoNum
+-- not impl 	MINIMUM-FOR-ORIGINAL-CALLED-PARTY-ID	&minOriginalCalledPartyIDLength
+-- not impl 	MAXIMUM-FOR-ORIGINAL-CALLED-PARTY-ID	&maxOriginalCalledPartyIDLength
+-- not impl 	MINIMUM-FOR-REASON		&minReasonLength
+-- not impl 	MAXIMUM-FOR-REASON		&maxReasonLength
+-- not impl 	MINIMUM-FOR-RECEIVED-INFORMATION	&minReceivedInformationLength
+-- not impl 	MAXIMUM-FOR-RECEIVED-INFORMATION	&maxReceivedInformationLength 
+-- not impl 	MAXIMUM-FOR-RECORDED-MESSAGE-UNITS	&maxRecordedMessageUnits
+-- not impl 	MAXIMUM-FOR-RECORDING-TIME	&maxRecordingTime
+-- not impl 	MINIMUM-FOR-REDIRECTING-ID	&minRedirectingPartyIDLength
+-- not impl 	MAXIMUM-FOR-REDIRECTING-ID	&maxRedirectingPartyIDLength
+-- not impl 	MINIMUM-FOR-REQUESTED-UTSI-NUM	&minRequestedUTSINum
+-- not impl 	MAXIMUM-FOR-REQUESTED-UTSI-NUM	&maxRequestedUTSINum 
+-- not impl 	MINIMUM-FOR-ROUTE-LIST		&minRouteListLength
+-- not impl 	MAXIMUM-FOR-ROUTE-LIST		&maxRouteListLength
+-- not impl 	MINIMUM-FOR-SCF-ID		&minScfIDLength
+-- not impl 	MAXIMUM-FOR-SCF-ID		&maxScfIDLength
+-- not impl 	MINIMUM-FOR-SCF-ADDRESS		&minScfAddressLength
+-- not impl 	MAXIMUM-FOR-SCF-ADDRESS		&maxScfAddressLength
+-- not impl  
+-- not impl 	MINIMUM-FOR-SCI-BILLING-CHARGING	&minSCIBillingChargingLength
+-- not impl 	MAXIMUM-FOR-SCI-BILLING-CHARGING	&maxSCIBillingChargingLength
+-- not impl 	MINIMUM-FOR-SII		&minServiceInteractionIndicatorsLength
+-- not impl 	MAXIMUM-FOR-SII		&maxServiceInteractionIndicatorsLength
+-- not impl 	MINIMUM-FOR-SF-BILLING-CHARGING	&minSFBillingChargingLength
+-- not impl 	MAXIMUM-FOR-SF-BILLING-CHARGING	&maxSFBillingChargingLength
+-- not impl 	MINIMUM-FOR-USI-INFORMATION	&minUSIInformationLength
+-- not impl 	MAXIMUM-FOR-USI-INFORMATION	&maxUSIInformationLength
+-- not impl 	MINIMUM-FOR-USI-SERVICE-INDICATOR	&minUSIServiceIndicatorLength
+-- not impl 	MAXIMUM-FOR-USI-SERVICE-INDICATOR	&maxUSIServiceIndicatorLength
+-- not impl 	NUM-OF-BCSM-EVENT		&numOfBCSMEvents
+-- not impl 	NUM-OF-BCUSM-EVENT		&numOfBCUSMEvents
+-- not impl 	NUM-OF-CHARGING-EVENT		&numOfChargingEvents
+-- not impl 	NUM-OF-CSAS		&numOfCSAs
+-- not impl 	NUM-OF-CSS		&numOfCSs
+-- not impl 	NUM-OF-EXTENSIONS		&numOfExtensions
+-- not impl 	NUM-OF-GENERIC-NUMBERS		&numOfGenericNumbers
+-- not impl 	NUM-OF-InSERVICE-COMPATIBILITY-ID	&numOfInServiceCompatibilityIndLength
+-- not impl 	NUM-OF-LEGS		&numOfLegs
+-- not impl 	NUM-OF-MESSAGE-IDS		&numOfMessageIDs
+-- not impl 	MAXIMUM-FOR-AMOUNT		&maxAmount
+-- not impl 	MAXIMUM-FOR-INITIAL-UNIT-INCREMENT	&maxInitialUnitIncrement
+-- not impl 	MAXIMUM-FOR-SCALING-FACTOR	&maxScalingFactor
+-- not impl 	MAXIMUM-FOR-SEGMENTS-PER-DATA-INTERVAL	&maxSegmentsPerDataInterval
+-- not impl 	MAXIMUM-FOR-TIME-PER-INTERVAL	&maxTimePerInterval
+-- not impl 	MAXIMUM-FOR-UNITS-PER-DATA-INTERVAL	&maxUnitsPerDataInterval 
+-- not impl 	MAXIMUM-FOR-UNITS-PER-INTERVAL	&maxUnitsPerInterval
+-- not impl 	MAXIMUM-FOR-UB-USER-CREDIT	&ub-maxUserCredit
+-- not impl 	MAXIMUM-FOR-UB-NB-CALL		&ub-nbCall
+-- not impl }
+-- not impl 
+
+-- The following instance of the parameter bound is just an example
+-- not impl networkSpecificBoundSet  PARAMETERS-BOUND ::=
+-- not impl {
+-- not impl 	MINIMUM-FOR-ACH-BILLING-CHARGING	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-ACH-BILLING-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-ATTRIBUTES		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-ATTRIBUTES		5	
+-- example value
+-- not impl 	MAXIMUM-FOR-BACKWARD-GVNS	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-BACKWARD-GVNS	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-BEARER-CAPABILITY	5	
+-- example value
+-- not impl 	MINIMUM-FOR-CALLED-PARTY-NUMBER	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-CALLED-PARTY-NUMBER	5	
+-- example value
+-- not impl 	MINIMUM-FOR-CALLING-PARTY-NUMBER	1	
+-- example value
+-- not impl MAXIMUM-FOR-CALLING-PARTY-NUMBER	5	
+-- example value
+-- not impl 	MINIMUM-FOR-CALL-RESULT		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-CALL-RESULT		5	
+-- example value
+-- not impl 	MAXIMUM-FOR-CAUSE		4	
+-- example value
+-- not impl 	MINIMUM-FOR-DIGITS		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-DIGITS		5	
+-- example value
+-- not impl 	MINIMUM-FOR-DISPLAY		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-DISPLAY		5	
+-- example value
+-- not impl 	MINIMUM-FOR-EVENT-SPECIFIC-CHARGING	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-EVENT-SPECIFIC-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-EVENT-TYPE-CHARGING	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-EVENT-TYPE-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-FCI-BILLING-CHARGING	1	
+-- example value
+-- not impl  
+-- not impl 	MAXIMUM-FOR-FCI-BILLING-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-FORWARD-GVNS	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-FORWARD-GVNS	5	
+-- example value
+-- not impl 	MINIMUM-FOR-GENERIC-NAME	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-GENERIC-NAME	5	
+-- example value
+-- not impl 	MINIMUM-FOR-GENERIC-NUMBER	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-GENERIC-NUMBER	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-INITIAL-TIME-INTERVAL	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-InSERVICE-COMPATIBILITY	5	
+-- example value
+-- not impl 	MINIMUM-FOR-IP-AVAILABLE		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-IP-AVAILABLE	5	
+-- example value
+-- not impl 	MINIMUM-FOR-IP-SSP-CAPABILITIES	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-IP-SSP-CAPABILITIES	5	
+-- example value
+-- not impl 	MINIMUM-FOR-LOCATION-NUMBER	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-LOCATION-NUMBER	5	
+-- example value
+-- not impl 	MINIMUM-FOR-MAIL-BOX-ID		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-MAIL-BOX-ID		5	
+-- example value
+-- not impl 	MINIMUM-FOR-MESSAGE-CONTENT	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-MESSAGE-CONTENT	5	
+-- example value
+-- not impl 	MINIMUM-FOR-MID-CALL-CONTROL-INFO	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-MID-CALL-CONTROL-INFO	5	
+-- example value
+-- not impl 	MINIMUM-FOR-ORIGINAL-CALLED-PARTY-ID	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-ORIGINAL-CALLED-PARTY-ID	5	
+-- example value
+-- not impl 	MINIMUM-FOR-REASON		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-REASON		5	
+-- example value
+-- not impl 	MINIMUM-FOR-RECEIVED-INFORMATION	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-RECEIVED-INFORMATION	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-RECORDED-MESSAGE-UNITS	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-RECORDING-TIME	5	
+-- example value
+-- not impl 	MINIMUM-FOR-REDIRECTING-ID	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-REDIRECTING-ID	5	
+-- example value
+-- not impl 	MINIMUM-FOR-REQUESTED-UTSI-NUM	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-REQUESTED-UTSI-NUM	5	
+-- example value
+-- not impl 	MINIMUM-FOR-ROUTE-LIST		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-ROUTE-LIST		5	
+-- example value
+-- not impl 	MINIMUM-FOR-SCF-ID		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-SCF-ID		5	
+-- example value
+-- not impl 	MINIMUM-FOR-SCF-ADDRESS		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-SCF-ADDRESS		5	
+-- example value
+-- not impl 	MINIMUM-FOR-SCI-BILLING-CHARGING	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-SCI-BILLING-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-SII		1	
+-- example value
+-- not impl 	MAXIMUM-FOR-SII		5	
+-- example value
+-- not impl 	MINIMUM-FOR-SF-BILLING-CHARGING	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-SF-BILLING-CHARGING	5	
+-- example value
+-- not impl 	MINIMUM-FOR-USI-INFORMATION	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-USI-INFORMATION	5	
+-- example value
+-- not impl 	MINIMUM-FOR-USI-SERVICE-INDICATOR	1	
+-- example value
+-- not impl 	MAXIMUM-FOR-USI-SERVICE-INDICATOR	5	
+-- example value
+-- not impl 	NUM-OF-BCSM-EVENT		4	
+-- example value
+-- not impl 	NUM-OF-BCUSM-EVENT		4	
+-- example value
+-- not impl 	NUM-OF-CHARGING-EVENT		4	
+-- example value
+-- not impl 	NUM-OF-CSAS		2	
+-- example value
+-- not impl 	NUM-OF-CSS		2	
+-- example value
+-- not impl 	NUM-OF-EXTENSIONS		1	
+-- example value
+-- not impl 	NUM-OF-GENERIC-NUMBERS		2	
+-- example value
+-- not impl 	NUM-OF-InSERVICE-COMPATIBILITY-ID	2	
+-- example value
+-- not impl 	NUM-OF-LEGS		2	
+-- example value
+-- not impl 	NUM-OF-MESSAGE-IDS		2	
+-- example value
+-- not impl  
+-- not impl 	NUM-OF-RECORDED-MESSAGE-IDS	2	
+-- example value
+-- not impl 	MAXIMUM-FOR-AMOUNT		2	
+-- example value
+-- not impl 	MAXIMUM-FOR-INITIAL-UNIT-INCREMENT	2	
+-- example value
+-- not impl 	MAXIMUM-FOR-SCALING-FACTOR	2	
+-- example value
+-- not impl 	MAXIMUM-FOR-SEGMENTS-PER-DATA-INTERVAL	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-TIME-PER-INTERVAL	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-UNITS-PER-DATA-INTERVAL	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-UNITS-PER-INTERVAL	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-UB-USER-CREDIT	5	
+-- example value
+-- not impl 	MAXIMUM-FOR-UB-NB-CALL		5	
+-- example value
+-- not impl }
+-- not impl 
+
+-- not impl tc-Messages	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 773 modules(2) messages(1) version3(3)}
+-- not impl tc-NotationExtensions	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 775 modules(2)  notation-extension (4) version1(1)}
+-- not impl ros-InformationObjects	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt remote-operations(4) informationObjects(5) version1(0)}
+-- not impl ros-genericPDUs	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt remote-operations(4) generic-ROS-PDUs(6) version1(0)}
+-- not impl ros-UsefulDefinitions	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt remote-operations(4) useful-definitions(7) version1(0)}
+-- not impl sese-APDUs	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt genericULS(20) modules(1) seseAPDUs(6) }
+-- not impl guls-Notation	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt genericULS (20) modules (1) notation (1)}
+-- not impl guls-SecurityTransformations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-itu-t genericULS (20) modules (1) gulsSecurityTransformations (3) }
+-- not impl ds-UsefulDefinitions	OBJECT IDENTIFIER ::= 	
+-- not impl 	{joint-iso-ccitt ds(5) module(1) usefulDefinitions(0) 3}
+-- not impl spkmGssTokens	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ iso(1) identified-organization(3) dod(6) internet(1) security(5) mechanisms(5) spkm(1) spkmGssTokens(10)}
+-- not impl 
+-- For InCS1 Modules
+-- not impl contexts	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1218 modules (0) contexts (8) selectedContexts (1) version (1)}
+-- not impl 
+-- For IN CS2 Modules
+-- not impl datatypes	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-datatypes (0) version1(0)}
+-- not impl errortypes	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-errortypes (1) version1(0)}
+-- not impl operationcodes	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-operationcodes (2) version1(0)}
+-- not impl  
+-- not impl errorcodes	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-errorcodes (3) version1(0)}
+-- not impl classes	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-classes (4) version1(0)}
+-- not impl ssf-scf-Operations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-ssf-scf-ops-args (5) version1(0)}
+-- not impl ssf-scf-Protocol	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-ssf-scf-pkgs-contracts-acs (6) version1(0)}
+-- not impl scf-srf-Operations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-srf-ops-args (7) version1(0)}
+-- not impl scf-srf-Protocol	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-srf-pkgs-contracts-acs(8) version1(0)}
+-- not impl sdf-InformationFramework 	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ ccitt recommendation q 1228 module(0) sdfInformationFramework(9) version1(0) }
+-- not impl sdf-BasicAccessControl  	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ ccitt recommendation q 1228 module(0) sdfBasicAccessControl(10) version1(0) }
+-- not impl scf-sdf-Operations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 module(0) scf-sdf-operations(11) version1(0) }
+-- not impl scf-sdf-Protocol  	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1218 modules(0) in-scf-sdf-protocol(12) version1(0)} 
+-- not impl scf-scf-Operations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-scf-ops-args (13) version1(0)}
+-- not impl scf-scf-Protocol	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-scf-pkgs-contracts-acs (14) version1(0)} 
+-- not impl scf-cusf-Operations	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-cusf-ops-args (15) version1(0)}
+-- not impl scf-cusf-Protocol	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-scf-cusf-pkgs-contracts-acs (16) version1(0)}
+-- not impl object-identifiers	OBJECT IDENTIFIER ::= 	
+-- not impl 	{ccitt recommendation q 1228 modules(0) in-cs2-object-identifiers(17) version1(0)}
+-- not impl sdf-sdf-Protocol 	OBJECT IDENTIFIER ::= 	
+-- not impl 	{  ccitt recommendation q 1228 module(0) in-cs2-sdf-sdf-Protocol(18) version1(0) } 
+-- not impl 
+-- not impl id-cs2		OBJECT IDENTIFIER ::= {ccitt recommendation q 1228 cs2 (2)}
+-- not impl 
+-- not impl 
+
+
+
+	
+
+
+-- Direction: SCF -> SSF, Timer: Tasf 
+-- When receiving this operation, the SSF handles calls to destination in a specified manner 
+-- without  sending queries for every detected call. It is used for example for providing 
+-- televoting or mass calling services. Simple registration functionality (counters) and 
+-- announcement control may be  located at the SSF. The operation initializes the specified 
+-- counters in the SSF.
+
+ActivateServiceFilteringArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	filteredCallTreatment	[0] FilteredCallTreatment --{bound}--,
+	filteringCharacteristics	[1] FilteringCharacteristics,
+	filteringTimeOut	[2] FilteringTimeOut ,
+	filteringCriteria	[3] FilteringCriteria --{bound}--,
+	startTime	[4] DateAndTime	OPTIONAL,
+	extensions	[5] SEQUENCE SIZE(1..numOfExtensions) OF 
+			      ExtensionField --{bound}--  OPTIONAL,
+	...
+	}
+
+
+-- Direction: SCF -> SSF, Timer: Tat  
+-- This operation is used to check for the continued existence of a relationship between the SCF 
+-- and SSF. If the relationship is still in existence, then the SSF will respond. If no reply is 
+-- received, then the SCF will assume that the SSF has failed in some way and will take the 
+-- appropriate action.
+
+
+ 
+-- Direction:  SSF -> SCF, Timer: Tadi    
+-- This operation is used to indicate availability of routing address and call type. (DP  – 
+-- Analysed_Info). 
+-- For additional information on this operation and its use with open numbering plans, refer to 
+-- Q.1224.
+
+AnalysedInformationArg --{PARAMETERS-BOUND : bound}--::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	dialledDigits	[1] CalledPartyNumber --{bound}--	OPTIONAL,
+	callingPartyBusinessGroupID	[2] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[3] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[4] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[5] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[6] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	prefix	[7] Digits --{bound}--	OPTIONAL,
+	redirectingPartyID	[8] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[9] RedirectionInformation	OPTIONAL,
+	routeList	[10] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[11] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[12] SEQUENCE SIZE(1..numOfExtensions) OF 
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	featureCode	[13] FeatureCode --{bound}--	OPTIONAL,
+	accessCode	[14] AccessCode --{bound}--	OPTIONAL,
+	carrier	[15] Carrier	OPTIONAL,
+	componentType	[16] ComponentType	OPTIONAL,
+--	component	[17] Component	OPTIONAL,
+	componentCorrelationID	[18] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+-- Direction: SCF ->  SSF, Timer: Tai    
+-- This operation is used to request the SSF to perform the originating basic call processing actions 
+-- to analyse destination information that is either collected from a calling party or provided by the SCF 
+-- (e.g. for number translation). This includes actions to validate the information according to an office 
+-- or customized dialing plan, and if valid, to determine call termination information, to include the called 
+-- party address, the type of call (e.g. intra-network or inter-network), and carrier (if inter-network). 
+-- If the called party is not served by the SSF, the SSF also determines a route index based on the called 
+-- party address and class of service, where the route index points to a list of outgoing trunk groups.
+
+ 
+AnalyseInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	destinationRoutingAddress	[0] DestinationRoutingAddress --{bound}--,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	iSDNAccessRelatedInformation	[2] ISDNAccessRelatedInformation	OPTIONAL,
+	originalCalledPartyID	[3] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	callingPartyNumber	[5] CallingPartyNumber --{bound}--	OPTIONAL,
+	callingPartysCategory	[6] CallingPartysCategory	OPTIONAL,
+	calledPartyNumber	[7] CalledPartyNumber --{bound}--	OPTIONAL,
+	chargeNumber	[8] ChargeNumber --{bound}--	OPTIONAL,
+	travellingClassMark	[9] TravellingClassMark --{bound}--	OPTIONAL,
+	carrier	[10] Carrier	OPTIONAL,
+	serviceInteractionIndicators	[11] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	iNServiceCompatibilityResponse	[12] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[13] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[14] BackwardGVNS --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[15] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	correlationID	[16] CorrelationID --{bound}--	OPTIONAL,
+	scfID	[17] ScfID --{bound}--	OPTIONAL,
+	callSegmentID	[18] CallSegmentID --{bound}--	OPTIONAL,
+	legToBeCreated	[19] LegID	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SCF ->  SSF, Timer: Tac    
+-- This operation is used  for  interacting  from  the SCF with the SSF charging mechanisms. The ApplyChargingReport 
+-- operation provides the  feedback from the SSF to  the SCF.
+
+ApplyChargingArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	aChBillingChargingCharacteristics	[0] AChBillingChargingCharacteristics --{bound}--,
+	partyToCharge	[2] LegID	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE (1..numOfExtensions) OF 
+			     ExtensionField --{bound}--  	OPTIONAL,
+	...
+	}
+
+-- The partyToCharge parameter indicates the party in the call to which the ApplyCharging operation
+-- should be applied. If it is not present, then it is applied to the A-party
+
+ 
+
+
+-- Direction: SSF ->  SCF, Timer: Tacr  
+-- This operation is used  by the SSF to  report to the SCF the occurrence of a specific charging event 
+-- as requested 
+-- by the SCF using the ApplyCharging operation.     
+
+ApplyChargingReportArg --{PARAMETERS-BOUND : bound}-- ::= CallResult --{bound}--
+-- Note: When the SSF sends the ApplyChargingReport operation as the last event from the Call Segment, the 
+--    lastEventIndicator parameter such as the CallInformationReport operation is needed for indicating whether 
+--    the event is last to the SCF.  However, because there is no consideration for the parameter expansion in the 
+--   CS-1, this parameter cannot be added.  There are two alternatives for the solution.  One is to be included 
+--    into the CallResult parameter.  And the other is to specify a new operation with this parameter.  The latter is 
+--    ffs.
+
+
+
+-- Direction: SSF  -> SCF or SRF  -> SCF, Timer: Tari
+-- This operation is used when there is an assist or a hand-off procedure and may be sent by the SSF
+-- or SRF to the SCF. This operation is sent by the assisting SSF to SCF, when the initiating SSF has
+-- set up a connection to the SRF or to the assisting SSF as a result of receiving an EstablishTemporaryConnection
+-- or Connect/SelectRoute operation (in the case of hand-off) from the SCF.
+-- Refer to clause 17 for a description of the procedures associated with this operation.
+
+AssistRequestInstructionsArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	correlationID	[0] CorrelationID --{bound}--,
+	iPAvailable	[1] IPAvailable --{bound}--	OPTIONAL,
+	iPSSPCapabilities	[2] IPSSPCapabilities --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			     ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- OPTIONAL denotes network operator specific use. The value of the correlationID may be the 
+-- Called Party Number supplied by the initiating SSF.
+ 
+
+
+--	Direction: SCF -> SSF. Timer: Tatr
+--	This operation is used to request the SSF to resume terminating call processing action at the
+--	Authorize_Termination PIC of the call based on the information received from the SCF.
+--	For additional information on this operation, refer to Q.1224.
+
+AuthorizeTerminationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	alertingPattern	[0] AlertingPattern	OPTIONAL,
+	callingPartyNumber	[1] CallingPartyNumber --{bound}--	OPTIONAL,
+	destinationNumberRoutingAddress	[2] CalledPartyNumber --{bound}--	OPTIONAL,
+	displayInformation	[3] DisplayInformation --{bound}--	OPTIONAL,
+	iSDNAccessRelatedInformation	[4] ISDNAccessRelatedInformation	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	travellingClassMark	[6] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[7] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	iNServiceCompatibilityResponse	[8] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[9] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[10] BackwardGVNS --{bound}--	OPTIONAL,
+	legID	[11] LegID	OPTIONAL,
+	...
+	}
+-- OPTIONAL parameters are only provided if modifications are desired to basic call processing values.
+
+
+
+
+-- Direction: SCF ->  SSF, Timer: Tcg   
+-- This operation is used to request the SSF  to reduce the rate at which specific service requests are sent to 
+-- the  SCF.  Use of this operation by the SCF to gap queries and updates at the SDF is for further study.
+
+CallGapArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	gapCriteria	[0] GapCriteria --{bound}--,
+	gapIndicators	[1] GapIndicators,
+	controlType	[2] ControlType	OPTIONAL,
+	gapTreatment	[3] GapTreatment --{bound}--	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			     ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+ 
+-- OPTIONAL denotes network operator optional. If gapTreatment is not present, the SSF will use 
+-- a default treatment depending on network operator implementation.
+
+
+-- Direction: SSF ->  SCF, Timer: Tcirp    
+-- This operation is used to send specific call information for a single call to the SCF as requested by the SCF 
+-- in a previous CallInformationRequest.
+
+CallInformationReportArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	requestedInformationList	[0] RequestedInformationList --{bound}--,
+	correlationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	legID	[3] LegID	OPTIONAL,
+	lastEventIndicator	[4] BOOLEAN 	DEFAULT  FALSE,
+	...
+	}
+-- OPTIONAL denotes network operator optional.
+-- The lastEventIndicator parameter is set with 'TRUE' when the report is last in the Call Segment. 
+-- In the CS-1, the lastEventIndicator should not be sent, and the meaning of DEFAULT is not applied.  The SCF 
+-- must decide whether the report is last without this parameter. 
+
+
+-- Direction: SCF ->  SSF, Timer: Tcirq    
+-- This operation is used to request the SSF to  record specific information about a single call and report it to 
+-- the SCF (with a CallInformationReport operation). 
+
+CallInformationRequestArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	requestedInformationTypeList	[0] RequestedInformationTypeList,
+	correlationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions) OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	legID	[3] LegID	OPTIONAL,
+	...
+	}
+-- OPTIONAL denotes network operator optional.
+
+ 
+
+-- Direction: SCF ->  SSF, or SCF  -> SRF, Timer:  Tcan 
+-- This operation cancels the correlated previous operation or all previous requests. The following operations can be 
+-- canceled: PlayAnnouncement, PromptAndCollectUserInformation. 
+
+CancelArg --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	invokeID	[0] InvokeID,
+	allRequests	[1] NULL,
+	callSegmentToCancel	[2] SEQUENCE {
+			invokeID	[0] InvokeID,
+			callSegmentID	[1] CallSegmentID --{bound}--
+			}
+	}
+-- The InvokeID has the same value as that which was used for the operation to be cancelled.
+
+
+-- Direction: SCF ->  SSF, Timer:  Tcsr  
+-- This operation cancels the following processes: RequestFirstStatusMatchReport and 
+-- RequestEveryStatusChangeReport.
+
+CancelStatusReportRequestArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceID	[0] ResourceID --{bound}--	OPTIONAL,
+	extensions	[1] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			        ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+ 
+-- Direction: SSF ->  SCF, Timer: Tcdi    
+-- This operation is used to indicate availability of complete initial information package/dialing string from 
+-- originating party. (This event may have already occurred in the case of en bloc signaling, in which case 
+-- the waiting duration in this PIC is zero.) (DP  – Collected_Info). For additional information on this operation 
+-- and its use with open numbering plans, refer to Q.1224. 
+
+CollectedInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	dialledDigits	[1] CalledPartyNumber --{bound}--	OPTIONAL,
+	callingPartyBusinessGroupID	[2] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[3] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[4] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[5] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[6] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	prefix	[7] Digits --{bound}--	OPTIONAL,
+	redirectingPartyID	[8] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[9] RedirectionInformation	OPTIONAL,
+	travellingClassMark	[10] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[11] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	featureCode	[12] FeatureCode --{bound}--	OPTIONAL,
+	accessCode	[13] AccessCode --{bound}--	OPTIONAL,
+	carrier	[14] Carrier	OPTIONAL,
+	componentType	[15] ComponentType	OPTIONAL,
+--	component	[16] Component	OPTIONAL,
+	componentCorrelationID	[17] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules to specify 
+-- when these parameters are included in the message.
+
+
+-- Direction: SCF ->  SSF, Timer: Tci   
+-- This operation is used to request the SSF to perform the originating basic call processing actions to prompt 
+-- a calling party for destination information, then collect destination information according to a specified 
+-- numbering plan (e.g. for virtual private networks).
+
+ 
+CollectInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	alertingPattern	[0] AlertingPattern	OPTIONAL,
+	numberingPlan	[1] NumberingPlan 	OPTIONAL,
+	originalCalledPartyID	[2] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	travellingClassMark	[3] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	callingPartyNumber	[5] CallingPartyNumber --{bound}--	OPTIONAL,
+	dialledDigits	[6] CalledPartyNumber --{bound}--	OPTIONAL,
+	serviceInteractionIndicators	[7] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	iNServiceCompatibilityResponse	[8] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[9] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[10] BackwardGVNS --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[11] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	callSegmentID	[12] CallSegmentID --{bound}--	OPTIONAL,
+	legToBeCreated	[13] LegID	OPTIONAL,
+	...
+	}
+
+
+
+-- Direction: SCF ->  SSF, Timer: Tcon   
+-- This operation is used to request the SSF to perform the call processing actions to route or forward a call to 
+-- a specified destination. To do so, the SSF may or may not use destination information from the calling party 
+-- (e.g. dialed digits) and existing call setup information (e.g. route index to a list of trunk groups), depending on 
+-- the information provided by the SCF.
+-- 	- When address information is only included in the Connect operation, call processing resumes at PIC3 in 
+--	   the O-BCSM. 
+-- 	- When address information and routing information is included, call processing resumes at PIC4.
+
+ConnectArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	destinationRoutingAddress	[0] DestinationRoutingAddress --{bound}--,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	correlationID	[2] CorrelationID --{bound}--	OPTIONAL,
+	cutAndPaste	[3] CutAndPaste	OPTIONAL,
+	forwardingCondition 	[4] ForwardingCondition	OPTIONAL,
+	iSDNAccessRelatedInformation	[5] ISDNAccessRelatedInformation	OPTIONAL,
+	originalCalledPartyID	[6] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	routeList	[7] RouteList --{bound}--	OPTIONAL,
+	scfID	[8] ScfID --{bound}--	OPTIONAL,
+	travellingClassMark	[9] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[10] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[11] Carrier	OPTIONAL,
+ 
+	serviceInteractionIndicators	[26] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	callingPartyNumber	[27] CallingPartyNumber --{bound}--	OPTIONAL,
+	callingPartysCategory	[28] CallingPartysCategory	OPTIONAL,
+	redirectingPartyID	[29] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[30] RedirectionInformation	OPTIONAL,
+	displayInformation	[12] DisplayInformation --{bound}--	OPTIONAL,
+	forwardCallIndicators	[13] ForwardCallIndicators	OPTIONAL,
+	genericNumbers	[14] GenericNumbers --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[15] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	iNServiceCompatibilityResponse	[16] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[17] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[18] BackwardGVNS --{bound}--	OPTIONAL,
+	chargeNumber	[19] ChargeNumber --{bound}--	OPTIONAL,
+	callSegmentID	[20] CallSegmentID --{bound}--	OPTIONAL,
+	legToBeCreated	[21] LegID	OPTIONAL,
+	...
+	}
+
+-- For alerting pattern, OPTIONAL denotes that this parameter only applies if SSF is the terminating local 
+-- exchange for the subscriber.
+
+
+-- Direction: SCF ->  SSF, Timer: Tctr    
+-- This operation is used to connect a call from the SSP to the physical entity containing the SRF. 
+-- Refer to clause 17 for a description of the procedures associated with this operation.
+
+ConnectToResourceArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceAddress	CHOICE {
+		ipRoutingAddress	[0] IPRoutingAddress --{bound}--,
+		legID	[1] LegID,
+		ipAddressAndLegID	[2] SEQUENCE {
+			 ipRoutingAddress	[0] IPRoutingAddress --{bound}--,
+			 legID	[1] LegID
+			 },
+		none	[3] NULL,
+		callSegmentID	[5] CallSegmentID --{bound}-- ,
+		ipAddressAndCallSegment	[6] SEQUENCE {
+			 ipRoutingAddress	[0] IPRoutingAddress --{bound}--,
+			 callSegmentID	[1] CallSegmentID --{bound}--
+			 }
+		},
+ 
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	serviceInteractionIndicators	[30] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[7] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SCF ->  SSF, Timer: Tcue    
+-- This operation is used to request the SSF to proceed with call processing at the DP at which it 
+-- previously suspended call processing to await SCF instructions (i.e. proceed to the next point 
+-- in call in the BCSM). The SSF continues call processing without substituting new data from SCF.
+-- This operation is not valid for a single call segment CSA with more than 2 legs or a multi call segment CSA.
+
+-- Direction: SCF ->  SSF, Timer: Tcwa    
+-- This operation is used to request the SSF to proceed with call processing at the DP a which it previously
+-- suspended call processing to await SCF instructions. 
+-- It is also used to provide additional service related information to a User (Called Party or Calling Party) whilst
+-- the call processing proceeds.
+
+ContinueWithArgumentArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	legID	[0] LegID	DEFAULT(
+                             "LegID* legId = new LegID(&staticDesc);
+                              std::vector<byte> array;
+                              array.push_back(0x01U);
+                              LegType* legType = new LegType(array);
+                              legId->SetChoiceSendingSideID(legType);
+                              staticDesc.SetCloneForDefaultFactory(legId);"), --sendingSideID:leg1,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	genericName	[2] GenericName --{bound}--	OPTIONAL,
+	iNServiceCompatibilityResponse	[3] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[4] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[5] BackwardGVNS --{bound}--	OPTIONAL,
+	extensions	[6] SEQUENCE SIZE (1..numOfExtensions) OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[7] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	...
+	}
+
+
+ 
+-- Direction SCF -> SSF, Timer Tcsa 
+-- This operation is used to create a new CSA. The new CSA will not contain any Call Segments after creation.
+-- The SSF is responsible for specifying a new CSA identifier for the created CSA which is unique within
+--  the SSF.
+
+
+
+-- Direction: SCF ->  SSF, Timer: Tdfc    
+-- This operation is used to disconnect a forward temporary connection or a connection to a resource. 
+-- Refer to clause 17 for a description of the procedures associated with this operation. 
+-- This operation is not valid for a single call segment CSA with more than 2 legs or a multi call segment CSA.
+
+
+-- Direction: SCF ->  SSF, Timer: Tdfcwa    
+-- This operation is used to disconnect a forward temporary connection or a connection to a resource. 
+-- Refer to clause 17 for a description of the procedures associated with this operation. 
+
+DisconnectForwardConnectionWithArgumentArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+
+	partyToDisconnect	CHOICE {
+			legID	[0] LegID,
+			callSegmentID	[1] CallSegmentID --{bound}--
+			},
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+
+
+--	Direction: SCF -> SSF. Timer: T dl
+--	This operation  is issued by the SCF  to release a specific leg associated with the call and retain any
+--	other legs not specified in the DisconnectLeg. Any leg may be disconnected, including the controlling
+--	leg, without completely releasing all legs.
+--	For additional information on this operation, refer to Q.1224.
+
+DisconnectLegArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	legToBeReleased	[0] LegID,
+	releaseCause	[1] Cause --{bound}--	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) OF 					     ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+
+
+-- Direction SSF -> SCF, Timer: Ter
+-- This operation is used by SSF to inform the SCF of an error/exception
+
+EntityReleasedArg --{PARAMETERS-BOUND : bound}--  ::= CHOICE {
+	cSFailure	[0] SEQUENCE{
+			callSegmentID	[0] CallSegmentID --{bound}--,
+			reason	[1] Reason --{bound}--	OPTIONAL,
+			cause	[2] Cause --{bound}--	OPTIONAL
+			},
+	bCSMFailure	[1] SEQUENCE{
+			legID	[0] LegID,
+			reason	[1] Reason --{bound}--	OPTIONAL,
+			cause	[2] Cause --{bound}--	OPTIONAL
+			}
+	}
+
+-- Direction: SCF ->  SSF, Timer: Tetc    
+-- This operation is used to create a connection to a resource for a limited period of time 
+-- (e.g. to play an announcement, to collect user information); it implies the use of the assist 
+-- procedure. Refer to clause 17 for a description of the procedures associated with this operation.
+
+EstablishTemporaryConnectionArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	assistingSSPIPRoutingAddress	[0] AssistingSSPIPRoutingAddress --{bound}--,
+	correlationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	partyToConnect	CHOICE {
+			legID	[2] LegID,
+			callSegmentID	[7] CallSegmentID --{bound}--
+			}	OPTIONAL,
+	scfID	[3] ScfID --{bound}--	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[5] Carrier	OPTIONAL,
+	serviceInteractionIndicators	[30] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[6] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SSF ->  SCF, Timer: Tenc  
+-- This operation is used  by the SSF to  report to the SCF  the occurence of a specific charging event  
+-- type as  previously requested  by the SCF in a RequestNotificationChargingEvent operation. 
+
+EventNotificationChargingArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	eventTypeCharging	[0] EventTypeCharging --{bound}--,
+	eventSpecificInformationCharging	[1] EventSpecificInformationCharging --{bound}--	OPTIONAL,
+	legID	[2] LegID	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	monitorMode	[30] MonitorMode	DEFAULT notifyAndContinue,
+	...
+	}
+-- OPTIONAL denotes network operator specific use.
+
+
+-- Direction: SSF  -> SCF, Timer: Terb 
+-- This operation is used to notify the SCF of a call-related event (e.g. BCSM events such as busy or 
+-- no answer) previously requested by the SCF in a RequestReportBCSMEvent operation.
+ 
+
+EventReportBCSMArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	eventTypeBCSM	[0] EventTypeBCSM,
+	bcsmEventCorrelationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	eventSpecificInformationBCSM	[2] EventSpecificInformationBCSM --{bound}--	OPTIONAL,
+	legID	[3] LegID	OPTIONAL,
+	miscCallInfo	[4] MiscCallInfo	DEFAULT(
+                            "MiscCallInfo* miscCallInfo = new MiscCallInfo(&staticDesc);
+                             MiscCallInfo::MessageType* messageType = new MiscCallInfo::MessageType((long)0);
+                             miscCallInfo->SetMessageType(messageType);
+                             staticDesc.SetCloneForDefaultFactory(miscCallInfo);"), --{messageType request},
+	extensions	[5] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	componentType	[6] ComponentType	OPTIONAL,
+--	component	[7] Component	OPTIONAL,
+	componentCorrelationID	[8] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+
+
+--	SSF->SCF, Timer: Terf
+--	This operation is issued by the SSF  to report the SCF the event, that was previously requested by the 
+--	SCF, the CCF/SSF receives a DSS1 message which contains a FACILITY IE.   Criteria for the report, like 
+-- 	reception of the ReturnResult which is specified with ComponentType, is optionally checked 
+-- before 
+-- 	issuing this operation.  
+
+EventReportFacilityArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE{
+	componentType	[0] ComponentType OPTIONAL,
+--	component	[1] Component	OPTIONAL,
+	legID   	[2] LegID	OPTIONAL,
+	componentCorrelationID	[3]  ComponentCorrelationID	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions) 	OF
+			       ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+-- When the monitorDuration is over and the report condition specified with RequestReportFacilityEvent 
+-- was not met, component shall be absentL.  
+
+
+ 
+--	Direction: SSF -> SCF. Timer: Tfs
+--	This operation is used for indication of a call termination attempt from the terminating half BCSM. (DP –
+--	Facility_Selected_And_Available). 
+--	For additional information on this operation, refer to Q.1224.
+
+FacilitySelectedAndAvailableArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	callingPartyBusinessGroupID	[3] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartyNumber	[4] CallingPartyNumber --{bound}--	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[6] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[7] RedirectionInformation	OPTIONAL,
+	routeList	[8] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[9] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[10] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	componentType	[11] ComponentType	OPTIONAL,
+--	component	[12] Component	OPTIONAL,
+	componentCorrelationID	[13] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+-- Direction: SCF ->  SSF, Timer: Tfci  
+-- This operation is used to request the SSF  to generate,  register a call record or to include some information
+-- in the default call 
+-- record. The registered call record is intended for off line charging of the call.    
+
+FurnishChargingInformationArg --{PARAMETERS-BOUND : bound}-- ::= FCIBillingChargingCharacteristics --{bound}--
+
+
+ 
+-- Direction: SCF -> SSF, Timer: Thcn 
+-- This operation is used to provide the capability of queueing a call during the setup phase (e.g. to provide 
+-- a call completion to busy, the call would be queued until the destination becomes free).
+
+HoldCallInNetworkArg ::= CHOICE {
+	holdcause	[0] HoldCause,
+	empty	[1] NULL
+	}
+-- holdcause is optional and denotes network operator specific use.
+
+
+-- Direction: SSF ->  SCF, Timer: Tidp 
+-- This operation is used after a TDP to indicate request for service.
+
+InitialDPArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	serviceKey	[0] ServiceKey			OPTIONAL,
+	dialledDigits	[1] CalledPartyNumber --{bound}--			OPTIONAL,
+	calledPartyNumber	[2] CalledPartyNumber --{bound}--			OPTIONAL,
+	callingPartyNumber	[3] CallingPartyNumber --{bound}--			OPTIONAL,
+	callingPartyBusinessGroupID	[4] CallingPartyBusinessGroupID			OPTIONAL,
+	callingPartysCategory	[5] CallingPartysCategory			OPTIONAL,
+	callingPartySubaddress	[6] CallingPartySubaddress			OPTIONAL,
+	cGEncountered	[7] CGEncountered			OPTIONAL,
+	iPSSPCapabilities	[8] IPSSPCapabilities --{bound}--			OPTIONAL,
+	iPAvailable	[9] IPAvailable --{bound}--			OPTIONAL,
+	locationNumber	[10] LocationNumber --{bound}--			OPTIONAL,
+	miscCallInfo	[11] MiscCallInfo			OPTIONAL,
+	originalCalledPartyID	[12] OriginalCalledPartyID --{bound}--			OPTIONAL,
+	serviceProfileIdentifier	[13] ServiceProfileIdentifier			OPTIONAL,
+	terminalType	[14] TerminalType			OPTIONAL,
+	extensions	[15] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 			OPTIONAL,
+	triggerType	[16] TriggerType			OPTIONAL,
+	highLayerCompatibility	[23] HighLayerCompatibility			OPTIONAL,
+	serviceInteractionIndicators	[24] ServiceInteractionIndicators --{bound}--		OPTIONAL,
+	additionalCallingPartyNumber	[25] AdditionalCallingPartyNumber --{bound}--		OPTIONAL,
+	forwardCallIndicators	[26] ForwardCallIndicators			OPTIONAL,
+	bearerCapability	[27] BearerCapability --{bound}--			OPTIONAL,
+	eventTypeBCSM	[28] EventTypeBCSM			OPTIONAL,
+	redirectingPartyID	[29] RedirectingPartyID --{bound}--			OPTIONAL,
+	redirectionInformation	[30] RedirectionInformation			OPTIONAL,
+	cause	[17] Cause --{bound}--			OPTIONAL,
+	componentType	[18] ComponentType			OPTIONAL,
+--	component	[19] Component			OPTIONAL,
+ 
+	componentCorrelationID	[20] ComponentCorrelationID			OPTIONAL,
+	iSDNAccessRelatedInformation	[21] ISDNAccessRelatedInformation			OPTIONAL,
+	iNServiceCompatibilityIndication	[22] INServiceCompatibilityIndication --{bound}--	OPTIONAL,
+	genericNumbers	[31] GenericNumbers --{bound}--			OPTIONAL,
+	serviceInteractionIndicatorsTwo	[32] ServiceInteractionIndicatorsTwo			OPTIONAL,
+	forwardGVNS	[33] ForwardGVNS --{bound}--			OPTIONAL,
+	createdCallSegmentAssociation	[34] CSAID --{bound}--			OPTIONAL,
+	uSIServiceIndicator	[35] USIServiceIndicator --{bound}--			OPTIONAL,
+	uSIInformation	[36] USIInformation --{bound}--			OPTIONAL,
+	...
+	}
+
+-- OPTIONAL for iPSSPCapabilities, iPAvailable, cGEncountered, and miscCallInfo denotes network 
+-- operator specific use.
+-- OPTIONAL for dialledDigits, callingPartyNumber, and callingPartysCategory refer to clause 17 for the trigger 
+-- detection point processing rules to specify when these parameters are included in the message.
+-- OPTIONAL for terminalType indicates that this parameter applies only at originating or terminating 
+-- local exchanges if the SSF has this information.
+
+
+-- Direction: SCF ->  SSF, Timer: Tica 
+-- This operation is used to request the SSF to create a new call to one call  party using address 
+-- information provided by the SCF. 
+
+InitiateCallAttemptArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	destinationRoutingAddress	[0] DestinationRoutingAddress --{bound}--,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	iSDNAccessRelatedInformation	[2] ISDNAccessRelatedInformation	OPTIONAL,
+	travellingClassMark	[3] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	serviceInteractionIndicators	[29] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	callingPartyNumber	[30] CallingPartyNumber --{bound}--	OPTIONAL,
+	legToBeCreated	[5] LegID DEFAULT(
+                             "LegID* legId = new LegID(&staticDesc);
+                              std::vector<byte> array;
+                              array.push_back(0x01U);
+                              LegType* legType = new LegType(array);
+                              legId->SetChoiceSendingSideID(legType);
+                              staticDesc.SetCloneForDefaultFactory(legId);"), --sendingSideID:leg1,
+	newCallSegment	[6] CallSegmentID --{bound}-- DEFAULT initialCallSegment,
+	iNServiceCompatibilityResponse	[7] INServiceCompatibilityResponse	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[8] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	...
+	}
+
+ 
+
+-- Direction: SCF  ->  SSF,  Class 1, Timer: Tmtd
+--  This operation is used to activate, deactivate or retrieve
+-- the status of a trigger detection point linked to a subscriber rofile known at the switch, e.g. related to an access line.
+
+ManageTriggerDataArg --{PARAMETERS-BOUND : bound}--  ::= SEQUENCE {
+	actionIndicator	[0] ActionIndicator,
+	triggerDataIdentifier	[1] TriggerDataIdentifier --{bound}--,
+	registratorIdentifier 	[2] RegistratorIdentifier  	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE (1..numOfExtensions) OF
+			      ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+ManageTriggerDataResultArg --{PARAMETERS-BOUND : bound}--  ::= SEQUENCE {
+	actionPerformed	[0]  ActionPerformed,
+	extensions	[1] SEQUENCE SIZE (1..numOfExtensions) OF
+			      ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+
+--	Direction: SCF -> SSF. Timer: T mc
+--	This operation  is issued by the SCF  to merge two associated CSs with a single controlling leg into one
+--	CS with that controlling leg.
+--	For additional information on this operation, refer to Q.1224.
+
+ 
+MergeCallSegmentsArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	sourceCallSegment	[0] CallSegmentID --{bound}--,
+	targetCallSegment	[1] CallSegmentID --{bound}-- DEFAULT initialCallSegment,
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) 
+			     OF ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+--  Direction: SCF -> SSF, Timer Tmcs 
+-- This operation is used to merge two call segments into one
+
+MoveCallSegmentsArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	targetCallSegmentAssociation	[0] CSAID --{bound}--,  
+-- assignement of CSAID by SSF/SCF is ffs
+	callSegments	[1] SEQUENCE SIZE (1..numOfCSs) OF SEQUENCE {
+		sourceCallSegment	[0] CallSegmentID --{bound}--	DEFAULT initialCallSegment,
+		newCallSegment	[1] CallSegmentID --{bound}--
+		},
+	legs	[2] SEQUENCE SIZE (1..numOfLegs) OF SEQUENCE {
+		sourceLeg	[0] LegID,
+		newLeg	[1] LegID
+		},
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) 
+			     OF ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+-- Direction : SCF  ->SSF, Timer: T ml
+-- This operation is issued by the SCF to move a leg from one CS to another with which it is associated.
+
+ 
+MoveLegArg --{PARAMETERS-BOUND : bound}-- ::=SEQUENCE {
+	legIDToMove	[0] LegID,
+	targetCallSegment	[1] CallSegmentID --{bound}-- DEFAULT 1,
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) 	OF 
+			      ExtensionField --{bound}-- OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger 
+-- detection point processing rules to specify when these parameters are 
+-- included in the message.
+
+
+--	Direction: SSF -> SCF. Timer: T ob
+--	This operation is issued by the SSF after detecting a valid trigger condition at the O_Abandon DP or to 
+--	report an oAbandon event requested by the RequestReportBCSMEvent. For additional information on this
+--	operation, refer to Q.1224.
+
+OAbandonArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	callSegmentID	[1] CallSegmentID --{bound}--,
+	releaseCause	[2] Cause --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point rules to specify
+-- when these parameter are included in the message.
+-- Type definition for PointInCall is ffs. Use of T/EDP-R is ffs.
+
+
+ 
+
+-- Direction: SSF ->  SCF, Timer: Toa 
+-- This operation is used for indication from the terminating half BCSM that the call is accepted and answered 
+-- by terminating party (e.g. terminating party goes offhook, Q.931 Connect message received, ISDN-UP Answer 
+-- message received) (DP  – O_Answer). For additional information on this operation, refer to Q.1224. 
+
+OAnswerArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	callingPartyBusinessGroupID	[1] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[2] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[6] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[7] RedirectionInformation	OPTIONAL,
+	routeList	[8] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[9] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[10] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+-- Direction: SSF -> SCF, Timer: Tob 
+-- This operation is used for Indication from the terminating half BCSM that the terminating party is busy 
+-- (DP  – O_Called_Party_Busy). For additional information on this operation, refer to Q.1224.  
+
+OCalledPartyBusyArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	busyCause	[1] Cause --{bound}--	OPTIONAL,
+	callingPartyBusinessGroupID	[2] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[3] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[4] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[5] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[6] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	prefix	[7] Digits --{bound}--	OPTIONAL,
+	redirectingPartyID	[8] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[9] RedirectionInformation	OPTIONAL,
+ 
+	routeList	[10] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[11] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[12] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[13] Carrier	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+-- Direction: SSF ->  SCF, Timer: Tod 
+-- This operation is used for a disconnect indication (e.g. onhook, Q.931 Disconnect message, SS7 Release message) 
+-- is received from the originating party, or received from the terminating party via the terminating half BCSM. 
+-- (DP  – O_Disconnect). For additional information on this operation, refer to Q.1224. 
+
+ODisconnectArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	callingPartyBusinessGroupID	[1] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[2] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	releaseCause	[5] Cause --{bound}--	OPTIONAL,
+	routeList	[6] RouteList --{bound}--	OPTIONAL,
+	extensions	[7] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[8] Carrier	OPTIONAL,
+	connectTime	[9] Integer4	OPTIONAL,
+	componentType	[10] ComponentType	OPTIONAL,
+--	component	[11] Component	OPTIONAL,
+	componentCorrelationID	[12] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+ 
+
+-- Direction: SSF ->  SCF, Timer: Tomc 
+-- This operation is used to indicate a feature request is received from the originating party 
+-- (e.g. hook flash, ISDN feature activation, Q.931 HOLD or RETrieve message). (DP  – O_Mid_Call). 
+-- For additional information on this operation, refer to Q.1224.  
+
+MidCallArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	callingPartyBusinessGroupID	[3] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[4] CallingPartySubaddress	OPTIONAL,
+	featureRequestIndicator	[5] FeatureRequestIndicator	OPTIONAL,
+	extensions	[6] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[7] Carrier	OPTIONAL,
+	componentType	[8] ComponentType	OPTIONAL,
+--	component	[9] Component	OPTIONAL,
+	componentCorrelationID	[10] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+-- Direction: SSF ->  SCF, Timer: Tona 
+-- This operation is used for indication from the terminating half BCSM that the terminating party does not 
+-- answer within a specified time period (DP  – O_No_Answer). For additional information on this operation, 
+--  refer to Q.1224. 
+ 
+
+ONoAnswerArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	callingPartyBusinessGroupID	[1] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[2] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	prefix	[6] Digits --{bound}--	OPTIONAL,
+	redirectingPartyID	[7] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[8] RedirectionInformation	OPTIONAL,
+	routeList	[9] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[10] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[11] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[12] Carrier	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+--	Direction: SSF -> SCF. Timer: Tora
+--	This operation is used for indication of a call origination attempt from the originating half BCSM. (DP –
+--	Origination_Attempt). 
+--	For additional information on this operation, refer to Q.1224.
+
+OriginationAttemptArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	callingPartyBusinessGroupID	[1] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[2] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	carrier	[5] Carrier	OPTIONAL,
+	travellingClassMark	[6] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[7] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+ 
+	componentType	[8] ComponentType	OPTIONAL,
+--	component	[9] Component	OPTIONAL,
+	componenttCorrelationID	[10] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+
+-- Direction: SSF ->  SCF, Timer: Toaa 
+-- This operation is used to Indicate the desire to place outgoing call (e.g. offhook, Q.931 Setup message, 
+-- ISDN-UP IAM message) and authority/ability to place outgoing call verified (DP  – 
+-- Origination_Attempt_Authorized). 
+-- For additional information on this operation, refer to Q.1224. 
+
+OriginationAttemptAuthorizedArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	dialledDigits	[1] CalledPartyNumber --{bound}--	OPTIONAL,
+	callingPartyBusinessGroupID	[2] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[3] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[4] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[5] FacilityGroupMember	OPTIONAL,
+	travellingClassMark	[6] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[7] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[8] Carrier	OPTIONAL,
+	componentType	[9] ComponentType	OPTIONAL,
+--	component	[10] Component	OPTIONAL,
+	componentCorrelationID	[11] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+--	Direction: SSF -> SCF. Timer: T os
+--	This operation is issued by the SSF after detecting a valid trigger condition at the O_Suspended DP or  to 
+--	report an oSuspended event requested by the RequestReportBCSMEvent. For additional information on 
+--	this operation, refer to Q.1224.
+
+OSuspendedArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	legID	[1] LegID	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+-- Modification to LegID is ffs. Use for T/EDP-R is ffs.
+
+
+
+--  Direction: SCF -> SSF. Timer: T re
+--  This operation is issued by the SCF to reestablish communication between the controlling leg  and the
+--  (held) passive leg(s). For additional information on this operation, refer to Q.1224.
+
+ReconnectArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	notificationDuration	[0] ApplicationTimer	OPTIONAL,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	displayInformation	[2] DisplayInformation --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	callSegmentID	[4] CallSegmentID --{bound}--	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+ 
+
+-- Direction: SCF ->  SSF, Timer: Trc 
+-- This operation is used to tear down an existing call at any phase of the call for all parties 
+-- involved in the call.  
+
+ReleaseCallArg --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	initialCallSegment	Cause --{bound}--,
+	associatedCallSegment	[1] SEQUENCE {
+		callSegment	[0] INTEGER (2..numOfCSs),
+		releaseCause	[1] Cause --{bound}-- 	OPTIONAL
+		},
+	allCallSegments	[2] SEQUENCE {
+		 releaseCause	[0] Cause --{bound}-- 	OPTIONAL
+		}
+	}
+-- A default value of decimal 31 (normal unspecified) should be coded appropriately.
+
+
+
+-- Direction: SSF -> SCF. Timer: Tru
+-- This operation is issued by the SSF in the context of the USI feature.  It is used to report the receipt 
+-- of a User to Service Information (UTSI) IE to the SCF. 
+
+ReportUTSIArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	uSIServiceIndicator	[0] USIServiceIndicator --{bound}--,
+	legID	[1] LegID	DEFAULT(
+                             "LegID* legId = new LegID(&staticDesc);
+                              std::vector<byte> array;
+                              array.push_back(0x01U);
+                              LegType* legType = new LegType(array);
+                              legId->SetChoiceSendingSideID(legType);
+                              staticDesc.SetCloneForDefaultFactory(legId);"), --sendingSideID:leg1,
+	uSIInformation	[2] USIInformation --{bound}--,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)  OF
+			      ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+ 
+-- Direction: SCF ->  SSF, Timer: Trcs 
+-- This operation is used to request the SSF to report immediately the busy/idle status of a physical 
+-- termination resource.
+
+RequestCurrentStatusReportArg --{PARAMETERS-BOUND : bound}-- ::= ResourceID --{bound}--
+
+RequestCurrentStatusReportResultArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceStatus	[0] ResourceStatus,
+	resourceID	[1] ResourceID --{bound}--	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SCF ->  SSF, Timer: Tres 
+-- This operation is used to request the SSF to report every change of busy/idle status of a physical 
+-- termination resource.
+
+RequestEveryStatusChangeReportArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceID	[0] ResourceID --{bound}--,	
+	correlationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	monitorDuration	[2] Duration	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For correlationID OPTIONAL denotes network operator optional.
+-- monitorDuration is required if outside the context of a call. It is not expected if we are in the context 
+-- of a call, because in that case the end of the call implicitly means the end of the monitoring.
+
+
+ 
+-- Direction: SCF ->  SSF, Timer: Trfs 
+-- This operation is used to request the SSF to report the first change busy/idle to the specified status of 
+-- a physical termination resource.
+
+RequestFirstStatusMatchReportArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceID	[0] ResourceID --{bound}--	OPTIONAL,
+	resourceStatus	[1] ResourceStatus	OPTIONAL,
+	correlationID	[2] CorrelationID --{bound}--	OPTIONAL,
+	monitorDuration	[3] Duration	OPTIONAL,
+	extensions	[4] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	bearerCapability	[5] BearerCapability --{bound}--	OPTIONAL,
+	...
+	}
+-- For correlationID OPTIONAL denotes network operator optional.
+-- monitorDuration is required if outside the context of a call. It is not expected if we are in the context 
+-- of a call, because in that case the end of the call implicitly means the end of the monitoring.
+
+
+-- Direction: SCF ->  SSF, Timer: Trnc 
+-- This operation  is used by the SCF to instruct the SSF on how to manage the charging events
+-- which are received  rom other FE's and not under control of the service logic instance. 
+
+RequestNotificationChargingEventArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE SIZE(1..numOfChargingEvents) OF
+		 ChargingEvent --{bound}--
+
+
+-- Direction: SCF ->  SSF, Timer: Trrb
+-- This operation is used to request the SSF to monitor for a call-related event (e.g. BCSM events such as 
+-- busy or no answer), then send a notification back to the SCF when the event is detected.
+ 
+-- It is proposed that Event Detection Point (EDP) processing is always initiated by RequestReportBCSMEvent and the 
+-- EDP may be acknowledged with either an EventReportBCSM or by a DP-specific operations:
+-- NOTE - the application context should identify whether BCSM Event Handling Package
+--		  is being used, or whether DP Specific Event Handling Package 
+--		  is being used.
+--		- for a particular IN, only one of the two alternatives identified by the respective Packages should be 
+--		  selected (i.e., only one approach should be selected for a given application context).
+--		- Every EDP must be explicitly armed by the SCF via a RequestReportBCSMEvent operation. No 
+--		  implicit arming of EDPs at the SSF after reception of any operation (different from 
+--		  RequestReportBCSMEvent) from the SCF is allowed.
+
+RequestReportBCSMEventArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	bcsmEvents	[0] SEQUENCE SIZE(1..numOfBCSMEvents) 	OF
+			        BCSMEvent --{bound}--,
+	bcsmEventCorrelationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- Indicates the BCSM related events for notification.
+-- For correlationID OPTIONAL denotes network operator optional.
+
+
+--	SCF->SSF, Timer: Trrfe
+--	This operation is issued by the SCF to request the SSF to report the SCF the event that the CCF/SSF
+-- 	receives a DSS1 message which contains a FACILITY IE during a BCSM being suspended at a DP.  
+
+RequestReportFacilityEventArg --{PARAMETERS-BOUND : bound}--	::= SEQUENCE{
+	componentTypes	[0] SEQUENCE SIZE(1..3) OF ComponentType DEFAULT(
+                               "ComponentTypes* componentTypes = new ComponentTypes(&staticDesc);
+                                ComponentType* componentType = new ComponentType((long)0);
+                                componentTypes->AddElement(componentType);
+                                staticDesc.SetCloneForDefaultFactory(componentTypes);"), --{any},
+	legID	[1] LegID	OPTIONAL,
+	componentCorrelationID	[2] ComponentCorrelationID	OPTIONAL,
+	monitorDuration	[3] Duration,
+	extensions     	[4] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			      ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+-- componentTypes specifies the component types which should be reported to the SCF.  
+-- monitorDuration specifies the monitor duration.
+
+
+
+-- Direction: SCF -> SSF. Timer: Trru
+-- This operation is issued by the SCF in the context of the USI feature to request the SSF to monitor for 
+-- a User to Service Information (UTSI) information element, which are received from a user.
+
+RequestReportUTSIArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	requestedUTSIList	[0] RequestedUTSIList --{bound}--,
+	extensions	[1] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}--	OPTIONAL,
+	legID	[2] LegID	OPTIONAL,
+	...
+	}
+
+
+
+-- Direction: SCF ->  SSF, Timer: Trt 
+-- This operation is used to request the SSF to refresh an application timer in the SSF.
+
+ResetTimerArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	timerID	[0] TimerID	DEFAULT tssf,
+	timervalue	[1] TimerValue,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	callSegmentID	[3] CallSegmentID --{bound}--	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SSF ->  SCF, Timer:  Trsf 
+-- This operation is used to indicate that the SSP is unable to select a route (e.g. unable to determine a 
+-- correct route, no more routes on route list) or indication from the terminating half BCSM that a call 
+-- cannot be presented to the terminating party (e.g. network ongestion) (DP  – Route_Select_Failure). 
+-- For additional information on this operation, refer to Q.1224. 
+
+RouteSelectFailureArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	dialledDigits	[1] CalledPartyNumber --{bound}--	OPTIONAL,
+	callingPartyBusinessGroupID	[2] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[3] CallingPartySubaddress	OPTIONAL,
+	callingFacilityGroup	[4] FacilityGroup	OPTIONAL,
+	callingFacilityGroupMember	[5] FacilityGroupMember	OPTIONAL,
+	failureCause	[6] Cause --{bound}--	OPTIONAL,
+	originalCalledPartyID	[7] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	prefix	[8] Digits --{bound}--	OPTIONAL,
+	redirectingPartyID	[9] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[10] RedirectionInformation	OPTIONAL,
+	routeList	[11] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[12] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[13] SEQUENCE SIZE(1..numOfExtensions)	OF
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[14] Carrier	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing 
+-- rules to specify when these parameters are included in the message.
+
+
+-- Direction: SCF ->  SSF, Timer: Tsf 
+-- This operation is used to request the SSF to perform the terminating basic call processing 
+-- actions to select the terminating line if it is idle, or selects an idle line from a multi-line hunt 
+-- group, or selects an idle trunk from a trunk group, as appropriate. If no idle line or trunk is 
+-- available, the SSF determines that the terminating facility is busy.
+
+ 
+SelectFacilityArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	alertingPattern	[0] AlertingPattern	OPTIONAL,
+	destinationNumberRoutingAddress	[1] CalledPartyNumber --{bound}--	OPTIONAL,
+	iSDNAccessRelatedInformation	[2] ISDNAccessRelatedInformation	OPTIONAL,
+	calledFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	calledFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	extensions	[6] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	displayInformation	[7] DisplayInformation --{bound}--	OPTIONAL,
+	serviceInteractionIndicators	[8] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	iNServiceCompatibilityResponse	[9] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[10] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[11] BackwardGVNS --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[12] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	correlationID	[13] CorrelationID --{bound}--	OPTIONAL,
+	scfID	[14] ScfID --{bound}--	OPTIONAL,
+	callSegmentID	[15] CallSegmentID --{bound}--	OPTIONAL,
+	legToBeCreated	[16] LegID	OPTIONAL,
+	...
+	}
+
+-- OPTIONAL parameters are only provided if modifications desired to basic call processing values.
+
+
+-- Direction: SCF ->  SSF, Timer: Tsr 
+-- This operation is used to request the SSF to perform the originating basic call processing actions to 
+-- determine routing information and select a route for a call, based either on call information available 
+-- to the SSF, or on call information provided by the SCF (e.g. for alternate routing), to include the 
+-- called party address, type of call, carrier, route index, and one or more alternate route indices. 
+-- Based on the routing information, the SSF attempts to select a primary route for the call, and if the 
+-- route is busy, attempts to select an alternate route. The SSF may fail to select a route for the call 
+-- if all routes are busy.
+
+SelectRouteArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	destinationRoutingAddress	[0] DestinationRoutingAddress --{bound}--,
+	alertingPattern	[1] AlertingPattern	OPTIONAL,
+	correlationID	[2] CorrelationID --{bound}--	OPTIONAL,
+	iSDNAccessRelatedInformation	[3] ISDNAccessRelatedInformation	OPTIONAL,
+	originalCalledPartyID	[4] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	routeList	[5] RouteList --{bound}--	OPTIONAL,
+	scfID	[6] ScfID --{bound}--	OPTIONAL,
+	travellingClassMark	[7] TravellingClassMark --{bound}--	OPTIONAL,
+ 
+	extensions	[8] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	carrier	[9] Carrier	OPTIONAL,
+	serviceInteractionIndicators	[10] ServiceInteractionIndicators --{bound}--	OPTIONAL,
+	iNServiceCompatibilityResponse	[11] INServiceCompatibilityResponse	OPTIONAL,
+	forwardGVNS	[12] ForwardGVNS --{bound}--	OPTIONAL,
+	backwardGVNS	[13] BackwardGVNS --{bound}--	OPTIONAL,
+	serviceInteractionIndicatorsTwo	[14] ServiceInteractionIndicatorsTwo	OPTIONAL,
+	callSegmentID	[15] CallSegmentID --{bound}--	OPTIONAL,
+	legToBeCreated	[16] LegID	OPTIONAL,
+	...
+	}
+
+-- OPTIONAL parameters are only provided if modifications desired to basic call processing values.
+
+-- Direction: SCF ->  SSF, Timer: Tsci  
+-- This operation is used to  instruct the SSF on the charging information to send by the SSF.
+-- The charging information can either be sent back by means of signalling or internal
+-- if  the SSF is located in the local exchange. In the local exchange
+-- this information may be used to update the charge meter or to create a standard call record.    
+
+SendChargingInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	sCIBillingChargingCharacteristics	[0] SCIBillingChargingCharacteristics --{bound}--,
+	partyToCharge	[1] LegID,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+
+
+ 
+--	SCF->SSF, Timer: Tsfi
+--  This operation is issued by the SCF during a BCSM being suspended at a DP to request the CCF/SSF 
+--  sending a FACILITY IE to a user with a specified DSS1 message.  
+
+SendFacilityInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE{
+	componentType	[0] ComponentType,
+	legID	[1] LegID	OPTIONAL,
+	componentCorrelationID	[2] ComponentCorrelationID	OPTIONAL,
+--	component	[3] Component,
+	callProcessingOperationCorrelationID	[4] CallProcessingOperationCorrelationID
+				DEFAULT	fACility, 
+	extensions	[5] SEQUENCE SIZE(1..numOfExtensions)	OF
+			            ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+-- FACILITY IE will be delivered with the specified DSS1 message.  The message is specified with the 
+-- callProcessingOperationCorrelationID
+
+
+
+-- Direction: SCF -> SSF. Timer: Tss
+-- This operation is issued by the SCF in the context of the USI feature. It is used to request the SSF
+-- to send a Service to User Information (STUI) information element to the indicated user.
+
+SendSTUIArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	uSIServiceIndicator	[0] USIServiceIndicator --{bound}--,
+	legID	[1] LegID	DEFAULT(
+                             "LegID* legId = new LegID(&staticDesc);
+                              std::vector<byte> array;
+                              array.push_back(0x01U);
+                              LegType* legType = new LegType(array);
+                              legId->SetChoiceSendingSideID(legType);
+                              staticDesc.SetCloneForDefaultFactory(legId);"), --sendingSideID:leg1,
+	uSIInformation	[2] USIInformation --{bound}--,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)  OF
+			      ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SSF ->  SCF, Timer: Tsfr  
+-- This operation is used to send back to the SCF the values of counters specified in a previous 
+-- ActivateServiceFiltering operation
+ 
+
+ServiceFilteringResponseArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	countersValue	[0] CountersValue,
+	filteringCriteria	[1] FilteringCriteria --{bound}--,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	responseCondition	[3] ResponseCondition	OPTIONAL,
+	...
+	}
+
+
+--  Direction: SCF -> SSF. Timer: T sl
+--  This operation  is issued by the SCF  to separate one joined leg from a multi-way connection
+--  or to interrupt the bearer connection between the involved legs of a single 2 party Call segment.
+
+SplitLegArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	legToBeSplit	[0] LegID,
+	newCallSegment	[1] INTEGER (2..numOfCSs),
+	extensions	[2] SEQUENCE SIZE (1..numOfExtensions) OF 					     ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SSF ->  SCF, Timer: Tsrp  
+-- This operation is used as a response to RequestFirstStatusMatchReport or 
+-- RequestEveryStatusChangeReport operations.
+
+StatusReportArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	resourceStatus	[0] ResourceStatus	OPTIONAL,
+	correlationID	[1] CorrelationID --{bound}--	OPTIONAL,
+	resourceID	[2] ResourceID --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	reportCondition	[4] ReportCondition	OPTIONAL,
+	...
+	}
+-- For correlationID, OPTIONAL denotes network operator optional.
+-- resourceID is required when the SSF sends a report as an answer to a previous request when the 
+-- correlationID was present.
+ 
+
+-- Direction: SSF ->  SCF, Timer: Tta  
+-- This operation is used to indicate that the call is accepted and answered by terminating party 
+-- (e.g. terminating party goes offhook, Q.931 Connect message received, ISDN-UP Answer message 
+-- received) (DP  – T_Answer). For additional information on this operation, refer to Q.1224. 
+
+TAnswerArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	calledFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	calledFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	extensions	[5] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	componentType	[6] ComponentType	OPTIONAL,
+--	component	[7] Component	OPTIONAL,
+	componentCorrelationID	[8] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SSF ->  SCF, Timer: Ttb  
+-- This operation is used to indicate all resources in group busy (DP– TBusy). 
+-- For additional information on this operation, refer to Q.1224.  
+
+TBusyArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	busyCause	[1] Cause --{bound}--	OPTIONAL,
+	calledPartyBusinessGroupID	[2] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[3] CalledPartySubaddress	OPTIONAL,
+	originalCalledPartyID	[4] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[5] RedirectingPartyID --{bound}--	OPTIONAL,
+ 
+	redirectionInformation	[6] RedirectionInformation	OPTIONAL,
+	routeList	[7] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[8] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[9] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+-- Direction: SSF ->  SCF, Timer: Ttd  
+-- This operation is used for a disconnect indication (e.g. onhook, Q.931 Disconnect message, 
+-- SS7 Release message) is received from the terminating party, or received from the originating party 
+-- via the originating half BCSM. (DP  – T_Disconnect). For additional information on this operation,
+--  refer to Q.1224. 
+
+TDisconnectArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	calledFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	calledFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	releaseCause	[5] Cause --{bound}--	OPTIONAL,
+	extensions	[6] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	connectTime	[7] Integer4	OPTIONAL,
+	componentType	[8] ComponentType	OPTIONAL,
+--	component	[9] Component	OPTIONAL,
+	componentCorrelationID	[10] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+
+TermAttemptAuthorizedArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	callingPartyBusinessGroupID	[3] CallingPartyBusinessGroupID	OPTIONAL,
+	originalCalledPartyID	[4] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[5] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[6] RedirectionInformation	OPTIONAL,
+	routeList	[7] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[8] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[9] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	callingPartySubaddress	[10] CallingPartySubaddress	OPTIONAL,
+	...
+	}
+
+-- Direction: SSF -> SCF. Timer: Ttra
+-- This operation is used for indication of a call termination attempt from the terminating half BCSM. (DP –
+-- Termination_Attempt). 
+-- For additional information on this operation, refer to Q.1224.
+
+TerminationAttemptArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	callingPartyBusinessGroupID	[3] CallingPartyBusinessGroupID	OPTIONAL,
+	callingPartySubaddress	[4] CallingPartySubaddress	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[6] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[7] RedirectionInformation	OPTIONAL,
+	routeList	[8] RouteList --{bound}--	OPTIONAL,
+	travellingClassMark	[9] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[10] SEQUENCE SIZE(1..numOfExtensions)	OF 
+			        ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+
+
+ 
+
+-- Direction: SSF ->  SCF, Timer: Ttmc  
+-- This operation is used to indicate that a feature request is received from the terminating party (e.g. hook 
+-- flash, ISDN feature activation Q.931 HOLD or RETrieve message). (DP  – T_Mid_Call). 
+-- For additional information on this operation, refer to Q.1224.  
+
+
+-- Direction: SSF -> SCF, Timer: Ttna  
+-- This operation is used to indicate that the terminating party does not answer within a specified duration. 
+-- (DP  – T_No_Answer). For additional information on this operation, refer to  Q.1224. 
+
+TNoAnswerArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters	[0] DpSpecificCommonParameters --{bound}--,
+	calledPartyBusinessGroupID	[1] CalledPartyBusinessGroupID	OPTIONAL,
+	calledPartySubaddress	[2] CalledPartySubaddress	OPTIONAL,
+	calledFacilityGroup	[3] FacilityGroup	OPTIONAL,
+	calledFacilityGroupMember	[4] FacilityGroupMember	OPTIONAL,
+	originalCalledPartyID	[5] OriginalCalledPartyID --{bound}--	OPTIONAL,
+	redirectingPartyID	[6] RedirectingPartyID --{bound}--	OPTIONAL,
+	redirectionInformation	[7] RedirectionInformation	OPTIONAL,
+	travellingClassMark	[8] TravellingClassMark --{bound}--	OPTIONAL,
+	extensions	[9] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	componentType	[10] ComponentType	OPTIONAL,
+--	component	[11] Component	OPTIONAL,
+	componentCorrelationID	[12] ComponentCorrelationID	OPTIONAL,
+	...
+	}
+
+ 
+
+--	Direction: SSF -> SCF. Timer: T ts
+--	This operation is issued by the SSF after detecting a valid trigger condition at the T_Suspended DP or  to 
+--	report a tSuspended event requested by the RequestReportBCSMEvent. For additional information on 
+--	this operation, refer to Q.1224.
+
+TSuspendedArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	dpSpecificCommonParameters 	[0] DpSpecificCommonParameters --{bound}--,
+	legID	[1] LegID	OPTIONAL,
+	extensions	[2] SEQUENCE SIZE(1..numOfExtensions)	OF
+			      ExtensionField --{bound}-- 	OPTIONAL,
+	...
+	}
+-- For the OPTIONAL parameters, refer to clause 17 for the trigger detection point processing rules 
+-- to specify when these parameters are included in the message.
+-- Use for T/EDP-R is ffs.
+
+
+-- Direction: SCF -> SRF, Timer: Tpa
+-- This operation is to be used after Establish Temporary Connection (assist procedure with a second SSP) 
+-- or a Connect to Resource (no assist) operation. It may be used for inband interaction with an analog user, 
+-- or for interaction with an ISDN user. In the former case, the SRF is usually collocated with the SSF for 
+-- standard tones (congestion tone...) or standard announcements. In the latter case, the SRF is always 
+-- collocated with the SSF in the switch. Any error is returned to the SCF. The timer associated with this 
+-- operation must be of a sufficient duration to allow its linked operation to be correctly correlated.
+
+PlayAnnouncementArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	informationToSend	[0] InformationToSend --{bound}--,
+	disconnectFromIPForbidden	[1] BOOLEAN	DEFAULT TRUE,
+	requestAnnouncementComplete	[2] BOOLEAN	DEFAULT TRUE,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			     ExtensionField  --{bound}--	OPTIONAL,
+	connectedParty	CHOICE {
+			legID	[4] LegID,
+			callSegmentID	[5] CallSegmentID --{bound}--
+			} 	OPTIONAL,
+	...
+	}
+
+
+-- Direction: SCF ->  SRF, Timer: Tpc 
+-- This operation is used to interact with a user to collect information.
+
+ 
+PromptAndCollectUserInformationArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	collectedInfo	[0] CollectedInfo,
+	disconnectFromIPForbidden	[1] BOOLEAN	DEFAULT TRUE,
+	informationToSend 	[2] InformationToSend --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			     ExtensionField  --{bound}--	OPTIONAL,
+	callSegmentID	[4] CallSegmentID --{bound}-- 	OPTIONAL,
+	...
+	}
+
+ReceivedInformationArg --{PARAMETERS-BOUND : bound}-- ::= CHOICE {
+	digitsResponse	[0] Digits --{bound}--,
+	iA5Response	[1] IA5String
+	}
+
+
+--  Direction: SCF ->SRF, Timer: Tprm
+--  Used to prompt a user to store a message
+
+PromptAndReceiveMessageArg --{PARAMETERS-BOUND : bound}-- ::= SEQUENCE {
+	disconnectFromIPForbidden	[0] BOOLEAN	DEFAULT TRUE,
+	informationToSend	[1] InformationToSend --{bound}--	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(0..numOfExtensions)	OF
+			     ExtensionField --{bound}--	OPTIONAL,
+	subscriberID	[4] GenericNumber --{bound}--	OPTIONAL,
+	mailBoxID	[5] MailBoxID --{bound}--	OPTIONAL,
+	informationToRecord	[6] InformationToRecord --{bound}--,
+	media	[7] Media 	DEFAULT voiceMail,
+	callSegmentID	[8] CallSegmentID --{bound}--	OPTIONAL,
+	...
+	}
+
+MessageReceivedArg --{PARAMETERS-BOUND : bound}--	::= SEQUENCE {
+	receivedStatus	[0] ReceivedStatus,
+	recordedMessageID	[1] RecordedMessageID	OPTIONAL,
+	recordedMessageUnits	[2] INTEGER(1..maxRecordedMessageUnits)	OPTIONAL,
+	extensions	[3] SEQUENCE SIZE(1..numOfExtensions)	OF
+			     ExtensionField --{bound}--	OPTIONAL,
+	...
+	}
+
+ 
+
+
+
+GrantsAndDenials			::=	BIT STRING {
+	-- permissions that may be used in conjunction with 
+	-- with any component of ProtectedItems 
+	grantAdd			(0),
+	denyAdd			(1),
+	grantDiscloseOnError	(2),
+	denyDiscloseOnError	(3),
+	grantRead			(4),
+	denyRead			(5),
+	grantRemove		(6),
+	denyRemove			(7),
+	-- permissions that may be used only in conjunction
+	-- with the entry component
+	grantBrowse			(8),
+	denyBrowse			(9),
+	grantExport			(10),
+	denyExport			(11),
+	grantImport			(12),
+	denyImport			(13),
+	grantModify			(14),
+	denyModify 			(15),
+	grantRename		(16),
+	denyRename			(17),
+	grantReturnDN		(18),
+	denyReturnDN		(19),
+	-- permissions that may be used in conjunction
+	-- with any component, except entry, of ProtectedItems 
+	grantCompare		(20),
+	denyCompare		(21),
+	grantFilterMatch		(22),
+	denyFilterMatch		(23),
+	-- permissions that may be used in conjunction
+	-- with entryMethod component of ProtectedItems 
+ 
+	grantExecuteMethod		(30),
+	denyExecuteMethod		(31) }
+
+BasicService ::= INTEGER {
+	telephony (1), 
+	faxGroup2-3 (2), 
+	faxGroup4 (3), 
+	teletexBasicAndMixed (4), 
+	teletexBazicAndProcessable (5), 
+	teletexBasic (6), 
+	syntaxBasedVideotex (7), 
+	internationalVideotex (8), 
+	telex (9), 
+	messageHandlingSystems (10), 
+	osiApplication (11), 
+	audioVisual (12)}
+
+
+
+ExecutionProblem  ::=  INTEGER { 
+	missingInputValues (1),
+	executionFailure(2) } 
+
+
+Actions ::= ENUMERATED {
+	play (0) , 
+	playandcollect (1) 
+	}
+
+
+-- Direction: controlling SCF -> supporting SCF, Timer Trci
+-- This operation is used to give to the assisting network charging information collected by the 
+-- controlling network.
+
+CallIdentifier ::= Integer4
+
+
+
+-- Direction: SCF -> CUSF, Timer: Trrbce
+-- This operation is used to request the CUSF to report the reception of invocation of an operation or return 
+-- result / reject from the end user to the SCF.  The requesting event can be ether the result, return error / reject
+-- from the end user as the response for the SCF specified invocation / result with the SendComponent operation
+-- or the independent invocation / result error from the end user.
+
+ExtensionField ::= SEQUENCE {
+	type	INTEGER,     --  shall identify the value of an EXTENSION type
+	criticality	ENUMERATED {
+		ignore (0),
+		abort (1)
+		} DEFAULT ignore,
+	value	[1]	ANY DEFINED BY type
+	}
+
+
+-- changed for compiler
+InvokeID ::= INTEGER (-128..127)
+-- changed for compiler
+
+
+
+
+
+minAChBillingChargingLength                 INTEGER ::= 0
+maxAChBillingChargingLength                 INTEGER ::= 15
+minAttributesLength                         INTEGER ::= 1
+maxAttributesLength                         INTEGER ::= 15
+maxBearerCapabilityLength                   INTEGER ::= 15
+minCalledPartyNumberLength                  INTEGER ::= 1
+maxCalledPartyNumberLength                  INTEGER ::= 15
+minCallingPartyNumberLength                 INTEGER ::= 1
+maxCallingPartyNumberLength                 INTEGER ::= 15
+minCallResultLength                         INTEGER ::= 0
+maxCallResultLength                         INTEGER ::= 20
+
+maxCauseLength                              INTEGER ::= 15
+minDigitsLength                             INTEGER ::= 0
+maxDigitsLength                             INTEGER ::= 20
+minDisplayInformationLength                 INTEGER ::= 1
+maxDisplayInformationLength                 INTEGER ::= 15
+minEventSpecificInformationChargingLength   INTEGER ::= 1
+maxEventSpecificInformationChargingLength   INTEGER ::= 15
+minEventTypeChargingLength                  INTEGER ::= 1
+maxEventTypeChargingLength                  INTEGER ::= 15
+minFCIBillingChargingLength                 INTEGER ::= 1
+maxFCIBillingChargingLength                 INTEGER ::= 100
+minIPAvailableLength                        INTEGER ::= 1
+maxIPAvailableLength                        INTEGER ::= 15
+minIPSSPCapabilitiesLength                  INTEGER ::= 1
+maxIPSSPCapabilitiesLength                  INTEGER ::= 15
+minLocationNumberLength                     INTEGER ::= 1
+maxLocationNumberLength                     INTEGER ::= 15
+minMessageContentLength                     INTEGER ::= 1
+maxMessageContentLength                     INTEGER ::= 15
+minOriginalCalledPartyIDLength              INTEGER ::= 1
+maxOriginalCalledPartyIDLength              INTEGER ::= 15
+minRedirectingPartyIDLength                 INTEGER ::= 1
+maxRedirectingPartyIDLength                 INTEGER ::= 15
+minRouteListLength                          INTEGER ::= 1
+maxRouteListLength                          INTEGER ::= 15
+minScfIDLength                              INTEGER ::= 1
+maxScfIDLength                              INTEGER ::= 15
+minSCIBillingChargingLength                 INTEGER ::= 1
+maxSCIBillingChargingLength                 INTEGER ::= 15
+minServiceInteractionIndicatorsLength       INTEGER ::= 1
+maxServiceInteractionIndicatorsLength       INTEGER ::= 15
+minSFBillingChargingLength                  INTEGER ::= 1
+maxSFBillingChargingLength                  INTEGER ::= 40
+numOfBCSMEvents                             INTEGER ::= 10
+numOfChargingEvents                         INTEGER ::= 2
+
+numOfExtensions                             INTEGER ::= 2
+
+numOfMessageIDs                             INTEGER ::= 1
+
+
+minBackwardGVNSLength		INTEGER ::= 1
+maxBackwardGVNSLength		INTEGER ::= 15
+
+minForwardGVNSLength		INTEGER ::= 1
+maxForwardGVNSLength		INTEGER ::= 15
+minGenericNameLength		INTEGER ::= 1
+maxGenericNameLength		INTEGER ::= 15
+minGenericNumberLength		INTEGER ::= 1
+maxGenericNumberLength		INTEGER ::= 15
+maxInitialTimeInterval		INTEGER ::= 15
+maxINServiceCompatibilityIndLength	INTEGER ::= 15
+
+
+minMailBoxIDLength		INTEGER ::= 1
+maxMailBoxIDLength		INTEGER ::= 15
+
+
+minMidCallControlInfoNum		INTEGER ::= 1
+maxMidCallControlInfoNum		INTEGER ::= 15
+
+minReasonLength		INTEGER ::= 1
+maxReasonLength		INTEGER ::= 15
+minReceivedInformationLength	INTEGER ::= 1
+maxReceivedInformationLength 	INTEGER ::= 15
+maxRecordedMessageUnits		INTEGER ::= 15
+maxRecordingTime		INTEGER ::= 15
+
+minRequestedUTSINum 		INTEGER ::= 1
+maxRequestedUTSINum 		INTEGER ::= 15
+
+minScfAddressLength		INTEGER ::= 1
+maxScfAddressLength		INTEGER ::= 15
+
+minUSIInformationLength		INTEGER ::= 1
+maxUSIInformationLength		INTEGER ::= 15
+minUSIServiceIndicatorLength	INTEGER ::= 1
+maxUSIServiceIndicatorLength	INTEGER ::= 15
+
+numOfBCUSMEvents		INTEGER ::= 10
+
+numOfCSAs		INTEGER ::= 10
+numOfCSs		INTEGER ::= 10
+
+numOfGenericNumbers		INTEGER ::= 10
+numOfInServiceCompatibilityIndLength	INTEGER ::= 10
+numOfLegs		INTEGER ::= 10
+
+maxAmount		INTEGER ::= 15
+maxInitialUnitIncrement		INTEGER ::= 15
+maxScalingFactor		INTEGER ::= 15
+maxSegmentsPerDataInterval		INTEGER ::= 15
+maxTimePerInterval		INTEGER ::= 15
+maxUnitsPerDataInterval 		INTEGER ::= 15
+maxUnitsPerInterval		INTEGER ::= 15
+ub-maxUserCredit		INTEGER ::= 15
+ub-nbCall		INTEGER ::= 15
+
+-- SCF / SDF Interface --
+
+ExecuteArgument 	::=	SET 
+{
+    object            [0] Name,
+    method-id         [1] OBJECT IDENTIFIER,
+    input-assertions  [2] SEQUENCE OF AttributeTypeAndValue OPTIONAL,
+    specific-input    [3] SpecificInput OPTIONAL
+}
+
+ExecuteResult ::= SET 
+{
+    method-id         [1] OBJECT IDENTIFIER,
+    output-assertions [2] SEQUENCE OF AttributeTypeAndValue OPTIONAL,
+	specific-output	  [3] SpecificOutput OPTIONAL
+}
+
+-- Common Data Types
+
+Name ::= CHOICE 
+{
+    rdnSequence RDNSequence 
+}
+
+RDNSequence ::= SEQUENCE OF	RelativeDistinguishedName
+
+RelativeDistinguishedName ::= AttributeTypeAndValue
+
+DistinguishedName ::= RDNSequence
+
+AttributeTypeAndValue ::= SEQUENCE
+{
+    type   AttributeType,
+    value  AttributeValue
+}
+
+AttributeValueAssertion ::= AttributeTypeAndValue
+
+AttributeType ::= OBJECT IDENTIFIER
+
+AttributeValue ::= CHOICE
+{
+    intElement    [0] INTEGER( 0..32767 ),
+    int4Element   [1] INTEGER( 0..2147483647 ),
+    charElement   [2] OCTET STRING (SIZE (1)),
+    stringElement [3] OCTET STRING ( SIZE (0..36) )
+}
+
+
+SpecificInput ::= SEQUENCE OF AttributeValue
+SpecificOutput ::= SEQUENCE OF AttributeValue
+
+AttributeErrorProblem ::= SEQUENCE 
+{
+    problem [0] AttributeProblem,
+    type    [1] AttributeType,
+    value   [2] AttributeValue   OPTIONAL
+}
+
+AttributeError ::= SET
+{
+    object   [0] Name,
+    problems [1] SET OF AttributeErrorProblem
+}
+
+AttributeProblem ::= INTEGER 
+{ 
+    undefinedAttributeType (3)
+}
+
+NameError ::= SET
+{
+    problem [0] NameProblem, 
+    matched [1] Name 
+}
+
+NameProblem	::= INTEGER 
+{ 
+    noSuchObject (1) 
+}
+
+ExecutionError ::= SET
+{
+    problem [0] ExecutionProblem
+}
+
+InCommonArguments ::= SET {
+    serviceControls    [30] InServiceControls OPTIONAL,
+    securityParameters [29] SecurityParameters OPTIONAL,
+    requestor          [28] DistinguishedName OPTIONAL,
+    operationProgress  [27] OperationProgress OPTIONAL,
+    extensions         [25] SET OF Extension OPTIONAL
+}
+
+InServiceControls ::= SET {
+  options              [0]  ServiceControlOptions OPTIONAL,
+  priority             [1]  INTEGER OPTIONAL
+}
+
+ServiceControlOptions ::= BIT STRING 
+{
+    preferChaining(0), 
+    chainingProhibited(1), 
+    localScope(2), 
+    dontUseCopy(3),
+    dontDereferenceAliases(4), 
+    subentries(5), 
+    copyShallDo(6),
+    partialNameResolution(7), 
+    manageDSAIT(8), 
+    noSubtypeMatch(9),
+    noSubtypeSelection(10), 
+    countFamily(11)
+}
+
+SecurityParameters ::= SET {
+  certification-path          [0]  CertificationPath OPTIONAL,
+  distinguishedName           [1]  DistinguishedName OPTIONAL,
+  time                        [2]  Time OPTIONAL,
+  random                      [3]  BIT STRING OPTIONAL,
+  target                      [4]  ProtectionRequest OPTIONAL
+}
+
+CertificationPath::= SEQUENCE
+{
+    userCertificate     Certificate,
+    theCACertificates   SEQUENCE OF CertificatePair OPTIONAL
+}
+
+Certificate::=  SEQUENCE
+{
+    version [0]           Version OPTIONAL,
+    serialNumber          SerialNumber,
+    signature             AlgorithmIdentifier,
+    issuer                Name,
+    validity              Validity,
+    subject               Name,
+    subjectPublicKeyInfo  SubjectPublicKeyInfo
+}
+
+Version     ::= INTEGER
+
+SerialNumber    ::= INTEGER
+
+Validity    ::= SEQUENCE
+{
+    notBefore       UTCTime,
+    notAfter        UTCTime
+}
+
+SubjectPublicKeyInfo    ::= SEQUENCE
+{
+    algorithm       AlgorithmIdentifier,
+    subjectPublicKey    BIT STRING
+}
+
+AlgorithmIdentifier ::= SEQUENCE
+{
+    algorithm       OBJECT IDENTIFIER,
+    parameters      ANY DEFINED BY algorithm OPTIONAL
+}
+
+CertificatePair ::= SEQUENCE
+{
+    forward [0]     Certificate OPTIONAL,
+    reverse [1]     Certificate OPTIONAL
+}
+
+Time ::= CHOICE {
+    utcTime          UTCTime,
+    generalizedTime  GeneralizedTime
+}
+
+ProtectionRequest ::= INTEGER
+
+NameResolutionPhase ::= ENUMERATED
+{
+    notStarted      (1),
+    proceeding      (2),
+    completed       (3)
+}
+
+OperationProgress  ::=  SET
+{
+        nameResolutionPhase [0] NameResolutionPhase,
+        nextRDNToBeResolved [1] INTEGER OPTIONAL
+}
+
+Extension  ::= SET
+{
+     identifier[0]  INTEGER,
+     critical [1]  BOOLEAN OPTIONAL,
+     item     [2]  ANY DEFINED BY identifier
+}
+
+Attribute ::= SEQUENCE
+{
+    type   [0] AttributeType,
+    values [1] SET OF AttributeValue
+}
+
+Information ::= CHOICE
+{
+    attribute      Attribute
+}
+
+Informations ::= SET OF Information 
+
+InEntryInformation ::= SEQUENCE {
+  entryName        Name,
+  fromEntry        BOOLEAN OPTIONAL,
+  information      Informations OPTIONAL
+}
+
+DirectoryBindArgument::=   SET
+{
+    credentials [0]  Credentials  OPTIONAL,
+    versions    [1]  Versions OPTIONAL
+}
+
+Versions ::= BIT STRING
+
+Credentials::=  CHOICE 
+{
+    simple        [0]   SimpleCredentials,
+    strong        [1]   StrongCredentials,
+    externalProcedure [2] EXTERNAL 
+}
+
+SimpleCredentials ::=  SEQUENCE
+{
+    distinguishedName     [0] DistinguishedName,
+    validity [1] Validity OPTIONAL,
+    password [2]  OCTET STRING OPTIONAL
+}
+
+StrongCredentials::=  SET
+{
+   certification-path [0]  CertificationPath OPTIONAL,
+   bind-token         [1]  Token
+}
+
+Token ::=  SEQUENCE
+{
+    algorithm [0]  AlgorithmIdentifier,
+    distinguishedName      [1]  DistinguishedName,
+    time      [2]  UTCTime,
+    random    [3]   BIT STRING
+}
+
+DirectoryBindResult ::=  DirectoryBindArgument
+
+InDirectoryUnbind ::= NULL
+
+BindError ::= CHOICE 
+{
+    serviceError  [1]   ServiceProblem,
+    securityError [2]   SecurityProblem
+}
+
+InDirectoryBindError     ::=  SET
+{
+    versions [0]  Versions OPTIONAL,
+    error         BindError
+}
+
+ServiceProblem  ::= INTEGER
+
+SecurityProblem  ::= INTEGER
+
+SearchArgument  ::= SET
+{
+    baseObject       [0]  Name,
+    subset           [1]  Subset OPTIONAL,
+    filter           [2]  Filter OPTIONAL,
+    searchAliases    [3]  BOOLEAN OPTIONAL,
+    selection        [4]  InEntryInformationSelection OPTIONAL
+}
+
+Subset ::= INTEGER
+
+Filter  ::= CHOICE
+{
+    item [0] FilterItem,
+    and  [1] SET OF FilterItem,
+    or   [2] SET OF FilterItem,
+    not  [3] FilterItem
+}
+
+String ::= CHOICE
+{
+   initial [0] AttributeValue,
+   any     [1] AttributeValue,
+   final   [2] AttributeValue
+}
+
+Strings ::= SEQUENCE OF String
+
+Substrings ::= SEQUENCE
+{
+    type AttributeType,
+    strings Strings
+}
+
+FilterItem::=  CHOICE
+{
+    equality         [0] AttributeValueAssertion,
+    substrings       [1] Substrings,
+    greaterOrEqual   [2] AttributeValueAssertion,
+    lessOrEqual      [3] AttributeValueAssertion,
+    present          [4] AttributeType,
+    approximateMatch [5] AttributeValueAssertion
+}
+
+AttributeTypes ::= CHOICE
+{
+    allAttributes [0] NULL,
+    select [1] SET OF AttributeType
+}
+
+InfoTypes ::= INTEGER
+
+InEntryInformationSelection ::=  SET
+{
+    attributeTypes     AttributeTypes,
+    infoTypes      [2] InfoTypes OPTIONAL
+}
+
+ReferenceType   ::= ENUMERATED
+{
+    superior                (1),
+    subordinate             (2),
+    cross                   (3),
+    nonSpecificSubordinate  (4)
+}
+
+PresentationAddress     ::=     SEQUENCE
+{
+    pSelector   [0]     OCTET STRING OPTIONAL,
+    sSelector   [1]     OCTET STRING OPTIONAL,
+    tSelector   [2]     OCTET STRING OPTIONAL,
+    nAddresses  [3]     SET SIZE(1..10) OF OCTET STRING
+}
+
+AccessPoint ::= SET
+{
+        ae-title [0]  Name,
+        address  [1]  PresentationAddress
+}
+
+ContinuationReference ::= SET
+{
+    targetObject        [0] Name,
+    aliasedRDNs         [1] INTEGER OPTIONAL,
+    operationProgress   [2] OperationProgress,
+    rdnsResolved        [3] INTEGER OPTIONAL,
+    referenceType       [4] ReferenceType OPTIONAL,
+    accessPoints        [5] SET OF AccessPoint
+}
+
+PartialOutcomeQualifier ::= SET 
+{
+    limitProblem [0] LimitProblem OPTIONAL,
+    unexplored   [1] SET OF ContinuationReference OPTIONAL,
+    unavailableCriticalExtensions [2] BOOLEAN OPTIONAL 
+}
+
+LimitProblem  ::=  INTEGER 
+
+SearchResults ::= SET OF SearchInfo
+
+SearchInfo ::= SET {
+    distinguishedName DistinguishedName OPTIONAL,
+    entries  [0]     SET OF InEntryInformation,
+    partialOutcomeQualifier [2]PartialOutcomeQualifier OPTIONAL,
+    securityParameters [30]SecurityParameters  OPTIONAL,
+    performer [29] DistinguishedName OPTIONAL,
+    aliasDereferenced  [28] BOOLEAN OPTIONAL
+}
+
+SearchResult  ::= CHOICE
+{
+    searchInfo SearchInfo,
+    uncorrelatedSearchInfo [0] SearchResults
+}
+
+AddEntryArgument  ::=  SET 
+{
+    object             [0]  DistinguishedName,
+    entry              [1]  SET OF Attribute,
+    serviceControls    [30] InServiceControls OPTIONAL,
+    securityParameters [29] SecurityParameters OPTIONAL,
+    requestor          [28] DistinguishedName OPTIONAL,
+    operationProgress  [27] OperationProgress OPTIONAL,
+    extensions         [25] SET OF Extension OPTIONAL
+}
+
+AddEntryResult ::= NULL
+
+RemoveEntryArgument  ::= SET
+{
+    object             [0]  DistinguishedName,
+    serviceControls    [30] InServiceControls OPTIONAL,
+    securityParameters [29] SecurityParameters OPTIONAL,
+    requestor          [28] DistinguishedName OPTIONAL,
+    operationProgress  [27] OperationProgress OPTIONAL,
+    extensions         [25] SET OF Extension OPTIONAL
+}
+
+RemoveEntryResult  ::=  NULL
+
+InModifyEntryArgument  ::=  SET
+{
+    object             [0]  DistinguishedName,
+    changes            [1]  SEQUENCE OF EntryModification,
+    selection          [2]  InEntryInformationSelection OPTIONAL,
+    serviceControls    [30] InServiceControls OPTIONAL,
+    securityParameters [29] SecurityParameters OPTIONAL,
+    requestor          [28] DistinguishedName OPTIONAL,
+    operationProgress  [27] OperationProgress OPTIONAL,
+    extensions         [25] SET OF Extension OPTIONAL
+}
+
+ModifyEntryResult  ::=  NULL
+
+EntryModification  ::=  CHOICE 
+{
+    addAttribute     [0] Attribute,
+    removeAttribute  [1] AttributeType,
+    addValues        [2] Attribute,
+    removeValues     [3] Attribute
+}
+
+END

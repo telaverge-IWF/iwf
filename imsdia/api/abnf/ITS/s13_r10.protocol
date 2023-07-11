@@ -1,0 +1,135 @@
+/**
+ * 3GPP TS 29.272 V10.6.0 (2012-03)-- s13 Interface --Diameter Based Protocol
+ * s13 interface between  MEE and EIR. 
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * 3GPP TS 29.272 V10.6.0 Technical specification
+ */
+protocol diameter.s13_r10 < 16777252 10415 : "3GPP TS 29.272 V10.6.0 (2012-03) " >;
+
+/**
+* This is the dictionary Id used by DTF. This has to be unique.
+* Refer to the excel "Diameter_Dictionary_Details.xlsx" for
+* currently used ID's to avoid collisions.
+*/
+
+dict-id 12;
+
+
+      //////////////////
+     // Derived AVPs //
+    //////////////////
+
+/**
+ * The Terminal-Information AVP (AVP code 1401) is of type Grouped, and contains the 
+ * information about the user's terminal.
+ */
+    Terminal-Information  ::= 1401  /*7.3.3 */  Grouped  M,V| | |    |N;
+	
+/**
+ * The IMEI AVP is of type UTF8String. This AVP contains the International Mobile 
+ * Equipment Identity. See 3GPP TS 23.003 
+ */             
+   IMEI               ::= 1402   /* 7.3.4 */ UTF8String  M,V| | |    |N;
+
+/**
+ * The 3GPP2-MEID AVP is of type OctetString. This AVP contains the Mobile Equipment 
+ * Identity of the user's terminal. See 3GPP2 A.S0022 Annex A.
+ */             
+  S13-3GPP2-MEID ::= 1471    /*7.3.6*/	OctetString   M,V| | |     |N;
+
+/**
+ * The Software-Version AVP is of type UTF8String. This AVP contains the International 
+ * Mobile Equipment Identity. See 3GPP TS 23.003 
+ */             
+
+   Software-Version   ::=  1403  /* 7.3.5 */  UTF8String  M,V| | |    |N;	
+
+
+/**
+ * The Equipment-Status AVP is of type Enumerated, and contains the status 
+ * of the mobile equipment. The following values are defined:
+ * 
+ *  WHITELISTED (0) 
+ *  Mobile Equipment is authenticated to the network. 
+ *  BLACKLISTED (1) 
+ *  There is compliant registered against this Mobile Equipment.
+ *  GREYLISTED (2) 
+ * There is no compliant registered against this Mobile Equipment, but it 
+ * is not authenticated to our network
+ */
+   Equipment-Status ::=  1445	/*7.3.51 */	Enumerated	M,V| | |    |N;
+	
+	
+	
+	
+	
+     //////////////////
+    // Enumerations //
+   //////////////////
+ 
+    Equipment-Status ::= < Enumerated: 1445  >
+                    WHITELISTED     0
+                    BLACKLISTED     1  
+                    GREYLISTED 	    2
+                    ;
+ 
+ 
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+	
+    Terminal-Information ::= <AVP Header: 1401 >
+	                [IMEI]
+	                [S13-3GPP2-MEID]
+	                [Software-Version]
+	                *[AVP]
+                        ;
+ 
+ 
+
+    //////////////
+    // Commands //
+    //////////////
+
+/**
+* The ME-Identity-Check-Request (ECR) command, indicated by the Command-Code field 
+* set to 1122  and the 'R' bit set in the Command Flags field, is sent from MME to EIR
+*/
+
+	ME-Identity-Check-Request <ECR> ::=	< Diameter Header: 324, REQ, PXY, 16777252 >
+				< Session-Id >
+        		        { Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Terminal-Information }
+        		        [ Vendor-Specific-Application-Id ]
+				[ Destination-Host ]
+				[ User-Name ]
+				*[ AVP ]
+				*[ Proxy-Info ]	
+				*[ Route-Record ]
+				;
+	
+	
+/**
+* The ME-Identity-Check-Answer (ECA) command, indicated by the Command-Code field set
+* to 1122 and the 'R' bit cleared in the Command Flags field, is sent from EIR to MME. 
+*/
+
+
+	ME-Identity-Check-Answer<ECA> ::=    < Diameter Header: 324, PXY, 16777252 >
+				< Session-Id >
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ Vendor-Specific-Application-Id ]
+				[ Result-Code ]
+				[ Experimental-Result ]
+				[ Equipment-Status ]
+				*[ AVP ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				;
+

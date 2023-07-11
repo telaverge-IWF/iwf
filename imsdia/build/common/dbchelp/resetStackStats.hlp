@@ -1,0 +1,14 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    resetStackStats                                                                                 
+DESCRIPTION
+    This command clears All Diameter Stack statistics.
+                                                                                
+PARAMETERS
+    None                                                                                 
+
+EXAMPLE
+      >> resetStackStats
+      Successfully Reset statistics
+       

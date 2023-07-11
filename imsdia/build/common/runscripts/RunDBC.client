@@ -1,0 +1,13 @@
+#! /bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+DBGConsoleD -socket -configFile dbc_console.ini.client 
+
+exit 0
+

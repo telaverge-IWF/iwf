@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbtransport.a  CMakeFiles/ndbtransport.dir/Transporter.cpp.o CMakeFiles/ndbtransport.dir/TCP_Transporter.cpp.o CMakeFiles/ndbtransport.dir/Loopback_Transporter.cpp.o CMakeFiles/ndbtransport.dir/TransporterRegistry.cpp.o CMakeFiles/ndbtransport.dir/Packer.cpp.o
+/usr/bin/ranlib libndbtransport.a

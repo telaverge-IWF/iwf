@@ -1,0 +1,16 @@
+/opt/diametriq/dre/HA_README.txt
+/opt/diametriq/dre/bin/avamgr
+/opt/diametriq/dre/bin/cnfmgr_dummy
+/opt/diametriq/dre/bin/repmgr_dummy
+/opt/diametriq/dre/bin/dreapp_dummy
+/opt/diametriq/dre/bin/cliproc_dummy
+/opt/diametriq/dre/bin/avamgr.cfg
+/opt/diametriq/dre/log/AvailabilityManager.log
+/opt/diametriq/dre/scripts/file_replication.sh
+/opt/diametriq/dre/configuration
+/opt/diametriq/dre/erlbfConfiguration
+/opt/diametriq/dre/lib
+/etc/profile.d/dre.sh
+/etc/sysconfig/dre
+/etc/init.d/dre
+/etc/ld.so.conf.d/dre-x86_64.conf

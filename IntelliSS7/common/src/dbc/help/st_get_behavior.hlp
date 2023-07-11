@@ -1,0 +1,21 @@
+
+TTC SCCP Command
+
+SYNOPSIS
+    st_get_behavior
+
+DESCRIPTION
+    This command displays TTC SCCP behavior settings. 
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> st_get_behavior
+        SCCP_B_use_SCMG          <yes> 
+        SCCP_B_propagate_SCMG    <yes> 
+        SCCP_B_propagate_IT       <no> 
+        SCCP_B_propagate_ERR      <no> 
+
+
+

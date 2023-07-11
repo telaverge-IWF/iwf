@@ -1,0 +1,17 @@
+
+M3UA / SUA Command
+
+SYNOPSIS
+    u_debug_flag  <onOff>
+
+DESCRIPTION
+    This command is used to set debug flag to ON or OFF to display
+    the state and routing info if the node is ASP or IPSP client.
+
+PARAMETERS
+    onOff   on|off 
+
+EXAMPLE
+  >>u_debug_flag on 
+    *********** debug flag is set *************
+

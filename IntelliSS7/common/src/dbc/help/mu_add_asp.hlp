@@ -1,0 +1,20 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_add_asp
+
+DESCRIPTION
+    This command adds asp ID for ASP in asp List at SGP.
+
+PARAMETERS
+    aspId - a valid asp ID should be add
+
+EXAMPLE
+
+>> mu_add_asp 1003
+
+********* SUCCESSFULLY ADDED ASP *********
+
+
+

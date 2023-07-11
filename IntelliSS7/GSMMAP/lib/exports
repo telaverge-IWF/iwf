@@ -1,0 +1,14 @@
+release		cpp		itu		libMAP-COMMON++.a	MAP-COMMON++.lib
+debug		cpp		itu		libMAP-COMMON++D.a	MAP-COMMON++D.lib
+release		cpp		itu		libMAP-V6++.a		MAP-V6++.lib
+debug		cpp		itu		libMAP-V6++D.a		MAP-V6++D.lib
+release		cpp		itu		libMAP-V5++.a		MAP-V5++.lib
+debug		cpp		itu		libMAP-V5++D.a		MAP-V5++D.lib
+release		cpp		itu		libMAP-V4++.a		MAP-V4++.lib
+debug		cpp		itu		libMAP-V4++D.a		MAP-V4++D.lib
+release		cpp		itu		libMAP-V3++.a		MAP-V3++.lib
+debug		cpp		itu		libMAP-V3++D.a		MAP-V3++D.lib
+release		cpp		itu		libMAP-V2++.a		MAP-V2++.lib
+debug		cpp		itu		libMAP-V2++D.a		MAP-V2++D.lib
+release		cpp		itu		libMAP-V1++.a		MAP-V1++.lib
+debug		cpp		itu		libMAP-V1++D.a		MAP-V1++D.lib

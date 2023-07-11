@@ -1,0 +1,18 @@
+Diameter Command
+
+SYNOPSIS
+    setAuthTimers  <lifetime> <gracetime> <timeout>
+
+DESCRIPTION
+    This command will set the Auth timers.
+
+PARAMETERS
+    <lifetime>     Life Timer value
+    <gracetime>    Grace Timer value
+    <timeout>      Timeout value
+
+EXAMPLE
+    >> setAuthTimers 30 60 120
+
+       Successfully Auth Session Timers Set
+

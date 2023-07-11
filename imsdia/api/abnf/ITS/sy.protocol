@@ -1,0 +1,255 @@
+/**
+ * 3GPP TS 29 219 V11.4.0 - Sy interface 
+ *   The Sy reference point lies between the Policy and Charging Rule Function
+ *   (PCRF) and the Online Charging System (OCS). 
+ * 
+ *   Based on RFC 3588 - diameter base protocol
+ *            RFC 4006 - dcca
+ */
+
+protocol diameter.sy < 16777302 10415: "3GPP TS 29 219 V11.4.0" >;
+/**
+ * This is the dictionary Id used by DTF. This has to be unique.
+ * Refer to the excel "Diameter_Dictionary_Details.xlsx" for
+ * currently used ID's to avoid collisions.
+ */
+dict-id 20;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+    ///// Sy specific AVPs /////
+/** 
+ * The Policy-Counter-Identifier AVP (AVP code 2901) is of type UTF8String, 
+ * and it uniquely identifies a policy counter that is maintained per 
+ * subscriber within the OCS.
+ */
+    Policy-Counter-Identifier	 ::= 2901	/* 5.3.1 */	UTF8String	M,V|P| |  |Y;		
+
+/**
+ * The Policy-Counter-Status AVP (AVP code 2902) is of type UTF8String, and
+ * identifies the policy counter status applicable for a specific policy 
+ * counter and subscriber. 
+ *
+ * NOTE: The valid values for the Policy-Counter-Status AVP are specific for
+ * each Policy-Counter-Identifier value.
+ */
+    Policy-Counter-Status	     ::= 2902	/* 5.3.2 */	UTF8String	M,V|P| |  |Y;
+
+/**
+ * The Policy-Counter-Status-Report AVP (AVP code 2903) is of type Grouped. It
+ * is used by the OCS to report the status of a specific policy counter.
+ */
+    Policy-Counter-Status-Report ::= 2903	/* 5.3.3 */	Grouped	    M,V|P| |  |Y;		
+
+/**
+ * The SL-Request-Type AVP (AVP code 2904) is of type Enumerated, and informs
+ * the OCS whether the SLR command is being sent as part of the initial or 
+ * intermediate spending limit report request procedure.
+ */
+    SL-Request-Type	             ::= 2904	/* 5.3.4 */	Enumerated	M,V|P| |  |Y;		
+
+
+        //// Reused from other specs ////
+
+/**
+ * Subscription-Id AVP(AVP Code 443) is of type Grouped and is used to 
+ * identity the end user's subscription.
+ */
+    Subscription-Id                 ::= 443  0 /*8.46 */ Grouped     M|P| |  V  |Y;  /* RFC4006 */
+  
+                                                                                
+/**
+ * Subscription-Id-Type AVP (AVP Code 450) is of type Enumerated and it is
+ * used to determine which type of identifier is carried by the 
+ * Subscription-Id AVP.
+ */
+    Subscription-Id-Type            ::= 450  0 /*8.47 */ Enumerated  M|P| |  V  |Y;  /* RFC4006 */                                                                                 
+
+/**
+ * Subscription-Id-Data AVP (AVP Code 444) is of type UTF8String and is 
+ * used to identify the end user.
+ */
+    Subscription-Id-Data            ::= 444  0 /*8.48 */ UTF8String  M|P| |  V  |Y;  /* RFC4006 */
+
+ 
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+        //// Sy specific ////
+
+    SL-Request-Type ::= < Enumerated: 2904 >
+                        INITIAL_REQUEST         0
+                        INTERMEDIATE_REQUEST    1
+                        ;
+
+        //// Reused from other specs ////
+
+    Subscription-Id-Type ::= < Enumerated: 450 >
+                END_USER_E164             0
+                END_USER_IMSI             1
+                END_USER_SIP_URI          2
+                END_USER_NAI              3
+                END_USER_PRIVATE          4
+                ;
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+    Policy-Counter-Status-Report ::= 	< AVP Header: 2903 >
+							        { Policy-Counter-Identifier }
+							        { Policy-Counter-Status }
+							       *[ AVP ]
+                                   ;
+
+        //// Reused from other specs ////
+
+    Subscription-Id ::= < AVP Header: 443 0 >
+                { Subscription-Id-Type }
+                { Subscription-Id-Data }
+                ;
+
+    //////////////
+    // Commands //
+    //////////////
+
+/**
+ * The SLR command, indicated by the Command-Code field set to 8388635 and the
+ * 'R' bit set in the Command Flags field, is sent by the PCRF to the OCS as 
+ * part of the Initial or Intermediate Spending Limit Report Request procedure
+ */
+
+ SL-Request<SLR> ::= <Diameter Header: 8388635, REQ, PXY, 16777302 >
+                 < Session-Id >
+                 { Auth-Application-Id }
+                 { Origin-Host }
+                 { Origin-Realm }
+                 { Destination-Realm }
+                 { SL-Request-Type }
+                 [ Destination-Host ]
+                 [ Origin-State-Id ]
+                *[ Subscription-Id ]
+				*[ Policy-Counter-Identifier ]
+                *[ Proxy-Info ]
+                *[ Route-Record ]
+                *[ AVP ]
+                ;
+
+
+/**
+ * The SLA command, indicated by the Command-Code field set to 8388635 and the
+ * 'R' bit cleared in the Command Flags field, is sent by the OCS to the PCRF 
+ * as part of the Initial or Intermediate Spending Limit Report Request 
+ * procedure
+ */
+
+ SL-Answer<SLA> ::=  < Diameter Header: 8388635, PXY, 16777302 >
+				 < Session-Id >
+				 { Auth-Application-Id }
+				 { Origin-Host }
+				 { Origin-Realm }
+				 [ Result-Code ]
+				 [ Experimental-Result ]
+				*[ Policy-Counter-Status-Report ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ]
+				*[ Failed-AVP ]
+				 [ Origin-State-Id ] 
+				*[ Redirect-Host ]
+				 [ Redirect-Host-Usage ]
+				 [ Redirect-Max-Cache-Time ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+                ;
+
+/**
+ * The SNR command, indicated by the Command-Code field set to 8388636 and the
+ * 'R' bit set in the Command Flags field, is sent by the OCS to the PCRF as 
+ * part of the Spending Limit Report procedure.
+ */
+
+ SN-Request<SNR> ::= < Diameter Header: 8388636, REQ, PXY, 16777302 >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 { Destination-Host }
+				 { Auth-Application-Id }
+				 [ Origin-State-Id ]
+				*[ Policy-Counter-Status-Report ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+                ;
+
+
+/**
+ * The SNA command, indicated by the Command-Code field set to 8388636 and the
+ * 'R' bit cleared in the Command Flags field, is sent by the PCRF to the OCS 
+ * as part of the Spending Limit Report procedure.
+ */
+
+ SN-Answer<SNA> ::=  < Diameter Header: 8388636, PXY, 16777302 >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 [ Result-Code ]
+				 [ Experimental-Result ]
+				 [ Origin-State-Id ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ] 
+				*[ Redirect-Host ]
+				 [ Redirect-Host-Usage ]
+				 [ Redirect-Max-Cache-Time ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+                ;
+
+
+/**
+ * The STR command, indicated by the Command-Code field set to 275 and the
+ * 'R' bit set in the Command Flags field, is sent by the PCRF to the OCS
+ * as part of the Final Spending Limit Report Request procedure.
+ */
+
+ ST-Request<STR> ::= < Diameter Header: 275, REQ, PXY, 16777302 >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 { Destination-Realm }
+				 { Auth-Application-Id }
+				 { Termination-Cause }
+				 [ Destination-Host ]
+				 [ Origin-State-Id ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+                ;
+
+
+/**
+ * The STA command, indicated by the Command-Code field set to 275 and the
+ * 'R' bit cleared in the Command Flags field, is sent by the OCS to the 
+ * PCRF as part of the Final Spending Limit Report Request procedure.
+ */
+
+ ST-Answer<STA>  ::= < Diameter Header: 275, PXY, 16777302 >
+				 < Session-Id >
+				 { Origin-Host }
+				 { Origin-Realm }
+				 [ Result-Code ]
+				 [ Error-Message ]
+				 [ Error-Reporting-Host ]
+				*[ Failed-AVP ]
+				 [ Origin-State-Id ]
+				*[ Redirect-Host ]
+				 [ Redirect-Host-Usage ]
+				 [ Redirect-Max-Cache-Time ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+                ;
+

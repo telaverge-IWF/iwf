@@ -1,0 +1,50 @@
+Detailed configuration information
+==================================
+
+The following directories contain detailed system information:
+-------------------------------------------------------------
+etc - a directory containing some files copied, with -p, from /etc :
+      Note: some of these file will be present only in certain configurations.
+
+        auto_master
+        hostname.* - can be multiple files
+        hosts
+        inittab
+        mtab
+        nsswitch.conf
+        rpc
+        resolv.conf - DNS only
+        services
+        ssphostname - on E10000 systems only. Contains the SSP's hostname
+        syslog.conf
+        system
+        vfstab
+
+        etc/inet - directory containing files compied from /etc/inet
+                netmasks
+                networks
+
+messages - a directory containing error messages files copied from:
+           /var/adm/messages*
+imsdia     - a directory containing imsdia information
+        /imsdia/config - directory containing itp configuration
+        logs.tar.Z  - compressed tar archive of the logs
+
+
+netinfo - a directory containing some networking information:
+        arp-a.out     - output from arp -a
+        netstat-a.out - output from netstat -a
+        netstat-an.out- output from netstat -an
+        netstat-i.out - output from netstat -i
+        netstat-p.out - output from netstat -p
+        netstat-pn.out- output from netstat -pn
+        netstat-r.out - output from netstat -r
+        netstat-rn.out- output from netstat -rn
+        netstat-s.out - output from netstat -s
+        nfsstat.out   - output from nfsstat
+        nisshowcache-v.out - output from /usr/lib/nis/nisshowcache -v
+        rpcinfo.out   - output from rpcinfo
+
+sysconfig - a directory containing system HW configuration:
+        ifconfig-a.out   - output from ifconfig -a
+	rpm_qa.out

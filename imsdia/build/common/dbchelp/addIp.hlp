@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    addIp <hostName> <IPAddress>
+
+DESCRIPTION
+    This command sets IP address multihoming.
+
+PARAMETERS
+    hostName     Host Name.
+
+    IPAddress    IP Address for MultiHoming
+
+EXAMPLE
+    >> addIp nemo 172.16.3.1
+
+       Successfully IP address added

@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    setHMICheckInterval <interval>
+
+DESCRIPTION
+    This command is used to set HMI Check Interval.
+
+PARAMETERS
+    <interval>    HMI Check Interval
+
+EXAMPLE
+    >> setHMICheckInterval 1
+       HMI Check Interval Set
+

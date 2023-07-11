@@ -1,0 +1,16 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# USAGE
+# DiaServerD -configFile (xmlFileName)
+
+DiaServerD -configFile itsIDS2.xml
+
+exit 0
+
+

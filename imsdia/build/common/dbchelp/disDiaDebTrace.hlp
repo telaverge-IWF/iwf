@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    disDiaDebTrace                                                                                 
+DESCRIPTION
+    This command disables the diameter stack Debug traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> disDiaDebTrace
+    *******Diameter Debug Traces are disabled*******
+

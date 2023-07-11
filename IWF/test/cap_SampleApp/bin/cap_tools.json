@@ -1,0 +1,991 @@
+{
+    "cap_v3" : {
+            "InitialDPSMSArg" : {
+                "serviceKey" : {
+                    "Value" : 100
+                },
+                "destinationSubscriberNumber" : {
+                    "Enabled" : true,
+                    "Value" : "a19876543210" // configure it as hexadecimal
+                },
+                "callingPartyNumber" : {
+                    "Enabled" : true,
+                    "Value" : "9191123456789876"    // configure it as hexadecimal
+                },
+                "eventTypeSMS" : {
+                    "Enabled" : true,
+                    "Value" : 1
+                },
+                "imsi" : {
+                    "Enabled" : true,
+                    "Value" : "404120000000001" // configure it as hexadecimal
+                },
+                "locationInformationMSC" : {
+                    "Enabled" : true,
+                    "ageOfLocationInformation" : {
+                        "Enabled" : true,
+                        "Value" : 123
+                    },
+                    "geographicalInformation" : {
+                        "Enabled" : false,
+                        "Value" : "geograpi"
+                    },
+                    "vlr_number" : {
+                        "Enabled" : true,
+                        "Value" : "9191123456789876"    // configure it as hexadecimal
+                    },
+                    "locationNumber" : {
+                        "Enabled" : true,
+                        "Value" : "03119876543210"  // configure it as hexadecimal
+                    },
+                    "cellGlobalIdOrServiceAreaIdOrLAI" : {
+                        "Enabled" : true,
+                        "cellGlobalIdOrServiceAreaIdFixedLength" : {
+                            "Enabled" : true,
+                            "mcc" : "404" , 
+                            "mnc" : "12" ,
+                            "LocationArea" : "234" ,    // configure it as integer
+                            "CellId" : "567"    // configure it as integer
+                        },
+                        "laiFixedLength" : {
+                            "Enabled" : false,
+                            "Value" : "laile"
+                        }
+                    },
+                    "selectedLSA_Id" : {
+                        "Enabled" : true,
+                        "Value" : "123451"  // configure it as hexadecimal
+                    },
+                    "msc_Number" : {
+                        "Enabled" : true,
+                        "Value" : "9191123456789876"    // configure it as hexadecimal
+                    },
+                    "geodeticInformation" : {
+                        "Enabled" : false,
+                        "Value" : "geodeticin"
+                    },
+                    "currentLocationRetrieved" : {
+                        "Enabled" : true
+                    }
+                },
+                "locationInformationGPRS" : {
+                    "Enabled" : true,
+                    "cellGlobalIdOrServiceAreaIdOrLAI" : {
+                        "Enabled" : true,       // fill all the parameters present below
+                        "mcc" : "404" ,
+                        "mnc" : "12" ,
+                        "LocationArea" : "234" ,    // configure it as integer
+                        "CellId" : "567"    // configure it as integer
+                    },
+                    "routeingAreaIdentity" : {
+                        "Enabled" : false,
+                        "Value" : "raiide"
+                    },
+                    "geographicalInformation" : {
+                        "Enabled" : false,
+                        "Value" : "geograpi"
+                    },
+                    "sgsn_Number" : {
+                        "Enabled" : false,
+                        "Value" : "sgsnnum"
+                    },
+                    "selectedLSAIdentity" : {
+                        "Enabled" : true,
+                        "Value" : "123451"
+                    },
+                    "sai_Present" : {
+                        "Enabled" : false
+                    }
+                },
+                "sMSCAddress" : {
+                    "Enabled" : true,
+                    "Value" : "9191123456789876"    // configure it as hexadecimal
+                },
+                "timeAndTimezone" : {
+                    "Enabled" : true,
+                    "Value" : "2011121015233500"    // configure it as hexadecimal
+                },
+                "tPShortMessageSubmissionSpecificInfo" : {
+                    "Enabled" : true,
+                    "Value" : "11"  // configure it as hexadecimal
+                },
+                "tPProtocolIdentifier" : {
+                    "Enabled" : true,
+                    "Value" : "00"  //refer 23.040 for encoding configure it as hexadecimal
+                },
+                "tPDataCodingScheme" : {
+                    "Enabled" : true,
+                    "Value" : "00"  //refer 23.040 for encoding configure it as hexadecimal
+                },
+                "tPValidityPeriod" : {
+                    "Enabled" : true,
+                    "Value" : "FF"  //configure it as hexadecimal
+                },
+                "smsReferenceNumber" : {
+                    "Enabled" : true,
+                    "Value" : "1234567890"  //configure it as hexadecimal
+                },
+                "mscAddress" : {
+                   "Enabled" : true,
+                   "Value" : "9191123456789876" // configure it as hexadecimal
+                },
+                "sgsn_Number" : {
+                   "Enabled" : true,
+                   "Value" : "919123456789876" // configure it as hexadecimal
+                }
+            },
+            "InitialDPArg" : {
+                "serviceKey" : {
+                    "Value" : 100
+                },
+                "calledPartyNumber" : {
+                    "Enabled" : false,
+                    "Value" : "03909876543210"  // Dont change first 4 digits rest you can change, configure it as hexadecimal
+                },
+                "callingPartyNumber" : {
+                    "Enabled" : true,
+                    "Value" : "0311987654321"  // Dont change first 4 digits rest you can change, configure it as hexadecimal
+                },
+                "callingPartysCategory" : {
+                    "Enabled" : true,
+                    "Value" : "10"  // refer section 3.11 for configuring value of Q.763, configure it as hexadecimal
+                },
+                "cGEncountered" : {
+                    "Enabled" : true,
+                    "Value" : 0
+                },
+                "iPSSPCapabilities" : {
+                    "Enabled" : true,
+                    "Value" : "01234567"    //refer 29.078 for encoding, configure it as hexadecimal
+                },
+                "locationNumber" : {
+                    "Enabled" : true,
+                    "Value" : "03119876543210" // configure it as hexadecimal
+                },
+                "originalCalledPartyID" : {
+                    "Enabled" : true,
+                    "Value" : "81149876543210"  //refer section 3.39 of Q.763, configure it as hexadecimal
+                },
+                "highLayerCompatibility" : {
+                    "Enabled" : true,
+                    "Value" : "ct"
+                },
+                "additionalCallingPartyNumber" : {
+                    "Enabled" : true,
+                    "Value" : "0603119876543210"    // refer section 3.26 of Q.763, configure it as hexadecimal
+                },
+                "bearerCapability" : {
+                    "Enabled" : true,
+                    "bearerCap" : {
+                        "Enabled" : true,
+                        "Value" : "8090a3"  // refer section 4.5.5 of Q.931, configure it as hexadecimal
+                    }
+                },
+                "eventTypeBCSM" : {
+                    "Enabled" : true,
+                    "Value" : 2
+                },
+                "redirectingPartyID" : {
+                    "Enabled" : true,
+                    "Value" : "03119876543210" // configure it as hexadecimal
+                },
+                "redirectionInformation" : {
+                    "Enabled" : true,
+                    "Value" : "1011"    //configure it as hexadecimal
+                },
+                "cause" : {
+                    "Enabled" : true,
+                    "Value" : "0290"    //refer section 3.12 of Q.763 to change the value, configure it as hexadecimal
+                },
+                "serviceInteractionIndicatorsTwo" : {
+                    "Enabled" : false,
+                    "forwardServiceInteractionInd" : {
+                        "Enabled" : true,
+                        "conferenceTreatmentIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        },
+                        "callDiversionTreatmentIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        },
+                        "callCompletionTreatmentIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        },
+                        "callingPartyRestrictionIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        }
+                    },
+                    "backwardServiceInteractionsInd" : {
+                        "Enabled" : true,
+                        "conferenceTreatmentIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        },
+                        "callCompletionTreatmentIndicator" : {
+                            "Enabled" : true,
+                            "Value" : "c"
+                        }
+                    },
+                    "bothwayThroughConnectionInd" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    },
+                    "connectedNumberTreatmentInd" : {
+                        "Enabled" : true,
+                        "Value" : 2
+                    },
+                    "holdTreatmentIndicator" : {
+                        "Enabled" : true,
+                        "Value" : "h"
+                    },
+                    "cwTreatmentIndicator" : {
+                        "Enabled" : true,
+                        "Value" : "c"
+                    },
+                    "ectTreatmentIndicator" : {
+                        "Enabled" : true,
+                        "Value" : "e"
+                    }
+                },
+                "imsi" : {
+                    "Enabled" : true,
+                    "Value" : "404120000000001" //configure it as hexadecimal
+                },
+                "subscriberState" : {
+                    "Enabled" : false,
+                    "assumedIdle" : {
+                        "Enabled" : true
+                    },
+                    "camelBusy" : {
+                        "Enabled" : true
+                    },
+                    "netDetNotReachable" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    },
+                    "notProvidedFromVLR" : {
+                        "Enabled" : true
+                    }
+                },
+                "locationInformation" : {
+                    "Enabled" : true,
+                    "ageOfLocationInformation" : {
+                        "Enabled" : true,
+                        "Value" : 123
+                    },
+                    "geographicalInformation" : {
+                        "Enabled" : false,
+                        "Value" : "geog"
+                    },
+                    "vlr_number" : {
+                        "Enabled" : true,
+                        "Value" : "91919740029700"  //configure it as hexadecimal
+                    },
+                    "locationNumber" : {
+                        "Enabled" : true,
+                        "Value" : "03119876543210"  //refer section 3.30 of Q.763, configure it as hexadecimal
+                    },
+                    "cellGlobalIdOrServiceAreaIdOrLAI" : {
+                        "Enabled" : true,
+                        "cellGlobalIdOrServiceAreaIdFixedLength" : {
+                            "Enabled" : true,   // refer 29.002 for encoding
+                                "mcc" : "404" ,
+                                "mnc" : "12" ,
+                                "LocationArea" : "234" , // configure it as integer
+                                "CellId" : "567"    // configure it as integer
+                        },
+                        "laiFixedLength" : {
+                            "Enabled" : true,
+                            "mcc" : "404" ,
+                            "mnc" : "12" ,
+                            "LocationArea" : "234"
+                        }
+                    },
+                    "selectedLSA_Id" : {
+                        "Enabled" : true,
+                        "Value" : "123451"  // configure it as hexadecimal
+                    },
+                    "msc_Number" : {
+                        "Enabled" : true,
+                        "Value" : "91919740029700"  // configure it as hexadecimal
+                    },
+                    "geodeticInformation" : {
+                        "Enabled" : false,
+                        "Value" : "geodeticin"
+                    },
+                    "currentLocationRetrieved" : {
+                        "Enabled" : true
+                    }
+                },
+                "ext_basicServiceCode" : {
+                    "Enabled" : true,
+                    "ext_BearerService" : {
+                        "Enabled" : false,
+                        "Value" : "41"  // Refer section 17.7.9 of doc 29.002 a-30, configure it as hexadecimal
+                    },
+                    "ext_Teleservice" : {
+                        "Enabled" : true,
+                        "Value" : "10"  // Refer section 17.7.10 of doc 29.002 a-30, configure it as hexadecimal
+                    }   
+                },
+                "callReferenceNumber" : {
+                    "Enabled" : true,
+                    "Value" : "1234567890"  //refer section 3.8 of Q.763, configure it as hexadecimal
+                },
+                "mscAddress" : {
+                    "Enabled" : true,
+                    "Value" : "91919740029700"  // configure it as hexadecimal
+                },
+                "calledPartyBCDNumber" : {
+                    "Enabled" : true,
+                    "Value" : "a19876543210"    // refer section 10.5.4.7 of 24.008 for value, configure it as hexadecimal
+                },
+                "timeAndTimezone" : {
+                    "Enabled" : true,
+                    "Value" : "2013013022325622"    //refer 29.078 to encode, configure it as hexadecimal
+                },
+                "gsm_ForwardingPending" : {
+                    "Enabled" : true
+                },
+                "carrier" : {
+                    "Enabled" : true,
+                    "Value" : "02213456"    //fill first 2 digit as per 29.078, configure it as hexadecimal
+                },
+                "cug_Index" : {
+                    "Enabled" : true,
+                    "Value" : 1234
+                },
+                "cug_Interlock" : {
+                    "Enabled" : true,
+                    "Value" : "34567892"    // configure it as hexadecimal
+                },
+                "cug_OutgoingAccess" : {
+                    "Enabled" : true
+                },
+                "initialDPArgExtension" : {
+                    "Enabled" : true,
+                    "gmscAddress" : {
+                        "Enabled" : true,
+                        "Value" : "91919740029700"  //configure it as hexadecimal
+                    }
+                }
+            },
+            "EventReportSMSArg" : {
+                "eventTypeSMS" : {
+                    "Value" : 3
+                },
+                "eventSpecificInformationSMS" : {
+                    "Enabled" : true,
+                    "o_smsFailureSpecificInfo" : {
+                        "Enabled" : false,
+                        "failureCause" : {
+                            "Enabled" : true,
+                            "Value" : 1
+                        }
+                    },
+                    "o_smsSubmittedSpecificInfo" : {
+                        "Enabled" : true
+                    }
+                },
+                "miscCallInfo" : {
+                    "Enabled" : true,
+                    "messageType" : {   
+                        "Value" : 0
+                    },
+                    "dpAssignment" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    }
+                }
+            },
+            "EventReportBCSMArg" : {
+                "eventTypeBCSM" : {
+                    "Value" : 7
+                },
+                "eventSpecificInformationBCSM" : {
+                    "Enabled" : true,
+                    "routeSelectFailureSpecificInfo" : {
+                        "Enabled" : true,
+                        "failureCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oCalledPartyBusySpecificInfo" : {
+                        "Enabled" : false,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oNoAnswerSpecificInfo" : {
+                        "Enabled" : false
+                    },
+                    "oAnswerSpecificInfo" : {
+                        "Enabled" : false,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "oDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "tBusySpecificInfo" : {
+                        "Enabled" : true,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        },
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tNoAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    }
+                },
+                "legID" : {
+                    "Enabled" : true,
+                    "receivingSideID" : {
+                        "Enabled" : true,
+                        "Value" : "02"
+                    }
+                },
+                "miscCallInfo" : {
+                    "Enabled" : true,
+                    "messageType" : {   
+                        "Value" : 0
+                    },
+                    "dpAssignment" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    }
+                }
+            },
+            "EventReportBCSMArg_in_TcEnd" : {
+                "eventTypeBCSM" : {
+                    "Value" : 9
+                },
+                "eventSpecificInformationBCSM" : {
+                    "Enabled" : true,
+                    "routeSelectFailureSpecificInfo" : {
+                        "Enabled" : false,
+                        "failureCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oCalledPartyBusySpecificInfo" : {
+                        "Enabled" : false,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oNoAnswerSpecificInfo" : {
+                        "Enabled" : false
+                    },
+                    "oAnswerSpecificInfo" : {
+                        "Enabled" : false,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : false
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : false
+                        }
+                    },
+                    "oDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "tBusySpecificInfo" : {
+                        "Enabled" : false,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        },
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tNoAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    }
+                },
+                "legID" : {
+                    "Enabled" : true,
+                    "receivingSideID" : {
+                        "Enabled" : true,
+                        "Value" : "01"
+                    }
+                },
+                "miscCallInfo" : {
+                    "Enabled" : true,
+                    "messageType" : {   
+                        "Value" : 0
+                    },
+                    "dpAssignment" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    }
+                }
+            },
+            "EventReportBCSMArg_in_TcCont_Again" : {
+                "eventTypeBCSM" : {
+                    "Value" : 9
+                },
+                "eventSpecificInformationBCSM" : {
+                    "Enabled" : true,
+                    "routeSelectFailureSpecificInfo" : {
+                        "Enabled" : true,
+                        "failureCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oCalledPartyBusySpecificInfo" : {
+                        "Enabled" : false,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oNoAnswerSpecificInfo" : {
+                        "Enabled" : false
+                    },
+                    "oAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "destinationAddress" : {
+                            "Enabled" : false,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : false
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : false
+                        }
+                    },
+                    "oDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "tBusySpecificInfo" : {
+                        "Enabled" : true,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        },
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tNoAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "03909876543210"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    }
+                },
+                "legID" : {
+                    "Enabled" : true,
+                    "receivingSideID" : {
+                        "Enabled" : true,
+                        "Value" : "01"
+                    }
+                },
+                "miscCallInfo" : {
+                    "Enabled" : true,
+                    "messageType" : {   
+                        "Value" : 0
+                    },
+                    "dpAssignment" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    }
+                }
+            },
+            "EventReportBCSMArg_in_TcCont" : {
+                "eventTypeBCSM" : {
+                    "Value" : 7
+                },
+                "eventSpecificInformationBCSM" : {
+                    "Enabled" : true,
+                    "routeSelectFailureSpecificInfo" : {
+                        "Enabled" : true,
+                        "failureCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oCalledPartyBusySpecificInfo" : {
+                        "Enabled" : false,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "oNoAnswerSpecificInfo" : {
+                        "Enabled" : false
+                    },
+                    "oAnswerSpecificInfo" : {
+                        "Enabled" : false,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "0311987654321"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "oDisconnectSpecificInfo" : {
+                        "Enabled" : false,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    },
+                    "tBusySpecificInfo" : {
+                        "Enabled" : true,
+                        "busyCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        },
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tNoAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "callForwarded" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tAnswerSpecificInfo" : {
+                        "Enabled" : true,
+                        "destinationAddress" : {
+                            "Enabled" : true,
+                            "Value" : "0311987654321"
+                        },
+                        "or_Call" : {
+                            "Enabled" : true
+                        },
+                        "forwardedCall" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "tDisconnectSpecificInfo" : {
+                        "Enabled" : true,
+                        "releaseCause" : {
+                            "Enabled" : true,
+                            "Value" : "0290"
+                        }
+                    }
+                },
+                "legID" : {
+                    "Enabled" : true,
+                    "receivingSideID" : {
+                        "Enabled" : true,
+                        "Value" : "02"
+                    }
+                },
+                "miscCallInfo" : {
+                    "Enabled" : true,
+                    "messageType" : {   
+                        "Value" : 0
+                    },
+                    "dpAssignment" : {
+                        "Enabled" : true,
+                        "Value" : 0
+                    }
+                }
+            },
+            "ApplyChargingReportArg" : {
+                "CallResult" : {
+                    "camel_callresult" : {
+                        "timeDurationChargingResult" : {
+                            "Enabled" : true,
+                            "partyToCharge" : {
+                                "receivingSideID" : {
+                                    "Enabled" : true,
+                                    "Value" : "01"
+                                }
+                            },
+                            "timeInformation" : {
+                                "timeIfNoTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "Value" : 0
+                                },
+                                "timeIfTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "timeSinceTariffSwitch" : {
+                                        "Value" : 1000
+                                    },
+                                    "tariffSwitchInterval" : {
+                                        "Enabled" : true,
+                                        "Value" : 1000
+                                    }
+                                }
+                            },
+                            "callActive" : {
+                                "Enabled" : true
+                            },
+                            "callReleasedAtTcpExpiry" : {
+                                "Enabled" : true
+                            }
+                        }
+                    }
+                }
+            },
+            "ApplyChargingReportArg_in_TcCont" : {
+                "CallResult" : {
+                    "camel_callresult" : {
+                        "timeDurationChargingResult" : {
+                            "Enabled" : true,
+                            "partyToCharge" : {
+                                "receivingSideID" : {
+                                    "Enabled" : true,
+                                    "Value" : "01"
+                                }
+                            },
+                            "timeInformation" : {
+                                "timeIfNoTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "Value" : 0
+                                },
+                                "timeIfTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "timeSinceTariffSwitch" : {
+                                        "Value" : 1000
+                                    },
+                                    "tariffSwitchInterval" : {
+                                        "Enabled" : true,
+                                        "Value" : 1000
+                                    }
+                                }
+                            },
+                            "callActive" : {
+                                "Enabled" : true
+                            },
+                            "callReleasedAtTcpExpiry" : {
+                                "Enabled" : true
+                            }
+                        }
+                    }
+                }
+            },
+            "ApplyChargingReportArg_in_TcCont_Again" : {
+                "CallResult" : {
+                    "camel_callresult" : {
+                        "timeDurationChargingResult" : {
+                            "Enabled" : true,
+                            "partyToCharge" : {
+                                "receivingSideID" : {
+                                    "Enabled" : true,
+                                    "Value" : "01"
+                                }
+                            },
+                            "timeInformation" : {
+                                "timeIfNoTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "Value" : 0
+                                },
+                                "timeIfTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "timeSinceTariffSwitch" : {
+                                        "Value" : 1000
+                                    },
+                                    "tariffSwitchInterval" : {
+                                        "Enabled" : true,
+                                        "Value" : 1000
+                                    }
+                                }
+                            },
+                            "callActive" : {
+                                "Enabled" : true
+                            },
+                            "callReleasedAtTcpExpiry" : {
+                                "Enabled" : true
+                            }
+                        }
+                    }
+                }
+            },
+            "ApplyChargingReportArg_in_TcEnd" : {
+                "CallResult" : {
+                    "camel_callresult" : {
+                        "timeDurationChargingResult" : {
+                            "Enabled" : true,
+                            "partyToCharge" : {
+                                "receivingSideID" : {
+                                    "Enabled" : true,
+                                    "Value" : "01"
+                                }
+                            },
+                            "timeInformation" : {
+                                "timeIfNoTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "Value" : 0
+                                },
+                                "timeIfTariffSwitch" : {
+                                    "Enabled" : true,
+                                    "timeSinceTariffSwitch" : {
+                                        "Value" : 1000
+                                    },
+                                    "tariffSwitchInterval" : {
+                                        "Enabled" : true,
+                                        "Value" : 1000
+                                    }
+                                }
+                            },
+                            "callActive" : {
+                                "Enabled" : false
+                            },
+                            "callReleasedAtTcpExpiry" : {
+                                "Enabled" : true
+                            }
+                        }
+                    }
+                }
+            },
+            "SendERBAndACRinTcContAgain" : {
+                "Enabled" : false,
+                "Value" : 1
+            },
+           "NoERBACRForRoASR" : { 
+                "Enabled" : false
+            },
+            "SendERBandACRinTcCont_if_ReleaseIfdurationExceeded" : {
+                "Enabled" : false
+            },
+            "Send_Multiple_CAP_ERB_ACR" : {
+                "Send_Only_ERB_in_TcEnd" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ACR_in_TcEnd" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ERB_in_TcCont" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ACR_in_TcCont" : {
+                    "Enabled" : false
+                },
+                "SetSleepTimeBeforesendingERB_in_TcCont" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                },
+                "SetSleepTimeBeforesendingACR_in_TcCont" : {
+                    "Enabled" : false,
+                    "Value" : 20
+                }
+            },
+            "Send_Response_After_Receiving_Only_ACH" : {
+                "Send_Only_ERB_in_TcEnd" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ACR_in_TcEnd" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ERB_in_TcCont" : {
+                    "Enabled" : false
+                },
+                "Send_Only_ACR_in_TcCont" : {
+                    "Enabled" : false
+                }
+            }
+    }
+}

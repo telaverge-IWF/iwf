@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    enablePeerDiscovery
+
+DESCRIPTION
+    This command is used to enable Peer Discovery Flag.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> enablePeerDiscovery
+       Peer Discovery Enabled 
+
+NOTE: This MML is solely for purpose of commiting to new XML. We cannot Enable Peer Discovery Dynamically

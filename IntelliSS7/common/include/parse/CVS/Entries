@@ -1,0 +1,18 @@
+/.cvsignore/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/exports/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_aggregate.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_choice.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_construct.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_exception.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_keyword.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_parser.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_production.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_repetition.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_scanner.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_terminal.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_token.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_tokenizer.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+/parse_utilities.h/9.1/Wed Mar 23 12:52:57 2005//TB-IWF-HP-0400-00
+D

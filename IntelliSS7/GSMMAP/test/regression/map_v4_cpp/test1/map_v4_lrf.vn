@@ -1,0 +1,2345 @@
+mAP-DialoguePDU1 MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H,
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU2 MAP-DialoguePDU ::= map-open: {
+    destinationReference '1122334455667788990011223344556677889900'H
+}
+
+
+mAP-DialoguePDU3 MAP-DialoguePDU ::= map-open: {
+    originationReference '1122334455667788990011223344556677889900'H
+}
+
+mAP-DialoguePDU4 MAP-DialoguePDU ::= map-open: {
+}
+
+
+mAP-DialoguePDU5 MAP-DialoguePDU ::= map-accept: {
+}
+
+
+mAP-DialoguePDU6 MAP-DialoguePDU ::= map-close: {
+}
+
+
+mAP-DialoguePDU7 MAP-DialoguePDU ::= map-refuse: {
+    reason invalidOriginatingReference
+}
+
+
+mAP-DialoguePDU8 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userSpecificReason: NULL
+}
+
+
+mAP-DialoguePDU9 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice userResourceLimitation: NULL
+}
+
+
+mAP-DialoguePDU10 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice resourceUnavailable: longTermResourceLimitation
+}
+
+
+mAP-DialoguePDU11 MAP-DialoguePDU ::= map-userAbort: {
+    map-UserAbortChoice applicationProcedureCancellation: remoteOperationsFailure
+}
+
+
+mAP-DialoguePDU12 MAP-DialoguePDU ::= map-providerAbort: {
+    map-ProviderAbortReason invalidPDU
+}
+mAP-UserInfo1 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding arbitrary: '1122'H
+    }
+}
+
+mAP-UserInfo2 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding octet-aligned: '1122'H
+    }
+}
+
+
+mAP-UserInfo3 MAP-UserInfo ::= {
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 1,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 2,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 3,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 4,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 5,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	direct-reference {1 2 3 4 5},
+	indirect-reference 6,
+	data-value-descriptor "xxxxxx",
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    }
+}
+
+
+mAP-UserInfo4 MAP-UserInfo ::= {
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    },
+    {
+	encoding single-ASN1-type: OCTET STRING '1122'H
+    }
+}
+
+extensionContainerv1 ExtensionContainer ::= {
+    privateExtensionList {
+	{
+	    extensionId {1 2 3 4 5},
+	    extensionType OCTET STRING: ''H
+	},
+	{
+	    extensionId {1 2 3 4 5},
+	    extensionType OCTET STRING: ''H
+	}
+    },
+    pcs-Extensions {}
+}
+
+
+updateLocationArg1 UpdateLocationArg ::= {
+    imsi		'1122334455667788'H,
+    msc-Number		'1122334455667788990011223344556677889900'H,
+    vlr-Number		'112233'H,
+    lmsi		'11223344'H,
+    extensionContainer  extensionContainerv1,
+    vlr-Capability {
+	supportedCamelPhases {phase1, phase2},
+	extensionContainer extensionContainerv1
+    }
+}
+
+
+updateLocationArg2 UpdateLocationArg ::= {
+    imsi		'1122334455667788'H,
+    msc-Number		'1122334455667788990011223344556677889900'H,
+    vlr-Number		'112233'H
+}
+
+updateLocationRes1 UpdateLocationRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+updateLocationRes2 UpdateLocationRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    extensionContainer  extensionContainerv1
+}cancelLocationArg1 CancelLocationArg ::= {
+    identity        imsi: '1122334455667788'H
+}
+
+
+cancelLocationArg2 CancelLocationArg ::= {
+    identity        imsi-WithLMSI: {
+	imsi '1122334455667788'H,
+	lmsi '11223344'H
+    }
+}
+
+
+cancelLocationArg3 CancelLocationArg ::= {
+    identity        imsi: '1122334455667788'H,
+    cancellationType    subscriptionWithdraw,
+    extensionContainer  extensionContainerv1
+}cancelLocationRes1 CancelLocationRes ::= {
+}
+
+
+cancelLocationRes2 CancelLocationRes ::= {
+    extensionContainer  extensionContainerv1
+}
+purgeMS-Arg1 PurgeMS-Arg ::= {
+    imsi '1122334455667788'H
+}
+
+
+purgeMS-Arg2 PurgeMS-Arg ::= {
+    imsi        '1122334455667788'H,
+    vlr-Number  '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    extensionContainer  extensionContainerv1
+}purgeMS-Res1 PurgeMS-Res ::= {
+}
+
+
+purgeMS-Res2 PurgeMS-Res ::= {
+    freezeTMSI      NULL,
+    freezeP-TMSI    NULL,
+    extensionContainer  extensionContainerv1
+}
+sendIdentificationRes1 SendIdentificationRes ::= {
+    imsi        '1122334455667788'H
+}
+
+
+sendIdentificationRes2 SendIdentificationRes ::= {
+    imsi        '1122334455667788'H,
+    authenticationSetList {
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	}
+    }
+}
+
+updateGprsLocationArg1 UpdateGprsLocationArg ::= {
+    imsi        '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    sgsn-Address '1122334455667788900112233445566'H
+}
+
+
+updateGprsLocationArg2 UpdateGprsLocationArg ::= {
+    imsi        '1122334455667788'H,
+    sgsn-Number '1122334455667788'H,
+    sgsn-Address '1122334455667788900112233445566'H,
+    extensionContainer  extensionContainerv1
+}updateGprsLocationRes1 UpdateGprsLocationRes ::= {
+    hlr-Number '1122334455667788'H
+}
+
+
+updateGprsLocationRes2 UpdateGprsLocationRes ::= {
+    hlr-Number  '1122334455667788'H,
+    extensionContainer  extensionContainerv1
+}prepareHO-Arg1 PrepareHO-Arg ::= {
+}
+
+
+prepareHO-Arg2 PrepareHO-Arg ::= {
+    targetCellId    '11223344556677'H,
+    ho-NumberNotRequired    NULL,
+    bss-APDU {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+prepareHO-Res1 PrepareHO-Res ::= {
+}
+
+
+prepareHO-Res2 PrepareHO-Res ::= {
+    handoverNumber  '1122334455667788'H,
+    bss-APDU        {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+prepareSubsequentHO-Arg1 PrepareSubsequentHO-Arg ::= {
+    targetCellId      '11223344556677'H,
+    targetMSC-Number  '11223344556677'H,
+    bss-APDU        {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer  extensionContainerv1
+    }
+}
+sendAuthenticationInfoArg1 SendAuthenticationInfoArg ::= '1122334455667788'H
+
+sendAuthenticationInfoRes1 SendAuthenticationInfoRes ::= {
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	},
+	{
+	    rand  '11223344556677889900112233445566'H,
+	    sres  '11223344'H,
+	    kc    '1122334455667788'H
+	}
+}
+
+equipmentStatus1 EquipmentStatus ::= greyListed
+
+insertSubscriberDataArg1 SubscriberData ::= {
+}
+
+
+insertSubscriberDataArg2 InsertSubscriberDataArg ::= {
+    imsi '1122334455667788'H,
+    msisdn '1122334455667788990011223344556677889900'H,
+    category '11'H,
+    subscriberStatus operatorDeterminedBarring,
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    provisionedSS {
+	forwardingInfo: {
+	    ss-Code '11'H,
+	    forwardingFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	    }
+	},
+	callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService ext-Teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+	},
+	cug-Info: {
+	    cug-SubscriptionList {
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		},
+		{
+		    cug-Index 32767,
+		    cug-Interlock '11223344'H,
+		    intraCUG-Options cugOG-CallBarred,
+		    basicServiceGroupList {
+			ext-BearerService: '11'H, 
+			ext-Teleservice: '22'H
+
+		    }
+		}
+
+	    },
+	    cug-FeatureList {
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-BearerService: '11'H,
+		    preferentialCUG-Indicator 32767,
+		    interCUG-Restrictions '11'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		},
+		{
+		    basicService ext-Teleservice: '22'H, 
+		    preferentialCUG-Indicator 0,
+		    interCUG-Restrictions '22'H
+		}
+	    }
+	},
+	ss-Data: {
+	    ss-Code '11'H,
+	    ss-Status '11'H,
+	    ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	    basicServiceGroupList {
+		ext-BearerService: '11'H,
+		ext-Teleservice: '22'H
+	    }
+	}
+
+    },
+    
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionData {
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H,
+	'1122'H
+    }
+}
+
+insertSubscriberDataRes1 InsertSubscriberDataRes ::= {
+}
+
+
+insertSubscriberDataRes2 InsertSubscriberDataRes ::= {
+    teleserviceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    bearerServiceList {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    odb-GeneralData {ss-AccessBarred},
+    regionalSubscriptionResponse regionalSubscNotSupported,
+    supportedCamelPhases {phase1, phase2},
+    extensionContainer  extensionContainerv1
+}
+deleteSubscriberDataArg1 DeleteSubscriberDataArg ::= {
+    imsi '1122334455667788'H
+}
+
+
+deleteSubscriberDataArg2 DeleteSubscriberDataArg ::= {
+    imsi        '1122334455667788'H,
+    basicServiceList {
+	ext-BearerService: '11'H,
+	ext-BearerService: '1122334455'H,
+	ext-Teleservice:   '11'H,
+	ext-Teleservice:   '1122334455'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier  '1122'H,
+    vbsGroupIndication  NULL,
+    vgcsGroupIndication NULL,
+    camelSubscriptionInfoWithdraw NULL,
+    extensionContainer  extensionContainerv1,
+    gprsSubscriptionDataWithdraw   allGPRSData: NULL,
+    roamingRestrictedInSgsnDueToUnsuppportedFeature NULL
+}
+
+
+deleteSubscriberDataArg3 DeleteSubscriberDataArg ::= {
+    imsi        '1122334455667788'H,
+    basicServiceList {
+	ext-BearerService: '11'H,
+	ext-BearerService: '1122334455'H,
+	ext-Teleservice:   '11'H,
+	ext-Teleservice:   '1122334455'H
+    },
+    ss-List {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    roamingRestrictionDueToUnsupportedFeature NULL,
+    regionalSubscriptionIdentifier  '1122'H,
+    vbsGroupIndication  NULL,
+    vgcsGroupIndication NULL,
+    camelSubscriptionInfoWithdraw NULL,
+    extensionContainer  extensionContainerv1,
+    gprsSubscriptionDataWithdraw contextIdList: {50, 1},
+    roamingRestrictedInSgsnDueToUnsuppportedFeature NULL
+}
+
+deleteSubscriberDataRes1 DeleteSubscriberDataRes ::= {
+}
+
+
+deleteSubscriberDataRes2 DeleteSubscriberDataRes ::= {
+    regionalSubscriptionResponse zoneCodesConflict,
+    extensionContainer  extensionContainerv1
+}
+
+sendRoutingInfoForGprsArg1 SendRoutingInfoForGprsArg ::= {
+    imsi        '1122334455667788'H
+}
+
+
+sendRoutingInfoForGprsArg2 SendRoutingInfoForGprsArg ::= {
+    imsi                '1122334455667788'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    extensionContainer  extensionContainerv1
+}
+sendRoutingInfoForGprsRes1 SendRoutingInfoForGprsRes ::= {
+    sgsn-Address        '11223344556677889900112233445566'H
+}
+
+
+sendRoutingInfoForGprsRes2 SendRoutingInfoForGprsRes ::= {
+    sgsn-Address        '11223344556677889900112233445566'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    mobileNotReachableReason 255,
+    extensionContainer  extensionContainerv1
+}
+
+failureReportArg1 FailureReportArg ::= {
+    imsi        '1122334455667788'H
+}
+
+
+failureReportArg2 FailureReportArg ::= {
+    imsi         '1122334455667788'H,
+    ggsn-Number  '112233445566778899'H,
+    ggsn-Address '11223344556677889900112233445566'H,
+    extensionContainer extensionContainerv1
+}
+failureReportRes1 FailureReportRes ::= {
+}
+
+
+failureReportRes2 FailureReportRes ::= {
+    extensionContainer  extensionContainerv1
+}
+noteMsPresentForGprsArg1 NoteMsPresentForGprsArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+noteMsPresentForGprsArg2 NoteMsPresentForGprsArg ::= {
+    imsi                '1122334455667788'H,
+    sgsn-Address        '11223344556677889900112233445566'H,
+    ggsn-Address        '11223344556677889900112233445566'H,
+    extensionContainer  extensionContainerv1
+}
+
+noteMsPresentForGprsRes1 NoteMsPresentForGprsRes ::= {
+}
+
+
+noteMsPresentForGprsRes2 NoteMsPresentForGprsRes ::= {
+    extensionContainer  extensionContainerv1
+}
+resetArg1 ResetArg ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+resetArg2 ResetArg ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    hlr-List    {
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H,
+	'1122334455667788'H
+    }
+}
+restoreDataArg1 RestoreDataArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+restoreDataArg2 RestoreDataArg ::= {
+    imsi            '1122334455667788'H,
+    lmsi            '11223344'H,
+    extensionContainer  extensionContainerv1,
+    vlr-Capability {
+	supportedCamelPhases {phase1, phase2},
+	extensionContainer extensionContainerv1
+    }
+}
+
+restoreDataRes1 RestoreDataRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H
+}
+
+
+restoreDataRes2 RestoreDataRes ::= {
+    hlr-Number  '1122334455667788990011223344556677889900'H,
+    msNotReachable  NULL,
+    extensionContainer  extensionContainerv1
+}
+provideSubscriberInfoArg1 ProvideSubscriberInfoArg ::= {
+    imsi                '1122334455667788'H,
+    requestedInfo {
+    }
+}
+
+provideSubscriberInfoArg2 ProvideSubscriberInfoArg ::= {
+    imsi                '1122334455667788'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    }
+}
+
+
+provideSubscriberInfoArg3 ProvideSubscriberInfoArg ::= {
+    imsi            '1122334455667788'H,
+    lmsi            '11223344'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+provideSubscriberInfoRes1 ProvideSubscriberInfoRes ::= {
+    subscriberInfo {
+    }
+}
+
+
+provideSubscriberInfoRes2 ProvideSubscriberInfoRes ::= {
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+
+anyTimeInterrogationArg1 AnyTimeInterrogationArg ::= {
+    subscriberIdentity imsi: '1122334455667788'H,
+    requestedInfo   {
+    },
+    gsmSCF-Address '112233445566778899'H
+}
+
+
+anyTimeInterrogationArg2 AnyTimeInterrogationArg ::= {
+    subscriberIdentity imsi: '1122334455667788'H,
+    requestedInfo {
+	locationInformation NULL,
+	subscriberState     NULL,
+	extensionContainer  extensionContainerv1
+    },
+    gsmSCF-Address '112233445566778899'H,
+    extensionContainer  extensionContainerv1
+}
+
+anyTimeInterrogationRes1 AnyTimeInterrogationRes ::= {
+    subscriberInfo {
+    }
+}
+
+
+anyTimeInterrogationRes2 AnyTimeInterrogationRes ::= {
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+
+activateTraceModeArg1 ActivateTraceModeArg ::= {
+    traceReference '1122'H,
+    traceType      255
+}
+
+
+activateTraceModeArg2 ActivateTraceModeArg ::= {
+    imsi            '1122334455667788'H,
+    traceReference '1122'H,
+    traceType      255,
+    omc-Id         '1122334455667788990011223344556677889900'H,
+    extensionContainer  extensionContainerv1
+}
+
+activateTraceModeRes1 ActivateTraceModeRes ::= {
+}
+
+
+activateTraceModeRes2 ActivateTraceModeRes ::= {
+    extensionContainer  extensionContainerv1
+}
+deactivateTraceModeArg1 DeactivateTraceModeArg ::= {
+    traceReference '1122'H
+}
+
+
+deactivateTraceModeArg2 DeactivateTraceModeArg ::= {
+    imsi                '1122334455667788'H,
+    traceReference      '1122'H,
+    extensionContainer  extensionContainerv1
+}
+
+deactivateTraceModeRes1 DeactivateTraceModeRes ::= {
+}
+
+
+deactivateTraceModeRes2 DeactivateTraceModeRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+sendRoutingInfoArg1 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    interrogationType forwarding,
+    gmsc-Address '112233445566778899'H
+}
+
+
+sendRoutingInfoArg2 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    numberOfForwarding  5,
+    interrogationType   basicCall,
+    or-Interrogation    NULL,
+    or-Capability       127,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    forwardingReason    noReply,
+    basicServiceGroup   ext-BearerService: '11'H,
+    networkSignalInfo   {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    camelInfo           {
+	supportedCamelPhases {phase1, phase2}
+    },
+    suppressionOfAnnouncement NULL,
+    extensionContainer extensionContainerv1,
+    alertingPattern     '11'H,
+    ccbs-Call           NULL,
+    supportedCCBS-Phase 127
+}
+
+
+sendRoutingInfoArg3 SendRoutingInfoArg ::= {
+    msisdn '1122334455667788990011223344556677889900'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    numberOfForwarding  5,
+    interrogationType   basicCall,
+    or-Interrogation    NULL,
+    or-Capability       127,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    forwardingReason    noReply,
+    basicServiceGroup   ext-Teleservice: '1122334455'H,
+    networkSignalInfo   {
+	protocolId  ets-300102-1,
+	signalInfo  '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+	extensionContainer extensionContainerv1
+    },
+    camelInfo           {
+	supportedCamelPhases {phase1, phase2},
+	suppress-T-CSI       NULL,
+	extensionContainer   extensionContainerv1
+    },
+    suppressionOfAnnouncement NULL,
+    extensionContainer        extensionContainerv1,
+    alertingPattern           '11'H,
+    ccbs-Call                 NULL,
+    supportedCCBS-Phase       127
+}
+sendRoutingInfoRes1 SendRoutingInfoRes ::= {
+}
+
+
+sendRoutingInfoRes2 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo roamingNumber: '112233445566778899'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+    },
+    ss-List        {
+	'11'H
+    },
+    basicService    ext-BearerService: '11'H,
+    forwardingInterrogationRequired    NULL,
+    vmsc-Address                       '112233445566778899'H,
+    extensionContainer                 extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC '112233'H
+    },
+    ccbs-Indicators {
+    }
+}
+
+
+sendRoutingInfoRes3 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo forwardingData: {
+	forwardedToNumber     '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer    extensionContainerv1
+    },
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    ss-List        {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    basicService    ext-Teleservice: '1122334455'H,
+    forwardingInterrogationRequired   NULL,
+    vmsc-Address                 '112233445566778899'H,
+    extensionContainer           extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC '112233'H,
+	extensionContainer  extensionContainerv1
+    },
+    ccbs-Indicators {
+	ccbs-Possible            NULL,
+	keepCCBS-CallIndicator   NULL,
+	extensionContainer       extensionContainerv1
+    }
+}
+
+
+sendRoutingInfoRes4 SendRoutingInfoRes ::= {
+    imsi            '1122334455667788'H,
+    extendedRoutingInfo camelRoutingInfo:  {
+	forwardingData  {
+	    forwardedToNumber   '112233445566778899'H,
+	    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	    forwardingOptions     '11'H,
+	    extensionContainer  extensionContainerv1
+	},
+	gmscCamelSubscriptionInfo {
+	    t-CSI {
+		t-BcsmCamelTDPDataList {
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address   '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address   '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    },
+		    {
+			t-BcsmTriggerDetectionPoint termAttemptAuthorized,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    }
+		},
+		extensionContainer  extensionContainerv1,
+		camelCapabilityHandling 16
+	    },
+	    o-CSI {
+		o-BcsmCamelTDPDataList {
+		    {
+			o-BcsmTriggerDetectionPoint collectedInfo,
+			serviceKey  2147483647,
+			gsmSCF-Address  '112233445566778899'H,
+			defaultCallHandling releaseCall,
+			extensionContainer  extensionContainerv1
+		    }
+		},
+		extensionContainer  extensionContainerv1,
+		camelCapabilityHandling 16
+	    },
+	    extensionContainer  extensionContainerv1
+	},
+	extensionContainer  extensionContainerv1
+    },
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    cugSubscriptionFlag NULL,
+    subscriberInfo {
+	locationInformation {
+	    ageOfLocationInformation  32767,
+	    geographicalInformation '1122334455667788'H,
+	    vlr-number              '112233'H,
+	    locationNumber          '11223344556677889900'H,
+	    cellIdOrLAI             cellIdFixedLength: '11223344556677'H,
+	    extensionContainer      extensionContainerv1
+	},
+	subscriberState     notProvidedFromVLR: NULL,
+	extensionContainer  extensionContainerv1
+    },
+    ss-List        {
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H,
+	'11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H, '11'H
+    },
+    basicService    ext-Teleservice: '1122334455'H,
+    forwardingInterrogationRequired   NULL,
+    vmsc-Address                      '112233445566778899'H,
+    extensionContainer                extensionContainerv1,
+    naea-PreferredCI    {
+	naea-PreferredCIC   '112233'H,
+	extensionContainer  extensionContainerv1
+    },
+    ccbs-Indicators {
+	ccbs-Possible           NULL,
+	keepCCBS-CallIndicator  NULL,
+	extensionContainer      extensionContainerv1
+    }
+}
+
+routingInfo1 RoutingInfo ::= roamingNumber: '112233445566778899'H
+
+
+routingInfo2 RoutingInfo ::= forwardingData: {
+}
+
+
+routingInfo3 RoutingInfo ::= forwardingData: {
+    forwardedToNumber       '112233445566778899'H,
+    forwardedToSubaddress   '11223344556677889900112233445566778899001'H,
+    forwardingOptions       '11'H,
+    extensionContainer      extensionContainerv1
+}
+provideRoamingNumberArg1 ProvideRoamingNumberArg ::= {
+    imsi                '1122334455667788'H,
+    msc-Number          '112233445566778899'H
+}
+
+
+provideRoamingNumberArg2 ProvideRoamingNumberArg ::= {
+    imsi                '1122334455667788'H,
+    msc-Number          '112233445566778899'H,
+    msisdn              '112233445566778899'H,
+    lmsi                '11223344'H,
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    networkSignalInfo   {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    suppressionOfAnnouncement NULL,
+    gmsc-Address        '112233445566778899'H,
+    callReferenceNumber '1122334455667788'H,
+    or-Interrogation    NULL,
+    extensionContainer      extensionContainerv1,
+    alertingPattern     '11'H,
+    ccbs-Call           NULL
+}
+provideRoamingNumberRes1 ProvideRoamingNumberRes ::= {
+    roamingNumber       '112233445566778899'H
+}
+
+
+provideRoamingNumberRes2 ProvideRoamingNumberRes ::= {
+    roamingNumber       '112233445566778899'H,
+    extensionContainer  extensionContainerv1
+}
+resumeCallHandlingArg1 ResumeCallHandlingArg ::= {
+    callReferenceNumber '1122334455667788'H,
+    basicServiceGroup   ext-BearerService: '11'H,
+    forwardingData  {
+	forwardedToNumber   '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer  extensionContainerv1
+    },
+    imsi                '1122334455667788'H
+}
+
+
+resumeCallHandlingArg2 ResumeCallHandlingArg ::= {
+    callReferenceNumber '1122334455667788'H,
+    basicServiceGroup   ext-Teleservice: '1122334455'H,
+    forwardingData  {
+	forwardedToNumber   '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions     '11'H,
+	extensionContainer  extensionContainerv1
+    },
+    imsi                '1122334455667788'H,
+    cug-CheckInfo        {
+	cug-Interlock      '11223344'H,
+	cug-OutgoingAccess NULL,
+	extensionContainer extensionContainerv1
+    },
+    o-CSI {
+	o-BcsmCamelTDPDataList {
+	    {
+		o-BcsmTriggerDetectionPoint collectedInfo,
+		serviceKey  2147483647,
+		gsmSCF-Address  '112233445566778899'H,
+		defaultCallHandling releaseCall,
+		extensionContainer  extensionContainerv1
+	    }
+	},
+	extensionContainer  extensionContainerv1,
+	camelCapabilityHandling 16
+    },
+    extensionContainer  extensionContainerv1,
+    ccbs-Possible       NULL
+}
+resumeCallHandlingRes1 ResumeCallHandlingRes ::= {
+}
+
+
+resumeCallHandlingRes2 ResumeCallHandlingRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+provideSIWFSNumberArg1 ProvideSIWFSNumberArg ::= {
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    isdn-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    call-Direction       '11'H,
+    b-Subscriber-Address '112233445566778899'H,
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    }
+}
+
+provideSIWFSNumberArg2 ProvideSIWFSNumberArg ::= {
+    gsm-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    isdn-BearerCapability {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    call-Direction       '11'H,
+    b-Subscriber-Address '112233445566778899'H,
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    lowerLayerCompatibility {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    highLayerCompatibility {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+provideSIWFSNumberRes1 ProvideSIWFSNumberRes ::= {
+    sIWFSNumber '112233445566778899'H
+}
+
+
+provideSIWFSNumberRes2 ProvideSIWFSNumberRes ::= {
+    sIWFSNumber '112233445566778899'H,
+    extensionContainer extensionContainerv1
+}
+sIWFSSignallingModifyArg1 SIWFSSignallingModifyArg ::= {
+}
+
+
+sIWFSSignallingModifyArg2 SIWFSSignallingModifyArg ::= {
+    channelType {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+sIWFSSignallingModifyRes1 SIWFSSignallingModifyRes ::= {
+}
+
+
+sIWFSSignallingModifyRes2 SIWFSSignallingModifyRes ::= {
+    chosenChannel {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    extensionContainer extensionContainerv1
+}
+setReportingStateArg1 SetReportingStateArg ::= {
+}
+
+
+setReportingStateArg2 SetReportingStateArg ::= {
+    imsi                '1122334455667788'H,
+    lmsi                '11223344'H,
+    ccbs-Monitoring     startMonitoring,
+    extensionContainer  extensionContainerv1
+}
+setReportingStateRes1 SetReportingStateRes ::= {
+}
+
+
+setReportingStateRes2 SetReportingStateRes ::= {
+    ccbs-SubscriberStatus ccbsNotReachable,
+    extensionContainer  extensionContainerv1
+}
+statusReportArg1 StatusReportArg ::= {
+    imsi                '1122334455667788'H
+}
+
+
+statusReportArg2 StatusReportArg ::= {
+    imsi                '1122334455667788'H,
+    eventReportData     {
+	ccbs-SubscriberStatus ccbsNotReachable,
+	extensionContainer  extensionContainerv1
+    },
+    callReportdata      {
+	monitoringMode  b-side,
+	callOutcome     busy,
+	extensionContainer  extensionContainerv1
+    },
+    extensionContainer  extensionContainerv1
+}
+statusReportRes1 StatusReportRes ::= {
+}
+
+
+statusReportRes2 StatusReportRes ::= {
+    extensionContainer  extensionContainerv1
+}
+
+remoteUserFreeArg1 RemoteUserFreeArg ::= {
+    imsi             '1122334455667788'H,
+    callInfo         {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    ccbs-Feature     {
+    },
+    translatedB-Number  '112233445566778899'H
+}
+
+
+remoteUserFreeArg2 RemoteUserFreeArg ::= {
+    imsi                '1122334455667788'H,
+    callInfo         {
+	protocolId ets-300102-1,
+	signalInfo '11'H,
+	extensionContainer extensionContainerv1
+    },
+    ccbs-Feature     {
+	ccbs-Index          5,
+	b-subscriberNumber  '112233445566778899'H,
+	b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	basicServiceGroup   bearerService: '11'H
+    },
+    translatedB-Number  '112233445566778899'H,
+    replaceB-Number     NULL,
+    alertingPattern     '22'H,
+    extensionContainer  extensionContainerv1
+}
+remoteUserFreeRes1 RemoteUserFreeRes ::= {
+    ruf-Outcome         accepted
+}
+
+
+remoteUserFreeRes2 RemoteUserFreeRes ::= {
+    ruf-Outcome         udubFromBusyMS,
+    extensionContainer  extensionContainerv1
+}
+registerSS-Arg1 RegisterSS-Arg ::= {
+    ss-Code                   '11'H
+}
+
+
+registerSS-Arg2 RegisterSS-Arg ::= {
+    ss-Code                   '11'H,
+    basicService              bearerService: '11'H,
+    forwardedToNumber         '112233445566778899'H,
+    forwardedToSubaddress     '112233445566778899001122334455667788990011'H,
+    noReplyConditionTime      30,
+    defaultPriority           15
+}
+sS-ForBS-Code1 SS-ForBS-Code ::= {
+    ss-Code         '11'H
+}
+
+
+sS-ForBS-Code2 SS-ForBS-Code ::= {
+    ss-Code         '11'H,
+    basicService    teleservice: '11'H
+}
+
+interrogateSS-Res1 InterrogateSS-Res ::= ss-Status: '11'H
+
+
+interrogateSS-Res2 InterrogateSS-Res ::=  basicServiceGroupList: {
+    bearerService: '11'H,
+    teleservice: '22'H
+}
+interrogateSS-Res3 InterrogateSS-Res ::= forwardingFeatureList: {
+    {
+	basicService bearerService: '11'H,
+	ss-Status '11'H,
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '11'H,
+	noReplyConditionTime 30
+    },
+    {
+	basicService teleservice: '11'H,
+	ss-Status '22'H,
+	forwardedToNumber '112233445566778899'H,
+	forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+	forwardingOptions '22'H,
+	noReplyConditionTime 30
+    }
+}
+
+
+interrogateSS-Res4 InterrogateSS-Res ::= genericServiceInfo: {
+    ss-Status               '11'H,
+    cliRestrictionOption    temporaryDefaultAllowed,
+    maximumEntitledPriority 0,
+    defaultPriority         15,
+    ccbs-FeatureList        {
+	{
+	    ccbs-Index             5,
+	    b-subscriberNumber     '112233445566778899'H,
+	    b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	    basicServiceGroup      bearerService: '11'H
+	}
+    }
+}
+uSSD-Arg1 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+
+
+uSSD-Arg2 USSD-Arg ::= {
+    ussd-DataCodingScheme '11'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    alertingPattern     '22'H
+}
+uSSD-Res1 USSD-Res ::= {
+    ussd-DataCodingScheme '22'H,
+    ussd-String           '11'H
+}
+
+
+uSSD-Res2 USSD-Res ::= {
+    ussd-DataCodingScheme '22'H,
+    ussd-String           '11223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H
+}
+sS-InfoList SS-InfoList ::= {
+    forwardingInfo: {
+	ss-Code '11'H,
+	forwardingFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '11'H,
+		    noReplyConditionTime 30
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H,
+		    forwardedToNumber '112233445566778899'H,
+		    forwardedToSubaddress '112233445566778899001122334455667788990011'H,
+		    forwardingOptions '22'H,
+		    noReplyConditionTime 30
+		}
+	}
+    },
+    callBarringInfo: {
+	    ss-Code '11'H,
+	    callBarringFeatureList {
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService bearerService: '11'H,
+		    ss-Status '11'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		},
+		{
+		    basicService teleservice: '11'H,
+		    ss-Status '22'H
+		}
+	    }
+    },
+    ss-Data: {
+	ss-Code '11'H,
+	ss-Status '11'H,
+	ss-SubscriptionOption cliRestrictionOption: temporaryDefaultAllowed,
+	basicServiceGroupList {
+	    bearerService: '11'H,
+	    teleservice: '22'H
+	}
+    }
+}
+
+sS-InvocationNotificationArg1 SS-InvocationNotificationArg ::= {
+    imsi                  '1122334455667788'H,
+    msisdn                '112233445566778899'H,
+    ss-Event              '11'H
+}
+
+
+sS-InvocationNotificationArg2 SS-InvocationNotificationArg ::= {
+    imsi                  '1122334455667788'H,
+    msisdn                '112233445566778899'H,
+    ss-Event              '11'H,
+    ss-EventSpecification {
+	'11'H,
+	'1122334455667788990011223344556677889900'H
+    },
+    extensionContainer    extensionContainerv1
+}
+sS-InvocationNotificationRes1 SS-InvocationNotificationRes ::= {
+}
+
+
+sS-InvocationNotificationRes2 SS-InvocationNotificationRes ::= {
+    extensionContainer    extensionContainerv1
+}
+registerCC-EntryArg1 RegisterCC-EntryArg ::= {
+    ss-Code '11'H
+}
+
+
+registerCC-EntryArg2 RegisterCC-EntryArg ::= {
+    ss-Code     '11'H,
+    ccbs-Data   {
+	ccbs-Feature        {
+	    ccbs-Index             5,
+	    b-subscriberNumber     '112233445566778899'H,
+	    b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	    basicServiceGroup      teleservice: '11'H
+	},
+	translatedB-Number         '112233445566778899'H,
+	serviceIndicator           {clir-invoked, camel-invoked},
+	callInfo                   {
+	    protocolId ets-300102-1,
+	    signalInfo '11'H,
+	    extensionContainer extensionContainerv1
+	},
+	networkSignalInfo          {
+	    protocolId ets-300102-1,
+	    signalInfo '11'H,
+	    extensionContainer extensionContainerv1
+	}
+    }
+}
+registerCC-EntryRes1 RegisterCC-EntryRes ::= {
+}
+
+
+registerCC-EntryRes2 RegisterCC-EntryRes ::= {
+    ccbs-Feature     {
+	ccbs-Index          5,
+	b-subscriberNumber  '112233445566778899'H,
+	b-subscriberSubaddress '112233445566778899001122334455667788990011'H,
+	basicServiceGroup   bearerService: '11'H
+    }
+}
+eraseCC-EntryArg1 EraseCC-EntryArg ::= {
+    ss-Code     '11'H
+}
+
+
+eraseCC-EntryArg2 EraseCC-EntryArg ::= {
+    ss-Code     '11'H,
+    ccbs-Index          5
+}
+eraseCC-EntryRes1 EraseCC-EntryRes ::= {
+    ss-Code     '11'H
+}
+
+
+eraseCC-EntryRes2 EraseCC-EntryRes ::= {
+    ss-Code     '11'H,
+    ss-Status '11'H
+}
+
+
+
+routingInfoForSM-Arg1 RoutingInfoForSM-Arg ::= {
+    msisdn               '112233445566778899'H,
+    sm-RP-PRI            TRUE,
+    serviceCentreAddress '11'H
+}
+
+
+routingInfoForSM-Arg2 RoutingInfoForSM-Arg ::= {
+    msisdn               '112233445566778899'H,
+    sm-RP-PRI            FALSE,
+    serviceCentreAddress '1122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1,
+    gprsSupportIndicator NULL,
+    sm-RP-MTI            10,
+    sm-RP-SMEA           '112233445566778899001122'H
+}
+
+
+routingInfoForSM-Res1 RoutingInfoForSM-Res ::= {
+    imsi                  '1122334455667788'H,
+    locationInfoWithLMSI  {
+	networkNode-Number '112233445566778899'H
+    }
+}
+
+
+routingInfoForSM-Res2 RoutingInfoForSM-Res ::= {
+    imsi                  '1122334455667788'H,
+    locationInfoWithLMSI  {
+	networkNode-Number  '112233445566778899'H,
+	lmsi                '11223344'H,
+	extensionContainer   extensionContainerv1,
+	gprsNodeIndicator   NULL,
+	additional-Number   msc-Number: '112233445566778899'H
+    },
+    extensionContainer   extensionContainerv1
+}
+mO-ForwardSM-Arg1 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        imsi: '1122334455667788'H,
+    sm-RP-OA        msisdn: '112233445566778899'H,
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Arg2 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        lmsi: '11223344'H,
+    sm-RP-OA        serviceCentreAddressOA: '11'H,
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Arg3 MO-ForwardSM-Arg ::= {
+    sm-RP-DA        noSM-RP-DA: NULL,
+    sm-RP-OA        noSM-RP-OA: NULL,
+    sm-RP-UI        '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1
+}
+mO-ForwardSM-Res1 MO-ForwardSM-Res ::= {
+    sm-RP-UI        '11'H
+}
+
+
+mO-ForwardSM-Res2 MO-ForwardSM-Res ::= {
+    sm-RP-UI        '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer   extensionContainerv1
+}
+mT-ForwardSM-Arg1 MT-ForwardSM-Arg ::= {
+    sm-RP-DA        imsi: '1122334455667788'H,
+    sm-RP-OA        serviceCentreAddressOA: '11'H,
+    sm-RP-UI        '11'H
+}
+
+
+mT-ForwardSM-Arg2 MT-ForwardSM-Arg ::= {
+    sm-RP-DA           imsi: '1122334455667788'H,
+    sm-RP-OA           serviceCentreAddressOA: '11'H,
+    sm-RP-UI           '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    moreMessagesToSend NULL,
+    extensionContainer extensionContainerv1
+}
+mT-ForwardSM-Res1 MT-ForwardSM-Res ::= {
+}
+
+
+mT-ForwardSM-Res2 MT-ForwardSM-Res ::= {
+    sm-RP-UI           '1122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900112233445566778899001122334455667788990011223344556677889900'H,
+    extensionContainer extensionContainerv1
+}
+reportSM-DeliveryStatusArg1 ReportSM-DeliveryStatusArg ::= {
+    msisdn                           '112233445566778899'H,
+    serviceCentreAddress             '11'H,
+    sm-DeliveryOutcome               successfulTransfer
+}
+
+
+reportSM-DeliveryStatusArg2 ReportSM-DeliveryStatusArg ::= {
+    msisdn                           '112233445566778899'H,
+    serviceCentreAddress             '1122334455667788990011223344556677889900'H,
+    sm-DeliveryOutcome               successfulTransfer,
+    absentSubscriberDiagnosticSM     255,
+    extensionContainer               extensionContainerv1,
+    gprsSupportIndicator             NULL,
+    deliveryOutcomeIndicator         NULL,
+    additionalSM-DeliveryOutcome     memoryCapacityExceeded,
+    additionalAbsentSubscriberDiagnosticSM 0
+}
+reportSM-DeliveryStatusRes1 ReportSM-DeliveryStatusRes ::= {
+}
+
+
+reportSM-DeliveryStatusRes2 ReportSM-DeliveryStatusRes ::= {
+    storedMSISDN       '112233445566778899001122334455667788990011'H,
+    extensionContainer extensionContainerv1
+}
+informServiceCentreArg1 InformServiceCentreArg ::= {
+}
+
+
+informServiceCentreArg2 InformServiceCentreArg ::= {
+    storedMSISDN       '112233445566778899001122334455667788990011'H,
+    mw-Status          {sc-AddressNotIncluded, mnrf-Set, mcef-Set, mnrg-Set},
+    extensionContainer extensionContainerv1
+}
+readyForSM-Arg1 ReadyForSM-Arg ::= {
+    imsi                 '1122334455667788'H,
+    alertReason          memoryAvailable
+}
+
+
+readyForSM-Arg2 ReadyForSM-Arg ::= {
+    imsi                 '1122334455667788'H,
+    alertReason          memoryAvailable,
+    alertReasonIndicator NULL,
+    extensionContainer   extensionContainerv1
+}
+roamingNotAllowedParam1 RoamingNotAllowedParam ::= {
+    roamingNotAllowedCause plmnRoamingNotAllowed
+}
+
+
+roamingNotAllowedParam2 RoamingNotAllowedParam ::= {
+    roamingNotAllowedCause  operatorDeterminedBarring,
+    extensionContainer      extensionContainerv1
+}
+callBarredParam1 CallBarredParam ::= callBarringCause: barringServiceActive
+
+
+callBarredParam2 CallBarredParam ::=  extensibleCallBarredParam: {
+}
+
+
+callBarredParam3 CallBarredParam ::=  extensibleCallBarredParam: {
+    callBarringCause              operatorBarring,
+    extensionContainer            extensionContainerv1,
+    unauthorisedMessageOriginator NULL
+}
+cUG-RejectParam1 CUG-RejectParam ::= {
+}
+
+
+cUG-RejectParam2 CUG-RejectParam ::= {
+    cug-RejectCause    incomingCallsBarredWithinCUG,
+    extensionContainer extensionContainerv1
+}
+sS-IncompatibilityCause1 SS-IncompatibilityCause ::= {
+}
+
+
+sS-IncompatibilityCause2 SS-IncompatibilityCause ::= {
+    ss-Code         '11'H,
+    basicService    bearerService: '11'H,
+    ss-Status       '22'H
+}
+sM-DeliveryFailureCause1 SM-DeliveryFailureCause ::= {
+    sm-EnumeratedDeliveryFailureCause  subscriberNotSC-Subscriber
+}
+
+
+sM-DeliveryFailureCause2 SM-DeliveryFailureCause ::= {
+    sm-EnumeratedDeliveryFailureCause  subscriberNotSC-Subscriber,
+    diagnosticInfo       '11'H,
+    extensionContainer   extensionContainerv1
+}
+absentSubscriberSM-Param1 AbsentSubscriberSM-Param ::= {
+}
+
+
+absentSubscriberSM-Param2 AbsentSubscriberSM-Param ::= {
+    absentSubscriberDiagnosticSM  255,
+    extensionContainer            extensionContainerv1,
+    additionalAbsentSubscriberDiagnosticSM 0
+}
+systemFailureParam1 SystemFailureParam ::= networkResource: rss
+
+
+systemFailureParam2 SystemFailureParam ::= extensibleSystemFailureParam: {
+}
+
+
+systemFailureParam3 SystemFailureParam ::= extensibleSystemFailureParam: {
+    networkResource    pvlr,
+    extensionContainer extensionContainerv1
+}
+
+dataMissingParam1 DataMissingParam ::= {
+}
+
+
+dataMissingParam2 DataMissingParam ::= {
+    extensionContainer extensionContainerv1
+}
+unexpectedDataParam1 UnexpectedDataParam ::= {
+}
+
+
+unexpectedDataParam2 UnexpectedDataParam ::= {
+    extensionContainer extensionContainerv1
+}
+facilityNotSupParam1 FacilityNotSupParam ::= {
+}
+
+
+facilityNotSupParam2 FacilityNotSupParam ::= {
+    extensionContainer extensionContainerv1
+}
+oR-NotAllowedParam1 OR-NotAllowedParam ::= {
+}
+
+
+oR-NotAllowedParam2 OR-NotAllowedParam ::= {
+    extensionContainer extensionContainerv1
+}
+unknownSubscriberParam1 UnknownSubscriberParam ::= {
+}
+
+
+unknownSubscriberParam2 UnknownSubscriberParam ::= {
+    extensionContainer extensionContainerv1,
+    unknownSubscriberDiagnostic gprsSubscriptionUnknown
+}
+
+numberChangedParam1 NumberChangedParam ::= {
+}
+
+
+numberChangedParam2 NumberChangedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+unidentifiedSubParam1 UnidentifiedSubParam ::= {
+}
+
+
+unidentifiedSubParam2 UnidentifiedSubParam ::= {
+    extensionContainer extensionContainerv1
+}
+illegalSubscriberParam1 IllegalSubscriberParam ::= {
+}
+
+
+illegalSubscriberParam2 IllegalSubscriberParam ::= {
+    extensionContainer extensionContainerv1
+}
+illegalEquipmentParam1 IllegalEquipmentParam ::= {
+}
+
+
+illegalEquipmentParam2 IllegalEquipmentParam ::= {
+    extensionContainer extensionContainerv1
+}
+bearerServNotProvParam1 BearerServNotProvParam ::= {
+}
+
+
+bearerServNotProvParam2 BearerServNotProvParam ::= {
+    extensionContainer extensionContainerv1
+}
+teleservNotProvParam1 TeleservNotProvParam ::= {
+}
+
+
+teleservNotProvParam2 TeleservNotProvParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+tracingBufferFullParam1 TracingBufferFullParam ::= {
+}
+
+
+tracingBufferFullParam2 TracingBufferFullParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+noRoamingNbParam1 NoRoamingNbParam ::= {
+}
+
+
+noRoamingNbParam2 NoRoamingNbParam ::= {
+    extensionContainer extensionContainerv1
+}
+absentSubscriberParam1 AbsentSubscriberParam ::= {
+}
+
+
+absentSubscriberParam2 AbsentSubscriberParam ::= {
+    extensionContainer     extensionContainerv1,
+    absentSubscriberReason noPageResponse
+}
+
+busySubscriberParam1 BusySubscriberParam ::= {
+}
+
+
+busySubscriberParam2 BusySubscriberParam ::= {
+    extensionContainer extensionContainerv1,
+    ccbs-Possible      NULL,
+    ccbs-Busy          NULL
+}
+noSubscriberReplyParam1 NoSubscriberReplyParam ::= {
+}
+
+
+noSubscriberReplyParam2 NoSubscriberReplyParam ::= {
+    extensionContainer extensionContainerv1
+}
+forwardingViolationParam1 ForwardingViolationParam ::= {
+}
+
+
+forwardingViolationParam2 ForwardingViolationParam ::= {
+    extensionContainer extensionContainerv1
+}
+forwardingFailedParam1 ForwardingFailedParam ::= {
+}
+
+
+forwardingFailedParam2 ForwardingFailedParam ::= {
+    extensionContainer extensionContainerv1
+}
+
+aTI-NotAllowedParam1 ATI-NotAllowedParam ::= {
+}
+
+
+aTI-NotAllowedParam2 ATI-NotAllowedParam ::= {
+    extensionContainer extensionContainerv1
+}
+subBusyForMT-SMS-Param1 SubBusyForMT-SMS-Param ::={
+}
+
+
+subBusyForMT-SMS-Param2 SubBusyForMT-SMS-Param ::={
+    extensionContainer extensionContainerv1,
+    gprsConnectionSuspended NULL
+}
+messageWaitListFullParam1 MessageWaitListFullParam ::= {
+}
+
+
+messageWaitListFullParam2 MessageWaitListFullParam ::= {
+    extensionContainer extensionContainerv1
+}
+resourceLimitationParam1 ResourceLimitationParam ::= {
+}
+
+
+resourceLimitationParam2 ResourceLimitationParam ::= {
+    extensionContainer extensionContainerv1
+}
+noGroupCallNbParam1 NoGroupCallNbParam ::= {
+}
+
+
+noGroupCallNbParam2 NoGroupCallNbParam ::= {
+    extensionContainer extensionContainerv1
+}
+incompatibleTerminalParam1 IncompatibleTerminalParam ::= {
+}
+
+
+incompatibleTerminalParam2 IncompatibleTerminalParam ::= {
+    extensionContainer extensionContainerv1
+}
+subscriberId1 SubscriberId ::= imsi: '1122334455667788'H
+
+
+subscriberId2 SubscriberId ::= tmsi: '11223344'H
+
+
+
+prepareGroupCallArg1 PrepareGroupCallArg ::= {
+    teleservice         '11'H,
+    asciCallReference   '11'H,
+    codec-Info          '1122334455'H,
+    cipheringAlgorithm  '11'H
+}
+
+
+prepareGroupCallArg2 PrepareGroupCallArg ::= {
+    teleservice         '1122334455'H,
+    asciCallReference   '1122334455667788'H,
+    codec-Info          '11223344556677889900'H,
+    cipheringAlgorithm  '11'H,
+    groupKeyNumber      15,
+    groupKey            '1122334455667788'H,
+    priority            15,
+    uplinkFree          NULL,
+    extensionContainer extensionContainerv1
+}
+
+prepareGroupCallRes1 PrepareGroupCallRes ::= {
+    groupCallNumber     '112233445566778899'H
+}
+
+
+prepareGroupCallRes2 PrepareGroupCallRes ::= {
+    groupCallNumber    '112233445566778899'H,
+    extensionContainer extensionContainerv1
+}
+
+sendGroupCallEndSignalArg1 SendGroupCallEndSignalArg ::= {
+}
+
+
+sendGroupCallEndSignalArg2 SendGroupCallEndSignalArg ::= {
+    imsi                  '1122334455667788'H,
+    extensionContainer    extensionContainerv1
+}
+
+sendGroupCallEndSignalRes1 SendGroupCallEndSignalRes ::= {
+}
+
+
+sendGroupCallEndSignalRes2 SendGroupCallEndSignalRes ::= {
+    extensionContainer    extensionContainerv1
+}
+forwardGroupCallSignallingArg1 ForwardGroupCallSignallingArg ::= {
+}
+
+
+forwardGroupCallSignallingArg2 ForwardGroupCallSignallingArg ::= {
+    imsi                    '1122334455667788'H,
+    uplinkRequestAck        NULL,
+    uplinkReleaseIndication NULL,
+    uplinkRejectCommand     NULL,
+    uplinkSeizedCommand     NULL,
+    uplinkReleaseCommand    NULL,
+    extensionContainer      extensionContainerv1
+}
+processGroupCallSignallingArg1 ProcessGroupCallSignallingArg ::= {
+}
+
+
+processGroupCallSignallingArg2 ProcessGroupCallSignallingArg ::= {
+    uplinkRequest           NULL,
+    uplinkReleaseIndication NULL,
+    releaseGroupCall        NULL,
+    extensionContainer      extensionContainerv1
+}
+
+

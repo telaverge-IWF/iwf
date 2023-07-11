@@ -1,0 +1,52 @@
+%PB{
+    import "HACommon.proto";
+
+    message timevalue {
+        optional uint64 time_seconds = 1;
+        optional uint64 time_microseconds = 2;
+    }
+
+    message PeerPingReq {
+        optional uint32 requestId = 1;
+        optional uint32 selfSequenceId = 2;
+        optional uint32 selfInstanceId = 3;
+        optional uint32 selfInstanceAvailabilityStatus = 4;
+        optional string selfHostname = 5;
+        optional timevalue selfLastGoActiveTime = 6;
+        optional bool selfIsAnyEthernetInterfaceNotOperational = 7;
+	optional uint32 selfCbNodeStatus=8;
+    }
+    
+    message PeerPingResp {
+        optional uint32 responseId = 1;
+        optional uint32 peerSequenceId = 2;
+        optional uint32 peerInstanceId = 3;
+        optional uint32 peerInstanceAvailabilityStatus = 4;
+        optional string peerHostname = 5;
+        optional timevalue peerLastGoActiveTime = 6;
+        optional bool peerIsAnyEthernetInterfaceNotOperational = 7;
+	optional uint32 peerCbNodeStatus=8;
+    }
+
+    message AddToClusterReq {
+        optional uint32 requestId = 1;
+        optional string selfHostName = 2;
+        optional uint32 tipcNodeId = 3;
+    }
+    message AddToClusterResp {
+        optional uint32 responseId = 1;
+        optional uint32 status = 2;
+    }
+
+%PB}
+
+interface AvaMgrPeerStatusInterface{
+
+    AvailabilityPeerPingRequest(PeerPingReq Request,PeerPingResp Response)uses_PB;
+    AddCouchbaseNodeToCluster(AddToClusterReq Request,AddToClusterResp Response)uses_PB;
+
+}
+
+interface AvaMgrComponentStatusInterface {
+    ComponentStatusUpdate(ComponentStatusUpdateReq Request,ComponentStatusUpdateResp Response)uses_PB;
+}

@@ -1,0 +1,404 @@
+################################################################################
+#                                                                              #
+#      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.       #
+#              Manufactured in the United States of America.                   #
+#        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.          #
+#                                                                              #
+#     This product and related documentation is protected by copyright and     #
+#     distributed under licenses restricting its use, copying, distribution    #
+#     and decompilation.  No part of this product or related documentation     #
+#     may be reproduced in any form by any means without prior written         #
+#     authorization of IntelliNet Technologies and its licensors, if any.      #
+#                                                                              #
+#     RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the        #
+#     government is subject to restrictions as set forth in subparagraph       #
+#     (c)(1)(ii) of the Rights in Technical Data and Computer Software         #
+#     clause at DFARS 252.227-7013 and FAR 52.227-19.                          #
+#                                                                              #
+################################################################################
+#                                                                              #
+# CONTRACT: Internal                                                           #
+#                                                                              #
+################################################################################
+#
+#  ID: $Id: cap_v2_cpp_targets,v 9.1 2005/03/23 12:51:12 cvsadmin Exp $
+#
+################################################################################
+
+
+ASNCC=$(ITS_ROOT)/tools/bin/asncc_v2$(DBGSUFFIX)
+
+ASNCCFLAGS= -explicitChoice -cpp \
+            -cppNamespace cap_v2 -xmlCppDoc \
+            -u $(ITS_ROOT)/tools/bin/asncc_useful.asn
+
+CXXSRCASN=./cap_v2_lrf.asn
+
+CXXLIBTARGET=../lib/libCAP-V2++$(DBGSUFFIX).a
+
+
+CXXOBJS=cap_v2_a_ch_billing_charging_characteristics.o \
+        cap_v2_additional_calling_party_number.o \
+        cap_v2_age_of_location_information.o \
+        cap_v2_alerting_pattern.o \
+        cap_v2_aoc_before_answer.o \
+        cap_v2_aoc_subsequent.o \
+        cap_v2_application_timer.o \
+        cap_v2_apply_charging_arg.o \
+        cap_v2_apply_charging_report_arg.o \
+        cap_v2_assist_request_instructions_arg.o \
+        cap_v2_assisting_sspip_routing_address.o \
+        cap_v2_bcsm_event.o \
+        cap_v2_bearer_capability.o \
+        cap_v2_bothway_through_connection_ind.o \
+        cap_v2_cai_gsm0224.o \
+        cap_v2_call_information_report_arg.o \
+        cap_v2_call_information_request_arg.o \
+        cap_v2_call_reference_number.o \
+        cap_v2_call_result.o \
+        cap_v2_called_party_bcd_number.o \
+        cap_v2_called_party_number.o \
+        cap_v2_calling_party_number.o \
+        cap_v2_calling_partys_category.o \
+        cap_v2_camel_a_ch_billing_charging_characteristics.o \
+        cap_v2_camel_call_result.o \
+        cap_v2_camel_fci_billing_charging_characteristics.o \
+        cap_v2_camel_sci_billing_charging_characteristics.o \
+        cap_v2_cancel_arg.o \
+        cap_v2_cause.o \
+        cap_v2_cell_id_fixed_length.o \
+        cap_v2_cell_id_or_lai.o \
+        cap_v2_collected_digits.o \
+        cap_v2_collected_info.o \
+        cap_v2_connect_arg.o \
+        cap_v2_connect_to_resource_arg.o \
+        cap_v2_correlation_id.o \
+        cap_v2_criticality_type.o \
+        cap_v2_date_and_time.o \
+        cap_v2_destination_routing_address.o \
+        cap_v2_digits.o \
+        cap_v2_dp_specific_criteria.o \
+        cap_v2_error_treatment.o \
+        cap_v2_establish_temporary_connection_arg.o \
+        cap_v2_event_report_bcsm_arg.o \
+        cap_v2_event_specific_information_bcsm.o \
+        cap_v2_event_type_bcsm.o \
+        cap_v2_ext_basic_service_code.o \
+        cap_v2_ext_bearer_service_code.o \
+        cap_v2_ext_teleservice_code.o \
+        cap_v2_extension_container.o \
+        cap_v2_extension_field.o \
+        cap_v2_fci_billing_charging_characteristics.o \
+        cap_v2_furnish_charging_information_arg.o \
+        cap_v2_generic_number.o \
+        cap_v2_generic_numbers.o \
+        cap_v2_geographical_information.o \
+        cap_v2_high_layer_compatibility.o \
+        cap_v2_imsi.o \
+        cap_v2_inband_info.o \
+        cap_v2_information_to_send.o \
+        cap_v2_initial_dp_arg.o \
+        cap_v2_initial_dp_arg_extension.o \
+        cap_v2_integer4.o \
+        cap_v2_invoke_id.o \
+        cap_v2_ip_routing_address.o \
+        cap_v2_ipssp_capabilities.o \
+        cap_v2_isdn_address_string.o \
+        cap_v2_lai_fixed_length.o \
+        cap_v2_leg_id.o \
+        cap_v2_leg_type.o \
+        cap_v2_location_information.o \
+        cap_v2_location_number.o \
+        cap_v2_message_id.o \
+        cap_v2_misc_call_info.o \
+        cap_v2_monitor_mode.o \
+        cap_v2_na_carrier_information.o \
+        cap_v2_na_carrier_selection_info.o \
+        cap_v2_na_charge_number.o \
+        cap_v2_na_info.o \
+        cap_v2_na_oli_info.o \
+        cap_v2_naea_cic.o \
+        cap_v2_not_reachable_reason.o \
+        cap_v2_ocsi_applicable.o \
+        cap_v2_original_called_party_id.o \
+        cap_v2_pcs_extensions.o \
+        cap_v2_play_announcement_arg.o \
+        cap_v2_private_extension.o \
+        cap_v2_private_extension_list.o \
+        cap_v2_prompt_and_collect_user_information_arg.o \
+        cap_v2_received_information_arg.o \
+        cap_v2_receiving_side_id.o \
+        cap_v2_redirecting_party_id.o \
+        cap_v2_redirection_information.o \
+        cap_v2_release_call_arg.o \
+        cap_v2_release_if_duration_exceeded.o \
+        cap_v2_request_report_bcsm_event_arg.o \
+        cap_v2_requested_information.o \
+        cap_v2_requested_information_list.o \
+        cap_v2_requested_information_type.o \
+        cap_v2_requested_information_type_list.o \
+        cap_v2_requested_information_value.o \
+        cap_v2_reset_timer_arg.o \
+        cap_v2_scf_id.o \
+        cap_v2_sci_billing_charging_characteristics.o \
+        cap_v2_send_charging_information_arg.o \
+        cap_v2_sending_side_id.o \
+        cap_v2_service_interaction_indicators_two.o \
+        cap_v2_service_key.o \
+        cap_v2_specialized_resource_report_arg.o \
+        cap_v2_subscriber_state.o \
+        cap_v2_suppression_of_announcement.o \
+        cap_v2_time_and_timezone.o \
+        cap_v2_time_if_no_tariff_switch.o \
+        cap_v2_time_if_tariff_switch.o \
+        cap_v2_time_information.o \
+        cap_v2_timer_id.o \
+        cap_v2_timer_value.o \
+        cap_v2_tone.o \
+        cap_v2_variable_part.o
+
+CXXSRCS=
+        
+CXXSRCSAUX=cap_v2_a_ch_billing_charging_characteristics.cpp \
+        cap_v2_additional_calling_party_number.cpp \
+        cap_v2_age_of_location_information.cpp \
+        cap_v2_alerting_pattern.cpp \
+        cap_v2_aoc_before_answer.cpp \
+        cap_v2_aoc_subsequent.cpp \
+        cap_v2_application_timer.cpp \
+        cap_v2_apply_charging_arg.cpp \
+        cap_v2_apply_charging_report_arg.cpp \
+        cap_v2_assist_request_instructions_arg.cpp \
+        cap_v2_assisting_sspip_routing_address.cpp \
+        cap_v2_bcsm_event.cpp \
+        cap_v2_bearer_capability.cpp \
+        cap_v2_bothway_through_connection_ind.cpp \
+        cap_v2_cai_gsm0224.cpp \
+        cap_v2_call_information_report_arg.cpp \
+        cap_v2_call_information_request_arg.cpp \
+        cap_v2_call_reference_number.cpp \
+        cap_v2_call_result.cpp \
+        cap_v2_called_party_bcd_number.cpp \
+        cap_v2_called_party_number.cpp \
+        cap_v2_calling_party_number.cpp \
+        cap_v2_calling_partys_category.cpp \
+        cap_v2_camel_a_ch_billing_charging_characteristics.cpp \
+        cap_v2_camel_call_result.cpp \
+        cap_v2_camel_fci_billing_charging_characteristics.cpp \
+        cap_v2_camel_sci_billing_charging_characteristics.cpp \
+        cap_v2_cancel_arg.cpp \
+        cap_v2_cause.cpp \
+        cap_v2_cell_id_fixed_length.cpp \
+        cap_v2_cell_id_or_lai.cpp \
+        cap_v2_collected_digits.cpp \
+        cap_v2_collected_info.cpp \
+        cap_v2_connect_arg.cpp \
+        cap_v2_connect_to_resource_arg.cpp \
+        cap_v2_correlation_id.cpp \
+        cap_v2_criticality_type.cpp \
+        cap_v2_date_and_time.cpp \
+        cap_v2_destination_routing_address.cpp \
+        cap_v2_digits.cpp \
+        cap_v2_dp_specific_criteria.cpp \
+        cap_v2_error_treatment.cpp \
+        cap_v2_establish_temporary_connection_arg.cpp \
+        cap_v2_event_report_bcsm_arg.cpp \
+        cap_v2_event_specific_information_bcsm.cpp \
+        cap_v2_event_type_bcsm.cpp \
+        cap_v2_ext_basic_service_code.cpp \
+        cap_v2_ext_bearer_service_code.cpp \
+        cap_v2_ext_teleservice_code.cpp \
+        cap_v2_extension_container.cpp \
+        cap_v2_extension_field.cpp \
+        cap_v2_fci_billing_charging_characteristics.cpp \
+        cap_v2_furnish_charging_information_arg.cpp \
+        cap_v2_generic_number.cpp \
+        cap_v2_generic_numbers.cpp \
+        cap_v2_geographical_information.cpp \
+        cap_v2_high_layer_compatibility.cpp \
+        cap_v2_imsi.cpp \
+        cap_v2_inband_info.cpp \
+        cap_v2_information_to_send.cpp \
+        cap_v2_initial_dp_arg.cpp \
+        cap_v2_initial_dp_arg_extension.cpp \
+        cap_v2_integer4.cpp \
+        cap_v2_invoke_id.cpp \
+        cap_v2_ip_routing_address.cpp \
+        cap_v2_ipssp_capabilities.cpp \
+        cap_v2_isdn_address_string.cpp \
+        cap_v2_lai_fixed_length.cpp \
+        cap_v2_leg_id.cpp \
+        cap_v2_leg_type.cpp \
+        cap_v2_location_information.cpp \
+        cap_v2_location_number.cpp \
+        cap_v2_message_id.cpp \
+        cap_v2_misc_call_info.cpp \
+        cap_v2_monitor_mode.cpp \
+        cap_v2_na_carrier_information.cpp \
+        cap_v2_na_carrier_selection_info.cpp \
+        cap_v2_na_charge_number.cpp \
+        cap_v2_na_info.cpp \
+        cap_v2_na_oli_info.cpp \
+        cap_v2_naea_cic.cpp \
+        cap_v2_not_reachable_reason.cpp \
+        cap_v2_ocsi_applicable.cpp \
+        cap_v2_original_called_party_id.cpp \
+        cap_v2_pcs_extensions.cpp \
+        cap_v2_play_announcement_arg.cpp \
+        cap_v2_private_extension.cpp \
+        cap_v2_private_extension_list.cpp \
+        cap_v2_prompt_and_collect_user_information_arg.cpp \
+        cap_v2_received_information_arg.cpp \
+        cap_v2_receiving_side_id.cpp \
+        cap_v2_redirecting_party_id.cpp \
+        cap_v2_redirection_information.cpp \
+        cap_v2_release_call_arg.cpp \
+        cap_v2_release_if_duration_exceeded.cpp \
+        cap_v2_request_report_bcsm_event_arg.cpp \
+        cap_v2_requested_information.cpp \
+        cap_v2_requested_information_list.cpp \
+        cap_v2_requested_information_type.cpp \
+        cap_v2_requested_information_type_list.cpp \
+        cap_v2_requested_information_value.cpp \
+        cap_v2_reset_timer_arg.cpp \
+        cap_v2_scf_id.cpp \
+        cap_v2_sci_billing_charging_characteristics.cpp \
+        cap_v2_send_charging_information_arg.cpp \
+        cap_v2_sending_side_id.cpp \
+        cap_v2_service_interaction_indicators_two.cpp \
+        cap_v2_service_key.cpp \
+        cap_v2_specialized_resource_report_arg.cpp \
+        cap_v2_subscriber_state.cpp \
+        cap_v2_suppression_of_announcement.cpp \
+        cap_v2_time_and_timezone.cpp \
+        cap_v2_time_if_no_tariff_switch.cpp \
+        cap_v2_time_if_tariff_switch.cpp \
+        cap_v2_time_information.cpp \
+        cap_v2_timer_id.cpp \
+        cap_v2_timer_value.cpp \
+        cap_v2_tone.cpp \
+        cap_v2_variable_part.cpp
+
+CXXHDRS=
+
+CXXHDRSAUX=cap_v2_a_ch_billing_charging_characteristics.h \
+        cap_v2_additional_calling_party_number.h \
+        cap_v2_age_of_location_information.h \
+        cap_v2_alerting_pattern.h \
+        cap_v2_aoc_before_answer.h \
+        cap_v2_aoc_subsequent.h \
+        cap_v2_application_timer.h \
+        cap_v2_apply_charging_arg.h \
+        cap_v2_apply_charging_report_arg.h \
+        cap_v2_assist_request_instructions_arg.h \
+        cap_v2_assisting_sspip_routing_address.h \
+        cap_v2_bcsm_event.h \
+        cap_v2_bearer_capability.h \
+        cap_v2_bothway_through_connection_ind.h \
+        cap_v2_cai_gsm0224.h \
+        cap_v2_call_information_report_arg.h \
+        cap_v2_call_information_request_arg.h \
+        cap_v2_call_reference_number.h \
+        cap_v2_call_result.h \
+        cap_v2_called_party_bcd_number.h \
+        cap_v2_called_party_number.h \
+        cap_v2_calling_party_number.h \
+        cap_v2_calling_partys_category.h \
+        cap_v2_camel_a_ch_billing_charging_characteristics.h \
+        cap_v2_camel_call_result.h \
+        cap_v2_camel_fci_billing_charging_characteristics.h \
+        cap_v2_camel_sci_billing_charging_characteristics.h \
+        cap_v2_cancel_arg.h \
+        cap_v2_cause.h \
+        cap_v2_cell_id_fixed_length.h \
+        cap_v2_cell_id_or_lai.h \
+        cap_v2_collected_digits.h \
+        cap_v2_collected_info.h \
+        cap_v2_connect_arg.h \
+        cap_v2_connect_to_resource_arg.h \
+        cap_v2_correlation_id.h \
+        cap_v2_criticality_type.h \
+        cap_v2_date_and_time.h \
+        cap_v2_destination_routing_address.h \
+        cap_v2_digits.h \
+        cap_v2_dp_specific_criteria.h \
+        cap_v2_error_treatment.h \
+        cap_v2_establish_temporary_connection_arg.h \
+        cap_v2_event_report_bcsm_arg.h \
+        cap_v2_event_specific_information_bcsm.h \
+        cap_v2_event_type_bcsm.h \
+        cap_v2_ext_basic_service_code.h \
+        cap_v2_ext_bearer_service_code.h \
+        cap_v2_ext_teleservice_code.h \
+        cap_v2_extension_container.h \
+        cap_v2_extension_field.h \
+        cap_v2_fci_billing_charging_characteristics.h \
+        cap_v2_furnish_charging_information_arg.h \
+        cap_v2_generic_number.h \
+        cap_v2_generic_numbers.h \
+        cap_v2_geographical_information.h \
+        cap_v2_high_layer_compatibility.h \
+        cap_v2_imsi.h \
+        cap_v2_inband_info.h \
+        cap_v2_information_to_send.h \
+        cap_v2_initial_dp_arg.h \
+        cap_v2_initial_dp_arg_extension.h \
+        cap_v2_integer4.h \
+        cap_v2_invoke_id.h \
+        cap_v2_ip_routing_address.h \
+        cap_v2_ipssp_capabilities.h \
+        cap_v2_isdn_address_string.h \
+        cap_v2_lai_fixed_length.h \
+        cap_v2_leg_id.h \
+        cap_v2_leg_type.h \
+        cap_v2_location_information.h \
+        cap_v2_location_number.h \
+        cap_v2_message_id.h \
+        cap_v2_misc_call_info.h \
+        cap_v2_monitor_mode.h \
+        cap_v2_na_carrier_information.h \
+        cap_v2_na_carrier_selection_info.h \
+        cap_v2_na_charge_number.h \
+        cap_v2_na_info.h \
+        cap_v2_na_oli_info.h \
+        cap_v2_naea_cic.h \
+        cap_v2_not_reachable_reason.h \
+        cap_v2_ocsi_applicable.h \
+        cap_v2_original_called_party_id.h \
+        cap_v2_pcs_extensions.h \
+        cap_v2_play_announcement_arg.h \
+        cap_v2_private_extension.h \
+        cap_v2_private_extension_list.h \
+        cap_v2_prompt_and_collect_user_information_arg.h \
+        cap_v2_received_information_arg.h \
+        cap_v2_receiving_side_id.h \
+        cap_v2_redirecting_party_id.h \
+        cap_v2_redirection_information.h \
+        cap_v2_release_call_arg.h \
+        cap_v2_release_if_duration_exceeded.h \
+        cap_v2_request_report_bcsm_event_arg.h \
+        cap_v2_requested_information.h \
+        cap_v2_requested_information_list.h \
+        cap_v2_requested_information_type.h \
+        cap_v2_requested_information_type_list.h \
+        cap_v2_requested_information_value.h \
+        cap_v2_reset_timer_arg.h \
+        cap_v2_scf_id.h \
+        cap_v2_sci_billing_charging_characteristics.h \
+        cap_v2_send_charging_information_arg.h \
+        cap_v2_sending_side_id.h \
+        cap_v2_service_interaction_indicators_two.h \
+        cap_v2_service_key.h \
+        cap_v2_specialized_resource_report_arg.h \
+        cap_v2_subscriber_state.h \
+        cap_v2_suppression_of_announcement.h \
+        cap_v2_time_and_timezone.h \
+        cap_v2_time_if_no_tariff_switch.h \
+        cap_v2_time_if_tariff_switch.h \
+        cap_v2_time_information.h \
+        cap_v2_timer_id.h \
+        cap_v2_timer_value.h \
+        cap_v2_tone.h \
+        cap_v2_variable_part.h
+
+

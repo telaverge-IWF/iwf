@@ -1,0 +1,15 @@
+
+TTC TCAP Command
+
+SYNOPSIS
+    tt_set_tmr <value>
+
+DESCRIPTION
+    This command sets value of TCAP Reject timer. 
+
+PARAMETERS
+    value    Timer value in seconds
+
+EXAMPLE
+    >> tt_set_tmr 5
+

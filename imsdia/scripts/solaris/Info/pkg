@@ -1,0 +1,24 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+echo "Long pkg Listing" >  patch+pkg/pkginfo-l.out
+echo "================" >> patch+pkg/pkginfo-l.out
+echo ""                 >> patch+pkg/pkginfo-l.out
+pkginfo -l 1>>patch+pkg/pkginfo-l.out 2>&1
+
+echo "Partialy Installed pkgs" >  patch+pkg/pkginfo-p.out
+echo "=======================" >> patch+pkg/pkginfo-p.out
+echo ""                        >> patch+pkg/pkginfo-p.out
+pkginfo -p 1>>patch+pkg/pkginfo-p.out 2>&1
+
+echo "Fully Installed pkgs" >  patch+pkg/pkginfo-i.out
+echo "====================" >> patch+pkg/pkginfo-i.out
+echo ""                     >> patch+pkg/pkginfo-i.out
+pkginfo -i 1>>patch+pkg/pkginfo-i.out 2>&1

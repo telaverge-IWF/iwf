@@ -1,0 +1,331 @@
+#!/bin/sh
+#
+# chkconfig: 2345 99 01
+# description: This is a daemon which provides the Diametriq DRE service.
+
+### BEGIN INIT INFO
+# Provides: PRODUCT
+# Short-Description: start|stop|status|restart
+### END INIT INFO
+
+# Source function library.
+PRODUCT=iwf
+. /etc/init.d/functions
+. /etc/sysconfig/network
+. /etc/profile.d/${PRODUCT}.sh
+#
+# Set default options.	Override the defaults and define
+# custom options in /etc/sysconfig${PRODUCT}/
+#
+LOCKFILE="/var/lock/subsys/${PRODUCT}"
+
+[ -f /etc/sysconfig/${PRODUCT} ] && . /etc/sysconfig/${PRODUCT}
+
+if [ $PRODUCT = "dre" ];then
+    prog="$DRE_ROOT/bin/avamgr"
+fi
+
+if [ $PRODUCT = "iwf" ];then
+    prog="$IWF_ROOT/bin/avamgr"
+fi
+
+#for the daemon coredump generation
+DAEMON_COREFILE_LIMIT="unlimited"
+function GetDreInstallationMode()
+{
+    sed -n s/^DreInstallMode=//p /etc/${PRODUCT}.cfg
+}
+
+
+start() {
+
+	if [ ! -d $SSG_LOG_DIR/cdr ];then
+	    mkdir -p $SSG_LOG_DIR/cdr
+	fi
+
+        if [  -e /etc/.${PRODUCT}/boot ];then
+            if [ "`cat /etc/.${PRODUCT}/boot`" == "yes" ];then
+                echo "`date`:booting..." >>/etc/.${PRODUCT}/boot_status
+                service network restart >>/etc/.${PRODUCT}/boot_status
+
+				#execute filesync during boot
+				/opt/diametriq/${PRODUCT}/bin/file_sync
+                echo "no" >/etc/.${PRODUCT}/boot
+            else
+                echo "`date`:start by user" >>/etc/.${PRODUCT}/boot_status
+            fi
+        else
+            echo "`date`:booting..." >>/etc/.${PRODUCT}/boot_status
+            service network restart >>/etc/.${PRODUCT}/boot_status
+			#execute filesync during boot
+			/opt/diametriq/${PRODUCT}/bin/file_sync
+            echo "no" >/etc/.${PRODUCT}/boot
+        fi
+        /sbin/arptables -F
+
+	# Check that networking is configured.
+	service rsyslog restart > /dev/null
+	[ ${NETWORKING} = "no" ] && exit 1
+    
+    #Empty file so that avalability mgr can write new exit status
+	if [ -e $DRE_STATUS_FILE ];then
+          > $DRE_STATUS_FILE
+    fi 
+
+	if [ -e $LOCKFILE ]; then
+		pid=`cat $LOCKFILE | awk '{print $1}'`
+		ppid=`cat $LOCKFILE | awk '{print $2}'`
+
+		# check if ppid matches pid
+		if [ -z $pid ]; then
+			echo "Invalid lock file found...removing it"
+			rm -f $LOCKFILE >/dev/null
+		else
+			ps -f -p $pid --no-headers | grep -v "sh -c" |grep -v grep | tr -s " " | cut -d " " -f 3 | grep -w $ppid >/dev/null 2>&1
+			if [[ $? -eq 0 ]]; then
+				RETVAL=3
+                if [ $PRODUCT = "dre" ];then
+				    echo -n "Diametriq DRE service is already running"
+                fi
+
+                if [ $PRODUCT = "iwf" ];then
+				    echo -n "Diametriq DRE service is already running"
+                fi
+				failure
+				echo
+				return $RETVAL
+			else
+				echo "Invalid lock file found...removing it"
+				rm -f $LOCKFILE >/dev/null
+			fi
+		fi
+	fi
+
+    if [ $PRODUCT = "dre" ];then
+	    echo -n $"Starting Diametriq DRE service: "
+    fi
+    if [ $PRODUCT = "iwf" ];then
+	    echo -n $"Starting Diametriq DRE service: "
+    fi
+
+	if [ $UID -ne 0 ]; then
+		RETVAL=4
+		failure
+	else
+		
+		check_and_config_tipc
+		#check if licence file is present in the config dir
+        if [ $PRODUCT = "dre" ];then
+		    if [ ! -e ${DRE_BASEDIR}/config/its.lic ];then
+		        RETVAL=1
+		        echo "copy its.lic to ${DRE_BASEDIR}/config and retry"
+		        failure
+		        return $RETVAL
+		    fi
+		    daemon ${DRE_BASEDIR}/bin/avamgr $BASICOPTS
+        fi
+        if [ $PRODUCT = "iwf" ];then
+		    if [ ! -e ${IWF_BASEDIR}/config/its.lic ];then
+		        RETVAL=1
+		        echo "copy its.lic to ${IWF_BASEDIR}/config and retry"
+		        failure
+		        return $RETVAL
+		    fi
+		    daemon ${IWF_BASEDIR}/bin/avamgr $BASICOPTS
+        fi
+
+
+		pid=`ps -elf| grep "$prog" | grep -v "sh -c" |grep -v grep | tr -s " " | cut -d " " -f 4`
+		if [ ! -z $pid ]; then
+			ps -f -p $pid --no-headers | awk '{print $2,$3}' > $LOCKFILE
+		else
+			RETVAL=5
+			failure
+			return $RETVAL
+		fi
+
+		RETVAL=$?
+		[ $RETVAL -eq 0 ]
+	fi;
+	echo
+	return $RETVAL
+}
+
+stop() {
+    if [ $PRODUCT = "dre" ];then
+	    echo -n $"Shutting down Diametriq DRE service: "
+    fi
+
+    if [ $PRODUCT = "iwf" ];then
+	    echo -n $"Shutting down Diametriq DRE service: "
+    fi
+	if [ $UID -ne 0 ]; then
+		RETVAL=4
+		failure
+	else
+		killproc ${DRE_BASEDIR}/bin/avamgr
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && rm -f $LOCKFILE
+        dre_wait
+	fi;
+	echo
+	return $RETVAL
+}
+
+restart() {
+	stop
+	start
+}
+
+function check_and_config_tipc
+{
+
+    tipc-config -b|grep "No active bearers" >/dev/null
+    if [ $? -eq 0 ];then
+	echo "configuring tipc..." 
+	#get the tipc config info from /etc/${PRODUCT}.cfg and configure tipc
+	tipc-config -netid=`get_dre_cfg_val "NetID"` 
+	tipc-config -a=`get_dre_cfg_val "TipcNodeAddress"` 
+	tipc-config -be=`get_dre_cfg_val "BearerName"`
+	sed -i /tipc-config/d /etc/rc.d/rc.local	
+    fi
+
+}
+
+#this function returns the value of the field name passed 
+#$1 = field name passed
+function get_dre_cfg_val()
+{
+    sed -n s/^$1=//p /etc/${PRODUCT}.cfg
+}
+
+dre_wait()
+{
+    echo -n "Shutting down Diametriq DRE service: " 
+    sleep=10
+
+    #fetching the "config_process" line from avamr.cfg to get the process names
+    CONFIG_FILE=$AVAMGR_CONFDIR/avamgr.json
+
+    #PROCESSES will contain all process names seperated with "space" 
+    PROCESSES=`grep "Process-Name-With-Args" $CONFIG_FILE | cut -d ":" -f 2 | cut -d "\"" -f 2 | tr -s " " | cut -d " " -f 1`
+
+    #counting number of processes
+    PCOUNT=`grep "Process-Name-With-Args" $CONFIG_FILE | cut -d ":" -f 2| cut -d "/" -f 6| cut -d " " -f 1|tr -s "\"" " "|tr -s "," " "|wc -l`
+    KILLED=0
+
+    #checking for all processes if they are already killed by "killproc" or not
+    for PROCESS in $PROCESSES
+    do
+        #check if all processes have been killed, if yes return
+        PID=`ps -eaf | grep -w "$PROCESS" | grep -v "grep"| tr -s " "|cut -d " " -f 2`
+        if [ $PCOUNT -gt 0 ];then
+
+        #if pid is zero decrement the count and check "PCOUNT" if all processes are checked or not
+            if [ -z $PID ];then
+                PCOUNT=`expr $PCOUNT - 1`
+
+                #PCOUNT is 0 return 
+                if [ $PCOUNT -eq 0 ];then
+		            return
+		        else
+                    #if process is killed just continue for next process
+                    continue ;
+		        fi
+            else
+
+                #else "PID" is not zero set "KILLED" flag and break from "for" loop
+                KILLED=1
+                break ;
+            fi
+        fi
+    done
+
+    #checking if "KILLED" flag is set if yes wait for 10 sec and proceed
+    if [ `expr $KILLED = 1` ];then
+
+        while [ $sleep -gt 0 ]
+        do
+            echo -n "."
+            sleep 1
+            sleep=`expr $sleep - 1`
+        done
+
+        #fetching the "config_process" line from avamr.cfg to get the process names
+        PROCESS_COUNT=`grep "Process-Name-With-Args" $CONFIG_FILE | cut -d ":" -f 2| cut -d "/" -f 6| cut -d " " -f 1|tr -s "\"" " "|tr -s "," " "|wc -l`
+
+        while [ $PROCESS_COUNT -gt 0 ]
+        do
+
+            #store all process names in an array
+            PROCESS[$PROCESS_COUNT]=`grep "Process-Name-With-Args" $CONFIG_FILE | cut -d ":" -f 2 | cut -d "\"" -f 2 | tr -s " " | cut -d " " -f 1 | head -$PROCESS_COUNT | tail -1`
+
+            #fetch pid of all process one by one and store in "PID"
+            PID=`ps -eaf | grep -w "${PROCESS[$PROCESS_COUNT]}" | grep -v "grep"| tr -s " "|cut -d " " -f 2`
+
+            #check if "PID" is zero if yes do nothing else send a sigkill for respective process
+            if [ -z $PID ];then
+                echo -n
+            else
+                kill -9 $PID 2>/dev/null
+            fi
+
+            #decrement the process count
+            PROCESS_COUNT=`expr $PROCESS_COUNT - 1`
+
+        done
+    fi
+        #just for next line
+        echo
+}
+RETVAL=0
+
+# See how we were called.
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  status)
+        if [ $PRODUCT = "dre" ];then
+            echo "DRE Status:"
+        fi
+
+        if [ $PRODUCT = "iwf" ];then
+            echo "DRE Status:"
+        fi
+	status $prog >/dev/null
+ 	if [ $? == 0 ];then
+            #get the avamgr pid
+	    status $prog
+            avamgr_pid=`ps -eaf|grep $prog|grep -v grep| awk '{print $2}'`
+            #get all the children of pid in $avamgr_pid
+            for i in `ps --ppid $avamgr_pid |grep -v PID |awk '{print $4}'`
+            do
+                status $i
+            done
+    	else
+		
+	    echo "DRE-IWF is not running"
+	    if [ -e $DRE_STATUS_FILE ];then
+                cat $DRE_STATUS_FILE
+	    fi
+        fi 
+	;;
+  restart)
+	restart
+	;;
+  condrestart)
+	if status $prog > /dev/null; then
+	    stop
+	    start
+	fi
+	;;
+  *)
+	echo $"Usage: $0 {start|stop|status|restart}"
+	exit 2
+esac
+
+exit $?

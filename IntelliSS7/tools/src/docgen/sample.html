@@ -1,0 +1,949 @@
+<HTML>
+<HEAD>
+<BIG>
+<B>IntelliSS7 Application Developer's Toolkit</B>
+</BIG>
+<BR>
+<BR>
+</HEAD>
+<BODY>
+
+<B>IntelliSS7 Interface</B>
+<BR>
+<BR>
+<B>INTERFACE</B>
+<PRE>
+        ITS_Event
+    
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+        The ITS_Event is the heart of the C++ interface to IntelliSS7.  All
+        intertask and interprocess indications are passed between entities
+        in the ITS_Event structure.  The class wrappers the C structure
+        ITS_EVENT, which defines the basic structure of an indication.
+    
+</PRE>
+<B>USAGE</B>
+<PRE>
+        User code should use objects of this class when receiving events
+        (normally via ITS_Worker::GetEvent() or ITS_Transport::GetEvent()).
+        Users should not (in general) create ITS_Events for transmitting
+        information; all IntelliSS7 APIs provide routines for building
+        and sending ITS_Events, as the internal structure of the ITS_EVENT
+        contents are not documented.
+    
+
+</PRE>
+<hr>
+
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::ITS_Event()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::ITS_Event()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event::ITS_Event();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     The default constructor for ITS_Events should be used by most
+     user code.  This constructor builds an ITS_Event with all
+     members set to a predefined state.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::ITS_Event()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::ITS_Event()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event::ITS_Event(ITS_USHORT src, ITS_USHORT len, ITS_OCTET *data);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This constructor for ITS_Events is used by most internal
+     IntelliSS7 code to build an ITS_Event for transmission.
+     While it can be invoked by user code, it's use is not
+     recommended.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     src - a transport identifier.  Indicates the *originating*
+         transport of an event.
+     len - the length of the data portion of this event.
+     data - the data payload to be carried by this event.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::ITS_Event()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::ITS_Event()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event::ITS_Event(const ITS_EVENT* const ev);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This constructor is used as a copy constructor of the C
+     ITS_EVENT data type.  It is used most frequently by
+     IntelliSS7 APIs, but can be invoked by user code.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+    ev - a const pointer to a const ITS_EVENT structure.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::ITS_Event()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::ITS_Event()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event::ITS_Event(const ITS_Event& copy);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This copy constructor is made available for copying ITS_Events.
+     It is provided for convenience purposes only.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::GetEvent()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::GetEvent()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_EVENT&
+    ITS_Event::GetEvent();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method provides the user a mechanism for retrieving the
+     ITS_EVENT data that the ITS_Event object wrappers.  It is
+     used most frequently by user code when the user is interested
+     in calling C functions or macros that take an ITS_EVENT or
+     ITS_EVENT pointer.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     A reference to the contained ITS_EVENT.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::GetSource()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::GetSource()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_USHORT
+    ITS_Event::GetSource();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method is used to access the source transport identifier
+     of an event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     An ITS_USHORT quantity that identifies the transport or
+     worker that originated this event.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::SetSource()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::SetSource()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    void
+    ITS_Event::SetSource(ITS_USHORT src);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method provides the means to set the transport/worker
+     identifier of an event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     src - an ITS_USHORT identifying the source of an event.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::GetLength()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::GetLength()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_USHORT
+    ITS_Event::GetLength();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method returns the length of the data portion of this
+     event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     The length of the data as an ITS_USHORT.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::SetLength()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::SetLength()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    void
+    ITS_Event::SetLength(ITS_USHORT len);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method allows the user to set the length of the data
+     portion of an event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::GetData()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::GetData()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_OCTET*
+    ITS_Event::GetData();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method returns a pointer to the start of data in this
+     event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     A pointer to the data portion of the event.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+     Because the return value is a pointer into this event, it can
+     be used by code that wishes to modify the contents of the data.
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::SetData()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::SetData()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    void
+    ITS_Event::SetData(ITS_OCTET* data, int len);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method provides an interface to set the data portion
+     of an event.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     The length of the data as an ITS_USHORT.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::operator=()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::operator=()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event&
+    ITS_Event::operator=(const ITS_Event& copy);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method implements the assignment operator for ITS_Events.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     copy - a reference to the event to copy.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     A reference to the event that was the LHS of the assignment
+     operator.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::operator=()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::operator=()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_Event&
+    ITS_Event::operator=(const ITS_EVENT& copy);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This method provides the user with the ability to assign
+     the ITS_EVENT C strscture to an instance of the ITS_Event class.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     copy - a reference to an ITS_EVENT structure.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     A reference to the ITS_Event that was the LHS of this assignment
+     operation.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::operator=()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::operator=()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    virtual ITS_ListEntry&
+    ITS_Event::operator=(const ITS_ListEntry& copy);
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+     This assignment operator should be regarded as private; it
+     is an artifact of the ITS_List implementation.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+     copy - a const ref to this subclass of ITS_ListEntry (ITS_Event).
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+     None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+     A reference to the ITS_ListEntry that was the LHS of this
+     assignment operation.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::InitializeEventPool()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::InitializeEventPool()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    int
+    ITS_Event::InitializeEventPool();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+    This method creates a fixed-size, process-wide pool of ITS_Event's.
+    The pool is then used for all intertask communications (that is,
+    the pool represents the available slots for messages when
+    communicating between tasks in a process).
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+    Returns ITS_SUCCESS if the pool was successfully initialized.
+    Any other return value indicates an IntelliSS7 error code.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::Clone()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::Clone()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    ITS_ListEntry *
+    ITS_Event::Clone() const;
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+    This method allocates an ITS_Event from the process-wide event
+    pool and copies the contents of the calling object into the
+    newly allocated event, thus creating a "clone" of the calling
+    object.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+    A pointer to the cloned entry, or NULL if the entry could not
+    be cloned.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+    This method should be used ONLY by task queue manipulation
+    code; allocating an event via this method from user code removes
+    that entry from the pool available for intertask messages.
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+    Release()
+
+<HR>
+
+<B>IntelliSS7 Function:</B> <I>ITS_Event::Release()</I>
+<BR>
+<BR>
+<B>NAME</B>
+<PRE>
+    ITS_Event::Release()
+</PRE>
+<B>SCOPE</B>
+<PRE>
+    public
+</PRE>
+<B>SYNOPSIS</B>
+<PRE>
+    void
+    ITS_Event::Release();
+
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+    This method is called used by a cloned object to return that object
+    to the free pool.
+
+</PRE>
+<B>INPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>INPUT/OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>OUTPUT PARAMETERS</B>
+<PRE>
+    None.
+
+</PRE>
+<B>RETURN VALUE</B>
+<PRE>
+    None.
+
+</PRE>
+<B>NOTES</B>
+<PRE>
+    The results of adding an object to the free pool that was not
+    created by ITS_Event::Initialize() is undefined.
+
+</PRE>
+<B>SEE ALSO</B>
+<PRE>
+    Clone()
+
+<HR>
+</BODY>
+</HTML>

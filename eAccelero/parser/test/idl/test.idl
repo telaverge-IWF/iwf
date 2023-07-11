@@ -1,0 +1,78 @@
+
+%{
+
+enum FlatPriviledge
+{
+    FLAT_PRIV_ADMIN = 0,
+    FLAT_PRIV_USER  = 1,
+    FLAT_PRIV_OPERATOR = 2
+};
+
+struct FlatUser
+{
+    unsigned int userId;
+    char userName[100];
+    FlatPriviledge priviledge;
+};
+
+struct FlatResult
+{
+    int resCode;
+    char descr[100];
+};
+
+%}
+
+%PB{
+
+enum Priviledge
+{
+    PRIV_ADMIN = 0;
+    PRIV_USER  = 1;
+    PRIV_OPERATOR = 2;
+}
+
+enum ReqType
+{
+    REQ_GET_USERS = 0;
+}
+
+message User
+{
+    required int32 userId = 1;
+    required string userName = 2 ;
+    optional Priviledge  priviledge = 3;
+    repeated string groups = 4;
+}
+
+message Users
+{
+    repeated User users = 1;
+}
+
+message Result
+{
+    required int32 resultCode = 1;
+    optional string descr =2 ;
+}
+
+message Req
+{
+    required ReqType type = 1;
+}
+
+%PB}
+
+interface FlatUserAccess
+{
+    Login(FlatUser user, FlatResult resCode);
+    Logout(FlatUser user, FlatResult resCode);
+}
+
+interface UserAccess
+{
+    Login(User user, Result resCode) uses_PB;
+    Logout(User user, Result resCode) uses_PB;
+    GetUsers(Req req, Users users) uses_PB;
+}
+

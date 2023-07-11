@@ -1,0 +1,63 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# postinstall
+
+PKGDIR=$PKG-$VERSION
+   
+#
+# Creating user and Changing ownership
+#
+#
+id $USER > /dev/null 2>&1
+rc=$?
+if [ $rc -eq 0 ]; then
+   echo "OK: user $USER exists"
+   echo "Setting $USER user home dir to $BASEDIR/$PKGDIR"
+   userdel $USER
+   /usr/sbin/useradd -c "User intelli" -d $BASEDIR/$PKGDIR -m -s /bin/bash intelli
+   echo "NOTE: NOTE: Please execute <passwd intelli> command as root "
+   echo "and reset the password to the $USER user"
+   
+else
+   echo "INSTALLATION: Creating User $USER "
+   /usr/sbin/useradd -c "User intelli" -d $BASEDIR/$PKGDIR -m -s /bin/bash intelli
+   echo ""
+   echo "NOTE: NOTE: Please execute <passwd intelli> command as root "
+   echo "to set the password for user $USER" 
+   echo ""
+fi
+if [ -f $BASEDIR/$PKGDIR/config/Profile ]
+then
+    cp $BASEDIR/$PKGDIR/config/Profile $BASEDIR/$PKGDIR/.profile
+fi
+   echo "INSTALLATION: Package will be installed in $BASEDIR/$PKGDIR "
+
+chown -Rh $USER:$GROUP $BASEDIR/$PKGDIR
+
+# Check to see if there was a previous version
+# of Package installed & it's configuration was
+# backed up. If it was copy the license file,
+# & configuration files.
+
+if [ -d $BACKUPDIR ]
+then
+    for dir in `ls -1 $BACKUPDIR`
+    do
+       if [ -f $BACKUPDIR/$dir/config/its.lic ]
+       then
+           echo "Copying license file from backed up configuration"
+           cp $BACKUPDIR/$dir/config/its.lic $BASEDIR/$PKGDIR/config
+           echo "DONE"
+           exit 0
+       fi
+    done
+fi
+      
+echo "DONE"
+exit 0;

@@ -1,0 +1,26 @@
+#!/bin/ksh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+PROCLIST="DIAMon DiaServerD" 
+
+for proc in $PROCLIST
+do
+    if ps -e | grep $proc > /dev/null
+    then
+        if [ $proc = "DiaServerD" ]
+        then
+            pkill -9 > pgrep $proc
+        else
+            pkill > pgrep $proc 
+        fi
+        echo "$proc terminated."
+     else
+        echo "$proc is not running"
+    fi
+done

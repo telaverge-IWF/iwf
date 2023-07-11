@@ -1,0 +1,84 @@
+//------------------
+// Test4 performance
+//------------------
+
+Notes:
+------
+
+- Size of ASN.1 encoded = 52 octets (good average).
+- Numbers include setting and retrieving data (mandatory in reality).
+- Debug build numbers are for information purpose only. In practice they are
+  not relevant.
+
+//-------------------------------------------------------
+// [1] PC Dell Dimension 400 Mhz, 128 Mo RAM, 100% of CPU
+//-------------------------------------------------------
+
+Release build:
+--------------
+
+- 20000 iterations => 5 s = > 250 us for encode / decode cycle. 100% of CPU.
+  No memory leak.
+
+Debug build:
+------------
+
+- 20000 iterations => 56 s => 2.8 ms for encode / decode cycle. 100% of CPU.
+  No memory leak. 
+
+
+
+Former results without inlining of runtime and generated code:
+--------------------------------------------------------------
+
+Release build:
+--------------
+
+- 20000 iterations => 7 s = > 350 us for encode / decode cycle. 100% of CPU.
+  No memory leak.
+
+
+Release build:
+--------------
+
+- 20000 iterations => 50 s => 2.5 ms for encode / decode cycle. 100% of CPU. 
+  No memory leak.
+
+
+//---------------------------------------------------------------
+// [2] Sun Netra 1125t (single processor), 256 Mo RAM, 90% of CPU
+//---------------------------------------------------------------
+
+//--------------------
+// [2-1] Using GNU GCC
+//--------------------
+
+Release build:
+--------------
+
+- 2000000 iterations => 757 s => 378 us for encode / decode cycle. 90% of CPU.
+  No memory leak.
+
+Debug build:
+------------
+
+- 200000 iterations => 299 s => 1.49 ms for encode / decode cycle. 90% of CPU.
+  No memory leak.
+
+//-------------------------
+// [2-2] Using Sun Forte CC
+//-------------------------
+
+Release build:
+--------------
+
+- 2000000 iterations => 735 s => 367 us for encode / decode cycle. 90% of CPU.
+  No memory leak.
+
+Debug build:
+------------
+
+- 200000 iterations => 595 s => 2.97 ms for encode / decode cycle. 90% of CPU.
+  No memory leak.
+
+

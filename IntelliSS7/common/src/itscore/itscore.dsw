@@ -1,0 +1,104 @@
+Microsoft Developer Studio Workspace File, Format Version 6.00
+# WARNING: DO NOT EDIT OR DELETE THIS WORKSPACE FILE!
+
+###############################################################################
+
+Project: "XGenKey"=.\XGenKey.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name itscore
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "XGenLicense"=.\XGenLicense.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name itscore
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "XKeylicense"=.\XKeylicense.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name itscore
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "XPrLicense"=.\XPrLicense.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name itscore
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "XVerLicense"=.\XVerLicense.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+    Begin Project Dependency
+    Project_Dep_Name itscore
+    End Project Dependency
+}}}
+
+###############################################################################
+
+Project: "itscore"=.\itscore.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Global:
+
+Package=<5>
+{{{
+}}}
+
+Package=<3>
+{{{
+}}}
+
+###############################################################################
+

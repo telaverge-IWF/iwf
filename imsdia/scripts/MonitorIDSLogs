@@ -1,0 +1,40 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+FNAME=IDS
+
+cd /opt/IntelliNet/IDS/logs 
+
+maxfilesize=20000000
+
+filesize=`/bin/ls -al $FNAME.out|awk '{print $5}'`
+
+echo "filesize=$filesize"
+
+if [ $filesize -gt $maxfilesize ]
+then
+
+  index=9 
+
+  while [ $index -gt 0 ]
+  do
+     if [ -r $FNAME$index.out ] 
+     then
+         nindex=`expr $index + 1`
+         cp $FNAME$index.out $FNAME$nindex.out
+     fi
+     index=`expr $index - 1`
+  done
+  if [ -r $FNAME.out ]
+  then 
+       cp $FNAME.out IDS1.out
+  fi
+  cat /dev/null > $FNAME.out
+fi
+

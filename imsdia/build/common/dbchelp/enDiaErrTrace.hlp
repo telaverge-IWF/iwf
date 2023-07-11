@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enDiaErrTrace                                                                                 
+DESCRIPTION
+    This command enables the diameter Error traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enDiaErrTrace
+    *******Diameter Error Traces are enabled*******
+

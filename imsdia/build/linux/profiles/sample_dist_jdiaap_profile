@@ -1,0 +1,43 @@
+#!/bin/bash
+echo 'export PS1="${LOGNAME}@`uname -n`!$ "'
+echo ""
+echo '#'
+echo '# Path settings.'
+echo '#'
+echo 'PATH=$PATH:.'
+echo 'PATH=$PATH:/usr/java/jdk1.5.0_06/bin'
+echo 'PATH=$PATH:/bin'
+echo 'PATH=$PATH:/usr/bin'
+echo 'PATH=$PATH:/usr/local/bin'
+echo 'PATH=$PATH:/usr/sbin'
+
+echo ""
+echo '#'
+echo '# LD_LIBRARY_PATH settings.'
+echo '#'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib'
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib'
+
+echo ""
+echo '#'
+echo '# IMS Diameter Related'
+echo '#'
+echo 'PLATFORM=linux'
+echo 'DEBUG_BUILD=yes'
+echo IMS_ROOT=/opt/IntelliNet/JIDC-$IMS_VER
+
+echo '#'
+echo '# CLASSPATH Settings.'
+echo '#'
+echo 'CLASSPATH=$IMS_ROOT/api/jar/diaapi.jar:$IMS_ROOT/api/jar/diameter.jar:$IMS_ROOT/api/jar/javolution.jar:$IMS_ROOT/api/jar/JIDC.jar:$IMS_ROOT/demo/jar/JSampleApp.jar:$IMS_ROOT'
+
+echo ""
+echo 'PATH=$PATH:$IMS_ROOT/demo:$IMS_ROOT/scripts'
+
+echo 'LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/lib'
+
+echo ""
+echo export PATH LD_LIBRARY_PATH PLATFORM
+echo export IMS_ROOT CLASSPATH
+echo export DEBUG_BUILD

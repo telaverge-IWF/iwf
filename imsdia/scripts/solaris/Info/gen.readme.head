@@ -1,0 +1,24 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+cat <<EOF >README
+================== CollectInfo ==================
+
+This directory contains system configuration information. A complete list
+with explanation on what each file holds and how the data was obtained is
+included at the end of this file.
+
+Date information gathered: `date`
+
+
+Synopsis
+========
+
+EOF

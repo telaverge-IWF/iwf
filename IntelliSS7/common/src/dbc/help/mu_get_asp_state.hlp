@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_get_asp_state <trId>
+
+DESCRIPTION
+    This command displays M2UA ASP current State. 
+
+PARAMETERS
+     trid       - transport id
+
+EXAMPLE
+    >> mu_get_asp_state 0x4e22
+
+********* M2UA ASP STATE *********
+
+ASP STATE  : M2UA_ASP_ACTIVE
+

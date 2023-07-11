@@ -1,0 +1,27 @@
+
+ITU STC Command
+
+SYNOPSIS
+    stc_entry_table
+
+DESCRIPTION
+    This command displays All the configured STC entries.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> stc_entry_table 
+    Version          <1999> 
+    Timer short      <300> 
+    Timer long       <500> 
+    --------------------------------------------------
+    Dump of STC Entry Table.
+    --------------------------------------------------
+    state    = STC_Unavailable
+    dpc      = 0x1011
+    opc      = 0x1010
+    sio      = 0x0c
+    max len  = 4096
+    cong     = 0
+    cause    = 0x00

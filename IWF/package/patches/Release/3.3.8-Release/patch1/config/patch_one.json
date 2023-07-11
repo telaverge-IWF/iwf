@@ -1,0 +1,44 @@
+{
+        "patch-details": [
+	   {    
+           "patch-type" : "static",
+               "patch-number": 1,
+               "dre-release": "iwf-3.3.8-Release",
+               "pre-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.8-Release/patch1/pre_patch.sh",
+               "post-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.8-Release/patch1/post_patch.sh",
+               "pre-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.8-Release/patch1/pre_uninstall_patch.sh",
+               "post-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.8-Release/patch1/post_uninstall_patch.sh",
+               "files": [
+               {
+                   "source": "$IWF_ROOT/bin/IWF-CCITT",
+                   "target": "/opt/diametriq/iwf/bin/IWF-CCITT"
+
+               },
+               {
+                   "source": "$IWF_ROOT/lib/libIWF-CCITT.so",
+                   "target": "/opt/diametriq/iwf/lib/libIWF-CCITT.so"
+               },
+               {
+                   "source": "$IWF_ROOT/test/map/bin/cap_tools.json",
+                   "target": "/opt/diametriq/iwf/test/map/bin/cap_tools.json"
+
+               },
+               {
+                   "source": "$IWF_ROOT/test/map/bin/sampleAppCCITT",
+                   "target": "/opt/diametriq/iwf/test/map/bin/sampleAppCCITT"
+               },
+               {
+                   "source": "$IWF_ROOT/test/map/lib/libCCITT-TransCB.so",
+                   "target": "/opt/diametriq/iwf/lib/libCCITT-TransCB.so"
+               },
+               {
+                   "source": "$IMS_ROOT/vendors/IntelliNet/lib/libdiastack.so",
+                   "target": "/opt/diametriq/iwf/lib/libdiastack.so"
+               }
+           ]
+            }    
+        
+      ]
+}
+
+

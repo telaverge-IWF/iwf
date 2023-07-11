@@ -1,0 +1,21 @@
+/CMakeLists.txt/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/HOWTO_distribute_privileges.txt/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/delete_all.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/desc.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/drop_index.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/drop_tab.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/listTables.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_blob_tool.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_config.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_dist_priv.sql/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_dump_frm_data.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_error_reporter/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_index_stat.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_size.pl/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndb_test_platform.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndbinfo_select_all.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/ndbinfo_sql.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/select_all.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/select_count.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+/waiter.cpp/1.1.2.1/Fri Oct  5 12:38:41 2012//TB-IWF-HP-0400-00
+D/restore////

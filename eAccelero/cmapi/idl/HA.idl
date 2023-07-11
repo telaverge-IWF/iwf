@@ -1,0 +1,99 @@
+%PB{
+
+import "Common.proto";
+   ////////////////////////////////////////////////////////////////////////////////////////////
+   // Common across components
+   ////////////////////////////////////////////////////////////////////////////////////////
+    message LoggingConfig {
+        optional fixed32 LogLevel      = 1;
+        optional fixed32 LogChannel    = 2;
+        optional fixed32 LogFileSize   = 3; 
+        optional string  LogFileName   = 4;
+    }
+
+   /////////////////////////////////////////////////////////////////////////////////////////////
+   // HA- Availability Manager Configurations
+   ////////////////////////////////////////////////////////////////////////////////////////////
+
+    message AvaMgrConfig {
+        optional fixed32 PeerPingPeriodicity              =  1;
+        optional fixed32 ArbitratorPingPeriodicity        =  2;
+        optional fixed32 PeerNumConsecPingAckRcvFailures  =  3;
+        optional fixed32 ArbitratorNumConsecPingAckRcvFailures    =  4;
+        optional fixed32 ProcessRestartMaxAllowedInterval =  5;
+        optional fixed32 ProcessRestartMaxAllowedCount    =  6;
+        optional string  ArbitratorIpAddress              =  7;
+        optional string  VirtualIpAddressesCidrFormat     =  8;
+        optional string  EthernetInterfaces               =  9;
+        optional string  Processes                        = 10;
+        optional string  ProcessPriorities                = 11;
+        optional fixed32 TimeToLaunchProcesses            = 12; 
+        optional LoggingConfig Logging                    = 13;
+        optional fixed32 ProcessRestartMaxAllowedIntervalForStop =  14;
+        optional fixed32 ProcessRestartMaxAllowedCountForStop    =  15;
+    }
+
+    message ComponentActionReq {
+        required fixed32 RequestID = 1;
+    }
+
+    message AvaMgrConfigResp {
+        required fixed32 ResponseID        = 1;
+        optional AvaMgrConfig AvaMgrData   = 2;
+        optional string NodeStatus         = 3;
+        optional fixed32 RequestID         = 4;
+        repeated ErrorDetails ErrorDetails = 5;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////////
+    // HA - Replication Manager Configurations
+    /////////////////////////////////////////////////////////////////////////////////////
+
+    message RepMgrConfig {
+        optional LoggingConfig Logging  = 1;
+    }
+
+    message RepMgrConfigResp {
+        required fixed32 ResponseID      = 1;
+        optional RepMgrConfig RepMgrData = 2;
+    }
+
+    //////////////////////////////////////////////////////////////////////////////////
+    // HA - DRE Configuration
+    /////////////////////////////////////////////////////////////////////////////////
+
+    message DreHAConfig {
+        optional bool ReplicateData     = 1;
+        optional LoggingConfig Logging  = 2;
+    }
+
+    message DreHAConfigResp {
+        required fixed32 ResponseID    = 1;
+        optional DreHAConfig DreHAData = 2;
+    }
+
+%PB}
+
+
+interface AvaMgrHAInterface {
+    AvaMgrSetConfiguration(AvaMgrConfig Request, AvaMgrConfigResp Response)uses_PB;
+    AvaMgrGetConfiguration(ComponentActionReq  Request, AvaMgrConfigResp Response)uses_PB;
+    AvaMgrSwitchOverRequest(ComponentActionReq  Request, AvaMgrConfigResp Response)uses_PB;
+}
+
+interface RepMgrHAInterface {
+    RepMgrSetConfiguration(RepMgrConfig Request, RepMgrConfigResp Response)uses_PB;
+}
+
+interface DreHAInterface {
+    DreSetConfiguration(DreHAConfig Request, DreHAConfigResp Response)uses_PB;
+}
+
+interface CMgrHAInterface {
+    CMgrAMSetConfiguration(AvaMgrConfig Request, AvaMgrConfigResp Response)uses_PB;
+    CMgrRMSetConfiguration(RepMgrConfig Request, RepMgrConfigResp Response)uses_PB;
+    CMgrDreSetConfiguration(DreHAConfig Request, DreHAConfigResp Response)uses_PB;
+    FetchAvaMgrConfiguration(AvaMgrConfig Request, AvaMgrConfigResp Response)uses_PB;
+    FetchRepMgrConfiguration(RepMgrConfig Request, RepMgrConfigResp Response)uses_PB;
+    FetchDreHAConfiguration(DreHAConfig Request, DreHAConfigResp Response)uses_PB;
+}

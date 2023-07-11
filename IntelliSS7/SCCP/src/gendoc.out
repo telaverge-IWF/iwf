@@ -1,0 +1,444 @@
+USING INDEX ../doc/sccp_index.html
+Generating for ../include/sccp++.h
+Dumping interface notes for: SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::SCCP_IEClass
+Dumping link to SCCP_IEClass::SCCP_IEClass for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::SCCP_IEClass
+Dumping link to SCCP_IEClass::SCCP_IEClass for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::~SCCP_IEClass
+Dumping link to SCCP_IEClass::~SCCP_IEClass for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::GetID
+Dumping link to SCCP_IEClass::GetID for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::Encode
+Dumping link to SCCP_IEClass::Encode for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::Decode
+Dumping link to SCCP_IEClass::Decode for SCCP_IEClass
+Dumping implementation notes for: SCCP_IEClass::Clone
+Dumping link to SCCP_IEClass::Clone for SCCP_IEClass
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass 
+Dumping interface notes for: SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::SCCP_RefNum
+Dumping link to SCCP_RefNum::SCCP_RefNum for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::HasRefNum
+Dumping link to SCCP_RefNum::HasRefNum for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::GetRefNum
+Dumping link to SCCP_RefNum::GetRefNum for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::SetRefNum
+Dumping link to SCCP_RefNum::SetRefNum for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::Encode
+Dumping link to SCCP_RefNum::Encode for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::Decode
+Dumping link to SCCP_RefNum::Decode for SCCP_RefNum
+Dumping implementation notes for: SCCP_RefNum::Clone
+Dumping link to SCCP_RefNum::Clone for SCCP_RefNum
+Dumping interface notes for: SCCP_SourceLocalRef
+Dumping implementation notes for: SCCP_SourceLocalRef::SCCP_SourceLocalRef
+Dumping link to SCCP_SourceLocalRef::SCCP_SourceLocalRef for SCCP_SourceLocalRef
+Dumping implementation notes for: SCCP_SourceLocalRef::SCCP_SourceLocalRef
+Dumping link to SCCP_SourceLocalRef::SCCP_SourceLocalRef for SCCP_SourceLocalRef
+Dumping interface notes for: SCCP_DestinationLocalRef
+Dumping implementation notes for: SCCP_DestinationLocalRef::SCCP_DestinationLocalRef
+Dumping link to SCCP_DestinationLocalRef::SCCP_DestinationLocalRef for SCCP_DestinationLocalRef
+Dumping implementation notes for: SCCP_DestinationLocalRef::SCCP_DestinationLocalRef
+Dumping link to SCCP_DestinationLocalRef::SCCP_DestinationLocalRef for SCCP_DestinationLocalRef
+Dumping implementation notes for: SCCP_DestinationLocalRef::operator=
+Dumping link to SCCP_DestinationLocalRef::operator= for SCCP_DestinationLocalRef
+Dumping implementation notes for: SCCP_SourceLocalRef::SCCP_SourceLocalRef::operator=
+Dumping link to SCCP_SourceLocalRef::SCCP_SourceLocalRef::operator= for SCCP_SourceLocalRef
+Dumping interface notes for: SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::SCCP_Credit
+Dumping link to SCCP_Credit::SCCP_Credit for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::SCCP_Credit
+Dumping link to SCCP_Credit::SCCP_Credit for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::HasCredit
+Dumping link to SCCP_Credit::HasCredit for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::GetCredit
+Dumping link to SCCP_Credit::GetCredit for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::SetCredit
+Dumping link to SCCP_Credit::SetCredit for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::Encode
+Dumping link to SCCP_Credit::Encode for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::Decode
+Dumping link to SCCP_Credit::Decode for SCCP_Credit
+Dumping implementation notes for: SCCP_Credit::Clone
+Dumping link to SCCP_Credit::Clone for SCCP_Credit
+Dumping interface notes for: SCCP_Address
+Dumping implementation notes for: SCCP_Address::SCCP_Address
+Dumping link to SCCP_Address::SCCP_Address for SCCP_Address
+Dumping implementation notes for: SCCP_Address::HasPointCode
+Dumping link to SCCP_Address::HasPointCode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::GetPointCode
+Dumping link to SCCP_Address::GetPointCode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetPointCode
+Dumping link to SCCP_Address::SetPointCode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetPointCode
+Dumping link to SCCP_Address::SetPointCode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::HasSSN
+Dumping link to SCCP_Address::HasSSN for SCCP_Address
+Dumping implementation notes for: SCCP_Address::GetSSN
+Dumping link to SCCP_Address::GetSSN for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetSSN
+Dumping link to SCCP_Address::SetSSN for SCCP_Address
+Dumping implementation notes for: SCCP_Address::IsRoutedByPCSSN
+Dumping link to SCCP_Address::IsRoutedByPCSSN for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetRouteByPCSSN
+Dumping link to SCCP_Address::SetRouteByPCSSN for SCCP_Address
+Dumping implementation notes for: SCCP_Address::IsInternationalRouting
+Dumping link to SCCP_Address::IsInternationalRouting for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetInternationalRouting
+Dumping link to SCCP_Address::SetInternationalRouting for SCCP_Address
+Dumping implementation notes for: SCCP_Address::HasGlobalTitle
+Dumping link to SCCP_Address::HasGlobalTitle for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetGlobalTitle
+Dumping link to SCCP_Address::SetGlobalTitle for SCCP_Address
+Dumping implementation notes for: SCCP_Address::SetGlobalTitle
+Dumping link to SCCP_Address::SetGlobalTitle for SCCP_Address
+Dumping implementation notes for: SCCP_Address::GetGlobalTitle
+Dumping link to SCCP_Address::GetGlobalTitle for SCCP_Address
+Dumping implementation notes for: SCCP_Address::GetGlobalTitle
+Dumping link to SCCP_Address::GetGlobalTitle for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Build
+Dumping link to SCCP_Address::Build for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Build
+Dumping link to SCCP_Address::Build for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Parse
+Dumping link to SCCP_Address::Parse for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Parse
+Dumping link to SCCP_Address::Parse for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Encode
+Dumping link to SCCP_Address::Encode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Decode
+Dumping link to SCCP_Address::Decode for SCCP_Address
+Dumping implementation notes for: SCCP_Address::Clone
+Dumping link to SCCP_Address::Clone for SCCP_Address
+Dumping interface notes for: SCCP_CalledPartyAddr
+Dumping implementation notes for: SCCP_CalledPartyAddr::SCCP_CalledPartyAddr
+Dumping link to SCCP_CalledPartyAddr::SCCP_CalledPartyAddr for SCCP_CalledPartyAddr
+Dumping interface notes for: SCCP_CallingPartyAddr
+Dumping implementation notes for: SCCP_CallingPartyAddr::SCCP_CallingPartyAddr
+Dumping link to SCCP_CallingPartyAddr::SCCP_CallingPartyAddr for SCCP_CallingPartyAddr
+Dumping implementation notes for: SCCP_CallingPartyAddr::operator=
+Dumping link to SCCP_CallingPartyAddr::operator= for SCCP_CallingPartyAddr
+Didn't match function  to any interface
+Choices were:
+sccp_ieclass sccp_refnum sccp_sourcelocalref sccp_destinationlocalref sccp_credit sccp_address sccp_calledpartyaddr sccp_callingpartyaddr 
+Dumping interface notes for: SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::SCCP_ProtocolClass
+Dumping link to SCCP_ProtocolClass::SCCP_ProtocolClass for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::SCCP_ProtocolClass
+Dumping link to SCCP_ProtocolClass::SCCP_ProtocolClass for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::HasProtocolClass
+Dumping link to SCCP_ProtocolClass::HasProtocolClass for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::GetProtocolClass
+Dumping link to SCCP_ProtocolClass::GetProtocolClass for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_Address::SetProtocolClass
+Dumping link to SCCP_Address::SetProtocolClass for SCCP_Address
+Dumping implementation notes for: SCCP_ProtocolClass::Encode
+Dumping link to SCCP_ProtocolClass::Encode for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::Decode
+Dumping link to SCCP_ProtocolClass::Decode for SCCP_ProtocolClass
+Dumping implementation notes for: SCCP_ProtocolClass::Clone
+Dumping link to SCCP_ProtocolClass::Clone for SCCP_ProtocolClass
+Dumping interface notes for: SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::SCCP_SegmentReassem
+Dumping link to SCCP_SegmentReassem::SCCP_SegmentReassem for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::SCCP_SegmentReassem
+Dumping link to SCCP_SegmentReassem::SCCP_SegmentReassem for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::HasSegmentReassem
+Dumping link to SCCP_SegmentReassem::HasSegmentReassem for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::GetSegmentReassem
+Dumping link to SCCP_SegmentReassem::GetSegmentReassem for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::SetSegmentReassem
+Dumping link to SCCP_SegmentReassem::SetSegmentReassem for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::Encode
+Dumping link to SCCP_SegmentReassem::Encode for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::Decode
+Dumping link to SCCP_SegmentReassem::Decode for SCCP_SegmentReassem
+Dumping implementation notes for: SCCP_SegmentReassem::Clone
+Dumping link to SCCP_SegmentReassem::Clone for SCCP_SegmentReassem
+Dumping interface notes for: SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::SCCP_SequenceSegment
+Dumping link to SCCP_SequenceSegment::SCCP_SequenceSegment for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::SCCP_SequenceSegment
+Dumping link to SCCP_SequenceSegment::SCCP_SequenceSegment for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::HasTransmitSequenceNumber
+Dumping link to SCCP_SequenceSegment::HasTransmitSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::GetTransmitSequenceNumber
+Dumping link to SCCP_SequenceSegment::GetTransmitSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::SetTransmitSequenceNumber
+Dumping link to SCCP_SequenceSegment::SetTransmitSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::HasReceiveSequenceNumber
+Dumping link to SCCP_SequenceSegment::HasReceiveSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::GetReceiveSequenceNumber
+Dumping link to SCCP_SequenceSegment::GetReceiveSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::SetReceiveSequenceNumber
+Dumping link to SCCP_SequenceSegment::SetReceiveSequenceNumber for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::HasHaveMore
+Dumping link to SCCP_SequenceSegment::HasHaveMore for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::GetHaveMore
+Dumping link to SCCP_SequenceSegment::GetHaveMore for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::SetHaveMore
+Dumping link to SCCP_SequenceSegment::SetHaveMore for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::Encode
+Dumping link to SCCP_SequenceSegment::Encode for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::Decode
+Dumping link to SCCP_SequenceSegment::Decode for SCCP_SequenceSegment
+Dumping implementation notes for: SCCP_SequenceSegment::Clone
+Dumping link to SCCP_SequenceSegment::Clone for SCCP_SequenceSegment
+Dumping interface notes for: SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::SCCP_ReceiveSequenceNum
+Dumping link to SCCP_ReceiveSequenceNum::SCCP_ReceiveSequenceNum for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::SCCP_ReceiveSequenceNum
+Dumping link to SCCP_ReceiveSequenceNum::SCCP_ReceiveSequenceNum for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::HasReceiveSequenceNumber
+Dumping link to SCCP_ReceiveSequenceNum::HasReceiveSequenceNumber for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::GetReceiveSequenceNumber
+Dumping link to SCCP_ReceiveSequenceNum::GetReceiveSequenceNumber for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNumber::SetReceiveSequenceNumber
+Dumping link to SCCP_ReceiveSequenceNumber::SetReceiveSequenceNumber for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::HasHaveMore
+Dumping link to SCCP_ReceiveSequenceNum::HasHaveMore for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::GetHaveMore
+Dumping link to SCCP_ReceiveSequenceNum::GetHaveMore for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::SetHaveMore
+Dumping link to SCCP_ReceiveSequenceNum::SetHaveMore for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNumber::Encode
+Dumping link to SCCP_ReceiveSequenceNumber::Encode for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::Decode
+Dumping link to SCCP_ReceiveSequenceNum::Decode for SCCP_ReceiveSequenceNum
+Dumping implementation notes for: SCCP_ReceiveSequenceNum::Clone
+Dumping link to SCCP_ReceiveSequenceNum::Clone for SCCP_ReceiveSequenceNum
+Dumping interface notes for: SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::SCCP_Cause
+Dumping link to SCCP_Cause::SCCP_Cause for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::SCCP_Cause
+Dumping link to SCCP_Cause::SCCP_Cause for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::HasCause
+Dumping link to SCCP_Cause::HasCause for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::GetCause
+Dumping link to SCCP_Cause::GetCause for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::SetCause
+Dumping link to SCCP_Cause::SetCause for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::Encode
+Dumping link to SCCP_Cause::Encode for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::Decode
+Dumping link to SCCP_Cause::Decode for SCCP_Cause
+Dumping implementation notes for: SCCP_Cause::Clone
+Dumping link to SCCP_Cause::Clone for SCCP_Cause
+Dumping interface notes for: SCCP_ReleaseCause
+Dumping implementation notes for: SCCP_ReleaseCause::SCCP_ReleaseCause
+Dumping link to SCCP_ReleaseCause::SCCP_ReleaseCause for SCCP_ReleaseCause
+Dumping implementation notes for: SCCP_ReleaseCause::SCCP_ReleaseCause
+Dumping link to SCCP_ReleaseCause::SCCP_ReleaseCause for SCCP_ReleaseCause
+Dumping interface notes for: SCCP_ReturnCause
+Dumping implementation notes for: SCCP_ReturnCause::SCCP_ReturnCause
+Dumping link to SCCP_ReturnCause::SCCP_ReturnCause for SCCP_ReturnCause
+Dumping implementation notes for: SCCP_ReturnCause::SCCP_ReturnCause
+Dumping link to SCCP_ReturnCause::SCCP_ReturnCause for SCCP_ReturnCause
+Dumping interface notes for: SCCP_ResetCause
+Dumping implementation notes for: SCCP_ResetCause::SCCP_ResetCause
+Dumping link to SCCP_ResetCause::SCCP_ResetCause for SCCP_ResetCause
+Dumping implementation notes for: SCCP_ReturnCause::SCCP_ResetCause
+Dumping link to SCCP_ReturnCause::SCCP_ResetCause for SCCP_ReturnCause
+Dumping interface notes for: SCCP_ErrorCause
+Dumping implementation notes for: SCCP_ErrorCause::SCCP_ErrorCause
+Dumping link to SCCP_ErrorCause::SCCP_ErrorCause for SCCP_ErrorCause
+Dumping implementation notes for: SCCP_ErrorCause::SCCP_ErrorCause
+Dumping link to SCCP_ErrorCause::SCCP_ErrorCause for SCCP_ErrorCause
+Dumping interface notes for: SCCP_RefusalCause
+Dumping implementation notes for: SCCP_RefusalCause::SCCP_RefusalCause
+Dumping link to SCCP_RefusalCause::SCCP_RefusalCause for SCCP_RefusalCause
+Dumping implementation notes for: SCCP_RefusalCause::SCCP_RefusalCause
+Dumping link to SCCP_RefusalCause::SCCP_RefusalCause for SCCP_RefusalCause
+Dumping interface notes for: SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::SCCP_UserData
+Dumping link to SCCP_UserData::SCCP_UserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::SCCP_UserData
+Dumping link to SCCP_UserData::SCCP_UserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::SCCP_UserData
+Dumping link to SCCP_UserData::SCCP_UserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::GetUserData
+Dumping link to SCCP_UserData::GetUserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::GetUserData
+Dumping link to SCCP_UserData::GetUserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::SetUserData
+Dumping link to SCCP_UserData::SetUserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::SetUserData
+Dumping link to SCCP_UserData::SetUserData for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::Encode
+Dumping link to SCCP_UserData::Encode for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::Decode
+Dumping link to SCCP_UserData::Decode for SCCP_UserData
+Dumping implementation notes for: SCCP_UserData::Clone
+Dumping link to SCCP_UserData::Clone for SCCP_UserData
+Dumping interface notes for: SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::SCCP_LongUserData
+Dumping link to SCCP_LongUserData::SCCP_LongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::SCCP_LongUserData
+Dumping link to SCCP_LongUserData::SCCP_LongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::SCCP_LongUserData
+Dumping link to SCCP_LongUserData::SCCP_LongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::GetLongUserData
+Dumping link to SCCP_LongUserData::GetLongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::GetLongUserData
+Dumping link to SCCP_LongUserData::GetLongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::SetLongUserData
+Dumping link to SCCP_LongUserData::SetLongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::SetLongUserData
+Dumping link to SCCP_LongUserData::SetLongUserData for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::Encode
+Dumping link to SCCP_LongUserData::Encode for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::Decode
+Dumping link to SCCP_LongUserData::Decode for SCCP_LongUserData
+Dumping implementation notes for: SCCP_LongUserData::Clone
+Dumping link to SCCP_LongUserData::Clone for SCCP_LongUserData
+Dumping interface notes for: SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::SCCP_HopCount
+Dumping link to SCCP_HopCount::SCCP_HopCount for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::SCCP_HopCount
+Dumping link to SCCP_HopCount::SCCP_HopCount for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::HasHopCount
+Dumping link to SCCP_HopCount::HasHopCount for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::GetHopCount
+Dumping link to SCCP_HopCount::GetHopCount for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::SetHopCount
+Dumping link to SCCP_HopCount::SetHopCount for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::Encode
+Dumping link to SCCP_HopCount::Encode for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::Decode
+Dumping link to SCCP_HopCount::Decode for SCCP_HopCount
+Dumping implementation notes for: SCCP_HopCount::Clone
+Dumping link to SCCP_HopCount::Clone for SCCP_HopCount
+Dumping interface notes for: SCCP_ConnectionRequest
+Dumping implementation notes for: SCCP_ConnectionRequest::AddIE
+Dumping link to SCCP_ConnectionRequest::AddIE for SCCP_ConnectionRequest
+Dumping interface notes for: SCCP_ConnectionConfirm
+Dumping interface notes for: SCCP_ConnectionRefused
+Dumping interface notes for: SCCP_Released
+Dumping interface notes for: SCCP_ReleaseComplete
+Dumping interface notes for: SCCP_DataForm1
+Dumping interface notes for: SCCP_DataForm2
+Dumping interface notes for: SCCP_Acknowledge
+Dumping interface notes for: SCCP_UnitData
+Dumping implementation notes for: SCCP_UnitData::AddIE
+Dumping link to SCCP_UnitData::AddIE for SCCP_UnitData
+Dumping interface notes for: SCCP_ExtendedUnitData
+Dumping implementation notes for: SCCP_ExtendedUnitData::AddIE
+Dumping link to SCCP_ExtendedUnitData::AddIE for SCCP_ExtendedUnitData
+Dumping interface notes for: SCCP_LongUnitData
+Dumping implementation notes for: SCCP_LongUnitData::AddIE
+Dumping link to SCCP_LongUnitData::AddIE for SCCP_LongUnitData
+Dumping interface notes for: SCCP_LongUnitDataService
+Dumping interface notes for: SCCP_UnitDataService
+Dumping implementation notes for: SCCP_UnitDataService::AddIE
+Dumping link to SCCP_UnitDataService::AddIE for SCCP_UnitDataService
+Dumping interface notes for: SCCP_ExtendedUnitDataService
+Dumping implementation notes for: SCCP_ExtendedUnitDataService::AddIE
+Dumping link to SCCP_ExtendedUnitDataService::AddIE for SCCP_ExtendedUnitDataService
+Dumping interface notes for: SCCP_ExpeditedData
+Dumping interface notes for: SCCP_ExpeditedDataAcknowledge
+Dumping interface notes for: SCCP_ResetRequest
+Dumping interface notes for: SCCP_ResetConfirm
+Dumping interface notes for: SCCP_Error
+Dumping interface notes for: SCCP_InactivityTest
+Generating for ../include/itu/sccp.h ./sccp.c
+Dumping interface notes for: SCCP
+Dumping implementation notes for: SCCP_PPrint
+Dumping link to SCCP_PPrint for SCCP
+Dumping implementation notes for: SCCP_SendConnectionRequest
+Dumping link to SCCP_SendConnectionRequest for SCCP
+Dumping implementation notes for: SCCP_ReceiveConnectionRequest
+Dumping link to SCCP_ReceiveConnectionRequest for SCCP
+Dumping implementation notes for: SCCP_SendConnectionConfirm
+Dumping link to SCCP_SendConnectionConfirm for SCCP
+Dumping implementation notes for: SCCP_ReceiveConnectionConfirm
+Dumping link to SCCP_ReceiveConnectionConfirm for SCCP
+Dumping implementation notes for: SCCP_SendConnectionRefused
+Dumping link to SCCP_SendConnectionRefused for SCCP
+Dumping implementation notes for: SCCP_ReceiveConnectionRefused
+Dumping link to SCCP_ReceiveConnectionRefused for SCCP
+Dumping implementation notes for: SCCP_SendReleased
+Dumping link to SCCP_SendReleased for SCCP
+Dumping implementation notes for: SCCP_ReceiveReleased
+Dumping link to SCCP_ReceiveReleased for SCCP
+Dumping implementation notes for: SCCP_SendReleaseComplete
+Dumping link to SCCP_SendReleaseComplete for SCCP
+Dumping implementation notes for: SCCP_ReceiveReleaseComplete
+Dumping link to SCCP_ReceiveReleaseComplete for SCCP
+Dumping implementation notes for: SCCP_SendDataForm1
+Dumping link to SCCP_SendDataForm1 for SCCP
+Dumping implementation notes for: SCCP_ReceiveDataForm1
+Dumping link to SCCP_ReceiveDataForm1 for SCCP
+Dumping implementation notes for: SCCP_SendDataForm2
+Dumping link to SCCP_SendDataForm2 for SCCP
+Dumping implementation notes for: SCCP_ReceiveDataForm2
+Dumping link to SCCP_ReceiveDataForm2 for SCCP
+Dumping implementation notes for: SCCP_SendAcknowledgement
+Dumping link to SCCP_SendAcknowledgement for SCCP
+Dumping implementation notes for: SCCP_ReceiveAcknowledgement
+Dumping link to SCCP_ReceiveAcknowledgement for SCCP
+Dumping implementation notes for: SCCP_SendUnitData
+Dumping link to SCCP_SendUnitData for SCCP
+Dumping implementation notes for: SCCP_ReceiveUnitData
+Dumping link to SCCP_ReceiveUnitData for SCCP
+Dumping implementation notes for: SCCP_SendExtendedUnitData
+Dumping link to SCCP_SendExtendedUnitData for SCCP
+Dumping implementation notes for: SCCP_ReceiveExtendedUnitData
+Dumping link to SCCP_ReceiveExtendedUnitData for SCCP
+Dumping implementation notes for: SCCP_SendUnitDataService
+Dumping link to SCCP_SendUnitDataService for SCCP
+Dumping implementation notes for: SCCP_ReceiveUnitDataService
+Dumping link to SCCP_ReceiveUnitDataService for SCCP
+Dumping implementation notes for: SCCP_SendExtendedUnitDataService
+Dumping link to SCCP_SendExtendedUnitDataService for SCCP
+Dumping implementation notes for: SCCP_ReceiveExtendedUnitDataService
+Dumping link to SCCP_ReceiveExtendedUnitDataService for SCCP
+Dumping implementation notes for: SCCP_SendExpeditedData
+Dumping link to SCCP_SendExpeditedData for SCCP
+Dumping implementation notes for: SCCP_ReceiveExpeditedData
+Dumping link to SCCP_ReceiveExpeditedData for SCCP
+Dumping implementation notes for: SCCP_SendExpeditedDataAck
+Dumping link to SCCP_SendExpeditedDataAck for SCCP
+Dumping implementation notes for: SCCP_ReceiveExpeditedDataAck
+Dumping link to SCCP_ReceiveExpeditedDataAck for SCCP
+Dumping implementation notes for: SCCP_SendResetRequest
+Dumping link to SCCP_SendResetRequest for SCCP
+Dumping implementation notes for: SCCP_ReceiveResetRequest
+Dumping link to SCCP_ReceiveResetRequest for SCCP
+Dumping implementation notes for: SCCP_SendResetConfirmation
+Dumping link to SCCP_SendResetConfirmation for SCCP
+Dumping implementation notes for: SCCP_ReceiveResetConfirmation
+Dumping link to SCCP_ReceiveResetConfirmation for SCCP
+Dumping implementation notes for: SCCP_SendError
+Dumping link to SCCP_SendError for SCCP
+Dumping implementation notes for: SCCP_ReceiveError
+Dumping link to SCCP_ReceiveError for SCCP
+Dumping implementation notes for: SCCP_SendInactivityTest
+Dumping link to SCCP_SendInactivityTest for SCCP
+Dumping implementation notes for: SCCP_ReceiveInactivityTest
+Dumping link to SCCP_ReceiveInactivityTest for SCCP
+Dumping implementation notes for: SCCP_SendLongUnitData
+Dumping link to SCCP_SendLongUnitData for SCCP
+Dumping implementation notes for: SCCP_ReceiveLongUnitData
+Dumping link to SCCP_ReceiveLongUnitData for SCCP
+Dumping implementation notes for: SCCP_SendLongUnitDataService
+Dumping link to SCCP_SendLongUnitDataService for SCCP
+Dumping implementation notes for: SCCP_ReceiveLongUnitDataService
+Dumping link to SCCP_ReceiveLongUnitDataService for SCCP

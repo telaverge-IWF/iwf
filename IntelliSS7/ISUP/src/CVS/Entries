@@ -1,0 +1,17 @@
+/.cvsignore/9.1/Wed Mar 23 12:52:01 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:52:01 2005//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/build.targets/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/gendoc.in/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/generate/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/isup.c/9.3/Tue Apr 22 11:15:10 2008//TB-IWF-HP-0400-00
+/isup.dsp/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/isup.dsw/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/isup_cmn.c/9.2/Mon Jan  9 06:17:23 2006//TB-IWF-HP-0400-00
+/isup_variants.c/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/isup_variants.dsp/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:52:02 2005//TB-IWF-HP-0400-00
+/tandem-var.ide/9.1/Wed Mar 23 12:52:02 2005/-kb/TB-IWF-HP-0400-00
+/tandema.ide/9.1/Wed Mar 23 12:52:02 2005/-kb/TB-IWF-HP-0400-00
+/tandemi.ide/9.1/Wed Mar 23 12:52:02 2005/-kb/TB-IWF-HP-0400-00
+D

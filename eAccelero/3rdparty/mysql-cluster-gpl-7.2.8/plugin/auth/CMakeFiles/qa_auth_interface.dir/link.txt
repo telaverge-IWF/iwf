@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -O2 -g -DNDEBUG -DDBUG_OFF   -shared -Wl,-soname,qa_auth_interface.so -o qa_auth_interface.so CMakeFiles/qa_auth_interface.dir/qa_auth_interface.c.o -lpthread ../../probes_mysql.o ../../libservices/libmysqlservices.a -lpthread 

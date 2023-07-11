@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC  -fno-implicit-templates -fno-exceptions -fno-rtti -O2 -g -DNDEBUG -DDBUG_OFF   -shared -Wl,-soname,ha_example.so -o ha_example.so CMakeFiles/example.dir/ha_example.cc.o -lpthread ../../probes_mysql.o ../../libservices/libmysqlservices.a -lpthread 

@@ -1,0 +1,134 @@
+About_SSLRef300.txt
+===================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Preface
+-------
+This document provides an overview of the SSLRef 3.0 package. It also
+describes how to quickly begin using SSLRef 3.0. The document contains
+these sections:
+
+  - What is SSLRef 3.0
+  - Getting Started with SSLRef 3.0
+  - SSLRef 3.0 License Restrictions
+  - Getting More Information About SSLRef 3.0
+
+
+What is SSLRef 3.0
+------------------
+SSLRef 3.0 is a reference implementation of the SSL (Secure Sockets
+Layer) protocol. It conforms to version 3.0 of the SSL specification
+available at:
+
+    <http://home.netscape.com/eng/ssl3/index.html>
+
+SSLRef 3.0 is intended to aid and accelerate developers' efforts to
+provide security within TCP/IP applications. It can also be used to
+qualify other version 3.0 implementations of the SSL protocol.
+
+SSLRef 3.0 consists of a software library distributed as ANSI C
+source-code that can be compiled on Windows 95/NT and on the Solaris
+platforms, and then linked into TCP/IP application programs. SSLRef
+3.0 also was designed to be easily portable to a wide variety of
+other platforms and operating systems.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com/>.
+
+
+Getting Started with SSLRef 3.0
+-------------------------------
+The SSLRef package contains many files describing various aspects of the
+implementation.  Fortunately not everyone must read every file. Rather,
+you can focus on the files that provide the information in which you are
+interested.
+
+You can find more information about the documentation files of SSLRef
+3.0 by reading About_Docs.txt.
+
+If you are an impatient programer and just want to see how the API
+looks, review
+
+  - ssl.h
+  - API_Details.pdf
+
+If you are adding SSL 3.0 support to an application on one of the
+directly supported platforms, you also should read
+
+  - Src_Files.txt
+  - API_Introduction.txt
+  - Build_Notes.txt
+  - Implementation_Notes.txt
+
+If you are adding SSL 3.0 support to an application currently using
+SSLRef 2.0, you should also read
+
+  - SSLRef_2_to_3.txt
+
+If you are adding SSL 3.0 support to an application on a platform not
+directly supported by SSLRef 3.0, you will have to port SSLRef to that
+platform. To learn about the few issues related to porting SSLRef to
+other platforms, read
+
+  - Porting_Notes.txt
+
+If you are developing your own implementation of the SSL 3.0 protocol,
+or find you want more specific information about how SSLRef 3.0 works,
+you may find useful information in
+
+  - Src_Internals.txt
+
+
+SSLRef 3.0 License Restrictions
+-------------------------------
+SSLRef 3.0 is free for non-commercial use. A version is available
+for a flat license fee by companies who want to use it in commercial
+products. If you have questions about commercial licensing of
+SSLRef, send email to <mailto:ssl@netscape.com>.
+
+Consensus Development also offers a fully-supported SSL library
+called "SSL Plus: SSL 3.0 Integration Suite". For more information
+see <http://www.consensus.com/SSLPlus/> or email
+<mailto:ssl@consensus.com>.
+
+
+Getting More Information About SSLRef 3.0
+-----------------------------------------
+If you have questions about this implementation, have bug fixes,
+enhancements, or changes to help make it more portable, we are
+interested! Send email to <mailto:ssl-talk@netscape.com>.
+
+You can subscribe to the SSL-Talk discussion list by sending email
+to <mailto:ssl-talk-request@netscape.com> and putting the word
+"subscribe" in the **SUBJECT** line. To unsubscribe, send email to
+<mailto:ssl-talk-request@netscape.com> and put the word
+"unsubscribe" in the **SUBJECT** line.
+
+The Frequently Asked Questions (FAQ) for the SSL-Talk discussion
+list is also available in the /doc directory. An updated text
+version of the FAQ is posted periodically on to the SSL-Talk
+discussion list, and is also available at
+    <http://www.consensus.com/security/ssl-talk-faq.txt>
+    <ftp://ftp.consensus.com/pub/security/ssl-talk-faq.txt>
+
+An HTML version of the most current version of the SSL-Talk FAQ
+is available at
+    <http://www.consensus.com/security/ssl-talk-faq.html>.
+
+The FAQ for SSLRef is part of the SSL-Talk FAQ, and is available
+at
+    <http://www.consensus.com/security/ssl-talk-sec07.html#7.1>
+
+You can find additional related information at the Internet
+locations listed in Useful_Links.txt.

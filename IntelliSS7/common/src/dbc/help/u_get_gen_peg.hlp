@@ -1,0 +1,102 @@
+M3UA / SUA Command
+
+SYNOPSIS
+    u_get_gen_peg <trid> <pegid>
+
+DESCRIPTION
+    This command displays peg count for given transport id and peg type.
+
+PARAMETERS
+     trid       - transport id
+     peg Id     - The peg id to get the value
+                  ALL/all for All M3UA/SUA PEGS Values
+
+    Different UAL peg types and corresponding values are given below -
+
+    Peg Type                   Peg ID
+    ---------------------------------
+    UAL_PEG_UP_SENT_ID           0
+    UAL_PEG_UP_RECV_ID           1
+    UAL_PEG_UPACK_SENT_ID        2
+    UAL_PEG_UPACK_RECV_ID        3
+    UAL_PEG_DN_SENT_ID           4
+    UAL_PEG_DN_RECV_ID           5
+    UAL_PEG_DNACK_SENT_ID        6
+    UAL_PEG_DNACK_RECV_ID        7
+    UAL_PEG_AC_SENT_ID           8
+    UAL_PEG_AC_RECV_ID           9
+    UAL_PEG_ACACK_SENT_ID        10
+    UAL_PEG_ACACK_RECV_ID        11 
+    UAL_PEG_IA_SENT_ID           12 
+    UAL_PEG_IA_RECV_ID           13 
+    UAL_PEG_IAACK_SENT_ID        14 
+    UAL_PEG_IAACK_RECV_ID        15 
+    UAL_PEG_NOTIFY_SENT_ID       16 
+    UAL_PEG_NOTIFY_RECV_ID       17 
+    UAL_PEG_REG_REQ_SENT_ID      18
+    UAL_PEG_REG_REQ_RECV_ID      19
+    UAL_PEG_REG_RSP_SENT_ID      20
+    UAL_PEG_REG_RSP_RECV_ID      21
+    UAL_PEG_DEREG_REQ_SENT_ID    22
+    UAL_PEG_DEREG_REQ_RECV_ID    23
+    UAL_PEG_DEREG_RSP_SENT_ID    24
+    UAL_PEG_DEREG_RSP_RECV_ID    25
+    UAL_PEG_DAUD_ID              26 
+    UAL_PEG_DAVA_ID              27 
+    UAL_PEG_DUNA_ID              28 
+    UAL_PEG_DUPU_ID              29 
+    UAL_PEG_DRST_ID              30 
+    UAL_PEG_DATA_SENT_ID         31 
+    UAL_PEG_DATA_RECV_ID         32 
+    UAL_PEG_ERR_SENT_ID          33 
+    UAL_PEG_ERR_RECV_ID          34 
+    UAL_PEG_SCON_SENT_ID         35 
+    UAL_PEG_SCON_RECV_ID         36 
+
+EXAMPLE
+    >> u_get_gen_peg 0x4e22 2
+
+    value of peg id 2 is 1
+
+   >> u_get_gen_peg  0x4e22 all 
+
+    **************** M3UA/SUA Pegs ****************
+  
+    UAL_PEG_UP_SENT_ID           :0 
+    UAL_PEG_UP_RECV_ID           :0 
+    UAL_PEG_UPACK_SENT_ID        :0 
+    UAL_PEG_UPACK_RECV_ID        :0 
+    UAL_PEG_DN_SENT_ID           :0 
+    UAL_PEG_DN_RECV_ID           :0 
+    UAL_PEG_DNACK_SENT_ID        :0 
+    UAL_PEG_DNACK_RECV_ID        :0 
+    UAL_PEG_AC_SENT_ID           :0 
+    UAL_PEG_AC_RECV_ID           :0 
+    UAL_PEG_ACACK_SENT_ID        :0 
+    UAL_PEG_ACACK_RECV_ID        :0 
+    UAL_PEG_IA_SENT_ID           :0 
+    UAL_PEG_IA_RECV_ID           :0 
+    UAL_PEG_IAACK_SENT_ID        :0 
+    UAL_PEG_IAACK_RECV_ID        :0 
+    UAL_PEG_NOTIFY_SENT_ID       :0 
+    UAL_PEG_NOTIFY_RECV_ID       :0 
+    UAL_PEG_REG_REQ_SENT_ID      :0 
+    UAL_PEG_REG_REQ_RECV_ID      :0 
+    UAL_PEG_REG_RSP_SENT_ID      :0 
+    UAL_PEG_REG_RSP_RECV_ID      :0 
+    UAL_PEG_DEREG_REQ_SENT_ID    :0 
+    UAL_PEG_DEREG_REQ_RECV_ID    :0 
+    UAL_PEG_DEREG_RSP_SENT_ID    :0 
+    UAL_PEG_DEREG_RSP_RECV_ID    :0 
+    UAL_PEG_DAUD_ID              :0 
+    UAL_PEG_DAVA_ID              :0 
+    UAL_PEG_DUNA_ID              :0 
+    UAL_PEG_DUPU_ID              :0 
+    UAL_PEG_DRST_ID              :0 
+    UAL_PEG_DATA_SENT_ID         :0 
+    UAL_PEG_DATA_RECV_ID         :0 
+    UAL_PEG_ERR_SENT_ID          :0 
+    UAL_PEG_ERR_RECV_ID          :0 
+    UAL_PEG_SCON_SENT_ID         :0 
+    UAL_PEG_SCON_RECV_ID         :0 
+

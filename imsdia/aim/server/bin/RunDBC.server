@@ -1,0 +1,12 @@
+#! /bin/bash
+#
+# Set this to particular user home dir
+###############################################################################
+export DLL_LIBS=$ITS_ROOT/common/lib
+
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$DLL_LIBS
+
+$ITS_ROOT/common/bin/DBGConsoleD -socket -configFile dbc_console.ini.server 
+
+exit 0
+

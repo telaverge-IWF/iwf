@@ -1,0 +1,683 @@
+<HTML>
+<HEAD>
+<CENTER>
+<H2><BIG>IntelliSS7</BIG> <B>Application Developer's Toolkit</B></H2>
+</CENTER>
+<BR>
+</HEAD>
+<BODY>
+
+<TABLE ALIGN=JUSTIFY WIDTH=100% BGCOLOR=SILVER>
+<TR>
+    <TD ALIGN=LEFT><B>IntelliSS7 Interfaces</B></TD>
+    <TD ALIGN=RIGHT><B>INAP Library</B></TD>
+</TR>
+</TABLE>
+<BR>
+<B>INTERFACE</B>
+<PRE>
+        INAP_*
+    
+</PRE>
+<B>PURPOSE</B>
+<PRE>
+        This interface defines the user's C programming model for the
+        Intelligent Network Application Part (INAP). 
+        It defines the intelligent network application protocol for the 
+        support of the capabilities required by the CS-1 target services over 
+        the CS-1 interfaces (SSF-SCF, SCF-SDF and SCF-SRF) as defined in 
+        Recommendation Q.1211. 
+    
+        It corresponds to the specifications detailed below:
+           Intelligent Network
+           Interface Recommendation for Intelligent Network
+           Capabilities Set 1 (CS-1)
+             ITU-T Recommendation Q.1218 (Issue: 10/95)
+    
+</PRE>
+<B>USAGE</B>
+<PRE>
+        
+
+</PRE>
+<HR>
+
+
+<A NAME=#topLocation></A><TABLE ALIGN=JUSTIFY WIDTH=100% BGCOLOR=SILVER>
+<TR>
+    <TD ALIGN=LEFT><B>IntelliSS7 Interfaces</B></TD>
+    <TD ALIGN=RIGHT><B>INAP Library</B></TD>
+</TR>
+</TABLE>
+<BR>
+Functions in this interface:
+<BR>
+<TABLE WIDTH=100% BORDER=0>
+<TR><PRE>
+    int
+    <A HREF=INAP-0.html>INAP_SendCallInformationRequest(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                    TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-1.html>INAP_DecodeCallInformationRequest(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-2.html>INAP_SendCallInformationReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                   TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-3.html>INAP_DecodeCallInformationReport(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-4.html>INAP_SendEventReportBCSM(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                             TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-5.html>INAP_DecodeEventReportBCSM(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-6.html>INAP_SendInitialDP(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                       TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-7.html>INAP_DecodeInitialDP(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-8.html>INAP_SendServiceFilteringResponse(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-9.html>INAP_DecodeServiceFilteringResponse(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-10.html>INAP_SendApplyChargingRequest(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-11.html>INAP_DecodeApplyChargingRequest(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-12.html>INAP_SendApplyChargingReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                 TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-13.html>INAP_DecodeApplyChargingReport(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-14.html>INAP_SendActivateServiceFiltering(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                     TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-15.html>INAP_DecodeActivateServiceFiltering(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                       void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-16.html>INAP_SendActivityTest(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                         TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-17.html>INAP_DecodeActivityTest(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-18.html>INAP_SendCallGap(ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt, void *data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-19.html>INAP_DecodeCallGap(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-20.html>INAP_SendCancel(ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt, void *data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-21.html>INAP_DecodeCancel(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-22.html>INAP_SendConnect(ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt, void *data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-23.html>INAP_DecodeConnect(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-24.html>INAP_SendContinue(ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt, void *data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-25.html>INAP_DecodeContinue(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-26.html>INAP_SendDisconnectForwardConnection(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                        TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-27.html>INAP_DecodeDisconnectForwardConnection(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                          void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-28.html>INAP_SendEstablishTemporaryConnection(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                         TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-29.html>INAP_DecodeEstablishTemporaryConnection(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                           void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-30.html>INAP_SendFurnishChargingInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                       TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-31.html>INAP_DecodeFurnishChargingInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-32.html>INAP_SendReleaseCall(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                        TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-33.html>INAP_DecodeReleaseCall(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-34.html>INAP_SendRequestReportBCSMEvent(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                   TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-35.html>INAP_DecodeRequestReportBCSMEvent(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-36.html>INAP_SendResetTimer(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                       TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-37.html>INAP_DecodeResetTimer(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-38.html>INAP_SendConnectToResource(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                              TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-39.html>INAP_DecodeConnectToResource(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-40.html>INAP_SendPromptAndCollectUserInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                            TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-41.html>INAP_DecodePromptAndCollectUserInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                              void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-42.html>INAP_SendReceivedInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-43.html>INAP_DecodeReceivedInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                  void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-44.html>INAP_SendPlayAnnouncement(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                             TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-45.html>INAP_DecodePlayAnnouncement(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-46.html>INAP_SendAssistRequestInstructions(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-47.html>INAP_DecodeAssistRequestInstructions(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                       void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-48.html>INAP_SendSpecializedResourceReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-49.html>INAP_DecodeSpecializedResourceReport(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-50.html>INAP_SendInitiateCallAttempt(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-51.html>INAP_DecodeInitiateCallAttempt(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-52.html>INAP_SendSendChargingInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                    TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-53.html>INAP_DecodeSendChargingInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                      void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-54.html>INAP_SendCollectInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                               TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-55.html>INAP_DecodeCollectInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                 void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-56.html>INAP_SendAnalyseInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                               TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-57.html>INAP_DecodeAnalyseInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                 void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-58.html>INAP_SendEventNotificationCharging(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-59.html>INAP_DecodeEventNotificationCharging(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-60.html>INAP_SendRequestCurrentStatusReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                       TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-61.html>INAP_DecodeRequestCurrentStatusReport(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                         void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-62.html>INAP_SendRequestCurrentStatusReportResult(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                              TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-63.html>INAP_DecodeRequestCurrentStatusReportResult(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                                void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-64.html>INAP_SendRequestEveryStatusChangeReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                           TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-65.html>INAP_DecodeRequestEveryStatusChangeReport(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                             void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-66.html>INAP_SendRequestFirstStatusMatchReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                          TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-67.html>INAP_DecodeRequestFirstStatusMatchReport(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                            void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-68.html>INAP_SendRequestNotificationChargingEvent(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                             TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-69.html>INAP_DecodeRequestNotificationChargingEvent(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                               void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-70.html>INAP_SendSelectFacility(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                               TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-71.html>INAP_DecodeSelectFacility(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-72.html>INAP_SendStatusReport(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                             TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-73.html>INAP_DecodeStatusReport(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-74.html>INAP_SendCancelStatusReportRequest(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-75.html>INAP_DecodeCancelStatusReportRequest(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-76.html>INAP_SendRouteSelectFailure(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                               TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-77.html>INAP_DecodeRouteSelectFailure(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                 void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-78.html>INAP_SendOCalledPartyBusy(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                             TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-79.html>INAP_DecodeOCalledPartyBusy(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                               void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-80.html>INAP_SendONoAnswer(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-81.html>INAP_DecodeONoAnswer(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-82.html>INAP_SendOAnswer(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                    TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-83.html>INAP_DecodeOAnswer(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                      void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-84.html>INAP_SendODisconnect(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                        TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-85.html>INAP_DecodeODisconnect(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                          void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-86.html>INAP_SendOTermAttempAuthorized(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                  TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-87.html>INAP_DecodeOTermAttempAuthorized(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                    void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-88.html>INAP_SendTBusy(ITS_HANDLE handle, ITS_HDR *hdr, TCAP_CPT *cpt, void *data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-89.html>INAP_DecodeTBusy(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-90.html>INAP_SendTNoAnswer(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                      TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-91.html>INAP_DecodeTNoAnswer(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                        void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-92.html>INAP_SendTAnswer(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                    TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-93.html>INAP_DecodeTAnswer(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-94.html>INAP_SendTDisconnect(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                        TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-95.html>INAP_DecodeTDisconnect(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-96.html>INAP_SendOMidCall(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                     TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-97.html>INAP_DecodeOMidCall(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-98.html>INAP_SendTMidCall(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                     TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-99.html>INAP_DecodeTMidCall(ITS_HANDLE handle, TCAP_CPT *cpt, void **data)</A>;
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-100.html>INAP_SendHoldCallInNetwork(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                              TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-101.html>INAP_DecodeHoldCallInNetwork(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-102.html>INAP_SendOriginationAttemptAuthorized(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                         TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-103.html>INAP_DecodeOriginationAttemptAuthorized(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                           void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-104.html>INAP_SendCollectedInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                 TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-105.html>INAP_DecodeCollectedInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                   void **data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-106.html>INAP_SendAnalysedInformation(ITS_HANDLE handle, ITS_HDR *hdr,</A>
+                                TCAP_CPT *cpt, void *data);
+
+</PRE></TR>
+<TR><PRE>
+    int
+    <A HREF=INAP-107.html>INAP_DecodeAnalysedInformation(ITS_HANDLE handle, TCAP_CPT *cpt,</A>
+                                   void **data);
+
+</PRE></TR>
+</TABLE>
+<BR>
+<BR>
+<CENTER>
+<A HREF=inap_index.html>back</A>
+<BR>
+</CENTER>
+</BODY>
+</HTML>

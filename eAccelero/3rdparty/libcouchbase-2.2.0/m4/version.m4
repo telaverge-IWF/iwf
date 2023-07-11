@@ -1,0 +1,2 @@
+m4_define([VERSION_NUMBER], [2.2.0])
+m4_define([GIT_CHANGESET],[22b90b7f5f9ceffe8e00222bd08361b4c457ab66])

@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    disProxyInfoAvp <realmName>
+
+DESCRIPTION
+    This command disables proxy info AVP.
+
+PARAMETERS
+    realmName     Realm Name.
+
+EXAMPLE
+    >> disProxyInfoAvp india.internal.net
+
+       Successfully Proxy Info AVP Disabled

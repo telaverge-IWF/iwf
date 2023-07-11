@@ -1,0 +1,173 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+
+DIRLIST="bin config lib" 
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+IMS_VER=$1
+
+if [ "$IMS_VER" = "" ]
+then
+   echo Please enter the release version number.
+   echo Ex. make install_dist_srv_nrd IMS_VER=3.2.0
+   exit 0
+fi
+
+echo "InstallDir is ./InstallDir  ";
+RELEASE_DIR=$IMS_ROOT/../InstallDir
+RELEASE_IMSROOT=$RELEASE_DIR/IDS-$IMS_VER
+
+RELEASE_BIN_DIR=$RELEASE_IMSROOT/bin
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_LIB_DIR=$RELEASE_IMSROOT/lib
+RELEASE_MIBS_DIR=$RELEASE_IMSROOT/mibs
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+
+mkdir -p $RELEASE_BIN_DIR
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_MIBS_DIR
+
+echo "Created the directory structure"
+
+for i in $DIRLIST
+do
+   #
+   # Copying library files.
+   #
+   if [ "$i" = "lib" ]
+   then
+     cp -r $IMS_ROOT/api/c++/lib/libbaseapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/aim/server/lib/libDiaServer$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/aim/server/lib/libDiaServert$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/dframe/lib/libITSDFrame$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/libdiastack$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/libdiastackt$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/dcca/lib/libdccacore$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -p $ITS_ROOT/common/lib/libDRIVER++*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libENGINE*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDISPATCH++*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-STUB*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+     ###### Copy OAM Libraries #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/lib/libsubagent.so $RELEASE_LIB_DIR
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/server/lib/libDiaOAMServerD.so $RELEASE_LIB_DIR
+
+     ###### Copy OAM Binary #######     
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/bin/subagent $RELEASE_BIN_DIR
+     echo "Copied subagent"
+     sleep 5
+     cp -r $SNMP_ROOT/agent/.libs/snmpd $RELEASE_BIN_DIR
+
+     ###### Copy snmpd.conf #######
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/config/snmpd.conf $RELEASE_CFG_DIR
+
+     ###### Copy mibs & related *.txt files ######
+     cp -r $SNMP_ROOT/mibs/*.txt        $RELEASE_MIBS_DIR
+     cp -r $IMS_ROOT/vendors/IntelliNet/oam/subagent/mibs/DIA-MIB.mib $RELEASE_MIBS_DIR
+
+     ###### SNMP Libraries ######
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpmibs.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/.libs/libnetsnmpagent.so.15.1.2        $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/agent/helpers/.libs/libnetsnmphelpers.so.15.1.2   $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/apps/.libs/libnetsnmptrapd.so.15.1.2         $RELEASE_LIB_DIR
+     cp -r $SNMP_ROOT/snmplib/.libs/libnetsnmp.so.15.1.2           $RELEASE_LIB_DIR
+
+    if [ $SDK != "windriver" ]
+    then
+     if [ $PLATFORM = "linux" ]
+     then
+         cp -r $LKSCTP_ROOT/src/lib/.libs/libsctp.so.1.0.6 $RELEASE_LIB_DIR
+         cd $RELEASE_LIB_DIR
+         ln -s libsctp.so.1.0.6 libsctp.so.1
+         ln -s libsctp.so.1.0.6 libsctp.so
+         cd -
+     fi
+    fi
+
+     cd $RELEASE_LIB_DIR
+
+#### IntelliNet TLS wrapper lib
+     cp -p $ITS_ROOT/tls/lib/libITS-TLS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+OS=`uname`
+if [ $OS = "Linux" ]
+then
+#### Gnutls related libraries
+     cp -p $GNUTLS_ROOT/lib/.libs/libgnutls.so.11   $RELEASE_LIB_DIR
+     cp -p $GCRYPT_ROOT/src/.libs/libgcrypt.so.11   $RELEASE_LIB_DIR
+     cp -p $GPGERR_ROOT/src/.libs/libgpg-error.so.0 $RELEASE_LIB_DIR
+     cp -p $GNUTLS_ROOT/src/.libs/certtool          $RELEASE_IMSROOT/bin
+     cp -p $OPENSSL_ROOT/libssl.a                   $RELEASE_LIB_DIR
+fi
+
+     cd ../../..
+     echo "Copied libraries"
+   fi
+
+   # 
+   # Copy binary. 
+   #
+   if [ "$i" = "bin" ]
+   then
+       cp -p $IMS_ROOT/aim/server/bin/DiaServer$DBGSUFFIX $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/aim/server/bin/DiaServert$DBGSUFFIX $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/Run.Server* $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdiaserver1.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdiaserver2.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsIDS1.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsIDS2.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdia-config-sample.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/monitor/src/DIAMon $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/RunDBC.server $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/dbc_console.ini.server $RELEASE_BIN_DIR;
+       cp -p $ITS_ROOT/common/bin/DBGConsoleD $RELEASE_BIN_DIR;
+       rm $RELEASE_IMSROOT/bin/gcs*
+   fi
+
+   #
+   # Copy config files.
+   #
+   if [ "$i" = "config" ]
+   then
+       cp -p $IMS_ROOT/monitor/src/DIAMon.xml $RELEASE_CFG_DIR;
+       echo "Copied config files"
+   fi
+
+find $RELEASE_IMSROOT -name  core.* -print | xargs /bin/rm -rf
+
+done

@@ -1,0 +1,43 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "InterfaceStatistics";
+
+import "Common.proto";
+
+message InterfaceStats
+{
+    optional string InterfaceName = 1;
+    optional uint64 CommandCode   = 2;
+    optional uint64 ReqIn         = 3;
+    optional uint64 ReqOut        = 4;
+    optional uint64 RespIn        = 5;
+    optional uint64 RespOut       = 6;
+    optional uint64 ErrorMsgs     = 7;
+    optional uint64 InvalidMsgs   = 8;
+}
+
+message InterfaceStatsReq
+{
+    required fixed32 RequestID    = 1;
+    repeated string InterfaceName = 2;
+}
+
+message InterfaceStatsResp
+{
+    required fixed32 ResponseID        = 1;
+    repeated InterfaceStats Stats      = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message ResetInterfaceStatsResp
+{
+    required fixed32 ResponseID        = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+%PB}
+
+interface InterfaceStat
+{
+    FetchInterfaceStats(InterfaceStatsReq Req, InterfaceStatsResp Resp)uses_PB;
+    ResetInterfaceStats(InterfaceStatsReq Req, ResetInterfaceStatsResp Resp)uses_PB;
+}

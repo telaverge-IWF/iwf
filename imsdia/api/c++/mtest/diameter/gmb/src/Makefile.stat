@@ -1,0 +1,99 @@
+############################################################################
+#                                                                          #
+#     Copyright 2011 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+# FILE: Makefile                                                           #
+#                                                                          #
+############################################################################
+# ID: $Id: Makefile.stat,v 1.1 2011/06/14 05:25:38 vkumara Exp $
+# LOG:
+# ID: $Id: Makefile.stat,v 1.1 2011/06/14 05:25:38 vkumara Exp $
+############################################################################
+#ident "$Id: Makefile.stat,v 1.1 2011/06/14 05:25:38 vkumara Exp $"
+
+#
+# Include the standard definitions
+#
+include $(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) $(ITS_DEFINES) 
+
+INCLS:=$(INCLS) $(ITS_INCLS) \
+        -I../include \
+        -I../../app_stat/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I$(IMS_ROOT)/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(HOME)/api/include \
+        -I$(IMS_ROOT)/common/include \
+        -I$(IMS_ROOT)/dframe/include \
+        -I$(IMS_ROOT)/vendors/IntelliNet/include
+         
+OBJS:= AATest.o ReAuthTest.o SessionTerminationTest.o \
+       AbortSessionTest.o  \
+       sample_gmb.o gmb_stats.o
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+	-lgmbapi$(DBGSUFFIX) \
+	-lnasreqapi$(DBGSUFFIX) \
+	-leapapi$(DBGSUFFIX) 
+
+ifeq ($(PLATFORM),solaris)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX) 
+endif
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -lstatdiaapp$(DBGSUFFIX) 
+endif
+ifeq ($(PLATFORM),linux)
+LIBS_OS:=-ldiastack$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -lstatdiaapp$(DBGSUFFIX) 
+endif
+
+LIBS:=-L$(ITS_ROOT)/common/lib \
+      -L$(IMS_ROOT)/lib \
+      -L../../app_stat/lib \
+      -L$(IMS_ROOT)/apps/lib \
+      -L$(HOME)/lib \
+      -L$(IMS_ROOT)/api/c++/lib \
+      -L$(IMS_ROOT)/dframe/lib \
+      -L$(IMS_ROOT)/vendors/IntelliNet/lib \
+      -lENGINE$(DBGSUFFIX) \
+      -lDRIVER++$(DBGSUFFIX) \
+      $(LIBS_OS)
+
+all: ../bin/sampleGmbApp$(DBGSUFFIX) 
+
+clean:
+	rm -f $(OBJS) $(APP_OBJS) \
+      	../bin/sampleGmbApp$(DBGSUFFIX) 
+
+../bin/sampleGmbApp$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) \
+        $(SOCKLIBS) $(THREADLIBS) $(SYSLIBS) $(LIBS) $(DNSLIB_S) 

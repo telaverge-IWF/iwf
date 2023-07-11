@@ -1,0 +1,19 @@
+/engine.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/isup_cmn.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/isup_sn.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/its.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/its_consts.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/its_mem_pool.h/9.1/Wed Mar 23 12:55:20 2005//TB-IWF-HP-0400-00
+/its_object.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/its_ss7_trans.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/its_types.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/mtp2_cmn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/mtp2_sn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/mtp3_cmn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/mtp3_sn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/sccp_cmn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/sccp_sn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/tcap_cmn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+/tcap_sn.h/9.1/Wed Mar 23 12:55:21 2005//TB-IWF-HP-0400-00
+D/ansi////
+D/itu////

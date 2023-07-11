@@ -1,0 +1,95 @@
+#!/bin/bash
+INSTALL_ROOT=`pwd`
+uuencode=1
+binary=0
+PRODUCT=iwf
+SIZE_OF_IWF=1479036
+
+
+#validation of available disk sapce, if it is sufficent for installation 
+function validation_for_target_machine_space()
+{
+    if [ $SIZE_OF_IWF ];then
+        spaceAvailIndex=`df -k|grep '\/$'| tr -s " " |wc -w`
+	spaceInfo=`df -k | grep '\/$' | tr -s " "`
+
+    #columns count check
+	if [ $spaceAvailIndex -eq 5 ];then
+            targetDiskAvailSpace=`echo $spaceInfo | cut -d " " -f3`
+	elif [ $spaceAvailIndex -eq 6 ];then
+            targetDiskAvailSpace=`echo $spaceInfo | cut -d " " -f4`
+	fi
+
+        requiredDiskSpace=`expr $SIZE_OF_IWF + 204800` # 200MB margin
+
+        if [ $requiredDiskSpace -gt $targetDiskAvailSpace ];then
+            neededSpace=`expr $requiredDiskSpace - $targetDiskAvailSpace`
+            neededSpace=`expr $neededSpace / 1024`
+            neededSpace=`echo $neededSpace | tr -d "-"`
+            echo 
+            echo "Not Enough Space, Require $neededSpace MB more!"
+            echo 
+            exit 1
+        fi
+    fi
+}
+
+function clean_up()
+{
+    cd $INSTALL_ROOT
+    rm -rf .${PRODUCT}_tmp
+    exit 
+
+}
+
+trap clean_up SIGHUP SIGINT SIGTERM
+
+function extract_payload()
+{
+	match=$(grep --text --line-number '^PAYLOAD:$' $0 | cut -d ':' -f 1)
+	payload_start=$((match + 1))
+		tail -n +$payload_start $0 | tar -xzf - 2>/dev/null
+}
+
+if [ `id -u` -ne 0 ]; then
+    echo "Run as root"
+    exit 1
+fi
+
+if [ "$SHELL" != "/bin/bash" ];then
+    echo "Current shell is not set to bash!"
+    echo "Use bash!"
+    exit 1
+fi
+
+validation_for_target_machine_space
+extract_payload
+touch /etc/${PRODUCT}.cfg
+# Do remainder of install steps.
+cd $INSTALL_ROOT/.${PRODUCT}_tmp
+
+#while [ $# -gt 0 ]
+#do
+#    TMP="$1"
+#    ARGS="$ARGS $TMP"
+#    shift
+#done
+
+./install_dre.sh "$@"
+if [ $? -eq 0 ];then
+    cd $INSTALL_ROOT
+    #copy the binary for backup and restore purposes
+    cp $0 /opt/diametriq/${PRODUCT}/.syscfg
+    if [ $# -eq 2 ] && [ "$1" == "--configFile" ];then
+        cp $2 /opt/diametriq/${PRODUCT}/.syscfg
+    fi
+fi
+
+cd $INSTALL_ROOT
+rm -rf .${PRODUCT}_tmp/
+#finally reload the bash shell (this is done to execute scripts
+#in /etc/profile.d/ 
+#exec bash
+
+exit 0
+

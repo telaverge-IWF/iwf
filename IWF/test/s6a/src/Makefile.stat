@@ -1,0 +1,203 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+############################################################################
+# FILE: Makefile                                                           
+# LOG: $Log: Makefile.stat,v $
+# LOG: Revision 1.1.2.1  2013/02/08 10:52:30  jvikas
+# LOG: Diameter Simulator Changes for IWF
+# LOG:
+# LOG: Revision 1.1.2.2  2013/02/06 14:45:46  jvikas
+# LOG: S6a Simulator Code from 300 Branch.
+# LOG:
+# LOG: Revision 1.1.2.1  2013/01/28 11:31:38  pramana
+# LOG: Initial check-in for simulator code
+# LOG:
+# LOG: Revision 1.1.2.2.2.5  2012/12/20 18:39:15  rsanjay
+# LOG: Dictionary name changes
+# LOG:
+# LOG: Revision 1.1.2.2.2.4  2012/11/20 12:43:59  pramana
+# LOG: *** empty log message ***
+# LOG:
+# LOG: Revision 1.1.2.2.2.2.22.1  2012/11/20 04:40:06  pramana
+# LOG: merged from 00 branch
+# LOG:
+# LOG: Revision 1.1.2.2.2.3  2012/11/07 07:23:41  pramana
+# LOG: Fixed linking issue by adding ITS-TLS library path in Makefiles
+# LOG:
+# LOG: Revision 1.1.2.2.2.2  2012/09/06 11:23:51  jvikas
+# LOG: DTF Branch merge to B-DRE-0212-00 - Sept6.
+# LOG:
+# LOG: Merging the test application fixes and TLS support for test tools.
+# LOG:
+# LOG: Revision 1.1.2.4  2012/07/25 04:42:35  ksalil
+# LOG: *** empty log message ***
+# LOG:
+# LOG: Revision 1.1.2.3  2012/07/24 03:34:42  ksalil
+# LOG: *** empty log message ***
+# LOG:
+# LOG: Revision 1.1.2.2.4.2  2012/08/27 09:41:28  jvikas
+# LOG: Linking Issue fixed for Json and Updated XML.
+# LOG:
+# LOG: Revision 1.1.2.2.4.1  2012/08/22 13:03:27  jvikas
+# LOG: Fixed Linking and Compilation Issues. Included Transformation in the XML.
+# LOG:
+# LOG: Revision 1.1.2.2  2012/07/09 10:42:06  pramana
+# LOG: Changes done for test code for release 10
+# LOG:
+# LOG: Revision 1.1.2.1  2012/07/09 08:53:44  pramana
+# LOG: New test code added for S6a, S13 for Release 10 support (Bug 48).
+# LOG:
+# LOG: Revision 1.8  2011/03/23 03:42:50  mdinesh
+# LOG: DNS LIB Included
+# LOG:
+# LOG: Revision 1.7  2010/10/01 04:50:27  vkumara
+# LOG: libdias6aappD path included in Makefiles
+# LOG:
+# LOG: Revision 1.6  2010/09/28 06:05:39  nvijikumar
+# LOG: Using dynamic libs instead of static objs to avoid issue libstlport4 opt
+# LOG:
+# LOG: Revision 1.5  2010/07/07 08:28:23  nvijikumar
+# LOG: TCS compilation flags support
+# LOG:
+# LOG: Revision 1.4  2008/11/12 05:45:19  sureshj
+# LOG: Added new commands PUR/PUA, DSR/DSA, IDR/IDA. part of release 3.1.1.
+# LOG:
+# LOG: Revision 1.3  2008/09/12 13:43:32  gdalawai
+# LOG: Added TLS flag. gdalawai
+# LOG:
+# LOG: Revision 1.2  2008/08/27 07:08:10  sureshj
+# LOG: removed $(HOME) from -I$(HOME)/api/include.
+# LOG:
+# LOG: Revision 1.1  2008/08/19 06:58:33  sureshj
+# LOG: Baseline demo application for s6a interface.
+# LOG:								   
+#                                                                          
+############################################################################
+#
+# Include the standard definitions
+#
+include $(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) $(ITS_DEFINES) 
+
+INCLS:=$(INCLS) $(ITS_INCLS) \
+        -I../include \
+        -I$(IMS_ROOT)/api/c++/mtest/diameter/sim/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I$(IMS_ROOT)/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(HOME)/api/include \
+        -I$(IMS_ROOT)/common/include \
+        -I$(IMS_ROOT)/dframe/include \
+        -I$(IMS_ROOT)/vendors/IntelliNet/include
+         
+OBJS:= sample_s6a.o 
+
+APP_OBJS:= UpdateLocationTest.o AuthenticationInformationTest.o CancelLocationTest.o \
+	sample_s6a.o s6a_stats.o PurgeUETest.o DeleteSubscriberTest.o \
+        InsertSubscriberDataTest.o ResetTest.o NotifyTest.o
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX) \
+	-lnasreqapi$(DBGSUFFIX) \
+	-ls6ar10api$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+ifeq ($(TLS),yes)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -lITS-TLS$(DBGSUFFIX) \
+         -L$(ITS_ROOT)/tls/lib \
+         -ldiastackt$(DBGSUFFIX)    \
+         -ldiasim$(DBGSUFFIX)   \
+	-ldias6ar10app$(DBGSUFFIX)
+else
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -ldiasim$(DBGSUFFIX)  \
+	-ldias6ar10app$(DBGSUFFIX)
+endif
+endif
+ifeq ($(PLATFORM),solaris64)
+ifeq ($(TLS),yes)
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -lITS-TLS$(DBGSUFFIX) \
+         -L$(ITS_ROOT)/tls/lib \
+         -ldiastackt$(DBGSUFFIX)    \
+         -ldiasim$(DBGSUFFIX)   \
+	-ldias6ar10app$(DBGSUFFIX)
+else
+LIBS_OS:=-lITSDFrame$(DBGSUFFIX)   \
+         $(IMS_LIBS)               \
+         -ldiastack$(DBGSUFFIX)    \
+         -ldiasim$(DBGSUFFIX)  \
+	-ldias6ar10app$(DBGSUFFIX)
+endif
+endif
+ifeq ($(PLATFORM),linux)
+ifeq ($(TLS),yes)
+LIBS_OS:=-ldiastackt$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -L$(ITS_ROOT)/tls/lib -lITS-TLS$(DBGSUFFIX) \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -ldiasim$(DBGSUFFIX)  \
+	-ldias6ar10app$(DBGSUFFIX)
+else
+LIBS_OS:=-ldiastack$(DBGSUFFIX)    \
+         $(IMS_LIBS)               \
+         -lITSDFrame$(DBGSUFFIX)   \
+         -ldiasim$(DBGSUFFIX)  \
+	-ldias6ar10app$(DBGSUFFIX)
+endif
+endif
+
+LIBS:=-L$(ITS_ROOT)/common/lib \
+      -L$(IMS_ROOT)/lib \
+      -L$(IMS_ROOT)/api/c++/mtest/diameter/sim/lib \
+      -L$(IMS_ROOT)/apps/lib \
+      -L../lib \
+      -L$(HOME)/lib \
+      -L$(IMS_ROOT)/api/c++/lib \
+      -L$(IMS_ROOT)/dframe/lib \
+      -L$(IMS_ROOT)/vendors/IntelliNet/lib \
+      -lENGINE$(DBGSUFFIX) \
+      -lDRIVER++$(DBGSUFFIX) \
+      $(LIBS_OS) \
+      -L$(EACC_ROOT)/lib/debug
+
+all: ../lib/libdias6ar10app$(DBGSUFFIX).so ../bin/sampleS6AR10App$(DBGSUFFIX) 
+
+clean:
+	rm -f $(OBJS) $(APP_OBJS) \
+	../lib/libdias6ar10app$(DBGSUFFIX).so \
+      	../bin/sampleS6AR10App$(DBGSUFFIX) \
+
+../lib/libdias6ar10app$(DBGSUFFIX).so: $(APP_OBJS)
+	$(CXXSHAREDAR) $(CXXSHAREDARFLAGS) \
+	../lib/libdias6ar10app$(DBGSUFFIX).so \
+	$(APP_OBJS) $(NOWHOLEARCHIVE)
+
+../bin/sampleS6AR10App$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJS) \
+        $(SOCKLIBS) $(THREADLIBS) $(SYSLIBS) $(LIBS) $(DNSLIB_S) 

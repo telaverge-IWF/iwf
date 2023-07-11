@@ -1,0 +1,51 @@
+/**
+ * RFC 4006
+ * Tx interface Re-used AVPs from RFC 4006
+ */
+protocol diameter.tx.ietf < 0 : "RFC 4006 " >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * Subscription-Id AVP (AVP Code 443) is of type Grouped and is used to 
+ * identify the end user's subscription.
+ */
+    Subscription-Id                            ::= 443  /* 8.46   */ Grouped       M  |P| | V |Y; /* RFC4006 */
+                                                                                
+/**
+ * Subscription-Id-Type AVP (AVP Code 450) is of type Enumerated and it is used
+ * to determine which type of identifier is carried by the Subscription-Id AVP.
+ */
+    Subscription-Id-Type                       ::= 450  /*  8.47  */ Enumerated    M  |P| | V |Y; /* RFC4006 */                                                                                 
+/**
+ * Subscription-Id-Data AVP (AVP Code 444) is of type UTF8String and is used to
+ * identify the end user.
+ */
+    Subscription-Id-Data                       ::= 444  /*  8.48  */ UTF8String    M  |P| | V |Y; /* RFC4006 */
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+  Subscription-Id-Type ::= < Enumerated: 450 >
+        END_USER_E164             0
+        END_USER_IMSI             1
+        END_USER_SIP_URI          2
+        END_USER_NAI              3
+        END_USER_PRIVATE          4
+        ;
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+  Subscription-Id ::= < AVP Header: 443 >
+        { Subscription-Id-Type }
+        { Subscription-Id-Data }
+        ;
+
+

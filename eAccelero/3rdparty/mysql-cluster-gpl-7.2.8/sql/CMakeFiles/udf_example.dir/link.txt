@@ -1,0 +1,1 @@
+/usr/bin/cc  -fPIC -O2 -g -DNDEBUG -DDBUG_OFF   -shared -Wl,-soname,udf_example.so -o udf_example.so CMakeFiles/udf_example.dir/udf_example.c.o -lpthread 

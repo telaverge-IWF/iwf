@@ -1,0 +1,20 @@
+Diameter Command
+ 
+SYNOPSIS
+    setDefaultRoute <hostName> <realmName> 
+ 
+DESCRIPTION
+    This command will set the default realm route.
+ 
+PARAMETERS
+ 
+    hostName      Host Name
+ 
+    realmName     Realm Name.
+ 
+EXAMPLE
+    >> setDefaultRoute nemo india.internal.net
+ 
+       Default route Successfully set
+ 
+

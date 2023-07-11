@@ -1,0 +1,11 @@
+/its_condvar.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_dlsym.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_fifo.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_ipc_mutex.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_ipc_semaphore.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_sctp_sockets.c/1.1.4.1.2.2.4.1.2.1.8.1/Tue Sep 16 09:34:54 2014//TB-IWF-HP-0400-00
+/its_serv.c/9.1/Wed Mar 23 12:53:43 2005//TB-IWF-HP-0400-00
+/its_sockets.c/9.1.114.1.12.1.6.1.2.1/Fri Feb 14 11:36:10 2020//TB-IWF-HP-0400-00
+/its_thread.c/9.1.136.1/Wed Apr 13 07:36:19 2011//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:53:44 2005//TB-IWF-HP-0400-00
+D

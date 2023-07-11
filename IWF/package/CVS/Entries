@@ -1,0 +1,12 @@
+/build_iwf.sh/1.1.4.2.2.2.2.1.2.1/Wed May 13 07:53:02 2015//TB-IWF-HP-0400-00
+/copy_iwf_64bin.tcl/1.1.4.2/Wed Mar  5 10:59:45 2014//TB-IWF-HP-0400-00
+/exports.sh/1.1.2.2.4.2/Wed Dec 18 09:41:45 2013//TB-IWF-HP-0400-00
+/exports_iwf.sh/1.1.2.1/Fri Feb 14 06:07:00 2014//TB-IWF-HP-0400-00
+/iwf.sh/1.1.2.4.2.3/Fri Feb 21 10:10:47 2014//TB-IWF-HP-0400-00
+/iwf.spec/1.1.2.5.2.2.4.5.2.14.2.5.2.9/Mon Apr 20 08:45:33 2020//TB-IWF-HP-0400-00
+/package.sh/1.1.2.3.2.2.2.5.2.4.4.2.2.1.2.1/Tue Nov  4 11:26:48 2014//TB-IWF-HP-0400-00
+/profile.sh/1.1.2.2.2.2.2.5/Wed Dec 18 09:41:45 2013//TB-IWF-HP-0400-00
+/rsyslog.conf/1.1.2.4/Wed Dec 18 09:41:45 2013//TB-IWF-HP-0400-00
+D/Dependencies////
+D/patches////
+D/scripts////

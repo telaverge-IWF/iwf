@@ -1,0 +1,2 @@
+/usr/bin/ar cr libndbsched.a  CMakeFiles/ndbsched.dir/TimeQueue.cpp.o CMakeFiles/ndbsched.dir/ThreadConfig.cpp.o CMakeFiles/ndbsched.dir/FastScheduler.cpp.o CMakeFiles/ndbsched.dir/TransporterCallback_nonmt.cpp.o CMakeFiles/ndbsched.dir/SimulatedBlock_nonmt.cpp.o CMakeFiles/ndbsched.dir/LongSignal_nonmt.cpp.o CMakeFiles/ndbsched.dir/SimplePropertiesSection_nonmt.cpp.o CMakeFiles/ndbsched.dir/dummy_nonmt.cpp.o
+/usr/bin/ranlib libndbsched.a

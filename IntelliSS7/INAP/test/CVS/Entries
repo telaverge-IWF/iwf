@@ -1,0 +1,22 @@
+/.cvsignore/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/inap.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/inaptest.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/isup.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/store.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/store.h/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/test.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/test.dsp/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/test.dsw/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/test2.dsp/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/user.c/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+/user.h/9.1/Wed Mar 23 12:51:45 2005//TB-IWF-HP-0400-00
+D/SendAndReceive////
+D/SendRecvCpp////
+D/inap_china_cs1_cpp////
+D/inap_cs1_c////
+D/inap_cs1_cpp////
+D/inap_cs2_cpp////
+D/inap_etsi_cs1_cpp////
+D/unittest++////
+D/unittestc////

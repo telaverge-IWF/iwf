@@ -1,0 +1,20 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+# USAGE
+#client  -oh (OriginHost) -or (OriginRealm) -dh (DestinationHost)
+#        -dr (DestinationRealm) -sp (Server Port) -srvip ( Server IP Address)
+#        -contype (Connection Type: primary / backup )
+
+
+sampleClient -oh nemo1 -or india.internal.net -dh nemo -dr india.internal.net -sp 9999 -srvip "172.16.3.1" -contype primary 
+
+
+exit 0
+
+

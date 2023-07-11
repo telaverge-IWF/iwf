@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    getHMICheckInterval
+
+DESCRIPTION
+    This command is used to get HMI Check Interval.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getHMICheckInterval
+       HMI Check Interval = 1
+

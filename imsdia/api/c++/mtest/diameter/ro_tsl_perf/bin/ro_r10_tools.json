@@ -1,0 +1,25 @@
+{
+    "ro_r10" : {
+            "Imsi_for_LocalConnectCall" : "40411",
+            "CCTime_for_LocalConnectCall" : 7,
+            "Imsi_for_LocalContinueCall" : "40412",
+            "CCTime_for_LocalContinueCall" : 8,
+            "Imsi_for_RemoteConnectCall" : "40413",
+            "CCTime_for_RemoteConnectCall" : 9,
+            "Imsi_for_RemoteContinueCall" : "40414",
+            "CCTime_for_RemoteContinueCall" : 10,
+            "Imsi_for_TransparentLocalCall" : "40415",
+            "CCTime_for_TransparentLocalCall" : 5,
+            "Imsi_for_TransparentRemoteCall" : "40416",
+            "CCTime_for_TransparentRemoteCall" : 10,
+            "Imsi_for_SMSCall" : "40417",
+            "Imsi_for_FollowOnContinueLocalAndLocalConnect" : "40421",
+            "CCTime_for_FollowOnContinueLocalAndLocalConnect" : 5,
+            "Imsi_for_FollowOnContinueLocalAndRemoteConnect" : "40422",
+            "CCTime_for_FollowOnContinueLocalAndRemoteConnect" : 7,
+            "Imsi_for_FollowOnConnectRemoteAndLocalContinue" : "40423",
+            "CCTime_for_FollowOnConnectRemoteAndLocalContinue" : 10,
+            "Imsi_for_FollowOnConnectRemoteAndRemoteContinue" : "40424",
+            "CCTime_for_FollowOnConnectRemoteAndRemoteContinue" : 11
+        }
+}

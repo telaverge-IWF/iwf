@@ -1,0 +1,2 @@
+/usr/bin/ar cr libmemcached_utilities.a  CMakeFiles/memcached_utilities.dir/utilities/config_parser.c.o CMakeFiles/memcached_utilities.dir/utilities/engine_loader.c.o CMakeFiles/memcached_utilities.dir/utilities/extension_loggers.c.o CMakeFiles/memcached_utilities.dir/utilities/genhash.c.o CMakeFiles/memcached_utilities.dir/utilities/util.c.o
+/usr/bin/ranlib libmemcached_utilities.a

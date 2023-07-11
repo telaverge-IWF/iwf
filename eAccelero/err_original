@@ -1,0 +1,5 @@
+make[1]: Entering directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+make[1]: *** No targets specified and no makefile found.  Stop.
+make[1]: Leaving directory `/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0'
+/opt/checkout/eAccelero/3rdparty/mysql-connector-c++-1.1.0 **failed** to compile
+make: *** [all] Error 255

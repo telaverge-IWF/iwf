@@ -1,0 +1,15 @@
+D/mgmapi_logevent////
+D/mgmapi_logevent2////
+D/ndbapi_async////
+D/ndbapi_async1////
+D/ndbapi_blob////
+D/ndbapi_blob_ndbrecord////
+D/ndbapi_event////
+D/ndbapi_multi_cursor////
+D/ndbapi_recattr_vs_record////
+D/ndbapi_retries////
+D/ndbapi_s_i_ndbrecord////
+D/ndbapi_scan////
+D/ndbapi_simple////
+D/ndbapi_simple_dual////
+D/ndbapi_simple_index////

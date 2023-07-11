@@ -1,0 +1,25 @@
+#################################################################
+#																#
+# This file has the dictionary id's which uniquely identify 	#
+# a peer or an Application-Group in ASF. This file needs to 	#
+# be updated as and when a new dictionary id is allocated to	#
+# a new interface dictionary.									#
+# Dictionary id should be unique per Interface and 3GPP Release.#
+#																#
+################################################################
+
+Gy-Release-8 		|	gy.protocol					|	1
+Gy-Release-10		|	gy_rel_10.protocol			|	2
+Gx-Release-8		|	gx.protocol					|	3
+Gx-Release-10		|	gx_r10.protocol				|	4
+Gxx-Release-10		|	gxx_r10.protocol			|	5
+S6a-Release-8		|	s6a.protocol				|	6
+S6a-Release-10		|	s6a_r10.protocol			|	7
+S9-Release-8		|	s9.protocol					|	8
+S9-Release-10		|	s9_r10.protocol				|	9
+RfRo-Release-8		|	rfro_standalone_v8.protocol	|	15
+RfRo-Release-10		|	rfro_r10.protocol			|	10
+S13-Release-8		|	s13.protocol				|	11
+S13-Release-10		|	s13_r10.protocol			|	12
+Rx-Release-8		|	rx.protocol					|	13
+Rx-Release-10		|	rx_r10.protocol				|	14

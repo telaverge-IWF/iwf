@@ -1,0 +1,1893 @@
+{
+    "map_v13" : { 
+        "UpdateGprsLocationRes" : {
+            "hlr_number" : {             
+                "Value"   : "123456"        
+            },
+                "Sgsn_mmeSeparationSupported" : {
+                    "Enabled" : false
+                },
+                "Add_Capability" : {
+                    "Enabled" : true
+                }
+        },
+            "UpdateGprsLocationErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            },
+            "SendAuthenticationInfoRes" : {
+                "EPS_AuthenticationSetList" : {
+                    "Enabled" : true,
+                    "EPC_AV" : {
+                        "RAND" : {
+                            "Value" : "13567432467584391356743246758439"
+                        },
+                        "XRES" : {
+                            "Value" : "1234223457"
+                        },
+                        "AUTN" : {
+                            "Value" : "45123456789099432323232326565839"
+                        },
+                        "KASME" : {
+                            "Value" : "0987654321098765432109876543210909876543210987654321098765432109"
+                        }
+                    }
+                },
+                "AuthenticationSetList" : {
+                    "Enabled" : true,
+                        "TripletList" : {
+                            "Enabled" : true,
+                            "AuthenticationTriplet" : { 
+                                "RAND" : {
+                                    "Value" : "13567432467584391356743246758439"
+                                },
+                                "SRES" : {
+                                    "Value" : "12341234"
+                                },
+                                "Kc" : {
+                                    "Value" : "1234223412342234"
+                                }
+                            }
+                        },
+                        "QuintupletList" : {
+                            "Enabled" : false,
+                            "AuthenticationQuintuplet" : {
+                                "RAND" : {
+                                    "Value" : "13567432467584391356743246758439"
+                                },
+                                "XRES" : {
+                                    "Value" : "123422345123422345"
+                                },
+                                "CK" : {
+                                    "Value" : "12342234565478311234223456547831"
+                                },
+                                "IK" : {
+                                    "Value" : "12346734565478311234673456547831"
+                                },
+                                "AUTN" : {
+                                    "Value" : "58127361418019714781621827612911"
+                                }
+                            }
+                        }
+                }
+            },
+            "SendAuthenticationInfoErrRes" : {
+                "Enabled" : false,
+                "Value"   : 9
+            },
+            "PurgeMS_Res" : {
+                "FreezeM_TMSI"  : { 
+                    "Enabled" : true
+                },
+                "FreezeP_TMSI"  : {
+                    "Enabled" : false
+                }
+            },
+            "PurgeMSErr_Res" : {
+                "Enabled" : false,
+                "Value"   : 2
+            },
+            "CancelLocationArg" : {
+                "Identity" : {
+                    "IMSI" : { 
+                        "Value"   : "404120000000001"
+                    }
+                },
+                "CancellationType" : {
+                    "Enabled" : true,
+                    "Value"   : 2
+                },
+                "TypeOfUpdate" : {
+                    "Enabled" : true,
+                    "Value"   : 1
+                }
+            },
+            "ProvideSubscriberInfoArg" : {
+                "IMSI" : {
+                    "Value"   : "404120000000001"
+                },
+                "RequestedInfo" : {
+                    "LocationInformation" : {
+                        "Enabled" : true
+                    },
+                    "SubscriberState" : {
+                        "Enabled" : true
+                    },
+                    "CurrentLocation" : {
+                        "Enabled" : true
+                    },
+                    "T_adsData" : {
+                        "Enabled" : true
+                    }
+                }
+            },
+            "DeleteSubscriberDataArg" : {
+                "IMSI" : {
+                    "Enabled" : true,
+                    "Value"   : "404120000000001"
+                },
+                "regionalSubscriptionIdentifier" : {
+                    "Enabled" : true,
+                    "Value"   : "zc"
+                },
+                "EPS_SubscriptionDataWithdraw" : {
+                    "Enabled" : true,
+                    "AllEPS_Data" : {
+                        "Enabled" : false
+                    },
+                    "ContextIdList" : {
+                        "ContextId" : {
+                            "Enabled" : true,
+                            "Value"   : 4
+                        }
+                    }
+                },
+                "ChargingCharacteristicsWithdraw" : {
+                    "Enabled" : true
+                },
+                "STN_SRWithdraw" : {
+                    "Enabled" : true
+                },
+                "GMLC_ListWithdraw" : {
+                    "Enabled" : true
+                },
+                "SS_List" : {
+                    "Enabled" : true,
+                    "SS_Code" : {
+                        "Enabled" : true,
+                        "Value" : "94"
+                    }
+                },
+                "GPRSSubscriptionDataWithdraw" : {
+                    "Enabled" : true,
+                    "AllGPRSData" : {
+                        "Enabled" : false
+                    },
+                    "ContextIdList" : {
+                        "ContextId" : {
+                            "Enabled" : true,
+                            "Value"   : 6
+                        }
+                    }
+                },
+                "RoamingRestrictedInSgsnDueToUnsuppportedFeature" : {
+                    "Enabled" : false
+                },
+                "RoamingRestrictionDueToUnsupportedFeature" : {
+                    "Enabled" : true
+                },
+                "CSG_SubscriptionDeleted" : {
+                    "Enabled" : true
+                },
+                "APN_oi_replacementWithdraw" : { 
+                    "Enabled" : true
+                }
+            },
+            "DeleteSubscriberDataRes" : { 
+                "RegionalSubscriptionResponse" : { 
+                    "Enabled" : true,
+                    "Value"   : 0 
+                }   
+            },  
+            "InsertSubscriberDataArg" : {
+                "IMSI" : {
+                    "Enabled" : true,
+                    "Value"   : "404120000000001"
+                },
+                "SubscriberData" : {
+                    "SubscriberStatus" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "msisdn" : {        
+                        "Enabled" : true,
+                        "Value"   : "234567"        
+                    },
+                    "ODB_Data" : {
+                        "Enabled" : false,
+                        "ODB_GeneralData" : {
+                            "Value" : 0
+                        },
+                        "ODB_HPLMN_Data" : {
+                            "Enabled" : true,
+                            "Value"   : 2
+                        }
+                    },
+                    "regionalSubscriptionData" : {                  
+                        "Enabled" : true,
+                        "ZoneCode" : {
+                            "Value" : "zc"
+                        }
+                    },
+                    "TeleserviceList" : {
+                        "Enabled" : true,
+                        "Ext_TeleserviceCode" : {
+                            "Value" : "extc"
+                        }
+                    }
+                },
+                "EPS_SubscriptionData" : {
+                    "Enabled" : false,
+                    "stn_sr" : {            
+                        "Enabled" : true,
+                        "Value"   : "12345"
+                    },
+                    "APN_OI_Replacement" : {
+                        "Enabled" : true,
+                        "Value"   : "mnc012.mcc404.gprs"
+                    },
+                    "AMBR" : {
+                        "Enabled" : true,
+                        "max_RequestedBandwidth_UL" : {         
+                            "Value" : 23
+                        },
+                        "max_RequestedBandwidth_DL" : {         
+                            "Value" :50 
+                        }
+                    },
+                    "RFSP_ID" : {
+                        "Enabled" : true,
+                        "Value"   : 34
+                    },
+                    "APN_ConfigurationProfile" : {
+                        "Enabled" : true,
+                        "ContextId" : {
+                            "Value" : 45
+                        },
+                        "CompleteDataListIncluded" : {
+                            "Enabled" : true
+                        },
+                        "EPS_DataList" : { 
+                            "APN_Configuration" : {
+                                "ContextId" : {
+                                    "Value" : 12
+                                },
+                                "PDN_Type" : {
+                                    "Value" : "2"
+                                },
+                                "ServedPartyIP_IPv4_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "172.16.14.11"
+                                },
+                                "APN" : { 
+                                    "Value" : "apn"
+                                },
+                                "EPS_QoS_Subscribed" : {
+                                    "QoS_Class_Identifier" : {
+                                        "Value" : 5
+                                    },
+                                    "Allocation_Retention_Priority" : {
+                                        "priority-level" : {
+                                            "Value" : 4
+                                        },
+                                        "pre_emption_capability" : {
+                                            "Enabled" : true,
+                                            "Value"   : 1
+                                        },
+                                        "pre_emption_vulnerability" : {
+                                            "Enabled" : true,
+                                            "Value"   : 0
+                                        }
+                                    }
+                                },
+                                "PDN_GW_Identity" : {
+                                    "Enabled" : true,
+                                    "pdn_gw_ipv4_Address" : {
+                                        "Enabled" : true,
+                                        "Value"   : "127.0.0.1"
+                                    },
+                                    "pdn_gw_ipv6_Address" : {
+                                        "Enabled" : true,
+                                        "Value"   : "2001:db8:8714:3a90::10"
+                                    },
+                                    "pdn_gw_name" : {
+                                        "Enabled" : true,
+                                        "Value"   : "pdngwnamejson"
+                                    }
+                                },
+                                "PDN_GW_AllocationType" : {
+                                    "Enabled" : true,
+                                    "Value"   : 0
+                                },
+                                "VPLMNAddressAllowed" : {
+                                    "Enabled" : true
+                                },
+                                "ChargingCharacteristics" : { 
+                                    "Enabled" : true,
+                                    "Value"   : "cc"
+                                },
+                                "AMBR" : {
+                                    "Enabled" : true,
+                                    "max_RequestedBandwidth_UL" : {         
+                                        "Value" : 23
+                                    },
+                                    "max_RequestedBandwidth_DL" : {         
+                                        "Value" :50 
+                                    }
+                                },
+                                "SpecificAPNInfoList" : {
+                                    "Enabled" : true,
+                                        "SpecificAPNInfo" : {
+                                            "APN" : { 
+                                                "Value" : "apn"
+                                            },
+                                            "PDN_GW_Identity" : {
+                                                "Enabled" : true,
+                                                "pdn_gw_ipv4_Address" : {
+                                                    "Enabled" : true,
+                                                    "Value"   : "172.16.3.18"
+                                                },
+                                                "pdn_gw_ipv6_Address" : {
+                                                    "Enabled" : true,
+                                                    "Value"   : "2001:db8:8714:3a90::16"
+                                                },
+                                                "pdn_gw_name" : {
+                                                    "Enabled" : true,
+                                                    "Value"   : "pdngwnamejson"
+                                                }
+                                            }
+                                        }
+                                },
+                                "servedPartyIP_IPv6_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "2001:db8:8714:3a90::24"
+                                },
+                                "APN_OI_Replacement" : { 
+                                    "Enabled" : true,
+                                    "Value" : "mnc012.mcc404.gprs"
+                                },
+                                "SIPTO_Permission" : {
+                                    "Enabled" : true,
+                                    "Value"   : 1
+                                },
+                                "LIPA_Permission" : {
+                                    "Enabled" : true,
+                                    "Value"   : 2
+                                }
+                            }
+                        }
+                    }
+                },
+                "NetworkAccessMode" : {
+                    "Enabled" : true,
+                    "Value"   : 0
+                },
+                "ChargingCharacteristics" : {
+                    "Enabled" : true,
+                    "Value"   : "cc"
+                },
+                "GPRSSubscriptionData" : {
+                    "Enabled" : false,
+                    "CompleteDataListIncluded" : {
+                        "Enabled" : true
+                    },
+                    "APN_OI_Replacement" : { 
+                        "Enabled" : true,
+                        "Value" : "mnc012.mcc404.gprs"
+                    },
+                    "GPRSDataList" : {
+                        "PDP_Context" : { 
+                            "ContextId" : {
+                                "Value" : 2
+                            },
+                            "PDP_Type" : {
+                                "Value" : "pt"
+                            },
+                            "PDP_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "pdpaddress"
+                            },
+                            "QoS_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "qos"
+                            },
+                            "VPLMNAddressAllowed" : {
+                                "Enabled" : true
+                            },
+                            "APN" : {
+                                "Value" : "apn"
+                            },
+                            "Ext_QoS_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "extqos"
+                            },
+                            "PDP_ChargingCharacteristics" : {
+                                    "Enabled" : true,
+                                    "Value"   : "cc"
+                            },
+                            "Ext2_QoS_Subscribed" : {
+                                "Enabled" : true, 
+                                "Value"   : "qos"
+                            },
+                            "Ext3_QoS_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "qo"
+                            },
+                            "Ext4_QoS_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "APN_OI_Replacement" : { 
+                                "Enabled" : true,
+                                "Value" : "mnc012.mcc404.gprs"
+                            },
+                            "Ext_PDP_Type" : {
+                                "Enabled" : true,
+                                "Value"   : "pt"
+                            },
+                            "Ext_PDP_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "ExtPDPAddress"
+                            },
+                            "SIPTO_Permission" : {
+                                "Enabled" : true,
+                                "Value"   : 0
+                            },
+                            "LIPA_Permission" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            }
+                        }
+                    }
+                },
+                "LCSInformation" : {
+                    "Enabled" : false,
+                    "GMLC_List" : {
+                        "Enabled" : true,
+                        "ISDN-AddressString" : {
+                            "Value" : "address"
+                        }
+                    },
+                    "LCS_PrivacyExceptionList" : {
+                        "Enabled" : false,
+                        "LCS_PrivacyClass" : {
+                            "SS_Code" : {
+                                "Value" : "94"
+                            },
+                            "Ext_SS_Status" : {
+                                "Value" : "esssp"
+                            },
+                            "NotificationToMSUser" : {
+                                "Enabled" : false,
+                                "Value"   : 2
+                            },
+                            "ExternalClientList" : {
+                                "Enabled" : false,
+                                "ExternalClient" : {
+                                    "LCSClientExternalID" : {
+                                        "externalAddress" : {        
+                                            "Enabled" : true,
+                                            "Value"   : "address"
+                                        }
+                                    },
+                                    "GMLC_Restriction" : {
+                                        "Enabled" : true,
+                                        "Value"   : 0
+                                    },
+                                    "NotificationToMSUser" : {
+                                        "Enabled" : true,
+                                        "Value"   : 1
+                                    }
+                                }
+                            },
+                            "PLMNClientList" : {
+                                "Enabled" : false,
+                                "LCSClientInternalID" : {
+                                    "Enabled" : true,
+                                    "Value"   : 3
+                                }
+                            },
+                            "Ext_ExternalClientList" : {
+                                "Enabled" : false,
+                                "ExternalClient" : {
+                                    "LCSClientExternalID" : {
+                                        "externalAddress" : {        
+                                            "Enabled" : true,
+                                            "Value"   : "address"
+                                        }
+                                    },
+                                    "GMLC_Restriction" : {
+                                        "Enabled" : true,
+                                        "Value"   : 0
+                                    },
+                                    "NotificationToMSUser" : {
+                                        "Enabled" : true,
+                                        "Value"   : 2
+                                    }
+                                }
+                            },
+                            "ServiceTypeList" : {
+                                "ServiceType" : {
+                                    "LCSServiceTypeID" : {
+                                        "Value" : 43
+                                    },
+                                    "GMLC_Restriction" : {
+                                        "Enabled" : true,
+                                        "Value"   : 0
+                                    },
+                                    "NotificationToMSUser" : {
+                                        "Enabled" : true,
+                                        "Value"   : 2
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "MOLR_List" : {
+                        "Enabled" : true,
+                        "MOLR_Class" : {
+                            "SS_Code" : {
+                                "Value" : "94"
+                            },
+                            "Ext_SS_Status" : {
+                                "Value" : "esss"
+                            }
+                        }
+                    }
+                },
+                "CSG_SubscriptionDataList" : {
+                    "Enabled" : false,
+                    "CSG_SubscriptionData" : {
+                        "CSG_Id" : {
+                            "Value" : 1
+                        },
+                        "expirationDate" : {              
+                            "Enabled" : true,
+                            "Value" : "time"
+                        },
+                        "LIPA_AllowedAPNList" : {
+                            "Enabled" : true,
+                            "APN" : { 
+                                "Value" : "LIpaertss"
+                            }
+                        }
+                    }
+                },
+                "AccessRestrictionData" : {
+                    "Enabled" : true,
+                    "Value"   : 1
+                },
+                "RoamingRestrictedInSgsnDueToUnsupportedFeature" : {
+                    "Enabled" : true
+                },
+                "MDTUserConsent" : {
+                    "Enabled" : true,
+                    "Value"   : 0
+                },
+                "ue_ReachabilityRequestIndicator" : {
+                    "Enabled" : true
+                }
+            },
+            "InsertSubscriberDataRes" : { 
+                "TeleserviceList" : { 
+                    "Enabled" : true,
+                    "Ext_TeleserviceCode" : { 
+                        "Value" : "extc"
+                    }   
+                },  
+                "BearerServiceList" : { 
+                    "Enabled" : true,
+                    "Ext_BearerServiceCode" : { 
+                        "Value" : "extc"
+                    }   
+                },  
+                "SS_List" : { 
+                    "Enabled" : true,
+                    "SS_Code" : { 
+                        "Value" : "94" 
+                    }   
+                },  
+                "ODB_GeneralData" : { 
+                    "Enabled" : true,
+                    "Value"   : 0 
+                },  
+                "RegionalSubscriptionResponse" : { 
+                    "Enabled" : true,
+                    "Value"   : 0 
+                },  
+                "SupportedCamelPhases" : { 
+                    "Enabled" : true,
+                    "Value"   : 1 
+                },  
+                "OfferedCamel4CSIs" : { 
+                    "Enabled" : true,
+                    "Value"   : 1 
+                },  
+                "SupportedFeatures" : { 
+                    "Enabled" : true,
+                    "Value"   : 1 
+                }   
+            },  
+            "ActivateTraceModeArg" : {
+                "IMSI" : {
+                    "Enabled" : true,
+                    "Value"   : "404120000000001"
+                },
+                "TraceReference" : {
+                    "Value"   : "tr"
+                },
+                "TraceReference2" : {
+                    "Enabled" : true,
+                    "Value"   : "tr2"
+                },
+                "TraceType" : {
+                    "Value" : 1
+                },
+                "TraceDepthList" : {
+                    "Enabled" : false,
+                    "msc_s_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "mgw_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "sgsn_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "ggsn_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "rnc_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "bmsc_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "mme_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "sgw_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "pgw_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "eNB_TraceDepth" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    }
+                },
+                "TraceNE_TypeList" : {
+                    "Enabled" : true,
+                    "Value"   : 2
+                },
+                "TraceInterfaceList" : {
+                    "Enabled" : false,
+                    "MSC_S_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    },
+                    "MGW_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 2
+                    },
+                    "SGSN_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    },
+                    "GGSN_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 2
+                    },
+                    "RNC_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 4
+                    },
+                    "BMSC_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 3
+                    },
+                    "MME_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 4
+                    },
+                    "SGW_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 3
+                    },
+                    "PGW_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 2
+                    },
+                    "ENB_InterfaceList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    }
+                },
+                "TraceEventList" : {
+                    "Enabled" : true,
+                    "MSC_S_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "MGW_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "SGSN_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    },
+                    "GGSN_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    },
+                    "BMSC_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "MME_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 4
+                    },
+                    "SGW_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    },
+                    "PGW_EventList" : {
+                        "Enabled" : true,
+                        "Value"   : 1
+                    }
+                },
+                "omc_id" : {     
+                    "Enabled" : true,
+                    "Value"   : "Address"
+                },
+                "traceCollectionEntity" : {   
+                    "Enabled" : true,
+                    "Value"   : "127.0.0.1"
+                },
+                "MDT_Configuration" : {
+                    "Enabled" : false,
+                    "JobType" : {
+                        "Value" : 0
+                    },
+                    "AreaScope" : {
+                        "Enabled" : true,
+                        "CGI_List" : {
+                            "Enabled" : true,
+                            "GlobalCellId" : {
+                                "Value" : "gcellid"
+                            }
+                        },
+                        "E_UTRAN_CGI_List" : {
+                            "Enabled" : true,
+                            "E_UTRAN_CGI" : {
+                                "Value" : "eutrcgi"
+                            }
+                        },
+                        "RoutingAreaId_List" : {
+                            "Enabled" : true,
+                            "RAIdentity" : {
+                                "Value" : "raiden"
+                            }
+                        },
+                        "LocationAreaId_List" : {
+                            "Enabled" : true,
+                            "LAIFixedLength" : {
+                                "Value" : "laifl"
+                            }
+                        },
+                        "TrackingAreaId_List" : {
+                            "Enabled" : true,
+                            "TA_Id" : {
+                                "Value" : "taidl"
+                            }
+                        }
+                    },
+                    "ListOfMeasurements" : {
+                        "Enabled" : true,
+                        "Value"   : "lome"
+                    },
+                    "ReportingTrigger" : {
+                        "Enabled" : true,
+                        "Value"   : "r"
+                    },
+                    "ReportInterval" : {
+                        "Enabled" : true,
+                        "Value"   : 4
+                    },
+                    "ReportAmount" : {
+                        "Enabled" : true,
+                        "Value"   : 4
+                    },
+                    "EventThresholdRSRP" : {
+                        "Enabled" : true,
+                        "Value"   : 30
+                    },
+                    "EventThresholdRSRQ" : {
+                        "Enabled" : true,
+                        "Value"   : 25
+                    },
+                    "LoggingInterval" : {
+                        "Enabled" : true,
+                        "Value"   : 3
+                    },
+                    "LoggingDuration" : {
+                        "Enabled" : true,
+                        "Value"   : 2
+                    }
+                }
+            },
+            "ActivateTraceModeRes" : {
+                "traceSupportIndicator" : {
+                    "Enabled" : true
+                }
+            },
+            "DeactivateTraceModeArg" : {
+                "IMSI" : {
+                    "Enabled" : true,
+                    "Value"   : "404120000000001"
+                },
+                "TraceReference" : {
+                    "Enabled" : true,
+                    "Value"   : "tr"
+                },
+                "TraceReference2" : {
+                    "Enabled" : true,
+                    "Value"   : "tr2"
+                }
+            },
+            "ResetArg" : {
+                "ISDN_AddressString" : {    
+                    "Value"   : "address"
+                },
+                "HLR_List" : {
+                    "Enabled" : true,
+                    "HLR_Id" : {
+                        "Value"   : "404120000000001"
+                    }
+                }
+            },
+            "UpdateGprsLocationArg" : {
+                "IMSI" : {
+                    "Value"   : "404120000000001"
+                },
+                "Sgsn_Number" : {
+                    "Value"   : "9191123456789876"
+                },
+                "Sgsn_Address" : {
+                    "Value"   : "172.16.4.18"
+                },
+                "EPS_Info" : {
+                    "Enabled"  : true,
+                    "ISR_Information"  : {
+                        "Enabled"  : false,
+                        "Value"  : 2
+                    },
+                    "PDN_GW_Update" : {
+                        "Enabled"  : true,
+                        "APN" : {
+                            "Enabled"  : true,
+                            "Value"   : "apn"
+                        },
+                        "PDN_GW_Identity" : {
+                            "Enabled"  : true,
+                            "pdn_gw_ipv4_Address" : {
+                                "Enabled"  : true,
+                                "Value"   : "127.0.0.1"
+                            },
+                            "pdn_gw_ipv6_Address" : {
+                                "Enabled"  : true,
+                                "Value"   : "2001:db8:8714:3a90::12"
+                            },
+                            "pdn_gw_name" : {
+                                "Enabled"  : true,
+                                "Value" : "seagullServerA"
+                            }
+                        },
+                        "ContextId" : {
+                            "Enabled"  : true,
+                            "Value" : 10
+                        }
+                    }
+                },
+                "ServingNodeTypeIndicator" : {
+                    "Enabled"  :  true
+                },
+                "SkipSubscriberDataUpdate" : {
+                    "Enabled"  : true
+                },
+                "GprsSubscriptionDataNotNeeded" : {
+                    "Enabled"  : true
+                },
+                "NodeTypeIndicator" : {
+                    "Enabled"  : true
+                },
+                "Used_RAT_Type"  : {
+                    "Enabled"  : true,
+                    "Value"    : 0
+                },
+                "sgsn_Capability" : {
+                    "Enabled"  : true,
+                    "solsaSupportIndicator" : {
+                        "Enabled"  : true
+                    },
+                    "superChargerSupportedInServingNetworkEntity" : {
+                        "Enabled"  : true,
+                        "sendSubscriberData" : {
+                            "Enabled"  : true
+                        },
+                        "subscriberDataStored" : {
+                            "Value"    : "abc"
+                        }
+                    },
+                    "gprsEnhancementsSupportIndicator" : {
+                        "Enabled"  : true
+                    },
+                    "supportedCamelPhases" : {
+                        "Enabled"  : true,
+                        "Value" :   1
+                    },
+                    "supportedLCS_CapabilitySets" : {
+                        "Enabled"  : true,
+                        "Value" :   1
+                    },
+                    "offeredCamel4CSIs" : {
+                        "Enabled"  : true,
+                        "Value" :   1
+                    },
+                    "smsCallBarringSupportIndicator" : { 
+                        "Enabled"  : true
+                    },
+                    "supportedRAT_TypesIndicator" : {
+                        "Enabled"  : true,
+                        "Value" :   1
+                    },
+                    "supportedFeatures" : {
+                        "Enabled"  : true,
+                        "Value" :   5
+                    },
+                    "t_adsDataRetrieval" : {
+                        "Enabled"  : true
+                    },
+                    "homogeneousSupportOfIMSVoiceOverPSSessions" : {
+                        "Enabled"  : true,
+                        "Value" :   1
+                    }
+                },
+                "informPreviousNetworkEntity" : {
+                    "Enabled"  : true
+                },
+                "ps_LCS_NotSupportedByUE" : {
+                    "Enabled"  : true
+                },
+                "v_gmlc_Address" : {
+                    "Enabled"  : true,
+                    "Value" : "abcdefgh123456789"
+                },
+                "add_info" : {
+                    "Enabled"  : true,
+                    "imeisv" : {
+                        "Value" : "3535670532335423"
+                    },
+                    "skipSubscriberDataUpdate" : {
+                        "Enabled"  : false
+                    }
+                },
+                "areaRestricted" : {
+                    "Enabled"  : true
+                },
+                "ue_reachableIndicator" : {        
+                    "Enabled"  : true
+                },
+                "epsSubscriptionDataNotNeeded" : {
+                    "Enabled"  : true
+                },
+                "ue_srvcc_Capability" : {
+                    "Enabled"  : true,
+                    "Value" : 1
+                }
+            },
+            "UnknownSubscriberParam" : {
+                "UnknownSubscriberDiagnostic" : {
+                    "Enabled" : true,
+                    "Value"   : 2
+                }
+            },
+            "RoamingNotAllowedParam" : {
+                "RoamingNotAllowedCause" : {
+                    "Value"    : 0 
+                },
+                "AdditionalRoamingNotAllowedCause" : {
+                    "Enabled" : true,
+                    "Value"   : 0
+                }
+            },
+            "UnexpectedDataParam" : {
+                "unexpectedSubscriber" : {
+                    "Enabled" : true
+                }
+            },
+            "FacilityNotSupParam" : {
+                "shapeOfLocationEstimateNotSupported" : {
+                    "Enabled" : true
+                },
+                "neededLcsCapabilityNotSupportedInServingNode" : {
+                    "Enabled" : true
+                }
+            },
+            "SystemFailureParam" : {
+                "NetworkResource" : {
+                    "Enabled" : true,
+                    "Value"   : 0
+                },
+                "ExtensibleSystemFailureParam" : {
+                    "Enabled" : true,
+                    "NetworkResource" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "AdditionalNetworkResource" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "FailureCauseParam" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    }
+                }
+            },
+            "AbsentSubscriberParam" : {
+                "AbsentSubscriberReason" : {
+                    "Enabled" : true,
+                    "Value"   : 0
+                }
+            },
+            "PurgeMSArg" : {
+                "IMSI" : {
+                    "Value"   : "404120000000001"
+                },
+                "vlr_Number" : {
+                    "Enabled" : true,
+                    "Value"  : "1002"
+                },
+                "sgsn_Number" : {
+                    "Enabled" : true,
+                    "Value"  : "1004"
+                }
+            },
+            "SendAuthenticationInfoArg" : {
+                "IMSI" : {
+                    "Value"   : "404120000000001"
+                },
+                "numberOfRequestedVectors" : {
+                    "Value"   : 5
+                },
+                "segmentationProhibited" : {
+                    "Enabled" : true
+                },
+                "immediateResponsePreferred" : {
+                    "Enabled" : true
+                },
+                "re_synchronisationInfo" : {
+                    "Enabled" : true,
+                    "RAND" : {
+                        "Value"     : "abcdefgh12345678"
+                    },
+                    "AUTS" : {
+                        "Value"     : "abcdefgh123456"
+                    }
+                },
+                "requestingNodeType" : {
+                    "Enabled" : true,
+                    "Value"   : 2
+                },
+                "requestingPLMN-Id" : {
+                    "Enabled" : true,
+                    "Value"   : "04f421"
+                },
+                "numberOfRequestedAdditional_Vectors" : {   
+                    "Enabled" : true,
+                    "Value"   : 2
+                },
+                "additionalVectorsAreForEPS" : {
+                    "Enabled" : true
+                }
+            },
+            "ProvideSubscriberInfoRes" : {
+                "SubscriberInfo" : {
+                    "LocationInformation" : {
+                        "Enabled" : false,
+                        "AgeOfLocationInformation" : {
+                            "Enabled" : true,
+                            "Value"   : 10
+                        },
+                        "GeographicalInformation" : {
+                            "Enabled" : true,
+                            "Value"   : "geinform"
+                        },
+                        "vlr_number" : {
+                            "Enabled" : true,
+                            "Value" : "address"
+                        },
+                        "LocationNumber" : {
+                            "Enabled" : true,
+                            "Value"   : "loc"
+                        },
+                        "CellGlobalIdOrServiceAreaIdOrLAI" : {
+                            "Enabled" : true,
+                            "cellGlobalIdOrServiceAreaIdFixedLength" : {
+                                "Value"   : "cellglo"
+                            },
+                            "LAIFixedLength" : {
+                                "Value"   : "LAIFi"
+                            }
+                        },
+                        "LSAIdentity" : {
+                            "Enabled" : true,
+                            "Value"   : "loc"
+                        },
+                        "msc_Number" : {
+                            "Enabled" : true,
+                            "Value" : "address"
+                        },
+                        "GeodeticInformation" : {
+                            "Enabled" : true,
+                            "Value" : "GeodeticIn"
+                        },
+                        "currentLocationRetrieved" : {
+                            "Enabled" : true
+                        },
+                        "sai_Present" : {
+                            "Enabled" : true
+                        },
+                        "LocationInformationEPS" : {
+                            "Enabled" : true,
+                            "E_UTRAN_CGI" : {
+                                "Enabled" : true,
+                                "Value"   : "eutrcgi"
+                            },
+                            "TA_Id" : {
+                                "Enabled" : true,
+                                "Value"   : "taids"
+                            },
+                            "GeographicalInformation" : {
+                                "Enabled" : true,
+                                "Value"   : "Geograph" 
+                            },
+                            "GeodeticInformation" : {
+                                "Enabled" : true,
+                                "Value"   : "GeodeticIn"
+                            },
+                            "currentLocationRetrieved" : {
+                                "Enabled" : true
+                            },
+                            "AgeOfLocationInformation" : {
+                                "Enabled" : true,
+                                "Value"   : 1000
+                            },
+                            "mme_name" : {
+                                "Enabled" : true,
+                                "Value"   : "mmenametodo"
+                            }
+                        },
+                        "UserCSGInformation" : {
+                            "Enabled" : true,
+                            "CSG_Id" : {
+                                "Value" : 1
+                            },
+                            "accessMode" : {
+                                "Enabled" : true,
+                                "Value" : "a"
+                            },
+                            "cmi" : {
+                                "Enabled" : true,
+                                "Value" : "c"
+                            }
+                        }
+                    },
+                    "SubscriberState" : {
+                        "Enabled" : false,
+                        "assumedIdle" : {
+                            "Enabled" : true
+                        },
+                        "camelBusy" : {
+                            "Enabled" : true
+                        },
+                        "netDetNotReachable" : {
+                            "Enabled" : true,
+                            "Value"   : 0
+                        },
+                        "notProvidedFromVLR" : {
+                            "Enabled" : true
+                        }
+                    },
+                    "LocationInformationGPRS" : {
+                        "Enabled" : false,
+                        "CellGlobalIdOrServiceAreaIdOrLAI" : {
+                            "Enabled" : true,
+                            "CellGlobalIdOrServiceAreaIdFixedLength" : {
+                                "Enabled" : true,
+                                "Value" : "cellGlo"
+                            },
+                            "LAIFixedLength" : {
+                                "Enabled" : true,
+                                "Value" : "laifl"
+                            }
+                        },
+                        "RAIdentity" : {
+                            "Enabled" : true,
+                            "Value" : "RAIden"
+                        },
+                        "GeographicalInformation" : {
+                            "Enabled" : true,
+                            "Value" : "Geograph"
+                        },
+                        "sgsn_Number" : {
+                            "Enabled" : true,
+                            "Value" : "sgsn"
+                        },
+                        "LSAIdentity" : {
+                            "Enabled" : true,
+                            "Value" : "lsa"
+                        },
+                        "sai_Present" : {
+                            "Enabled" : true
+                        },
+                        "GeodeticInformation" : {
+                            "Enabled" : true,
+                            "Value"   : "GeodeticIn"
+                        },
+                        "currentLocationRetrieved" : {
+                            "Enabled" : true
+                        },
+                        "AgeOfLocationInformation" : {
+                            "Enabled" : true,
+                            "Value"   : 1000
+                        },
+                        "UserCSGInformation" : {
+                            "Enabled" : true,
+                            "CSG_Id" : {
+                                "Value" : 1
+                            },
+                            "accessMode" : {
+                                "Enabled" : true,
+                                "Value" : "a"
+                            },
+                            "cmi" : {
+                                "Enabled" : true,
+                                "Value" : "c"
+                            }
+                        }
+                    },
+                    "PS_SubscriberState" : {
+                        "Enabled" : false,
+                        "notProvidedFromSGSNorMME" : {
+                            "Enabled" : true
+                        },
+                        "ps_Detached" : {
+                            "Enabled" : true
+                        },
+                        "ps_AttachedNotReachableForPaging" : {
+                            "Enabled" : true
+                        },
+                        "ps_AttachedReachableForPaging" : {
+                            "Enabled" : true
+                        },
+                        "ps_PDP_ActiveNotReachableForPaging" : {
+                            "Enabled" : true,
+                            "PDP_ContextInfo" : {
+                                "pdp_ContextIdentifier" : {
+                                    "Value"   : 1000
+                                },
+                                "pdp_ContextActive" : {
+                                    "Enabled" : true
+                                },
+                                "PDP_Type" : {
+                                    "Enabled" : true,
+                                    "Value"   : "pd"
+                                },
+                                "PDP_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "pdp"
+                                },
+                                "apn_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "apn"
+                                },
+                                "apn_InUse" : {
+                                    "Enabled" : true,
+                                    "Value"   : "apn"
+                                },
+                                "nsapi" : {
+                                    "Enabled" : true,
+                                    "Value"   : 1
+                                },
+                                "TransactionId" : {
+                                    "Enabled" : true,
+                                    "Value"   : "id"
+                                },
+                                "teid_ForGnAndGp" : {
+                                    "Enabled" : true,
+                                    "Value"   : "teid" 
+                                },
+                                "teid_ForIu" : {
+                                    "Enabled" : true,
+                                    "Value"   : "teid"
+                                },
+                                "ggsn_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "ggsnAdd"
+                                },
+                                "qos_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Subscri" 
+                                },
+                                "qos_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Request"
+                                },
+                                "qos_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Negotiate"
+                                },
+                                "GPRSChargingID" : {
+                                    "Enabled" : true,
+                                    "Value"   : "GPRS" 
+                                },
+                                "ChargingCharacteristics" : {
+                                    "Enabled" : true,
+                                    "Value"   : "cc"
+                                },
+                                "rnc_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "rncAdd"
+                                },
+                                "qos2_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos2_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos2_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos3_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos3_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos3_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos4_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "qos4_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "qos4_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "ext_pdp_Type" : {
+                                    "Enabled" : true,
+                                    "Value"   : "ep"
+                                },
+                                "ext_pdp_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "epa"
+                                }
+                            }
+                        },
+                        "ps_PDP_ActiveReachableForPaging" : {
+                            "Enabled" : true,
+                            "pdp_ContextIdentifier" : {
+                                "Value"   : 1000
+                            },
+                            "pdp_ContextActive" : {
+                                "Enabled" : true
+                            },
+                            "PDP_Type" : {
+                                "Enabled" : true,
+                                "Value"   : "pd"
+                            },
+                            "PDP_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "pdp"
+                            },
+                            "apn_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "apn"
+                            },
+                            "apn_InUse" : {
+                                "Enabled" : true,
+                                "Value"   : "apn"
+                            },
+                            "nsapi" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "TransactionId" : {
+                                "Enabled" : true,
+                                "Value"   : "id"
+                            },
+                            "teid_ForGnAndGp" : {
+                                "Enabled" : true,
+                                "Value"   : "teid" 
+                            },
+                            "teid_ForIu" : {
+                                "Enabled" : true,
+                                "Value"   : "teid"
+                            },
+                            "ggsn_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "ggsnAdd"
+                            },
+                            "qos_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "Subscri" 
+                            },
+                            "qos_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "Request"
+                            },
+                            "qos_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "Negotiate"
+                            },
+                            "GPRSChargingID" : {
+                                "Enabled" : true,
+                                "Value"   : "GPRS" 
+                            },
+                            "ChargingCharacteristics" : {
+                                "Enabled" : true,
+                                "Value"   : "cc"
+                            },
+                            "rnc_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "rncAdd"
+                            },
+                            "qos2_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos2_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos2_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos3_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos3_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos3_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos4_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "qos4_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "qos4_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "ext_pdp_Type" : {
+                                "Enabled" : true,
+                                "Value"   : "ep"
+                            },
+                            "ext_pdp_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "epa"
+                            }
+                        },
+                        "netDetNotReachable" : {
+                            "Enabled" : true,
+                            "Value"   : 0
+                        }
+                    },
+                    "IMEI" : {
+                        "Enabled" : true,
+                        "Value"   : "404120000000001"
+                    },
+                    "MS_Classmark2" : {
+                        "Enabled" : true,
+                        "Value"   : "msc"
+                    },
+                    "GPRSMSClass" : {
+                        "Enabled" : true,
+                        "MSNetworkCapability" : {
+                            "Value"   : "msn"
+                        },
+                        "MSRadioAccessCapability" : {
+                            "Enabled" : true,
+                            "Value"   : "msr"
+                        }
+                    },
+                    "MNPInfoRes" : {
+                        "Enabled" : true,
+                        "RouteingNumber" : {
+                            "Enabled" : true,
+                            "Value"   : "rn"
+                        },
+                        "IMSI" : {
+                            "Enabled" : true,
+                            "Value"   : "404120000000001"
+                        },
+                        "msisdn" : {
+                            "Enabled" : true,
+                            "Value"   : "234567"
+                        },
+                        "NumberPortabilityStatus" : {
+                            "Enabled" : true,
+                            "Value"   : 0
+                        }
+                    },
+                    "IMS_VoiceOverPS_SessionsInd" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "lastUE_ActivityTime" : {
+                        "Enabled" : true,
+                        "Value"   : "time"
+                    },
+                    "lastRAT_Type" : {
+                        "Enabled" : true,
+                        "Value"   : 0
+                    },
+                    "eps_SubscriberState" : {
+                        "Enabled" : false,
+                        "notProvidedFromSGSNorMME" : {
+                            "Enabled" : true
+                        },
+                        "ps_Detached" : {
+                            "Enabled" : true
+                        },
+                        "ps_AttachedNotReachableForPaging" : {
+                            "Enabled" : true
+                        },
+                        "ps_AttachedReachableForPaging" : {
+                            "Enabled" : true
+                        },
+                        "ps_PDP_ActiveNotReachableForPaging" : {
+                            "Enabled" : true,
+                            "PDP_ContextInfo" : {
+                                "pdp_ContextIdentifier" : {
+                                    "Value"   : 1000
+                                },
+                                "pdp_ContextActive" : {
+                                    "Enabled" : true
+                                },
+                                "PDP_Type" : {
+                                    "Enabled" : true,
+                                    "Value"   : "pd"
+                                },
+                                "PDP_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "pdp"
+                                },
+                                "apn_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "apn"
+                                },
+                                "apn_InUse" : {
+                                    "Enabled" : true,
+                                    "Value"   : "apn"
+                                },
+                                "nsapi" : {
+                                    "Enabled" : true,
+                                    "Value"   : 1
+                                },
+                                "TransactionId" : {
+                                    "Enabled" : true,
+                                    "Value"   : "id"
+                                },
+                                "teid_ForGnAndGp" : {
+                                    "Enabled" : true,
+                                    "Value"   : "teid" 
+                                },
+                                "teid_ForIu" : {
+                                    "Enabled" : true,
+                                    "Value"   : "teid"
+                                },
+                                "ggsn_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "ggsnAdd"
+                                },
+                                "qos_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Subscri" 
+                                },
+                                "qos_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Request"
+                                },
+                                "qos_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "Negotiate"
+                                },
+                                "GPRSChargingID" : {
+                                    "Enabled" : true,
+                                    "Value"   : "GPRS" 
+                                },
+                                "ChargingCharacteristics" : {
+                                    "Enabled" : true,
+                                    "Value"   : "cc"
+                                },
+                                "rnc_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "rncAdd"
+                                },
+                                "qos2_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos2_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos2_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "qo2"
+                                },
+                                "qos3_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos3_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos3_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q3"
+                                },
+                                "qos4_Subscribed" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "qos4_Requested" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "qos4_Negotiated" : {
+                                    "Enabled" : true,
+                                    "Value"   : "q"
+                                },
+                                "ext_pdp_Type" : {
+                                    "Enabled" : true,
+                                    "Value"   : "ep"
+                                },
+                                "ext_pdp_Address" : {
+                                    "Enabled" : true,
+                                    "Value"   : "epa"
+                                }
+                            }
+                        },
+                        "ps_PDP_ActiveReachableForPaging" : {
+                            "Enabled" : true,
+                            "pdp_ContextIdentifier" : {
+                                "Value"   : 1000
+                            },
+                            "pdp_ContextActive" : {
+                                "Enabled" : true
+                            },
+                            "PDP_Type" : {
+                                "Enabled" : true,
+                                "Value"   : "pd"
+                            },
+                            "PDP_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "pdp"
+                            },
+                            "apn_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "apn"
+                            },
+                            "apn_InUse" : {
+                                "Enabled" : true,
+                                "Value"   : "apn"
+                            },
+                            "nsapi" : {
+                                "Enabled" : true,
+                                "Value"   : 1
+                            },
+                            "TransactionId" : {
+                                "Enabled" : true,
+                                "Value"   : "id"
+                            },
+                            "teid_ForGnAndGp" : {
+                                "Enabled" : true,
+                                "Value"   : "teid" 
+                            },
+                            "teid_ForIu" : {
+                                "Enabled" : true,
+                                "Value"   : "teid"
+                            },
+                            "ggsn_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "ggsnAdd"
+                            },
+                            "qos_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "Subscri" 
+                            },
+                            "qos_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "Request"
+                            },
+                            "qos_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "Negotiate"
+                            },
+                            "GPRSChargingID" : {
+                                "Enabled" : true,
+                                "Value"   : "GPRS" 
+                            },
+                            "ChargingCharacteristics" : {
+                                "Enabled" : true,
+                                "Value"   : "cc"
+                            },
+                            "rnc_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "rncAdd"
+                            },
+                            "qos2_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos2_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos2_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "qo2"
+                            },
+                            "qos3_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos3_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos3_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "q3"
+                            },
+                            "qos4_Subscribed" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "qos4_Requested" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "qos4_Negotiated" : {
+                                "Enabled" : true,
+                                "Value"   : "q"
+                            },
+                            "ext_pdp_Type" : {
+                                "Enabled" : true,
+                                "Value"   : "ep"
+                            },
+                            "ext_pdp_Address" : {
+                                "Enabled" : true,
+                                "Value"   : "epa"
+                            }
+                        },
+                        "netDetNotReachable" : {
+                            "Enabled" : true,
+                            "Value"   : 0
+                        }
+                    },
+                    "LocationInformationEPS" : {
+                        "Enabled" : false,
+                        "E_UTRAN_CGI" : {
+                            "Enabled" : true,
+                            "Value"   : "eutrcgi"
+                        },
+                        "TA_Id" : {
+                            "Enabled" : true,
+                            "Value"   : "taids"
+                        },
+                        "GeographicalInformation" : {
+                            "Enabled" : true,
+                            "Value"   : "Geograph" 
+                        },
+                        "GeodeticInformation" : {
+                            "Enabled" : true,
+                            "Value"   : "GeodeticIn"
+                        },
+                        "currentLocationRetrieved" : {
+                            "Enabled" : true
+                        },
+                        "AgeOfLocationInformation" : {
+                            "Enabled" : true,
+                            "Value"   : 1000
+                        },
+                        "mme_name" : {
+                            "Enabled" : true,
+                            "Value"   : "mmenametodo"
+                        }
+                    }
+                }
+            },
+            "ReadyForSM_Arg" : {
+                "IMSI" : {
+                    "Value"   : "404120000000001"
+                },
+                "AlertReason" : {
+                    "Value"   : 0
+                },
+                "alertReasonIndicator" : {
+                    "Enabled" : true
+                },
+                "additionalAlertReasonIndicator" : {
+                    "Enabled" : true
+                }
+            },
+            "CancelLocationErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            },
+            "ReadyForSMErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            },
+            "InsertSubscriberDataErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            },
+            "DeleteSubscriberDataErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            },
+            "ProvideSubscriberInfoErrRes" : {
+                "Enabled" : false,
+                "Value"   : 1
+            }
+    }
+}

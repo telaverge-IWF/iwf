@@ -1,0 +1,20 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_asp_ac_tmr
+
+DESCRIPTION
+    This command set asp active Timer.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_asp_ac_tmr 10
+
+********* SET NEW ASP ACTIVE TIMER *********
+
+ASP_ACTIVE_TIMER   = 10
+
+

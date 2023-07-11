@@ -1,0 +1,163 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/sh
+
+DIRLIST="AcceleroCore apps include config api"
+
+INTELLI_INC="asn-c asn-cpp domxmlparser gdi mnt parse ssl rudp_msgs.h tali_msgs.h sctp_msgs.h gdi_msgs.h its_rudp.h its_dsm_sci.h"
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+IMS_VER=$1
+
+if [ "$IMS_VER" = "" ]
+then
+   echo Ex. make install_dist_client IMS_VER=3.2.0
+   echo Please enter the release version number.
+   exit 0
+fi
+
+echo "InstallDir is ./InstallDir  \n";
+
+RELEASE_DIR=$IMS_ROOT/../InstallDir
+
+
+RELEASE_IMSROOT=$RELEASE_DIR/IDC-$IMS_VER
+
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_API_DIR=$RELEASE_IMSROOT/api
+RELEASE_INC_DIR=$RELEASE_IMSROOT/include
+RELEASE_APPS_DIR=$RELEASE_IMSROOT/apps
+RELEASE_ACCLCORE_DIR=$RELEASE_IMSROOT/AcceleroCore
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+
+mkdir -p $RELEASE_INC_DIR
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_API_DIR
+mkdir -p $RELEASE_APPS_DIR
+mkdir -p $RELEASE_ACCLCORE_DIR
+
+echo "Created the directory structure"
+
+for i in $DIRLIST
+do
+   #
+   # Copy libraries.
+   #
+   if [ "$i" = "api" ]
+   then
+     mkdir -p $RELEASE_API_DIR/lib/
+     cp -r $IMS_ROOT/api/c++/lib/libbaseapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     cp -r $IMS_ROOT/api/c++/lib/libcxdxapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     cp -r $IMS_ROOT/api/c++/lib/libgqgqapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     cp -r $IMS_ROOT/api/c++/lib/libnasreqapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     cp -r $IMS_ROOT/api/c++/lib/librfroapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     cp -r $IMS_ROOT/api/c++/lib/libshapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+
+     cp -r $IMS_ROOT/api/c++/lib/libshapi$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+
+     cp $IMS_ROOT/aim/client/lib/libIDSClient$DBGSUFFIX.so $RELEASE_API_DIR/lib;   
+
+     mkdir -p $RELEASE_API_DIR/include/diameter/
+     cp -r $IMS_ROOT/api/c++/include/diameter/base $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/cxdx $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/dcca $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/gqgqprime $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/nasreq $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/rfro $RELEASE_API_DIR/include/diameter/.;
+     cp -r $IMS_ROOT/api/c++/include/diameter/sh $RELEASE_API_DIR/include/diameter/.;
+     
+     cd $RELEASE_LIB_DIR
+     cd ../../../..
+
+     cp -r $IMS_ROOT/val/c++/lib/lib*$DBGSUFFIX.so $RELEASE_API_DIR/lib;
+     
+     echo "Copied Api includes & libraries"
+   fi
+  
+   #
+   # Copy include files.
+   #
+   if [ "$i" = "AcceleroCore" ]
+   then
+     cp -r $ITS_ROOT/common/include $RELEASE_ACCLCORE_DIR;
+      \rm -rf $RELEASE_ACCLCORE_DIR/include/platforms/*.h
+     cp -r $ITS_ROOT/common/include/platforms/its_$PLATFORM.h $RELEASE_ACCLCORE_DIR/include/platforms/.
+
+         for j in $INTELLI_INC
+         do
+              rm -rf $RELEASE_ACCLCORE_DIR/include/$j
+         done
+
+     echo "Copied AcceleroCore includes"
+   fi
+ 
+   if [ "$i" = "include" ]
+   then
+     cp $IMS_ROOT/aim/client/include/*.h $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/val/c++/include/diameter $RELEASE_INC_DIR/.;
+     cp -r $IMS_ROOT/common/include/*.h $RELEASE_INC_DIR/.;
+
+     echo "Copied root includes"
+   fi
+
+   # Copy New interfaces common to apps
+   if [ "$i" = "apps" ]
+   then
+
+     cp -r $IMS_ROOT/api/c++/mtest/diameter/app_dist/* $RELEASE_APPS_DIR
+     echo "Copied Apps Applications"
+   fi
+   #
+   # Copy config files.
+   # 
+   if [ "$i" = "config" ]
+   then
+     if [ $PLATFORM = "linux" ]
+     then
+          if [ $SDK = "rmi" ]
+          then
+               cp -rp ../common/make.dirs.rmi $RELEASE_IMSROOT/make.dirs
+          elif [ $SDK = "windriver" ]
+          then
+               cp -rp ../common/make.dirs.wr $RELEASE_IMSROOT/make.dirs
+          else
+               cp -rp ../common/make.dirs $RELEASE_IMSROOT
+          fi
+     fi
+     echo "Copied config files"
+   fi
+
+done
+
+find $RELEASE_IMSROOT/demo -name  core.* -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT/apps/ -name *.o -print | xargs /bin/rm -rf
+

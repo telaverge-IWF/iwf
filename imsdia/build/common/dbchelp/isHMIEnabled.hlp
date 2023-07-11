@@ -1,0 +1,14 @@
+Diameter Command
+
+SYNOPSIS
+    isHMIEnabled
+
+DESCRIPTION
+    Prints HMI is Enabled or Not.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+      >> isHMIEnabled
+         HMI Enabled

@@ -1,0 +1,471 @@
+################################################################################
+#                                                                              #
+#      Copyright 2000 IntelliNet Technologies, Inc. All Rights Reserved.       #
+#              Manufactured in the United States of America.                   #
+#        1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.          #
+#                                                                              #
+#     This product and related documentation is protected by copyright and     #
+#     distributed under licenses restricting its use, copying, distribution    #
+#     and decompilation.  No part of this product or related documentation     #
+#     may be reproduced in any form by any means without prior written         #
+#     authorization of IntelliNet Technologies and its licensors, if any.      #
+#                                                                              #
+#     RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the        #
+#     government is subject to restrictions as set forth in subparagraph       #
+#     (c)(1)(ii) of the Rights in Technical Data and Computer Software         #
+#     clause at DFARS 252.227-7013 and FAR 52.227-19.                          #
+#                                                                              #
+################################################################################
+#                                                                              #
+# CONTRACT: Internal                                                           #
+#                                                                              #
+################################################################################
+#
+#  ID: $Id: map_legacy_cpp_targets,v 9.1 2005/03/23 12:51:26 cvsadmin Exp $
+#
+################################################################################
+
+ASNCC=$(ITS_ROOT)/tools/bin/asncc$(DBGSUFFIX)
+
+ASNCCFLAGS= -cpp -f -u $(ITS_ROOT)/tools/bin/asncc_useful.asn
+
+CXXSRCASN=./GSMMAPP2P_LRF.asn
+
+CXXLIBTARGET=../lib/libGSMMAP++$(DBGSUFFIX).a
+
+CXXOBJS=APN.o ASCI_CallReference.o ATI_NotAllowedParam.o \
+        AbsentSubscriberDiagnosticSM.o AbsentSubscriberParam.o \
+        AbsentSubscriberReason.o AbsentSubscriberSM_Param.o \
+        ActivateTraceModeArg.o ActivateTraceModeRes.o \
+        Additional_Number.o AddressString.o \
+        AgeOfLocationInformation.o AlertReason.o \
+        AlertServiceCentreArg.o AlertingPattern.o \
+        AnyTimeInterrogationArg.o AnyTimeInterrogationRes.o \
+        AuthenticationSet.o AuthenticationSetList.o \
+        BasicServiceCode.o BasicServiceCriteria.o \
+        BasicServiceGroupList.o BasicServiceList.o \
+        BearerServNotProvParam.o BearerServiceCode.o \
+        BearerServiceList.o BusySubscriberParam.o \
+        CCBS_Data.o CCBS_Feature.o CCBS_FeatureList.o \
+        CCBS_Index.o CCBS_Indicators.o CCBS_SubscriberStatus.o \
+        CODEC_Info.o CUG_CheckInfo.o CUG_Feature.o \
+        CUG_FeatureList.o CUG_Index.o CUG_Info.o \
+        CUG_Interlock.o CUG_RejectCause.o CUG_RejectParam.o \
+        CUG_Subscription.o CUG_SubscriptionList.o \
+        CallBarredParam.o CallBarringCause.o \
+        CallBarringFeature.o CallBarringFeatureList.o \
+        CallBarringInfo.o CallDirection.o CallOutcome.o \
+        CallReferenceNumber.o CallReportData.o \
+        CallTypeCriteria.o CamelCapabilityHandling.o \
+        CamelInfo.o CamelRoutingInfo.o CancelLocationArg.o \
+        CancelLocationRes.o CancellationType.o \
+        Category.o CellIdFixedLength.o CellIdOrLAI.o \
+        CipheringAlgorithm.o CliRestrictionOption.o \
+        ContextId.o ContextIdList.o DataMissingParam.o \
+        DeactivateTraceModeArg.o DeactivateTraceModeRes.o \
+        DefaultCallHandling.o DeleteSubscriberDataArg.o \
+        DeleteSubscriberDataRes.o DestinationNumberCriteria.o \
+        DestinationNumberLengthList.o DestinationNumberList.o \
+        EMLPP_Info.o EMLPP_Priority.o EquipmentStatus.o \
+        EraseCC_EntryArg.o EraseCC_EntryRes.o \
+        EventReportData.o Ext_BasicServiceCode.o \
+        Ext_BasicServiceGroupList.o Ext_BearerServiceCode.o \
+        Ext_CallBarFeatureList.o Ext_CallBarInfo.o \
+        Ext_CallBarringFeature.o Ext_ForwFeature.o \
+        Ext_ForwFeatureList.o Ext_ForwInfo.o \
+        Ext_ForwOptions.o Ext_NoRepCondTime.o \
+        Ext_SS_Data.o Ext_SS_Info.o Ext_SS_InfoList.o \
+        Ext_SS_Status.o Ext_TeleserviceCode.o \
+        ExtendedRoutingInfo.o ExtensibleCallBarredParam.o \
+        ExtensibleSystemFailureParam.o ExtensionContainer.o \
+        ExtensionSet.o ExternalSignalInfo.o \
+        FacilityNotSupParam.o FailureReportArg.o \
+        FailureReportRes.o ForwardGroupCallSignallingArg.o \
+        ForwardingData.o ForwardingFailedParam.o \
+        ForwardingFeature.o ForwardingFeatureList.o \
+        ForwardingInfo.o ForwardingOptions.o \
+        ForwardingReason.o ForwardingViolationParam.o \
+        GPRSDataList.o GPRSSubscriptionData.o \
+        GPRSSubscriptionDataWithdraw.o GSN_Address.o \
+        GenericServiceInfo.o GeographicalInformation.o \
+        GlobalCellId.o GmscCamelSubscriptionInfo.o \
+        GroupId.o GroupKeyNumber.o GuidanceInfo.o \
+        HLR_Id.o HLR_List.o IMEI.o IMSI.o \
+        IMSI_WithLMSI.o ISDN_AddressString.o \
+        ISDN_SubaddressString.o Identity.o \
+        IllegalEquipmentParam.o IllegalSubscriberParam.o \
+        IncompatibleTerminalParam.o InformServiceCentreArg.o \
+        InsertSubscriberDataArg.o InsertSubscriberDataRes.o \
+        InterCUG_Restrictions.o InterrogateSS_Res.o \
+        InterrogationType.o IntraCUG_Options.o \
+        Kc.o LAIFixedLength.o LMSI.o \
+        LocationInfoWithLMSI.o LocationInformation.o \
+        LocationNumber.o LongTermDenialParam.o \
+        MO_ForwardSM_Arg.o MO_ForwardSM_Res.o \
+        MT_ForwardSM_Arg.o MT_ForwardSM_Res.o \
+        MW_Status.o MatchType.o MessageWaitListFullParam.o \
+        MonitoringMode.o NAEA_CIC.o NAEA_PreferredCI.o \
+        NetworkAccessMode.o NetworkResource.o \
+        NoGroupCallNbParam.o NoReplyConditionTime.o \
+        NoRoamingNbParam.o NoSubscriberReplyParam.o \
+        NotReachableReason.o NoteMsPresentForGprsArg.o \
+        NoteMsPresentForGprsRes.o NumberChangedParam.o \
+        NumberOfForwarding.o ODB_Data.o ODB_GeneralData.o \
+        ODB_HPLMN_Data.o OR_NotAllowedParam.o OR_Phase.o \
+        O_BcsmCamelTDPData.o O_BcsmCamelTDPDataList.o \
+        O_BcsmCamelTDP_Criteria.o O_BcsmTriggerDetectionPoint.o \
+        O_CSI.o OverrideCategory.o PCS_Extensions.o \
+        PDP_Address.o PDP_Context.o PDP_Type.o \
+        PW_RegistrationFailureCause.o Password.o \
+        PrepareGroupCallArg.o PrepareGroupCallRes.o \
+        PrepareHO_Arg.o PrepareHO_Res.o \
+        PrepareSubsequentHO_Arg.o PrivateExtension.o \
+        PrivateExtensionList.o ProcessGroupCallSignallingArg.o \
+        ProtocolId.o ProvideRoamingNumberArg.o \
+        ProvideRoamingNumberRes.o ProvideSIWFSNumberArg.o \
+        ProvideSIWFSNumberRes.o ProvideSubscriberInfoArg.o \
+        ProvideSubscriberInfoRes.o PurgeMS_Arg.o \
+        PurgeMS_Res.o QoS_Subscribed.o RAND.o \
+        RUF_Outcome.o ReadyForSM_Arg.o ReadyForSM_Res.o \
+        RegionalSubscriptionResponse.o RegisterCC_EntryArg.o \
+        RegisterCC_EntryRes.o RegisterSS_Arg.o \
+        RemoteUserFreeArg.o RemoteUserFreeRes.o \
+        ReportSM_DeliveryStatusArg.o ReportSM_DeliveryStatusRes.o \
+        ReportingState.o RequestedInfo.o ResetArg.o \
+        ResourceLimitationParam.o RestoreDataArg.o \
+        RestoreDataRes.o ResumeCallHandlingArg.o \
+        ResumeCallHandlingRes.o RoamingNotAllowedCause.o \
+        RoamingNotAllowedParam.o RoutingInfo.o \
+        RoutingInfoForSM_Arg.o RoutingInfoForSM_Res.o \
+        SIWFSSignallingModifyArg.o SIWFSSignallingModifyRes.o \
+        SM_DeliveryFailureCause.o SM_DeliveryOutcome.o \
+        SM_EnumeratedDeliveryFailureCause.o SM_RP_DA.o \
+        SM_RP_MTI.o SM_RP_OA.o SM_RP_SMEA.o SRES.o \
+        SS_CSI.o SS_CamelData.o SS_Code.o SS_Data.o \
+        SS_EventList.o SS_EventSpecification.o \
+        SS_ForBS_Code.o SS_IncompatibilityCause.o \
+        SS_Info.o SS_InfoList.o \
+        SS_InvocationNotificationArg.o \
+        SS_InvocationNotificationRes.o \
+        SS_List.o SS_Status.o SS_SubscriptionOption.o \
+        SendAuthenticationInfoArg.o SendAuthenticationInfoRes.o \
+        SendGroupCallEndSignalArg.o SendGroupCallEndSignalRes.o \
+        SendIdentificationRes.o SendRoutingInfoArg.o \
+        SendRoutingInfoForGprsArg.o SendRoutingInfoForGprsRes.o \
+        SendRoutingInfoRes.o ServiceIndicator.o ServiceKey.o \
+        SetReportingStateArg.o SetReportingStateRes.o \
+        ShortTermDenialParam.o SignalInfo.o \
+        StatusReportArg.o StatusReportRes.o \
+        SubBusyForMT_SMS_Param.o SubscriberData.o \
+        SubscriberId.o SubscriberIdentity.o \
+        SubscriberInfo.o SubscriberState.o \
+        SubscriberStatus.o SupportedCCBS_Phase.o \
+        SupportedCamelPhases.o SuppressionOfAnnouncement.o \
+        SystemFailureParam.o TBCD_STRING.o \
+        TMSI.o T_BcsmCamelTDPData.o \
+        T_BcsmCamelTDPDataList.o T_BcsmTriggerDetectionPoint.o \
+        T_CSI.o TeleservNotProvParam.o \
+        TeleserviceCode.o TeleserviceList.o \
+        TraceReference.o TraceType.o \
+        TracingBufferFullParam.o USSD_Arg.o \
+        USSD_DataCodingScheme.o USSD_Res.o USSD_String.o \
+        UnexpectedDataParam.o UnidentifiedSubParam.o \
+        UnknownSubscriberDiagnostic.o UnknownSubscriberParam.o \
+        UpdateGprsLocationArg.o UpdateGprsLocationRes.o \
+        UpdateLocationArg.o UpdateLocationRes.o \
+        VBSDataList.o VGCSDataList.o VLR_Capability.o \
+        VlrCamelSubscriptionInfo.o VoiceBroadcastData.o \
+        VoiceGroupCallData.o ZoneCode.o ZoneCodeList.o
+
+CXXSRCS=
+
+CXXSRCSAUX=APN.cpp ASCI_CallReference.cpp ATI_NotAllowedParam.cpp \
+        AbsentSubscriberDiagnosticSM.cpp AbsentSubscriberParam.cpp \
+        AbsentSubscriberReason.cpp AbsentSubscriberSM_Param.cpp \
+        ActivateTraceModeArg.cpp ActivateTraceModeRes.cpp \
+        Additional_Number.cpp AddressString.cpp \
+        AgeOfLocationInformation.cpp AlertReason.cpp \
+        AlertServiceCentreArg.cpp AlertingPattern.cpp \
+        AnyTimeInterrogationArg.cpp AnyTimeInterrogationRes.cpp \
+        AuthenticationSet.cpp AuthenticationSetList.cpp \
+        BasicServiceCode.cpp BasicServiceCriteria.cpp \
+        BasicServiceGroupList.cpp BasicServiceList.cpp \
+        BearerServNotProvParam.cpp BearerServiceCode.cpp \
+        BearerServiceList.cpp BusySubscriberParam.cpp \
+        CCBS_Data.cpp CCBS_Feature.cpp CCBS_FeatureList.cpp \
+        CCBS_Index.cpp CCBS_Indicators.cpp CCBS_SubscriberStatus.cpp \
+        CODEC_Info.cpp CUG_CheckInfo.cpp CUG_Feature.cpp \
+        CUG_FeatureList.cpp CUG_Index.cpp CUG_Info.cpp \
+        CUG_Interlock.cpp CUG_RejectCause.cpp CUG_RejectParam.cpp \
+        CUG_Subscription.cpp CUG_SubscriptionList.cpp \
+        CallBarredParam.cpp CallBarringCause.cpp \
+        CallBarringFeature.cpp CallBarringFeatureList.cpp \
+        CallBarringInfo.cpp CallDirection.cpp CallOutcome.cpp \
+        CallReferenceNumber.cpp CallReportData.cpp \
+        CallTypeCriteria.cpp CamelCapabilityHandling.cpp \
+        CamelInfo.cpp CamelRoutingInfo.cpp CancelLocationArg.cpp \
+        CancelLocationRes.cpp CancellationType.cpp \
+        Category.cpp CellIdFixedLength.cpp CellIdOrLAI.cpp \
+        CipheringAlgorithm.cpp CliRestrictionOption.cpp \
+        ContextId.cpp ContextIdList.cpp DataMissingParam.cpp \
+        DeactivateTraceModeArg.cpp DeactivateTraceModeRes.cpp \
+        DefaultCallHandling.cpp DeleteSubscriberDataArg.cpp \
+        DeleteSubscriberDataRes.cpp DestinationNumberCriteria.cpp \
+        DestinationNumberLengthList.cpp DestinationNumberList.cpp \
+        EMLPP_Info.cpp EMLPP_Priority.cpp EquipmentStatus.cpp \
+        EraseCC_EntryArg.cpp EraseCC_EntryRes.cpp \
+        EventReportData.cpp Ext_BasicServiceCode.cpp \
+        Ext_BasicServiceGroupList.cpp Ext_BearerServiceCode.cpp \
+        Ext_CallBarFeatureList.cpp Ext_CallBarInfo.cpp \
+        Ext_CallBarringFeature.cpp Ext_ForwFeature.cpp \
+        Ext_ForwFeatureList.cpp Ext_ForwInfo.cpp \
+        Ext_ForwOptions.cpp Ext_NoRepCondTime.cpp \
+        Ext_SS_Data.cpp Ext_SS_Info.cpp Ext_SS_InfoList.cpp \
+        Ext_SS_Status.cpp Ext_TeleserviceCode.cpp \
+        ExtendedRoutingInfo.cpp ExtensibleCallBarredParam.cpp \
+        ExtensibleSystemFailureParam.cpp ExtensionContainer.cpp \
+        ExtensionSet.cpp ExternalSignalInfo.cpp \
+        FacilityNotSupParam.cpp FailureReportArg.cpp \
+        FailureReportRes.cpp ForwardGroupCallSignallingArg.cpp \
+        ForwardingData.cpp ForwardingFailedParam.cpp \
+        ForwardingFeature.cpp ForwardingFeatureList.cpp \
+        ForwardingInfo.cpp ForwardingOptions.cpp \
+        ForwardingReason.cpp ForwardingViolationParam.cpp \
+        GPRSDataList.cpp GPRSSubscriptionData.cpp \
+        GPRSSubscriptionDataWithdraw.cpp GSN_Address.cpp \
+        GenericServiceInfo.cpp GeographicalInformation.cpp \
+        GlobalCellId.cpp GmscCamelSubscriptionInfo.cpp \
+        GroupId.cpp GroupKeyNumber.cpp GuidanceInfo.cpp \
+        HLR_Id.cpp HLR_List.cpp IMEI.cpp IMSI.cpp \
+        IMSI_WithLMSI.cpp ISDN_AddressString.cpp \
+        ISDN_SubaddressString.cpp Identity.cpp \
+        IllegalEquipmentParam.cpp IllegalSubscriberParam.cpp \
+        IncompatibleTerminalParam.cpp InformServiceCentreArg.cpp \
+        InsertSubscriberDataArg.cpp InsertSubscriberDataRes.cpp \
+        InterCUG_Restrictions.cpp InterrogateSS_Res.cpp \
+        InterrogationType.cpp IntraCUG_Options.cpp \
+        Kc.cpp LAIFixedLength.cpp LMSI.cpp \
+        LocationInfoWithLMSI.cpp LocationInformation.cpp \
+        LocationNumber.cpp LongTermDenialParam.cpp \
+        MO_ForwardSM_Arg.cpp MO_ForwardSM_Res.cpp \
+        MT_ForwardSM_Arg.cpp MT_ForwardSM_Res.cpp \
+        MW_Status.cpp MatchType.cpp MessageWaitListFullParam.cpp \
+        MonitoringMode.cpp NAEA_CIC.cpp NAEA_PreferredCI.cpp \
+        NetworkAccessMode.cpp NetworkResource.cpp \
+        NoGroupCallNbParam.cpp NoReplyConditionTime.cpp \
+        NoRoamingNbParam.cpp NoSubscriberReplyParam.cpp \
+        NotReachableReason.cpp NoteMsPresentForGprsArg.cpp \
+        NoteMsPresentForGprsRes.cpp NumberChangedParam.cpp \
+        NumberOfForwarding.cpp ODB_Data.cpp ODB_GeneralData.cpp \
+        ODB_HPLMN_Data.cpp OR_NotAllowedParam.cpp OR_Phase.cpp \
+        O_BcsmCamelTDPData.cpp O_BcsmCamelTDPDataList.cpp \
+        O_BcsmCamelTDP_Criteria.cpp O_BcsmTriggerDetectionPoint.cpp \
+        O_CSI.cpp OverrideCategory.cpp PCS_Extensions.cpp \
+        PDP_Address.cpp PDP_Context.cpp PDP_Type.cpp \
+        PW_RegistrationFailureCause.cpp Password.cpp \
+        PrepareGroupCallArg.cpp PrepareGroupCallRes.cpp \
+        PrepareHO_Arg.cpp PrepareHO_Res.cpp \
+        PrepareSubsequentHO_Arg.cpp PrivateExtension.cpp \
+        PrivateExtensionList.cpp ProcessGroupCallSignallingArg.cpp \
+        ProtocolId.cpp ProvideRoamingNumberArg.cpp \
+        ProvideRoamingNumberRes.cpp ProvideSIWFSNumberArg.cpp \
+        ProvideSIWFSNumberRes.cpp ProvideSubscriberInfoArg.cpp \
+        ProvideSubscriberInfoRes.cpp PurgeMS_Arg.cpp \
+        PurgeMS_Res.cpp QoS_Subscribed.cpp RAND.cpp \
+        RUF_Outcome.cpp ReadyForSM_Arg.cpp ReadyForSM_Res.cpp \
+        RegionalSubscriptionResponse.cpp RegisterCC_EntryArg.cpp \
+        RegisterCC_EntryRes.cpp RegisterSS_Arg.cpp \
+        RemoteUserFreeArg.cpp RemoteUserFreeRes.cpp \
+        ReportSM_DeliveryStatusArg.cpp ReportSM_DeliveryStatusRes.cpp \
+        ReportingState.cpp RequestedInfo.cpp ResetArg.cpp \
+        ResourceLimitationParam.cpp RestoreDataArg.cpp \
+        RestoreDataRes.cpp ResumeCallHandlingArg.cpp \
+        ResumeCallHandlingRes.cpp RoamingNotAllowedCause.cpp \
+        RoamingNotAllowedParam.cpp RoutingInfo.cpp \
+        RoutingInfoForSM_Arg.cpp RoutingInfoForSM_Res.cpp \
+        SIWFSSignallingModifyArg.cpp SIWFSSignallingModifyRes.cpp \
+        SM_DeliveryFailureCause.cpp SM_DeliveryOutcome.cpp \
+        SM_EnumeratedDeliveryFailureCause.cpp SM_RP_DA.cpp \
+        SM_RP_MTI.cpp SM_RP_OA.cpp SM_RP_SMEA.cpp SRES.cpp \
+        SS_CSI.cpp SS_CamelData.cpp SS_Code.cpp SS_Data.cpp \
+        SS_EventList.cpp SS_EventSpecification.cpp \
+        SS_ForBS_Code.cpp SS_IncompatibilityCause.cpp \
+        SS_Info.cpp SS_InfoList.cpp \
+        SS_InvocationNotificationArg.cpp \
+        SS_InvocationNotificationRes.cpp \
+        SS_List.cpp SS_Status.cpp SS_SubscriptionOption.cpp \
+        SendAuthenticationInfoArg.cpp SendAuthenticationInfoRes.cpp \
+        SendGroupCallEndSignalArg.cpp SendGroupCallEndSignalRes.cpp \
+        SendIdentificationRes.cpp SendRoutingInfoArg.cpp \
+        SendRoutingInfoForGprsArg.cpp SendRoutingInfoForGprsRes.cpp \
+        SendRoutingInfoRes.cpp ServiceIndicator.cpp ServiceKey.cpp \
+        SetReportingStateArg.cpp SetReportingStateRes.cpp \
+        ShortTermDenialParam.cpp SignalInfo.cpp \
+        StatusReportArg.cpp StatusReportRes.cpp \
+        SubBusyForMT_SMS_Param.cpp SubscriberData.cpp \
+        SubscriberId.cpp SubscriberIdentity.cpp \
+        SubscriberInfo.cpp SubscriberState.cpp \
+        SubscriberStatus.cpp SupportedCCBS_Phase.cpp \
+        SupportedCamelPhases.cpp SuppressionOfAnnouncement.cpp \
+        SystemFailureParam.cpp TBCD_STRING.cpp \
+        TMSI.cpp T_BcsmCamelTDPData.cpp \
+        T_BcsmCamelTDPDataList.cpp T_BcsmTriggerDetectionPoint.cpp \
+        T_CSI.cpp TeleservNotProvParam.cpp \
+        TeleserviceCode.cpp TeleserviceList.cpp \
+        TraceReference.cpp TraceType.cpp \
+        TracingBufferFullParam.cpp USSD_Arg.cpp \
+        USSD_DataCodingScheme.cpp USSD_Res.cpp USSD_String.cpp \
+        UnexpectedDataParam.cpp UnidentifiedSubParam.cpp \
+        UnknownSubscriberDiagnostic.cpp UnknownSubscriberParam.cpp \
+        UpdateGprsLocationArg.cpp UpdateGprsLocationRes.cpp \
+        UpdateLocationArg.cpp UpdateLocationRes.cpp \
+        VBSDataList.cpp VGCSDataList.cpp VLR_Capability.cpp \
+        VlrCamelSubscriptionInfo.cpp VoiceBroadcastData.cpp \
+        VoiceGroupCallData.cpp ZoneCode.cpp ZoneCodeList.cpp
+
+CXXHDRS=
+
+CXXHDRSAUX=APN.h ASCI_CallReference.h ATI_NotAllowedParam.h \
+        AbsentSubscriberDiagnosticSM.h AbsentSubscriberParam.h \
+        AbsentSubscriberReason.h AbsentSubscriberSM_Param.h \
+        ActivateTraceModeArg.h ActivateTraceModeRes.h \
+        Additional_Number.h AddressString.h \
+        AgeOfLocationInformation.h AlertReason.h \
+        AlertServiceCentreArg.h AlertingPattern.h \
+        AnyTimeInterrogationArg.h AnyTimeInterrogationRes.h \
+        AuthenticationSet.h AuthenticationSetList.h \
+        BasicServiceCode.h BasicServiceCriteria.h \
+        BasicServiceGroupList.h BasicServiceList.h \
+        BearerServNotProvParam.h BearerServiceCode.h \
+        BearerServiceList.h BusySubscriberParam.h \
+        CCBS_Data.h CCBS_Feature.h CCBS_FeatureList.h \
+        CCBS_Index.h CCBS_Indicators.h CCBS_SubscriberStatus.h \
+        CODEC_Info.h CUG_CheckInfo.h CUG_Feature.h \
+        CUG_FeatureList.h CUG_Index.h CUG_Info.h \
+        CUG_Interlock.h CUG_RejectCause.h CUG_RejectParam.h \
+        CUG_Subscription.h CUG_SubscriptionList.h \
+        CallBarredParam.h CallBarringCause.h \
+        CallBarringFeature.h CallBarringFeatureList.h \
+        CallBarringInfo.h CallDirection.h CallOutcome.h \
+        CallReferenceNumber.h CallReportData.h \
+        CallTypeCriteria.h CamelCapabilityHandling.h \
+        CamelInfo.h CamelRoutingInfo.h CancelLocationArg.h \
+        CancelLocationRes.h CancellationType.h \
+        Category.h CellIdFixedLength.h CellIdOrLAI.h \
+        CipheringAlgorithm.h CliRestrictionOption.h \
+        ContextId.h ContextIdList.h DataMissingParam.h \
+        DeactivateTraceModeArg.h DeactivateTraceModeRes.h \
+        DefaultCallHandling.h DeleteSubscriberDataArg.h \
+        DeleteSubscriberDataRes.h DestinationNumberCriteria.h \
+        DestinationNumberLengthList.h DestinationNumberList.h \
+        EMLPP_Info.h EMLPP_Priority.h EquipmentStatus.h \
+        EraseCC_EntryArg.h EraseCC_EntryRes.h \
+        EventReportData.h Ext_BasicServiceCode.h \
+        Ext_BasicServiceGroupList.h Ext_BearerServiceCode.h \
+        Ext_CallBarFeatureList.h Ext_CallBarInfo.h \
+        Ext_CallBarringFeature.h Ext_ForwFeature.h \
+        Ext_ForwFeatureList.h Ext_ForwInfo.h \
+        Ext_ForwOptions.h Ext_NoRepCondTime.h \
+        Ext_SS_Data.h Ext_SS_Info.h Ext_SS_InfoList.h \
+        Ext_SS_Status.h Ext_TeleserviceCode.h \
+        ExtendedRoutingInfo.h ExtensibleCallBarredParam.h \
+        ExtensibleSystemFailureParam.h ExtensionContainer.h \
+        ExtensionSet.h ExternalSignalInfo.h \
+        FacilityNotSupParam.h FailureReportArg.h \
+        FailureReportRes.h ForwardGroupCallSignallingArg.h \
+        ForwardingData.h ForwardingFailedParam.h \
+        ForwardingFeature.h ForwardingFeatureList.h \
+        ForwardingInfo.h ForwardingOptions.h \
+        ForwardingReason.h ForwardingViolationParam.h \
+        GPRSDataList.h GPRSSubscriptionData.h \
+        GPRSSubscriptionDataWithdraw.h GSN_Address.h \
+        GenericServiceInfo.h GeographicalInformation.h \
+        GlobalCellId.h GmscCamelSubscriptionInfo.h \
+        GroupId.h GroupKeyNumber.h GuidanceInfo.h \
+        HLR_Id.h HLR_List.h IMEI.h IMSI.h \
+        IMSI_WithLMSI.h ISDN_AddressString.h \
+        ISDN_SubaddressString.h Identity.h \
+        IllegalEquipmentParam.h IllegalSubscriberParam.h \
+        IncompatibleTerminalParam.h InformServiceCentreArg.h \
+        InsertSubscriberDataArg.h InsertSubscriberDataRes.h \
+        InterCUG_Restrictions.h InterrogateSS_Res.h \
+        InterrogationType.h IntraCUG_Options.h \
+        Kc.h LAIFixedLength.h LMSI.h \
+        LocationInfoWithLMSI.h LocationInformation.h \
+        LocationNumber.h LongTermDenialParam.h \
+        MO_ForwardSM_Arg.h MO_ForwardSM_Res.h \
+        MT_ForwardSM_Arg.h MT_ForwardSM_Res.h \
+        MW_Status.h MatchType.h MessageWaitListFullParam.h \
+        MonitoringMode.h NAEA_CIC.h NAEA_PreferredCI.h \
+        NetworkAccessMode.h NetworkResource.h \
+        NoGroupCallNbParam.h NoReplyConditionTime.h \
+        NoRoamingNbParam.h NoSubscriberReplyParam.h \
+        NotReachableReason.h NoteMsPresentForGprsArg.h \
+        NoteMsPresentForGprsRes.h NumberChangedParam.h \
+        NumberOfForwarding.h ODB_Data.h ODB_GeneralData.h \
+        ODB_HPLMN_Data.h OR_NotAllowedParam.h OR_Phase.h \
+        O_BcsmCamelTDPData.h O_BcsmCamelTDPDataList.h \
+        O_BcsmCamelTDP_Criteria.h O_BcsmTriggerDetectionPoint.h \
+        O_CSI.h OverrideCategory.h PCS_Extensions.h \
+        PDP_Address.h PDP_Context.h PDP_Type.h \
+        PW_RegistrationFailureCause.h Password.h \
+        PrepareGroupCallArg.h PrepareGroupCallRes.h \
+        PrepareHO_Arg.h PrepareHO_Res.h \
+        PrepareSubsequentHO_Arg.h PrivateExtension.h \
+        PrivateExtensionList.h ProcessGroupCallSignallingArg.h \
+        ProtocolId.h ProvideRoamingNumberArg.h \
+        ProvideRoamingNumberRes.h ProvideSIWFSNumberArg.h \
+        ProvideSIWFSNumberRes.h ProvideSubscriberInfoArg.h \
+        ProvideSubscriberInfoRes.h PurgeMS_Arg.h \
+        PurgeMS_Res.h QoS_Subscribed.h RAND.h \
+        RUF_Outcome.h ReadyForSM_Arg.h ReadyForSM_Res.h \
+        RegionalSubscriptionResponse.h RegisterCC_EntryArg.h \
+        RegisterCC_EntryRes.h RegisterSS_Arg.h \
+        RemoteUserFreeArg.h RemoteUserFreeRes.h \
+        ReportSM_DeliveryStatusArg.h ReportSM_DeliveryStatusRes.h \
+        ReportingState.h RequestedInfo.h ResetArg.h \
+        ResourceLimitationParam.h RestoreDataArg.h \
+        RestoreDataRes.h ResumeCallHandlingArg.h \
+        ResumeCallHandlingRes.h RoamingNotAllowedCause.h \
+        RoamingNotAllowedParam.h RoutingInfo.h \
+        RoutingInfoForSM_Arg.h RoutingInfoForSM_Res.h \
+        SIWFSSignallingModifyArg.h SIWFSSignallingModifyRes.h \
+        SM_DeliveryFailureCause.h SM_DeliveryOutcome.h \
+        SM_EnumeratedDeliveryFailureCause.h SM_RP_DA.h \
+        SM_RP_MTI.h SM_RP_OA.h SM_RP_SMEA.h SRES.h \
+        SS_CSI.h SS_CamelData.h SS_Code.h SS_Data.h \
+        SS_EventList.h SS_EventSpecification.h \
+        SS_ForBS_Code.h SS_IncompatibilityCause.h \
+        SS_Info.h SS_InfoList.h \
+        SS_InvocationNotificationArg.h \
+        SS_InvocationNotificationRes.h \
+        SS_List.h SS_Status.h SS_SubscriptionOption.h \
+        SendAuthenticationInfoArg.h SendAuthenticationInfoRes.h \
+        SendGroupCallEndSignalArg.h SendGroupCallEndSignalRes.h \
+        SendIdentificationRes.h SendRoutingInfoArg.h \
+        SendRoutingInfoForGprsArg.h SendRoutingInfoForGprsRes.h \
+        SendRoutingInfoRes.h ServiceIndicator.h ServiceKey.h \
+        SetReportingStateArg.h SetReportingStateRes.h \
+        ShortTermDenialParam.h SignalInfo.h \
+        StatusReportArg.h StatusReportRes.h \
+        SubBusyForMT_SMS_Param.h SubscriberData.h \
+        SubscriberId.h SubscriberIdentity.h \
+        SubscriberInfo.h SubscriberState.h \
+        SubscriberStatus.h SupportedCCBS_Phase.h \
+        SupportedCamelPhases.h SuppressionOfAnnouncement.h \
+        SystemFailureParam.h TBCD_STRING.h \
+        TMSI.h T_BcsmCamelTDPData.h \
+        T_BcsmCamelTDPDataList.h T_BcsmTriggerDetectionPoint.h \
+        T_CSI.h TeleservNotProvParam.h \
+        TeleserviceCode.h TeleserviceList.h \
+        TraceReference.h TraceType.h \
+        TracingBufferFullParam.h USSD_Arg.h \
+        USSD_DataCodingScheme.h USSD_Res.h USSD_String.h \
+        UnexpectedDataParam.h UnidentifiedSubParam.h \
+        UnknownSubscriberDiagnostic.h UnknownSubscriberParam.h \
+        UpdateGprsLocationArg.h UpdateGprsLocationRes.h \
+        UpdateLocationArg.h UpdateLocationRes.h \
+        VBSDataList.h VGCSDataList.h VLR_Capability.h \
+        VlrCamelSubscriptionInfo.h VoiceBroadcastData.h \
+        VoiceGroupCallData.h ZoneCode.h ZoneCodeList.h
+

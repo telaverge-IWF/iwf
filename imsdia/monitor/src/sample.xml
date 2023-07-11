@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- XML file for DIA_MON configuration (INI). -->
+
+<DIA_Mon  MonitorInterval = "20"
+          TraceError      = "1"
+          TraceCritical   = "1"
+          TraceWarning    = "0"
+          TraceDebug      = "0">
+
+   <Task name      = "DiaServerD"
+         args      = ""
+         directory = "/opt/IDS/bin"
+         postTerminateAction = "/opt/itp/bin/vmicom -B">
+  
+       <Dependency
+           name = "sampleDep"
+	   args = "-d"
+	   directory = "samplePath"
+       />
+
+       <Dependency
+           name = "sampleDep1"
+           args = "-i"
+           directory = "samplPath1"
+       />
+
+   </Task>
+
+   <Task    name = "sampleTask"
+            args = "-d"
+	    directory = "sampleTaskDir">
+   </Task>
+
+</DIA_Mon>
+

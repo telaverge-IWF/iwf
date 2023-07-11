@@ -1,0 +1,1507 @@
+/**
+ * RFC 4005 - Diameter Network Access Server Application(NASREQ)
+ */
+
+protocol diameter.nasreq < 1 : "RFC 4005" >;
+
+
+/**
+ * The Called-Station-Id AVP (AVP Code 30) is of type UTF8String and allows
+ * the NAS to send the ASCII string describing the layer 2 address the user
+ * contacted in the request. For dialup access,this can be a phone number,
+ * obtained using Dialed Number identification (DNIS) or a similar 
+ * technology. Note that this may be different from the phone number the call
+ * comes on. For the use with IEEE 802 access,the Called-Station-Id MAY contain
+ * a MAC address formatted as described in RAD802.1X.
+ */
+    Called-Station-Id                          ::= 30  /* 4.5  */  UTF8String    M|P| |  V  |Y;  
+
+/**
+ * The Filter-Id AVP (AVP Code 11) is of type UTF8String and contains the name
+ * of the filter list for this user. Zero or more Filter-Id AVPs MAY be sent in
+ * an authorization answer.
+ * Identifying a filter list by name allows the filter to be used on different  
+ * NASes without regard to filter-list implementation details. However, this
+ * AVP is not roaming friendly, as filter naming differs from one service 
+ * provider to another. In non-RADIUS environments, it is RECOMMENDED that the
+ * NAS-Filter-Rule AVP be used instead.
+ */
+    Filter-Id                                  ::= 11  /* 6.7  */  UTF8String    M|P| |  V  |Y; 
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The 
+ * value 0xFFFFFFFF indicates that the NAS should allow the user to select
+ * an address (i.e:negotiated). The value 0xFFFFFFFE indicates that NAS
+ * should select an address for the user (e.g:assigned from a pool of
+ * addresses kept by NAS).
+ */
+    Framed-IP-Address                          ::= 8   /*6.11.1*/  OctetString   M|P| |  V  |Y;  
+                                                                                
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and 
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that 
+ * specific IPv6 prefixes are desired, but the server is not required to 
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPv6-Prefix                         ::= 97  /*6.11.6*/  OctetString   M|P| |  V  |Y;  
+
+/**
+ * The NAS-Port-Type AVP (AVP Code 61) is of type Enumerated and contains the
+ * type of the port on which the NAS is authenticating the user. This AVP 
+ * SHOULD be present if the NAS uses the same NAS-Port number ranges for 
+ * different service types concurrently. The supported values are defined in
+ * [RADIUSTypes]. 
+ */
+    NAS-Port-Type                              ::= 61  /* 4.4 */   Enumerated    M|P| |  V |Y;  
+
+/**
+ * The NAS-Filter-Rule AVP (AVP Code 400) is of type IPFilterRule and provides
+ * filter rules that need to be configured on the NAS for the user. One or more
+ * of these AVPs MAY be present in an authorization response.
+ */
+     NAS-Filter-Rule                           ::= 400 /* 6.6 */   IPFilterRule   M|P| |  V |Y;
+
+/**
+ * The Callback-Id AVP (AVP Code 20) is of type UTF8String and contains the
+ * name of a place to be called, to be interpreted by the NAS. This AVP MAY be
+ * present in an authentication and/or authorization response.
+ */
+    Callback-Id                                ::= 20  /* 6.3 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Callback-Number AVP (AVP Code 19) is of type UTF8String and contains a
+ * dialing string to be used for callback. It MAY be used in an authentication
+ * and/or authorization request as a hint to the server that a Callback service
+ * is desired, but the server is not required to honor the hint in the
+ * corresponding response.
+ */
+    Callback-Number                            ::= 19  /* 6.2 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Calling-Station-Id AVP (AVP Code 31) is of type UTF8String an allows the  * NAS to send the ASCII string describing the layer 2 address from which the
+ * user connected in the request. For dialup access, this is the phone number
+ * the call came from, using Automatic Number Identification (ANI) or a similar  * technology. For use with IEEE 802 access, the Calling-Station-Id AVP MAY
+ * contain a MAC address, formated as described in [RAD802.1X]. It SHOULD only
+ * be present in authentication and/or authorization requests.
+ */
+    Calling-Station-Id                         ::= 31  /* 4.6 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Configuration-Token AVP (AVP Code 78) is of type OctetString and is sent  * by a Diameter Server to a Diameter Proxy Agent or Translation Agent in an
+ * AA-Answer command to indicate a type of user profile to be used. It should
+ * not be sent to a Diameter Client (NAS).
+ */
+
+    Configuration-Token                        ::= 78  /* 6.8 */   OctetString   M| | | P,V |Y;
+
+/**
+ * The Connect-Info AVP (AVP Code 77) is of type UTF8String and is sent in the
+ * AA-Request message or ACR STOP message. When sent in the Access-Request, it
+ * indicates the nature of the user's connection.
+ * The connection speed SHOULD be included at the beginning of the first 
+ * Connect-Info AVP in the message.
+ */
+    Connect-Info                               ::= 77  /* 4.7 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Framed-AppleTalk-Link AVP (AVP Code 37) is of type Unsigned32 and
+ * contains the AppleTalk network number that should be used for the
+ * serial link to the user, which is another AppleTalk router. This AVP
+ * MUST only be present in an authorization response and is never used
+ * when the user is not another router.
+ * Despite the size of the field, values range from 0 to 65,535. 
+ */
+    Framed-Appletalk-Link                      ::= 37  /*6.13.1*/  Unsigned32    M|P| |  V |Y;  
+
+/**
+ * The Framed-AppleTalk-Network AVP (AVP Code 38) is of type Unsigned32
+ * and contains the AppleTalk Network number that the NAS should probe
+ * to allocate an AppleTalk node for the user. This AVP MUST only be
+ * present in an authorization response and is never used when the user
+ * is not another router. Multiple instances of this AVP indicate that
+ * the NAS may probe, using any of the network numbers specified.
+ */
+    Framed-Appletalk-Network                   ::= 38  /*6.13.2*/  Unsigned32    M|P| |  V |Y;
+
+/**
+ * The Framed-AppleTalk-Zone AVP (AVP Code 39) is of type OctetString
+ * and contains the AppleTalk Default Zone to be used for this user.
+ * This AVP MUST only be present in an authorization response. Multiple
+ * instances of this AVP in the same message are not allowed.
+ */
+    Framed-Appletalk-Zone                      ::=  39 /*6.13.3*/  OctetString   M|P| |  V |Y;
+
+/**
+ * The Framed-Compression AVP (AVP Code 13) is of type Enumerated and
+ * contains the compression protocol to be used for the link. It MAY be
+ * used in an authorization request as a hint to the server that a
+ * specific compression type is desired, but the server is not required
+ * to honor the hint in the corresponding response.
+ */
+    Framed-Compression                         ::= 13 /*6.10.4*/   Enumerated    M|P| |  V | Y; 
+
+/**
+ * The Framed-Interface-Id AVP (AVP Code 96) is of type Unsigned64 and
+ * contains the IPv6 interface identifier to be configured for the user.
+ * It MAY be used in authorization requests as a hint to the server that
+ * a specific interface id is desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-Interface-Id                        ::= 96 /*6.11.5*/   Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Framed-IP-Netmask AVP (AVP Code 9) is of type OctetString and
+ * contains the four octets of the IPv4 netmask to be configured for the
+ * user when the user is a router to a network. It MAY be used in an
+ * authorization request as a hint to the server that a specific netmask
+ * is desired, but the server is not required to honor the hint in the
+ * corresponding response. This AVP MUST be present in a response if
+ * the request included this AVP with a value of 0xFFFFFFFF.
+ */
+    Framed-IP-Netmask                          ::= 9 /*6.11.2*/    OctetString   M|P| |  V | Y;
+
+/**
+ * The Framed-IPv6-Pool AVP (AVP Code 100) is of type OctetString and
+ * contains the name of an assigned pool that SHOULD be used to assign
+ * an IPv6 prefix for the user. If the access device does not support
+ * multiple prefix pools, it MUST ignore this AVP.
+ * Although specified as type OctetString for compatibility with RADIUS
+ * [RADIUSIPv6], the encoding of the Data field SHOULD also conform to
+ * the rules for the UTF8String Data Format.
+ */
+    Framed-IPv6-Pool                           ::= 100 /*6.11.8*/  OctetString   M|P| |  V | Y;
+
+/**
+ * The Framed-IPv6-Route AVP (AVP Code 99) is of type UTF8String and
+ * contains the ASCII routing information to be configured for the user
+ * on the NAS. Zero or more of these AVPs MAY be present in an
+ * authorization response.
+ * The string MUST contain an IPv6 address prefix followed by a slash
+ * and a decimal length specifier stating how many high order bits of
+ * the prefix should be used. This is followed by a space, a gateway
+ * address in hexadecimal notation, a space, and one or more metrics
+ * separated by spaces;
+ */
+    Framed-IPv6-Route                          ::= 99 /*6.11.7*/   UTF8String    M|P| |  V | Y;
+
+/**
+ * The Framed-IPX-Network AVP (AVP Code 23) is of type Unsigned32 and
+ * contains the IPX Network number to be configured for the user. It
+ * MAY be used in an authorization request as a hint to the server that
+ * a specific address is desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPX-Network                         ::= 23 /*6.12.1*/   UTF8String    M|P| |  V | Y;
+
+/**
+ * The Framed-MTU AVP (AVP Code 12) is of type Unsigned32 and contains
+ * the Maximum Transmission Unit to be configured for the user, when it
+ * is not negotiated by some other means (such as PPP). This AVP SHOULD
+ * only be present in authorization responses. The MTU value MUST be in
+ * the range from 64 to 65535.
+ */
+    Framed-MTU                                 ::= 12 /*6.10.3*/   Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Framed-Pool AVP (AVP Code 88) is of type OctetString and contains
+ * the name of an assigned address pool that SHOULD be used to assign an
+ * address for the user. If a NAS does not support multiple address
+ * pools, the NAS SHOULD ignore this AVP. Address pools are usually
+ * used for IP addresses but can be used for other protocols if the NAS
+ * supports pools for those protocols.
+ */
+    Framed-Pool                                ::= 88 /*6.11.4*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Framed-Protocol AVP (AVP Code 7) is of type Enumerated and
+ * contains the framing to be used for framed access. This AVP MAY be
+ * present in both requests and responses. The supported values are
+ * listed in [RADIUSTypes]. The following list is informational:
+ *  1 PPP
+ *  2 SLIP
+ *  3 AppleTalk Remote Access Protocol (ARAP)
+ *  4 Gandalf proprietary SingleLink/MultiLink protocol
+ *  5 Xylogics proprietary IPX/SLIP
+ *  6 X.75 Synchronous
+ */
+    Framed-Protocol                            ::= 7 /*6.10.1*/    Enumerated    M|P| |  V | Y;
+
+/**
+ * The Framed-Route AVP (AVP Code 22) is of type UTF8String and contains
+ * the ASCII routing information to be configured for the user on the
+ * NAS. Zero or more of these AVPs MAY be present in an authorization
+ * response.
+ * The string MUST contain a destination prefix in dotted quad form
+ * optionally followed by a slash and a decimal length specifier stating
+ * how many high-order bits of the prefix should be used. This is
+ * followed by a space, a gateway address in dotted quad form, a space,
+ * and one or more metrics separated by spaces; for example,
+ * "192.168.1.0/24 192.168.1.1 1".
+ */
+    Framed-Route                               ::= 22 /*6.11.3*/   UTF8String    M|P| |  V | Y;
+
+/**
+ * The Framed-Routing AVP (AVP Code 10) is of type Enumerated and
+ * contains the routing method for the user when the user is a router to
+ * a network. This AVP SHOULD only be present in authorization
+ * responses. The supported values are listed in [RADIUSTypes]. The
+ * following list is informational:
+ * 0 None
+ * 1 Send routing packets
+ * 2 Listen for routing packets
+ * 3 Send and Listen
+ */
+    Framed-Routing                             ::= 10 /*6.10.2*/   Enumerated    M|P| |  V | Y;
+
+/**
+ * The Idle-Timeout AVP (AVP Code 28) is of type Unsigned32 and sets the
+ * maximum number of consecutive seconds of idle connection allowable to
+ * the user before termination of the session or before a prompt is
+ * issued. The default is none, or system specific.
+ */
+    Idle-Timeout                               ::= 28 /* 6.4 */    Unsigned32    M|P| |  V | Y;
+
+/**
+ * The NAS-Identifier AVP (AVP Code 32) [RADIUS] is of type UTF8String
+ * and contains the identity of the NAS providing service to the user.
+ * This AVP SHOULD only be added by a RADIUS/Diameter Translation Agent.
+ * When this AVP is present, the Origin-Host AVP identifies the NAS
+ * providing service to the user.
+ * Diameter agents and servers SHOULD check whether a NAS-Identifier AVP
+ * corresponds to an entry in the Route-Record AVP. If no match is
+ * found, then an error is logged, but no other action is taken. 
+ */
+    NAS-Identifier                             ::= 32 /* 9.3.1 */  UTF8String    M|P| |  V | Y;
+
+/**
+ * The NAS-IP-Address AVP (AVP Code 4) [RADIUS] is of type OctetString
+ * and contains the IP Address of the NAS providing service to the user.
+ * This AVP SHOULD only be added by a RADIUS/Diameter Translation Agent.
+ * When this AVP is present, the Origin-Host AVP identifies the NAS
+ * providing service to the user.
+ * Diameter agents and servers MUST check whether the NAS-IP-Address AVP
+ * corresponds to an entry in the Route-Record AVP. This is done by
+ * doing a reverse lookup (PTR RR) for the NAS-IP-Address to retrieve
+ * the corresponding FQDN, and by checking for a match with the Route-
+ * Record AVP. If no match is found, then an error is logged, but no
+ * other action is taken.
+ */
+    NAS-IP-Address                             ::= 4 /* 9.3.2 */   OctetString   M|P| |  V | Y;
+
+/**
+ * The NAS-IPv6-Address AVP (AVP Code 95) [RADIUSIPv6] is of type
+ * OctetString and contains the IPv6 Address of the NAS providing
+ * service to the user. This AVP SHOULD only be added by a
+ * RADIUS/Diameter Translation Agent. When this AVP is present, the
+ * Origin-Host AVP identifies the NAS providing service to the user.
+ */
+    NAS-IPv6-Address                           ::= 95 /* 9.3.3 */  OctetString   M|P| |  V | Y;
+
+/**
+ * The NAS-Port AVP (AVP Code 5) is of type Unsigned32 and contains the
+ * physical or virtual port number of the NAS which is authenticating
+ * the user. Note that "port" is meant in its sense as a service
+ * connection on the NAS, not as an IP protocol identifier.
+ * Either NAS-Port or NAS-Port-Id (AVP Code 87) SHOULD be present in
+ * AA-Request (AAR) commands if the NAS differentiates among its ports.
+ */
+    NAS-Port                                   ::= 5 /* 4.2 */     Unsigned32    M|P| |  V | Y;
+
+/**
+ * The NAS-Port-Id AVP (AVP Code 87) is of type UTF8String and consists
+ * of ASCII text identifying the port of the NAS authenticating the
+ * user. Note that "port" is meant in its sense as a service connection
+ * on the NAS, not as an IP protocol identifier.
+ * Either NAS-Port or NAS-Port-Id SHOULD be present in AA-Request (AAR) commands * if the NAS differentiates among its ports. NAS-Port-Id is intended for use
+ * by NASes that cannot conveniently number their ports.
+ */
+    NAS-Port-Id                                ::= 87 /* 4.3 */    UTF8String    M|P| |  V | Y;
+
+/**
+ * The Originating-Line-Info AVP (AVP Code 94) is of type OctetString
+ * and is sent by the NAS system to convey information about the origin
+ * of the call from an SS7 system.
+ * The originating line information (OLI) element indicates the nature
+ * and/or characteristics of the line from which a call originated
+ * (e.g., pay phone, hotel, cellular). Telephone companies are starting
+ * to offer OLI to their customers as an option over Primary Rate
+ * Interface (PRI). Internet Service Providers (ISPs) can use OLI in
+ * addition to Called-Station-Id and Calling-Station-Id attributes to
+ * differentiate customer calls and to define different services.
+ * The Value field contains two octets (00 - 99).
+ */
+    Originating-Line-Info                      ::= 94 /* 4.8 */    OctetString   |M,P | |  V | Y;
+
+/**
+ * The Port-Limit AVP (AVP Code 62) is of type Unsigned32 and sets the
+ * maximum number of ports the NAS provides to the user. It MAY be used
+ * in an authentication and/or authorization request as a hint to the
+ * server that multilink PPP [PPPMP] service is desired, but the server
+ * is not required to honor the hint in the corresponding response.
+ */
+    Port-Limit                                 ::= 62 /* 6.5 */    Unsigned32    M|P| |  V | Y;
+
+/**
+ * The QoS-Filter-Rule AVP (AVP Code 407) is of type QoSFilterRule and provides
+ * QoS filter rules that need to be configured on the NAS for the user. One or
+ * more such AVPs MAY be present in an authorization response.
+ */
+    QoS-Filter-Rule                            ::= 407 /* 6.9 */   IPFilterRule   M,V| | |    |N;
+
+/**
+ * The Reply-Message AVP (AVP Code 18) is of type UTF8String and contains text
+ * that MAY be displayed to the user. When used in a AA-Answer message with a
+ * successful Result-Code AVP, it indicates success. When found in an AAA
+ * message with a Result-Code other than DIAMETER_SUCCESS, the AVP contains a
+ * failure message.
+ * The Reply-Message AVP MAY indicate dialog text to prompt the user before
+ * another AA-Request attempt. When used in an AA-Answer with a Result-Code of
+ * DIAMETER_MULTI_ROUND_AUTH or in an Re-Auth-Request message, it MAY contain
+ * a dialog text to prompt the user for a response.
+ */
+     Reply-Message                             ::= 18 /* 4.9 */    UTF8String    M|P| |  V | Y;
+
+/**
+ * The Service-Type AVP (AVP Code 6) is of type Enumerated and contains
+ * the type of service the user has requested or the type of service to
+ * be provided. One such AVP MAY be present in an authentication and/or
+ * authorization request or response. A NAS is not required to
+ * implement all of these service types. It MUST treat unknown or
+ * unsupported Service-Types received in a response as a failure and end
+ * the session with a DIAMETER_INVALID_AVP_VALUE Result-Code.
+ * Service-Type 6 6.1 Enumerated | M | P | | V | Y |
+ */
+     State                                     ::= 24 /* 9.3.4 */  OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunneling AVP (AVP Code 401) is of type Grouped and contains the
+ * following AVPs, used to describe a compulsory tunnel service:
+ * [RADTunnels], [RADTunlAcct].
+ */
+     Tunneling                                 ::= 401 /* 7.1 */   Grouped       M|P| |  V | N;
+
+/**
+ * The User-Password AVP (AVP Code 2) is of type OctetString and
+ * contains the password of the user to be authenticated, or the user's
+ * input in a multi-round authentication exchange.
+ * The User-Password AVP contains a user password or one-time password
+ * and therefore represents sensitive information. As required in
+ * [BASE], Diameter messages are encrypted by using IPsec or TLS.
+ * Unless this AVP is used for one-time passwords, the User-Password AVP
+ * SHOULD NOT be used in untrusted proxy environments without encrypting
+ * it by using end-to-end security techniques, such as the proposed CMS
+ * Security [DiamCMS].
+ */
+     User-Password                             ::= 2 /*5.1*/       OctetString   M|P| |  V | Y;
+
+/**
+ * The Password-Retry AVP (AVP Code 75) is of type Unsigned32 and MAY be
+ * included in the AA-Answer if the Result-Code indicates an
+ * authentication failure. The value of this AVP indicates how many
+ * authentication attempts a user is permitted before being
+ * disconnected. This AVP is primarily intended for use when the
+ * Framed-Protocol AVP (see section 6.10.1) is set to ARAP.
+ */
+     Password-Retry                            ::= 75 /*5.2*/      Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Prompt AVP (AVP Code 76) is of type Enumerated and MAY be present in the
+ * AA-Answer message. When present, it is used by the NAS to determine whether
+ * the user's response, when entered, should be echoed.
+ */
+     Prompt                                    ::= 76 /*5.3*/      Enumerated    M|P| |  V | Y;
+
+/**
+ * The CHAP-Auth AVP (AVP Code 402) is of type Grouped and contains the
+ * information necessary to authenticate a user using the PPP
+ * Challenge-Handshake Authentication Protocol (CHAP) [PPPCHAP]. If the
+ * CHAP-Auth AVP is found in a message, the CHAP-Challenge AVP MUST be
+ * present as well. The optional AVPs containing the CHAP response
+ * depend upon the value of the CHAP-Algorithm AVP.
+ */   
+     CHAP-Auth                                 ::= 402 /*5.4*/     Grouped       M|P| |  V | Y;
+
+/**
+ * The CHAP-Challenge AVP (AVP Code 60) is of type OctetString and contains the  * CHAP Challenge sent by the NAS to the CHAP peer [PPPCHAP].
+ */
+     CHAP-Challenge                            ::= 60 /*5.8*/      OctetString   M|P| |  V | Y;
+
+/**
+ * The CHAP-Algorithm AVP (AVP Code 403) is of type Enumerated and
+ * contains the algorithm identifier used in the computation of the CHAP
+ * response [PPPCHAP].
+ */
+     CHAP-Algorithm                            ::= 403 /*5.5*/     Enumerated    M|P| |  V | Y;
+
+/**
+ * The CHAP-Ident AVP (AVP Code 404) is of type OctetString and contains the 1
+ * octet CHAP Identifier used in the computation of the CHAP response [PPPCHAP].
+ */
+     CHAP-Ident                                ::= 404 /*5.6*/     OctetString   M|P| |  V | Y;
+
+/**
+ * The CHAP-Response AVP (AVP Code 405) is of type OctetString and
+ * contains the 16 octet authentication data provided by the user in
+ * response to the CHAP challenge [PPPCHAP].
+ */
+     CHAP-Response                             ::= 405 /* 5.7 */   OctetString   M|P| |  V | Y;
+
+/**
+ * The ARAP-Password AVP (AVP Code 70) is of type OctetString and is
+ * only present when the Framed-Protocol AVP (see section 6.10.1) is
+ * included in the message and is set to ARAP. This AVP MUST NOT be
+ * present if either the User-Password or the CHAP-Auth AVP is present.
+ * See [RADIUSExt] for more information on the contents of this AVP.
+ */
+     ARAP-Password                             ::= 70 /*5.9*/      OctetString   M|P| |  V | Y;
+
+/**
+ * The ARAP-Challenge-Response AVP (AVP Code 84) is of type OctetString
+ * and is only present when the Framed-Protocol AVP (see section 6.10.1)
+ * is included in the message and is set to ARAP. This AVP contains an
+ * 8 octet response to the dial-in client's challenge. The RADIUS
+ * server calculates this value by taking the dial-in client's challenge
+ * from the high-order 8 octets of the ARAP-Password AVP and performing
+ * DES encryption on this value with the authenticating user's password
+ * as the key. If the user's password is fewer than 8 octets in length,
+ * the password is padded at the end with NULL octets to a length of 8
+ * before it is used as a key.
+ */
+     ARAP-Challenge-Response                   ::= 84 /*5.10*/     OctetString   M|P| |  V | Y;
+
+/**
+ * The ARAP-Security AVP (AVP Code 73) is of type Unsigned32 and MAY be
+ * present in the AA-Answer message if the Framed-Protocol AVP (see
+ * section 6.10.1) is set to the value of ARAP, and the Result-Code AVP
+ * is set to DIAMETER_MULTI_ROUND_AUTH. See [RADIUSExt] for more
+ * information on the format of this AVP.
+ */
+     ARAP-Security                             ::= 73 /*5.11*/     Unsigned32    M|P| |  V | Y;
+
+/**
+ * The ARAP-Security AVP (AVP Code 74) is of type OctetString and MAY be
+ * present in the AA-Request or AA-Answer message if the Framed-Protocol
+ * AVP is set to the value of ARAP, and the Result-Code AVP is set to
+ * DIAMETER_MULTI_ROUND_AUTH. This AVP contains the security module
+ * challenge or response associated with the ARAP Security Module
+ * specified in ARAP-Security.
+ */
+     ARAP-Security-Data                        ::= 74 /*5.12*/     OctetString   M|P| |  V | Y;
+
+/**
+ * The Service-Type AVP (AVP Code 6) is of type Enumerated and contains
+ * the type of service the user has requested or the type of service to
+ * be provided. One such AVP MAY be present in an authentication and/or
+ * authorization request or response. A NAS is not required to
+ * implement all of these service types. It MUST treat unknown or
+ * unsupported Service-Types received in a response as a failure and end
+ * the session with a DIAMETER_INVALID_AVP_VALUE Result-Code.
+ */
+     Service-Type                              ::= 6 /*6.1*/       Enumerated    M|P| |  V | Y;
+
+/**
+ * The ARAP-Features AVP (AVP Code 71) is of type OctetString and MAY be
+ * present in the AA-Accept message if the Framed-Protocol AVP is set to
+ * the value of ARAP. See [RADIUSExt] for more information about the
+ * format of this AVP.
+ */
+     ARAP-Features                             ::= 71 /*6.14.1*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-IP-Host AVP (AVP Code 14) [RADIUS] is of type OctetString
+ * and contains the IPv4 address of a host with which to connect the
+ * user when the Login-Service AVP is included. It MAY be used in an
+ * AA-Request command as a hint to the Diameter Server that a specific
+ * host is desired, but the Diameter Server is not required to honor the
+ * hint in the AA-Answer.
+ */
+     Login-IP-Host                             ::= 14 /*6.15.1*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-IPv6-Host AVP (AVP Code 98) [RADIUSIPv6] is of type
+ * OctetString and contains the IPv6 address of a host with which to
+ * connect the user when the Login-Service AVP is included. It MAY be
+ * used in an AA-Request command as a hint to the Diameter Server that a
+ * specific host is desired, but the Diameter Server is not required to
+ * honor the hint in the AA-Answer.
+ */
+     Login-IPv6-Host                           ::= 98 /*6.15.2*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-Service AVP (AVP Code 15) is of type Enumerated and contains the
+ * service that should be used to connect the user to the login host. This AVP
+ * SHOULD only be present in authorization responses.
+ */
+     Login-Service                             ::= 15 /*6.15.3*/   Enumerated    M|P| |  V | Y;
+
+/**
+ * The Login-TCP-Port AVP (AVP Code 16) is of type Unsigned32 and contains the
+ * TCP port with which the user is to be connected when the Login-Service AVP
+ * is also present. This AVP SHOULD only be present in authorization responses.
+ * The value MUST NOT be greater than 65,535.
+ */
+     Login-TCP-Port                            ::= 16 /*6.16.1*/   Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Service AVP (AVP Code 34) is of type OctetString and contains
+ * the system with which the user is to be connected by LAT. It MAY be used in
+ * an authorization request as a hint to the server that a specific service is
+ * desired, but the server is not required to honor the hint in the
+ * corresponding response. This AVP MUST only be present in the response if
+ * the Login-Service AVP states that LAT is desired.
+ */
+     Login-LAT-Service                         ::= 34 /*6.17.1*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Node AVP (AVP Code 35) is of type OctetString and contains the
+ * Node with which the user is to be automatically connected by LAT. It MAY be
+ * used in an authorization request as a hint to the server that a specific
+ * LAT node is desired, but the server is not required to honor the hint in 
+ * the corresponding response. This AVP MUST only be present in a response if
+ * the Login-Service-Type AVP is set to LAT.
+ */
+     Login-LAT-Node                            ::= 35 /*6.17.2*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Group AVP (AVP Code 36) is of type OctetString and
+ * contains a string identifying the LAT group codes this user is
+ * authorized to use. It MAY be used in an authorization request as a
+ * hint to the server that a specific group is desired, but the server
+ * is not required to honor the hint in the corresponding response.
+ * This AVP MUST only be present in a response if the Login-Service-Type
+ * AVP is set to LAT.
+ */
+     Login-LAT-Group                           ::= 36 /*6.17.3*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Port AVP (AVP Code 63) is of type OctetString and
+ * contains the Port with which the user is to be connected by LAT. It
+ * MAY be used in an authorization request as a hint to the server that
+ * a specific port is desired, but the server is not required to honor
+ * the hint in the corresponding response. This AVP MUST only be
+ * present in a response if the Login-Service-Type AVP is set to LAT.
+ */
+     Login-LAT-Port                            ::= 63 /*6.17.4*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Accounting-Input-Octets AVP (AVP Code 363) is of type Unsigned64
+ * and contains the number of octets received from the user.
+ * For NAS usage, this AVP indicates how many octets have been received
+ * from the port in the course of this session. It can only be present
+ * in ACR messages with an Accounting-Record-Type of INTERIM_RECORD or
+ * STOP_RECORD.
+ */
+     Accounting-Input-Octets                   ::= 363 /*8.1*/     Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Accounting-Output-Octets AVP (AVP Code 364) is of type Unsigned64
+ * and contains the number of octets sent to the user.
+ * For NAS usage, this AVP indicates how many octets have been sent to
+ * the port in the course of this session. It can only be present in
+ * ACR messages with an Accounting-Record-Type of INTERIM_RECORD or
+ * STOP_RECORD.
+ */
+     Accounting-Output-Octets                  ::= 364 /*8.2*/     Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Accounting-Input-Packets (AVP Code 365) is of type Unsigned64 and
+ * contains the number of packets received from the user.
+ * For NAS usage, this AVP indicates how many packets have been received
+ * from the port over the course of a session being provided to a Framed
+ * User. It can only be present in ACR messages with an Accounting-
+ * Record-Type of INTERIM_RECORD or STOP_RECORD.
+ */
+     Accounting-Input-Packets                  ::= 365 /*8.3*/     Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Accounting-Output-Packets (AVP Code 366) is of type Unsigned64
+ * and contains the number of IP packets sent to the user.
+ * For NAS usage, this AVP indicates how many packets have been sent to
+ * the port over the course of a session being provided to a Framed
+ * User. It can only be present in ACR messages with an Accounting-
+ * Record-Type of INTERIM_RECORD or STOP_RECORD.
+ */
+     Accounting-Output-Packets                 ::= 366 /*8.4*/     Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Acct-Session-Time AVP (AVP Code 46) is of type Unsigned32 and
+ * indicates the length of the current session in seconds. It can only
+ * be present in ACR messages with an Accounting-Record-Type of
+ * INTERIM_RECORD or STOP_RECORD.
+ */
+     Acct-Session-Time                         ::= 46 /*8.5*/      Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Acct-Authentic AVP (AVP Code 45) is of type Enumerated and
+ * specifies how the user was authenticated. The supported values are
+ * listed in [RADIUSTypes]. The following list is informational:
+ * 1 RADIUS
+ * 2 Local
+ * 3 Remote
+ * 4 Diameter
+ */
+     Acct-Authentic                            ::= 45 /*8.6*/      Enumerated    M|P| |  V | Y;
+
+
+/**
+ * The Accounting-Auth-Method AVP (AVP Code 406) is of type Enumerated.
+ * A NAS MAY include this AVP in an Accounting-Request message to
+ * indicate the method used to authenticate the user. (Note that this
+ * is equivalent to the RADIUS MS-Acct-Auth-Type VSA attribute).
+ */
+     Accounting-Auth-Method                     ::= 406 /*8.7*/     Enumerated    M|P| |  V | Y;
+
+/**
+ * The Acct-Delay-Time AVP (AVP Code 41) is of type Unsigned32 and
+ * indicates the number of seconds the Diameter client has been trying
+ * to send the Accounting-Request (ACR). The accounting server may
+ * subtract this value from the time when the ACR arrives at the server
+ * to calculate the approximate time of the event that caused the ACR to
+ * be generated.
+ */
+     Acct-Delay-Time                           ::= 41 /*8.8*/      Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Acct-Link-Count AVP (AVP Code 51) is of type Unsigned32 and
+ * indicates the total number of links that have been active (current or
+ * closed) in a given multilink session at the time the accounting
+ * record is generated. This AVP MAY be included in Accounting-Requests
+ * for any session that may be part of a multilink service.
+ */
+     Acct-Link-Count                           ::= 51 /*8.9*/      Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Acct-Tunnel-Connection AVP (AVP Code 68) is of type OctetString
+ * and contains the identifier assigned to the tunnel session. This
+ * AVP, along with the Tunnel-Client-Endpoint and Tunnel-Server-Endpoint
+ * AVPs, may be used to provide a means to uniquely identify a tunnel
+ * session for auditing purposes.
+ */
+     Acct-Tunnel-Connection                    ::= 68 /*8.10*/     OctetString   M|P| |  V | Y;
+
+/**
+ * The Acct-Tunnel-Packets-Lost AVP (AVP Code 86) is of type Unsigned32
+ * and contains the number of packets lost on a given link.
+ */
+     Acct-Tunnel-Packets-Lost                  ::= 86 /*8.11*/     Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Type AVP (AVP Code 64) is of type Enumerated and contains
+ * the tunneling protocol(s) to be used (in the case of a tunnel
+ * initiator) or in use (in the case of a tunnel terminator). It MAY be
+ * used in an authorization request as a hint to the server that a
+ * specific tunnel type is desired, but the server is not required to
+ * honor the hint in the corresponding response. The Tunnel-Type AVP SHOULD
+ * also be included in Accounting-Request messages.
+ */
+     Tunnel-Type                               ::= 64 /*7.2*/      Enumerated    M|P| |  V | Y;
+
+
+/**
+ * The Tunnel-Medium-Type AVP (AVP Code 65) is of type Enumerated and
+ * contains the transport medium to use when creating a tunnel for
+ * protocols (such as L2TP) that can operate over multiple transports.
+ * It MAY be used in an authorization request as a hint to the server
+ * that a specific medium is desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+     Tunnel-Medium-Type                        ::= 65 /*7.3*/      Enumerated    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Client-Endpoint AVP (AVP Code 66) is of type UTF8String
+ * and contains the address of the initiator end of the tunnel. It MAY
+ * be used in an authorization request as a hint to the server that a
+ * specific endpoint is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * This AVP SHOULD be included in the corresponding Accounting-Request
+ * messages, in which case it indicates the address from which the
+ * tunnel was initiated. This AVP, along with the Tunnel-Server-
+ * Endpoint and Session-Id AVP [BASE], MAY be used to provide a globally
+ * unique means to identify a tunnel for accounting and auditing
+ * purposes.
+ */   
+     Tunnel-Client-Endpoint                    ::= 66 /*7.4*/      UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Server-Endpoint AVP (AVP Code 67) is of type UTF8String
+ * and contains the address of the server end of the tunnel. It MAY be
+ * used in an authorization request as a hint to the server that a
+ * specific endpoint is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ */
+     Tunnel-Server-Endpoint                    ::= 67 /*7.5*/      UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Password AVP (AVP Code 69) is of type OctetString and may
+ * contain a password to be used to authenticate to a remote server.
+ * The Tunnel-Password AVP contains sensitive information. This value
+ * is not protected in the same manner as RADIUS [RADTunnels].
+ * As required in [BASE], Diameter messages are encrypted by using IPsec
+ * or TLS. The Tunnel-Password AVP SHOULD NOT be used in untrusted
+ * proxy environments without encrypting it by using end-to-end security
+ * techniques, such as CMS Security [DiamCMS].
+ */
+     Tunnel-Password                           ::= 69 /*7.6*/      OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Private-Group-Id AVP (AVP Code 81) is of type OctetString
+ * and contains the group Id for a particular tunneled session. The
+ * Tunnel-Private-Group-Id AVP MAY be included in an authorization
+ * request if the tunnel initiator can predetermine the group resulting
+ * from a particular connection. It SHOULD be included in the
+ * authorization response if this tunnel session is to be treated as
+ * belonging to a particular private group. Private groups may be used
+ * to associate a tunneled session with a particular group of users.
+ * For example, it MAY be used to facilitate routing of unregistered IP
+ * addresses through a particular interface. This AVP SHOULD be
+ * included in the Accounting-Request messages that pertain to the
+ * tunneled session.
+ */
+     Tunnel-Private-Group-Id                   ::= 81 /*7.7*/      OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Assignment-Id AVP (AVP Code 82) is of type OctetString and
+ * is used to indicate to the tunnel initiator the particular tunnel to
+ * which a session is to be assigned. Some tunneling protocols, such as
+ * [PPTP] and [L2TP], allow for sessions between the same two tunnel
+ * endpoints to be multiplexed over the same tunnel and also for a given
+ * session to use its own dedicated tunnel. This attribute provides a
+ * mechanism for Diameter to inform the tunnel initiator (e.g., PAC,
+ * LAC) whether to assign the session to a multiplexed tunnel or to a
+ * separate tunnel. Furthermore, it allows for sessions sharing
+ * multiplexed tunnels to be assigned to different multiplexed tunnels.
+ */
+     Tunnel-Assignment-Id                      ::= 82 /*7.8*/      OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Preference AVP (AVP Code 83) is of type Unsigned32 and is
+ * used to identify the relative preference assigned to each tunnel when
+ * more than one set of tunneling AVPs is returned within separate
+ * Grouped-AVP AVPs. It MAY be used in an authorization request as a
+ * hint to the server that a specific preference is desired, but the
+ * server is not required to honor the hint in the corresponding response.
+ */
+     Tunnel-Preference                         ::= 83 /*7.9*/      Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Client-Auth-Id AVP (AVP Code 90) is of type UTF8String and
+ * specifies the name used by the tunnel initiator during the
+ * authentication phase of tunnel establishment. It MAY be used in an
+ * authorization request as a hint to the server that a specific
+ * preference is desired, but the server is not required to honor the
+ * hint in the corresponding response. This AVP MUST be present in the
+ * authorization response if an authentication name other than the
+ * default is desired. This AVP SHOULD be included in the Accounting-
+ * Request messages pertaining to the tunneled session.
+ */
+     Tunnel-Client-Auth-Id                     ::= 90 /*7.10*/     UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Server-Auth-Id AVP (AVP Code 91) is of type UTF8String and
+ * specifies the name used by the tunnel terminator during the
+ * authentication phase of tunnel establishment. It MAY be used in an
+ * authorization request as a hint to the server that a specific
+ * preference is desired, but the server is not required to honor the
+ * hint in the corresponding response. This AVP MUST be present in the
+ * authorization response if an authentication name other than the
+ * default is desired. This AVP SHOULD be included in the Accounting-
+ * Request messages pertaining to the tunneled session.
+ */
+     Tunnel-Server-Auth-Id                     ::= 91 /*7.11*/     UTF8String    M|P| |  V | Y;
+
+/**
+ * The Origin-AAA-Protocol AVP (AVP Code 408) is of the type Enumerated
+ * and should be inserted in a Diameter message translated by a gateway
+ * system from another AAA protocol, such as RADIUS. It identifies the
+ * source protocol of the message to the Diameter system receiving the
+ * message.
+ */
+     Origin-AAA-Protocol                       ::= 408 /*9.3.6*/   Enumerated    V,M| | |     |N;  /*Dummy AVP defined by Naresh */
+
+/**
+ * The ARAP-Features AVP (AVP Code 71) is of type OctetString and MAY be
+ * present in the AA-Accept message if the Framed-Protocol AVP is set to
+ * the value of ARAP.  See [RADIUSExt] for more information about the
+ * format of this AVP.
+ */
+    ARAP-Zone-Access                           ::= 72  /*6.14.2*/  Enumerated    M|P| |  V  | Y; /*missing previously added by Hemant */
+ 
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+    NAS-Port-Type ::= < Enumerated: 61 >
+       Async              0
+       Sync               1
+       ISDN_Sync          2
+       ISDN_Async_V_120   3
+       ISDN_Async_V_110   4
+       Virtual            5
+       PIAFS              6
+       HDLC_Clear_Channel 7 
+       X_25               8
+       X_75               9
+       G_3_Fax            10             
+       SDSL               11
+       ADSL_CAP           12
+       ADSL_DMT           13
+       IDSL               14
+       Ethernet           15
+       xDSL               16
+       Cable              17
+       Wireless           18
+       IEEE_802_11        19             
+       Token_Ring         20
+       FDDI               21
+       CDMA2000           22
+       UMTS               23 
+       CDMA1X_EV          24
+       IAPP_IEEE_802_11f  25
+       ;
+
+
+    Framed-Compression ::= < Enumerated: 13 >
+       NONE               0
+       VJ_TCP_IP          1 
+       IPX                2
+       STAC_LZS           3
+       ;
+
+    Framed-Protocol ::= < Enumerated: 7 >
+       PPP                1
+       SLIP               2
+       ARAP               3
+       GANDALF            4
+       XYLOGICS           5
+       X_75               6
+       ;
+
+    Framed-Routing ::= < Enumerated: 10 >
+       NONE               0
+       SEND               1
+       LISTEN             2
+       SEND_LISTEN        3
+       ;
+    Prompt ::= < Enumerated: 76 >
+       NOECHO             0
+       ECHO               1
+       ;
+
+    CHAP-Algorithm ::= <  Enumerated: 403 >
+       CHAPMD5            5
+       ;
+
+    Service-Type ::= <  Enumerated: 6 >
+       LOGIN                        1
+       FRAMED                       2
+       CALLBACK_LOGIN               3
+       CALLBACK_FRAMED              4
+       OUTBOUND                     5
+       ADMINISTRATIVE               6
+       NAS_PROMPT                   7
+       AUTHENTICATE_ONLY            8
+       CALLBACK_NAS_PROMPT          9
+       CALL_CHECK                   10
+       CALLBACK_ADMINISTRATIVE      11
+       VOICE                        12  
+       FAX                          13 
+       MODEM_RELAY                  14
+       IAPP_REGISTER                15
+       IAPP_AP_CHECK                16
+       AUTHORIZE_ONLY               17
+       ;
+    
+    Login-Service ::= <  Enumerated: 15 >
+       TELNET                       0
+       RLOGIN                       1
+       TCPCLEAR                     2  
+       PORTMASTER                   3
+       LAT                          4
+       X25_PAD                      5
+       X25_T3POS                    6
+       TCPCLEARQUIET                8 
+       ;
+ 
+    Tunnel-Type ::= <  Enumerated: 64 >
+       PPTP                         1 
+       L2F                          2 
+       L2TP                         3
+       ATMP                         4
+       VTP                          5 
+       AH                           6
+       IP_IP                        7
+       MIN_IP_IP                    8
+       N_ESP                          9 
+       GRE                          10
+       DVS                          11
+       IP_in_IP                     12 
+       VLAN                         13
+       ;
+
+    Tunnel-Medium-Type ::= <  Enumerated: 65 >
+       IPv4                         1
+       IPv6                         2
+       NSAP                         3
+       HDLC                         4
+       BBN                          5
+       CANON_802                    6
+       E_163_POTS                   7
+       E_164                        8   
+       F_69                         9
+       X_121                        10
+       IPX                          11 
+       APPLETALK                    12 
+       DECNET_IV                    13
+       BANYAN_VINES                 14
+       E_164_NSAP                   15
+       ;
+
+     Acct-Authentic ::= < Enumerated: 45 >
+       RADIUS                       1
+       LOCAL                        2
+       REMOTE                       3
+       DIAMETER                     4
+       ;
+ 
+     Accounting-Auth-Method ::= < Enumerated: 406 >
+       PAP                          1
+       CHAP                         2
+       MS_CHAP_1                    3 
+       MS_CHAP_2                    4
+       EAP                          5 
+       NONE                         7
+       ;
+       
+     Origin-AAA-Protocol ::= < Enumerated: 408 >
+       RADIUS                       1
+       ;
+ 
+    ARAP-Zone-Access ::= < Enumerated: 72 >
+        DEFAULT        0
+        INCLUSIVELY    2
+        EXCLUSIVELY    4
+        ;
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+Tunneling ::= < AVP Header: 401 >
+       { Tunnel-Type }
+       { Tunnel-Medium-Type }
+       { Tunnel-Client-Endpoint }
+       { Tunnel-Server-Endpoint }
+       [ Tunnel-Preference ]
+       [ Tunnel-Client-Auth-Id ]
+       [ Tunnel-Server-Auth-Id ]
+       [ Tunnel-Assignment-Id ]
+       [ Tunnel-Password ]
+       [ Tunnel-Private-Group-Id ]
+       ; 
+
+CHAP-Auth ::= < AVP Header: 402 >
+       { CHAP-Algorithm }
+       { CHAP-Ident }
+       [ CHAP-Response ]
+       * [ AVP ] 
+       ;
+
+
+    //////////////////
+    //   Commands   // 
+    //////////////////
+
+/**
+ * The AA-Request (AAR), which is indicated by setting the Command-Code field to * 265 and the 'R' bit in the Command Flags field, is used to request
+ * authentication and/or authorization for a given NAS user.
+ * The type of request is identified through the Auth-Request-Type AVP [BASE].
+ * The recommended value for most RADIUS interoperabily situations is
+ * AUTHORIZE_AUTHENTICATE.
+ * If Authentication is requested, the User-Name attribute SHOULD be present, as * well as any additional authentication AVPs that would carry the password
+ * information. A request for authorization SHOULD only include the information  * from which the authorization will be performed, such as the User-Name,
+ * Called-Station-Id, or Calling-Station-Id AVPs. All requests SHOULD contain
+ * AVPs uniquely identifying the source of the call, such as Origin-Host and
+ * NAS-Port. Certain networks MAY use different AVPs for authorization purposes.
+ * A request for authorization will include some AVPs defined in section 6.
+ */
+
+AA-Request ::= < Diameter Header: 265, REQ, PXY, 1 >
+     < Session-Id >
+     { Auth-Application-Id }
+     { Origin-Host }
+     { Origin-Realm }
+     { Destination-Realm }
+     { Auth-Request-Type }
+     [ Destination-Host ]
+     [ NAS-Identifier ]
+     [ NAS-IP-Address ]
+     [ NAS-IPv6-Address ]
+     [ NAS-Port ]
+     [ NAS-Port-Id ]
+     [ NAS-Port-Type ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ Port-Limit ]
+     [ User-Name ]
+     [ User-Password ]
+     [ Service-Type ]
+     [ State ]
+     [ Authorization-Lifetime ]
+     [ Auth-Grace-Period ]
+     [ Auth-Session-State ]
+     [ Callback-Number ]
+     [ Called-Station-Id ]
+     [ Calling-Station-Id ]
+     [ Originating-Line-Info ]
+     [ Connect-Info ]
+     [ CHAP-Auth ]
+     [ CHAP-Challenge ]
+     *[ Framed-Compression ]
+     [ Framed-Interface-Id ]
+     [ Framed-IP-Address ]
+     *[ Framed-IPv6-Prefix ]
+     [ Framed-IP-Netmask ]
+     [ Framed-MTU ]
+     [ Framed-Protocol ]
+     [ ARAP-Password ]
+     [ ARAP-Security ]
+     * [ ARAP-Security-Data ]
+     * [ Login-IP-Host ]
+     * [ Login-IPv6-Host ]
+     [ Login-LAT-Group ]
+     [ Login-LAT-Node ]
+     [ Login-LAT-Port ]
+     [ Login-LAT-Service ]
+     * [ Tunneling ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+/**     
+ * The AA-Answer (AAA) message is indicated by setting the Command-Code field to * 265 and clearing the 'R' bit in the Command Flags field. It is sent in
+ * response to the AA-Request (AAR) message. If authorization was requested, a
+ * successful response will include the authorization AVPs appropriate for the
+ * service being provided, as defined in section 6.
+ * For authentication exchanges requiring more than a single round trip,
+ * the server MUST set the Result-Code AVP to DIAMETER_MULTI_ROUND_AUTH.
+ * An AAA message with this result code MAY include one Reply-Message or
+ * more and MAY include zero or one State AVPs.
+ */
+
+AA-Answer ::= < Diameter Header: 265, PXY, 1 >
+     < Session-Id >
+     { Auth-Application-Id }
+     { Auth-Request-Type }
+     { Result-Code }
+     { Origin-Host }
+     { Origin-Realm }
+     [ User-Name ]
+     [ Service-Type ]
+     * [ Class ]
+     * [ Configuration-Token ]
+     [ Acct-Interim-Interval ]
+     [ Error-Message ]
+     [ Error-Reporting-Host ]
+     * [ Failed-AVP ]
+     [ Idle-Timeout ]
+     [ Authorization-Lifetime ]
+     [ Auth-Grace-Period ]
+     [ Auth-Session-State ]
+     [ Re-Auth-Request-Type ]
+     [ Multi-Round-Time-Out ]
+     [ Session-Timeout ]
+     [ State ]
+     * [ Reply-Message ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     * [ Filter-Id ]
+     [ Password-Retry ]
+     [ Port-Limit ]
+     [ Prompt ]
+     [ ARAP-Challenge-Response ]
+     [ ARAP-Features ]
+     [ ARAP-Security ]
+     * [ ARAP-Security-Data ]
+     [ ARAP-Zone-Access ]
+     [ Callback-Id ]
+     [ Callback-Number ]
+     [ Framed-Appletalk-Link ]
+     * [ Framed-Appletalk-Network ]
+     [ Framed-Appletalk-Zone ]
+     * [ Framed-Compression ]
+     [ Framed-Interface-Id ]
+     [ Framed-IP-Address ]
+     * [ Framed-IPv6-Prefix ]
+     [ Framed-IPv6-Pool ]
+     * [ Framed-IPv6-Route ]
+     [ Framed-IP-Netmask ]
+     * [ Framed-Route ]
+     [ Framed-Pool ]
+     [ Framed-IPX-Network ]
+     [ Framed-MTU ]
+     [ Framed-Protocol ]
+     [ Framed-Routing ]
+     * [ Login-IP-Host ]
+     * [ Login-IPv6-Host ]
+     [ Login-LAT-Group ]
+     [ Login-LAT-Node ]
+     [ Login-LAT-Port ]
+     [ Login-LAT-Service ]
+     [ Login-Service ]
+     [ Login-TCP-Port ]
+     * [ NAS-Filter-Rule ]
+     * [ QoS-Filter-Rule ]
+     * [ Tunneling ]
+     * [ Redirect-Host ]
+     [ Redirect-Host-Usage ]
+     [ Redirect-Max-Cache-Time ]
+     * [ Proxy-Info ]
+     * [ AVP ]
+     ;
+
+/**
+ * A Diameter server may initiate a re-authentication and/or reauthorization
+ * service for a particular session by issuing a Re-Auth-Request (RAR) message
+ * [BASE].For example, for pre-paid services, the Diameter server that 
+ * originally authorized a session may need some confirmation that the user is
+ * still using the services. If a NAS receives an RAR message with Session-Id
+ * equal to a currently active session and a Re-Auth-Type that includes
+ * authentication, it MUST initiate a re-authentication toward the user, if
+ * the service supports this particular feature.  
+ */
+
+RA-Request ::= < Diameter Header: 258, REQ, PXY, 1 >
+     < Session-Id >
+     { Origin-Host }
+     { Origin-Realm }
+     { Destination-Realm }
+     { Destination-Host }
+     { Auth-Application-Id }
+     { Re-Auth-Request-Type }
+     [ User-Name ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ NAS-Identifier ]
+     [ NAS-IP-Address ]
+     [ NAS-IPv6-Address ]
+     [ NAS-Port ]
+     [ NAS-Port-Id ]
+     [ NAS-Port-Type ]
+     [ Service-Type ]
+     [ Framed-IP-Address ]
+     [ Framed-IPv6-Prefix ]
+     [ Framed-Interface-Id ]
+     [ Called-Station-Id ]
+     [ Calling-Station-Id ]
+     [ Originating-Line-Info ]
+     [ Acct-Session-Id ]
+     [ Acct-Multi-Session-Id ]
+     [ State ]
+     * [ Class ]
+     [ Reply-Message ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+/**
+ * The Re-Auth-Answer (RAA) message [BASE] is sent in response to the RAR. The
+ * Result-Code AVP MUST be present and indicates the disposition of the request.
+ * A successful RAA transaction MUST be followed by an AAR message.
+ */
+
+RA-Answer ::= < Diameter Header: 258, PXY, 1 >
+     < Session-Id >
+     { Result-Code }
+     { Origin-Host }
+     { Origin-Realm }
+     [ User-Name ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ Error-Message ]
+     [ Error-Reporting-Host ]
+     * [ Failed-AVP ]
+     * [ Redirect-Host ]
+     [ Redirect-Host-Usage ]
+     [ Redirect-Max-Cache-Time ]
+     [ Service-Type ]
+     * [ Configuration-Token ]
+     [ Idle-Timeout ]
+     [ Authorization-Lifetime ]
+     [ Auth-Grace-Period ]
+     [ Re-Auth-Request-Type ]
+     [ State ]
+     * [ Class ]
+     * [ Reply-Message ]
+     [ Prompt ]
+     * [ Proxy-Info ]
+     * [ AVP ]
+     ;
+
+/**
+ * The Session-Termination-Request (STR) message [BASE] is sent by the NAS to
+ * inform the Diameter Server that an authenticated and/or authorized session
+ * is being terminated.
+ */
+
+ST-Request ::= < Diameter Header: 275, REQ, PXY, 1 >
+     < Session-Id >
+     { Origin-Host }
+     { Origin-Realm }
+     { Destination-Realm }
+     { Auth-Application-Id }
+     { Termination-Cause }
+     [ User-Name ]
+     [ Destination-Host ]
+     * [ Class ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+/**
+ * The Session-Termination-Answer (STA) message [BASE] is sent by the Diameter
+ * Server to acknowledge the notification that the session has been terminated.
+ * The Result-Code AVP MUST be present and MAY contain an indication that an
+ * error occurred while the STR was being serviced.
+ * Upon sending or receiving the STA, the Diameter Server MUST release all
+ * resources for the session indicated by the Session-Id AVP. Any intermediate
+ * server in the Proxy-Chain MAY also release any resources, if necessary.
+ */
+
+ST-Answer ::= < Diameter Header: 275, PXY, 1 >
+     < Session-Id >
+     { Result-Code }
+     { Origin-Host }
+     { Origin-Realm }
+     [ User-Name ]
+     * [ Class ]
+     [ Error-Message ]
+     [ Error-Reporting-Host ]
+     * [ Failed-AVP ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     * [ Redirect-Host ]
+     [ Redirect-Host-Usage ]
+     [ Redirect-Max-Cache-Time ]
+     * [ Proxy-Info ]
+     * [ AVP ]
+     ;
+
+/**
+ * The Abort-Session-Request (ASR) message [BASE] may be sent by any server to
+ * the NAS providing session service, to request that the session identified by
+ * the Session-Id be stopped.
+ */
+
+AS-Request ::= < Diameter Header: 274, REQ, PXY, 1 >
+     < Session-Id >
+     { Origin-Host }
+     { Origin-Realm }
+     { Destination-Realm }
+     { Destination-Host }
+     { Auth-Application-Id }
+     [ User-Name ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ NAS-Identifier ]
+     [ NAS-IP-Address ]
+     [ NAS-IPv6-Address ]
+     [ NAS-Port ]
+     [ NAS-Port-Id ]
+     [ NAS-Port-Type ]
+     [ Service-Type ]
+     [ Framed-IP-Address ]
+     [ Framed-IPv6-Prefix ]
+     [ Framed-Interface-Id ]
+     [ Called-Station-Id ]
+     [ Calling-Station-Id ]
+     [ Originating-Line-Info ]
+     [ Acct-Session-Id ]
+     [ Acct-Multi-Session-Id ]
+     [ State ]
+     * [ Class ]
+     * [ Reply-Message ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+/**
+ * The ASA message [BASE] is sent in response to the ASR. The Result-Code AVP
+ * MUST be present and indicates the disposition of the request.
+ * If the session identified by Session-Id in the ASR was successfully
+ * terminated, Result-Code is set to DIAMETER_SUCCESS. If the session is not
+ * currently active, Result-Code is set to DIAMETER_UNKNOWN_SESSION_ID. If the
+ * access device does not stop the session for any other reason, Result-Code is
+ * set to DIAMETER_UNABLE_TO_COMPLY.
+ */
+
+AS-Answer ::= < Diameter Header: 274, PXY, 1 >
+     < Session-Id >
+     { Result-Code }
+     { Origin-Host }
+     { Origin-Realm }
+     [ User-Name ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ State]
+     [ Error-Message ]
+     [ Error-Reporting-Host ]
+     * [ Failed-AVP ]
+     * [ Redirect-Host ]
+     [ Redirect-Host-Usage ]
+     [ Redirect-Max-Cache-Time ]
+     * [ Proxy-Info ]
+     * [ AVP ]
+     ;
+
+/**
+ * The ACR message [BASE] is sent by the NAS to report its session information
+ * to a target server downstream. Either of Acct-Application-Id or
+ * Vendor-Specific-Application-Id AVPs MUST be present. If the
+ * Vendor-Specific-Application-Id grouped AVP is present, it must have an
+ * Acct-Application-Id inside.
+ * The AVPs listed in the Base MUST be assumed to be present, as appropriate.
+ * NAS service-specific accounting AVPs SHOULD be present as described in
+ * section 8 and the rest of this specification.
+ */
+
+AC-Request ::= < Diameter Header: 271, REQ, PXY, 1 >
+     < Session-Id >
+     { Origin-Host }
+     { Origin-Realm }
+     { Destination-Realm }
+     { Accounting-Record-Type }
+     { Accounting-Record-Number }
+     [ Acct-Application-Id ]
+     [ Vendor-Specific-Application-Id ]
+     [ User-Name ]
+     [ Accounting-Sub-Session-Id ]
+     [ Acct-Session-Id ]
+     [ Acct-Multi-Session-Id ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ Destination-Host ]
+     [ Event-Timestamp ]
+     [ Acct-Delay-Time ]
+     [ NAS-Identifier ]
+     [ NAS-IP-Address ]
+     [ NAS-IPv6-Address ]
+     [ NAS-Port ]
+     [ NAS-Port-Id ]
+     [ NAS-Port-Type ]
+     * [ Class ]
+     [ Service-Type ]
+     [ Termination-Cause ]
+     [ Accounting-Input-Octets ]
+     [ Accounting-Input-Packets ]
+     [ Accounting-Output-Octets ]
+     [ Accounting-Output-Packets ]
+     [ Acct-Authentic ]
+     [ Accounting-Auth-Method ]
+     [ Acct-Link-Count ]
+     [ Acct-Session-Time ]
+     [ Acct-Tunnel-Connection ]
+     [ Acct-Tunnel-Packets-Lost ]
+     [ Callback-Id ]
+     [ Callback-Number ]
+     [ Called-Station-Id ]
+     [ Calling-Station-Id ]
+     *[ Connect-Info ]
+     [ Originating-Line-Info ]
+     [ Authorization-Lifetime ]
+     [ Session-Timeout ]
+     [ Idle-Timeout ]
+     [ Port-Limit ]
+     [ Accounting-Realtime-Required ]
+     [ Acct-Interim-Interval ]
+     * [ Filter-Id ]
+     * [ NAS-Filter-Rule ]
+     * [ QoS-Filter-Rule ]
+     [ Framed-Appletalk-Link ]
+     [ Framed-Appletalk-Network ]
+     [ Framed-Appletalk-Zone ]
+     [ Framed-Compression ]
+     [ Framed-Interface-Id ]
+     [ Framed-IP-Address ]
+     [ Framed-IP-Netmask ]
+     * [ Framed-IPv6-Prefix ]
+     [ Framed-IPv6-Pool ]
+     * [ Framed-IPv6-Route ]
+     [ Framed-IPX-Network ]
+     [ Framed-MTU ]
+     [ Framed-Pool ]
+     [ Framed-Protocol ]
+     * [ Framed-Route ]
+     [ Framed-Routing ]
+     * [ Login-IP-Host ]
+     * [ Login-IPv6-Host ]
+     [ Login-LAT-Group ]
+     [ Login-LAT-Node ]
+     [ Login-LAT-Port ]
+     [ Login-LAT-Service ]
+     [ Login-Service ]
+     [ Login-TCP-Port ]
+     * [ Tunneling ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+/**
+ * The ACA message [BASE] is used to acknowledge an Accounting-Request command.
+ * The Accounting-Answer command contains the same Session-Id as the Request.
+ * If the Accounting-Request was protected by end-toend security, then the
+ * corresponding ACA message MUST be protected as well.
+ * Only the target Diameter Server or home Diameter Server SHOULD respond with
+ * the Accounting-Answer command. Either Acct-Application-Id or
+ * Vendor-Specific-Application-Id AVPs MUST be present as it was in the request.
+ */
+
+AC-Answer ::= < Diameter Header: 271, PXY, 1 >
+     < Session-Id >
+     { Result-Code }
+     { Origin-Host }
+     { Origin-Realm }
+     { Accounting-Record-Type }
+     { Accounting-Record-Number }
+     [ Acct-Application-Id ]
+     [ Vendor-Specific-Application-Id ]
+     [ User-Name ]
+     [ Accounting-Sub-Session-Id ]
+     [ Acct-Session-Id ]
+     [ Acct-Multi-Session-Id ]
+     [ Event-Timestamp ]
+     [ Error-Message ]
+     [ Error-Reporting-Host ]
+     * [ Failed-AVP ]
+     [ Origin-AAA-Protocol ]
+     [ Origin-State-Id ]
+     [ NAS-Identifier ]
+     [ NAS-IP-Address ]
+     [ NAS-IPv6-Address ]
+     [ NAS-Port ]
+     [ NAS-Port-Id ]
+     [ NAS-Port-Type ]
+     [ Service-Type ]
+     [ Termination-Cause ]
+     [ Accounting-Realtime-Required ]
+     [ Acct-Interim-Interval ]
+     * [ Class ]
+     * [ Proxy-Info ]
+     * [ Route-Record ]
+     * [ AVP ]
+     ;
+
+

@@ -1,0 +1,1033 @@
+
+/**
+ * 3GPP TS 29.061 V8.2.0 (2009-03) -- Gi Interface --Diameter Based Protocol
+ * The Gi reference point is between Packet Domain and an external packet data network
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+ protocol diameter.gi < 1  10415 : "3GPP TS 29.061 V8.2.0 (2009-03)" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+/**
+ * The Port-Limit AVP (AVP Code 62) is of type Unsigned32 and sets the
+ * maximum number of ports the NAS provides to the user. It MAY be used
+ * in an authentication and/or authorization request as a hint to the
+ * server that multilink PPP [PPPMP] service is desired, but the server
+ * is not required to honor the hint in the corresponding response.
+ */
+    Port-Limit   ::= 62 /*  29.234 V7.4.0  Section 6.5 */    Unsigned32    M|P| |  V | Y;
+/**
+ * The NAS-Port-Id AVP (AVP Code 87) is of type UTF8String and consists
+ * of ASCII text identifying the port of the NAS authenticating the
+ * user. Note that "port" is meant in its sense as a service connection
+ * on the NAS, not as an IP protocol identifier.
+ * Either NAS-Port or NAS-Port-Id SHOULD be present in AA-Request (AAR) commands
+ * if the NAS differentiates among its ports. NAS-Port-Id is intended for use
+ * by NASes that cannot conveniently number their ports.
+ */
+    NAS-Port-Id  ::= 87 /* 29.234 V7.4.0  Section 4.3 */    UTF8String    M|P| |  V | Y;
+/**
+ * The NAS-Port-Type AVP (AVP Code 61) is of type Enumerated and contains the
+ * type of the port on which the NAS is authenticating the user. This AVP
+ * SHOULD be present if the NAS uses the same NAS-Port number ranges for
+ * different service types concurrently. The supported values are defined in
+ * [RADIUSTypes].
+ */
+    NAS-Port-Type ::= 61  /*29.234 V7.4.0  Section  4.4 */   Enumerated    M|P| |  V |Y;
+
+/**
+ * The Callback-Number AVP (AVP Code 19) is of type UTF8String and contains a
+ * dialing string to be used for callback. It MAY be used in an authentication
+ * and/or authorization request as a hint to the server that a Callback service
+ * is desired, but the server is not required to honor the hint in the
+ * corresponding response.
+ */
+    Callback-Number   ::= 19  /* 29.234 V7.4.0  Section 6.2 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Called-Station-Id AVP (AVP Code 30) is of type UTF8String and allows
+ * the NAS to send the ASCII string describing the layer 2 address the user
+ * contacted in the request. For dialup access,this can be a phone number,
+ * obtained using Dialed Number identification (DNIS) or a similar
+ * technology. Note that this may be different from the phone number the call
+ * comes on. For the use with IEEE 802 access,the Called-Station-Id MAY contain
+ * a MAC address formatted as described in RAD802.1X.
+ */
+    Called-Station-Id   ::= 30  /*29.234 V7.4.0  Section  4.5  */  UTF8String    M|P| |  V  |Y;
+
+/**
+ * The Calling-Station-Id AVP (AVP Code 31) is of type UTF8String an allows the
+ * NAS to send the ASCII string describing the layer 2 address from which the
+ * user connected in the request. For dialup access, this is the phone number
+ * the call came from, using Automatic Number Identification (ANI) or a similar
+ * technology. For use with IEEE 802 access, the Calling-Station-Id AVP MAY
+ * contain a MAC address, formated as described in [RAD802.1X]. It SHOULD only
+ * be present in authentication and/or authorization requests.
+ */
+    Calling-Station-Id   ::= 31  /*29.234 V7.4.0  Section  4.6 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The Originating-Line-Info AVP (AVP Code 94) is of type OctetString
+ * and is sent by the NAS system to convey information about the origin
+ * of the call from an SS7 system.
+ * The originating line information (OLI) element indicates the nature
+ * and/or characteristics of the line from which a call originated
+ * (e.g., pay phone, hotel, cellular). Telephone companies are starting
+ * to offer OLI to their customers as an option over Primary Rate
+ * Interface (PRI). Internet Service Providers (ISPs) can use OLI in
+ * addition to Called-Station-Id and Calling-Station-Id attributes to
+ * differentiate customer calls and to define different services.
+ * The Value field contains two octets (00 - 99).
+ */
+    Originating-Line-Info   ::= 94 /*29.234 V7.4.0  Section  4.8 */    OctetString   |M,P | |  V | Y;
+
+/**
+ * The Connect-Info AVP (AVP Code 77) is of type UTF8String and is sent in the
+ * AA-Request message or ACR STOP message. When sent in the Access-Request, it
+ * indicates the nature of the user's connection.
+ * The connection speed SHOULD be included at the beginning of the first
+ * Connect-Info AVP in the message.
+ */
+    Connect-Info            ::= 77  /*29.234 V7.4.0  Section  4.7 */   UTF8String    M|P| |  V |Y;
+
+/**
+ * The CHAP-Auth AVP (AVP Code 402) is of type Grouped and contains the
+ * information necessary to authenticate a user using the PPP
+ * Challenge-Handshake Authentication Protocol (CHAP) [PPPCHAP]. If the
+ * CHAP-Auth AVP is found in a message, the CHAP-Challenge AVP MUST be
+ * present as well. The optional AVPs containing the CHAP response
+ * depend upon the value of the CHAP-Algorithm AVP.
+ */
+     CHAP-Auth             ::= 402 /* 29.234 V7.4.0  Section 5.4*/     Grouped       M|P| |  V | Y;
+
+/**
+ * The CHAP-Algorithm AVP (AVP Code 403) is of type Enumerated and
+ * contains the algorithm identifier used in the computation of the CHAP
+ * response [PPPCHAP].
+ */
+     CHAP-Algorithm         ::= 403 /*29.234 V7.4.0  Section 5.5*/     Enumerated    M|P| |  V | Y;
+
+/**
+ * The CHAP-Ident AVP (AVP Code 404) is of type OctetString and contains the 1
+ * octet CHAP Identifier used in the computation of the CHAP response [PPPCHAP].
+ */
+     CHAP-Ident             ::= 404 /*29.234 V7.4.0  Section 5.6*/     OctetString   M|P| |  V | Y;
+
+/**
+ * The CHAP-Response AVP (AVP Code 405) is of type OctetString and
+ * contains the 16 octet authentication data provided by the user in
+ * response to the CHAP challenge [PPPCHAP].
+ */
+     CHAP-Response          ::= 405 /* 29.234 V7.4.0  Section 5.7 */   OctetString   M|P| |  V | Y;
+
+/**
+ * The CHAP-Challenge AVP (AVP Code 60) is of type OctetString and contains the
+ * CHAP Challenge sent by the NAS to the CHAP peer [PPPCHAP].
+ */
+     CHAP-Challenge          ::= 60 /* 29.234 V7.4.0  Section 5.8*/      OctetString   M|P| |  V | Y;
+
+
+/**
+ * The Framed-Interface-Id AVP (AVP Code 96) is of type Unsigned64 and
+ * contains the IPv6 interface identifier to be configured for the user.
+ * It MAY be used in authorization requests as a hint to the server that
+ * a specific interface id is desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-Interface-Id      ::= 96 /*29.234 V7.4.0  Section 6.11.5*/   Unsigned64    M|P| |  V | Y;
+
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that
+ * specific IPv6 prefixes are desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPv6-Prefix    ::= 97  /*29.234 V7.4.0  Section 6.11.6*/  OctetString   M|P| |  V  |Y;
+
+
+/**
+ * The Login-IPv6-Host AVP (AVP Code 98) [RADIUSIPv6] is of type
+ * OctetString and contains the IPv6 address of a host with which to
+ * connect the user when the Login-Service AVP is included. It MAY be
+ * used in an AA-Request command as a hint to the Diameter Server that a
+ * specific host is desired, but the Diameter Server is not required to
+ * honor the hint in the AA-Answer.
+ */
+     Login-IPv6-Host     ::= 98 /*29.234 V7.4.0  Section 6.15.2*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Group AVP (AVP Code 36) is of type OctetString and
+ * contains a string identifying the LAT group codes this user is
+ * authorized to use. It MAY be used in an authorization request as a
+ * hint to the server that a specific group is desired, but the server
+ * is not required to honor the hint in the corresponding response.
+ * This AVP MUST only be present in a response if the Login-Service-Type
+ * AVP is set to LAT.
+ */
+     Login-LAT-Group     ::= 36 /*29.234 V7.4.0  Section  6.17.3*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Node AVP (AVP Code 35) is of type OctetString and contains the
+ * Node with which the user is to be automatically connected by LAT. It MAY be
+ * used in an authorization request as a hint to the server that a specific
+ * LAT node is desired, but the server is not required to honor the hint in
+ * the corresponding response. This AVP MUST only be present in a response if
+ * the Login-Service-Type AVP is set to LAT.
+ */
+     Login-LAT-Node     ::= 35 /*29.234 V7.4.0  Section  6.17.2*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Port AVP (AVP Code 63) is of type OctetString and
+ * contains the Port with which the user is to be connected by LAT. It
+ * MAY be used in an authorization request as a hint to the server that
+ * a specific port is desired, but the server is not required to honor
+ * the hint in the corresponding response. This AVP MUST only be
+ * present in a response if the Login-Service-Type AVP is set to LAT.
+ */
+     Login-LAT-Port     ::= 63 /*29.234 V7.4.0  Section 6.17.4*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Login-LAT-Service AVP (AVP Code 34) is of type OctetString and contains
+ * the system with which the user is to be connected by LAT. It MAY be used in
+ * an authorization request as a hint to the server that a specific service is
+ * desired, but the server is not required to honor the hint in the
+ * corresponding response. This AVP MUST only be present in the response if
+ * the Login-Service AVP states that LAT is desired.
+ */
+     Login-LAT-Service  ::= 34 /*29.234 V7.4.0  Section   6.17.1*/   OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunneling AVP (AVP Code 401) is of type Grouped and contains the
+ * following AVPs, used to describe a compulsory tunnel service:
+ * [RADTunnels], [RADTunlAcct].
+ */
+     Tunneling      ::= 401 /* 29.234 V7.4.0  Section 7.1 */   Grouped       M|P| |  V | N;
+
+/**
+ * The Tunnel-Type AVP (AVP Code 64) is of type Enumerated and contains
+ * the tunneling protocol(s) to be used (in the case of a tunnel
+ * initiator) or in use (in the case of a tunnel terminator). It MAY be
+ * used in an authorization request as a hint to the server that a
+ * specific tunnel type is desired, but the server is not required to
+ * honor the hint in the corresponding response. The Tunnel-Type AVP SHOULD
+ * also be included in Accounting-Request messages.
+ */
+     Tunnel-Type    ::= 64 /*29.234 V7.4.0  Section  7.2*/  Enumerated    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Medium-Type AVP (AVP Code 65) is of type Enumerated and
+ * contains the transport medium to use when creating a tunnel for
+ * protocols (such as L2TP) that can operate over multiple transports.
+ * It MAY be used in an authorization request as a hint to the server
+ * that a specific medium is desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+     Tunnel-Medium-Type  ::= 65 /*29.234 V7.4.0  Section  7.3*/ Enumerated    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Client-Endpoint AVP (AVP Code 66) is of type UTF8String
+ * and contains the address of the initiator end of the tunnel. It MAY
+ * be used in an authorization request as a hint to the server that a
+ * specific endpoint is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * This AVP SHOULD be included in the corresponding Accounting-Request
+ * messages, in which case it indicates the address from which the
+ * tunnel was initiated. This AVP, along with the Tunnel-Server-
+ * Endpoint and Session-Id AVP [BASE], MAY be used to provide a globally
+ * unique means to identify a tunnel for accounting and auditing
+ * purposes.
+ */
+     Tunnel-Client-Endpoint  ::= 66 /*29.234 V7.4.0  Section  7.4*/UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Server-Endpoint AVP (AVP Code 67) is of type UTF8String
+ * and contains the address of the server end of the tunnel. It MAY be
+ * used in an authorization request as a hint to the server that a
+ * specific endpoint is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ */
+
+     Tunnel-Server-Endpoint  ::= 67 /*29.234 V7.4.0  Section  7.5*/ UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Password AVP (AVP Code 69) is of type OctetString and may
+ * contain a password to be used to authenticate to a remote server.
+ * The Tunnel-Password AVP contains sensitive information. This value
+ * is not protected in the same manner as RADIUS [RADTunnels].
+ * As required in [BASE], Diameter messages are encrypted by using IPsec
+ * or TLS. The Tunnel-Password AVP SHOULD NOT be used in untrusted
+ * proxy environments without encrypting it by using end-to-end security
+ * techniques, such as CMS Security [DiamCMS].
+ */
+     Tunnel-Password     ::= 69 /*29.234 V7.4.0  Section  7.6*/ OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Private-Group-Id AVP (AVP Code 81) is of type OctetString
+ * and contains the group Id for a particular tunneled session. The
+ * Tunnel-Private-Group-Id AVP MAY be included in an authorization
+ * request if the tunnel initiator can predetermine the group resulting
+ * from a particular connection. It SHOULD be included in the
+ * authorization response if this tunnel session is to be treated as
+ * belonging to a particular private group. Private groups may be used
+ * to associate a tunneled session with a particular group of users.
+ * For example, it MAY be used to facilitate routing of unregistered IP
+ * addresses through a particular interface. This AVP SHOULD be
+ * included in the Accounting-Request messages that pertain to the
+ * tunneled session.
+ */
+     Tunnel-Private-Group-Id ::= 81 /*29.234 V7.4.0  Section  7.7*/ OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Assignment-Id AVP (AVP Code 82) is of type OctetString and
+ * is used to indicate to the tunnel initiator the particular tunnel to
+ * which a session is to be assigned. Some tunneling protocols, such as
+ * [PPTP] and [L2TP], allow for sessions between the same two tunnel
+ * endpoints to be multiplexed over the same tunnel and also for a given
+ * session to use its own dedicated tunnel. This attribute provides a
+ * mechanism for Diameter to inform the tunnel initiator (e.g., PAC,
+ * LAC) whether to assign the session to a multiplexed tunnel or to a
+ * separate tunnel. Furthermore, it allows for sessions sharing
+ * multiplexed tunnels to be assigned to different multiplexed tunnels.
+ */
+     Tunnel-Assignment-Id ::= 82 /*29.234 V7.4.0  Section 7.8*/OctetString   M|P| |  V | Y;
+
+/**
+ * The Tunnel-Preference AVP (AVP Code 83) is of type Unsigned32 and is
+ * used to identify the relative preference assigned to each tunnel when
+ * more than one set of tunneling AVPs is returned within separate
+ * Grouped-AVP AVPs. It MAY be used in an authorization request as a
+ * hint to the server that a specific preference is desired, but the
+ * server is not required to honor the hint in the corresponding response.
+ */
+     Tunnel-Preference  ::= 83 /*29.234 V7.4.0  Section 7.9*/ Unsigned32    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Client-Auth-Id AVP (AVP Code 90) is of type UTF8String and
+ * specifies the name used by the tunnel initiator during the
+ * authentication phase of tunnel establishment. It MAY be used in an
+ * authorization request as a hint to the server that a specific
+ * preference is desired, but the server is not required to honor the
+ * hint in the corresponding response. This AVP MUST be present in the
+ * authorization response if an authentication name other than the
+ * default is desired. This AVP SHOULD be included in the Accounting-
+ * Request messages pertaining to the tunneled session.
+ */
+     Tunnel-Client-Auth-Id  ::= 90 /*29.234 V7.4.0  Section 7.10*/ UTF8String    M|P| |  V | Y;
+
+/**
+ * The Tunnel-Server-Auth-Id AVP (AVP Code 91) is of type UTF8String and
+ * specifies the name used by the tunnel terminator during the
+ * authentication phase of tunnel establishment. It MAY be used in an
+ * authorization request as a hint to the server that a specific
+ * preference is desired, but the server is not required to honor the
+ * hint in the corresponding response. This AVP MUST be present in the
+ * authorization response if an authentication name other than the
+ * default is desired. This AVP SHOULD be included in the Accounting-
+ * Request messages pertaining to the tunneled session.
+ */
+     Tunnel-Server-Auth-Id   ::= 91 /*29.234 V7.4.0  Section  7.11*/ UTF8String    M|P| |  V | Y;
+
+
+     Gi-3GPP-IMSI ::= 1002    /* 3GPP TS 29.061     */ UTF8String   M,V| | |     |N; 
+
+/**
+ * For GGSN, it indicates the type of PDP context, e.g. IP or PPP.
+ * For P-GW, it indicates the PDN Type, i.e. IPv4, IPv6, IPv4v6.
+*/
+   Gi-3GPP-PDP-Type    ::=3 /*3GPP TS 29.061 16.4.7 */  Enumerated  V| P|  | M| Y;//re.protocol
+
+
+/**
+ * 3GPP-GPRS-Negotiated-QoS-Profile AVP is of type UTF8String. It is the
+ * QoS Profile applied by GGSN.
+ */
+    Gi-3GPP-GPRS-Negotiated-QoS-Profile      ::= 5   /* 3GPP TS 29.061 V6.7   16.4.7  */ UTF8String  M,V|P| |     |Y;
+/**
+ * 3GPP-SGSN-Address AVP (AVP Code 6) is of type UTF8String and contains the
+ * SGSN IP address that is used by the GTP control plane for the handling of
+ * control messages. It may be used to identify the PLMN to which the user is
+ * attached.
+ */
+    Gi-3GPP-SGSN-Address ::= 6 /*3GPP TS 29.061 V7.0 Section  16.4.7 */ UTF8String  M,V|P| |   |Y; 
+
+/**
+ * 3GPP-IMSI-MCC-MNC AVP is of type UTF8String. It contains MCC and MNC extracted from the user's
+ * IMSI (first 5 or 6 digits, as applicable from the presented IMSI).
+ */
+    Gi-3GPP-IMSI-MCC-MNC ::= 8    /*3GPP TS 29.061     */ UTF8String   M,V| | |     |N; 
+
+/**
+ * 3GPP-GGSN-MCC-MNC AVP is of type UTF8String. It contains the MCC and MNC of the
+ *  network the GGSN belongs to.
+ */
+    Gi-3GPP-GGSN-MCC-MNC   ::= 9    /*3GPP TS 29.061       */ UTF8String   M,V| | |     |N;
+
+/**
+ * The Filter-Id AVP (AVP Code 11) is of type UTF8String and contains the name
+ * of the filter list for this user. Zero or more Filter-Id AVPs MAY be sent in
+ * an authorization answer.
+ * Identifying a filter list by name allows the filter to be used on different
+ * NASes without regard to filter-list implementation details. However, this
+ * AVP is not roaming friendly, as filter naming differs from one service
+ * provider to another. In non-RADIUS environments, it is RECOMMENDED that the
+ * NAS-Filter-Rule AVP be used instead.
+ */
+    Filter-Id    ::= 11  /* 29.234 V7.4.0  Section  6.7  */  UTF8String    M|P| |  V  |Y;
+
+/**
+ * The Framed-Pool AVP (AVP Code 88) is of type OctetString and contains
+ * the name of an assigned address pool that SHOULD be used to assign an
+ * address for the user. If a NAS does not support multiple address
+ * pools, the NAS SHOULD ignore this AVP. Address pools are usually
+ * used for IP addresses but can be used for other protocols if the NAS
+ * supports pools for those protocols.
+ */
+    Framed-Pool  ::= 88 /* 29.234 V7.4.0  Section  6.11.4*/   OctetString   M|P| |  V | Y;
+
+
+/**
+ * The NAS-Filter-Rule AVP (AVP Code 400) is of type IPFilterRule and provides
+ * filter rules that need to be configured on the NAS for the user. One or more
+ * of these AVPs MAY be present in an authorization response.
+ */
+     NAS-Filter-Rule ::= 400 /* 29.234 V7.4.0 Section   6.6 */   IPFilterRule   M|P| |  V |Y;
+
+/**
+ * The QoS-Filter-Rule AVP (AVP Code 407) is of type QoSFilterRule and provides
+ * QoS filter rules that need to be configured on the NAS for the user. One or
+ * more such AVPs MAY be present in an authorization response.
+ */
+    QoS-Filter-Rule ::= 407 /*29.234 V7.4.0  Section   6.9 */   IPFilterRule   M,V| | |    |N;
+
+/**
+ * The NAS-Identifier AVP (AVP Code 32) [RADIUS] is of type UTF8String
+ * and contains the identity of the NAS providing service to the user.
+ * This AVP SHOULD only be added by a RADIUS/Diameter Translation Agent.
+ * When this AVP is present, the Origin-Host AVP identifies the NAS
+ * providing service to the user.
+ * Diameter agents and servers SHOULD check whether a NAS-Identifier AVP
+ * corresponds to an entry in the Route-Record AVP. If no match is
+ * found, then an error is logged, but no other action is taken.
+ */
+    NAS-Identifier     ::= 32 /*29.234 V7.4.0  Section  9.3.1 */  UTF8String    M|P| |  V | Y;
+
+
+/**
+ * The NAS-IPv6-Address AVP (AVP Code 95) [RADIUSIPv6] is of type
+ * OctetString and contains the IPv6 Address of the NAS providing
+ * service to the user. This AVP SHOULD only be added by a
+ * RADIUS/Diameter Translation Agent. When this AVP is present, the
+ * Origin-Host AVP identifies the NAS providing service to the user.
+ */
+    NAS-IPv6-Address   ::= 95 /*29.234 V7.4.0  Section    9.3.3 */  OctetString   M|P| |  V | Y;
+
+
+/**
+  * The Accounting-Input-Octets AVP (AVP code 363)  together with the i
+  * Accounting-Input-Packets AVP contain the number of octets (resp packets) ,
+  * transmitted during the data container recording interval, reflecting the
+  * volume counts for uplink traffic for a data flow.
+ */
+    Accounting-Input-Octets   ::= 363  /*TS 32299.8a0 */ Unsigned64    M|P| |  V  |Y; /* 8.24, 32299.8a0 */  //gy
+
+/**
+  * The Accounting-Input-Packets AVP (AVP code 365)  together with the
+  * Accounting-Input-Octets AVP contain the number of packets (resp octets) ,
+  * transmitted during the data container recording interval, reflecting the
+  * volume counts for uplink traffic for a data flow.
+  */
+    Accounting-Input-Packets   ::= 365  /*TS 32299.8a0 */ Unsigned64    M|P| |  V  |Y; 
+
+/**
+  * The Accounting-Output-Octets AVP (AVP code 364)  together with the
+  * Accounting-Output-Packets AVP  contain the number of octets (resp packets),
+  * transmitted during the data container recording interval, reflecting the
+  * volume counts for downlink traffic for a data flow.
+  */    Accounting-Output-Octets   ::= 364  /*TS 32299.8a0 */ Unsigned64    M|P| |  V  |Y; 
+
+/**
+  * The Accounting-Output-Packets AVP (AVP code 366)  together with the
+  * Accounting-Output-Octets AVP contain the number of packets (resp octets) ,
+  * transmitted during the data container recording interval, reflecting the
+  * volume counts for downlink traffic for a data flow.
+ */    
+
+     Accounting-Output-Packets   ::= 366  /*TS 32299.8a0 */ Unsigned64    M|P| |  V  |Y; 
+
+/*
+ * 3GPP-NSAPI AVP is of type UTF8String and it identifies a particular PDP. 
+ */
+    Gi-3GPP-NSAPI     ::= 10   /*3GPP TS 29.061      */ UTF8String   M,V| | |     |N; 
+
+/**
+ * 3GPP_Selection-Mode AVP is of type UTF8String. It contains the selection mode for this
+ * PDP context received in the create PDP context request message.
+ */
+    Gi-3GPP-Selection-Mode  ::= 12   /*3GPP TS 29.061 */ UTF8String   M,V| | |     |N; 
+
+
+/**
+ * 3GPP-Charging-Characteristics AVP is of type UTF8String. It contains the charging
+ * characteristics for this PDP context received in the Create PDP Context Request
+ * Message (only available in R99 and later releases).
+ */
+    Gi-3GPP-Charging-Characteristics ::= 13   /*3GPP TS 29.061  */ UTF8String   M,V| | |     |N; 
+
+/**
+ * 3GPP-SGSN-MCC-MNC AVP is of type UTF8String. It contains the MCC and MNC extracted from
+ * the RAI within the Create PDP Context Request or Update PDP Context Request message.
+ */
+    Gi-3GPP-SGSN-MCC-MNC   ::= 18   /*3GPP TS 29.061     */ UTF8String   M,V| | |     |N; 
+
+
+/**
+ * 3GPP-RAT-Type AVP is of type OctetString. It indicates which Radio Access Technology is
+ * currently serving the UE.
+ */
+    Gi-3GPP-RAT-Type    ::= 21   /*3GPP TS 29.061 V6.7  Section 16.4.7  */ OctetString M,V|P| |     |Y; 
+
+
+/**
+ * 3GPP-User-Location-Info AVP is of type Octetstring. It indicates details of where the
+ *  UE is currenly located (e.g SAI or CGI).
+ */
+    Gi-3GPP-User-Location-Info  ::= 22   /* 3GPP TS 29.061 V6.7  Section 16.4.7  */ OctetString 
+                                                                             M,V|P| |     |Y; 
+
+/**
+ * 3GPP-MS-TimeZone AVP is of type OctetString. It indicates the offset between universal
+ * time and local time in steps of 15 minutes of where the MS currently resides.
+ */
+    Gi-3GPP-MS-Time-Zone  ::= 23   /*  3GPP TS 29.061 V6.7  Section 16.4.7  */ OctetString 
+                                                                            M,V|P| |     |Y;
+
+/**
+ * 3GPP-CAMEL-Charging-Info AVP is of type OctetString. It is used to copy any CAMEL
+ * information present in S-CDR(s).
+ */
+    Gi-3GPP-CAMEL-Charging-Info              ::= 24   /*3GPP TS 29.061 V6.7  */ OctetString     M,V|P| |     |Y; 
+
+/**
+ * For GGSN, Charging ID for this PDP Context (this together with the GGSN IP Address
+ * constitutes a unique identifier for the PDP context).
+ * For P-GW, Charging ID for this IP-CAN bearer (this together with the P-GW IP address
+ * constitutes a unique identifier for the IP-CAN bearer)
+*/  
+ 
+    Gi-3GPP-Charging-ID  ::= 2 /* 3GPP TS 29.061 V8.2.0   16.4.7 */OctetString V |P| |M| Y ;
+
+/**
+ * Charging Gateway IP address
+*/
+
+    Gi-3GPP-CG-Address ::=4    /* 3GPP TS 29.061 V8.2.0 16.4.7 */  OctetString   V |P| |M| Y ;
+
+
+
+    Gi-3GPP-GGSN-Address ::=7  /* 3GPP TS 29.061 V8.2.0*/  OctetString   V |P| |M| Y ;
+
+
+    Gi-3GPP-CG-IPv6-Address ::=14   /* 3GPP TS 29.061 V8.2.0*/  OctetString   V |P| |M| Y ;
+
+
+    Gi-3GPP-SGSN-IPv6-Address   ::=15  /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+
+    Gi-3GPP-GGSN-IPv6-Address  ::=16 /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+/**
+ * DSCP used to mark the IP packets of this PDP context on the Gi interface 
+ * or EPS Bearer context on the SGi interface
+*/
+   
+   Gi-3GPP-Negotiated-DSCP ::=26 /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+
+  Gi-3GPP-IMEISV ::=20 /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+  Gi-3GPP-Packet-Filter ::=25 /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+  Gi-3GPP-IPv6-DNS-Servers ::= 17 /* 3GPP TS 29.061 V8.2.0*/ OctetString  V |P| |M| Y ;
+
+/**
+ * This AVP is not defined in TS 29.061 V8.2.0 (2009-03).
+ * Also adding dummy AVP-Code 5053 and type declaring as OctetString.Please Re-look again.
+ */
+  Connection-Info           ::= 5053 /* This AVP is not defined in 29.061 spec*/     OctetString   M|P| |  V | Y;
+
+///////////////
+//Enumearted///
+///////////////
+                  
+              NAS-Port-Type ::= < Enumerated: 61 >
+				Async              0
+       				Sync               1
+     				ISDN_Sync          2
+                                ISDN_Async_V_120   3
+    			        ISDN_Async_V_110   4
+				Virtual            5
+       				PIAFS              6
+       				HDLC_Clear_Channel 7
+    				X_25               8
+       				X_75               9
+       				G_3_Fax            10
+       				SDSL               11
+       				ADSL_CAP           12
+       				ADSL_DMT           13
+    				IDSL               14
+       				Ethernet           15
+       				xDSL               16
+      				Cable              17
+      				Wireless           18
+       				IEEE_802_11        19
+     				Token_Ring         20
+     				FDDI               21
+       				CDMA2000           22
+       				UMTS               23
+       				CDMA1X_EV          24
+       				IAPP_IEEE_802_11f  25
+       				;
+
+
+
+  	      CHAP-Algorithm ::=<  Enumerated: 403 >
+       				CHAPMD5            5
+       				;
+
+              Tunnel-Type ::= <  Enumerated: 64 >
+				PPTP                         1
+				L2F                          2
+				L2TP                         3
+				ATMP                         4
+       				VTP                          5
+				AH                           6
+				IP_IP                        7
+				MIN_IP_IP                    8
+				Gi_ESP                       9
+				GRE                          10
+				DVS                          11
+				IP_in_IP                     12
+				VLAN                         13
+       				;
+ Tunnel-Medium-Type       ::= <  Enumerated: 65 >
+           			IPv4                         1
+       				IPv6                         2
+       				NSAP                         3
+       				HDLC                         4
+       				BBN                          5
+       				CANON_802                    6
+       				E_163_POTS                   7
+       				E_164                        8
+       				F_69                         9
+       				X_121                        10
+       				IPX                          11
+       				APPLETALK                    12
+       				DECNET_IV                    13
+       				BANYAN_VINES                 14
+       				E_164_NSAP                   15
+       				;
+
+ Gi-3GPP-PDP-Type      ::=     < Enumerated:3   >
+                              IPv4         0
+                              IPv6         1
+                              IPv4v6       2
+                              ;
+
+///////////////
+//Grouped ":w///
+///////////////
+
+		CHAP-Auth ::= < AVP Header: 402 >
+       				{ CHAP-Algorithm }
+       				{ CHAP-Ident }
+       				[ CHAP-Response ]
+       				* [ AVP ]
+       				;
+
+
+ 		Tunneling ::= < AVP Header: 401 >
+       				{ Tunnel-Type }
+      				{ Tunnel-Medium-Type }
+       				{ Tunnel-Client-Endpoint }
+       				{ Tunnel-Server-Endpoint }
+       				[ Tunnel-Preference ]
+       				[ Tunnel-Client-Auth-Id ]
+       				[ Tunnel-Server-Auth-Id ]
+       				[ Tunnel-Assignment-Id ]
+       				[ Tunnel-Password ]
+       				[ Tunnel-Private-Group-Id ]
+                                * [ AVP ]
+       				;
+///////////////
+//commands/////
+///////////////
+/**
+ * The AAR command, defined in Diameter NASREQ (IETF RFC 4005 [67]), is indicated 
+ * by the Command-Code field set to 265 and the  R bit set in the Command Flags field. 
+ * It may be sent by the GGSN to a Diameter server, during Primary PDP Context 
+ * activation only, in order to request user authentication and authorization. 
+ * In the case of P-GW, the AAR may be sent upon reception of an initial access 
+ * request (e.g. Create Session Request or Proxy Binding Update) message for a given 
+ * APN to request user authentication and authorization.
+*/
+
+		AA-Request ::= < Diameter Header: 265, REQ, PXY >
+				< Session-Id >
+				{ Auth-Application-Id }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Auth-Request-Type }
+				[ Destination-Host ]
+				[ NAS-Port ]
+				[ NAS-Port-Id ]
+				[ NAS-Port-Type ]
+				[ Origin-State-Id ] 
+				[ Port-Limit ]
+				[ User-Name ]      
+				[ User-Password ]
+				[ Service-Type ]
+				[ Authorization-Lifetime ]  
+				[ Auth-Grace-Period ]        
+				[ Auth-Session-State ]        
+				[ Callback-Number ]
+				[ Called-Station-Id ]
+				[ Calling-Station-Id ]
+				[ Originating-Line-Info ]
+				[ Connect-Info ]
+				[ CHAP-Auth ]
+				[ CHAP-Challenge ]
+				* [ Framed-Compression ]
+				[ Framed-Interface-Id ]
+				[ Framed-IP-Address ]
+				* [ Framed-IPv6-Prefix ]
+				[ Framed-IP-Netmask ]
+				[ Framed-MTU ]
+				[ Framed-Protocol ]
+				* [ Login-IP-Host ]
+				* [ Login-IPv6-Host ]
+				[ Login-LAT-Group ]
+				[ Login-LAT-Node ]
+				[ Login-LAT-Port ]
+				[ Login-LAT-Service ]
+				* [ Tunneling ]
+				* [ Proxy-Info ]  
+				* [ Route-Record ] 
+				[ Gi-3GPP-IMSI]
+				[ Gi-3GPP-Charging-ID ] 
+				[ Gi-3GPP-PDP-Type ]
+				[ Gi-3GPP-CG-Address ] 
+				[ Gi-3GPP-GPRS-Negotiated-QoS-Profile ]
+				[ Gi-3GPP-SGSN-Address ]
+				[ Gi-3GPP-GGSN-Address ] 
+				[ Gi-3GPP-IMSI-MCC-MNC ]
+				[ Gi-3GPP-GGSN-MCC-MNC ]
+  				[ Gi-3GPP-NSAPI ]
+				[ Gi-3GPP-Selection-Mode ]
+                                [ Gi-3GPP-Charging-Characteristics ]
+				[ Gi-3GPP-CG-IPv6-Address ]
+				[ Gi-3GPP-SGSN-IPv6-Address ]
+				[ Gi-3GPP-GGSN-IPv6-Address ]
+				[ Gi-3GPP-SGSN-MCC-MNC ]
+				[ Gi-3GPP-RAT-Type ]
+				[ Gi-3GPP-CAMEL-Charging-Info ]
+				[ Gi-3GPP-Negotiated-DSCP ]
+				* [ AVP ]
+				;
+
+/**
+ * The AAA command, defined in Diameter NASREQ (IETF RFC 4005 [67]), is indicated 
+ * by the Command-Code field set to 265 and the R bit cleared in the Command Flags 
+ * field., It is sent by the Diameter server to the GGSN/P-GW in response to the 
+ * AAR command.
+*/
+
+                    AA-Answer ::= < Diameter Header: 265, PXY >
+				< Session-Id >
+				{ Auth-Application-Id }
+				{ Auth-Request-Type }
+				{ Result-Code }  
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ User-Name ]    
+				[ Service-Type ]
+				* [ Class ]        
+				[ Acct-Interim-Interval ]  
+				[ Error-Message ]   
+				[ Error-Reporting-Host ] 
+				* [ Failed-AVP ] 
+				[ Idle-Timeout ]
+				[ Authorization-Lifetime ] 
+				[ Auth-Grace-Period ]
+				[ Auth-Session-State ]
+				[ Re-Auth-Request-Type ] 
+				[ Multi-Round-Time-Out ]  
+ 			        [ Session-Timeout ]
+				* [ Reply-Message ]
+				[ Origin-State-Id ] 
+				* [ Filter-Id ]
+				[ Port-Limit ]
+				[ Prompt ]
+				[ Callback-Id ]
+				[ Callback-Number ]
+				* [ Framed-Compression ]
+				[ Framed-Interface-Id ]
+				[ Framed-IP-Address ]
+				* [ Framed-IPv6-Prefix ]
+				[ Framed-IPv6-Pool ]  
+				* [ Framed-IPv6-Route ]   
+				[ Framed-IP-Netmask ]
+				* [ Framed-Route ]
+				[ Framed-Pool ]
+				[ Framed-IPX-Network ]
+       				[ Framed-MTU ]
+				[ Framed-Protocol ]
+				[ Framed-Routing ]
+				* [ Login-IP-Host ]
+				* [ Login-IPv6-Host ]
+				[ Login-LAT-Group ]
+				[ Login-LAT-Node ]
+				[ Login-LAT-Port ]
+				[ Login-LAT-Service ]
+				[ Login-Service ]
+				[ Login-TCP-Port ]
+				* [ NAS-Filter-Rule ]
+				* [ QoS-Filter-Rule ]
+				* [ Tunneling ]
+				* [ Redirect-Host ]      
+				[ Redirect-Host-Usage ] 
+				[ Redirect-Max-Cache-Time ]
+				* [ Proxy-Info ] 
+				[ Gi-3GPP-IPv6-DNS-Servers ]    
+				* [ AVP ]
+				;
+
+
+/**
+ * The ACR command, defined in IETF RFC3588 (Diameter Base) [66], is indicated by the 
+ * Command-Code field set to 271 and the R bit set in the Command Flags field. It is 
+ * sent by the GGSN/P-GW to the Diameter server to report accounting information for 
+ * a certain IP-CAN bearer (e.g. PDP context) or an IP-CAN session of a certain user.
+*/
+
+
+  AC-Request ::= 		< Diameter Header: 271, REQ, PXY >
+				< Session-Id >
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Accounting-Record-Type }   
+				{ Accounting-Record-Number }  
+				[ Acct-Application-Id ]       
+				[ User-Name ]      
+				[ Origin-State-Id ]
+				[ Destination-Host ]
+				[ Event-Timestamp ]
+				[ Acct-Delay-Time ] 
+				[ NAS-Identifier ]
+				[ NAS-IP-Address ]
+				[ NAS-IPv6-Address ]
+				[ NAS-Port ]
+				[ NAS-Port-Id ]
+				[ NAS-Port-Type ]
+				* [ Class ]
+				[ Service-Type ]
+				[ Accounting-Input-Octets ]
+				[ Accounting-Input-Packets ]
+				[ Accounting-Output-Octets ]
+				[ Accounting-Output-Packets ]
+				[ Acct-Authentic ]   
+				[ Accounting-Auth-Method ]
+				[ Acct-Session-Time ]    
+				[ Acct-Tunnel-Connection ]  
+				[ Acct-Tunnel-Packets-Lost ]
+				[ Callback-Id ]
+				[ Callback-Number ]
+				[ Called-Station-Id ]
+				[ Calling-Station-Id ]
+				* [ Connection-Info ]     
+				[ Originating-Line-Info ]
+				[ Authorization-Lifetime ]
+				[ Session-Timeout ]
+				[ Idle-Timeout ]  
+				[ Port-Limit ]
+				[ Accounting-Realtime-Required ]  
+				[ Acct-Interim-Interval ]
+				* [ Filter-Id ]
+				* [ NAS-Filter-Rule ]
+				* [ QoS-Filter-Rule ]   
+				[ Framed-Compression ]
+				[ Framed-Interface-Id ]
+				[ Framed-IP-Address ]
+				[ Framed-IP-Netmask ]
+				* [ Framed-IPv6-Prefix ]
+				[ Framed-IPv6-Pool ]
+				* [ Framed-IPv6-Route ]
+				[ Framed-IPX-Network ]
+				[ Framed-MTU ]
+				[ Framed-Pool ]
+				[ Framed-Protocol ]
+				* [ Framed-Route ]
+				[ Framed-Routing ]
+				* [ Login-IP-Host ]
+				* [ Login-IPv6-Host ]
+				[ Login-LAT-Group ]
+				[ Login-LAT-Node ]
+				[ Login-LAT-Port ]
+				[ Login-LAT-Service ]
+				[ Login-Service ]
+				[ Login-TCP-Port ]
+				* [ Tunneling ]
+				* [ Proxy-Info ]
+				* [ Route-Record ]
+				[ Gi-3GPP-IMSI]
+				[ Gi-3GPP-Charging-ID ] 
+				[ Gi-3GPP-PDP-Type ]
+				[ Gi-3GPP-CG-Address ]  
+				[ Gi-3GPP-GPRS-Negotiated-QoS-Profile ]
+				[ Gi-3GPP-SGSN-Address ]
+				[ Gi-3GPP-GGSN-Address ]  
+				[ Gi-3GPP-IMSI-MCC-MNC ]
+				[ Gi-3GPP-GGSN-MCC-MNC ]
+				[ Gi-3GPP-NSAPI ]
+				[ Gi-3GPP-Selection-Mode ]
+				[ Gi-3GPP-Charging-Characteristics ]
+				[ Gi-3GPP-CG-IPv6-Address ]
+				[ Gi-3GPP-SGSN-IPv6-Address ]
+				[ Gi-3GPP-GGSN-IPv6-Address ]
+				[ Gi-3GPP-SGSN-MCC-MNC ]
+				[ Gi-3GPP-IMEISV ]   
+				[ Gi-3GPP-RAT-Type ]
+				[ Gi-3GPP-User-Location-Info ]
+				[ Gi-3GPP-MS-Time-Zone ]
+				[ Gi-3GPP-CAMEL-Charging-Info ]
+				[ Gi-3GPP-Packet-Filter ]  
+				[ Gi-3GPP-Negotiated-DSCP ] 
+				* [ AVP ]
+				;	 
+/**
+ * The ACA command, defined in Diameter Base (IETF RFC 3588 [66]), is indicated by  
+ * the Command-Code field set to 271 and the R bit cleared in the Command Flags field.
+ * It is sent by the Diameter server to the GGSN/P-GW in response to the ACR command.
+*/
+  
+		AC-Answer ::= < Diameter Header: 271, PXY >
+				< Session-Id >
+				{ Result-Code }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Accounting-Record-Type }
+				{ Accounting-Record-Number }
+				[ Acct-Application-Id ]
+				[ User-Name ]
+				[ Event-Timestamp ]
+				[ Error-Message ]
+				[ Error-Reporting-Host ]
+				* [ Failed-AVP ]
+				[ Origin-State-Id ]
+				[ NAS-Identifier ]
+				[ NAS-IP-Address ] 
+				[ NAS-IPv6-Address ]
+				[ NAS-Port ]
+				[ NAS-Port-Id ]
+				[ NAS-Port-Type ]
+				[ Service-Type ]
+				[ Accounting-Realtime-Required ]
+				[ Acct-Interim-Interval ]
+				* [ Class ]
+				* [ Proxy-Info ]
+				* [ Route-Record ]
+				* [ AVP ]
+				;
+
+/**
+ * The STR command, defined in IETF RFC3588 (Diameter Base) [66], is indicated by 
+ * the Command-Code field set to 275 and the  R bit set in the Command Flags field. 
+ * It is sent by the GGSN/P-GW to the Diameter server to terminate a DIAMETER 
+ * session corresponding to an IP-CAN session of a certain user.
+*/ 
+		ST-Request ::= < Diameter Header: 275, REQ, PXY >			
+				< Session-Id >
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Auth-Application-Id }
+				{ Termination-Cause } 
+				[ User-Name ]
+				[ Destination-Host ]
+				* [ Class ]
+				[ Origin-State-Id ]
+				* [ Proxy-Info ]
+				* [ Route-Record ]
+				* [ AVP ]
+				;
+
+/**
+ * The STA command, defined in IETF RFC3588 (Diameter Base) [66], is indicated by the 
+ * Command-Code field set to 275 and the  R bit cleared in the Command Flags field. 
+ * It is sent by the Diameter server to the GGSN/P-GW in response to an STR command.
+*/
+		ST-Answer ::= < Diameter Header: 275, PXY >
+				< Session-Id >
+				{ Result-Code }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ User-Name ]
+				* [ Class ]
+				[ Error-Message ]
+				[ Error-Reporting-Host ]
+				* [ Failed-AVP ]
+				[ Origin-State-Id ]
+				* [ Redirect-Host ]         
+				[ Redirect-Host-Usage ]     
+				[ Redirect-Max-Cache-Time ] 
+				* [ Proxy-Info ]
+				* [ AVP ]
+				;
+
+/**
+ * The Abort-Session-Request (ASR) command, defined in IETF RFC3588 (Diameter Base) [66], 
+ * is indicated by the Command-Code set to 274 and the message flags' 'R' bit set, 
+ * is sent by the Diameter server to the GGSN to request that the PDP Context identified 
+ * by the 3GPP-NSAPI AVP is to be terminated.
+*/
+    		ASR ::= 	< Diameter Header: 274, REQ, PXY >
+				< Session-Id >
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Destination-Host }
+				{ Auth-Application-Id }
+				[ Origin-State-Id ]
+				* [ Proxy-Info ]
+				[ Gi-3GPP-NSAPI ]
+				* [ Route-Record ]
+				* [ AVP ]
+				;
+
+/**
+ * The Abort-Session-Answer (ASA) command, defined in IETF RFC3588 (Diameter Base) [66], 
+ * is indicated by the Command-Code set to 274 and the message flags' 'R' bit clear, 
+ * is sent in response to the ASR.
+*/
+   		ASA ::= 	< Diameter Header: 274, PXY >
+				< Session-Id >
+				{ Result-Code }
+ 				{ Origin-Host }
+				{ Origin-Realm }
+				[ User-Name ]
+				[ Origin-State-Id ]
+				[ Experimental-Result ] 
+				[ Error-Message ]
+				[ Error-Reporting-Host ]
+				* [ Failed-AVP ]
+	                        * [ Redirect-Host ] /* Redirected-Host has been changed to Redirect-Host */
+	                        [ Redirect-Host-Usage ] /* Redirected-Host-Usage has been changed to Redirect-Host-Usage */
+				[ Redirect-Max-Cache-Time ] 
+				* [ Proxy-Info ]
+				* [ AVP]
+				;

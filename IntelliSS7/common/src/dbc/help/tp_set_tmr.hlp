@@ -1,0 +1,15 @@
+
+PRC TCAP Command
+
+SYNOPSIS
+    tp_set_tmr <value>
+
+DESCRIPTION
+    This command sets value of TCAP Reject timer. 
+
+PARAMETERS
+    value    Timer value in seconds
+
+EXAMPLE
+    >> tp_set_tmr 5
+

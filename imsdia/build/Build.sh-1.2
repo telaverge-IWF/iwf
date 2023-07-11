@@ -1,0 +1,1409 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+# ID: $Id: Build.sh-1.2,v 3.1 2008/03/31 10:33:15 nvijikumar Exp $
+#
+# LOG: $Log: Build.sh-1.2,v $
+# LOG: Revision 3.1  2008/03/31 10:33:15  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.3  2007/03/07 09:09:30  sumag
+# LOG: *** empty log message ***
+# LOG:
+# LOG: Revision 2.2  2006/12/05 09:24:17  nvijikumar
+# LOG: Changes to build scripts for ITS Diameter
+# LOG:
+# LOG: Revision 2.1  2006/12/05 08:39:33  chandral
+# LOG: Baseline build scripts for ITS Diameter.
+# LOG:
+########################################################################
+
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo ">>    Package Building Utility       >>"
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+echo "Is all source compilation complete ?"
+echo "Continue <y/n> ? "
+read ans
+if [ $ans = "y" ]
+then
+linux_pkg()
+{
+      IMSCXX=gcc
+      export IMSCXX
+      echo "Select the Linux Package you need to Build"
+      echo "a. For Static Client-Server Package"
+      echo "b. For Distributed Server Package"
+      echo "c. For Distributed Client Package"
+      echo "d. For All Packages"
+      echo "e. For New Interface Packages for Static"
+      echo "f. For New Interface Packages for Distributed"
+      read choice
+      if [ $choice = "a" ]
+      then
+           echo "Select the type of Package"
+           echo " 1. General-IMSDIA "
+           echo " 2. BCGI"
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-NRD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-GA.rpm
+               fi
+
+               elif [ $pType = "2" ]
+               then
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-RD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-GA.rpm
+               fi
+                else
+              echo " Please select valid type"
+             fi
+
+	   elif [ $apiType = "2" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-BCGI-NRD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-BCGI.rpm
+               fi
+               elif [ $pType = "2" ]
+               then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-BCGI-RD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-BCGI.rpm
+               fi
+
+              else
+              echo " Please select valid type"
+             fi
+
+           else
+              echo " Please select valid Package type"
+           fi
+           cd -
+
+        elif [ $choice = "b" ]
+        then
+           echo "Select Redundant or Non Redundant"
+           echo " 1. Non-Redundant "
+           echo " 2. Redundant"
+           read pType
+           if [ $pType = "1" ]
+           then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_dist_server_pack-NRD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_dist_server.rpm
+               fi
+           elif [ $pType = "2" ]
+           then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_dist_server_pack-RD-1.2
+               if [ $? = 0 ]
+               then
+                   ./make_dist_server.rpm
+               fi
+           else
+              echo " Please select valid type"
+           fi
+           cd -
+
+
+       elif [ $choice = "c" ]
+       then
+           echo "Select the API type to build a Package"
+           echo " 1. For C++ API Client "
+           echo " 2. For JAva API Client "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp.rpm
+               fi
+           elif [ $apiType = "2" ]
+           then
+               echo " Enter "
+               echo "Preparing the Release Directory as ReleaseDir"
+               cd linux
+               ../common/copyscripts/make_dist_jdiaapp_pack
+               if [ $? = 0 ]
+               then
+                   ./make_dist_jdiaapp.rpm
+               fi
+           else
+              echo " Please select valid API type"
+           fi
+           cd -
+
+       elif [ $choice = "d" ]
+       then
+           echo "Building all Packages"
+           cd linux
+
+           ../common/copyscripts/make_diaapp_pack
+	   if [ $? = 0 ]
+  	   then
+ 	       ./make_diaapp.rpm
+	   fi
+
+           ../common/copyscripts/make_dist_server_pack
+           if [ $? = 0 ]
+           then
+               ./make_dist_server.rpm
+           fi
+
+           ../common/copyscripts/make_dist_diaapp_pack
+           if [ $? = 0 ]
+           then
+               ./make_dist_diaapp.rpm
+           fi
+
+       elif [ $choice = "e" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=GX
+               interface=gx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-GX.rpm
+               fi
+
+           elif [ $apiType = "2" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TX
+               interface=tx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-TX.rpm
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=RX
+               interface=rx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-RX.rpm
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=WX
+               interface=wx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-WX.rpm
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TY
+               interface=ty
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_diaapp-TY.rpm
+               fi
+
+           else
+              echo " Please select valid API type"
+           fi
+           cd -
+
+       elif [ $choice = "f" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-GX
+               VERSION=$IMS_VER
+               interface=gx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp-GX.rpm
+               fi
+
+           elif [ $apiType = "2" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TX
+               VERSION=$IMS_VER
+               interface=tx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp-TX.rpm
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-RX
+               VERSION=$IMS_VER
+               interface=rx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp-RX.rpm
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-WX
+               VERSION=$IMS_VER
+               interface=wx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp-WX.rpm
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TY
+               VERSION=$IMS_VER
+               interface=ty
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               echo " Enter "
+               cd linux
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   ./make_dist_diaapp-TY.rpm
+               fi
+
+           else
+              echo " Please select valid API type"
+           fi
+           cd -
+
+       fi
+}
+
+solaris_pkg()
+{
+
+      PATH=$PATH:/usr/local/bin:/usr/sfw/bin:/bin
+      export PATH
+      echo "Select the compiler for Solaris Package"
+      echo "1. For GCC"
+      echo "2. For CC"
+      read compiler
+     if [ $compiler = 1 ]
+     then
+         echo "Selected compiler is GCC"
+         IMSCXX=gcc
+         export IMSCXX
+     elif [ $compiler = 2 ]
+     then
+         echo "Selected compiler is CC"
+         IMSCXX=CC
+         export IMSCXX
+     else
+         echo " Please select proper compiler"
+         exit 1;
+     fi
+      echo "Select the Solaris Package you need to Build"
+      echo "a. For Static Client-Server Package"
+      echo "b. For Distributed Server Package"
+      echo "c. For Distributed Client Package"
+      echo "d. For All Package"
+      echo "e. For New Interface Packages for Static"
+      echo "f. For New Interface Packages for Distributed"
+      read choice
+      if [ $choice = "a" ]
+      then
+           echo "Select the type of Package"
+           echo " 1. General"
+           echo " 2. Bridgewater"
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+                PKG=IMSDIA-GA
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris
+                ../common/copyscripts/make_diaapp_pack-NRD-1.2
+                if [ $? = 0 ]
+                then
+                cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                cd ./ReleaseDir
+                make
+                cd ..
+               fi
+
+              elif [ $pType = "2" ]
+               then
+                PKG=IMSDIA-GA
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris
+                ../common/copyscripts/make_diaapp_pack-RD-1.2
+                if [ $? = 0 ]
+                then
+                cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                cd ./ReleaseDir
+                make
+                cd ..
+               fi
+                else
+              echo " Please select valid type"
+             fi
+
+           elif [ $apiType = "2" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+                PKG=IMSDIA-BW
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris
+                ../common/copyscripts/make_diaapp_pack-NRD-Bridgewater
+                if [ $? = 0 ]
+                  then
+                  cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                  cd ./ReleaseDir
+                  make
+                  cd ..
+               fi
+              elif [ $pType = "2" ]
+               then
+                PKG=IMSDIA-BW
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris
+                ../common/copyscripts/make_diaapp_pack-RD-Bridgewater
+                if [ $? = 0 ]
+                  then
+                  cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                  cd ./ReleaseDir
+                  make
+                  cd ..
+               fi
+             else
+              echo " Please select valid type"
+             fi
+
+           else
+              echo " Please select valid Package type"
+        fi
+        cd ..
+
+       elif [ $choice = "b" ]
+       then
+           echo "Select Redundant or Non Redundant"
+           echo " 1. Non-Redundant "
+           echo " 2. Redundant"
+           read pType
+           if [ $pType = "1" ]
+             then
+             PKG=IDS
+             VERSION=$IMS_VER
+             export PKG VERSION
+             echo "Preparing the Release Directory as ReleaseDir"
+             echo "Package Name will start with "$PKG""
+             cd solaris
+             ../common/copyscripts/make_dist_server_pack-NRD-1.2
+             if [ $? = 0 ]
+             then
+             cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+             cd ./ReleaseDir
+             make
+             cd ..
+           fi
+           cd ..
+
+           elif [ $pType = "2" ]
+             then
+             PKG=IDS
+             VERSION=$IMS_VER
+             export PKG VERSION
+             echo "Preparing the Release Directory as ReleaseDir"
+             echo "Package Name will start with "$PKG""
+             cd solaris
+             ../common/copyscripts/make_dist_server_pack-RD-1.2
+             if [ $? = 0 ]
+             then
+             cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+             cd ./ReleaseDir
+             make
+             cd ..
+           fi
+      fi
+      cd ..
+
+       elif [ $choice = "c" ]
+       then
+           echo "Select the API type to build a Package"
+           echo " 1. For C++ API Client "
+           echo " 2. For JAva API Client "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IDC
+               VERSION=$IMS_VER
+               export PKG VERSION
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack
+               if [ $? = 0 ]
+               then
+                   cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           elif [ $apiType = "2" ]
+           then
+               PKG=JIDC
+               VERSION=$IMS_VER
+               export PKG VERSION
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_jdiaapp_pack
+               if [ $? = 0 ]
+               then
+                   cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           fi
+           cd ..
+
+       elif [ $choice = "d" ]
+       then
+           cd solaris
+
+           # Building static package.
+           PKG=IMSDIA
+           VERSION=$IMS_VER
+           export PKG VERSION
+           echo "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_diaapp_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+
+               cd ..
+           fi
+
+           # Building Dist server package
+           PKG=IDS
+           VERSION=$IMS_VER
+           export PKG VERSION
+           echo "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_dist_server_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+               cd ..
+           fi
+
+           # Building Dist client package
+           PKG=IDC
+           VERSION=$IMS_VER
+           export PKG VERSION
+           ECho "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_dist_diaapp_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+               cd ..
+           fi
+           cd ..
+
+       elif [ $choice = "e" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=GX
+               interface=gx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           elif [ $apiType = "2" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TX
+               VERSION=$IMS_VER
+               interface=tx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=RX
+               VERSION=$IMS_VER
+               interface=rx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=WX
+               VERSION=$IMS_VER
+               interface=wx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TY
+               VERSION=$IMS_VER
+               interface=ty
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           fi
+       elif [ $choice = "f" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-GX
+               VERSION=$IMS_VER
+               interface=gx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "2" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TX
+               VERSION=$IMS_VER
+               interface=tx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-RX
+               VERSION=$IMS_VER
+               interface=rx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-WX
+               VERSION=$IMS_VER
+               interface=wx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TY
+               VERSION=$IMS_VER
+               interface=ty
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           fi
+           cd ..
+
+       fi
+
+}
+
+solaris64_pkg()
+{
+
+      PATH=$PATH:/usr/local/bin:/usr/sfw/bin:/bin
+      export PATH
+      echo "Select the compiler for Solaris Package"
+      echo "1. For GCC"
+      echo "2. For CC"
+      read compiler
+     if [ $compiler = 1 ]
+     then
+         echo "Selected compiler is GCC"
+         IMSCXX=gcc
+         export IMSCXX
+     elif [ $compiler = 2 ]
+     then
+         echo "Selected compiler is CC"
+         IMSCXX=CC
+         export IMSCXX
+     else
+         echo " Please select proper compiler"
+         exit 1;
+     fi
+      echo "Select the Solaris Package you need to Build"
+      echo "a. For Static Client-Server Package"
+      echo "b. For Distributed Server Package"
+      echo "c. For Distributed Client Package"
+      echo "d. For All Package"
+      echo "e. For New Interface Packages for Static"
+      echo "f. For New Interface Packages for Distributed"
+      read choice
+      if [ $choice = "a" ]
+      then
+           echo "Select the type of Package"
+           echo " 1. General"
+           echo " 2. Bridgewater"
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+                PKG=IMSDIA-GA
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris64
+                ../common/copyscripts/make_diaapp_pack-NRD-1.2
+                if [ $? = 0 ]
+                then
+                cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                cd ./ReleaseDir
+                make
+                cd ..
+               fi
+
+              elif [ $pType = "2" ]
+               then
+                PKG=IMSDIA-GA
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris64
+                ../common/copyscripts/make_diaapp_pack-RD-1.2
+                if [ $? = 0 ]
+                then
+                cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                cd ./ReleaseDir
+                make
+                cd ..
+               fi
+                else
+              echo " Please select valid type"
+             fi
+
+           elif [ $apiType = "2" ]
+           then
+               echo "Select Redundant or Non Redundant"
+               echo " 1. Non-Redundant "
+               echo " 2. Redundant"
+               read pType
+               if [ $pType = "1" ]
+               then
+                PKG=IMSDIA-BW
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris64
+                ../common/copyscripts/make_diaapp_pack-NRD-Bridgewater
+                if [ $? = 0 ]
+                  then
+                  cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                  cd ./ReleaseDir
+                  make
+                  cd ..
+               fi
+              elif [ $pType = "2" ]
+               then
+                PKG=IMSDIA-BW
+                VERSION=$IMS_VER
+                export PKG VERSION
+                echo "Preparing the Release Directory as ReleaseDir"
+                echo "Package Name will start with "$PKG""
+                cd solaris64
+                ../common/copyscripts/make_diaapp_pack-RD-Bridgewater
+                if [ $? = 0 ]
+                  then
+                  cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                  cd ./ReleaseDir
+                  make
+                  cd ..
+               fi
+             else
+              echo " Please select valid type"
+             fi
+
+           else
+              echo " Please select valid Package type"
+        fi
+        cd ..
+
+       elif [ $choice = "b" ]
+       then
+           echo "Select Redundant or Non Redundant"
+           echo " 1. Non-Redundant "
+           echo " 2. Redundant"
+           read pType
+           if [ $pType = "1" ]
+             then
+             PKG=IDS
+             VERSION=$IMS_VER
+             export PKG VERSION
+             echo "Preparing the Release Directory as ReleaseDir"
+             echo "Package Name will start with "$PKG""
+             cd solaris64
+             ../common/copyscripts/make_dist_server_pack-NRD-1.2
+             if [ $? = 0 ]
+             then
+             cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+             cd ./ReleaseDir
+             make
+             cd ..
+           fi
+           cd ..
+
+           elif [ $pType = "2" ]
+             then
+             PKG=IDS
+             VERSION=$IMS_VER
+             export PKG VERSION
+             echo "Preparing the Release Directory as ReleaseDir"
+             echo "Package Name will start with "$PKG""
+             cd solaris64
+             ../common/copyscripts/make_dist_server_pack-RD-1.2
+             if [ $? = 0 ]
+             then
+             cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+             cd ./ReleaseDir
+             make
+             cd ..
+           fi
+      fi
+      cd ..
+
+       elif [ $choice = "c" ]
+       then
+           echo "Select the API type to build a Package"
+           echo " 1. For C++ API Client "
+           echo " 2. For JAva API Client "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IDC
+               VERSION=$IMS_VER
+               export PKG VERSION
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack
+               if [ $? = 0 ]
+               then
+                   cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           elif [ $apiType = "2" ]
+           then
+               PKG=JIDC
+               VERSION=$IMS_VER
+               export PKG VERSION
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_jdiaapp_pack
+               if [ $? = 0 ]
+               then
+                   cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           fi
+           cd ..
+
+       elif [ $choice = "d" ]
+       then
+           cd solaris64
+
+           # Building static package.
+           PKG=IMSDIA
+           VERSION=$IMS_VER
+           export PKG VERSION
+           echo "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_diaapp_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+
+               cd ..
+           fi
+
+           # Building Dist server package
+           PKG=IDS
+           VERSION=$IMS_VER
+           export PKG VERSION
+           echo "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_dist_server_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+               cd ..
+           fi
+
+           # Building Dist client package
+           PKG=IDC
+           VERSION=$IMS_VER
+           export PKG VERSION
+           ECho "Preparing the Release Directory as ReleaseDir"
+           echo "Package Name will start with "$PKG""
+           ../common/copyscripts/make_dist_diaapp_pack
+           if [ $? = 0 ]
+           then
+               cp ./pscripts/PackageMakefile ./ReleaseDir/makefile
+               cd ./ReleaseDir
+               make
+               cd ..
+           fi
+           cd ..
+
+       elif [ $choice = "e" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=GX
+               interface=gx
+               VERSION=$IMS_VER
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "2" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TX
+               VERSION=$IMS_VER
+               interface=tx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=RX
+               VERSION=$IMS_VER
+               interface=rx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=WX
+               VERSION=$IMS_VER
+               interface=wx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IMSDIA-GA
+               APP_PKG=TY
+               VERSION=$IMS_VER
+               interface=ty
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+           fi
+       elif [ $choice = "f" ]
+       then
+           echo "Select the New Interface type to build a Package"
+           echo " 1. For GX API "
+           echo " 2. For TX API "
+           echo " 3. For RX API "
+           echo " 4. For WX API "
+           echo " 5. For TY API "
+           read apiType
+           if [ $apiType = "1" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-GX
+               VERSION=$IMS_VER
+               interface=gx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "2" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TX
+               VERSION=$IMS_VER
+               interface=tx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "3" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-RX
+               VERSION=$IMS_VER
+               interface=rx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "4" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-WX
+               VERSION=$IMS_VER
+               interface=wx
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           elif [ $apiType = "5" ]
+           then
+               PKG=IDC
+               APP_PKG=IDC-TY
+               VERSION=$IMS_VER
+               interface=ty
+               export PKG VERSION APP_PKG interface
+               echo "Preparing the Release Directory as ReleaseDir"
+               echo "Package Name will start with "$PKG""
+               cd solaris64
+               ../common/copyscripts/make_dist_diaapp_pack-APPS
+               if [ $? = 0 ]
+               then
+                   cp ./appscripts/PackageMakefile ./ReleaseDir/makefile
+                   cd ./ReleaseDir
+                   make
+                   cd ..
+               fi
+
+           fi
+           cd ..
+
+       fi
+
+}
+
+#Script Starts from Here
+
+   if [ `id | cut -d "(" -f1 | cut -d "=" -f2` != 0 ]
+       then
+       echo ""
+       echo "THIS SCRIPT MUST BE RUN AS ROOT";
+       echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+       echo "Please use "su" command, dont use "su -""
+       echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+       exit 0;
+   fi
+
+   echo "Select the Platform that you need to build a Package"
+   echo " 1. For Linux "
+   echo " 2. For Solaris "
+   read plt
+   echo "Please enter the version number"
+   read imsversion
+   IMS_VER=$imsversion
+   export IMS_VER
+   if [ $plt = "1" ]
+   then
+
+      if [ $PLATFORM = "linux" ]
+      then
+      linux_pkg;
+      else
+      echo "Please select the proper Platform"
+      fi
+
+   elif [ $plt = "2" ]
+   then
+
+      if [ $PLATFORM = "solaris" ]
+      then
+      solaris_pkg;
+      elif [ $PLATFORM = "solaris64" ]
+      then
+      solaris64_pkg;
+      else
+      echo "Please select the proper Platform"
+      fi
+
+   else
+      echo "You have selected the invalid option"
+   fi
+else
+echo "Please finish compilation first "
+fi
+
+exit 0

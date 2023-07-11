@@ -1,0 +1,135 @@
+Implementation_Notes.txt
+========================
+SSLRef 3.0 Final -- 11/19/96
+Copyright (c)1996 by Netscape Communications Corp.
+
+By retrieving this software you are bound by the licensing terms
+disclosed in the file "LICENSE.txt". Please read it, and if you don't
+accept the terms, delete this software.
+
+SSLRef 3.0 was codeveloped by Netscape Communications Corp. of Mountain
+View, California <http://home.netscape.com/> and Consensus Development
+Corporation of Berkeley, California <http://www.consensus.com>.
+
+
+Preface
+-------
+This document describes what features of the SSL 3.0 protocol are
+implemented in SSLRef 3.0. It contains these sections:
+
+  - Design Goals
+  - Design Strategy
+  - Functionality
+  - Cipher Suites
+  - Not Supported
+
+More detailed information about the architecture of SSLRef 3.0 is
+provided in the document API_Details.pdf.
+
+
+Design Goals
+------------
+SSLRef 3.0 is a reference implementation of the SSL 3.0 protocol. It can
+be used as an example of a correct implementation, as a product against
+which other implementations can be checked, and for academic review.
+
+SSLRef 3.0 supports a variety of different operating modes of the
+protocol. However, it does not deliver an implementation of every
+possible variant of SSL communication.
+
+
+Design Strategy
+---------------
+SSLRef 3.0 is designed to meet these objectives:
+
+  - Simple. The API should be easy to describe, learn, and use.
+
+  - Complete. The API should be sufficient for a complete implementation
+    of SSL 3.0 and all common uses of the protocol.
+
+  - Portable. The API should be suitable for use on all platforms with
+    compilers which are compatible with ANSI C libraries.
+
+  - Flexible. The API should allow the modification of supported
+    algorithms and data transports.
+
+  - Protocol Compatible. Support for the SSL 2.0 protocol is implemented
+    as part of SSLRef 3.0 using the same API functions as used for the
+    SSL 3.0 protocol.
+
+  - Code Compatible. The API can be used to implement a glue library
+    which provides a simple migration path from the SSLRef 2.0 API.
+
+  - Thread-Safe. SSLRef 3.0 is thread-safe. All information and buffers
+    for an individual SSL connection are encoded in a context structure
+    created by the user and passed to the library for each call.
+    However, there is no protection against multiple threads updating
+    the context structure simultaneously. This stucture is opaque to
+    enhance flexibility. Fields are accessed by calls to the library.
+
+  - Non-blocking I/O. SSLRef 3.0 supports non-blocking I/O. If the
+    library is called to perform an action for which it has not yet
+    received sufficient data, such as a read request when no data is
+    available, the library returns SSLWouldBlockErr. This allows the
+    user to perform other tasks while waiting for the block condition to
+    clear and before requesting the action again.
+
+  - Platform Independent. SSLRef 3.0 is platform independent. All
+    platform dependent functionality, such as memory allocation and I/O,
+    is abstracted into user defined callback functions. References to
+    these callback functions are stored with the other connection
+    context information. However, for simplicity, callback functions are
+    not used for cryptographic functions; support for BSAFE and RSAREF
+    is built directly into the code.
+
+
+Functionality
+-------------
+SSLRef 3.0 is a software library distributed as ANSI C source-code. It
+can be compiled on Windows 95/NT or on the Solaris platforms, and linked
+into TCP/IP application programs. SSLRef 3.0 was also designed to be
+easily portable to a wide variety of other platforms and operating
+systems.
+
+SSLRef 3.0 supports:
+  - Data exchange between SSL 3.0 servers and clients
+  - Data exchange with SSL 2.0 servers and clients
+  - Server and client authentication
+  - ASN.1, X.509, and X.509v3 certificates
+  - RSAREF and BSAFE
+  - Simple plug-in architecture for supporting a variety of I/O
+  - Non-blocking I/O
+  - Multithreaded environemnts
+  - Easily adding additional cipher suites
+
+
+Cipher Suites
+-------------
+SSLRef 3.0 supports only RSA-based certificates suitable for encryption
+(non-export) or restricted to signing of ephemeral exportable keys.
+
+SSLRef 3.0 supports these cipher suites:
+    SSL_NULL_WITH_NULL_NULL
+    SSL_RSA_WITH_NULL_MD5
+    SSL_RSA_EXPORT_WITH_RC4_40_MD5
+    SSL_RSA_WITH_DES_CBC_SHA
+    SSL_DH_anon_WITH_DES_CBC_SHA
+
+While not a complete list of cypher suites, this selection adequately
+illustrates implementation of a variety of key exchange, stream
+encryption, and hashing algorithms.
+
+Because SSL 3.0 does not define any compression algorithms, the only
+method SSLRef 3.0 supports is the "CompressionMethod.null".
+
+
+Not Supported
+-------------
+Public-private keypair generation, certificate requests and responses,
+and database storage of these items is not included in SSLRef 3.0.
+Instead, these items should be obtained from your certificate issuer,
+such as VeriSign.
+
+SSLRef 2.0 included a library with some X.509v1 certificate support as
+well as a PEM-style certificate request tool. These capabilities are not
+provided in SSLRef 3.0.

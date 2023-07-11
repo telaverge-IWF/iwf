@@ -1,0 +1,89 @@
+ulimit -c unlimited
+coreadm -p core.%f.%p
+#
+#umask 022
+#
+# Geneaal Path settings.
+# DONT MESS WITH THE ORDER OF DIRECTORIES HERE!
+#
+stty erase ''
+stty erase '^H'
+HOME=`pwd`
+export HOME
+
+PATH=.
+PATH=$PATH:/usr/openwin/bin
+PATH=$PATH:/usr/java/bin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/sfw/bin
+PATH=$PATH:/usr/ccs/bin
+PATH=$PATH:/usr/xpg4/bin
+PATH=$PATH:/bin
+PATH=$PATH:/opt/SUNWspro/bin
+PATH=$PATH:/usr/bin
+PATH=$PATH:/usr/sbin
+PATH=$PATH:/usr/ucblib
+PATH=$PATH:/usr/lib/fs/ufs
+PATH=$PATH:/usr/lib/hpnp/bin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/opt/SUNWspro/bin
+
+#
+# LD_LIBRARY_PATH settings.
+#
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/openwin/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/sfw/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local1/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/libelf
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/hpnp/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/ucblib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/reloc/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib/gcc-lib/sparc-sun-solaris2.8
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/perl5/site_perl/5.8.0
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib/perl5/site_perl/5.8.0/sun4solaris
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/SUNWspro/lib
+
+export PS1="${LOGNAME}@`uname -n`!$ "
+
+export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+
+#
+# CVS Configuration
+#
+export ITS_ROOT=$HOME/AcceleroCore
+export PLATFORM=solaris
+export DEBUG_BUILD=yes
+export ITS_MAN_PATH=$ITS_ROOT/common/src/dbc/help/
+
+PATH=$PATH:$ITS_ROOT/common/bin
+export PATH
+
+export IMS_ROOT=$HOME/imsdia
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib
+export LD_LIBRARY_PATH
+
+export IMS_TOOLS=$HOME/imstools
+
+# AcceleroCore, imsdia & imstools Related
+export ITS_MAN_PATH=$IMS_ROOT/dbchelp/
+export SNMP_ROOT=$IMS_TOOLS/net-snmp-5.4.2.1
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/common/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/dcca/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/dframe/lib
+
+export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib:../lib:$ITS_ROOT/common/lib
+
+export LD_LIBRARY_PATH

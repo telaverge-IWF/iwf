@@ -1,0 +1,42 @@
+M2UA Command
+
+SYNOPSIS
+    mu_clr_gen_peg <trid> <pegid>
+
+DESCRIPTION
+    This command resets peg count for given transport id and peg type for both 
+    ASP and SGP side.
+
+PARAMETERS
+    trid    - transport id
+    peg Id  - The peg id to get the peg
+              ALL/all for All M2UA PEGS Values
+
+    Different M2UA peg types and corresponding values are given below -
+
+    Peg Type                   Peg ID
+    ---------------------------------
+    M2UA_PEG_UP_ID                0
+    M2UA_PEG_UPACK_ID             1
+    M2UA_PEG_DN_ID                2
+    M2UA_PEG_DNACK_ID             3
+    M2UA_PEG_AC_ID                4
+    M2UA_PEG_ACACK_ID             5
+    M2UA_PEG_IA_ID                6
+    M2UA_PEG_IAACK_ID             7
+    M2UA_PEG_NOTIFY_ID            8
+    M2UA_PEG_DATA_IN_ID           9 
+    M2UA_PEG_DATA_OUT_ID          10
+    M2UA_PEG_ERR_IN_ID            11
+    M2UA_EEG_ERR_OUT_ID           12
+    M2UA_PEG_INVALID_ID           13
+
+EXAMPLE
+    >> mu_clr_gen_peg 0x4e22 2
+
+    value of peg id 2 set to 0
+
+   >> mu_clr_gen_peg 0x4e22 all
+
+    value of all peg ids set to 0  
+

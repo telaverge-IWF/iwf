@@ -1,0 +1,958 @@
+/**
+ * 3GPP TS 29.272 V1.1.0 (2008-06)	
+ * S6a interface between  MME and HSS. 
+ */
+ 
+protocol diameter.s6a < 16777251 10415: " 3GPP TS 29.272 V1.1.0 (2008-06)" >;
+// Note:IntelliNet assigned AVP codes and command codes 
+
+		 //////////////////
+		// Derived AVPs //
+	       //////////////////
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may 
+ * inform the destination host about the features that origin host supports.
+ * The Vendor-ID AVP and the Feature-List AVP shall together identify which 
+ * feature list is carried in the Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been
+ * defined by 3GPP, the Vendor-ID AVP shall contain the vendor ID of 3GPP.
+ * Where the Supported-Feature AVP is used to identify features that have been 
+ * defined by a vendor other than 3GPP, it shall contain the vendor ID of the
+ * specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the  
+ * Feature-List-ID AVP shall differentiate those lists from one another.
+ */
+   Supported-Features        ::= 628 /* 6.3.29 */ Grouped       V|M| |    |N;
+
+/**
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity
+ * of a feature list.
+ */
+    Feature-List-ID       ::= 629 /* 6.3.30 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask
+ * indicating the supported * features of an application.
+ */
+    Feature-List          ::= 630 /* 6.3.31 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Subscription-Data AVP is of type Grouped. It contains the information
+ * related to the user profile relevant for EPS.	
+ */
+   Subscription-Data   	::= 111 /* 7.3.2 */ Grouped   M,V| | |    |N;
+
+
+/**
+ * The Terminal-Information AVP is of type Grouped. This AVP contains the 
+ * information about the user's terminal.
+ */
+   Terminal-Information	   ::= 112  /*7.3.3*/  Grouped  M,V| | |    |N;
+
+
+/**
+ * The IMEI AVP is of type UTF8String. This AVP contains the 
+ * International Mobile Equipment Identity. See 3GPP TS23.003 [3].
+ */
+   IMEI               ::=113   /* 7.3.4 */ UTF8String  M,V| | |    |N;
+
+/**
+ * The Software-Version AVP is of type UTF8String. This AVP contains the 
+ * Software Version of the International Mobile Equipment Identity.
+ * See 3GPP TS 23.003 [3].
+ */  	
+  Software-Version   ::=  114  /* 7.3.5 */ UTF8String  M,V| | |    |N;  
+	
+/**
+ * The Supported-RAT-Type AVP is of type UTF8String. Defined values are: 
+ * E-UTRAN, UTRAN, GERAN, GAN, IHSPA-EVOLUTION. An MME shall Support E-UTRAN.
+ */
+  Supported-RAT-Type ::= 115   /* 7.3.6 */ UTF8String  M,V| | |    |N;
+
+/**
+ * The ULR-Flags AVP is of type Unsigned32 and it contains a bit mask. 
+ * The meaning of the bits is defined below
+ * Bit= 0 ==> Single-Registration-Indication. This bit, when set, indicates that the 
+ * HSS shall send Cancel Location to the SGSN.
+ * Bits not defined in this table shall be cleared by the sending MME and discarded by 
+ * the receiving HSS.
+ */ 
+   ULR-Flags  	::= 116      /* 7.3.7 */  Unsigned32	 M,V| | |    |N;
+
+/**
+ * The ULA-Flags AVP is of type Unsigned32 and it contains a bit mask. 
+ * The meaning of the bits is defined below
+ * Bit= 0 ===> Separation Indication.This bit, when set, indicates that the HSS stores 
+ * SGSN number and MME number in separate memory. A Rel-8 HSS shall set the bit.
+ * A IWF interworking with a pre Rel-8 HSS/HLR shall clear the bit. Bits not defined in 
+ * this shall be cleared by the sending HSS and discarded by the receiving MME.
+ */
+   ULA-Flags   ::= 117      /* 7.3.8 */  Unsigned32     M,V| | |    |N;
+ 
+/**
+ * The Visited-PLMN-Id AVP is of type OctetString. It shall contain the concatenation 
+ * of MCC and MNC. See 3GPP TS 23.003 [3].
+ */
+  Visited-PLMN-Id   ::= 118   /* 7.3.9 */   OctetString       M,V| | |    |N;
+
+/**
+ * The 3GPP Subscriber Status AVP is of type Enumerated. It indicates if the service 
+ * is barred or granted. The following values are defined:
+ *	SERVICEGRANTED (0)
+ *	OPERATORDETERMINEDBARRING (1)
+ */
+
+  Subscriber-Status ::= 119    /* 7.3.29 */   Enumerated   M,V| | |    |N;
+
+/**
+ * The MSISDN AVP is of type OctetString and contains the user's MSISDN.
+ * See 3GPP TS 23.003 [3] for the structure of MSISDN.
+ */
+  MSISDN	::= 120   /*7.3.28*/	OctetString	M,V| | |    |N;
+
+/**
+ * The STN-SR AVP is of type OctetString and contains the Session Transfer Number for SRVCC. 
+ * See 3GPP TS 23.003 [3] for the structure of STN-SR.
+ */
+  STN-SR	::=121   /*7.3.39*/      OctetString     M,V| | |    |N;
+
+/** 
+ * The Network-Access-Mode AVP is of type Enumerated.  The following values are defined:
+ *	 PACKET_AND_CIRCUIT (0)
+ *	 ONLY_CIRCUIT (1)
+ *	 ONLY_PACKET (2)
+ */
+  Network-Access-Mode	::= 122   /*7.3.21*/   Enumerated      M,V| | |    |N;
+
+/**
+ * The Operator-Determined-Barring AVP is of type Unsigned32 and it contains a bit mask 
+ /* indicating the services of a subscriber that are barred by the operator. The meaning 
+ * of the bits is the following:
+ * 0 - All Packet Oriented Services Barred
+ * 1 - Roamer Access HPLMN-AP Barred
+ * 2 - Roamer Access to VPLMN-AP Barred
+ */
+
+  Operator-Determined-Barring	::= 123	/* 7.3.30*/ Unsigned32      M,V| | |    |N;
+
+/**
+ * The HPLMN-ODB AVP is of type Unsigned32 and it contains a bit mask indicating the HPLMN 
+ * specific services of a subscriber that are barred by the operator. The meaning of the 
+ * bits is HPLMN specific:
+ *  	0	HPLMN specific barring type 1
+ *	1	HPLMN specific barring type 2
+ *	2	HPLMN specific barring type 3
+ *	3	HPLMN specific barring type 4
+ */
+     HPLMN-ODB   ::= 124   /* 7.3.22*/     Unsigned32      M,V| | |    |N;
+
+/**
+ * The Regional-Subscription-Zone-Code AVP is of type OctetString. Up to 10 zone codes 
+ * are used to define the tracking areas into which the subscriber is allowed or 
+ * not allowed to roam. See 3GPP TS 23.003 [3].
+ */
+ Regional-Subscription-Zone-Code  ::= 125  /*7.3.52*/ OctetString  M,V| | |    |N;
+
+/**
+ * The Access-Restriction-Data AVP is of type Unsigned32 and it contains a bit mask where each bit 
+ * when set to 1 indicates a restriction.. The meaning of the bits is the following:
+ * 0	UTRAN Not Allowed
+ * 1	GERAN Not Allowed
+ * 2	GAN Not Allowed
+ * 3	I-HSPA-Evolution Not Allowed
+ * 4	E-UTRAN Not Allowed
+ * 5	HO-To-Non-3GPP-Access Not Allowed
+ * 6	Roaming Restricted In MME Due To Unsupported Feature
+ */
+ Access-Restriction-Data   ::= 126  /*7.3.31*/	    UTF8String  M,V| | |    |N;
+
+/**
+ * The APN-OI-Replacement AVP is of type UTF8String. This AVP Indicates the domain name 
+ * to replace the APN OI when constructing the PDN GW FQDN upon which to perform a DNS 
+ * resolution. See TS 23.003 [3].
+ */
+
+   APN-OI-Replacement 	::= 127  /*7.3.32*/   UTF8String        M,V| | |    |N;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and 
+ * it indicates the maximum requested bandwidth in bits per second for a downlink IP flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above, 
+ *  e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-DL   ::=  515 /*6.5.16*/  Unsigned32   M,V|P| |    |Y;
+
+/**
+ * The Max -Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and it indicates 
+ * the maximum requested bandwidth in bits per second for an uplink IP flow. 
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-UL     ::=  516 /*6.5.17*/ Unsigned32  M,V|P| |    |Y;
+
+/**
+ * The RAND AVP is of type OctetString. This AVP contains the RAND. See 3GPP TS 33.401[5].
+ */
+   RAND 	::= 134      /*7.3.53*/    OctetString 		M,V| | |    |N;
+
+/** 
+ * The XRES AVP is of type OctetString. This AVP contains the XRES. See 3GPP TS 33.401[5].
+ */
+   XRES         ::= 135     /*7.3.54*/    OctetString           M,V| | |    |N;
+ 
+/**
+ * The AUTN AVP is of type OctetString. This AVP contains the AUTN. See 3GPP TS 33.401[5].
+ */
+   AUTN         ::= 136  /*7.3.55*/       OctetString           M,V| | |    |N;
+
+/**
+ * The KASME AVP is of type OctetString. This AVP contains the K_ASME. See 3GPP TS 33.401[5].
+ */
+  KASME         ::= 137  /*7.3.56*/       OctetString           M,V| | |    |N;
+
+/**
+ * The Cancellation-Type AVP is of type Enumerated and indicates the type of cancellation. 
+ * The following values are defined:
+ * UPDATE_PROCEDURE (0) -     This value is used when the Cancel Location is sent to the 
+ *                 previous MME due to a received Update Location message from a new MME.
+ * SUBSCRIPTION_WITHDRAWAL (1) - This value is used when the Cancel Location is sent to the 
+ *             current MME due to withdrawal of the user's subscription by the HSS operator.
+ */
+  Cancellation-Type	::= 138  /*7.3.24*/    Enumerated         M,V| | |    |N;
+
+/**
+ * The IDA-Flags AVP is of type Unsigned32 and it contains a bit mask. The meaning of the 
+ * bits is defined : 0- MME area restricted This bit, when set, indicates that the complete
+ * MME area is restricted due to regional subscription.How the HSS uses this information 
+ * is FFS. Bits not defined in this table shall be cleared by the sending MME and discarded 
+ * by the receiving HSS.
+ */
+   IDA-Flags	    ::= 139   	 /*7.3.47*/  Unsigned32        M,V| | |    |N;
+
+/**
+ * The APN-Configuration AVP is of type Grouped. It contains the information related to the
+ * user subscribed APN configurations for EPS and the context-identifier corresponding to
+ * the default APN configuration. 
+ */
+   APN-Configuration-Profile 	 ::=140	/* 7.3.34 */    Grouped   M,V| | |    |N;
+
+/**
+ * The APN-Configuration AVP is of type Grouped. It contains the information related
+ * to the user's subscribed APN configurations.
+ */
+  APN-Configuration	::= 167	  /*7.3.35*/	  Grouped       M,V| | |    |N;
+
+/**
+ * The All-APN-Configurations-Included-Indicator AVP is of type Enumerated.  
+ * The following values are defined:
+ *    	 All_APN_CONFIGURATIONS_INCLUDED (0)
+ * 	 MODIFIED/ADDED_APN_CONFIGURATIONS_INCLUDED (1)
+ */
+  All-APN-Configurations-Included-Indicator ::= 141 /*7.3.33*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The ARP AVP is of type Unsigned32. It indicates Priority of Allocation and Retention 
+ * for the corresponding APN configuration.
+ */
+   ARP    	::= 142  	/*7.3.40*/    Unsigned32        M,V| | |    |N;
+
+/**
+ * Served-Party-IP-Address AVP is of type Address and holds the IP address of either the calling or
+ * called party,depending on whether the P-CSCF is in touch with the calling or the called party.
+ * This AVP is only provided by the P-CSCF.
+ */
+  Served-Party-IP-Address    ::= 848  /* 7.2.99 */ Address   V,M|P| |     |N; /*3GPP TS 32.299 V7.1*/
+
+/**
+ * The Context-Identifier AVP is of type Unsigned32.
+ */
+  Context-Identifier   ::= 144 	  /*7.3.27*/   Unsigned32      M,V| | |    |N;
+
+/**
+ * The EPS-Subscribed-QoS-Profile AVP is of type Grouped. It contains the information related 
+ * to the user profile relevant for EPS.
+ */
+  EPS-Subscribed-QoS-Profile    ::= 145    /*7.3.37*/	 Grouped  M,V| | |    |N;
+
+/**
+ * The VPLMN Dynamic Address Allowed AVP is of type Enumerated. It indicates whether 
+ * the UE is allowed to use a dynamic address allocated in the VPLMN. If this AVP is 
+ * not present, this means that the UE is not allowed to use these kind of addresses. 
+ * The following values are defined:
+ *	NOTALLOWED (0)
+ *	ALLOWED (1)
+ */
+   VPLMN-Dynamic-Address-Allowed  ::= 146   /*7.3.38*/  Enumerated  	M,V| | |    |N;
+
+/**
+ * The PDN-GW-Identity AVP is of type FFS. This AVP contains the identity of the PDN GW.
+ */ 
+   PDN-GW-Identity     ::= 147	  /*7.3.45*/ 	  Grouped    	M,V| | |    |N;   
+
+/**
+ * The PDN-GW-Address AVP is of type Address. This AVP contains an IP address of the 
+ * PDN GW and this IP address shall be used as the PDN GW IP address
+ */
+  PDN-GW-Address	::= 148  /*7.3.42*/	Address		 M,V| | |    |N;
+
+
+/**
+ * The PDN-GW-Name AVP is of type OctetString. This AVP contains a FQDN which is used to 
+ * derive the PDN GW IP address using Domain Name Service function.
+ */
+  PDN-GW-Name		::= 149	/*7.3.43*/	OctetString       M,V| | |    |N;  			
+  
+/**
+ * The PDN-GW-Allocation-Type AVP is of type Enumerated. It indicates whether the 
+ * PDN GW address is statically allocated or dynamically selected by other nodes. 
+ * If this AVP is not present, this means that the address is statically allocated. 
+ * The following values are defined:
+ *		STATIC (0)
+ *		DYNAMIC (1)
+ */
+  PDN-GW-Allocation-Type   ::= 150  /*7.3.44*/   Enumerated	M,V| | |    |N;
+
+/**
+ * FFS 
+ */
+
+  RAT-Frequency-Selection-Priority ::= 151 /*7.3.46*/ Unsigned32  M,V| | |    |N;
+
+/**
+ * The Requested-EUTRAN-Authentication-Info is of type Grouped. It contains the 
+ * information related to the to authentication requests for E-UTRAN
+ */
+  Requested-EUTRAN-Authentication-Info	::= 152	/*7.2.12*/ Grouped   M,V| | |    |N;
+
+/**
+ * The Number-Of-Requested-Vectors AVP is of type Unsigned32. 
+ * This AVP contains the number of AVs the MME is prepared to receive
+*/
+  Number-Of-Requested-Vectors ::= 153  /*7.3.14*/  Unsigned32	M,V| | |    |N;
+
+/**
+ * The Re-Synchronization-Info AVP is of type OctetString. 
+ * It contains the concatenation of RAND and AUTS
+*/
+  Re-Synchronization-Info ::= 154 /*7.3.15*/ OctetString	M,V| | |    |N;
+
+/**
+ * The Immediate-Response-Preferred AVP is of type Unsigned32. When EUTRAN-AVs and UMTS-AVs 
+ * or GERAN AVs are requested, this parameter indicates which type of AV is requested for 
+ * immediate use in the MME/SGSN. It may be used by the HSS to determine the number of 
+ * vectors to be obtained from the AuC.
+*/
+  Immediate-Response-Preferred	 ::= 155 /*7.3.16*/ Unsigned32	M,V| | |    |N;
+
+/**
+ * The Requesting-Node-Type AVP is of type Enumerated and it contains the type of 
+ * the node requesting for authentication vectors. The following values are defined:
+ *	MME (0)
+ *	SGSN (1)
+ *	MME/SGSN (2)
+ */
+ Requesting-Node-Type	 ::= 156 /*7.3.61*/ Enumerated 		M,V| | |    |N;
+
+/**
+ * The Authentication-Info AVP is of type Grouped. This AVP contains Authentication Vectors.
+ */
+  Authentication-Info	 ::= 157 /*7.3.17*/ 	Grouped 	 M,V| | |    |N;
+
+/**
+ * The Item-Number AVP is of type Unsigned32. If more than one EPS Vector is included 
+ * within one Authentication-Info AVP, the Item-Number AVP shall be present within each 
+ * EPS Vector. Vectors with lower Item Number should be used before Vectors with higher 
+ * Item Number are used in the MME. The Item Number is used to order Vectors received 
+ * within one request. For Vectors received within different requests those received by 
+ * the earlier request should be used before those received by the later request.
+ */
+  Item-Number	 ::= 158     /*7.3.23*/ 	Unsigned32	 M,V| | |    |N;
+
+/**
+ * The Confidentiality-Key is of type OctetString, and contains the Confidentiality Key (CK).
+ */
+  Confidentiality-Key	::= 159	/*7.3.57*/	OctetString	 M,V| | |    |N;
+
+/**
+ * The Integrity-Key is of type OctetString, and contains the Integrity Key (IK).
+ */
+   Integrity-Key	 ::= 160 /*7.3.58*/ 	OctetString      M,V| | |    |N;
+
+/**
+ * The GERAN-Vector AVP is of type Grouped. This AVP contains an GERAN Vector.
+ */
+   GERAN-Vector		::= 161	/*7.3.30*/	Grouped		 M,V| | |    |N;	
+
+/**
+ * The SRES AVP is of type OctetString. This AVP contains the SRES. See 3GPP TS 33.102 [xx].
+ */
+   SRES		::= 162	 /*7.3.60*/	OctetString	M,V| | |    |N;
+
+/**
+ * The Kc-Key is of type OctetString, and contains the Ciphering Key (Kc).
+ */
+   Kc-Key	 	 ::= 163  /*7.3.59*/ 	 OctetString     M,V| | |    |N;
+
+/**
+ *The E-UTRAN-Vector AVP is of type Grouped. This AVP contains an E-UTRAN Vector.
+ */
+  EPS-Vector	::= 164 	Grouped 	 M,V| | |    |N;
+
+/**
+ * The UMTS-Vector AVP is of type Grouped. This AVP contains an UMTS Vector. 
+ */
+  UMTS-Vector    ::= 165 /*7.3.19*/     Grouped          M,V| | |    |N;
+
+/**
+ * The AMBR AVP is of type Grouped.
+ */
+   AMBR 	::= 166    /*7.3.41*/  Grouped         	 M,V| | |    |N;
+  
+
+/**
+ * 3GPP-Charging-Characteristics AVP is of type UTF8String. It contains the charging
+ * characteristics for this PDP context received in the Create PDP Context Request
+ * Message (only available in R99 and later releases).see 3GPP TS 32.299 [8].
+ */
+  S6a-3GPP-Charging-Characteristics   ::= 13  UTF8String   M,V| | |     |N; 
+
+/**
+ * The Called-Station-Id AVP (AVP Code 30) is of type UTF8String and allows
+ * the NAS to send the ASCII string describing the layer 2 address the user
+ * contacted in the request. For dialup access,this can be a phone number,
+ * obtained using Dialed Number identification (DNIS) or a similar
+ * technology. Note that this may be different from the phone number the call
+ * comes on. For the use with IEEE 802 access,the Called-Station-Id MAY contain
+ * a MAC address formatted as described in RAD802.1X.
+ */
+    Called-Station-Id   ::= 30  /*4.5*/   UTF8String    M|P| |  V  |Y;
+
+/**
+* QoS-Class-Identifier AVP (AVP code 1028) is of type Enumerated, and it defines 
+* the maximum authorized traffic class for the transport bearer or service flow. 
+* The following values are defined:
+* 	TRAFFIC_CLASS_A (0) -This value defines that the QoS class is A.
+* 	TRAFFIC_CLASS_B (1)- This value defines that the QoS class is B.
+* 	TRAFFIC_CLASS_C (2)-This value defines that the QoS class is C.
+*	TRAFFIC_CLASS_D (3)- This value defines that the QoS class is D.
+* 	TRAFFIC_CLASS_E (4)-This value defines that the QoS class is E.
+* 	TRAFFIC_CLASS_F (5)-This value defines that the QoS class is F.
+* The mapping of QCI to QoS classes of specific transport technology can be found 
+* in pertinent SDO's specification.
+*/
+   QoS-Class-Identifier  ::= 1028  Enumerated       M,V| | |     |N;
+
+/**
+* The Requested-UTRAN-Authentication-Info is of type Grouped. It contains the 
+* information related to the to authentication requests for UTRAN.
+*/
+ Requested-UTRAN-Authentication-Info	::= 173	 Grouped 	 M,V| | |     |N;
+
+/**
+* The Requested-GERAN-Authentication-Info is of type Grouped. It contains the 
+* information related to the to authentication requests for GERAN.
+*/
+ Requested-GERAN-Authentication-Info	::= 174	 Grouped         M,V| | |     |N;
+
+/**
+ * The DSR-Flags AVP is of type Unsigned32 and it contains a bit mask. 
+ * The meaning of the bits is defined below :
+ * 0 -Regional Subscription Withdrawal,	This bit, when set, indicates that Regional 
+ * Subscription shall be deleted from the subscriber data.
+ *  1 -Complete APN Configuration Profile Withdrawal, This bit, when set, indicates 
+ *     that all EPS Subscription Data for the subscriber shall be deleted from the 
+ *     subscriber data.
+ *  2 -Subscribed Charging Characteristics Withdrawal,	This bit, when set, indicates 
+ *     that the Subscribed Charging Characteristics shall be replaced with a local 
+ *     default  value or deleted in the MME.	
+ *  3 -PDN subscription contexts Withdrawal, This bit, when set, indicates that the PDN 
+ *      subscription contexts whose identifier is included in the Context-Identifier 
+ *	AVP shall be deleted. 
+ *  Note 1: If the Complete APN Configuration Profile Withdrawal bit is set, 
+ *				this bit should not be set.
+ */
+    DSR-Flags	::= 175	 /*7.3.25*/	Unsigned32      M,V| | |     |N;
+
+/**
+ * The DSA-Flags AVP is of type Unsigned32 and it contains a bit mask. 
+ * The meaning of the bits is defined below:
+ *	0- MME area restricted	This bit, when set, indicates that the complete MME area is 
+ *	restricted due to regional subscription.
+ * Note: Bits not defined in this table shall be cleared by the sending MME and 
+ *		discarded by the receiving HSS.
+ */
+    DSA-Flags	::= 176  /*7.3.26*/	Unsigned32              M,V| | |     |N;
+
+/**
+   * The PUA-Flags AVP is of type Unsigned32 and it contains a bit mask. 
+   * The meaning of the bits is defined below:
+   *  0-Freeze M-TMSI	This bit, when set, indicates to the MME that the M-TMSI needs 
+   * to be frozen, i.e. shall not be immediately re-used.
+   * Note: Bits not defined in this table shall be cleared by the sending HSS and 
+   *	discarded by the receiving MME.
+   */
+     PUA-Flags	 ::= 177   /*7.3.48*/   Unsigned32          M,V| | |     |N;
+	
+/**
+ * The leading digits of an User Name (i.e. MCC, MNC, leading digits of MSIN, 
+ * see 3GPP TS 23.003 [3]). Within a HSS an User-Id identifies a set of subscribers, 
+ * each of which have identical leading User Name digits.
+ */
+   User-Id	::= 178	  /*7.3.50*/	OctetString	    V | | | M  |N;   		
+
+/**
+ * The NOR-Flags AVP is of type Unsigned32 and it contains a bit mask. The meaning of 
+ *  the bits is defined below: 
+ *  0 -Single-Registration-Indication, This bit, when set, indicates that the HSS shall send 
+ * 	   a Cancel Location message to the current SGSN due to ISR
+ * 1- MME area restricted, This bit, when set, indicates that the complete MME area is 
+ * 	   restricted due to regional subscription
+ * Note: Bits not defined in this table shall be cleared by the sending MME and 
+ *	discarded by the receiving HSS.
+ */
+  NOR-Flags 	::= 179	 /*7.3.49*/	Unsigned32            M,V| | |     |N;
+
+
+
+	
+
+     //////////////////
+    // Enumerations //
+   //////////////////
+
+
+     QoS-Class-Identifier  ::= <Enumerated: 1028 >
+		TRAFFIC_CLASS_A 	0 
+        	TRAFFIC_CLASS_B 	1
+       	 	TRAFFIC_CLASS_C 	2
+        	TRAFFIC_CLASS_D 	3
+        	TRAFFIC_CLASS_E 	4
+       	 	TRAFFIC_CLASS_F 	5		
+		;
+
+     All-APN-Configurations-Included-Indicator  ::= <Enumerated: 141 >
+		All_APN_CONFIGURATIONS_INCLUDED 		0
+		MODIFIED_ADDED_APN_CONFIGURATIONS_INCLUDED 	1
+		;
+
+    Requesting-Node-Type   ::= <Enumerated: 156 >
+		MME 		0
+	        SGSN 		1
+       		MMESGSN 	2
+		;
+
+    PDN-GW-Allocation-Type	::= <Enumerated:   150 >
+		STATIC 		0
+		DYNAMIC		1
+		;		
+		
+    VPLMN-Dynamic-Address-Allowed ::= <Enumerated:   146 >
+		NOTALLOWED 		0
+		ALLOWED 		1
+		;
+
+
+     Network-Access-Mode  ::= <Enumerated:   122 >
+		PACKET_AND_CIRCUIT 	0
+		ONLY_CIRCUIT    	1
+		ONLY_PACKET 		2
+		;
+
+
+    Subscriber-Status ::= <Enumerated:   119  >
+		SERVICEGRANTED 			0
+		OPERATORDETERMINEDBARRING 	1	
+		;
+
+
+    Cancellation-Type  ::= <Enumerated: 138   >
+		UPDATE_PROCEDURE		0
+		SUBSCRIPTION_WITHDRAWAL		1
+		;
+	
+
+
+      //////////////////
+     // Grouped AVPs //
+    //////////////////
+
+
+
+   Supported-Features ::= < AVP Header : 628 10415 >
+	        { Vendor-Id } 
+         	{ Feature-List-ID }
+       	 	{ Feature-List }
+        	*[ AVP ]
+        	;
+	
+   Authentication-Info ::= <AVP Header: 157  10415 >
+		*[ EPS-Vector ] 
+		*[UMTS-Vector]
+		*[GERAN-Vector]
+		*[AVP]
+		;
+
+   UMTS-Vector ::= <AVP Header:  165  10415>
+		{ RAND }
+		{ XRES }
+		{ AUTN }
+		{ Confidentiality-Key }
+		{ Integrity-Key }
+		[ Item-Number ]
+		*[AVP]
+		;
+
+   GERAN-Vector ::= <AVP Header: 161  10415>
+		{ RAND }
+		{ SRES }
+		{ Kc-Key }
+		[ Item-Number ]
+		*[AVP]
+		;
+
+
+  Requested-EUTRAN-Authentication-Info ::= <AVP Header: 152 16777251>
+                [ Number-Of-Requested-Vectors]
+                [ Immediate-Response-Preferred ]
+                [ Re-Synchronization-Info ]
+                *[AVP]
+                ;
+
+  Requested-UTRAN-Authentication-Info ::= <AVP Header: 173 16777251>
+                [ Number-Of-Requested-Vectors]
+                [ Immediate-Response-Preferred ]
+                [ Re-Synchronization-Info ]
+                *[AVP]
+                ;
+
+  Requested-GERAN-Authentication-Info ::= <AVP Header: 174 16777251>
+                [ Number-Of-Requested-Vectors]
+                [ Immediate-Response-Preferred ]
+                [ Re-Synchronization-Info ]
+                *[AVP]
+                ;
+
+  PDN-GW-Identity ::= <AVP Header: 147  16777251>
+		*2[ PDN-GW-Address ]
+		[ PDN-GW-Name ]
+		*[AVP]
+		;
+
+  AMBR		::= <AVP Header: 166  16777251>
+		{ Max-Requested-Bandwidth-UL }
+		{ Max-Requested-Bandwidth-DL }
+		*[AVP] 
+		;
+
+  Terminal-Information ::= <AVP Header: 112  16777251>
+		[IMEI]
+		[Software-Version]
+		*[AVP]
+		;
+
+  Subscription-Data  ::= <AVP Header:  111  16777251>
+		[ Subscriber-Status ]
+		[ MSISDN ] 
+		[STN-SR ] 
+		[ Network-Access-Mode ]
+		[ Operator-Determined-Barring ]
+		[ HPLMN-ODB ]
+		*[ Regional-Subscription-Zone-Code]
+		[Access-Restriction-Data]
+		[APN-OI-Replacement ]
+		[S6a-3GPP-Charging-Characteristics ] 
+		[ AMBR ]
+		[ APN-Configuration-Profile ]
+		[ RAT-Frequency-Selection-Priority ]
+		*[AVP]
+		;
+
+  EPS-Vector ::= <AVP Header: 164  10415>
+		{ RAND }
+		{ XRES }
+		{ AUTN }
+		{ KASME }
+		[ Item-Number ]
+		*[AVP]	
+		;
+
+  APN-Configuration-Profile ::= <AVP Header: 140  16777251>
+		{ Context-Identifier }
+		{ All-APN-Configurations-Included-Indicator }
+		*{APN-Configuration}
+		*[AVP]
+		;
+
+  APN-Configuration::= <AVP Header:167  16777251 >
+		{ Context-Identifier }
+		{ Called-Station-Id }
+		[ Served-Party-IP-Address]
+		[ EPS-Subscribed-QoS-Profile ]
+		[ VPLMN-Dynamic-Address-Allowed ]
+		[ PDN-GW-Identity ]
+		[ PDN-GW-Allocation-Type]
+		[ S6a-3GPP-Charging-Characteristics ]
+		*[AVP]
+		;
+  EPS-Subscribed-QoS-Profile::= <AVP Header: 145  16777251>
+		{ QoS-Class-Identifier }
+		{ ARP }
+		[ AMBR ]
+		*[AVP]
+		;
+
+    //////////////////
+    //   commands   //
+    //////////////////
+
+
+   Update-Location-Request < ULR > ::=	< Diameter Header: 663, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Realm }
+		{ User-Name }
+		{ ULR-Flags }
+		{ Visited-PLMN-Id }
+		[ Destination-Host ]
+		*[ Supported-Features ]
+		[ Terminal-Information ]
+		*[ Supported-RAT-Type ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Update-Location-Answer < ULA > ::=	< Diameter Header: 663, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ ULA-Flags }
+		[ Result-Code ]
+		[ Experimental-Result ]
+		*[ Supported-Features ]
+		[ Subscription-Data ]
+		*[ AVP ]
+		*[ Failed-AVP ]	
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Authentication-Information-Request < AIR > ::= < Diameter Header: 664, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Realm }
+		{ User-Name }
+		{ Requested-EUTRAN-Authentication-Info }
+		{ Requested-UTRAN-Authentication-Info }
+		{ Requested-GERAN-Authentication-Info }
+		{ Visited-PLMN-Id }
+		{ Requesting-Node-Type }
+		[ Destination-Host ]
+		*[Supported-Features]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Authentication-Information-Answer < AIA >::= < Diameter Header: 664, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		[ Result-Code ]
+		[ Experimental-Result ]
+		* [Supported-Features] 
+		[ Authentication-Info ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Cancel-Location-Request < CLR > ::=	 < Diameter Header: 665, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Host }
+		{ Destination-Realm }
+		{ User-Name }
+		{ Cancellation-Type }
+		*[Supported-Features ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+   Cancel-Location-Answer < CLA > ::=	< Diameter Header: 665, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		*[ Supported-Features ]
+		[ Result-Code ]
+		[ Experimental-Result ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Insert-Subscriber-Data-Request < IDR > ::=	< Diameter Header: 666, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Host }
+		{ Destination-Realm }
+		{ User-Name }
+		{ Subscription-Data}
+		*[ Supported-Features]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Insert-Subscriber-Data-Answer < IDA > ::=	< Diameter Header: 666, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		*[ Supported-Features ]
+		[ Result-Code ]
+		[ Experimental-Result ]
+		[ IDA-Flags ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Delete-Subscriber-Data-Request < DSR > ::=	< Diameter Header: 667, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Host }
+		{ Destination-Realm }
+		{ User-Name }
+		{ DSR-Flags }
+		*[ Supported-Features ]
+		*[ Context-Identifier ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Delete-Subscriber-Data-Answer < DSA > ::=	< Diameter Header: 667, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		*[ Supported-Features ]
+		[ Result-Code ]
+		[ Experimental-Result ]
+		[ DSA-Flags ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+	
+   Purge-UE-Request <PUR> ::=	< Diameter Header: 668, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Realm }
+		{ User-Name }
+		[ Destination-Host ]
+		*[ Supported-Features ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+   Purge-UE-Answer <PUA> ::=	< Diameter Header: 668, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ PUA-Flags }
+		*[ Supported-Features ]
+		[ Result-Code ]
+		[ Experimental-Result ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+    Reset-Request < RSR > ::=	< Diameter Header: 669, REQ, PXY,  16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Host }
+		{ Destination-Realm }
+		[ Supported-Features ]
+		*[ User-Id ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+
+    Reset-Answer <ASA> ::=	< Diameter Header: 669, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		[ Supported-Features ]
+		[ Result-Code ]
+		[ Experimental-Result ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+
+   Notify-Request < NOR > ::=	< Diameter Header: 670, REQ, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		{ Destination-Realm }
+		{ User-Name }
+		[ Destination-Host ]
+		* [ Supported-Features ]
+		[ Terminal-Information ]
+		[ PDN-GW-Identity ]
+		[ Called-Station-Id ]
+		[ NOR-Flags ]
+		*[ AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+
+
+    Notify-Answer <NOA> ::=	< Diameter Header: 670, PXY, 16777251 >
+		< Session-Id >
+		{ Vendor-Specific-Application-Id }
+		{ Origin-Host }
+		{ Origin-Realm }
+		[ Result-Code ]
+		[ Experimental-Result ]
+		*[ Supported-Features ]
+		*[ AVP ]
+		*[ Failed-AVP ]
+		*[ Proxy-Info ]
+		*[ Route-Record ]
+		;
+

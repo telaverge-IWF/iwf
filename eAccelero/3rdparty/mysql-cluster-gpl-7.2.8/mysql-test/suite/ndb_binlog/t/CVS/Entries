@@ -1,0 +1,24 @@
+/ndb_binlog_basic.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_check_binlog_index.inc/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_ddl_multi.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_discover.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_format.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_get_binlog_stmts.inc/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_get_binlog_stmts_basic.inc/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_get_row_extra_data.inc/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_ignore_db-master.opt/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_ignore_db.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_index.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_index_test_schema_independent.inc/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_apply_status.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_bin.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_transaction_id-master.opt/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_log_transaction_id.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_multi.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_restore-master.opt/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_restore.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_unique_epoch.cnf/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_unique_epoch.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_variants.cnf/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+/ndb_binlog_variants.test/1.1.2.1/Fri Oct  5 12:37:45 2012//TB-IWF-HP-0400-00
+D

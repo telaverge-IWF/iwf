@@ -1,0 +1,38 @@
+/BUILD-CMAKE/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/CMakeLists.txt/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/COPYING/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/INSTALL-SOURCE/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/INSTALL-WIN-SOURCE/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/README/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/VERSION/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/config.h.cmake/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+/configure.cmake/1.1.2.1/Fri Oct  5 12:37:10 2012//TB-IWF-HP-0400-00
+D/BUILD////
+D/Docs////
+D/client////
+D/cmake////
+D/cmd-line-utils////
+D/dbug////
+D/extra////
+D/include////
+D/libmysql////
+D/libmysqld////
+D/libservices////
+D/man////
+D/mysql-test////
+D/mysys////
+D/packaging////
+D/plugin////
+D/regex////
+D/scripts////
+D/sql////
+D/sql-bench////
+D/sql-common////
+D/storage////
+D/strings////
+D/support-files////
+D/tests////
+D/unittest////
+D/vio////
+D/win////
+D/zlib////

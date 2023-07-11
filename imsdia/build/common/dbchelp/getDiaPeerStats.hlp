@@ -1,0 +1,26 @@
+Diameter Command
+
+SYNOPSIS
+    getDiaPeerStats <clearFlag>
+
+DESCRIPTION
+    Prints All Peer based message Statistics and if clear flag is set,
+    statistics will be reset.
+
+PARAMETERS
+    clearFlag     0 - don't reset
+                  1 - will reset statistics
+
+EXAMPLE
+
+    >> getDiaPeerStats 1
+-----------------------------------------------------------
+-- Dia Peer Stats -- at Wed Dec 31 09:19:54 2008
+-----------------------------------------------------------
+    Message           : ReqIn   | ReqOut | AnsIn  | AnsOut |
+-----------------------------------------------------------
+Capabilities Exchange :        0|       0|       0|       0|
+Device WatchDog       :        0|       0|       0|       0|
+DisConnect Peer       :        0|       0|       0|       0|
+
+

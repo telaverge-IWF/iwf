@@ -1,0 +1,182 @@
+# PROTOCOL: CCITT
+#
+# M	MsgCode
+# P	ParCode		DataTyp		Data
+################################################################################
+
+# Address Complete Message
+M	6					# ACM
+P	11	02 55 34			# BackwardCallIndicator
+P	29	01 02				# OptBackwardCallIndicators
+P	01	06 03 01 02 03 03 11 22 33	# CallReference
+P	12	02 40 B3			# CauseIndicators
+P	2A	01 00				# User-to-UserIndicators
+P	20	02 01 02 01 02			# UserToUserInformation
+P	03	03 F3 F4 F5			# AccessTransport
+P	2C	01 82				# GenericNotification
+P	35	01 00				# TransmissionMediumUsed
+P	37	01 59				# EchoControlInformation
+P	2E	01 01				# AccessDeliveryInformation
+P	36	01 09				# CallDiversionInformation
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	32	01 91				# RemoteOperations
+P	33	05 F1 F2 F3 F4 F5		# ServiceActivation
+P	40	01 01				# RedirectionNumRestriction
+P	00					# EOP
+
+
+# Answer Message
+M	9					# ANM
+P	11	02 55 34			# BackwardCallIndicator
+P	29	01 02				# OptBackwardCallIndicators
+P	01	06 03 01 02 03 03 11 22 33	# CallReference
+P	2A	01 00				# User-to-UserIndicators
+P	20	02 01 02 01 02			# User-to-UserInformation
+P	21	07 01 11 0A 04 77 44 33 23	# ConnectedNumber (407)744-3332
+P	03	03 F3 F4 F5			# AccessTransport
+P	2E	01 01				# AccessDeliveryInformation
+P	2C	01 82				# GenericNotification
+P	39	06 11 01 02 13 2A 2B		# ParameterCompatibilityInfo
+P	2D	02 FF 00			# CallHistoryInformation
+P	C0	08 06 01 11 0A 04 77 66 33 11   # GenericNumber (407)766-3311
+P	35	01 00				# TransmissionMediumUsed
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	32	01 91				# RemoteOperations
+P	0C	07 01 11 0A 04 77 11 22 33      # RedirectionNum (407)711-2233
+P	33	05 F1 F2 F3 F4 F5		# ServiceActivation
+P	37	01 59				# EchoControlInformation
+P	40	01 01				# RedirectionNumberRestriction
+P	00					# EOP
+
+
+# Call Progress Message
+M	2C					# CPG
+P	24	01 01				# EventInformation
+P	12	02 40 B3			# CauseIndicators
+P	01	06 03 01 02 03 03 11 22 33	# CallReference
+P	11	02 55 34			# BackwardCallIndicator
+P	29	01 02				# OptBackwardCallIndicators
+P	03	03 F3 F4 F5			# AccessTransport
+P	2A	01 00				# User-to-UserIndicators
+P	0C	07 01 11 0A 04 77 11 22 33      # RedirectionNum (407)711-2233
+P	20	02 01 02 01 02			# User-to-UserInformation
+P	2C	01 82				# GenericNotification
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	32	01 91				# RemoteOperations
+P	35	01 00				# TransmissionMediumUsed
+P	2E	01 01				# AccessDeliveryInformation
+P	39	06 11 01 02 13 2A 2B		# ParameterCompatibilityInfo
+P	36	01 09				# CallDiversionInformation
+P	33	05 F1 F2 F3 F4 F5		# ServiceActivation
+P	40	01 01				# RedirectionNumberRestriction
+P	00					# EOP
+
+
+# Confusion Message
+M	2F					# CFN
+P	12	02 40 B3			# CauseIndicators
+
+
+# Connect Message
+M	07					# CON
+P	11	02 55 34			# BackwardCallIndicator
+P	29	01 02				# OptBackwardCallIndicators
+P	21	07 01 11 0A 04 77 68 13 45	# ConnectedNumber (407)786-3154
+P	01	05 03 01 02 03 02 11 22		# CallReference
+P	2A	01 00				# User-to-UserIndicators
+P	20	02 01 02 01 02			# User-to-UserInformation
+P	03	03 F3 F4 F5			# AccessTransport
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	2C	01 82				# GenericNotification
+P	32	01 91				# RemoteOperations
+P	35	01 00				# TransmissionMediumUsed
+P	37	01 59				# EchoControlInformation
+P	2E	01 01				# AccessDeliveryInformation
+P	2D	02 FF 00			# CallHistoryInformation
+P	39	06 11 01 02 13 2A 2B		# ParameterCompatibilityInfo
+P	0C	07 01 11 0A 04 77 11 22 33      # RedirectionNum (407)711-2233
+P	33	05 F1 F2 F3 F4 F5		# ServiceActivation
+P	C0	08 06 01 10 0A 04 67 33 45 77	# GenericNumber
+P	40	01 01				# RedirectionNumberRestriction
+P	00					# EOP
+
+
+# Continuity Message
+M	05					# COT
+P	10	01 01				# ContinuityIndicator
+
+
+# Information Message: TODO
+M	04					# INF
+
+# Information Request Mesage
+M	03					# INR
+P	
+
+
+# Initial Address Message
+M	1					# IAM
+P	06	01 10				# NatureOfConnectionIndicators
+P	07	02 22 03			# ForwardCallIndicators
+P	09	01 0A				# CallingParty'sCategory
+P	02	01 00				# TransmissionMediumRequirement
+P	04	07 01 10 0A 04 47 67 56 32	# CalledPartyNum (407)476-6523
+P	23	04 00 03 11 22 33		# TransitNetworkSelection
+P	01	05 03 01 02 03 02 11 22		# CallReference
+P	0A	07 01 11 0A 04 77 44 33 23	# CallingPartyNum (407)744-3332
+P	08	01 00				# OptionalForwardCallIndicators
+P	0B	07 0A 0B 0A 04 87 76 32 19	# RedirectingNum (407)867-2391
+P	13	02 1A 1B			# RedirectionInformation
+P	1A	04 02 12 34 02 56 78		# ClosedUserGroupInterlockCode
+P	0D	08 03 0A 0B 0C 02 1A 1B AA BB	# ConnectionRequest
+P	28	07 0A BC 0A 04 77 44 33 23	# OrigCalledNum (407)744-3332
+P	20	02 01 02 01 02			# UserToUserInfo
+P	03	03 F3 F4 F5			# AccessTransport
+P	1D	02 C0 93			# UserServiceInformation
+P	2A	01 00				# User-to-UserIndicators
+P	C0	08 06 01 10 0A 04 67 33 45 77	# GenericNumber
+P	31	02 FF 00			# PropagationDelayCounter
+P	30	02 C0 93			# UserServiceInformationPrime
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	C1	06 A3 0A 04 78 96 23 11		# GenericDigits (408)769-3211
+P	2B	02 12 13			# OriginationISCPointCode
+P	30	02 C0 93			# UserServiceInformationPrime
+P	32	01 91				# RemoteOperations
+P	39	06 11 01 02 13 2A 2B		# ParameterCompatibilityInfo
+P	2C	01 82				# GenericNotification
+P	33	05 F1 F2 F3 F4 F5		# ServiceActivation
+P	3A	06 04 12 34 3F AB 9E		# MLPPPrecedence
+P	3E	01 00				# TransMediumRequirementPrime
+P	3F	07 01 11 0A 04 77 11 33 23	# LocationNumber (407)711-3332
+P	00					# EOP
+
+
+# Pass Along Message: TODO: need to finish
+M	28					# PAM
+
+
+# Release Message
+M	0C					# REL
+P	12	02 40 B3			# CauseIndicators
+P	13	02 1A 1B			# RedirectionInformation
+P	0C	07 01 11 0A 04 77 11 22 33      # RedirectionNum (407)711-2233
+P	03	03 F3 F4 F5			# AccessTransport
+P	1E	02 12 34			# SignallingPointCode
+P	20	02 01 02 01 02			# UserToUserInformation
+P	27	01 02				# AutomaticCongestionLevel
+P	2F	02 00 02 01 02			# NetworkSpecificFacility
+P	2E	01 01				# AccessDeliveryInformation
+P	39	06 11 01 02 13 2A 2B		# ParameterCompatibilityInfo
+P	40	01 01				# RedirectionNumberRestriction
+P	2A	01 00				# User-to-UserIndicators
+P	00					# EOP
+
+
+# Release Complete Message
+M	10					# RLC
+P	12	02 40 B3			# CauseIndicators
+P	00					# EOP
+
+# Subsequent Address Message
+M						# SAM
+P	05	01 00 12			# SubsequentNumber 12

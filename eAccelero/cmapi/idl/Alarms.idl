@@ -1,0 +1,19 @@
+%PB{
+    message AlarmReq {
+        required fixed32 RequestId = 1;
+ 	required fixed32 ComponentId = 2;
+        required fixed32 SubComponentId = 3;
+        required fixed32 SubComponentAlarmId = 4;
+        optional string AddText = 5;
+        repeated string variables = 6;
+        optional string alarmKey =7;
+    }
+    message AlarmResp {
+        required fixed32 ResponseId = 1;
+    }
+%PB}
+
+Interface Alarms
+{
+    RaiseAlarm(AlarmReq req, AlarmResp resp)uses_PB;
+}

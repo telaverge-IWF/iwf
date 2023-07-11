@@ -1,0 +1,33 @@
+
+Test4 performance (C language) (PC Gateway GP6 333 Mhz, 100% of CPU)
+--------------------------------------------------------------------
+
+
+Notes:
+------
+
+- Size of ASN.1 Encoded = 52 octets. 
+- Test includes setting and retrieving data.
+
+
+Debug mode:
+-----------
+
+- 10000 iterations => 24 s => 2.4 ms for encode / decode cycle.
+100% of CPU. No memory leak.
+
+- Profiler:
+
+To be done.
+
+
+Release mode:
+-------------
+
+- 10000 iterations => 4.5 s = > 0.45 ms for encode / decode cycle.
+
+
+
+
+
+

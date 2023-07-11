@@ -1,0 +1,20 @@
+/.cvsignore/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/Readme.txt/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/bison_parser/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/build.targets/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc.dsp/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc.dsw/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_assert.cpp/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_assert.h/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_bnf.txt/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_generate.cpp/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_generate.h/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_lex.h/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_lex.l/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_main.cpp/9.1/Wed Mar 23 12:54:17 2005//TB-IWF-HP-0400-00
+/exc_parse_types.h/9.1/Wed Mar 23 12:54:18 2005//TB-IWF-HP-0400-00
+/exc_yacc.y/9.1/Wed Mar 23 12:54:18 2005//TB-IWF-HP-0400-00
+/unistd.h/9.1/Wed Mar 23 12:54:18 2005//TB-IWF-HP-0400-00
+/win32.mak/9.1/Wed Mar 23 12:54:18 2005//TB-IWF-HP-0400-00
+D

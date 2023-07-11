@@ -1,0 +1,29 @@
+#! /bin/bash
+
+#export USER_ROOT=/export/home/users/lbana
+
+#export LD_LIBRARY_PATH=$USER_ROOT/cvsroot/IntelliSS7/common/lib:$USER_ROOT/cvsroot/vendors/IntelliNet/lib:.:$USER_ROOT/cvsroot/IntelliSS7/MTP3/lib:$LD_LIBRARY_PATH:
+
+#export ISS7_CONFIG_DIR=
+
+# claptop(SG) -- wsc1(ASP)
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaASP.xml
+
+# wsc1(SG) -- wsc2(ASP)
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaSG.xml
+
+# claptop(IPSP) -- wsc1(IPSP) by default, it's double exchange
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaIPSP_claptop_wsc1.xml
+
+# claptop(IPSP) -- wsc1(IPSP) single exchange client, need to configure in xml
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaIPSP_claptop_wsc1_SE.xml
+
+# claptop(IPSP) -- wsc1(IPSP) double exchange, need to configure in xml
+./app_testD ipsp opc 2 dpc 1 -configFile m3uaIPSP_claptop_wsc1_DE.xml
+
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaIPSP_wsc1_wsc2.xml
+#./app_testD ipsp opc 2 dpc 1 -configFile m3uaIPSP.xml
+#./app_testD sgp opc 2 dpc 1 -configFile sctpSGv10.xml
+#./app_testD asp opc 2 dpc 1 -configFile sctpEPv10.xml
+#dbx ./app_testD $1
+

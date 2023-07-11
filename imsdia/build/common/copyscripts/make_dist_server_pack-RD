@@ -1,0 +1,288 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make_dist_server_pack-RD,v 3.8 2008/11/14 06:37:42 gdalawai Exp $
+#
+# LOG: $Log: make_dist_server_pack-RD,v $
+# LOG: Revision 3.8  2008/11/14 06:37:42  gdalawai
+# LOG: Sub Version Changes Reverted Back. gdalawai
+# LOG:
+# LOG: Revision 3.6  2008/09/16 11:26:31  gdalawai
+# LOG: Updated script to copy tls libs. gdalawai
+# LOG:
+# LOG: Revision 3.5  2008/08/25 05:36:57  gdalawai
+# LOG: Removed copying libc_nonshared.a as dependency is removed. gdalawai
+# LOG:
+# LOG: Revision 3.4  2008/08/07 07:02:40  gdalawai
+# LOG: Modified scripts for TLS libs release. gdalawai
+# LOG:
+# LOG: Revision 3.3  2008/04/25 05:15:29  chandral
+# LOG: addIp.hlp removed from package
+# LOG:
+# LOG: Revision 3.2  2008/04/16 11:33:43  hbhatnagar
+# LOG: Additions and Changes made for Release 3.0 by Rashmi.
+# LOG:
+# LOG: Revision 3.1  2008/03/31 10:33:16  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.5  2008/03/27 11:47:56  hbhatnagar
+# LOG: Converting 2.1 branch to CURRENT
+# LOG:
+# LOG: Revision 1.1.2.8  2007/05/31 07:23:12  rrath
+# LOG: CLean-up make_diaapp_pack-BCGI-NRDmake_diaapp_pack-NRD
+# LOG:
+# LOG: Revision 1.1.2.7  2007/05/30 13:18:53  rrath
+# LOG: Change to create link for sctp lib
+# LOG:
+# LOG: Revision 1.1.2.6  2007/05/30 10:05:54  rrath
+# LOG: Changes to remove unwanted libraries
+# LOG:
+# LOG: Revision 1.1.2.5  2007/05/24 12:53:15  rrath
+# LOG: To add itsdia-config-sample.xml under bin
+# LOG:
+# LOG: Revision 2.2  2007/05/24 10:38:58  rrath
+# LOG: To add itsdia-config-sample.xml under bin
+# LOG:
+# LOG: Revision 2.1  2007/03/21 13:40:19  rrath
+# LOG: Chnages for Clean-up
+# LOG:
+# LOG: Revision 1.1.2.4  2007/03/16 10:34:25  rrath
+# LOG: Minor change to copy itsdiserver1.xml
+# LOG:
+# LOG: Revision 1.1.2.3  2007/03/15 15:37:43  rrath
+# LOG: Modify to remove unwanted xml files
+# LOG:
+# LOG: Revision 1.1.2.2  2007/03/15 05:25:15  rrath
+# LOG: Removing Release build from Packages
+# LOG:
+# LOG: Revision 1.1.2.1  2007/03/13 09:30:34  rrath
+# LOG: Changes for clean-up
+# LOG:
+# LOG: Revision 1.1.2.1  2007/03/13 05:00:56  rrath
+# LOG: Copy script changes for Clean-up
+# LOG:
+# LOG: Revision 1.2  2006/12/06 09:11:00  chandral
+# LOG: Modified Build scripts as GA Rel1.2
+# LOG:
+# LOG: Revision 1.6  2006/08/09 04:03:16  nvijikumar
+# LOG: Changes to 2 instence of IDS Server.
+# LOG:
+# LOG: Revision 1.5  2006/06/22 06:01:57  nvijikumar
+# LOG: Copy modified dictionary file.
+# LOG:
+# LOG: Revision 1.4  2006/06/14 06:17:21  nvijikumar
+# LOG: changes to maintain the verrsion number with directory.
+# LOG:
+# LOG: Revision 1.3  2006/05/19 06:32:12  nvijikumar
+# LOG: Changes to copy libc_nonshared.a lib for linux pkg.
+# LOG:
+# LOG: Revision 1.2  2006/05/18 11:10:30  nvijikumar
+# LOG: changes w.r.t new dir structure.
+# LOG:
+# LOG: Revision 1.1  2006/05/07 05:09:44  nvijikumar
+# LOG: Baseline scripts for solaris and linux build
+# LOG:
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+
+DIRLIST="bin config scripts logs lib dbchelp"
+sctp=lksctp-tools-1.0.6
+
+if [ $DEBUG_BUILD = "yes" ]
+then
+   DBGSUFFIX=D
+fi
+
+echo "ReleaseDir is ./ReleaseDir  ";
+RELEASE_DIR=$IMS_ROOT/build/$PLATFORM/ReleaseDir
+RELEASE_IMSROOT=$RELEASE_DIR/IDS-$IMS_VER
+
+RELEASE_BIN_DIR=$RELEASE_IMSROOT/bin
+RELEASE_CFG_DIR=$RELEASE_IMSROOT/config
+RELEASE_LIB_DIR=$RELEASE_IMSROOT/lib
+RELEASE_SCRIPT_DIR=$RELEASE_IMSROOT/scripts
+RELEASE_LOGS_DIR=$RELEASE_IMSROOT/logs
+RELEASE_DOC_DIR=$RELEASE_IMSROOT/doc
+RELEASE_HELP_DIR=$RELEASE_IMSROOT/dbchelp
+
+/bin/rm -rf $RELEASE_DIR
+
+mkdir -p $RELEASE_DIR
+mkdir -p $RELEASE_IMSROOT
+
+mkdir -p $RELEASE_BIN_DIR
+mkdir -p $RELEASE_CFG_DIR
+mkdir -p $RELEASE_LIB_DIR
+mkdir -p $RELEASE_SCRIPT_DIR
+mkdir -p $RELEASE_LOGS_DIR
+mkdir -p $RELEASE_HELP_DIR
+
+echo "Created the directory structure"
+
+for i in $DIRLIST
+do
+   #
+   # Copying library files.
+   #
+   if [ "$i" = "lib" ]
+   then
+     cp -r $IMS_ROOT/api/c++/lib/libbaseapi$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/aim/server/lib/libDiaServer$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/aim/server/lib/libDiaServert$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/dframe/lib/libITSDFrame$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/libdiastack$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/lib/libdiastackt$DBGSUFFIX.so $RELEASE_LIB_DIR;
+     cp -r $IMS_ROOT/vendors/IntelliNet/dcca/lib/libdccacore$DBGSUFFIX.so $RELEASE_LIB_DIR;
+
+     cp -p $ITS_ROOT/common/lib/libDRIVER++*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libENGINE*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDISPATCH++*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-STUB*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libDSM-GCS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libGCS-CLIENT*$DBGSUFFIX.so $RELEASE_LIB_DIR
+     cp -p $ITS_ROOT/common/lib/libITS-REDUNDANCY*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+     if [ $PLATFORM = "linux" ]
+     then
+         cp -r /usr/local/lib/libsctp.so.1.0.6 $RELEASE_LIB_DIR
+     fi
+     if [ $PLATFORM = "linux" ]
+     then
+         cd $RELEASE_LIB_DIR
+         ln -s libsctp.so.1.0.6 libsctp.so.1
+         ln -s libsctp.so.1.0.6 libsctp.so
+         cd -
+     fi
+     cd $RELEASE_LIB_DIR
+     if [ $PLATFORM = "solaris" ]
+     then
+         cp -r /usr/lib/libsctp.so $RELEASE_LIB_DIR
+     fi
+
+#### IntelliNet TLS wrapper lib
+     cp -p $ITS_ROOT/tls/lib/libITS-TLS*$DBGSUFFIX.so $RELEASE_LIB_DIR
+
+     OS=`uname`
+     if [ $OS = "Linux" ]
+     then
+	#### Gnutls related libraries
+     	cp -p $ITS_ROOT/tls/lib/gnutls/linux/libgnutls.so.11 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/linux/libgcrypt.so.11 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/linux/libgpg-error.so.0 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/linux/certtool $RELEASE_IMSROOT/bin
+     	cp -p $ITS_ROOT/tls/lib/openssl/linux/libssl.so.0.9.8 $RELEASE_LIB_DIR
+     else
+     	cp -p $ITS_ROOT/tls/lib/gnutls/solaris/libgnutls.so.11 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/solaris/libgcrypt.so.11 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/solaris/libgpg-error.so.0 $RELEASE_LIB_DIR
+     	cp -p $ITS_ROOT/tls/lib/gnutls/solaris/certtool $RELEASE_IMSROOT/bin
+     	cp -p $ITS_ROOT/tls/lib/openssl/solaris/libssl.so.0.9.8 $RELEASE_LIB_DIR
+     fi
+
+     cd ../../..
+     echo "Copied libraries"
+   fi
+
+   # 
+   # Copy binary. 
+   #
+   if [ "$i" = "bin" ]
+   then
+       cp -p $IMS_ROOT/aim/server/bin/DiaServer$DBGSUFFIX $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/aim/server/bin/DiaServert$DBGSUFFIX $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsIDS* $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdiaserver1.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdiaserver2.xml $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/Run.Server* $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/gcs_daemon.ini $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/itsdia-config-sample.xml $RELEASE_BIN_DIR;
+       cp -p $ITS_ROOT/GCS/bin/gcs_daemonD $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/monitor/src/DIAMon $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/RunDBC.server $RELEASE_BIN_DIR;
+       cp -p $IMS_ROOT/config/dbc_console.ini.server $RELEASE_BIN_DIR;
+       cp -p $ITS_ROOT/common/bin/DBGConsoleD $RELEASE_BIN_DIR;
+
+   fi
+
+   #
+   # Copy config files.
+   #
+   if [ "$i" = "config" ]
+   then
+     if [ $PLATFORM = "solaris" ]
+     then
+         sh profiles/sample_dist_server_profile > $RELEASE_CFG_DIR/Profile
+     elif [ $PLATFORM = "linux" ]
+     then
+         sh profiles/sample_dist_server_profile > $RELEASE_CFG_DIR/Profile
+     elif [ $PLATFORM = "solaris64" ]
+     then
+         sh profiles/sample_dist_server_profile > $RELEASE_CFG_DIR/Profile
+     fi
+ 
+       #cp -rp $IMS_ROOT/demo/bin/dictionary.* $RELEASE_CFG_DIR;
+       cp -p $IMS_ROOT/monitor/src/DIAMon.xml $RELEASE_CFG_DIR;
+       echo "Copied config files"
+   fi
+
+   #
+   # Copy scripts
+   #
+   if [ "$i" = "scripts" ]
+   then
+     cp -r $IMS_ROOT/scripts/$PLATFORM/* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/imsdia* $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/RunMonitor  $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/showproc  $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/stopdia  $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/MonitorIDSLogs  $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/IDSstat  $RELEASE_SCRIPT_DIR
+     cp -r $IMS_ROOT/scripts/A80dia  $RELEASE_SCRIPT_DIR
+     echo "Copied script files"
+   fi
+
+   if [ "$i" = "dbchelp" ]
+   then
+       cp $IMS_ROOT/build/common/dbchelp/*.hlp $RELEASE_HELP_DIR
+       \rm $RELEASE_HELP_DIR/start-traffic.hlp
+       \rm $RELEASE_HELP_DIR/stop-traffic.hlp
+       \rm $RELEASE_HELP_DIR/tps.hlp
+       \rm $RELEASE_HELP_DIR/clear.hlp
+       \rm $RELEASE_HELP_DIR/di.hlp
+       \rm $RELEASE_HELP_DIR/stats.hlp
+       \rm $RELEASE_HELP_DIR/addIp.hlp
+
+       echo "Copied help files"
+   fi
+
+find ./ReleaseDir -name CVS -type d -print | xargs /bin/rm -rf
+find $RELEASE_IMSROOT -name  core.* -print | xargs /bin/rm -rf
+
+done

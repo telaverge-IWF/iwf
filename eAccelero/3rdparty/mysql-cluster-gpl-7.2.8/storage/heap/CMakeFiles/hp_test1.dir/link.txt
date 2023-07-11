@@ -1,0 +1,1 @@
+/usr/bin/c++    -fno-implicit-templates -fno-exceptions -fno-rtti -O2 -g -DNDEBUG -DDBUG_OFF    CMakeFiles/hp_test1.dir/hp_test1.c.o  -o hp_test1  -lpthread ../../mysys/libmysys.a libheap.a ../../dbug/libdbug.a ../../strings/libstrings.a ../../mysys/libmysys.a ../../dbug/libdbug.a ../../strings/libstrings.a -lz -lm -lpthread ../../probes_mysql.o 

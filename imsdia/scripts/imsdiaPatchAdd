@@ -1,0 +1,40 @@
+export PATCH_ID="2.2-00-00-CUS";
+export PATCH_DIR=$IMS_ROOT/patches;
+export PKG_DIR=$IMS_ROOT;
+
+
+echo "Applying patch 2.2-00-00-CUS";
+
+
+if [ -d $PATCH_DIR/$PATCH_ID ]
+then 
+   echo "Patch $PATCH_ID already applied"
+   exit 0;
+fi
+
+if [ ! -d $PATCH_DIR ]
+then
+    /bin/mkdir $PATCH_DIR;
+fi     
+
+/bin/mkdir $PATCH_DIR/$PATCH_ID;
+
+/bin/cp -r .patchfiles/lib             $PATCH_DIR/$PATCH_ID;
+/bin/cp .patchfiles/README             $PATCH_DIR/$PATCH_ID;
+/bin/cp .patchfiles/lPatchRemove       $PATCH_DIR/$PATCH_ID;
+
+/bin/cp .patchfiles/imsdiaPatchInfo     $PKG_DIR/scripts;
+/bin/cp .patchfiles/imsdiaPatchRemove   $PKG_DIR/scripts;
+/bin/cp .patchfiles/imsdiapatch.txt     $PKG_DIR/scripts;
+
+/bin/cp -r $PKG_DIR/lib/libdiastackD.so  $PATCH_DIR/$PATCH_ID/libdiastackD.so.org
+
+/bin/cp -r .patchfiles/lib/libdiastackD.so $PKG_DIR/lib/.
+
+chmod +x $PATCH_DIR/$PATCH_ID/lPatchRemove
+
+echo "Patch $PATCH_ID  applied";
+
+echo "DONE";
+
+exit 0;

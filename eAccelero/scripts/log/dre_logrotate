@@ -1,0 +1,22 @@
+/var/log/dre/cmgr.log
+/var/log/dre/cli.log
+/var/log/dre/dre_debug.log
+/var/log/dre/dre_error.log
+/var/log/dre/subagent.log
+/var/log/dre/avamgr_debug.log
+/var/log/dre/avamgr_error.log
+/var/log/dre/statslogger.log
+/var/log/dre/webagent.log{
+    rotate 25
+    size 50M
+    compress
+    delaycompress
+    copytruncate
+    missingok
+    notifempty
+    firstaction
+    /opt/diametriq/dre/scripts/archive.sh
+    endscript
+}
+ 
+ 

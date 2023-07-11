@@ -1,0 +1,401 @@
+/**
+ * ETSI TS 183 071 V3.1.1 (2010-02)-- Rr-Delegatedmodel  Interface --Diameter Based Protocol
+ * The Rr_Delegated reference point is between  x-RACF .
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+   protocol diameter.rr_delegatedmodel < 16777279   13019 : "ETSI TS 183 071 V3.1.1 (2010-02" >;
+
+//////////////////
+// Derived AVPs //
+//////////////////
+/**
+ * The Network-Resource-Id AVP (AVP code 650) is of type OctetString, it contains the 
+ * identifier of the network resource.
+*/
+   Network-Resource-Id ::= 650 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.1 */
+                                                     OctetString M,V| P| | | Y ;
+
+
+/**
+ * The Preferred-Delegated-Bandwidth-UL AVP (AVP code 651) is type Unsigned32, and it 
+ * indicates the preferred delegated bandwidth requested in kbits per second in the 
+ * uplink direction.
+*/
+  Preferred-Delegated-Bandwidth-UL ::=651 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.2 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+
+/* The Preferred-Delegated-Bandwidth-DL AVP (AVP code 652) is type Unsigned32, 
+ * and it indicates the preferred delegated bandwidth requested in kbits per second 
+ * in the downlink direction.
+*/
+   Preferred-Delegated-Bandwidth-DL ::=652 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.3 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+
+
+/**
+ * The Required-Delegated-Bandwidth-UL AVP (AVP code 653) is type Unsigned32, and it 
+ * indicates the required delegated bandwidth requested in kbits per second in the 
+ * uplink direction.
+*/
+  Required-Delegated-Bandwidth-UL ::=653 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.4 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+/**
+ * The Required-Delegated-Bandwidth-DL AVP (AVP code 654) is type Unsigned32, and it 
+ * indicates the required delegated bandwidth requested in kbits per second in the 
+ * downlink direction.
+*/
+  Required-Delegated-Bandwidth-DL::= 654/* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.5 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+/**
+ * The Reservation-Priority AVP (AVP code 458) is of type Enumerated.
+*/
+   Reservation-Priority ::= 458 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.10 */
+                                         Enumerated   M,V| P| | | Y ;
+
+
+/**
+ * The Granted-Delegated-Bandwidth-UL AVP (AVP code 655) is type Unsigned32, and it 
+ * indicates the granted delegated bandwidth in kbits per second in the uplink direction.
+*/
+    Granted-Delegated-Bandwidth-UL::= 655/* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.6 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+/**
+ * The Granted-Delegated-Bandwidth-DL AVP (AVP code 656) is type Unsigned32, and it 
+ * indicates the granted delegated bandwidth in kbits per second in the downlink direction.
+*/
+   Granted-Delegated-Bandwidth-DL ::=656/* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.7 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+/**
+ * The Total-Bandwidth-UL AVP (AVP code 657) is type Unsigned32, and it indicates the 
+ * total bandwidth in kbits per second in the uplink direction.
+*/
+   Total-Bandwidth-UL ::=657/* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.8 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+/**
+ * The Total-Bandwidth-DL AVP (AVP code 658) is type Unsigned32, and it indicates the 
+ * total bandwidth in kbits per second in the downlink direction.
+*/
+    Total-Bandwidth-DL::= 658/* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.9 */
+                                         Unsigned32  M,V| P| | | Y ;
+
+
+/**
+ * The Authorization-Package-Id AVP (AVP code 461) is of type UTF8String, and it 
+ * identifies an authorization context requested by the AF for the session and 
+ * passed transparently through Rq. This information is used by the delegated
+ * x-RACF to derive the policy to be passed to an RCEF through the Re reference 
+ * point for the session.
+*/
+   Authorization-Package-Id::=461 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.11 */
+                                         UTF8String   M,V| P| | | Y ;
+
+
+/**
+ * The Specific-Action AVP (AVP code 513) is of type Enumerated.
+*/
+    Specific-Action::=513 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 7.5.14 */
+                                         Enumerated   M,V| P| | | Y ;
+
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines a 
+ * packet filter for an IP flow
+*/
+    Flow-Description::= 507 /* ETSI TS 183 071 V3.1.1 (2010-40 02) 6.5.4 */
+                                                           IPFilterRule M,V| P| | | Y ;
+
+/**
+ *The Globally-Unique-Address AVP (AVP code 300) is of type Grouped.
+*/
+
+   Globally-Unique-Address ::=300 /* ETSI TS 183 071 V3.1.1  6.5.17*/ Grouped  M,V|P| |   |Y;
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The
+ * value 0xFFFFFFFF indicates that the NAS should allow the user to select
+ * an address (i.e:negotiated). The value 0xFFFFFFFE indicates that NAS
+ * should select an address for the user (e.g:assigned from a pool of
+ * addresses kept by NAS).
+ */
+    Framed-IP-Address  ::= 8   0 /* ETSI TS 129 214 V8.8.0 6.11.1*/  OctetString   M|P| |  V  |Y;
+
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that
+ * specific IPv6 prefixes are desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPv6-Prefix  ::= 97  0 /* ETSI TS 129 214 V8.8.0 6.11.6*/  OctetString   M|P| |  V  |Y;
+
+/**
+ * The Address-Realm AVP (AVP code 301) is of type OctetString.
+*/
+
+  Address-Realm ::=301 /*  ETSI TS 183 071 V3.1.1 6.5.18*/  OctetString M|P| |  V  |Y;
+
+
+/**
+ * The Logical-Access-ID AVP (AVP code 302 13019) is of type OctetString .
+*/
+    Logical-Access-Id ::=302 /*ETSI TS 183 071 V3.1.1   6.5.19 */ OctetString  M,V|P| |   |Y;
+
+
+ /**
+ * The Abort-Cause AVP (AVP code 500) is of type Enumerated, and it determines the cause of an ASR
+*/
+   Abort-Cause ::=500 /* original specs 7.5.12 */ Enumerated   M,V|P| |   |Y;
+
+///////////////
+//Enumearted///
+///////////////
+   Reservation-Priority ::=     <Enumerated:458>
+                            	 PRIORITY_ONE           1
+				 PRIORITY_TWO 		2
+				 PRIORITY_THREE         3
+				 PRIORITY_FOUR   	4
+				 PRIORITY_FIVE 		5
+				 PRIORITY_SIX		6
+				 PRIORITY_SEVEN 	7
+				 PRIORITY_EIGHT 	8
+				 PRIORITY_INE 		9
+				 PRIORITY_TEN 		10
+				 PRIORITY_LEVEN 	11
+				 PRIORITY_TWELVE 	12
+				 PRIORITY_THIRTEEN 	13
+				 PRIORITY_FOURTEEN 	14
+				 PRIORITY_FIFTEEN 	15
+    				 ;
+  Specific-Action ::=  <Enumerated:513>
+                        INDICATION_OF_RELEASE_OF_BEARER         4
+ 			INDICATION_OF_SUBSCRIBER_DETACHMENT     6
+			INDICATION_OF_RESERVATION_EXPIRATION    7
+			;
+
+   Abort-Cause ::= < Enumerated: 500 >
+                INSUFFICIENT_SERVER_RESOURCES        1
+                INSUFFICIENT_BEARER_RESOURCES        2
+                ;
+
+
+///////////////
+//Grouped /////
+///////////////
+   Globally-Unique-Address ::= < AVP Header: 300 13019 >
+                                [Framed-IP-Address]
+                                [Framed-IPv6-Prefix]
+                                [Address-Realm]
+				*[ AVP ]
+                                ;
+
+///////////////
+//commands/////
+///////////////
+/**
+ * The User-Data-Request (UDR) command, indicated by the Command-Code field set to 306 and 
+ * the "R" bit set in the Command Flags field, is sent by a delegated x-RACF to a delegating 
+ * x-RACF to request an operation on delegation.
+*/
+
+  UserData-Request  ::= < Diameter Header: 306, REQ, PXY, 16777279>
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				[ Destination-Host ]
+				[Network-Resource-Id]
+				[Preferred-Delegated-Bandwidth-UL]
+				[Preferred-Delegated-Bandwidth-DL]
+				[Required-Delegated-Bandwidth-UL]
+				[Required-Delegated-Bandwidth-DL]
+				[Reservation-Priority]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The User-Data-Answer (UDA) command, indicated by the Command-Code field set to 306 and 
+ * the "R" bit cleared in the Command Flags field, is sent by a delegating x-RACF in 
+ * response to the User-Data-Request command.
+*/
+
+  UserData-Answer  ::= < Diameter Header: 306, PXY, 16777279>
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+                                { Origin-Host }
+                                { Origin-Realm }
+				[ Result-Code ]
+				[ Experimental-Result ]
+				[Granted-Delegated-Bandwidth-UL]
+				[Granted-Delegated-Bandwidth-DL]
+				[Total-Bandwidth-UL]
+				[Total-Bandwidth-DL]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The Push-Notification-Request (PNR) command, indicated by the Command-Code field set to 
+ * 309 and the "R" bit set in the Command Flags field, is sent by a delegating x-RACF to a 
+ * delegated x-RACF to request an operation on delegation.
+*/
+
+  Push-Notification-Request  ::= < Diameter Header: 309, REQ, PXY, 16777279>
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Host }
+				{ Destination-Realm }
+				[Network-Resource-Id]
+				[Granted-Delegated-Bandwidth-UL]
+				[Granted-Delegated-Bandwidth-DL]
+				[Preferred-Delegated-Bandwidth-UL]
+				[Preferred-Delegated-Bandwidth-DL]
+				[Required-Delegated-Bandwidth-UL]
+				[Required-Delegated-Bandwidth-DL]
+				[Reservation-Priority]
+				[Total-Bandwidth-UL]
+				[Total-Bandwidth-DL]
+				*[ Authorization-Package-Id ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The Push-Notifications-Answer (PNA) command, indicated by the Command-Code field set to 309 
+ * and the "R" bit cleared in the Command Flags field, is sent by a delegated x-RACF in response 
+ * to the Push-Notification-Request command.
+*/
+
+ Push-Notification-Answer ::= < Diameter Header: 309, PXY, 16777279>
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Auth-Session-State }
+                                { Origin-Host }
+                                { Origin-Realm }
+				[ Result-Code ]
+				[ Experimental-Result ]
+				[Granted-Delegated-Bandwidth-UL]
+				[Granted-Delegated-Bandwidth-DL]
+				[Total-Bandwidth-UL]
+				[Total-Bandwidth-DL]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The RAR command, indicated by the Command-Code field set to 258 and the "R" bit set in the 
+ * Command Flags field, is sent by the delegated x-RACF to the delegating x-RACF in order to 
+ * indicate a specific action. 
+*/
+
+ RA-Request ::= < Diameter Header: 258, REQ, PXY, 16777279>
+				< Session-Id >
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Host }
+				{ Destination-Realm }
+				{ Auth-Application-Id }
+				*{ Specific-Action }
+				*[ Flow-Description ]
+				[ Globally-Unique-Address ]
+				[ Logical-Access-Id ]
+				[ Abort-Cause ]
+				[ Origin-State-Id ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The RAA command, indicated by the Command-Code field set to 258 and the "R" bit cleared 
+ * in the Command Flags field, is sent by the delegating x-RACF to the delegated x-RACF 
+ * in response to the RAR command. 
+*/
+
+  RA-Answer ::= < Diameter Header: 258, PXY, 16777279>
+				< Session-Id >
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				[ Result-Code ]
+				[ Experimental-Result ]
+				[ Origin-State-Id ]
+				[ Error-Message ]
+				[ Error-Reporting-Host ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ AVP ]
+				;
+
+/**
+ * The CCR command, indicated by the Command-Code field set to 272 and the "R" bit set in the 
+ * Command Flags field, is sent by the delegating x-RACF to the delegated x-RACF in order to 
+ * report the occurrence of particular event.
+*/
+
+ CC-Request ::= < Diameter Header: 272, REQ, PXY, 16777279>
+				< Session-Id >
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Destination-Realm }
+				{ Destination-Host }
+				{ Auth-Application-Id }
+				*{ Specific-Action }
+				*[ Flow-Description ]
+				[ Globally-Unique-Address ]
+				[ Logical-Access-Id ]
+				[ Abort-Cause ]
+				[ Origin-State-Id ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				*[ AVP ]
+				;
+
+/**
+ * The Credit-Control-Answer message (CCA) is indicated by the command-code field being set to 
+ * 272 and the "R" bit being cleared in the Command Flags field. It is sent by the delegated 
+ * x-RACF to the delegating x-RACF in answer to the CCR.
+*/
+
+   CC-Answer ::= < Diameter Header: 272, PXY, 16777279>
+				< Session-Id >
+				{ Auth-Session-State }
+				{ Origin-Host }
+				{ Origin-Realm }
+				{ Auth-Application-Id }
+				[ Result-Code ]
+				[ Experimental-Result ]
+				[ Origin-State-Id ]
+				[ Error-Message ]
+				[ Error-Reporting-Host ]
+				*[ Failed-AVP ]
+				*[ Proxy-Info ]
+				*[ AVP ]	
+				;	

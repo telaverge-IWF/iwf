@@ -1,0 +1,125 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+############################################################################ 
+# FILE: Makefile                                                           
+# LOG: $Log: Makefile.dist,v $
+# LOG: Revision 1.1.2.1  2013/02/08 10:52:30  jvikas
+# LOG: Diameter Simulator Changes for IWF
+# LOG:
+# LOG: Revision 1.1.2.1  2013/01/28 11:31:38  pramana
+# LOG: Initial check-in for simulator code
+# LOG:
+# LOG: Revision 1.1.2.1.2.2  2012/12/20 18:39:15  rsanjay
+# LOG: Dictionary name changes
+# LOG:
+# LOG: Revision 1.1.2.1.2.1  2012/09/06 11:23:51  jvikas
+# LOG: DTF Branch merge to B-DRE-0212-00 - Sept6.
+# LOG:
+# LOG: Revision 1.1.2.1.4.1  2012/08/22 13:03:27  jvikas
+# LOG: Fixed Linking and Compilation Issues. Included Transformation in the XML.
+# LOG:
+# LOG: Revision 1.1.2.1  2012/07/09 08:53:44  pramana
+# LOG: New test code added for S6a, S13 for Release 10 support (Bug 48).
+# LOG:
+# LOG: Revision 1.3  2010/10/01 04:50:27  vkumara
+# LOG: libdias6aappD path included in Makefiles
+# LOG:
+# LOG: Revision 1.2  2008/11/12 05:46:54  sureshj
+# LOG: New commands added PUR/PUA, DSR/DSA, IDR/IDA. part of release 3.1.1.
+# LOG:
+# LOG: Revision 1.1  2008/08/19 06:58:33  sureshj
+# LOG: Baseline demo application for s6a interface.
+# LOG:								   	
+# ID: $Id: Makefile.dist,v 1.1.2.1 2013/02/08 10:52:30 jvikas Exp $							   	
+############################################################################
+#
+# Include the standard definitions
+#
+include	$(IMS_ROOT)/make.dirs
+
+DEFINES:=$(DEFINES) -DDUMP $(ITS_DEFINES)
+
+CXXFLAGS:=$(CXXFLAGS) -g -I./ -DUNIX \
+        -I$(ITS_ROOT)/common/include \
+        -I$(IMS_ROOT)/common/include \
+        -I$(IMS_ROOT)/include \
+        -I../include \
+        -I../../app_dist/include \
+        -I$(IMS_ROOT)/aim/client/include \
+        -I$(IMS_ROOT)/api/c++/include \
+        -I$(IMS_ROOT)/api/include \
+        -I$(ITS_ROOT)/include \
+        -I$(IMS_ROOT)/apps/include \
+        -I../../api/include \
+        -I$(IMS_ROOT)/dtf/include
+
+IMS_LIBS:=-lbaseapi$(DBGSUFFIX)  \
+          -ls6a_3gpp_r10_6$(DBGSUFFIX)
+
+ifeq ($(PLATFORM),solaris)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),solaris64)
+LIBS_OS:= \
+         -ldiaval$(DBGSUFFIX) \
+         $(IMS_LIBS) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+ifeq ($(PLATFORM),linux)
+LIBS_OS:= \
+         $(IMS_LIBS) \
+         -ldiaval$(DBGSUFFIX) \
+         -lIDSClient$(DBGSUFFIX) \
+         -ldistdiaapp$(DBGSUFFIX)
+endif
+
+LIBS:= $(ITS_LIBS) \
+            -L$(ITS_ROOT)/common/lib \
+            -L$(IMS_ROOT)/aim/client/lib \
+            -L../../app_dist/lib \
+            -L$(IMS_ROOT)/api/c++/lib \
+            -L$(IMS_ROOT)/api/lib \
+            -L$(IMS_ROOT)/api/c++/mtest/diameter/s6a_r10/lib \
+            -L$(IMS_ROOT)/apps/lib \
+            -L../../lib \
+            -L$(IMS_ROOT)/lib \
+            -L$(IMS_ROOT)/val/c++/lib \
+            $(LIBS_OS)
+
+OBJS:= UpdateLocationTest.o AuthenticationInformationTest.o CancelLocationTest.o \
+	 sample_s6a.o s6a_stats.o PurgeUETest.o DeleteSubscriberTest.o \
+         InsertSubscriberDataTest.o
+
+# Restrict the user to give explicit targets
+all: ../bin/sampleS6AR10Client$(DBGSUFFIX)
+
+../bin/sampleS6AR10Client$(DBGSUFFIX): $(OBJS)
+	$(CXX) $(CXXFLAGS) $(LIBS) -o \
+	$@ $(OBJS) $(LIBS) -lpthread $(SOCKLIBS) $(SYSLIBS) -ldl
+
+clean:
+	$(RM) ../bin/sampleS6AR10Client$(DBGSUFFIX) $(OBJS) 
+

@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    startPeer <hostName> <realmName>
+
+DESCRIPTION
+    This command start the peer.
+
+PARAMETERS
+    <hostName>    Peer Host Name
+    <realmName>   Peer Realm Name 
+
+EXAMPLE
+    >> startPeer Alice india.internal.net
+
+       Successfully Peer started

@@ -1,0 +1,39 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#                   #
+# CONTRACT: INTERNAL                   #
+#                   #
+############################################################################
+#
+#ident "$Id: MFGenerator.sh-Jinterface,v 3.1 2008/03/31 10:33:22 nvijikumar Exp $"
+#
+############################################################################
+
+echo "Generating the META-INF/MANIFEST.MF...."
+METAFILE=/opt/IntelliNet/APPLICATIONPKG-IMSVERSION/demo/src/META-INF
+                                                                                                                             
+mkdir -p $METAFILE
+                                                                                                                             
+export APPLICATIONPKGAPPCLASSPATH=/opt/IntelliNet/APPLICATIONPKG-IMSVERSION/demo/jar/JSampleINTERFACEApp$DBGSUFFIX.jar
+export JIDCCLASSPATH=$JIDC_JARS/JIDC$DBGSUFFIX.jar
+export JBASEAPPCLASSPATH=$JIDC_JARS/JSampleBaseApp$DBGSUFFIX.jar
+export JBASEAPICLASSPATH=$JAPI_JARS/diabaseapi$DBGSUFFIX.jar
+export JNASREQCLASSPATH=$JAPI_JARS/dianasreqapi$DBGSUFFIX.jar
+export APPLICATIONPKGAPICLASSPATH=/opt/IntelliNet/APPLICATIONPKG-IMSVERSION/lib/diaPackageJarsapi$DBGSUFFIX.jar
+export JVALCLASSPATH=$IMS_ROOT/api/jar/diameter$DBGSUFFIX.jar
+                                                                                                                             
+echo "Main-Class: src.INTERFACEAppMain" > $METAFILE/MANIFEST.MF
+echo "Class-Path:" $JIDCCLASSPATH >> $METAFILE/MANIFEST.MF 
+echo "  " $JBASEAPPCLASSPATH >> $METAFILE/MANIFEST.MF 
+echo "  " $JBASEAPICLASSPATH >> $METAFILE/MANIFEST.MF 
+echo "  " $JNASREQCLASSPATH >> $METAFILE/MANIFEST.MF
+echo "  " $APPLICATIONPKGAPICLASSPATH >> $METAFILE/MANIFEST.MF 
+echo "  " $JVALCLASSPATH >> $METAFILE/MANIFEST.MF
+echo "Name: ." >> $METAFILE/MANIFEST.MF
+echo >> $METAFILE/MANIFEST.MF

@@ -1,0 +1,24 @@
+#!/bin/bash
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+#
+echo ARCH="sparc"
+echo VERSION=$IMS_VER
+echo PKG="$APP_PKG"
+echo NAME="IntelliNet Diameter Application"
+echo RELEASE=0
+echo OLDVERSION=0
+echo VENDOR=IntelliNet Technologies
+echo CATEGORY=application
+echo EMAIL=info@intellinet-tech.com
+echo CLASSES=none 
+echo PSTAMP=sparcbuild
+echo BASEDIR="/opt/IntelliNet" 
+echo BACKUPDIR="/opt/IntelliNet/NASREQ_BKP"
+echo USER="intelli"
+echo GROUP="other"

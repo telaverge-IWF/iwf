@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    setHMIHBInterval <interval>
+
+DESCRIPTION
+    This command is used to set HMI Heartbeat Interval.
+
+PARAMETERS
+    <interval>    HMI Heartbeat Interval in milli sec
+
+EXAMPLE
+    >> setHMIHBInterval 500
+       HMI Heatbeat interval Set 
+

@@ -1,0 +1,19 @@
+%PB{
+
+    message ComponentStatus {
+        optional uint32 componentId = 1;
+        optional uint32 currentStatus = 2;
+    }
+
+    message ComponentStatusUpdateReq {
+        optional uint32 requestId = 1;
+        optional uint32 tipcNodeId = 2;
+        repeated ComponentStatus currentComponentStatus = 3;
+    }
+
+    message ComponentStatusUpdateResp {
+        optional uint32 responseid = 1;
+        optional ComponentStatus currentComponentStatus = 2;
+    }
+
+%PB}

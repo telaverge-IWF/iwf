@@ -1,0 +1,301 @@
+<?xml version="1.0"?>
+
+<!-- Sample XML file for application configuration (INI). -->
+
+<Application name           = "IPD"
+             type           = "console-application"
+             globalStart    = "ITU-TCAP + ITU-SCCP"
+             binding        = "CPP"
+             library        = "libAPP.so"
+             preFunc        = "MyPreFunc"
+             postFunc       = "MyPostFunc">
+
+    <AppOptions name = "traceFlushAfterWrite"         value = "yes"/>
+    <AppOptions name = "routeUniqueLinkCodesRequired" value = "no"/>
+    <AppOptions name = "memPoolChecksOn"              value = "no"/>
+
+
+    <Feature
+        name        = "IntelliNet stack"
+        library     = "libENGINED.so"
+        classRec    = "itsINTELLISS7_Class"
+    />
+
+    <Feature
+        name        = "SCTP"
+        library     = "libSCTPD.so"
+        classRec    = "itsSCTP_Class"
+    />
+
+    <Feature
+       name        = "CCITT-M3UA"
+       library     = "libCCITT-M3UAD.so"
+       classRec    = "itsM3UA_Class_CCITT"
+    />
+
+    <Feature
+       name        = "M3UA_Manager"
+       library     = "libCCITT-M3UAMGNTD.so"
+       classRec    = "itsM3UAMGNT_Class"
+    />
+
+   <ParserExtension library     = "libCCITT-M3UAMGNTD.so"
+          elementName = "M3UA_Manager"
+          startFunc   = "M3UA_ParseStartFunc"
+          stopFunc    = "M3UA_ParseStop"
+          xlateFunc   = "M3UA_ResourceXlate"
+          diffFunc    = "M3UA_ExtensionDiff"
+   />
+
+   <M3UA_Manager  useSCMGCallBack   = "no"
+         heartBeat         = "off"
+         hbInterval        = "5"
+         ackTimer          = "600"
+         pendingTimer      = "2"
+         aspTrafficMode    = "overRideMode"
+         interworkingMode  = "endPointMode"
+         version           = "1">
+
+         <M3UA_RoutingKey   routingKey       = "1">
+         </M3UA_RoutingKey>
+
+   </M3UA_Manager>
+
+    <ToolkitTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Error     output = "file"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "file"/>
+    </ToolkitTrace>
+
+    <ApplicationTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+        <Debug     output = "file"/>
+    </ApplicationTrace>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <!--///////////////////////////////////////////////////////////////-->
+		   
+	<WorkerPool stackSize = "0">
+		   
+           <Transport  name    = "DaemonWorker"
+                               type    = "TaskQueue"
+                               count   = "1"
+                               family  = "ITU">
+
+                <Modifier value = "SCCP"/>
+
+                <Callbacks
+                    library         = "libAPPITU.so"
+                    type            = "blocking"
+                    userMsgHandler  = "GTW_UserMsgHandler"
+                />
+
+           </Transport>
+	 
+	 </WorkerPool>
+	 
+	 
+	 <BorderPool stackSize = "0">
+
+
+           <Transport  name    = "Test SCTP"
+                       type    = "Datagram"
+                       family  = "ITU">
+                       
+               <Modifier value = "SCTP"/>
+               <Modifier value = "MTP3"/>
+
+               <DatagramData   localHostName   = "10.1.4.12"
+                               localPort       = "2960">
+
+                      <Associate   value  = "GTW"/>
+
+               </DatagramData>
+
+                      <SCTP   maxInStreams      = "32"
+                              numOutStreams     = "32"
+                              maxAttempts       = "5"
+                              cookieLife        = "30"
+                              hbOn              = "yes"
+                              initTimeOut       = "5,0"
+                              sendTimeOut       = "5,0"
+                              recvTimeOut       = "0,300"
+                              hbTimeOut         = "10,0"
+                              shutdownTimeOut   = "5,0"
+                              pmtuTimeOut       = "600,0"
+                              isClient          = "yes"
+                              payloadType       = "CCITT-M3UA">
+                       </SCTP>
+
+           </Transport>
+
+           <Transport   name    = "GTW"
+                        type    = "Virtual"
+                        family  = "ITU">
+
+                  <Modifier value = "SCTP"/>
+
+                  <DatagramData   socketDomain    = "INET"
+                                  serverHostName  = "10.1.5.101"
+                                  serverPort      = "2960">
+
+                  </DatagramData> 
+
+
+                     <Callbacks
+                         library         = "libAPPITU.so"
+                         type            = "blocking"
+                         preInitialize   = "null"
+                         postInitialize  = "GTW_PostInit"
+                     />
+
+                     <Route  routeType    = "remoteRoute"
+                             routeStyle   = "dpc">
+                         <DPC            value = "0x1012"/>
+                         <LinkSet        value = "1"/>
+                         <LinkCode       value = "1"/>
+                     </Route>
+
+                     <Route  routeType    = "routingKeyRoute"
+                             routeStyle   = "dpc">
+                         <routingKey     value = "0x01"/>
+                         <DPC            value = "0xa"/>
+                         <LinkSet        value = "1"/>
+                         <LinkCode       value = "1"/>
+                     </Route>
+
+           </Transport>
+
+
+           <Transport  name    = "IVR"
+                       type    = "ServerSocket"
+                       family  = "ITU">
+                       
+               <Modifier value = "SCCP"/>
+
+               <StreamData socketDomain    = "INET"
+                           serverHostName  = "127.0.0.1"
+                           serverPort      = "6666"
+               />
+
+
+               <Callbacks
+                   library         = ""
+                   type            = "blocking"
+                   preInitialize   = "null"
+                   postInitialize  = "IVR_PostInit"
+                   preNextEvent    = "null"
+                   nextEventFailed = "null"
+                   postNextEvent   = "null"
+                   userMsgHandler  = "IVR_UserMsgHandler"
+                   userDispatch    = "null"
+                   SCCPDispatch    = "null"
+                   ISUPDispatch    = "null"
+                   preTerminate    = "null"
+                   postTerminate   = "null"
+               />
+				
+
+               <Route  routeType    = "remoteRoute"
+                       routeStyle   = "dpc-sio-ssn">
+                   <DPC            value = "0x5"/>
+                   <SIO            value = "0x3"/>
+                   <SSN            value = "2"/>
+                   <LinkSet        value = "1"/>
+                   <LinkCode       value = "2"/>
+               </Route>
+
+
+           </Transport>
+
+
+
+
+	</BorderPool>
+    <SS7-Stacks>
+
+        <!--///////////////////////////////////////////////////////////-->
+
+        <IntelliNet>
+
+            <ITU-SCCP variant = "WhiteBook">
+  
+                <Variant value = "WhiteBook"/>
+  
+                <StackTrace>
+                    <Critical output = "null"/>
+                    <Critical output = "null"/>
+                    <Error    output = "null"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "null"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                </StackTrace>
+  
+                <Timers
+                    TstatInfo    = "30"
+                    TcoordChg    = "30"
+                    TignoreSST   = "30"
+                    TrtgStatInfo = "30"
+                    Tconnect     = "30"
+                    Trelease     = "10"
+                    Treset       = "20"
+                    Tias         = "300"
+                    Tiar         = "660"
+                    Tguard       = "240"
+                />
+  
+                <BehaviorControl
+                    PropagateIT   = "no"
+                    PropagateERR  = "no"
+                    PropagateSCMG = "no"
+                    EnableSCMG = "no"
+                />
+  
+            </ITU-SCCP>
+  
+            <!--///////////////////////////////////////////////////////////////-->
+  
+            <ITU-TCAP variant = "WhiteBook">
+  
+                <StackTrace>
+                    <Critical output = "null"/>
+                    <Critical output = "null"/>
+                    <Error    output = "null"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "null"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                </StackTrace>
+  
+                <Timers
+                    Treject = "5"
+                />
+
+                <Route  routeType    = "localRoute"
+                        routeStyle   = "dpc">
+                   <SIO        value = "3"/>
+                    <DPC        value = "0xA"/>
+                    <SSN        value = "2"/>
+                    <LinkSet    value = "1"/>
+                    <LinkCode   value = "1"/>
+                </Route>
+
+  
+            </ITU-TCAP>
+
+            
+  
+            <!--///////////////////////////////////////////////////////////////-->
+
+
+        </IntelliNet>
+
+    </SS7-Stacks>
+</Application>

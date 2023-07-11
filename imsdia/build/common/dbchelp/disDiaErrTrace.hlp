@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    disDiaErrTrace                                                                                 
+DESCRIPTION
+    This command disables the diameter stack Error traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> disDiaErrTrace
+    *******Diameter Error Traces are disabled*******
+

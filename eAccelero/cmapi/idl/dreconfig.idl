@@ -1,0 +1,363 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "ManageRealmsConfig";
+
+import "Common.proto";
+import "diameterstack.proto";
+
+//Obsolete message - deprecated - DON'T USE
+//retained for backward compatability
+
+message LocalHostConfig {
+  optional string LocalHostName = 1;
+  optional string RealmName = 2;
+  optional string MateHostName = 3;
+  optional string TransportType = 4;
+  optional fixed32  AuthSessionTimeout = 5;
+  optional fixed32  AuthSessionLifeTime = 6;
+  optional fixed32  AuthSessionGracePeriod = 7;
+  optional fixed32  AcctSessionInterimInterval = 8;
+  optional fixed32  AcctSessionRealTime = 9;
+  optional fixed32  AcctSessionTimeout = 10;
+  optional string HostIpAddr = 11;
+  optional fixed32 OperReqID = 12;
+  optional fixed32 port = 13;
+}
+
+message PeerConfig {
+  optional string   PeerHostName    = 1;
+  optional fixed32  PeerID          = 2;
+  optional string   Realm           = 3;
+  optional bool     TlsEnabled      = 4;
+  optional string   TransportType   = 5;
+  optional string   ServerIpAddr    = 6;
+  optional fixed32  Port            = 7;
+  optional bool     FailoverEnable  = 8;
+  optional bool     FailebackEnable = 9;
+  optional string   AltPeerName     = 10;
+  optional bool     IsMate          = 11;
+  optional fixed32  TcTimerVal      = 12;
+  optional fixed32  WatchDogTimer   = 13;
+  optional fixed32  ExpiryTimer     = 14;
+  repeated string   DictionaryName  = 15;
+  repeated fixed32  DictionaryID    = 16;
+  optional bool     PeerStatus      = 17;
+  optional fixed32  PeerState       = 18;
+  repeated string   SecondaryIPAddr = 19;
+  optional fixed32  BusyReconnectTimerVal           = 20;
+  optional fixed32  DonotWantToTalkToYouTimerVal    = 21;
+  optional bool     IsSupportDisconnectCause        = 22;
+  optional fixed32  SecurePort      = 23;
+  repeated fixed32  TypeOfApp       = 24;
+  optional fixed32  DscpValue       = 25;
+  optional fixed32  CmfTemplateId   = 26;
+  optional string   CmfTemplateName = 27;
+  optional bool     IsRetransMissionEnabled = 28;
+  optional bool     IsClient        = 29;
+  optional fixed32  SourcePort      = 30;
+  optional string transportTag      = 31;
+}
+
+message PeersConfig {
+    repeated PeerConfig Peers = 1;
+    optional fixed32 OperReqID = 2;
+}
+
+
+message Destination {
+  optional string PeerName = 1;
+  optional fixed32 PeerID = 2;
+  optional fixed32  ApplicationID = 3;
+  optional fixed32  VendorID = 4;
+  optional fixed32  Priority =5;
+  optional string  RealmName = 6;
+  optional fixed32  DynamicallyDiscovered=7;
+  optional fixed32  DynDiscoveryExpiry=8;
+  optional bool IsRedirectAgent = 9;
+}
+
+message RealmConfig {
+  optional string RealmName = 1;
+  optional string LocalAction = 2;
+  optional bool   EnableProxyInfoAVP = 3;
+  optional fixed32  RedirectHostUsage = 4;
+  optional fixed32  RedirectMaxCacheTime = 5;
+  repeated Destination DestInfo = 6;
+  optional string DefaultRoute = 7;
+  optional fixed32 RealmId = 8;
+}
+
+message RealmsConfig {
+    repeated RealmConfig Realms = 1;
+    optional fixed32 OperReqID  = 2;
+}
+
+message DRECfgResp {
+    required fixed32          RespCode      = 1;
+    optional LocalHostConfig  LocalHost     = 2;
+    optional RealmsConfig     Realms        = 3;
+    optional PeersConfig     Peers          = 4;
+    repeated ErrorDetails ErrorDetails      = 5;
+    repeated DictionaryConfig dictionaryInfo = 6;
+    repeated TransformPluginConfig transformPlugInInfo    = 7;
+}
+
+message Privilege
+{
+    optional string PrivilegeName   = 1;
+    optional string PrivilegeDesc   = 2;
+    optional fixed32 PrivilegeValue = 3;
+}
+
+message Group
+{
+    optional string GroupName     = 1;
+    optional string GroupDesc     = 2;
+    repeated Privilege Privileges = 3;
+}
+
+message UserInfo
+{
+    optional string UserName    = 1;
+    optional bytes Password     = 2;
+    optional fixed32 Privilege  = 3;
+    optional Group UserGroup    = 4;
+    enum UserStatus
+    {
+        ACTIVE    = 1;
+        INACTIVE  = 2;
+        DELETED   = 3;
+    }
+    optional UserStatus Status  = 5;
+}
+
+message Users
+{
+    repeated UserInfo UserData = 1;
+}
+
+message GroupReq
+{
+    required fixed32 RequestID = 1;
+    repeated Group  Group      = 2;
+}
+
+message GroupResp
+{
+    required fixed32 ResponseID = 1;
+    repeated Group  Group       = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message UserReq
+{
+    required fixed32 RequestID = 1;
+    optional Users User        = 2;
+}
+
+message UserResp
+{
+    required fixed32 ResponseID = 1;
+    optional Users User         = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message TraceConfig
+{
+    optional fixed32 FilterID       = 1;
+    optional string FilterName      = 2;
+    optional string Rule            = 3;
+    optional fixed32 Priority       = 4;
+    optional fixed32 ExpireDuration = 5;
+    optional fixed32 ExpireMessages = 6;
+    optional bool FilterStatus      = 7;
+    optional fixed32 LogLevel       = 8;
+}
+
+message TraceReq
+{
+    required fixed32 RequestID     = 1;
+    optional bool EnableTrace      = 2;
+    repeated TraceConfig TraceData = 3;
+}
+
+message TraceResp
+{
+    required fixed32 ResponseID       = 1;
+    optional bool EnableTrace         = 2;
+    repeated TraceConfig TraceData    = 3;
+    repeated ErrorDetails ErrorDetails = 4;
+}
+
+message THFAction
+{
+    enum Action
+    {
+        ExposeTo =  0;
+        HideFrom =  1;
+    }
+    optional Action action = 1;
+    optional string realmName = 2;
+    optional fixed32 exposedAvps = 3;
+}
+
+message THFRealm
+{
+    optional string realmName = 1;
+    repeated THFAction otherRealm = 2;
+}
+
+message THFVHost
+{
+    optional string vHost = 1;
+    optional string vRealm = 2;
+}
+
+message THFReq
+{
+    required fixed32 requestId = 1;
+    optional bool enableTHF = 2;
+    optional bool defaultExpose = 3;   // default-behavior
+    repeated THFRealm realms = 4;
+    repeated THFVHost vhosts = 5;
+}
+
+message THFResp
+{
+    required fixed32 responseId = 1;
+    optional fixed32 requestId = 2;
+    optional bool enableTHF = 3;
+    optional bool defaultExpose = 4;
+    repeated THFRealm realms = 5;
+    repeated THFVHost vhosts = 6;
+    repeated ErrorDetails errorDetails = 7;
+}
+
+//DTF: Dictionary and transformation_plugin
+message DictionaryConfig {
+    optional fixed32 dictionaryId   = 1;
+    optional string dictionaryName  = 2;
+    optional fixed32 applicationId  = 3;
+    optional bool isDictEnabled     = 4;
+    optional bool isDefaultDict     = 5;
+    optional string interfaceName   = 6;
+    optional string releaseNumber   = 7;
+    optional fixed32 appType        = 8;
+}
+
+message TransformPluginConfig {
+    optional string  plugInName         = 1;
+    optional fixed32 dictionaryId1      = 2;
+    optional fixed32 dictionaryId2      = 3;
+    optional bool isPluginEnabled       = 4;
+    optional string plugInConfigFile    = 5;
+    optional string dictionaryName1     = 6;
+    optional string dictionaryName2     = 7;
+}
+
+message DictionaryConfigReq {
+    optional fixed32 OperReqID                  = 1;
+    repeated DictionaryConfig Dictionaryinfo    = 2;
+}
+
+message TransformPluginConfigReq {
+    optional fixed32 OperReqID                          = 1;
+    repeated TransformPluginConfig TransformPlugininfo  = 2;
+}
+
+message SDTFRule {
+    enum TriggerType {
+        Ingress = 0;
+        Egress  = 1;
+    }
+    optional uint32 ruleId     = 1;
+    optional string ruleName   = 2;
+    optional uint32 priority   = 3;
+    optional TriggerType type  = 4;
+    optional bool enabled      = 5;
+    optional string rule       = 6;
+    optional string script     = 7;
+}
+
+message SDTFReq {
+    required fixed32 requestId  = 1;
+    optional bool enableSDTF    = 2;
+    repeated SDTFRule rule      = 3;
+}
+
+message SDTFResp {
+    required fixed32 responseId        = 1;
+    optional fixed32 requestId         = 2;
+    optional bool enableSDTF           = 3;
+    repeated SDTFRule rule             = 4;
+    repeated ErrorDetails errorDetails = 5;
+}
+
+%PB}
+
+
+interface CMgrMethods
+{
+    HandleGetLocalHostConfigReqs(LocalHostConfig req, DRECfgResp resp)uses_PB;
+    HandleSetLocalHostConfigReqs(LocalHostConfig req, DRECfgResp resp)uses_PB;
+    HandleGetPeerConfigReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleGetPeerStatesReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleSetPeerConfigReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleDelPeerConfigReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleGetRealmConfigReqs(RealmsConfig req, DRECfgResp resp)uses_PB;
+    HandleSetRealmConfigReqs(RealmsConfig req, DRECfgResp resp)uses_PB;
+    HandleDelRealmConfigReqs(RealmsConfig req, DRECfgResp resp)uses_PB;
+    GetUserConfig(UserReq Req, UserResp Resp)uses_PB;
+    SetUserConfig(UserReq Req, UserResp Resp)uses_PB;
+    HandleGetStackConfiguration(StackConfigRequest Req,  StackConfigResponse Resp)uses_PB;
+    HandleSetStackConfiguration(StackConfigRequest Req,  StackConfigResponse Resp)uses_PB;
+    HandleGetTraceConfigReqs(TraceReq Req, TraceResp Resp)uses_PB;
+    HandleSetTraceConfigReqs(TraceReq Res, TraceResp Resp)uses_PB;
+    GetTHFConfig(THFReq req, THFResp resp) uses_PB;
+    SetTHFConfig(THFReq req, THFResp resp) uses_PB;
+    HandleGetPluginConfigReq(TransformPluginConfigReq req,DRECfgResp resp) uses_PB;
+    HandleSetPluginConfigReq(TransformPluginConfigReq req,DRECfgResp resp) uses_PB;
+    HandleGetDictionaryConfigReq(DictionaryConfigReq req,DRECfgResp resp)uses_PB;
+    HandleSetDictionaryConfigReq(DictionaryConfigReq req,DRECfgResp resp)uses_PB;
+    GetSDTFConfig(SDTFReq req, SDTFResp resp) uses_PB;
+    SetSDTFConfig(SDTFReq req, SDTFResp resp) uses_PB;
+    HandleGetLocalTransportTags(LocalTransportTagRequest Req,  LocalTransportTagResponse Resp)uses_PB;
+}
+
+interface DiaMgtMethods
+{
+    HandleLocalHostConfigReqs(LocalHostConfig req, DRECfgResp resp)uses_PB;
+    HandleDreSetPeerConfigReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleDreDelPeerConfigReqs(PeersConfig req, DRECfgResp resp)uses_PB;
+    HandleDreSetRealmConfigReqs(RealmsConfig req, DRECfgResp resp)uses_PB;
+    HandleDreDelRealmConfigReqs(RealmsConfig req, DRECfgResp resp)uses_PB;
+    HandleTraceConfigReqs(TraceReq req, TraceResp resp)uses_PB;
+    HandleTHFConfig(THFReq req, THFResp resp) uses_PB;
+    HandlePluginConfig(TransformPluginConfigReq req,DRECfgResp resp)uses_PB;
+    HandleDictionaryConfig(DictionaryConfigReq req,DRECfgResp resp)uses_PB;
+    HandleSDTFConfig(SDTFReq req, SDTFResp resp) uses_PB;
+}
+
+interface DreFetch
+{
+    FetchDreConfiguration(PeersConfig Req, DRECfgResp Resp)uses_PB;
+    FetchStackConfiguration(StackConfigRequest Req,  StackConfigResponse Resp)uses_PB;
+    FetchTraceConfiguration(TraceReq req, TraceResp resp)uses_PB;
+    FetchTHFConfig(THFReq req, THFResp resp) uses_PB;
+    FetchDictionaryConfig(DictionaryConfigReq req,DRECfgResp resp)uses_PB;
+    FetchPluginConfig(TransformPluginConfigReq req,DRECfgResp resp)uses_PB;
+    FetchSDTFConfig(SDTFReq req, SDTFResp resp) uses_PB;
+}
+
+interface DREConfigResults
+{
+    SendDREConfigResult(DRECfgResp Req, CMAPIRes Resp)uses_PB;
+    SendTraceConfigResult(TraceResp Req, CMAPIRes Resp)uses_PB;
+    SendTHFConfigResult(THFResp Req, CMAPIRes Resp)uses_PB;
+    SendSDTFConfigResult(SDTFResp Req, CMAPIRes Resp) uses_PB;
+}
+
+interface TraceConfigFetch
+{
+    GetTraceConfigReqs(TraceReq req, TraceResp resp)uses_PB;
+}

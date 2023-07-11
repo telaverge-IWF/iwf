@@ -1,0 +1,18 @@
+Diameter Command
+
+SYNOPSIS
+    removeRealm <realmName>
+
+DESCRIPTION
+    This command removes realm entry from realm table.
+
+PARAMETERS
+
+    realmName     Realm Name.
+
+EXAMPLE
+    >> removeRealm india.internal.net
+
+       Successfully Realm removed
+
+NOTE: Statically added Realm can't be remove

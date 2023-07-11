@@ -1,0 +1,23 @@
+/.cvsignore/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/README/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse.cpp/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse.dsp/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse.dsw/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse.sln/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse.vcproj/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse_aggregate.cpp/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse_choice.cpp/9.1/Wed Mar 23 12:53:31 2005//TB-IWF-HP-0400-00
+/parse_construct.cpp/9.1/Wed Mar 23 12:53:32 2005//TB-IWF-HP-0400-00
+/parse_exception.cpp/9.1/Wed Mar 23 12:53:32 2005//TB-IWF-HP-0400-00
+/parse_keyword.cpp/9.1/Wed Mar 23 12:53:32 2005//TB-IWF-HP-0400-00
+/parse_parser.cpp/9.1.158.1/Wed Jan  2 22:56:33 2013//TB-IWF-HP-0400-00
+/parse_production.cpp/9.1/Wed Mar 23 12:53:32 2005//TB-IWF-HP-0400-00
+/parse_repetition.cpp/9.1/Wed Mar 23 12:53:32 2005//TB-IWF-HP-0400-00
+/parse_scanner.cpp/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+/parse_terminal.cpp/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+/parse_token.cpp/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+/parse_tokenizer.cpp/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+/parse_utilities.cpp/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:53:33 2005//TB-IWF-HP-0400-00
+D

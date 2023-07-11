@@ -1,0 +1,139 @@
+
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "ManageUsersConfig";
+
+
+import "Common.proto";
+
+message UserDetail {
+  optional fixed32 UserId = 1;
+  optional string UserName = 2;
+  optional bytes Password = 3;
+  optional string FirstName = 4;
+  optional string LastName = 5;
+  optional string Email = 6;
+  optional bool UserStatus = 7;
+  optional string UserType = 8;
+  optional string LastLogin = 9;
+  optional string CreatedBy = 10;
+  optional string CreationTime = 11;
+  optional string ModifiedBy = 12;
+  optional string ModificationTime = 13;
+  optional Role RoleDetails = 14;
+  optional IdentityServer IDSInfo = 15;
+  optional fixed32 CreatedById = 16;
+  optional fixed32 ModifiedById = 17;
+  optional bool PasswordStatus = 18;
+}
+
+message Role {
+    optional fixed32 RoleId = 1;
+    optional string RoleName = 2;
+    optional bool RoleStatus = 3;
+    optional Previlages PrevilagesDetails = 4;
+}
+
+message Previlage {
+    optional fixed32 PrevilageId = 1;
+    optional string PrevilageName = 2;
+    optional string PrevilageDesc = 3;
+}
+
+message EmailServer {
+    optional fixed32 EmailServerId = 1;
+    optional string HostName = 2;
+    optional fixed32 PortNumber = 3;
+    optional string SystemEmail = 4;
+    optional bytes Password = 5;
+    optional string PasswordString = 6;
+}
+
+message IdentityServer {
+    optional fixed32 IdentityServerId = 1;
+    optional string ConnectionURL = 2;
+    optional string DomainName = 3;
+    optional string LoginId = 4;
+    optional bytes Password = 5;
+}
+
+message EmailContent {
+    optional fixed32 ContentId = 1;
+    optional string EmailContentFor = 2;
+    optional bool EmailStatus = 3;
+    optional string Subject = 4;
+    optional string Message = 5;
+}
+
+message UserDetails {
+    repeated UserDetail UserInfo = 1;
+}
+
+message Roles {
+    repeated Role RoleInfo = 1;
+}
+
+message Previlages {
+    repeated Previlage PrevilageInfo = 1;
+}
+
+message UserDetailResp {
+    optional fixed32 ResponseID = 1;
+    optional UserDetails UsersInfo = 2;
+    optional Roles RolesInfo = 3;
+    optional Previlages PrevilageInfo = 4;
+    repeated ErrorDetails ErrorDetails = 5;
+}
+
+message UserDetailReq {
+    optional fixed32 RequestID = 1;
+    optional UserDetails UsersInfo = 2;
+    optional Roles RolesInfo = 3;
+    optional Previlages PrevilageInfo = 4;
+}
+
+message IdentityServerReq {
+    optional fixed32 RequestID = 1;
+    repeated IdentityServer IdentityServers = 2;
+}
+
+message IdentityServerResp {
+    optional fixed32 ResponseID = 1;
+    repeated IdentityServer IdentityServers = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message EmailContentResp {
+    optional fixed32 ResponseID = 1;
+    repeated EmailContent EmailContents = 2;
+    repeated ErrorDetails ErrorDetails = 5;
+}
+
+message EmailContentReq {
+    optional fixed32 RequestID = 1;
+    repeated EmailContent EmailContents = 2;
+}
+
+message EmailServerReq {
+    optional fixed32 RequestID = 1;
+    repeated EmailServer EmailServers = 2;
+}
+
+message EmailServerResp {
+    optional fixed32 ResponseID = 1;
+    repeated EmailServer EmailServers = 2;
+    repeated ErrorDetails ErrorDetails = 5;
+}
+
+%PB}
+
+interface CMgrUserManagementMethods
+{
+    HandleSetUserConfigReqs(UserDetailReq Req,UserDetailResp Resp)uses_PB;
+    HandleGetUserConfigReqs(UserDetailReq Req,UserDetailResp Resp)uses_PB;
+    HandleSetEmailContentReqs(EmailContentReq Req,EmailContentResp Resp)uses_PB;
+    HandleGetEmailContentReqs(EmailContentReq Req,EmailContentResp Resp)uses_PB;
+    HandleSetEmailServerReqs(EmailServerReq Req,EmailServerResp Resp)uses_PB;
+    HandleGetEmailServerReqs(EmailServerReq Req,EmailServerResp Resp)uses_PB;
+}
+

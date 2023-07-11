@@ -1,0 +1,4 @@
+all		cpp	itu	*.cpp
+all		c	itu	*.c
+all		c	itu	Makefile
+

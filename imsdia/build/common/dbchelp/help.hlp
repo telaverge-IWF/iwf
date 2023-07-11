@@ -1,0 +1,98 @@
+IntelliNet DIAMETER MML Command Summary -
+
+IMS DIAMETER Module :
+
+------------ MML Commands [ Static demo setup ] ------------
+ 
+     enDiaTrace               Enable All Dia Traces
+     disDiaTrace              Disable All Dia Traces
+     stop-traffic             Stop Traffic that generated during load testing
+     start-traffic            Start Traffic for load testing
+     tps                      TPS
+     di                       Hex Dump Injector
+     stats                    Show Statistics
+     clear                    Clear Statistics
+
+------------ MML Commands [ Redundancy Setup ] -------
+
+     getNodeState             Get Node State
+     switchOver               Switch over
+
+------------ MML Commands [ MML Server ] ------------
+
+     addPeer                  Add Peer Entry to Peer Table
+     addRealm                 Add Realm Entry to Realm Table
+     addDestination           Add Destination for Realm
+     addAlternatePeer         Add Alternate Peer for Failover/Failback
+     disableHMI               Disable Health Monitor Interface
+     disablePeerDiscovery     Disable Peer Discovery
+     diaCommit                Commit changes to a XML
+     disconnectPeer           Disconnect Peer 
+     disconnectAllPeer        Disconnect All Peer
+     discoverPeer             Discover Peer Dynamically
+     disDiaCritTrace          Disable Dia Critical Traces
+     disDiaDebTrace           Disable Dia Debug Traces
+     disDiaErrTrace           Disable Dia Error Traces
+     disDiaWarnTrace          Disable Dia Warning Traces
+     disProxyInfoAvp          Disables Proxy Info AVP
+     disStatistics            Disable Stack Statistics 
+     disTrace                 Disable All Traces
+     downStreamQCount         Downstream Queue Count
+     enableHMI                Enable Health Monitor Interface
+     enablePeerDiscovery      Enable Peer Discovery
+     enDiaCritTrace           Enable Dia Critical Traces
+     enDiaDebTrace            Enable Dia Debug Traces
+     enDiaErrTrace            Enable Dia Error Traces
+     enDiaWarnTrace           Enable Dia Warning Traces
+     enProxyInfoAvp           Enables Proxy Info AVP
+     enStatistics             Enable Stack Statistics
+     enTrace                  Enable All Traces
+     getDiaIndications        Print All Stack Indications
+     getDiaSesionStats        Print All Session based message statistics
+     getDiaPeerStats          Print All Peer based message statistics
+     getDiaTrace              Display Dia Tracing Info
+     getDiaMiscStats          Display Miscellaneous Statistics
+     getDiscoveryInterval     Display Peer Discovery Interval
+     getHMICheckInterval      Display HMI Check Interval
+     getHMIHBInterval         Display HMI Heartbeat interval
+     getHMIRetry              Display HMI Retry
+     getHMITimeout            Display HMI Timeout
+     getOverloadLimits        Display Overload Limits
+     getStackStats            Print All Stack statistics
+     idcConns                 IDS-IDC connection Status
+     isHMIEnabled             Prints HMI is enabled or not
+     isProxyInfoAvpEnabled    Prints Proxy Info AVP is enabled or not
+     isStatsEnabled           Prints Stack Statistics Enabled or Not
+     modifyAltPeer            Modify Alternate Peer
+     modifyPriority           Modify Destination Priority
+     printDefaultRoute        Print Default Route
+     printPeerTable           Print All Peer Table Entry
+     printRealmTable          Print All Realm Table Entry
+     printSessionTable        Prints Session Table
+     removeAltPeer            Remove Alternate Peer
+     removeDefaultRoute       Remove Default Route
+     removeDestination        Remove Destination Entry from Realm Table
+     removeFromPeerDiscovery  Remove Peer Discovery List
+     removePeer               Remove Peer Entry from Peer Table
+     removeRealm              Remove Realm Entry from Realm Table
+     resetStackStats          Clears All Stack Statistics
+     setAcctTimers            Set Accounting Timers
+     setAuthTimers            Set Auth Timers
+     setDiscoveryInterval     Set Peer Discovery Interval
+     setDefaultRoute          Set Default Realm Route
+     setHMICheckInterval      Set HMI Check Interval
+     setHMIHBInterval         Set HMI Heartbeat Interval
+     setHMITimeout            Set HMI Timeout
+     setHMIRetry              Set HMI Retry
+     setLocalHostInfo         Set Local Host Info
+     stSize                   Session Table Size
+     setPeerTimers            Set Peer Timers
+     setOverloadLimits        Set Overload Limit
+     startPeer                Start a Peer
+     startAllPeers            Start all dynamically added Peers
+     qStats                   Queue Stats
+     quit                     Exit Debug Console
+     
+ 
+NOTE::For help for a particular command use: "help <command name>
+

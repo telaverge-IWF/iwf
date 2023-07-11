@@ -1,0 +1,164 @@
+{
+    "Peer-Config" : {
+            // Periodicity with which peer Availability Manager instance will be pinged using TIPC (msec)
+            // Value: 512 < x < 65536
+            // Preferred Value: 512
+            // Default Value: 5000
+        "Ping-Periodicity" : 512,
+            // The Availability Manager allows this many consecutive ping acknowledgment receive failures
+            // from peer Availability Manager instance, before initiating ping with the Arbitrator/Gateway
+            // Value: 0 < x < 256
+            // Preferred Value: 3
+            // Default Value: 3
+        "Ack-Failures" : 3
+    },
+        "Arbitrator-Config" : {
+            // IP address of the Near-Hop Gateway/Arbitrator, to be used for ICMP ping
+            // Value: Near-Hop Gateway/Arbitrator IPv4 (only) address
+       "Gateway-IP-Address" : "127.0.0.1",
+            // Minimum periodicity with which Arbitrator/Near-Hop Gateway will be pinged using ICMP (msec)
+            // The first ping will use minimum periodicity
+            // The second ping will use (2 * minimum periodicity)
+            // The third ping will use (3 * minimum periodicity)
+            // Value: 0 < x < 65536
+            // Preferred Value: 32
+            // Default Value: 32
+       "Min-Ping-Periodicity" : 32,
+            // The Availability Manager allows this many consecutive ping acknowledgment receive failures
+            // from the Arbitrator/Gateway, before initiating STANDBY/ACTIVE switch over
+            // Value: 0 < x < 256
+            // Preferred Value: 3
+            // Default Value: 3
+        "Ack-Failures" : 3
+        },
+        "Log-Config" : {
+            // Channel where log messages will be sent
+            // Syslog channel -> 0
+            // File log channel -> 1
+            // Console log channel -> 2
+        "Log-Channel" : 0,
+            // In case of File log channel,the location of the log file
+            //config_log_file_location ="/var/log/dre"
+        "Log-File-Location" : "/var/log/iwf"
+    },
+    "Interface-Config": {
+        // This parameter specifies the ARP mechanism to be used on Standby.
+        // 0 : Enable ARP, or set NOARP flag on a configured interface on Standby
+        // 1 : Use arp_ignore value of 8 for an interface on Standby
+        // Default is 1.
+        "ARP-Mechanism": 1,
+
+        // Ethernet Interfaces on which VIPs will reside
+        // MUST have one-one correspondence with VIPs
+        // Virtual IP addresses (VIPs) in CIDR (Classless Inter Domain Routing) format (comma-separated)
+        // MUST have one-one correspondence with Ethernet Interfaces
+        "Interfaces" : [
+        {
+            "Interface-Name" : "bond0",
+            //1: For traffic interfaces the arp_ignore mechanism shall be used
+            //2: For Management interfaces the IP shall be floated and will be always available on Active node
+            "Interface-Type" : 1,
+
+            "Failure-Triggers-Switchover": true,
+            "IP-Addresses" : [
+              {
+                  "Virtual-IP-Address": "172.16.13.150/16",
+                  //Note: Addition of route on an interface is required when MH has to be configured.
+                  //VIP on the interface will be added as source address in the route table.
+                  //If route is to be added then more than one VIP cannot be assigned to an interface.
+                  //If more than one VIP's are assigned on the interface then route shall not be added.
+                  "Configure-Route" : "yes",
+                  "Routes" : [
+                  {
+                      "Destination": "192.168.12.0/24",
+                      "Gateway" : "172.16.6.1"
+                      //metric and tableId are optional params
+                      //These can be uncommented if required.
+                      //"metric" : 0,
+                      //"tableId" : "",
+                  }
+                  ]
+              }
+            ]
+        }
+        //{
+        //    "Interface-Name" : "bond1",
+        //    //1: For traffic interfaces the arp_ignore mechanism shall be used
+        //    //2: For Management interfaces the IP shall be floated and will be always available on Active node
+        //    "Interface-Type" : 2,
+        //    "Failure-Triggers-Switchover": true,
+        //    "IP-Addresses" : [
+        //    {
+        //        "Virtual-IP-Address": "192.168.168.52/24"
+        //    }
+        //    ]
+        //}
+        ],
+            "Interfaces-Group" : [
+            {
+                "Interface-Group-Name" : "MH-Interface1",
+                "Failure-Triggers-Switchover": true,
+                "Interfaces" : [
+                {
+                    "Interface-Name" : "bond0"
+                },
+                {
+                    "Interface-Name" : "bond1"
+                }
+                ]
+            }
+        ]
+    },
+    "Replication-Config" : {
+        "Cluster-Connectivity-Failure-Count": 3,
+        //Interval for Purging Metadata in the couchbase bucket in seconds
+        "Purge-Data-Interval" : 3600
+    },
+    "Process-Common-Config" : {
+        "Restart-Max-Interval" : 120,
+        "Restart-Max-Interval-For-Stop" : 240,
+        "Restart-Max-Count" : 3,
+        "Restart-Max-Count-For-Stop" : 4,
+        "Process-HeartBeat" : true,
+            //The Availability Manager allows this many consecutive HeartBeat Ack Failures
+            // from its child processes before initiating a restart of the process
+            // and switchover in case it is a high priority process.
+            // Value: 10 < x < 256
+            // Preffered Value: 10
+            // Default Value: 10
+        "Max-HeartBeat-Ack-Failures" : 20,
+        "Max-Time-To-Wait-Before-Sending-SIGKILL" : 10000
+    },
+    "Process-Config" : {
+        // Names of the processes with their locations (comma-separated)
+        // Absolute path preferred
+        // CAUTION: THIS IS ONLY FOR DRE PROCESSES USING MeSS
+        // CAUTION: THE ORDER IS IMPORTANT, i.e., THE PROCESSES WILL BE STARTED IN THE FOLLOWING MENTIONED ORDER
+        // CAUTION: THIS IS ONLY FOR DRE PROCESSES USING MeSS
+        // HIGH_PRIORITY -> 1
+        // LOW_PRIORITY -> 3
+        "Processes" : [
+        {
+            "Process-Name-With-Args" :"/opt/diametriq/iwf/bin/cmgr",
+            "Priority" : 3,
+            "Component-Id" : 1003
+        },
+        {
+            "Process-Name-With-Args" : "/opt/diametriq/iwf/bin/IWF-CCITT            -configFile iwf_itu.xml",
+            "Priority" : 1,
+            "Component-Id" : 1010
+        },
+	    {
+            "Process-Name-With-Args" :"/opt/diametriq/iwf/bin/cli",
+            "Priority" : 3,
+            "Component-Id" : 1002
+        },
+        {
+            "Process-Name-With-Args" : "/opt/diametriq/iwf/bin/subagent -a 127.0.0.1 -p 5555",
+            "Priority" : 3,
+            "Component-Id" : 1005
+        }
+        ]
+    }
+
+}

@@ -1,0 +1,32 @@
+/.cvsignore/9.1/Wed Mar 23 12:51:00 2005//TB-IWF-HP-0400-00
+/Makefile/9.4.10.1/Mon Sep 28 18:54:14 2009//TB-IWF-HP-0400-00
+/asubs/9.1.88.1/Fri Sep 25 04:50:49 2009//TB-IWF-HP-0400-00
+/config.rules/9.1/Wed Mar 23 12:51:00 2005//TB-IWF-HP-0400-00
+/config.vars/9.2.22.1.20.2.6.1.2.2.6.2.2.1/Mon Apr 20 08:45:44 2020//TB-IWF-HP-0400-00
+/config.vars.gnu/9.2.20.1/Wed Apr 13 07:47:03 2011//TB-IWF-HP-0400-00
+/config.vars.solaris/9.3/Thu Jun 12 12:47:00 2008//TB-IWF-HP-0400-00
+/csubs/9.1/Wed Mar 23 12:51:01 2005//TB-IWF-HP-0400-00
+/esubs/9.2/Fri Apr  8 10:27:05 2005//TB-IWF-HP-0400-00
+/isubs/9.1.86.1.2.1.20.1/Tue Dec 18 16:11:57 2012//TB-IWF-HP-0400-00
+/ssubs/9.2/Fri Apr  8 10:27:05 2005//TB-IWF-HP-0400-00
+/tsubs/9.1/Wed Mar 23 12:51:01 2005//TB-IWF-HP-0400-00
+/vxconfig.vars/9.1/Wed Mar 23 12:51:01 2005//TB-IWF-HP-0400-00
+D/BSSAP////
+D/CAMEL////
+D/ENGINE////
+D/GCS////
+D/GSMMAP////
+D/INAP////
+D/ISUP////
+D/LCS////
+D/MTP2////
+D/MTP3////
+D/SCCP////
+D/SLTM////
+D/SNMM////
+D/TCAP////
+D/VFRAME////
+D/WIN////
+D/common////
+D/tls////
+D/tools////

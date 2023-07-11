@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    disableHMI
+
+DESCRIPTION
+    This command is used to disable Health Monitor Interface(HMI).
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> disableHMI
+       Successfully HMI Disabled
+

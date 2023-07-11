@@ -1,0 +1,40 @@
+
+ITU ALCAP Command
+
+SYNOPSIS
+    ai_set_gen_cfg <al>  <trType> <trOutput> <on/off>
+
+DESCRIPTION
+    This command sets ITU ALCAP alarm and trace level. Alarm level controls
+    ALCAP alarms sent to Accelero application. Trace level controls generation
+    of ALCAP execution traces.
+
+PARAMETERS
+    al            Alarm Level.
+                  Possible value : CRITICAL
+                                   MAJOR 
+                                   MINOR
+                                   INFO
+                                   OFF
+
+    trType        Trace Type. 
+                  Possible value : DEBUG
+                                   WARNING
+                                   ERROR
+                                   CRITICAL
+                                   all         /* all trace types */
+
+    traceOutput   Trace Output. 
+                  Possible Value : stdout
+                                   file
+                                   syslog
+
+    ON/OFF        To turn trace on or off.
+
+
+EXAMPLE
+    >> ai_set_gen_cfg CRITICAL DEBUG file on  
+    *********** ALCAP General Config Set*************
+
+
+

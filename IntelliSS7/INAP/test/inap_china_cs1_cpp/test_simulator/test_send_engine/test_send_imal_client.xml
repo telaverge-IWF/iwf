@@ -1,0 +1,303 @@
+<?xml version="1.0"?>
+
+<!-- Sample XML file for application configuration (INI). -->
+ 
+<Application name           = "test_send_unix"
+             type           = "console-application"
+             globalStart    = "PRC-TCAP"
+             binding        = "CPP"
+             appSelector    = "ApplicationSelector">
+
+    <AppOptions name = "traceFlushAfterWrite"         value = "yes"/>
+    <AppOptions name = "routeUniqueLinkCodesRequired" value = "yes"/>
+    <AppOptions name = "memPoolChecksOn"              value = "no"/>
+
+    <FaultTolerance
+        maxNumFtGroups      = "1"
+        maxNumProcesses     = "1"
+        maxNumNodes         = "1"
+        nodeId              = "0"
+        processId           = "0"
+        tcapFtGroupId       = "0"
+        sccpFtGroupId       = "0"
+        mtp3FtGroupId       = "0"
+        isupFtGroupId       = "0"
+        routingFtGroupId    = "0"
+        timersFtGroupId     = "0"
+        mgmtDataFtGroupId   = "0"
+    >
+
+        <Procedures>
+
+        </Procedures>
+
+        <Callbacks>
+
+        </Callbacks>
+
+        <FtGroups>
+
+            <FtGroup
+                ftGroupId      = "0"
+                ftGroupName    = "FtGroup0"
+            >
+
+                <DsmConfig
+                     dsmSize         = "20971520"
+                     dsmBaseAddress  = "0x80000000"
+                     dsmMaxNumTables = "256"
+                     dsmType         = "STUB"
+                />
+
+             <!-- Note: MUST include itself. -->
+             <!-- Note: nodeName and processName are optional attributes. -->
+
+
+                <FtGroupMembers>
+                    <FtGroupMember
+                        nodeId      = "0"
+                        nodeName    = "Node0"
+                        processId   = "0"
+                        processName = "Node0Process0"
+                    />
+
+                </FtGroupMembers>
+
+
+                <!-- Note: MUST NOT include itself. -->
+                <!-- Note: Master FtGroupMembers are tried in order. -->
+
+                <MasterFtGroupMembers>
+
+                </MasterFtGroupMembers>
+
+                <Callbacks>
+
+                </Callbacks>
+
+            </FtGroup>
+
+        </FtGroups>
+
+    </FaultTolerance>
+
+    <!--/////////////// LINK SETS //////////////-->
+
+    <!-- link set for internal routing -->
+    <LinkSet id           = "0"
+             family       = "CHINA"
+             adjacentSTP  = "no"
+             numToStart   = "1">
+        <NI     value = "0x00"/>
+        <APC    value = "0x020202"/>
+        <LPC    value = "0x010101"/>
+    </LinkSet>
+
+    
+    <!-- link set for external routing -->
+    <LinkSet id           = "1"
+             family       = "CHINA"
+             adjacentSTP  = "yes"
+             numToStart   = "1">
+        <NI     value = "0x00"/>
+        <APC    value = "0x020202"/>
+        <LPC    value = "0x010101"/>
+
+    </LinkSet>
+
+    <!--///////////////Route Info //////////////-->
+
+    <!-- route for TCAP -->
+    <Route  type     = "localRoute"
+            style    = "dpc-sio-ssn"
+             family       = "CHINA"
+            linkSet  = "0"
+            priority = "0">
+        <DPC    value = "0x010101"/>
+        <SIO    value = "0x03"/>
+        <SSN    value = "0x02"/>
+    </Route>
+
+    <Route  type     = "remoteRoute"
+            style    = "dpc-sio-ssn"
+             family       = "CHINA"
+            linkSet  = "1"
+            priority = "0">
+        <DPC        value = "0x020202"/>
+        <SIO        value = "0x03"/>
+        <SSN        value = "0x02"/>
+    </Route>
+
+     <!--///////////////////////////////////////////////////////////////-->
+
+    <Feature
+        name        = "Vendor Framework PRC"
+        library     = "libVFrameD.so"
+        classRec    = "itsSS7STACK_ClassPRC"
+    />
+
+    <Feature
+        name        = "DSM Data Class - STUB"
+        library     = "libDSM-STUBD.so"
+        classRec    = "itsDSM_StubImplClass"
+    />
+
+    <Feature
+        name        = "IntelliNet stack PRC"
+        library     = "libPRC-VENDORD.so"
+        classRec    = "itsINTELLISS7_ClassPRC"
+    />
+
+    <Feature
+        name        = "Keepalive manager"
+        library     = "libENGINED.so"
+        classRec    = "itsKEEPALIVE_Class"
+    />
+
+    <Feature
+        name                = "IMAL"
+        library             = "libPRC-IMALD.so"
+        classRec            = "itsIMAL_Class_PRC">
+
+        <FeatureOption name = "imalTraceKeepAlives" value = "yes"/>
+        <FeatureOption name = "imalTracePayload"    value = "yes"/>
+
+    </Feature>
+
+    <ApplicationTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = ""/>
+    </ApplicationTrace>
+
+    <ToolkitTrace>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "0"/>
+    </ToolkitTrace>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <BorderPool stackSize = "0">
+
+        <Transport  name        = "MainThread"
+                    type        = "TaskQueue">
+
+            <CustomDispatch
+                library         = ""
+                dispatch        = "MainThreadFunction"
+            />
+
+        </Transport>
+
+        <Transport  name    = "TestSendToReceive"
+                    type    = "ClientSocket"
+                    family  = "CHINA">
+
+             <Modifier value = "IMAL"/>
+             <Modifier value = "MTP3"/>
+
+            <StreamData socketDomain    = "INET"
+                        serverHostName  = "10.1.4.12"
+                        serverPort      = "6601"
+            />
+
+          <IMAL     imalLocalPC             = "0x01"
+                    imalAdjacentPC          = "0x02"
+                    imalKeepAliveTimer      = "6000"
+          />
+
+         <Link   id          = "0"
+             family          = "CHINA"
+             linkSet         = "1"
+             initiallyActive = "yes"
+             terminalFixed   = "yes"
+             dataLinkFixed   = "yes"
+             priority        = "0"
+             terminal        = "0"
+             dataLink        = "0"
+        />
+
+        </Transport>
+
+    </BorderPool>
+
+    <!--///////////////////////////////////////////////////////////////-->
+
+    <SS7-Stacks>
+
+        <!--///////////////////////////////////////////////////////////-->
+
+        <IntelliNet>
+
+            <ITU-SCCP variant = "WhiteBook">
+  
+                <Variant value = "WhiteBook"/>
+  
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                </StackTrace>
+  
+                <Timers
+                    TstatInfo    = "30"
+                    TcoordChg    = "30"
+                    TignoreSST   = "30"
+                    TrtgStatInfo = "30"
+                    Tconnect     = "30"
+                    Trelease     = "10"
+                    Treset       = "20"
+                    Tias         = "300"
+                    Tiar         = "660"
+                    Tguard       = "240"
+                />
+  
+                <BehaviorControl
+                    PropagateIT   = "no"
+                    PropagateERR  = "no"
+                    PropagateSCMG = "yes"
+                />
+  
+            </ITU-SCCP>
+  
+            <!--///////////////////////////////////////////////////////////////-->
+  
+            <ITU-TCAP variant = "WhiteBook">
+  
+                <StackTrace>
+                    <Critical output = "stdout"/>
+                    <Error    output = "stdout"/>
+                    <Warning  output = "stdout"/> 
+                    <Debug    output = "stdout"/> 
+                </StackTrace>
+
+                <Timers
+                    Treject = "5"
+                />
+
+                <Link   id              = "1"
+                        family          = "CHINA"
+                        linkSet         = "0"
+                        initiallyActive = "yes"
+                        terminalFixed   = "yes"
+                        dataLinkFixed   = "yes"
+                        isSAAL          = "yes"
+                        isLocal         = "yes"
+                        priority        = "0"
+                        terminal        = "0"
+                        dataLink        = "0"
+                />
+  
+            </ITU-TCAP>
+
+        </IntelliNet>
+
+    </SS7-Stacks>
+
+ </Application>

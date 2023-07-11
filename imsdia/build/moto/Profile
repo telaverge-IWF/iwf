@@ -1,0 +1,99 @@
+# User specific environment and startup programs
+
+export PS1="${LOGNAME}@`uname -n`!$ "
+
+ulimit -c unlimited
+
+#umask 022
+#
+# General Path settings.
+# DONT MESS WITH THE ORDER OF DIRECTORIES HERE!
+#
+HOME=`pwd`
+export HOME
+
+RMIOS_LIB=/opt/rmi/1.4/rmios/binaries/non-debug
+export  RMIOS_LIB
+
+RMIOS_INSTALL_DIR=/opt/rmi/1.4/rmios
+export RMIOS_INSTALL_DIR
+
+
+PATH=.:/opt/rmi/1.4/mipscross/nptl/bin
+PATH=$PATH:/bin
+PATH=$PATH:/usr/java/jdk1.5.0_06/bin
+PATH=$PATH:/sbin
+PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/bin
+PATH=$PATH:/usr/sbin
+PATH=$PATH:/usr/ucblib
+PATH=$PATH:/usr/ucb
+
+#
+# Man path settings.
+#
+MANPATH=/usr/man
+MANPATH=$MANPATH:/usr/share/man
+MANPATH=$MANPATH:/usr/local/man
+
+
+# AcceleroCore, imsdia & imstools Related
+
+export ITS_ROOT=$HOME/AcceleroCore
+export IMS_ROOT=$HOME/imsdia
+export IMS_TOOLS=$HOME/imstools
+export ITS_MAN_PATH=$IMS_ROOT/dbchelp/
+export GNUTLS_ROOT=$IMS_TOOLS/gnutls-1.6.1
+export GCRYPT_ROOT=$IMS_TOOLS/libgcrypt-1.2.2
+export GPGERR_ROOT=$IMS_TOOLS/libgpg-error-0.5
+export OPENSSL_ROOT=$IMS_TOOLS/openssl-0.9.8h
+export SNMP_ROOT=$IMS_TOOLS/net-snmp-5.4.2.1
+export LKSCTP_ROOT=$IMS_TOOLS/lksctp-tools-1.0.6
+export GAA_ROOT=$IMS_TOOLS/gaa-1.6.6
+
+PATH=$PATH:/usr/ccs/bin:$GPGERR_ROOT/src:$SNMP_ROOT
+
+#
+# LD_LIBRARY_PATH settings.
+#
+LD_LIBRARY_PATH=.
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GPGERR_ROOT/src
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GCRYPT_ROOT/src
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/ucblib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/common/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/dframe/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/api/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/c++/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/val/java/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/vendors/IntelliNet/dcca/lib
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$IMS_ROOT/aim/client/lib
+
+ISS7_CONFIG_DIR=$ITS_ROOT/common/bin/
+
+export ASNCPATH=$ITS_ROOT/common/include/asn-c
+export PLATFORM=linux
+export EDITOR=vi
+export STACK=INTELLINET
+export BUILD_TYPE=INTEGRATED
+export DEBUG_BUILD=yes
+
+#
+# Alias es.
+#
+alias c='clear'
+alias l='ls -la'
+alias rm='rm -i'
+alias cvs='cvs -z5'
+alias xterm='xterm -sb -sl 1000 -ls -bg black -fg white'
+alias fw='find . -type f -print | xargs grep $1'
+alias k='/usr/bin/konsole'
+
+export PATH
+export MANPATH
+export LD_LIBRARY_PATH
+export ISS7_CONFIG_DIR

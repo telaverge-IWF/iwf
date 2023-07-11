@@ -1,0 +1,59 @@
+%PB{
+
+    import "HACommon.proto";
+
+    message AvailabilityStatusGetReq {
+        optional uint32 requestId = 1;
+        optional string selfHostname = 2;
+    }
+
+    message AvailabilityStatusGetResp {
+        optional uint32 responseId = 1;
+        optional uint32 componentId = 2;
+        optional uint32 instanceId = 3;
+        optional string peerHostname = 4;
+        optional uint32 currentProcessStatus = 5;
+        optional uint32 currentComponentStatus = 6;
+    }
+
+    message AvailabilityStatusResetReq {
+        optional uint32 requestId = 1;
+        optional uint32 newInstanceId = 2;
+        optional string selfHostname = 3;
+        optional bool SwitchOver = 4;
+    }
+
+    message AvailabilityStatusResetResp {
+        optional uint32 responseid = 1;
+        optional uint32 componentId = 2;
+        optional uint32 newInstanceId = 3;        
+        optional string peerHostname = 4;
+        optional bool isAvailabilityStatusReset = 5;
+        optional uint32 currentComponentStatus = 6;
+    }
+
+    message ReplicationReq {
+        optional uint32 requestId = 1;
+        optional uint32 tipcNodeId = 2;
+    }
+    message ReplicationResp {
+        optional uint32 responseid = 1;
+    }
+    message AvailabilityActiveReq {
+        optional uint32 requestId = 1;
+    }
+
+    message AvailabilityActiveResp {
+        optional uint32 responseId = 1;
+    }
+%PB}
+
+interface AvaMgrProcessStatusInterface{
+
+    AvailabilityStatusGetRequest(AvailabilityStatusGetReq Request, AvailabilityStatusGetResp Response)uses_PB;
+    AvailabilityStatusResetRequest(AvailabilityStatusResetReq Request, AvailabilityStatusResetResp Response)uses_PB;
+    ComponentStatusUpdateBroadcast(ComponentStatusUpdateReq Request,ComponentStatusUpdateResp Response)uses_PB;
+    StartReplication(ReplicationReq Request,ReplicationResp Response)uses_PB;
+    StopReplication(ReplicationReq Request,ReplicationResp Response)uses_PB;
+    AvailabilityActiveUpdateBroadcast(AvailabilityActiveReq Request, AvailabilityActiveResp Response)uses_PB;
+}

@@ -1,0 +1,22 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    getDiaTrace
+                                                                                
+DESCRIPTION
+    This command displays whether Traces are enabled or disabled.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> getDiaTrace
+    Diameter Debug Trace:        Enabled/Disable
+    Diameter Error Trace:        Enabled/Disable
+    Diameter Warning Trace:      Enabled/Disable
+    Diameter Critical Trace:     Enabled/Disable
+    ODiameter Debug Trace:       Enabled/Disable
+    ODiameter Error Trace:       Enabled/Disable
+    ODiameter Warning Trace:     Enabled/Disable
+    ODiameter Critical Trace:    Enabled/Disable
+
+

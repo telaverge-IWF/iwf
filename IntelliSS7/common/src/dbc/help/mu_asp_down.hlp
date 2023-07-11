@@ -1,0 +1,18 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_asp_down 
+
+DESCRIPTION
+    This command sends asp down for ASP.
+
+PARAMETERS
+    None
+
+EXAMPLE
+    >> mu_asp_down 
+
+    *********** ASP DOWN Sent *************
+
+

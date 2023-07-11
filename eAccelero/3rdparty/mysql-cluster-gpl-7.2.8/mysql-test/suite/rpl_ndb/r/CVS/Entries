@@ -1,0 +1,27 @@
+/rpl_ndb_UUID.result/1.1.2.1/Fri Oct  5 12:37:56 2012//TB-IWF-HP-0400-00
+/rpl_ndb_blob2.result/1.1.2.1/Fri Oct  5 12:37:56 2012//TB-IWF-HP-0400-00
+/rpl_ndb_commit_afterflush.result/1.1.2.1/Fri Oct  5 12:37:56 2012//TB-IWF-HP-0400-00
+/rpl_ndb_ddl.result/1.1.2.1/Fri Oct  5 12:37:56 2012//TB-IWF-HP-0400-00
+/rpl_ndb_delete_nowhere.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_dist_priv.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_extra_col_master.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_extra_col_slave.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_func003.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_insert_ignore.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_mixed_implicit_commit_binlog.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_multi_update2.result/1.1.2.1/Fri Oct  5 12:37:57 2012//TB-IWF-HP-0400-00
+/rpl_ndb_multi_update3.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_not_null.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_relayrotate.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_row_001.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_row_basic.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_row_implicit_commit_binlog.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_set_null.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_sp003.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_sp006.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_trig004.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_typeconv_all.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_typeconv_lossy.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_typeconv_nonlossy.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+/rpl_ndb_typeconv_strict.result/1.1.2.1/Fri Oct  5 12:37:58 2012//TB-IWF-HP-0400-00
+D

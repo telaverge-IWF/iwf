@@ -1,0 +1,13 @@
+/isup_dis_client.h/1.2/Tue Jan 30 06:23:54 2007//TB-IWF-HP-0400-00
+/isup_intern.h/9.3.98.1/Thu Jun 24 08:26:09 2010//TB-IWF-HP-0400-00
+/isup_mgmt.h/1.1.2.1/Thu Jun 24 08:24:54 2010//TB-IWF-HP-0400-00
+/mtp3_intern.h/9.5.8.1/Thu Apr  8 11:43:45 2010//TB-IWF-HP-0400-00
+/sccp_intern.h/9.8.6.1/Tue Nov  2 12:23:23 2010//TB-IWF-HP-0400-00
+/ss7_alarms.h/9.3/Thu Feb  1 13:25:18 2007//TB-IWF-HP-0400-00
+/ss7_behaviors.h/9.2/Thu Jan 11 12:43:35 2007//TB-IWF-HP-0400-00
+/ss7_mgmt.h/9.6.8.1.24.2/Tue Dec 10 13:42:29 2013//TB-IWF-HP-0400-00
+/ss7_pegs.h/9.4/Thu Feb  1 13:25:18 2007//TB-IWF-HP-0400-00
+/ss7_timers.h/9.3.8.1/Thu Apr  8 11:43:45 2010//TB-IWF-HP-0400-00
+/tcap_intern.h/9.3.54.1.4.1.2.2/Fri Jul  3 04:48:51 2015//TB-IWF-HP-0400-00
+D/ansi////
+D/itu////

@@ -1,0 +1,15 @@
+%PB{
+
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "Common";
+
+    message ErrorDetails {
+        required uint64 ErrorCode = 1;
+        optional string ErrorMsgKey = 2;
+        repeated string Variables = 3;
+    }
+    message CMAPIRes {
+        optional fixed32 ResponseCode = 1;
+        repeated ErrorDetails ErrorDetails = 2;
+    }
+%PB}

@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+
+<ITS-Diameter  version                = "1"
+               dictionaryFile         = "dictionary.xml" >
+
+   <LocalConfig>
+
+       <InbandSecurityId  value = "0"/>
+       <VendorId          value = "0"/>
+       <SupportedVendorId value = "10415"/>
+
+       <AuthAppId         value = "0"/>
+  <!-- <AuthAppId         value = "16777216"/> -->
+       <AuthAppId         value = "16777217"/>
+       <AuthAppId         value = "16777222"/>
+ <!--   <AuthAppId         value = "0xffffffff"/> -->
+       <AuthAppId         value = "0xffffffff"/>
+       <AccountingAppId   value = "3"/>
+       <AccountingAppId   value = "4"/>
+
+       <!-- Vendor-Specific-Application-Id -->
+        <!-- Exactly one of Auth or Accounting should be present -->
+       <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+           <AuthAppId         value = "0"/>
+
+       </VendorSpecificAppId>
+
+        <VendorSpecificAppId>
+
+           <VendorId          value = "10415"/>
+         <!-- Exactly one of Auth or Accounting should be present -->
+           <AccountingAppId   value = "3"/>
+
+       </VendorSpecificAppId>
+
+
+       <!-- Single HostInfo Only 1 Origin-Host/Origin-Realm in CER -->
+       <LocalHost  serverHostName = "Redirect"
+                   realmName      = "india.internal.net3" >
+
+           <!-- Multiple Transports (Max 4) -->
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.50"
+                        port         = "3300">
+           </Transport>
+
+       </LocalHost>
+
+
+       <SessionConfig>
+
+             <!-- 0 for Stateless, 1 for Stateful -->
+              <AuthSession  
+                        state          = "0"  
+                        timeout        = "40"
+                        lifetime       = "20"
+                        gracePeriod    = "10"
+                        retryAbort     = "30" >
+             
+              </AuthSession>
+
+              <!-- 0 for Stateless, 1 for Stateful -->
+              <AcctSession  
+                        state           = "0"  
+                        timeout         = "30"
+                        interimInterval = "30"
+                        realTime        = "30" >
+
+              </AcctSession> 
+               
+       </SessionConfig>
+
+    <TraceSubsystem>
+        <Critical  output = "stdout"/>
+        <Error     output = "stdout"/>
+        <Warning   output = "stdout"/>
+        <Debug     output = "stdout"/>
+    </TraceSubsystem>
+
+    <Tls-Security
+       TlsType                      = "GNUTLS"
+       TlsTraceLevel                = "4"
+       TlsIdentityVerification      = "yes"
+       TlsCipherSuite               = "DIAMETER-ALL"
+       TlsCertificateType           = "X.509"
+       TlsCATrustFile               = "ca-cert.pem"
+       TlsCredentialFile            = "crl.pem"
+       TlsClientCertificateFile     = "ser-cert.pem"
+       TlsClientKeyFile             = "ser-key.pem"
+       TlsRelayCertificateFile     = "ser-cert.pem"
+       TlsRelayKeyFile             = "ser-key.pem">
+     </Tls-Security>
+
+   </LocalConfig>
+
+
+                            
+   <PeerConfig>
+
+       <Timer    name = "Tc"             value = "30" />
+       <Timer    name = "Expiry"         value = "60" />
+       <Timer    name = "Watchdog"       value = "60" />
+  
+       <RetransmitInterval   value = "50"/>
+       <RetransmitCount      value = "1" />
+
+       <Peer    serverHostName = "Relay"
+                realmName      = "india.internal.net2"
+                tlsEnabled     = "no">
+
+           <Transport   type         = "TCP"
+                        serverIpAddr = "172.16.3.50"
+                        port         = "2200">
+           </Transport>
+
+       </Peer>
+
+   </PeerConfig>
+
+   <RealmConfig>
+
+        <!-- Local Action Can Have These Values: 
+                           local
+                           relay
+                           proxy
+                           redirect
+        -->
+        <!-- Use enum value between 0 to 6 for redirectHostUsage -->
+
+
+        <Route     realmName        = "india.internal.net4"
+                   localAction      = "redirect"
+                   redirectHostUsage    = "3"
+                   redirectMaxCacheTime = "30" >
+ 
+            <Destination 
+                         peerName       = "Server"
+                         applicationId  = "0"
+                         vendorId       = "10415"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "Server"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+
+            <Destination 
+                         peerName       = "Server1"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+ 
+            <Destination 
+                         peerName       = "Server2"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+ 
+            <Destination 
+                         peerName       = "Server3"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+ 
+            <Destination 
+                         peerName       = "Server4"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server5"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server6"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server7"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server8"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server9"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server10"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server11"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server12"
+                         applicationId  = "16777216"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+            <Destination 
+                         peerName       = "Server"
+                         applicationId  = "16777217"
+                         vendorId       = "0"
+                         priority       = "0" >
+            </Destination>
+ 
+        </Route>
+
+	<Route     realmName        = "india.internal.net2"
+                   default          = "yes">
+
+            <Destination 
+                         peerName       = "Relay" >
+            </Destination>
+
+        </Route>
+
+   </RealmConfig>
+
+</ITS-Diameter>

@@ -1,0 +1,26 @@
+Diameter Command
+
+SYNOPSIS
+    addDestination <realmName> <hostName> <hostRealm> <appId> <vendorId> <priority>
+
+DESCRIPTION
+    This command sets destination for realm.
+
+PARAMETERS
+
+    realmName     Route Realm Name (for which destination needs to be add).
+     
+    hostName      Peer Host Name.
+
+    hostRealm     Peer Realm Name.
+
+    appId         Application ID 
+
+    vendorId      Vendor ID
+
+    priority      Priority of the host. Less the value priority is more.
+
+EXAMPLE
+    >> addDestination india.internal.net nemo india.internal.net2 0 10415 0
+       
+       Successfully Destination Configuration Added

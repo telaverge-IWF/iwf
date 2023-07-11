@@ -1,0 +1,1516 @@
+/**
+ * 3GPP TS 29.273 V10.1.0(2010-12), TS 23.402 V10.1.0 (2010-09) --- S6b interface
+ * The S6b reference point is defined between the 3GPP AAA Server and the PDN-GW.
+ * The S6b reference point is used to authenticate and authorize the UE, and update 
+ * the PDN-GW address to the 3GPP AAA server and HSS.
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4072 - Diameter EAP application
+ * RFC 4005 - Diameter NASREQ application
+ */
+protocol diameter.s6b < 16777272 : "ETSI TS TS 29.273 V10.1.0(2010-12)" >;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+
+/**
+ * The Visited-Network-Identifier AVP is of type OctetString. This AVP
+ * contains an identifier that helps the home  network to identify the
+ * visited network (e.g. the visited network domain name).
+ */
+    Visited-Network-Identifier         ::=  600  /*6.3.1*/                OctetString   M,V| | |   |N;
+
+
+/**
+ * The Max-Requested-Bandwidth AVP(code 313) is of type OctetString and
+ * indicates the Max-Subscriber-Bandwidth. If present, shall be downloaded from
+ * HSS to 3GPP AAA Server, and sent from the 3GPP AAA Server to the PDG.
+ */
+    Max-Requested-Bandwidth            ::= 313  /*10.1.26 3GPP TS29.234*/ OctetString   M,V| | |   |N;
+
+
+/**
+ * The QoS-Resources AVP (AVP Code 508) is of type Grouped and contains
+ * a list of filter policy rules.
+ */
+    QoS-Resources    ::= 508  /*RFC5777 Section 3.1 */ Grouped      M,V| | |   |N;
+
+/**
+ * The Filter-Rule AVP (AVP Code 509) is of type Grouped and defines a
+ * specific condition and action combination.
+ */
+     
+    Filter-Rule    ::= 509  /*RFC5777 Section 3.2 */ Grouped      M,V| | |   |N;
+
+/**
+ * The Filter-Rule-Precedence AVP (AVP Code 510) is of type Unsigned32
+ * and specifies the execution order of the rules expressed in the QoSResources
+ * AVP. The lower the numerical value of Filter-Rule-
+ * Precedence AVP, the higher the rule precedence. Rules with equal
+ * precedence MAY be executed in parallel if supported by the Resource
+ * Management Function. If the Filter-Rule-Precedence AVP is absent
+ * from the Filter-Rule AVP, the rules SHOULD be executed in the order
+ * in which they appear in the QoS-Resources AVP.
+ */
+
+    Filter-Rule-Precedence ::= 510  /*RFC5777 Section 3.3 */ Unsigned32    V,M|P| |    |N; 
+
+
+/**
+ * The Classifier AVP (AVP Code 511) is a grouped AVP that consists of a
+ * set of attributes that specify how to match a packet.
+ */
+
+    Classifier    ::= 511  /*RFC5777 Section 4.1.1 */ Grouped      M,V| | |   |N;
+
+/**
+ * The Classifier-ID AVP (AVP Code 512) is of type OctetString and
+ * uniquely identifies the classifier. Each application will define the
+ * uniqueness scope of this identifier, e.g., unique per terminal or
+ * globally unique. Exactly one Classifier-ID AVP MUST be contained
+ * within a Classifier AVP.
+ */
+
+    Classifier-ID ::= 512 /*RFC5777 Section 4.1.2 */ OctetString   V|M| |  |Y;
+
+/**
+ * The Protocol AVP (AVP Code 513) is of type Enumerated and specifies
+ * the protocol being matched. The attributes included in the
+ * Classifier AVP MUST be consistent with the value of the Protocol AVP.
+ * Exactly zero or one Protocol AVP may be contained within a Classifier
+ * AVP. If the Protocol AVP is omitted from the classifier, then
+ * comparison of the protocol of the packet is irrelevant. The values
+ * for this AVP are managed by IANA under the Protocol Numbers registry
+ * as defined in [RFC2780].
+ */
+
+    Protocol      ::= 513 /* RFC5777 Section 4.1.3  */ Enumerated    V|M| |  |Y;
+
+/**
+ * The Direction AVP (AVP Code 514) is of type Enumerated and specifies
+ * in which direction to apply the classifier. The values of the
+ * enumeration are "IN","OUT","BOTH". In the "IN" and "BOTH"
+ * directions, the From-Spec refers to the address of the managed
+ * terminal and the To-Spec refers to the unmanaged terminal. In the
+ * "OUT" direction, the From-Spec refers to the unmanaged terminal
+ * whereas the To-Spec refers to the managed terminal. If the Direction
+ * AVP is omitted, the classifier matches packets flowing in both
+ * directions.
+ */
+
+    Direction      ::= 514 /* RFC5777 Section 4.1.4  */ Enumerated    V|M| |  |Y;
+
+/**
+ * The From-Spec AVP (AVP Code 515) is a grouped AVP that specifies the
+ * Source Specification used to match the packet.
+ */
+
+    From-Spec    ::= 515  /*RFC5777 Section 4.1.5 */ Grouped      M,V| | |   |N;
+
+/**
+ * The To-Spec AVP (AVP Code 516) is a grouped AVP that specifies the
+ * Destination Specification used to match the packet. Zero or more of
+ * these AVPs may appear in the classifier. If this AVP is absent from
+ * the classifier, then all packets are matched regardless of the
+ * destination address.
+ */ 
+    To-Spec    ::= 516  /*RFC5777 Section 4.1.6 */ Grouped      M,V| | |   |N;
+
+
+/**
+ * The Negated AVP (AVP Code 517) is of type Enumerated containing the
+ * values of True or False. Exactly zero or one of these AVPs may
+ * appear in the From-Spec or To-Spec AVP.
+ */ 
+
+    Negated      ::= 517 /* RFC5777 Section 4.1.7.1  */ Enumerated    V|M| |  |Y;
+
+
+/**
+ * The IP-Address AVP (AVP Code 518) is of type Address and specifies a
+ * single IP address (IPv4 or IPv6) to match.
+ */
+    IP-Address  ::= 518  /* RFC5777 Section 4.1.7.2 */ Address     V,M|P| |   |N;
+
+/**
+ * The IP-Address-Range AVP (AVP Code 519) is of type Grouped and
+ * specifies an inclusive IP address range.
+ */
+    IP-Address-Range  ::= 519  /* RFC5777 Section 4.1.7.3 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The IP-Address-Start AVP (AVP Code 520) is of type Address and
+ * specifies the first IP address (IPv4 or IPv6) of an IP address range.
+ */
+
+    IP-Address-Start  ::= 520 /* RFC5777 Section 4.1.7.4 */ Address     V,M|P| |   |N;
+
+/**
+ * The IP-Address-End AVP (AVP Code 521) is of type Address and
+ * specifies the last IP address (IPv4 or IPv6) of an address range.
+ */
+
+    IP-Address-End  ::= 521 /* RFC5777 Section 4.1.7.5 */ Address     V,M|P| |   |N;
+
+/**
+ * The IP-Address-Mask AVP (AVP Code 522) is of type Grouped and
+ * specifies an IP address range using a base IP address and the bitwidth
+ * of the mask. For example, a range expressed as 192.0.2.0/24
+ * will match all IP addresses from 192.0.2.0 up to and including
+ * 192.0.2.255. The bit-width MUST be valid for the type of IP address.
+ */ 
+    IP-Address-Mask  ::= 522  /* RFC5777 Section 4.1.7.6 */ Grouped     V,M|P| |   |N;
+
+/** 
+ * The IP-Bit-Mask-Width AVP (AVP Code 523) is of type Unsigned32. The
+ * value specifies the width of an IP address bit mask.
+ */ 
+    IP-Bit-Mask-Width   ::= 523  /*RFC5777 Section 4.1.7.7 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The MAC-Address AVP (AVP Code 524) is of type OctetString and
+ * specifies a single layer 2 address in MAC-48 format. The value is a
+ * 6-octet encoding of the address as it would appear in the frame
+ * header.
+ */ 
+    MAC-Address  ::= 524 /*RFC5777 Section 4.1.7.8 */ OctetString   V|M| |  |Y;
+
+/**
+ * The MAC-Address-Mask AVP (AVP Code 525) is of type Grouped and
+ * specifies a set of MAC addresses using a bit mask to indicate the
+ * bits of the MAC addresses that must fit to the specified MAC address
+ * attribute.
+ */ 
+
+    MAC-Address-Mask  ::= 525  /* RFC5777 Section 4.1.7.9 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The MAC-Address-Mask-Pattern AVP (AVP Code 526) is of type
+ * OctetString. The value is 6 octets specifying the bit positions of a
+ * MAC address that are taken for matching.
+ */ 
+
+    MAC-Address-Mask-Pattern  ::= 526 /*RFC5777 Section 4.1.7.10 */ OctetString   V|M| |  |Y;
+
+/**
+ * The EUI64-Address AVP (AVP Code 527) is of type OctetString and
+ * specifies a single layer 2 address in EUI-64 format. The value is an
+ * 8-octet encoding of the address as it would appear in the frame
+ * header.
+ */ 
+
+    EUI64-Address  ::= 527 /*RFC5777 Section 4.1.7.11 */ OctetString   V|M| |  |Y;
+
+/**
+ * The EUI64-Address-Mask AVP (AVP Code 528) is of type Grouped and
+ * specifies a set of EUI64 addresses using a bit mask to indicate the
+ * bits of the EUI64 addresses that must fit to the specified EUI64
+ * address attribute.
+ */ 
+
+    EUI64-Address-Mask  ::= 528  /* RFC5777 Section 4.1.7.12 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The EUI64-Address-Mask-Pattern AVP (AVP Code 529) is of type
+ * OctetString. The value is 8 octets specifying the bit positions of a
+ * EUI64 address that are taken for matching.
+ */ 
+
+    EUI64-Address-Mask-Pattern  ::= 529 /*RFC5777 Section 4.1.7.13 */ OctetString   V|M| |  |N;
+
+/**
+ * The Port AVP (AVP Code 530) is of type Integer32 in the range of 0 to
+ * 65535 and specifies port numbers to match. The type of port is
+ * indicated by the value of the Protocol AVP; i.e., if Protocol AVP
+ * value is 6 (TCP), then the Port AVP represents a TCP port.
+ */ 
+    Port   ::= 530  /*RFC5777 Section 4.1.7.14 */ Integer32      V|M| |   |N;
+
+
+/**
+ * The Port-Range AVP (AVP Code 531) is of type Grouped and specifies an
+ * inclusive range of ports. The type of the ports is indicated by the
+ * value of the Protocol AVP; i.e., if Protocol AVP value is 6 (TCP),
+ * then the Port-Range AVP represents an inclusive range of TCP ports.
+ */ 
+    Port-Range  ::= 531  /* RFC5777 Section 4.1.7.15 */ Grouped     V,M|P| |   |N;
+
+
+/**
+ * The Port-Start AVP (AVP Code 532) is of type Integer32 and specifies
+ * the first port number of an IP port range.
+ */ 
+
+    Port-Start    ::= 532  /* RFC5777 Section 4.1.7.16 */ Integer32     M,V| | |   |N;
+
+
+/**
+ * The Port-End AVP (AVP Code 533) is of type Integer32 and specifies
+ * the last port number of an IP port range.
+ */ 
+    Port-End    ::= 533  /* RFC5777 Section 4.1.7.17 */ Integer32     M,V| | |   |N;
+
+/**
+ * The Use-Assigned-Address AVP (AVP Code 534) is
+ * of type Enumerated containing the values of True or False. When
+ * present and set to True, it represents the IP address assigned to the
+ * managed terminal.
+ */ 
+
+    Use-Assigned-Address      ::= 534 /* RFC5777 Section 4.1.7.18  */ Enumerated    V|M| |  |Y;
+
+/**
+ * The Diffserv-Code-Point AVP (AVP Code 535) is of type Enumerated and
+ * specifies the Differentiated Services Field Codepoints to match in
+ * the IP header. The values are managed by IANA under the
+ * Differentiated Services Field Codepoints registry as defined in
+ * [RFC2474].
+ */ 
+
+    Diffserv-Code-Point      ::= 535 /* RFC5777 Section 4.1.8.1  */ Enumerated    V|M| |  |Y;
+
+/**
+ * The Fragmentation-Flag AVP (AVP Code 536) is of type Enumerated and
+ * specifies the packet fragmentation flags to match in the IP header.
+ */ 
+    Fragmentation-Flag      ::= 536 /* RFC5777 Section 4.1.8.2  */ Enumerated    V|M| |  |Y;
+
+/**
+ * The IP-Option AVP (AVP Code 537) is of type Grouped and specifies an
+ * IP header option that must be matched.
+ */ 
+    IP-Option  ::= 537 /* RFC5777 Section 4.1.8.3 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The IP-Option-Type AVP (AVP Code 538) is of type Enumerated and the
+ * values are managed by IANA under the IP Option Numbers registry as
+ * defined in [RFC2780].
+ */ 
+    IP-Option-Type     ::= 538 /* RFC5777 Section 4.1.8.4  */ Enumerated    V|M| |  |Y;
+
+
+/**
+ * The IP-Option-Value AVP (AVP Code 539) is of type OctetString and
+ * contains the option value that must be matched.
+ */ 
+    IP-Option-Value  ::= 539 /*RFC5777 Section 4.1.8.5 */ OctetString   V|M| |  |N;
+
+/**
+ * The TCP-Option AVP (AVP Code 540) is of type Grouped and specifies a
+ * TCP header option that must be matched.
+ */
+
+    TCP-Option  ::= 540 /* RFC5777 Section 4.1.8.6 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The TCP-Option-Type AVP (AVP Code 541) is of type Enumerated and the
+ * values are managed by IANA under the TCP Option Numbers registry as
+ * defined in [RFC2780].
+ * From RFC 4341 The remaining option types -- 128-183,
+ * 191-247, and 255 -- are currently reserved and should be allocated
+ * with the Standards Action policy, which requires IESG review and
+ * approval and standards-track IETF RFC publication.
+ *  But  adding TCP optional values from TCP Header.
+ *  Needs to check in future releases.
+ */ 
+
+    TCP-Option-Type     ::= 541 /* RFC5777 Section 4.1.8.7 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The TCP-Option-Value AVP (AVP Code 542) is of type OctetString and
+ * contains the option value that must be matched.
+ */ 
+    TCP-Option-Value  ::= 542 /*RFC5777 Section 4.1.8.8 */ OctetString   V|M| |  |N;
+
+/**
+ * The TCP-Flags AVP (AVP Code 543) is of type Grouped and specifies a
+ * set of TCP control flags that must be matched.
+ */ 
+    TCP-Flags  ::= 543 /* RFC5777 Section 4.1.8.9 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The TCP-Flag-Type AVP (AVP Code 544) is of type Unsigned32 and
+ * specifies the TCP control flag types that must be matched. The first
+ * 16 bits match the TCP header format defined in [RFC3168], and the
+ * subsequent 16 bits are unused. Within the first 16 bits, bits 0 to 3
+ * are unused and bits 4 to 15 are managed by IANA under the TCP Header
+ * Flag registry as defined in [RFC3168].
+ */ 
+    TCP-Flag-Type  ::= 544  /*RFC5777 Section 4.1.8.10 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The ICMP-Type AVP (AVP Code 545) is of type Grouped and specifies an
+ * ICMP message type that must be matched.
+ */ 
+    ICMP-Type  ::= 545 /* RFC5777 Section 4.1.8.11 */ Grouped     V,M|P| |   |N;
+
+
+/**
+ * The ICMP-Type-Number AVP (AVP Code 546) is of type Enumerated and the
+ * values are managed by IANA under the ICMP Type Numbers registry as
+ * defined in [RFC2780].
+ */ 
+
+    ICMP-Type-Number     ::= 546 /* RFC5777 Section 4.1.8.12 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The ICMP-Code AVP (AVP Code 547) is of type Enumerated and the values
+ * are managed by IANA under the ICMP Type Numbers registry as defined
+ * in [RFC2780].
+ */
+    ICMP-Code     ::= 547 /* RFC5777 Section 4.1.8.13 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The ETH-Option AVP (AVP Code 548) is of type Grouped and specifies
+ * Ethernet specific attributes.
+ */ 
+    ETH-Option  ::= 548 /* RFC5777 Section 4.1.8.14 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The Eth-Proto-Type AVP (AVP Code 549) is of type Grouped and
+ * specifies the encapsulated protocol type. ETH-Ether-Type and ETH-SAP
+ * are mutually exclusive.
+ */ 
+    ETH-Proto-Type ::= 549 /* RFC5777 Section 4.1.8.15 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The ETH-Ether-Type AVP (AVP Code 550) is of type OctetString. The
+ * value is a double octet that contains the value of the Ethertype
+ * field in the packet to match. This AVP MAY be present in the case of
+ * Digital, Intel, and Xerox (DIX) or if the Subnetwork Access Protocol
+ * (SNAP) is present at 802.2, but the ETH-SAP AVP MUST NOT be present
+ * in this case.
+ */                      
+
+    ETH-Ether-Type  ::= 550 /*RFC5777 Section 4.1.8.16 */ OctetString   V|M| |  |N;
+
+/**
+ * The ETH-SAP AVP (AVP Code 551) is of type OctetString. The value is
+ * a double octet representing the 802.2 SAP as specified in
+ * [IEEE802.2]. The first octet contains the Destination Service Access
+ * Point (DSAP) and the second the Source Service Access Point (SSAP).
+ */ 
+
+    ETH-SAP   ::= 551 /*RFC5777 Section 4.1.8.17 */ OctetString   V|M| |  |N;
+
+/**
+ * The VLAN-ID-Range AVP (AVP Code 552) is of type Grouped and specifies
+ * the VLAN range to match. VLAN identities are specified either by a
+ * single VLAN-ID according to [IEEE802.1Q] or by a combination of
+ * Customer and Service VLAN-IDs according to [IEEE802.1ad].
+ */ 
+
+    VLAN-ID-Range ::= 552 /* RFC5777 Section 4.1.8.18 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The S-VID-Start AVP (AVP Code 553) is of type Unsigned32. The value
+ * MUST be in the range from 0 to 4095. The value of this AVP specifies
+ * the start value of the range of S-VID VLAN-IDs to be matched.
+ */ 
+
+    S-VID-Start  ::= 553  /*RFC5777 Section 4.1.8.19 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The S-VID-End AVP (AVP Code 554) is of type Unsigned32. The value
+ * MUST be in the range from 0 to 4095. The value of this AVP specifies
+ * the end value of the range of S-VID VLAN-IDs to be matched.
+ */ 
+    S-VID-End  ::= 554  /*RFC5777 Section 4.1.8.20 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The C-VID-Start AVP (AVP Code 555) is of type Unsigned32. The value
+ * MUST be in the range from 0 to 4095. The value of this AVP specifies
+ * the start value of the range of C-VID VLAN-IDs to be matched.
+ */ 
+
+    C-VID-Start  ::= 555  /*RFC5777 Section 4.1.8.21 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The C-VID-End AVP (AVP Code 556) is of type Unsigned32. The value
+ * MUST be in the range from 0 to 4095. The value of this AVP specifies
+ * the end value of the range of C-VID VLAN-IDs to be matched.
+ */ 
+
+    C-VID-End  ::= 556  /*RFC5777 Section 4.1.8.22 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The User-Priority-Range AVP (AVP Code 557) is of type Grouped and
+ * specifies an inclusive range to match the user_priority parameter
+ * specified in [IEEE802.1D].
+ */ 
+
+    User-Priority-Range ::= 557 /* RFC5777 Section 4.1.8.23 */ Grouped     V,M|P| |   |N;
+
+
+/**
+ * The Low-User-Priority AVP (AVP Code 558) is of type Unsigned32. The
+ * value MUST be in the range from 0 to 7.
+ */ 
+    Low-User-Priority    ::= 558  /*RFC5777 Section 4.1.8.24 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The High-User-Priority AVP (AVP Code 559) is of type Unsigned32. The
+ * value MUST be in the range from 0 to 7.
+ */ 
+
+    High-User-Priority    ::= 559  /*RFC5777 Section 4.1.8.25 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Time-Of-Day-Condition AVP (AVP Code 560) is of type Grouped and
+ * specifies one or more time windows.
+ */ 
+
+    Time-Of-Day-Condition ::= 560 /* RFC5777 Section 4.2.1 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The Time-Of-Day-Start AVP (AVP Code 561) is of type Unsigned32. The
+ * value MUST be in the range from 0 to 86400. The value of this AVP
+ * specifies the start of an inclusive time window expressed as the
+ * offset in seconds from midnight. If this AVP is absent from the
+ * Time-Of-Day-Condition AVP, the time window starts at midnight.
+ */ 
+    Time-Of-Day-Start    ::= 561  /*RFC5777 Section 4.2.2 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Time-Of-Day-End AVP (AVP Code 562) is of type Unsigned32. The
+ * value MUST be in the range from 1 to 86400. The value of this AVP
+ * specifies the end of an inclusive time window expressed as the offset
+ * in seconds from midnight. If this AVP is absent from the Time-Of-
+ * Day-Condition AVP, the time window ends one second before midnight.
+ */ 
+
+    Time-Of-Day-End    ::= 562  /*RFC5777 Section 4.2.3 */ Unsigned32      M,V| | |   |N;
+
+
+/**
+ * The Day-Of-Week-Mask AVP (AVP Code 563) is of type Unsigned32. The
+ * value is a bit mask that specifies the day of the week for the time
+ * window to match. This document specifies the following bits:
+ */ 
+     Day-Of-Week-Mask   ::= 563  /*RFC5777 Section 4.2.4 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Day-Of-Month-Mask AVP (AVP Code 564) is of type Unsigned32. The value
+ * MUST be in the range from 0 to 2147483647.
+ */ 
+
+     Day-Of-Month-Mask   ::= 564  /*RFC5777 Section 4.2.5 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Month-Of-Year-Mask AVP (AVP Code 565) is of type Unsigned32. The
+ * value is a bit mask that specifies the months of the year for the
+ * time window to match.
+ */  
+     Month-Of-Year-Mask   ::= 565  /*RFC5777 Section 4.2.6 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Absolute-Start-Time AVP (AVP Code 566) is of type Time. The
+ * value of this AVP specifies the time in seconds since January 1,
+ * 1900, 00:00 UTC when the time window starts.
+ */ 
+	Absolute-Start-Time   ::=  566  /*RFC5777 Section 4.2.7  */ Time  M,V|P| |    |N;
+
+/**
+ * The Absolute-Start-Fractional-Seconds AVP (AVP Code 567) is of type
+ * Unsigned32. The value specifies the fractional seconds that are
+ * added to Absolute-Start-Time value in order to determine when the
+ * time window starts.
+ */ 
+     Absolute-Start-Fractional-Seconds   ::= 567  /*RFC5777 Section 4.2.8 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Absolute-End-Time AVP (AVP Code 568) is of type Time. The value of
+ * this AVP specifies the time in seconds since January 1, 1900, 00:00
+ * UTC when the time window ends.
+ */ 
+     Absolute-End-Time    ::=  568  /*RFC5777 Section 4.2.9  */ Time  M,V|P| |    |N;
+
+/**
+ * The Absolute-End-Fractional-Seconds AVP (AVP Code 569) is of type
+ * Unsigned32. The value specifies the fractional seconds that are
+ * added to Absolute-End-Time value in order to determine when the time
+ * window ends.
+ */ 
+     Absolute-End-Fractional-Seconds   ::= 569  /*RFC5777 Section 4.2.10 */ Unsigned32      M,V| | |   |N;
+
+/**
+ * The Timezone-Flag AVP (AVP Code 570) is of type Enumerated and
+ * indicates whether the time windows are specified in UTC, local time,
+ * at the managed terminal or as an offset from UTC. If this AVP is
+ * absent from the Time-Of-Day-Condition AVP, then the time windows are
+ * in UTC.
+ */ 
+
+    Timezone-Flag     ::= 570 /* RFC5777 Section 4.2.11 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The Timezone-Offset AVP (AVP Code 571) is of type Integer32. The
+ * value of this AVP MUST be in the range from -43200 to 43200.
+ */ 
+
+    Timezone-Offset    ::= 571  /* RFC5777 Section 4.2.12 */ Integer32     M,V| | |   |N;
+
+/**
+ * The Treatment-Action AVP (AVP Code 572) is of type Enumerated and
+ * lists the actions that are associated with the condition part of a
+ * rule.
+ */ 
+    Treatment-Action    ::= 572 /* RFC5777 Section 5.1 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The QoS-Profile-Id AVP (AVP Code 573) is of type Unsigned32 and
+ * contains a QoS profile template identifier. An initial QoS profile
+ * template is defined with value of 0 and can be found in [RFC5624].
+ * The registry for the QoS profile templates is created with the same
+ * document.
+ */ 
+
+     QoS-Profile-Id   ::= 573  /*RFC5777 Section 5.2 */ Unsigned32      M,V| | |   |N;
+
+
+/**
+ * The QoS-Profile-Template AVP (AVP Code 574) is of type Grouped and
+ * defines the namespace of the QoS profile (indicated in the Vendor-ID
+ * AVP) followed by the specific value for the profile.
+ */ 
+    QoS-Profile-Template  ::= 574 /* RFC5777 Section 5.3 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The QoS-Semantics AVP (AVP Code 575) is of type Enumerated and
+ * provides the semantics for the QoS-Profile-Template and QoSParameters
+ * AVPs in the Filter-Rule AVP.
+ */ 
+    QoS-Semantics    ::= 575 /* RFC5777 Section 5.4 */ Enumerated    V|M| |  |Y;
+
+/**
+ * The QoS-Parameters AVP (AVP Code 576) is of type Grouped and contains
+ * Quality of Service parameters. These parameters are defined in
+ * separate documents and depend on the indicated QoS profile template
+ * of the QoS-Profile-Template AVP. For an initial QoS parameter
+ * specification, see [RFC5624].
+ */ 
+    QoS-Parameters  ::= 576 /* RFC5777 Section 5.5 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The Excess-Treatment AVP (AVP Code 577) is of type Grouped and
+ * indicates how out-of-profile traffic, i.e., traffic not covered by
+ * the original QoS-Profile-Template and QoS-Parameters AVPs, is
+ * treated.
+ */ 
+    Excess-Treatment  ::= 577 /* RFC5777 Section 5.6 */ Grouped     V,M|P| |   |N;
+
+/**
+ * The QoS-Capability grouped AVP is defined in IETF RFC 5777 [35]. It includes a 
+ * list  of supported Quality of Service profiles. The QoS-Profile sub-AVP shall have 
+ * Vendor-ID and Specifier fields set to default value 0 (zero).
+ */
+
+    QoS-Capability      ::= 578  /*10.1.43 3GPP TS29.234*/ Grouped       V| | |   |N;
+
+/**
+ * The RAT-Type AVP (AVP code 1032) is of type Enumerated and is used to identify 
+ * the radio access technology that is serving the UE.
+ */
+
+    RAT-Type  ::= 1032  /*29212-920 */ Enumerated    V|P| |  M  |Y; /* 8.47,29212-920*/
+
+/**
+ * The Service-Selection AVP is of type of UTF8String. This AVP may contain an APN that 
+ * contains one or more labels according to DNS naming conventions (IETF RFC 1035 [35]) 
+ * describing the access point to the packet data network
+ */
+
+    Service-Selection ::= 493 /*5.2.3.5 TS 29213-a10 */   UTF8String    M,V| | |     |N;
+
+/**
+ * The MIP6-Feature-Vector AVP (AVP Code 124) is of type Unsigned64 and contains a 64 bit 
+ * flags field of supported mobile IP capabilities of the non-3GPP GW (when this AVP is used 
+ * in the request commands) and the mobile IP capabilities the 3GPP AAA Server has authorized 
+ * (when this AVP is used in the response commands).
+ */
+
+     MIP6-Feature-Vector   ::= 124  /*5.2.3.3 TS 29213-a10 */ Unsigned32      M| | | V  |N;
+
+/**
+ * The MIP6-Agent-Info AVP contains the PDN GW identity or (for the chained S2 - PMIP based S8 case) 
+ * the Serving GW address information. This AVP is defined in IETF RFC 5447 [6]. 
+ */
+     MIP6-Agent-Info      ::= 486  /*9.2.3.2.2 TS 29213-a10 */ Grouped       M| | | V  |N;
+
+/**
+ * The MIP-Home-Agent-Address AVP (AVP Code 334 [RFC4004]) is of type
+ * Address and contains the IPv6 or IPv4 address of the MIPv6 HA.  The
+ * Diameter server MAY decide to assign an HA to the MN that is in close
+ * proximity to the point of attachment (e.g., determined by the NAS-
+ *  Identifier AVP).
+ */
+    MIP-Home-Agent-Address  ::= 334  /* RFC5447 Section 4.2.2*/ Address     V,M|P| |   |N;
+
+/**
+ * The MIP-Home-Agent-Host AVP (AVP Code 348) is of type Grouped and
+ * contains the identity of the assigned Home Agent.  If the MIP-Home-
+ * Agent-Host AVP is present in the AMR, the AAAH MUST copy it into the
+ * HAR.
+ */
+     MIP-Home-Agent-Host      ::= 348  /*RFC4004 Section 7.11 */ Grouped       M| | | V  |N;
+
+/**
+ * The MIP6-Home-Link-Prefix AVP (AVP Code 125) is of type OctetString
+ * and contains the Mobile IPv6 home network prefix information in a
+ * network byte order.
+ */
+
+    MIP6-Home-Link-Prefix  ::= 125 /*RFC5447 Section 4.2.4 */ OctetString   V|M| |  |N;
+
+/**
+ * The Supported-Features is of type Grouped,If this AVP is present it may
+ * inform the destination host about the features that origin host supports.
+ * The Vendor-ID AVP and the Feature-List AVP shall together identify which
+ * feature list is carried in the Supported-Features AVP.
+ * Where a Supported-Feature AVP is used to identify  features that have been
+ * defined by 3GPP, the Vendor-ID AVP shall contain the vendor ID of 3GPP.
+ * Where the Supported-Feature AVP is used to identify features that have been
+ * defined by a vendor other than 3GPP, it shall contain the vendor ID of the
+ * specific vendor in question.
+ * If there are multiple feature lists defined by the same vendor, the
+ * Feature-List-ID AVP shall differentiate those lists from one another.
+ */
+  Supported-Features ::= 628 /* 3GPP TS 29.229 - 6.3.29 */ Grouped M,V| | |    |N;
+
+/**
+ * The Feature-List-ID AVP is of type Unsigned32 and it contains the identity
+ * of a feature list.
+ */
+    Feature-List-ID  ::= 629 /* 3GPP TS 29.229 - 6.3.30 */ Unsigned32    V| | | M  |N;
+
+/**   
+ * The Feature-List AVP is of type Unsigned32 and it contains a bit mask
+ * indicating the supported * features of an application.
+ */
+    Feature-List     ::= 630 /* 3GPP TS 29.229 - 6.3.31 */ Unsigned32    V| | | M  |N;
+
+/**
+ * The Mobile-Node-Identifier AVP (AVP Code 506) is of type UTF8String.
+ * The Mobile-Node-Identifier AVP is returned in an answer message that 
+ * ends a successful authentication (and possibly an authorization) exchange 
+ * between the AAA client and the AAA server. The returned Mobile Node Identifier 
+ * may be used as the PMIPv6 MN-ID or as the MIPv4 MN-NAI. 
+ * The Mobile-Node-Identifier is defined on IETF RFC 5779 [2]
+ */
+    Mobile-Node-Identifier ::= 506 /*5.2.3.2 TS 29213-a10 */   UTF8String    M,V| | |     |N;
+
+/**
+ * The APN-Configuration AVP is of type Grouped. It contains the information related
+ * to the user's subscribed APN configurations.
+ */
+  APN-Configuration     ::= 1430  /*7.3.35*/    Grouped       M,V| | |    |N;
+
+/**
+ * The Context-Identifier AVP is of type Unsigned32.
+ */
+  Context-Identifier   ::= 1423    /*7.3.27*/   Unsigned32      M,V| | |    |N;
+ 
+/**
+ * The PDN-Type AVP is of type Enumerated and indicates the address type of PDN.
+ * The following values are defined:
+ *   IPv4 (0)
+ *   IPv6 (1)
+ *   IPv4v62)
+ */
+  PDN-Type      ::= 1456  /* 7.3.62 */  Enumerated   M,V| | |     |N;
+
+/**
+ * Served-Party-IP-Address AVP is of type Address and holds the IP address of either the calling or
+ * called party,depending on whether the P-CSCF is in touch with the calling or the called party.
+ * This AVP is only provided by the P-CSCF.
+ */
+  Served-Party-IP-Address    ::= 848  /* 7.2.99 */ Address   V,M|P| |     |N; /*3GPP TS 32.299 V7.1*/
+
+/**
+ * The EPS-Subscribed-QoS-Profile AVP is of type Grouped. It contains the information related
+ * to the user profile relevant for EPS.
+ */
+  EPS-Subscribed-QoS-Profile    ::= 1431  /*7.3.37*/     Grouped  M,V| | |    |N;
+
+/**
+* QoS-Class-Identifier AVP (AVP code 1028) is of type Enumerated, and it defines
+* the maximum authorized traffic class for the transport bearer or service flow.
+* The following values are defined:
+*       TRAFFIC_CLASS_A (0) -This value defines that the QoS class is A.
+*       TRAFFIC_CLASS_B (1)- This value defines that the QoS class is B.
+*       TRAFFIC_CLASS_C (2)-This value defines that the QoS class is C.
+*       TRAFFIC_CLASS_D (3)- This value defines that the QoS class is D.
+*       TRAFFIC_CLASS_E (4)-This value defines that the QoS class is E.
+*       TRAFFIC_CLASS_F (5)-This value defines that the QoS class is F.
+* The mapping of QCI to QoS classes of specific transport technology can be found
+* in pertinent SDO's specification.
+*/
+   QoS-Class-Identifier  ::= 1028  Enumerated       M,V|P| |     |Y;
+
+  Allocation-Retention-Priority ::=1034 /*5.3.32 TS 29.212*/ Grouped         M,V|P| |    |Y;
+
+ Priority-Level ::=1046   /*5.3.45 TS 29.212*/  Unsigned32 M,V|P| |    |Y;
+
+  Pre-emption-Capability ::=1047 /*5.3.46 TS 29.212*/ Enumerated  M,V|P| |    |Y;
+
+  Pre-emption-Vulnerability::=1048      /*5.3.47 TS 29.212*/ Enumerated  M,V|P| |    |Y;
+
+/**
+ * The VPLMN Dynamic Address Allowed AVP is of type Enumerated. It indicates whether
+ * the UE is allowed to use a dynamic address allocated in the VPLMN. If this AVP is
+ * not present, this means that the UE is not allowed to use these kind of addresses.
+ * The following values are defined:
+ *      NOTALLOWED (0)
+ *      ALLOWED (1)
+ */
+   VPLMN-Dynamic-Address-Allowed  ::= 1432   /*7.3.38*/ Enumerated  M,V| | |    |N;
+
+/**
+ * The PDN-GW-Allocation-Type AVP is of type Enumerated. It indicates whether the
+ * PDN GW address is statically allocated or dynamically selected by other nodes.
+ * If this AVP is not present, this means that the address is statically allocated.
+ * The following values are defined:
+ *              STATIC (0)
+ *              DYNAMIC (1)
+ */
+  PDN-GW-Allocation-Type   ::= 1438  /*7.3.44*/   Enumerated    M,V| | |    |N;
+
+/**
+ * 3GPP-Charging-Characteristics AVP is of type UTF8String. It contains the charging
+ * characteristics for this PDP context received in the Create PDP Context Request
+ * Message (only available in R99 and later releases).see 3GPP TS 32.299 [8].
+ */
+  S6b-3GPP-Charging-Characteristics   ::= 13  UTF8String   M,V| | |     |N;
+
+/**
+ * The AMBR AVP is of type Grouped.
+ */
+   AMBR         ::= 1435    /*7.3.41*/  Grouped                  M,V| | |    |N;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for a downlink IP flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ *  e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-DL   ::=  5150 /*6.5.16*/  Unsigned32   M,V|P| |    |Y; /* AVP Code was 515 it was conflicting with From-Spec of RFC 5777. This needs to be discussed with IETF */
+
+/**
+ * The Max -Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and it indicates
+ * the maximum requested bandwidth in bits per second for an uplink IP flow.
+ * The bandwidth contains all the overhead coming from the IP-layer and the layers above,
+ * e.g. IP, UDP, RTP and RTP payload.
+ */
+   Max-Requested-Bandwidth-UL     ::=  5160 /*6.5.17*/ Unsigned32  M,V|P| |    |Y; /* AVP Code was 516 it was conflicting with To-Spec of RF
+C 5777. This needs to be discussed with IETF */
+
+  Specific-APN-Info ::= 1472    /*7.3.82*/ Grouped    M,V| | |     |N;
+
+/**
+ * The Trace-Info AVP is of type Grouped. This AVP shall contain the information 
+ * related to subscriber and equipment trace function and the required action, 
+ * i.e. activation of deactivation  
+ */
+
+  Trace-Info ::= 1505  /*TS29273-a10 section 8.2.3.1.3*/ Grouped    V| | |  M  |N;
+
+ Trace-Data    ::=1458  /*7.3.63*/     Grouped      M,V| | |     |N;
+
+ /**
+  *  See 3GPP 29272 section 7.3.64 for details.
+  */
+  Trace-Reference ::= 1459 /*7.3.64*/   OctetString  M,V| | |     |N;
+
+/*
+  *  See 3GPP 29272 for details.
+ */
+  Trace-Depth   ::= 1462 /*7.3.83*/  Enumerated    M,V| | |     |N;
+
+  Trace-NE-Type-List ::= 1463 /*7.3.68*/  OctetString  M,V| | |     |N;
+
+  Trace-Interface-List ::= 1464 /*7.3.69*/ OctetString M,V| | |     |N;
+
+  Trace-Event-List ::= 1465 /*7.3.70*/ OctetString M,V| | |     |N;
+
+  Trace-Collection-Entity::= 1487 /* 7.3.98*/ Address  M,V| | |     |N;
+
+  OMC-Id ::= 1466       /*7.3.71*/     OctetString M,V| | |     |N;
+
+
+                          /////////////////
+                          //Enumerations//
+                          ///////////////
+
+
+
+   Protocol  ::= < Enumerated: 513 >
+                IPv4     0
+                IPv6     1
+                ICMP     2
+                UDP      3 
+                TCP      4 
+                ;
+                
+   Direction  ::= < Enumerated: 514 >
+                  IN     0
+                  OUT    1
+                  BOTH   2
+                  ;
+
+   Negated    ::= < Enumerated: 517 >
+                  False  0
+                  True   1
+                  ;
+
+   Use-Assigned-Address  ::= < Enumerated: 534 >
+                             False  0
+                             True   1
+                             ;
+
+   Diffserv-Code-Point   ::= < Enumerated: 535 >
+                            CS0     0 
+                            CS1     4 
+                            CS2     16 
+                            CS3     24 
+                            CS4     32 
+                            CS5     40 
+                            CS6     48 
+                            CS7     56 
+                            ;
+
+   Fragmentation-Flag  ::= < Enumerated: 536 >
+                           DF  0
+                           MF  1
+                           ;
+
+   IP-Option-Type  ::= < Enumerated: 538 >
+                       EOOL     0       
+		       NOP      1 
+		       S6b_SEC  130 
+		       LSR      131 
+		       TS       68  
+		       E_SEC    133         
+		       CIPSO    134
+		       RR       7
+		       SID      136
+		       SSR      137
+		       ZSU      10
+                       MTUP     11
+                       MTUR     12
+                       FINN     205
+                       VISA     142
+                       ENCODE   15
+                       IMITD    144
+                       S6b_EIP  145
+                       TR       82
+                       ADDEXT   147
+                       RTRALT   148
+                       SDB      149
+                       DPS      151
+                       UMP      152
+                       QS       25
+                       EXP1      30
+                       EXP2      94
+                       EXP3      158
+                       EXP4      222
+                       ;
+
+   TCP-Option-Type  ::= < Enumerated: 541 >
+                        End_of_option_list      0
+                        No_Operation            1
+                        Maximum_Segment_Size    2
+                        ;
+
+  ICMP-Type-Number  ::= < Enumerated: 546 >
+                        Echo_Reply                         0
+                        Destination_Unreachable_Message    3
+                        Source_Quench                      4 
+			Redirect                           5
+			Alternate_Host_Address             6
+                        Echo_Request                       8
+			Router_Advertisement               9
+			Router_Solicitation                10
+			Time_Exceeded                      11
+                        Parameter_Problem                  12
+			Timestamp                          13 
+			Timestamp_Reply                    14 
+			Information_Request                15
+			Information_Reply                  16 
+                        Address_Mask_Request               17
+                        Address_Mask_Reply                 18
+                        Traceroute                         30 
+                        Datagram_Conversion_Error          31
+                        Mobile_Host_Redirect               32
+                        IPv6_Where_Are_You                 33
+                        IPv6_I_Am_Here                     34
+                        Mobile_Registration_Request        35
+                        Mobile_Registration_Reply          36
+                        Domain_Name_Request                37
+                        Domain_Name_Reply                  38
+			SKIP                               39
+			Photuris                           40
+			ICMP_messages                      41
+                        ;
+
+  ICMP-Code  ::= < Enumerated: 547 >
+		Net_Unreachable_OR_Redirect_Datagram_for_the_Network_OR_Alternate_Address_for_Host_OR_Normal_router_advertisement_OR_Time_to_Live_exceeded_in_Transit_OR_Pointer_indicates_the_error_OR_Bad_SPI             0
+		Host_Unreachable_OR_Redirect_Datagram_for_the_Host_OR_Fragment_Reassembly_Time_Exceeded_OR_Missing_a_Required_Option_OR_Authentication_Failed                                                                 1
+		Protocol_Unreachable_OR_Redirect_Datagram_for_the_TOS_and_Network_OR_Bad_Length_OR_Decompression_Failed    2
+		Port_Unreachable_OR_Redirect_Datagram_for_the_TOS_and_Host_OR_Decryption_Failed                            3
+                Fragmentation_Needed_OR_Need_Authentication                                                                4 
+		Source_Route_Failed_OR_Need_Authorization                                                                  5
+		Destination_Network_Unknown                                                                                6
+		Destination_Host_Unknown 										   7
+		Source_Host_Isolated                                                                                       8
+		Communication_with_Destination_Network_Prohibited   							   9 
+                Communication_with_Destination_Host_Prohibited								   10 
+		Destination_Network_Unreachable_for_TOS 								   11
+		Destination_Host_Unreachable_for_TOS 									   12
+		Communication_Administratively_Prohibited  								   13
+		Host_Precedence_Violation 										   14 
+		Precedence_cutoff_in_effect										   15
+		Does_not_route_common_traffic                                                                              16
+                ;
+
+
+
+   Timezone-Flag    ::= < Enumerated: 570 >
+                        UTC      0
+                        LOCAL    1
+                        OFFSET   2
+                        ;
+
+   Treatment-Action   ::= < Enumerated: 572 >
+                        drop      0
+                        shape     1
+                        mark      2
+                        permit    3
+                        ;
+
+    QoS-Semantics   ::= < Enumerated: 575 >
+                        QoS_Desired       0
+                        QoS_Available     1
+                        QoS_Delivered     2
+                        Minimum_QoS       3
+                        QoS_Authorized    4
+                        ;
+
+   RAT-Type ::= < Enumerated: 1032 >
+                WLAN           0
+                UTRAN          1000
+                GERAN          1001
+                GAN            1002
+                HSPA_EVOLUTION 1003
+                EUTRAN         1004
+                CDMA2000_1X    2000
+                HRPD           2001
+                UMB            2002
+                EHRPD          2003
+                ;
+
+  PDN-Type  ::= <Enumerated: 1456 >
+                IPv4                    0
+                IPv6                    1
+                IPv4v6                  2
+                ;
+
+     QoS-Class-Identifier  ::= <Enumerated: 1028 >
+                TRAFFIC_CLASS_A         0
+                TRAFFIC_CLASS_B         1
+                TRAFFIC_CLASS_C         2
+                TRAFFIC_CLASS_D         3
+                TRAFFIC_CLASS_E         4
+                TRAFFIC_CLASS_F         5
+                TRAFFIC_CLASS_G         6
+                TRAFFIC_CLASS_H         7
+                TRAFFIC_CLASS_I         8
+                ;
+
+     Pre-emption-Capability ::=  <Enumerated: 1047>
+                PRE_EMPTION_CAPABILITY_ENABLED          0
+                PRE_EMPTION_CAPABILITY_DISABLED         1
+                ;
+
+     Pre-emption-Vulnerability ::=  <Enumerated:  1048>
+                PRE_EMPTION_VULNERABILITY_ENABLED               0
+                PRE_EMPTION_VULNERABILITY_DISABLED              1
+                ;
+
+    VPLMN-Dynamic-Address-Allowed ::= <Enumerated:   1432 >
+                NOTALLOWED              0
+                ALLOWED                 1
+                ;
+
+    PDN-GW-Allocation-Type      ::= <Enumerated:   1438 >
+                STATIC          0
+                DYNAMIC         1
+                ;
+
+    Trace-Depth ::=  <Enumerated: 1462>   
+                Minimum                                         0
+                Medium                                          1   
+                Maximum                                         2
+                MinimumWithoutVendorSpecificExtension           3
+                MediumWithoutVendorSpecificExtension            4
+                MaximumWithoutVendorSpecificExtension           5
+                ;
+
+                  ///////////////////
+                  ///Grouped AVPs///
+                  //////////////////
+
+  QoS-Capability ::= < AVP Header: 578 >
+                     1*{ QoS-Profile-Template }
+                     * [ AVP ]
+                     ;
+
+  QoS-Profile-Template ::= < AVP Header: 574 >
+                           { Vendor-Id }
+                           { QoS-Profile-Id }
+                           * [ AVP ]
+                           ;
+
+  QoS-Resources ::= < AVP Header: 508 >
+                      1*{ Filter-Rule }
+                      * [ AVP ]
+                      ;
+
+  Filter-Rule ::= < AVP Header: 509 >
+                  [ Filter-Rule-Precedence ]
+                  [ Classifier ]
+                  * [ Time-Of-Day-Condition ]
+                  [ Treatment-Action ]
+                  [ QoS-Semantics ]
+                  [ QoS-Profile-Template ]
+                  [ QoS-Parameters ]
+                  [ Excess-Treatment ]
+                  * [ AVP ]
+                  ;
+
+   Classifier ::= < AVP Header: 511 >
+                  { Classifier-ID }
+                  [ Protocol ]
+                  [ Direction ]
+                  * [ From-Spec ]
+                  * [ To-Spec ]
+                  * [ Diffserv-Code-Point ]
+                  [ Fragmentation-Flag ]
+                  * [ IP-Option ]
+                  * [ TCP-Option ]
+                  [ TCP-Flags ]
+                  * [ ICMP-Type ]
+                  * [ ETH-Option ]
+                  * [ AVP ]
+                  ;
+
+   From-Spec ::= < AVP Header: 515 >
+                 * [ IP-Address ]
+                 * [ IP-Address-Range ]
+                 * [ IP-Address-Mask ]
+                 * [ MAC-Address ]
+                 * [ MAC-Address-Mask]
+                 * [ EUI64-Address ]
+                 * [ EUI64-Address-Mask]
+                 * [ Port ]
+                 * [ Port-Range ]
+                 [ Negated ]
+                 [ Use-Assigned-Address ]
+                 * [ AVP ]
+                 ;
+
+     To-Spec ::= < AVP Header: 516 >
+                 * [ IP-Address ]
+                 * [ IP-Address-Range ]
+                 * [ IP-Address-Mask ]
+                 * [ MAC-Address ]
+                 * [ MAC-Address-Mask]
+                 * [ EUI64-Address ]
+                 * [ EUI64-Address-Mask]
+                 * [ Port ]
+                 * [ Port-Range ]
+                 [ Negated ]
+                 [ Use-Assigned-Address ]
+                 * [ AVP ]
+                 ;
+
+  IP-Address-Range ::= < AVP Header: 519 >
+                       [ IP-Address-Start ]
+                       [ IP-Address-End ]
+                       * [ AVP ]
+                       ;
+
+  IP-Address-Mask ::= < AVP Header: 522 >
+                      { IP-Address }
+                      { IP-Bit-Mask-Width }
+                      * [ AVP ]
+                      ;
+
+   MAC-Address-Mask ::= < AVP Header: 525 >
+                        { MAC-Address }
+                        { MAC-Address-Mask-Pattern }
+                        * [ AVP ]
+                        ; 
+
+  EUI64-Address-Mask ::= < AVP Header: 528 >
+                         { EUI64-Address }
+                         { EUI64-Address-Mask-Pattern }
+                         * [ AVP ]
+                         ;
+
+  Port-Range ::= < AVP Header: 531 >
+                 [ Port-Start ]
+                 [ Port-End ]
+                 * [ AVP ]
+                 ;
+
+  IP-Option ::= < AVP Header: 537 >
+                { IP-Option-Type }
+                * [ IP-Option-Value ]
+                [ Negated ]
+                * [ AVP ]
+                ;
+
+  TCP-Option ::= < AVP Header: 540 >
+                 { TCP-Option-Type }
+                 * [ TCP-Option-Value ]
+                 [ Negated ]
+                 * [ AVP ]
+                 ;
+
+  TCP-Flags ::= < AVP Header: 543 >
+                { TCP-Flag-Type }
+                [ Negated ]
+                * [ AVP ]
+                ;
+
+  ICMP-Type ::= < AVP Header: 545 >
+                { ICMP-Type-Number }
+                * [ ICMP-Code ]
+                [ Negated ]
+                * [ AVP ]
+                ; 
+
+  ETH-Option ::= < AVP Header: 548 >
+                 { ETH-Proto-Type }
+                 * [ VLAN-ID-Range ]
+                 * [ User-Priority-Range ]
+                 * [ AVP ]
+                 ;
+
+   ETH-Proto-Type ::= < AVP Header: 549 >
+                      * [ ETH-Ether-Type ]
+                      * [ ETH-SAP ]
+                      * [ AVP ]
+                      ;
+
+   VLAN-ID-Range ::= < AVP Header: 552 >
+                     [ S-VID-Start ]
+	             [ S-VID-End ]
+		     [ C-VID-Start ]
+		     [ C-VID-End ]
+		     * [ AVP ]
+                     ;
+
+   User-Priority-Range ::= < AVP Header: 557 >
+			   * [ Low-User-Priority ]
+	                   * [ High-User-Priority ]
+	                   * [ AVP ]
+                           ;
+
+   Time-Of-Day-Condition ::= < AVP Header: 560 >
+			     [ Time-Of-Day-Start ]
+			     [ Time-Of-Day-End ]
+			     [ Day-Of-Week-Mask ]
+			     [ Day-Of-Month-Mask ]
+			     [ Month-Of-Year-Mask ]
+		             [ Absolute-Start-Time ]
+			     [ Absolute-End-Time ]
+			     [ Timezone-Flag ]
+			     * [ AVP ]
+                             ;
+
+    QoS-Parameters ::= < AVP Header: 576 >
+	               * [ AVP ]
+                       ;
+
+    Excess-Treatment ::= < AVP Header: 577 >
+			 { Treatment-Action }
+			 [ QoS-Profile-Template ]
+			 [ QoS-Parameters ]
+			 * [ AVP ]
+			 ;
+
+     MIP6-Agent-Info ::= < AVP Header: 486 >
+                         *2[ MIP-Home-Agent-Address ]
+                           [ MIP-Home-Agent-Host ]
+                           [ MIP6-Home-Link-Prefix ]
+                           *[ AVP ]
+                           ;
+ 
+     MIP-Home-Agent-Host ::= < AVP Header: 348 >
+                             { Destination-Realm }
+                             { Destination-Host }
+                             * [ AVP ]
+                             ;  
+
+    Supported-Features ::= < AVP Header : 628 10415 >
+                { Vendor-Id }
+                { Feature-List-ID }
+                { Feature-List }
+                *[ AVP ]
+                ;
+
+  APN-Configuration::= <AVP Header:1430  10415 >
+                { Context-Identifier }
+                { PDN-Type }
+                { Service-Selection}
+                *2[ Served-Party-IP-Address ]
+                [ EPS-Subscribed-QoS-Profile ]
+                [ VPLMN-Dynamic-Address-Allowed ]
+                [ MIP6-Agent-Info ]
+                [ PDN-GW-Allocation-Type ]
+                [ S6b-3GPP-Charging-Characteristics ]
+                [ AMBR ]
+                *[ Specific-APN-Info ]
+                *[ AVP ]
+                ;
+
+  EPS-Subscribed-QoS-Profile::= <AVP Header: 1431  10415>
+                { QoS-Class-Identifier }
+                { Allocation-Retention-Priority }
+                *[AVP]
+                ;
+
+    Allocation-Retention-Priority ::= <AVP Header: 1034 10415 >
+                {Priority-Level}
+                [Pre-emption-Capability]
+                [Pre-emption-Vulnerability]
+                ;
+
+  AMBR          ::= <AVP Header: 1435  10415>
+                { Max-Requested-Bandwidth-UL }
+                { Max-Requested-Bandwidth-DL }
+                *[AVP]
+                ;
+
+    Specific-APN-Info ::= <AVP Header: 1472 10415>    
+                { Service-Selection }
+                { MIP6-Agent-Info }     
+                *[ AVP ]
+                ;
+
+    Trace-Info ::= < AVP Header: 1505 10415>
+	           [Trace-Data]
+	           [Trace-Reference]
+	           *[AVP]
+                   ;
+
+    Trace-Data ::= <AVP Header: 1458 10415>
+                {Trace-Reference}
+                {Trace-Depth}
+                {Trace-NE-Type-List}
+                {Trace-Event-List}
+                {Trace-Collection-Entity}
+                [Trace-Interface-List]
+                [OMC-Id]
+                *[AVP]
+                ;
+
+
+
+    /////////////// 
+    // Commands //
+    //////////////
+
+/**         
+ * The Diameter-EAP-Request (DER) command, indicated by the Command-Code field set to 268 
+ * and the "R" bit set in the Command Flags field, is sent from a PGW to a 3GPP AAA server. 
+ * The Command Code value and the ABNF are re-used from the IETF RFC 5778 [11].
+ */
+
+    Diameter-EAP-Request<DER> ::= < Diameter Header: 268, REQ, PXY, 16777272 >
+            < Session-Id > 
+            { Auth-Application-Id }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Request-Type }
+            { EAP-Payload }
+            [ RAT-Type ]
+            [ User-Name ]
+            [ Service-Selection ]
+            [ MIP6-Feature-Vector ]
+            [ MIP6-Agent-Info ]
+            [ QoS-Capability ]
+            [ Visited-Network-Identifier ]
+            * [ Supported-Features ]
+            * [ AVP ]
+            ;
+
+
+/**
+ * The Diameter-EAP-Answer (DEA) command, indicated by the Command-Code field set to 268 
+ * and the "R" bit cleared in the Command Flags field, is sent from a 3GPP AAA server to a PGW. 
+ * The Command Code value and the ABNF are re-used from the IETF RFC 5778 [11].
+ */
+    Diameter-EAP-Answer<DEA> ::= < Diameter Header: 268, PXY, 16777272 >
+            < Session-Id >
+            { Auth-Application-Id }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            { Auth-Request-Type }
+            [ EAP-Payload ]
+            [ User-Name ]
+            [ EAP-Master-Session-Key ]
+            [ Mobile-Node-Identifier ]
+            [ APN-Configuration ]
+            [ MIP6-Agent-Info ]
+            [ MIP6-Feature-Vector ]
+            [ S6b-3GPP-Charging-Characteristics ]
+            * [ QoS-Resources ]
+            *[ Redirect-Host ] 
+            [ Trace-Info ]
+            *[ Supported-Features ]
+            [ AVP ]
+            ;
+
+
+/**
+ * The AA-Request (AAR) command, indicated by the Command-Code field set to 265 
+ * and the "R" bit set in the Command Flags field, is sent from a PDN GW to a 3GPP AAA server. 
+ * The Command Code value and ABNF are re-used from the IETF RFC 4005 [4] AA-Request command. 
+ * New AVPs are added using the *[AVP] extension mechanism in the original ABNF.
+ */
+    AA-Request<AAR> ::= < Diameter Header: 265, REQ, PXY, 16777272>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Request-Type }
+            [ User-Name ]
+            [ MIP6-Agent-Info ]
+            [ MIP6-Feature-Vector ] 
+            [ Visited-Network-Identifier ]
+            [ QoS-Capability ]
+            [ Service-Selection ]
+            *[ Supported-Features ]
+            * [ AVP ]
+            ;
+
+/**
+ * The AA-Answer (AAA) command, indicated by the Command-Code field set to 265 and 
+ * the "R" bit cleared in the Command Flags field, is sent from a 3GPP AAA server to a PDN GW. 
+ * The Command Code value and ABNF are re-used from the IETF RFC 4005 [4] AA-Answer command. 
+ * New AVPs are added using the *[AVP] extension mechanism in the original ABNF.
+ */
+    AA-Answer<AAA> ::= < Diameter Header: 265, PXY, 16777272>
+            < Session-Id >
+            { Auth-Application-Id }
+            { Auth-Request-Type }
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ MIP6-Feature-Vector ]
+            [ Session-Timeout ] 
+            [ APN-Configuration ]
+            [ QoS-Resources ]
+            *[ Redirect-Host ]
+            [ Trace-Info ]
+            *[ Supported-Features ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Diameter Re-Auth-Request (RAR) command shall be indicated by the Command-Code field set to 258 
+ * and the "R" bit set in the Command Flags field and is sent from a 3GPP AAA Server or 3GPP AAA Proxy to a PDN-GW. 
+ * The ABNF for the RAR command shall be as follows
+ */
+    Re-Auth-Request<RAR> ::= < Diameter Header: 258, REQ, PXY, 16777272 >
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Destination-Host }
+            { Auth-Application-Id }
+            { Re-Auth-Request-Type }
+            [ User-Name ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Diameter Re-Auth-Answer (ASA) command shall be indicated by the Command-Code field set to 258 
+ * and the "R" bit cleared in the Command Flags field and is sent from a PDN-GW to a 3GPP AAA Server or 3GPP AAA Proxy. 
+ * The ABNF for the RAA commands shall be as follows
+ */
+    Re-Auth-Answer<RAA> ::= < Diameter Header: 258, PXY, 16777272 >
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            [ User-Name ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Request (ASR) command, indicated by the Command-Code field set to 274 
+ * and the "R" bit set in the Command Flags field, is sent from a 3GPP AAA Server/Proxy to a PDN GW. 
+ * The ABNF is based on the one in IETF RFC 4005 [4].
+ */
+    Abort-Session-Request<ASR> ::= < Diameter Header: 274, REQ, PXY, 16777272>
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Destination-Host }
+            { Auth-Application-Id }
+            [ User-Name ]
+            [ Auth-Session-State ]
+            *[ AVP ]
+            ;
+
+/**
+ * The Abort-Session-Answer (ASA) command, indicated by the Command-Code field set to 274 
+ * and the "R" bit cleared in the Command Flags field, is sent from a PDN GW to a 3GPP AAA Server/Proxy. 
+ * The ABNF is based on the one in IETF RFC 4005 [4].
+ */
+    Abort-Session-Answer<ASA> ::= < Diameter Header: 274, PXY, 16777272>
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            * [ AVP ]
+            ;
+
+/**
+ * The Session-Termination-Request (STR) command, indicated by the Command-Code field set to 275 
+ * and the "R" bit set in the Command Flags field, is sent from a PDN GW to a 3GPP AAA server. 
+ * The Command Code value and ABNF are re-used from the IETF RFC 3588 [7] Session-Termination-Request command. i
+ * New AVPs are added using the *[AVP] extension mechanism in the original ABNF.
+ */
+    Session-Termination-Request<STR> ::= < Diameter Header: 275, REQ, PXY, 16777272 >
+            < Session-Id >
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            { Auth-Application-Id }
+            { Termination-Cause }
+            [ User-Name ]
+            * [ AVP ]
+            ;
+
+/**
+ * The Session-Termination-Answer (STA) command, indicated by the Command-Code field set to 275 
+ * and the "R" bit cleared in the Command Flags field, is sent from a 3GPP AAA Server/Proxy to an PDN GW. 
+ * The Command Code value and ABNF are re-used from the IETF RFC 3588 [7] Session-Termination-Answer command.
+ */
+   Session-Termination-Answer <STA> ::= < Diameter Header: 275, PXY, 16777272>
+            < Session-Id >
+            { Result-Code }
+            { Origin-Host }
+            { Origin-Realm }
+            * [ AVP ]
+            ;
+

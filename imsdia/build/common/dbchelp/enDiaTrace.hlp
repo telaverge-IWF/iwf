@@ -1,0 +1,13 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    enDiaTrace                                                                                 
+DESCRIPTION
+    This command enables all the diameter traces.
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> enDiaTrace
+    *******All diameter traces are enabled*******
+

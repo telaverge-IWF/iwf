@@ -1,0 +1,1 @@
+cd /opt/checkout/eAccelero/3rdparty/mysql-cluster-gpl-7.2.8 && '/usr/bin/cpack' -G TGZ --config CPackConfig.cmake

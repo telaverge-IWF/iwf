@@ -1,0 +1,23 @@
+Diameter Command
+
+SYNOPSIS
+    addRealm <realmName> <localAction> <proxyInfoAvp>
+
+DESCRIPTION
+    This command sets realm table entry for dynamically added realm.
+
+PARAMETERS
+    realmName     Realm Name.
+    localAction   Local Action for Out-bound Message
+                  Values:
+                         local
+                         proxy
+                         relay
+    proxyInfoAvp  This is required for Relay Support only.
+                  Values: yes - For Relay.
+                          no - For other Proxy and Client/Server.
+
+EXAMPLE
+    >> addRealm india.internal.net local no
+
+       Successfully Realm added

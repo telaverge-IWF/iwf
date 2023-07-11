@@ -1,0 +1,19 @@
+Diameter Command
+ 
+SYNOPSIS
+    printDefaultRoute  
+ 
+DESCRIPTION
+    This command will print the default realm route.
+ 
+PARAMETERS
+    None
+ 
+ 
+EXAMPLE
+    >> printDefaultRoute 
+ 
+       Default Realm Entry:
+       Peer Name  : nemo
+       Realm Name : india.internal.net
+

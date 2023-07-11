@@ -1,0 +1,17 @@
+Diameter Command
+
+SYNOPSIS
+    getOverloadLimits
+
+DESCRIPTION
+    This command is used to get the Overload limits.
+
+PARAMETERS
+    <None>
+
+EXAMPLE
+    >> getOverloadLimits
+       Ovload Threshold value 
+       Maximum Threshold :15000
+       Minimum Threshold :10000
+

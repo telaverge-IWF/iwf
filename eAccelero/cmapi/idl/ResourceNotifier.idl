@@ -1,0 +1,64 @@
+%PB{
+    import "Common.proto";
+
+    message Topic{
+        enum TopicId
+        {
+            CPU_UTILIZATION_TOPIC_ID=1;
+            PHY_MEM_UTILIZATION_TOPIC_ID=2;
+        };
+        optional TopicId id = 1;
+        optional string name = 2;
+        optional uint64 minValue = 3;
+        optional uint64 maxValue = 4;
+    }
+    message Attribute {
+        enum Condition {
+            GREATER_THAN=1;
+            LESS_THAN=2;
+            EQUAL_TO=3;
+        };
+        optional fixed32 id =1;
+        optional fixed32 value = 2;
+        optional fixed32 currentValue = 3;
+        optional Condition condition = 4;
+    }
+    message NotifyCondition {
+        optional Topic topic = 1;
+        optional Attribute attrib= 2;
+    }
+    message RegisterRequest {
+        optional fixed32 RequestId = 1;
+        optional string SubscriberName = 2;
+        optional fixed32 componentId= 3;
+        optional fixed32 instanceId= 4;
+        repeated NotifyCondition conditions = 5;
+        optional fixed32 nodeId = 6;
+    }
+    message RegisterResponse {
+        optional fixed32 ResponseId = 1;
+        optional ErrorDetails error = 2;
+    }
+    message NotifyRequest {
+        optional fixed32 RequestId = 1;
+        repeated NotifyCondition conditions = 2;
+        optional fixed32 nodeId = 3;
+    }
+    message NotifyResponse {
+        optional fixed32 ResponseId = 1;
+        optional ErrorDetails error = 2;
+    }
+
+%PB}
+
+interface Publisher
+{
+    Register(RegisterRequest Req, RegisterResponse Resp)uses_PB;
+    Deregister(RegisterRequest Req, RegisterResponse Resp)uses_PB;
+    Acknowledge(RegisterRequest Req, RegisterResponse Resp)uses_PB;
+}
+interface Subscriber
+{
+    Notify(NotifyRequest Req, NotifyResponse Resp)uses_PB;
+}
+

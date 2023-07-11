@@ -1,0 +1,27 @@
+Diameter Command
+
+SYNOPSIS
+    removeDestination <realmName> <hostName> <hostRealm> <appId> <vendorId> <priority>
+
+DESCRIPTION
+    This command removes peer entry from peer table.
+
+PARAMETERS
+
+    realmName     Route Realm Name (from which destination needs to be remove).
+
+    hostName      Host Name
+
+    hostRealm     Peer Realm Name.
+
+    appId         Application Identifier
+ 
+    vendorId      Vendor Identifier
+
+    priority      Priority of Destination host
+    
+
+EXAMPLE
+    >> removeDestination india.internal.net nemo india.internal.net2 5 0 0
+
+       Successfully removed Destination

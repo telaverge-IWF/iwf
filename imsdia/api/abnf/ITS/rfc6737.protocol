@@ -1,0 +1,51 @@
+/**
+ * RFC 6737 - Diameter Capabilities Update Application Protocol
+ */
+@protocol diameter.cua < 0: "http://www.rfc-editor.org/rfc/rfc6737.txt" >;
+
+dict-id 21;
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+    /**
+     * The Capabilities-Update-Request (CUR), indicated by the Command Code
+     * set to 328 and the Command Flags' 'R' bit set, is sent to update
+     * local capabilities.  Upon detection of a transport failure, this
+     * message MUST NOT be sent to an alternate peer.
+
+     * When Diameter is run over the Stream Control Transmission Protocol
+     * (SCTP) [RFC4960], which allows connections to span multiple
+     * interfaces and multiple IP addresses, the Capabilities-Update-Request
+     * message MUST contain one Host-IP-Address AVP for each potential IP
+     * address that may be locally used when transmitting Diameter messages.*
+     */
+     Capabilities-Update-Request<CUR> ::= < Diameter Header: 328, REQ, 10 >
+                    { Origin-Host }
+                    { Origin-Realm }
+                 1* { Host-IP-Address }
+                    { Vendor-Id }
+                    { Product-Name }
+                    [ Origin-State-Id ]
+                  * [ Supported-Vendor-Id ]
+                  * [ Auth-Application-Id ]
+                  * [ Acct-Application-Id ]
+                  * [ Vendor-Specific-Application-Id ]
+                    [ Firmware-Revision ]
+                  * [ AVP ]
+                    ;
+
+    /**
+     * The Capabilities-Update-Answer, indicated by the Command Code set to
+     * 328 and the Command Flags' 'R' bit cleared, is sent in response to a
+     * CUR message.
+     */
+     Capabilities-Update-Answer<CUA> ::= < Diameter Header: 328, 10 >
+                    { Origin-Host }
+                    { Origin-Realm }
+                    { Result-Code }
+                    [ Error-Message ]
+                  * [ AVP ]
+                    ;
+

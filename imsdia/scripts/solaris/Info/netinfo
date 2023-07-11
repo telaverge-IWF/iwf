@@ -1,0 +1,40 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+# Get net information
+
+mkdir netinfo
+
+arp -a    1>netinfo/arp-a.out     2>&1
+
+netstat -a    1>netinfo/netstat-a.out     2>&1
+netstat -an   1>netinfo/netstat-an.out    2>&1
+netstat -i    1>netinfo/netstat-i.out     2>&1
+netstat -k    1>netinfo/netstat-k.out     2>&1
+netstat -m    1>netinfo/netstat-m.out     2>&1
+netstat -p    1>netinfo/netstat-p.out     2>&1
+netstat -pn   1>netinfo/netstat-pn.out    2>&1
+netstat -r    1>netinfo/netstat-r.out     2>&1
+netstat -rn   1>netinfo/netstat-rn.out    2>&1
+netstat -s    1>netinfo/netstat-s.out     2>&1
+
+nfsstat       1>netinfo/nfsstat.out       2>&1
+
+rpcinfo    1>netinfo/rpcinfo.out     2>&1
+rpcinfo -m 1>netinfo/rpcinfo-m.out   2>&1
+
+/usr/lib/nis/nisshowcache -v  1>netinfo/nisshowcache-v.out   2>&1
+
+# Check FireWall-1 version
+if [ -x /etc/fw/bin/fw ]
+then
+    /etc/fw/bin/fw ver 1>netinfo/firewall-1_fw_ver.out 2>netinfo/firewall-1_fw_v
+er.err
+fi

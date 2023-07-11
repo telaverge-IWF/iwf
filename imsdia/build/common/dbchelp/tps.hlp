@@ -1,0 +1,50 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    tps
+                                                                                
+DESCRIPTION
+    This command display the TPS values. This command is
+    for illustration purpose only. It calculates TPS
+    based on the request/responses received. It calculates
+    TPS during load testing (between start-traffic and stop-traffic
+    or duration completion). It will print the TPS only when
+    the number of requests sent are == to number of responses received.
+    
+                                                                                
+PARAMETERS
+    None                                                                                 
+EXAMPLE
+    >> tps
+    -----------------------------------------------------------
+    -- APP Stats -- at Mon May  8 17:46:49 2006
+    -----------------------------------------------------------
+ 
+    Total Num of Request Msgs Sent      0
+    Total Num of Answer Msgs Sent       0
+    Total Num of Request Msgs Received  0
+    Total Num of Answer Msgs Received   0
+ 
+    Num of RAR Sent                     0
+    Num of RAA Sent                     0
+    Num of RAR Received                 0
+    Num of RAA Received                 0
+ 
+    Num of PUR Sent                     0
+    Num of PUA Sent                     0
+    Num of PUR Received                 0
+    Num of PUA Received                 0
+ 
+    Num of Disconnect Indications       0
+    Num of Timeout Indications          0
+    Num of AuthLifeTimeout Indications  0
+    Num of AuthGraceTimeout Indications 0
+    Num of Abort Indications            0
+    Num of Corrupt Indications          0
+    Num of Unknown Indications          0
+    TPS                          0
+    Time difference between sending & receiving =
+    -1147090400 Secs
+    -690 milli-secs
+
+

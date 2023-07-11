@@ -1,0 +1,25 @@
+IntelliNet DIAMETER MML Command
+                                                                                
+SYNOPSIS
+    start-traffic 
+                                                                                
+DESCRIPTION
+    Command to start the traffic for load testing.
+                                                                                
+PARAMETERS
+    duration : (In seconds)
+    burstSize : (No of Messages/burst)
+    sleepBetweenBurst: Sleep time between each burst (in milliseconds)                                               
+    This command will work, only if -load option is provided
+    to the sampleAppD executable. Please refer the Run.server
+    or the Run.client script for details on passing commandLine
+    options to the sampleAppD program.
+  
+    
+EXAMPLE
+    >> start-traffic 60 20 100
+    This results in 20 messages in bursts being pumped for 60 secs,
+    with a 100 milliseconds sleep between bursts.
+   
+    Test Started at ----->[ May08 2006 17:41:12  ]                                                                                
+

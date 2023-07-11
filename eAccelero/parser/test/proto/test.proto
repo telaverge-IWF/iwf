@@ -1,0 +1,36 @@
+enum Priviledge
+{
+    PRIV_ADMIN = 0;
+    PRIV_USER  = 1;
+    PRIV_OPERATOR = 2;
+}
+
+enum ReqType
+{
+    REQ_GET_USERS = 0;
+}
+
+message User
+{
+    required int32 userId = 1;
+    required string userName = 2 ;
+    optional Priviledge  priviledge = 3;
+    repeated string groups = 4;
+}
+
+message Users
+{
+    repeated User users = 1;
+}
+
+message Result
+{
+    required int32 resultCode = 1;
+    optional string descr =2 ;
+}
+
+message Req
+{
+    required ReqType type = 1;
+}
+

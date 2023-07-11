@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_asp_active <iid>
+
+DESCRIPTION
+    This command send asp active for a given interface identifier.
+
+PARAMETERS
+    iid    Interface Identifer. Optional
+            Configured values for interface identifiers can be found by 
+            displaying IID. Command for displaying IID is mu_get_all_iids.
+
+EXAMPLE
+    >> mu_asp_active 11
+
+    *********** ASP ACTIVE Sent *************
+

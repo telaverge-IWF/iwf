@@ -1,0 +1,556 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "IwfSigtranConfig";
+
+import "Common.proto";
+
+//Obsolete message - deprecated - DON'T USE
+//retained for backward compatability
+
+message IwfLocalSSNConfig {
+  optional fixed32 SsnId = 1;
+  optional fixed32 Ssn   = 2;
+}
+
+message IwfLocalHostConfig {
+  optional string  ProtocolFamily        = 1;
+  optional fixed32 ProtocolId            = 2;
+  optional fixed32 NetworkIndicator      = 3;
+  optional fixed32 PointCode             = 4;
+  optional fixed32 TcapInvokeTimer       = 5;
+  optional string AddressType            = 6;
+  optional fixed32 GTI                   = 7;
+  optional fixed32 TranslationType       = 8;
+  optional fixed32 NumberingPlan         = 9;
+  optional fixed32 EncodingScheme        = 10;
+  optional fixed32 NatureOfAddrInd       = 11;
+  optional string GtAddrDigits           = 12;
+  repeated IwfLocalSSNConfig ssn_config  = 13;
+  optional fixed32 SelectCriteria        = 14;
+  optional bool LocalGTUseFromConfig     = 15;
+  optional bool UseSCCPCdpaFromIncommingMsg     = 16;
+  optional bool IncludeSSN               = 17;
+  optional bool IncludePC                = 18;
+  optional string HostName1              = 19;
+  optional string HostName2              = 20;
+  optional fixed32 AspId1                 = 21;
+  optional fixed32 AspId2                 = 22;
+}
+
+message IwfSigtranDestinationConfig {
+  optional string DestinationName   = 1;
+  optional fixed32 DestinationId    = 2;
+  optional string ProtocolFamily    = 3;
+  optional fixed32 ProtocolId       = 4;
+  optional string AddressType       = 5;
+  optional string AddressStyle      = 6;
+  optional fixed32 PointCode        = 7;
+  optional fixed32 NetworkIndicator = 8;
+  optional fixed32 SSN              = 9;
+  optional fixed32 GTI              = 10;
+  optional fixed32 TranslationType  = 11;
+  optional fixed32 NumberingPlan    = 12;
+  optional fixed32 EncodingScheme   = 13;
+  optional fixed32 NatureOfAddrInd  = 14;
+  optional fixed32 SIO              = 15;
+  optional string GtAddrDigits      = 16;
+}
+
+message IwfSigtranRemoteRouteConfig {
+  optional string RemoteRouteName                      = 1;
+  optional string AssociationSetName                   = 2;
+  optional fixed32 AssociationSetId                    = 3;
+  optional IwfSigtranDestinationConfig DestinationInfo = 4;
+  optional fixed32 Priority                            = 5;
+  optional fixed32 OldPointCode                        = 6;
+  optional fixed32 OldNetworkIndicator                 = 7;
+  optional fixed32 AssociationSetAspId                 = 8;
+}
+
+message IwfSigtranMultihomingConfig {
+    optional fixed32 MultihomingId = 1;
+    optional fixed32 SctpEndpointId = 2;
+    optional string OtherIpAddress = 3;
+}
+
+message IwfSigtranSctpEndPointConfig {
+    optional fixed32 SctpEndPointId  = 1;
+    optional string EndPointName     = 2;
+    optional string EndPointType     = 3;
+    optional string IpAddress        = 4;
+    optional fixed32 Port            = 5;
+    optional string TransportType    = 6;
+    optional bool IsClient           = 7;
+    repeated IwfSigtranMultihomingConfig MultihomingInfo = 8;
+}
+
+message IwfSigtranSctpProfileConfig {
+  optional fixed32 SctpProfileId         = 1;
+  optional string SctpProfileName        = 2;
+  optional bool HeartBeatEnable          = 3;
+  optional fixed32 HeartBeatTimeout      = 4;
+  optional fixed32 InitTimeout           = 5;
+  optional int32   AssocMaxAttempt       = 6;
+  optional fixed32 RtoMax                = 7;
+  optional fixed32 RtoMin                = 8;
+  optional fixed32 RtoInitial            = 9;
+  optional fixed32 PathFailureRetryCount = 10;
+  optional fixed32 MaxInStreams          = 11;
+  optional fixed32 NumOutStreams         = 12;
+  optional fixed32 SendTimeOut           = 13;
+  optional fixed32 ReceiveTimeOut        = 14;
+  optional fixed32 ShutDownTimeOut       = 15;
+  optional fixed32 PmtuTimeOut           = 16;
+  optional fixed32 CookieLife            = 17;
+  optional fixed32 SackDelay             = 18;
+  optional fixed32 SendBufSize           = 19;
+  optional fixed32 RecvBufSize           = 20;
+  optional fixed32 ReconnectTimeOut      = 21;
+  optional int32   MaxAttempt            = 22;
+}
+
+
+message IwfSigtranAssociationConfig {
+  optional fixed32 AssociationId	                   = 1;
+  optional fixed32 AssociationMappingId	               = 2;
+  optional string AssociationName                      = 3;
+  optional string AssociationSetName          	       = 4;
+  optional fixed32 AssociationSetId		               = 5;
+  optional fixed32 OldAssociationSetId                 = 6;
+  optional IwfSigtranSctpEndPointConfig LocalEndPoint  = 7;
+  optional IwfSigtranSctpEndPointConfig RemoteEndPoint = 8;
+  optional IwfSigtranSctpProfileConfig SctpProfile     = 9;
+  optional bool Status				                   = 10;
+  optional fixed32 AspId            		           = 11;
+  optional fixed32 RoutingKey                          = 12;
+  optional string homeIp                               = 13;
+}
+
+message IwfSigtranAssociationSetConfig {
+  optional fixed32 AssociationSetId                    = 1;
+  optional string AssociationSetName                   = 2;
+  optional fixed32 NetworkIndicator                    = 3;
+  optional fixed32 AdjacenPointCode                    = 4;
+  optional fixed32 RoutingContext                      = 5;
+  optional string TrafficMode                          = 6;
+  optional fixed32 AspId                               = 7;
+  optional bool Status                                 = 8;
+  optional fixed32 IsMember                            = 9;
+  optional string HomeIp                               = 10;
+  repeated IwfSigtranAssociationConfig AssociationInfo = 11;
+}
+
+message IwfSigtranUalManagerConfig {
+    optional fixed32 OperReqId  = 1;
+    optional string SigtranMode = 2;
+    optional fixed32 AckTimer   = 3;
+}
+
+message IwfTranslatorType {
+  optional fixed32 TranslatorTypeId  = 1;
+  optional string TranslatorTypeName = 2;
+}
+
+message IwfTranslatorConfig {
+  optional fixed32  TranslatorId = 1;
+  optional string TranslatorName = 2;
+}
+
+message IwfVplmnIdConfig {
+  optional string AllowedVplmnId              = 1;
+  optional fixed32 TranslationRuleId          = 2;
+}
+
+message IwfTranslatorRuleConfig {
+  optional fixed32 TranslationRuleId          = 1;
+  optional string TranslatorRuleName          = 2;
+  optional IwfTranslatorType TranslatorType   = 3;
+  optional IwfTranslatorConfig TranslatorInfo = 4;
+  optional string DestinationName             = 5;
+  optional string  Mcc                        = 6;
+  optional string  Mnc                        = 7;
+  optional string AppId                       = 8;
+  optional fixed32 Ossn                       = 9;
+  optional fixed32 Dssn                       = 10;
+  optional string HttpUrl                     = 11;
+  optional string WebService                  = 12;
+  optional string OldMcc                      = 13;
+  optional string OldMnc                      = 14;
+  optional string OldAppId                    = 15;
+  optional string OldCallingGTAddrDigits      = 17;
+  optional fixed32 ServiceKeyStartValue       = 18;
+  optional fixed32 ServiceKeyEndValue         = 19;
+  optional bool IsServiceKeyInRange           = 20;
+  optional fixed32 OldServiceKeyStartValue    = 21;
+  optional fixed32 OldServiceKeyEndValue      = 22;
+  optional bool OldIsServiceKeyInRange        = 23;
+  optional string CallingGTAddrDigits         = 24;
+  optional string ServiceContextId            = 25;
+  repeated IwfVplmnIdConfig VplmnInfo         = 26;
+  optional string ServiceKey                  = 27;
+  optional string ImsiPrefix                  = 28;
+  optional string ProActionRuleName           = 29;
+  optional string DestinationHost             = 30;
+  optional string AlternateHost               = 31;
+  optional string AlternateRealm              = 32;
+  optional fixed32 OldOssn                    = 33;
+}
+
+message SgsnAddresses {
+  optional string OrginHost = 1;
+  optional string IpAddress = 2;
+}
+
+message SgsnPrefixesConfig {
+    optional string VplmnId = 1;
+    optional string SgsnPrefix = 2;
+}
+
+message IwfS6aToMapConfig {
+  optional IwfTranslatorConfig TranslatorInfo = 1;
+  optional fixed32 S6aToMapId           = 2;
+  optional string  SgsnNumber           = 3;
+  optional string  RoutingPrefix        = 4;
+  repeated SgsnAddresses SgsnAddress    = 5;
+  repeated SgsnPrefixesConfig SgsnPrefixConf      = 6;
+}
+
+message SgsnNumbers {
+  optional fixed32 SgsnNumberId = 1;
+  optional string SgsnNumber = 2;
+}
+
+message IwfMapToS6aVplmnIdConfig {
+  optional fixed32 IwfMapToS6aVplmnIdConfigId = 1;
+  optional string AllowedVplmnId	= 2;
+  repeated SgsnNumbers SgsnNumberInfo = 3;
+}
+
+message IwfMapToS6aConfig {
+  optional IwfTranslatorConfig TranslatorInfo = 1;
+  optional string HlrNumber             = 2;
+  repeated IwfMapToS6aVplmnIdConfig MapToS6aVplmnIdInfo = 3;
+}
+
+message ExtTeleServiceConfig {
+  optional fixed32 ExtTeleServiceCode = 1;
+  optional fixed32 ServiceId          = 2;
+}
+
+message ExtBearerServiceConfig {
+  optional fixed32 ExtBearerServiceCode = 1;
+  optional fixed32 ServiceId            = 2;
+}
+
+message CapRoIdpConfig {
+  optional fixed32 CapRoIdpConfigId             = 1;
+  optional fixed32 NodeFunctionality            = 2;
+  optional string SipMethod                     = 3;
+  optional string OrignatingToi                 = 4;
+  optional string TerminatingToi                = 5;
+  optional string ServiceContextId              = 6;
+  optional string CauseCode                     = 7;
+  optional fixed32 MscServiceSpecficType        = 8;
+  optional fixed32 GmscServiceSpecificType      = 9;
+  optional fixed32 CpcServiceSpecificType       = 10;
+  optional fixed32 MultipleServiceIndicator     = 11;
+  repeated ExtTeleServiceConfig ExtTeleInfo     = 12;
+  repeated ExtBearerServiceConfig ExtBearerInfo = 13;
+}
+
+message CapRoIdpSmsConfig {
+  optional fixed32 CapRoIdpSmsConfigId     = 1;
+  optional fixed32 SmsNode                 = 2;
+  optional string ClientAddress            = 3;
+  optional string OriginatorSccpAddress    = 4;
+  optional fixed32 ReplyPathRequested      = 5;
+  optional fixed32 MscServiceSpecificType  = 6;
+  optional fixed32 SgsnServiceSpecificType = 7;
+  optional string ServiceContextId         = 8;
+}
+message IwfCapToRoConfig {
+  optional fixed32 CapToRoConfigId            = 1;
+  optional IwfTranslatorConfig TranslatorInfo = 2;
+  optional CapRoIdpConfig CapRoIdpInfo        = 3;
+  optional CapRoIdpSmsConfig CapRoIdpSmsInfo  = 4;
+}
+
+message IwfTimerConfig {
+  optional string TimerName   = 1;
+  optional fixed32 TimerValue = 2;
+}
+
+message IwfFeatureConfig {
+  optional string FeatureName   = 1;
+  optional fixed64 StatusValue  = 2;
+}
+
+message IwfLocalHostsConfig {
+  optional fixed32 OperReqId                = 1;
+  optional IwfLocalHostConfig LocalHostInfo = 2;
+}
+
+message IwfSigtranDestinationsConfig {
+  optional fixed32 OperReqId                       = 1;
+  repeated IwfSigtranDestinationConfig DestionInfo = 2;
+}
+
+message IwfSigtranRemoteRoutesConfig {
+  optional fixed32 OperReqId                           = 1;
+  repeated IwfSigtranRemoteRouteConfig RemoteRouteInfo = 2;
+}
+
+message IwfSigtranAssociationSetsConfig {
+  optional fixed32 OperReqId                                 = 1;
+  repeated IwfSigtranAssociationSetConfig AssociationSetInfo = 2;
+}
+
+message IwfSigtranAssociationsConfig {
+  optional fixed32 OperReqId                           = 1;
+  repeated IwfSigtranAssociationConfig AssociationInfo = 2;
+}
+
+message IwfTranslatorRulesConfig {
+  optional fixed32 OperReqId                = 1;
+  repeated IwfTranslatorRuleConfig RuleInfo = 2;
+}
+
+message IwfTranslationDataConfig { 
+  optional fixed32 OperReqId              = 1;
+  optional IwfS6aToMapConfig S6aToMapInfo = 2;
+  optional IwfMapToS6aConfig MapToS6aInfo = 3;
+  optional IwfCapToRoConfig CapToRoInfo   = 4;
+  optional string ImsiForSessionClearance = 5;
+}
+
+message IwfSigtranSctpEndPointsConfig {
+  optional fixed32 OperReqId                             = 1;
+  repeated IwfSigtranSctpEndPointConfig SctpEndPointInfo = 2; 
+}
+
+message IwfSigtranSctpProfilesConfig {
+  optional fixed32 OperReqId	                       = 1;
+  repeated IwfSigtranSctpProfileConfig SctpProfileinfo = 2;
+}
+
+message IwfSigtransMultihomingConfig {
+  optional fixed32 OperReqId                           = 1;
+  repeated IwfSigtranMultihomingConfig Multihominginfo = 2;
+}
+
+message IwfCapTimersConfig {
+    optional fixed32 OperReqId            = 1;
+    optional fixed32 NoEventTimer         = 2;
+    optional fixed32 FakeACHTimer         = 3;
+    optional fixed32 NoAckTimer           = 4;
+    optional fixed32 ACHDelta             = 5;
+}
+
+message IwfTimersConfig {
+  optional fixed32 OperReqId            = 1;
+  repeated IwfTimerConfig IwfTimersInfo = 2;
+  repeated IwfCapTimersConfig IwfCapTimersInfo = 3;
+}
+
+message IwfFeaturesConfig {
+    optional fixed32 OperReqId               = 1;
+    repeated IwfFeatureConfig IwfFeatureInfo = 2;
+}
+
+message IwfDccaFeatureConfig {
+  optional string DccaFeatureName = 1;
+  optional fixed32 DccaValue      = 2;
+}
+
+message IwfDccaGenConfig {
+    optional fixed32 OperReqId                    = 1;
+    repeated IwfDccaFeatureConfig IwfDccaFeatures = 2;
+}
+
+message IwfDccaEndPointConfig {
+    optional string EndpointName = 1;
+    optional fixed32 priority    = 2;
+}
+
+message IwfDccaDestConfig {
+    optional fixed32 DestId                           = 1;
+    optional string DestName                         = 2;
+    repeated  IwfDccaEndPointConfig IwfDccaEndpoints = 3;
+    optional fixed32 SendCCRTIndicator               = 4;
+}
+
+message IwfDccaDestsConfig {
+    optional fixed32 OperReqId                 = 1;
+    repeated IwfDccaDestConfig IwfDccaDestInfo = 2;
+}
+
+message IwfDccaConfig {
+    optional fixed32 OperReqId                   = 1;
+    optional IwfDccaGenConfig IwfDccaGenInfo     = 2;
+    optional IwfDccaDestsConfig IwfDccaDestsInfo = 3;
+}
+
+message ArmData {
+    optional string MonitorMode           = 1;
+    optional string LegId               = 2;
+}
+
+message EventType {
+    optional fixed32 EventTypeMappingId = 1;
+    optional string EventTypeName       = 2;
+    repeated ArmData armDatVal = 3;
+}
+
+message CallScenario {
+    optional string Call_TypeName            = 1;
+    repeated EventType eventTypeVal = 2;
+}
+
+message MsgDet {
+    repeated CallScenario callScenarioVal = 1; 
+}
+
+message IwfProtocolActionConfig {
+    optional string Protocol = 1;
+    optional fixed32 ActionRuleId = 2;
+    optional string ActionRuleName  = 3;  
+    optional fixed32 ActionId  = 4; 
+    repeated MsgDet  msgdetval  = 5;  
+}
+
+message IwfProtocolActionsConfig
+{
+    optional fixed32 OperReqId                         = 1; 
+    repeated IwfProtocolActionConfig iwfProtActionCfgval = 2;
+}
+
+message IWFCfgResp {
+  required fixed32 RespId                                     = 1;
+  optional IwfLocalHostsConfig LocalHostInfo                  = 2;
+  optional IwfSigtranDestinationsConfig DestionationInfo      = 3;
+  optional IwfSigtranAssociationsConfig AssociationInfo       = 4;
+  optional IwfSigtranSctpEndPointsConfig SctpEndpointInfo     = 5;
+  optional IwfSigtranSctpProfilesConfig sctpProfileInfo       = 6;
+  optional IwfSigtransMultihomingConfig Multihominginfo       = 7;
+  optional IwfSigtranAssociationSetsConfig AssociationSetInfo = 8;
+  optional IwfSigtranRemoteRoutesConfig RemoteRouteInfo       = 9;
+  optional IwfTranslatorRulesConfig TranslatorRulesInfo       = 10;
+  optional IwfTranslationDataConfig TranslationDataInfo       = 11;  
+  optional IwfTimersConfig TimersInfo                         = 12;
+  optional IwfSigtranUalManagerConfig UalInfo                 = 13;
+  optional IwfFeaturesConfig FeaturesInfo                     = 14;
+  optional IwfDccaConfig IwfDccaInfo                          = 15;
+  optional IwfProtocolActionsConfig iwfProtocolActionsInfo    = 16;
+  repeated ErrorDetails ErrorDetails                          = 17;
+}
+%PB}
+
+
+interface CMgrIwfMethods
+{ 
+    HandleGetLocalHostConfigReqs(IwfLocalHostsConfig req, IWFCfgResp resp)uses_PB;
+    HandleSetLocalHostConfigReqs(IwfLocalHostsConfig req, IWFCfgResp resp)uses_PB;
+    HandleGetDestinationConfigReqs(IwfSigtranDestinationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetDestinationConfigReqs(IwfSigtranDestinationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetAssociationSetConfigReqs(IwfSigtranAssociationSetsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetAssociationSetConfigReqs(IwfSigtranAssociationSetsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetAssociationConfigReqs(IwfSigtranAssociationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetAssociationConfigReqs(IwfSigtranAssociationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetSctpEndPointConfigReqs(IwfSigtranSctpEndPointsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetSctpEndPointConfigReqs(IwfSigtranSctpEndPointsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetSctpProfileConfigReqs(IwfSigtranSctpProfilesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetSctpProfileConfigReqs(IwfSigtranSctpProfilesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetSigtranMultihomingConfigReqs(IwfSigtransMultihomingConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetSigtranMultihomingConfigReqs(IwfSigtransMultihomingConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetRemoteRouteConfigReqs(IwfSigtranRemoteRoutesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetRemoteRouteConfigReqs(IwfSigtranRemoteRoutesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetTranslatorRuleConfigReqs(IwfTranslatorRulesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetTranslatorRuleConfigReqs(IwfTranslatorRulesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleGetTranslationDataConfigReqs(IwfTranslationDataConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetTranslationDataConfigReqs(IwfTranslationDataConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleSetIwfTimersConfigReqs(IwfTimersConfig req, IWFCfgResp resp)uses_PB;
+    HandleGetIwfTimersConfigReqs(IwfTimersConfig req, IWFCfgResp resp)uses_PB;
+    HandleSetIwfUalManagerConfigReqs(IwfSigtranUalManagerConfig req,
+            IWFCfgResp resp)uses_PB; 
+    HandleGetIwfUalManagerConfigReqs(IwfSigtranUalManagerConfig req,
+            IWFCfgResp resp)uses_PB; 
+    HandleSetIwfFeaturesConfigReqs(IwfFeaturesConfig req, IWFCfgResp resp)uses_PB;
+    HandleGetIwfFeaturesConfigReqs(IwfFeaturesConfig req, IWFCfgResp resp)uses_PB;
+    HandleGetIwfDccaGenConfigReqs(IwfDccaGenConfig req,
+        IWFCfgResp resp)uses_PB;
+    HandleSetIwfDccaGenConfigReqs(IwfDccaGenConfig req,
+        IWFCfgResp resp)uses_PB;
+    HandleGetIwfDccaDestConfigReqs(IwfDccaDestsConfig req,
+        IWFCfgResp resp)uses_PB;
+    HandleSetIwfDccaDestConfigReqs(IwfDccaDestsConfig req,
+            IWFCfgResp resp)uses_PB;
+    HandleSetIwfProtocolActionsConfigReqs(IwfProtocolActionsConfig req,
+            IWFCfgResp resp)uses_PB;
+    HandleGetIwfProtocolActionsConfigReqs(IwfProtocolActionsConfig req,IWFCfgResp resp)uses_PB;
+}
+
+interface IwfSigtranMethods
+{
+    HandleLocalHostConfigReqs(IwfLocalHostsConfig req, IWFCfgResp resp)uses_PB;
+    HandleDestinationConfigReqs(IwfSigtranDestinationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleAssociationSetConfigReqs(IwfSigtranAssociationSetsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleAssociationConfigReqs(IwfSigtranAssociationsConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleRemoteRouteConfigReqs(IwfSigtranRemoteRoutesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleTranslatorRuleConfigReqs(IwfTranslatorRulesConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleTranslationDataConfigReqs(IwfTranslationDataConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleUalManagerConfigReqs(IwfSigtranUalManagerConfig req, 
+	    IWFCfgResp resp)uses_PB;
+    HandleTimersConfigReqs(IwfTimersConfig req, IWFCfgResp resp)uses_PB;
+    HandleFeaturesConfigReqs(IwfFeaturesConfig req, IWFCfgResp resp)uses_PB;
+    HandleIwfDccaGenConfigReqs(IwfDccaGenConfig req, IWFCfgResp resp)uses_PB;
+    HandleIwfDccaDestConfigReqs(IwfDccaDestsConfig req, IWFCfgResp resp)uses_PB;
+    HandleIwfProtocolActionsConfigReqs(IwfProtocolActionsConfig req, IWFCfgResp resp)uses_PB;
+}
+
+interface IwfFetch
+{
+    FetchIwfLocalConfiguration(IwfLocalHostsConfig Req, IWFCfgResp Resp)uses_PB;
+    FetchIwfAssociationSetConfiguration(IwfSigtranAssociationSetsConfig Req, 
+	    IWFCfgResp Resp)uses_PB;
+    FetchIwfAssociationConfiguration(IwfSigtranAssociationsConfig Req, 
+	    IWFCfgResp Resp)uses_PB;
+    FetchIwfRemoteRouteConfiguration(IwfSigtranRemoteRoutesConfig Req, 
+	    IWFCfgResp Resp)uses_PB;
+    FetchIwfTranslatorRuleConfiguration(IwfTranslatorRulesConfig Req,  
+	    IWFCfgResp Resp)uses_PB;
+    FetchIwfTranslationDataConfiguration(IwfTranslationDataConfig Req,  
+	    IWFCfgResp Resp)uses_PB;
+    FetchIwfTimersConfiguration(IwfTimersConfig req, IWFCfgResp resp)uses_PB;
+    FetchIwfFeaturesConfiguration(IwfFeaturesConfig req, IWFCfgResp resp)uses_PB;
+    FetchIwfDccaConfiguration(IwfDccaConfig req, IWFCfgResp resp)uses_PB;
+    FetchIwfProtocolActionsConfiguration(IwfProtocolActionsConfig req, IWFCfgResp resp)uses_PB;
+}
+
+interface IwfConfigResults
+{
+    SendIWFConfigResult(IWFCfgResp Req, CMAPIRes Resp)uses_PB;
+}

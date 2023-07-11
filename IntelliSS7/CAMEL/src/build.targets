@@ -1,0 +1,8 @@
+cap_v2_c        cap_v2_c.mak        debug   "cap_v2_c - Win32 Debug"
+cap_v2_c        cap_v2_c.mak        release "cap_v2_c - Win32 Release"
+cap_v2_cpp      cap_v2_cpp.mak      debug   "cap_v2_cpp - Win32 Debug"
+cap_v2_cpp      cap_v2_cpp.mak      release "cap_v2_cpp - Win32 Release"
+cap_v3_c        cap_v3_c.mak        debug   "cap_v3_c - Win32 Debug"
+cap_v3_c        cap_v3_c.mak        release "cap_v3_c - Win32 Release"
+cap_v3_cpp      cap_v3_cpp.mak      debug   "cap_v3_cpp - Win32 Debug"
+cap_v3_cpp      cap_v3_cpp.mak      release "cap_v3_cpp - Win32 Release"

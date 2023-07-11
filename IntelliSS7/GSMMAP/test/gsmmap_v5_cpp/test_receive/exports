@@ -1,0 +1,5 @@
+all		cpp		itu		Makefile
+all		cpp		itu		test_receive.ini
+all		cpp		itu		test_receive.dsw
+all		cpp		itu		test_receive.dsp
+all		cpp		itu		test_receive_main.cpp

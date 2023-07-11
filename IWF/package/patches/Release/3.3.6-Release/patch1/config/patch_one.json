@@ -1,0 +1,27 @@
+{
+        "patch-details": [
+	   {    
+           "patch-type" : "static",
+               "patch-number": 1,
+               "dre-release": "iwf-3.3.6-Release",
+               "pre-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.6-Release/patch1/pre_patch.sh",
+               "post-patch-script" : "$IWF_ROOT/package/patches/Release/3.3.6-Release/patch1/post_patch.sh",
+               "pre-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.6-Release/patch1/pre_uninstall_patch.sh",
+               "post-uninstall-script" : "$IWF_ROOT/package/patches/Release/3.3.6-Release/patch1/post_uninstall_patch.sh",
+               "files": [
+               {
+                   "source": "$IWF_ROOT/bin/IWF-CCITT",
+                   "target": "/opt/diametriq/iwf/bin/IWF-CCITT"
+
+               },
+               {
+                   "source": "$IWF_ROOT/lib/libIWF-CCITT.so",
+                   "target": "/opt/diametriq/iwf/lib/libIWF-CCITT.so"
+               }
+           ]
+            }    
+        
+      ]
+}
+
+

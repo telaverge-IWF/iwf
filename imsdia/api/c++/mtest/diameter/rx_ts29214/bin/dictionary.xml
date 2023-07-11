@@ -1,0 +1,77 @@
+<dictionary>
+
+<!-- type =0 -> OctetString -->
+<!-- type =1 -> Integer32 -->
+<!-- type =2 -> Integer64 -->
+<!-- type =3 -> Unsigned32 -->
+<!-- type =4 -> Unsigned64 -->
+<!-- type =5 -> Float32 -->
+<!-- type =6 -> Float64 -->
+<!-- type =7 -> Address -->
+<!-- type =8 -> Time -->
+<!-- type =9 -> URI -->
+<!-- type =10 -> UTF8String -->
+<!-- type =11 -> Identity -->
+<!-- type =12 -> IPFilterRule -->
+<!-- type =13 -> Enumerated -->
+<!-- type =20 -> Grouped -->
+
+<!--User Defied AVPs-->
+<avp avpIndex="1" name="User-OctetString" code="1200" mand="1" encr="0" type = "0" venId="0"/>
+<avp avpIndex="2" name="User-Integer32" code="1201" mand="1" encr="0" type = "1" venId="0"/>
+<avp avpIndex="3" name="User-Integer64" code="1202" mand="1" encr="0" type = "2" venId="0"/>
+<avp avpIndex="4" name="User-Unsigned32" code="1203" mand="1" encr="0" type = "3" venId="0"/>
+<avp avpIndex="5" name="User-Unsigned64" code="1204" mand="1" encr="0" type = "4" venId="0"/>
+<avp avpIndex="6" name="User-Float32" code="1205" mand="1" encr="0" type = "5" venId="0"/>
+<avp avpIndex="7" name="User-Float64" code="1206" mand="1" encr="0" type = "6" venId="0"/>
+<avp avpIndex="8" name="User-Address" code="1207" mand="1" encr="0" type = "7" venId="0"/>
+<avp avpIndex="9" name="User-Time" code="1208" mand="1" encr="0" type = "8" venId="0"/>
+<avp avpIndex="10" name="User-URI" code="1209" mand="1" encr="0" type = "9" venId="0"/>
+<avp avpIndex="11" name="User-UTF8" code="1210" mand="1" encr="0" type = "10" venId="0"/>
+<avp avpIndex="12" name="User-Identity" code="1211" mand="1" encr="0" type = "11" venId="0"/>
+<avp avpIndex="13" name="User-IPFilterRule" code="1212" mand="1" encr="0" type = "12" venId="0"/>
+<avp avpIndex="14" name="User-Enumerated" code="1213" mand="1" encr="0" type = "13" venId="0"/>
+<avp avpIndex="15" name="User-Grouped" code="1214" mand="1" encr="0" type = "20" venId="0">
+   <required>
+      <avprule avpIndex="1"/>
+   </required>
+   <optional>
+      <avprule avpIndex="2"/>
+   </optional>
+</avp>
+<command name="AA-Request" code="265" appId="16777236" >
+         <req>
+               <avprule avpIndex="1"/>
+               <avprule avpIndex="2"/>
+               <avprule avpIndex="3"/>
+               <avprule avpIndex="4"/>
+               <avprule avpIndex="5"/>
+               <avprule avpIndex="6"/>
+               <avprule avpIndex="7"/>
+               <avprule avpIndex="8"/>
+               <avprule avpIndex="9"/>
+               <avprule avpIndex="10"/>
+               <avprule avpIndex="11"/>
+               <avprule avpIndex="12"/>
+               <avprule avpIndex="13"/>
+         </req>
+         <ans>
+               <avprule avpIndex="1"/>
+               <avprule avpIndex="2"/>
+               <avprule avpIndex="3"/>
+               <avprule avpIndex="4"/>
+               <avprule avpIndex="5"/>
+               <avprule avpIndex="6"/>
+               <avprule avpIndex="7"/>
+               <avprule avpIndex="8"/>
+               <avprule avpIndex="9"/>
+               <avprule avpIndex="10"/>
+               <avprule avpIndex="11"/>
+               <avprule avpIndex="12"/>
+               <avprule avpIndex="13"/>
+         </ans>
+</command>
+
+</dictionary>
+
+

@@ -1,0 +1,16 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_as_pen_tmr
+
+DESCRIPTION
+    This command set AS Pending Timer.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_as_pen_tmr 10
+
+

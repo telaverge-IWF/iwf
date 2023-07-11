@@ -1,0 +1,89 @@
+############################################################################
+#                                                                          #
+#     Copyright 2010 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: make.dirs.tcs,v 1.2 2010/07/09 10:52:51 nvijikumar Exp $
+#
+# LOG: $Log: make.dirs.tcs,v $
+# LOG: Revision 1.2  2010/07/09 10:52:51  nvijikumar
+# LOG: ONLY SSL TLS Support
+# LOG:
+# LOG: Revision 1.1  2010/07/07 08:37:54  nvijikumar
+# LOG: make.dirs for TCS
+# LOG:
+# LOG:
+#
+############################################################################
+# Java Specifics
+JAVACMD=java -jar
+DIAJARFILE=$(IMS_ROOT)/mag/bin/diamag.jar
+DNSLIB=/usr/lib/libresolv.so
+
+# Compilation flag added to disable the check
+# for vendorId and Supported VendorId inside CER.
+#
+ifeq ($(APPID_EXCLUSIVE),yes)
+DEFINES:=$(DEFINES) -DAPP_ID_EXCLUSIVE
+endif
+
+#ONLY SSL
+USE_ONLY_SSL=yes
+
+#
+# Plaform Specifics... for Solaris 32bit 
+#
+ifeq ($(PLATFORM),solaris)
+CXX=CC
+CXXAR=CC
+CXXSHAREDAR=CC
+ITS_DEFINES=-DUSE_HEAP -DHAVE_NAMESPACES -DHAVE_STD_NAMESPACE -DHAVE_THROW_SPECS -D_MIT_POSIX_THREADS -DHAVE_STL
+DEFINES= -D_REENTRANT -DPLATFORM=$(PLATFORM) -D$(PLATFORM) $(CUSTFLAG) -DAPP_ID_EXCLUSIVE
+ITS_INCLS=-I$(ITS_ROOT)/common/include
+INCLS=-I$(IMS_ROOT)/val/c++/include
+CP=/bin/cp
+SOFLAGS=-KPIC
+SOCKLIBS=-lnsl -lsocket -lsctp
+THREADLIBS=-lthread -lmtmalloc
+SYSLIBS=-ldl -lrt -lz 
+endif
+
+ifeq ($(DEBUG_BUILD),yes)
+DBGSUFFIX= D
+ARFLAGS= -features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w -xcode=abs32 -g -norunpath -xar -o
+CXXARFLAGS= $(ARFLAGS)
+SHAREDARFLAGS=-features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w -xcode=abs32 -g -norunpath -G -z allextract -o
+CXXSHAREDARFLAGS=$(SHAREDARFLAGS)
+CFLAGS=   -mt -dalign -fns -fsimple=2 -xlibmil -ftrap=%none -fsingle -xs -mc  -xcode=abs32 -g $(INCLS) $(DEFINES) -DDEBUG 
+CXXFLAGS=  -features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w +w2 -mc -xcode=abs32 -errtags=yes -erroff=hidef -sync_stdio=no -g  $(INCLS) $(DEFINES) -DDEBUG $(SOFLAGS)
+else
+DBGSUFFIX=
+ARFLAGS= -features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w -xcode=abs32 -xO3 -norunpath -xildoff -s -xar -o
+CXXARFLAGS= $(ARFLAGS)
+SHAREDARFLAGS=-features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w -xcode=abs32 -xO3 -xildoff -s -G -z allextract -o
+CXXSHAREDARFLAGS=$(SHAREDARFLAGS)
+CFLAGS= -mt -dalign -fns -fsimple=2 -xlibmil -ftrap=%none -fsingle -xs -mc  -xcode=abs32 -xO3 -xdepend=yes $(INCLS) $(DEFINES)
+CXXFLAGS= -features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w +w2 -errtags=yes -erroff=hidef -mc -xO3 -xcode=abs32 -sync_stdio=no $(INCLS) $(DEFINES) $(SOFLAGS)
+
+endif
+
+LDFLAGS= -features=%all,no%altspell,no%anachronisms,no%extensions,no%iddollar,no%transitions -library=%none,Cstd,Crun,rwtools7_std -xbuiltin=%all -mt -dalign -fns -fsimple=2 -xlibmil -xlibmopt -ftrap=%none -xs +w -xcode=abs32 -g -xildoff -norunpath 
+

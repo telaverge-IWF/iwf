@@ -1,0 +1,423 @@
+enum pbProtocol {
+    DIAMETER_S6A = 0;
+    DIAMETER_RO = 1;
+    MAP_GR = 2;
+    CAP_GE = 3; 
+};
+message pbState {
+    optional uint32 Id   = 1;
+    optional string Name = 2;
+};
+
+message pbIwfTranslator {
+    optional string Name = 1;
+    optional uint32 Id   = 2;
+};
+message pbRoutingLabel {
+    optional uint32 oPc = 1;
+    optional bool isNational = 2;
+    optional uint32 oSsn = 3;
+    optional bool useSccpCdPAFromInMsg = 4;
+};
+message pbDiaMsg {
+    optional uint32 CommandCode = 1;
+    optional bool RequestBit = 2;
+    optional string username = 3;
+    optional string SessionId = 4;
+};
+message pbSccpAddress {
+    optional string id = 1;
+    optional bool hasPc = 2;
+    optional bool hasSsn = 3;
+    optional bool routePCSSN = 4;
+    optional bool internationalRoute = 5;
+    optional bool globalTitle = 6;
+    optional uint32 PointCode = 7;
+    optional uint32 ssn = 8;
+    optional uint32 gttlen = 9;
+    optional bytes globTitle = 10;
+    optional uint32 gttType = 11;
+};
+
+message QualityOfService {
+    optional uint32 flags = 1;
+    optional uint32 slsKey = 2;
+    optional uint32 priority = 3;
+    optional uint32 networkInd = 4;
+};
+
+message pbTcapDialogue {
+    optional uint32 DialogueId = 1;
+    optional uint32 DialogueType = 2;
+    optional string AbortReason = 3;
+    optional bytes ApplicationContext = 4;
+    optional QualityOfService Qos = 5;
+};
+message pbSCCPParameters {
+    optional pbSccpAddress SccpCallingPartyAddr = 1;
+    optional pbSccpAddress SccpCalledPartyAddr = 2;
+    optional uint32 Opc = 3;
+    optional uint32 Dpc = 4;
+    optional bool isRouteByGt = 5;
+};
+message pbTcapComponent {
+    optional uint32 lastComponent = 1;
+    optional uint32 invokeId = 2;
+    optional uint32 componentType = 3;
+    optional fixed32 opCode = 4;
+};
+message pbTcapBeginDialogue {
+    optional uint32 oPc = 1;
+    optional pbSccpAddress SccpCallingPartyAddr =2;
+};
+message SubscriptionIdConfig {
+    optional uint32 subIdType = 1;
+    optional string subIdData = 2 [default = ""];
+};
+
+message StoredIDPSMSToCCRIData {
+    optional uint32 callTypeVal = 1 [default = 0];
+    optional uint32 CAP_Service_Key = 2 [default = 0];
+    optional string CAP_Dialed_Digits = 3 [default = ""];
+    optional uint32 CAP_Called_TON = 4 [default = 1000];
+    optional string CAP_CLI = 5 [default = ""];
+    optional string CAP_Location_Number = 6 [default = ""];
+    optional string CAP_IMSI = 7 [default = ""];
+    optional string CAP_VLR_Number = 8 [default = ""];
+    optional string CAP_Call_Reference = 9 [default = ""];
+    optional string CAP_MSC_Address = 10 [default = ""];
+    optional uint32 CAP_Called_NPI = 11 [default = 1000];
+    optional uint32 CAP_Calling_NOA = 12 [default = 1000];
+    optional uint32 CAP_CLI_NPI = 13 [default = 1000];
+    optional uint32 CAP_Version = 14 [default = 1000];
+    optional string CAP_SMSC_Address = 15 [default = ""];
+    optional string CAP_SGSN_Address = 16 [default = ""];
+    optional string CAP_SM_IMEI = 17 [default = ""];
+    optional string CAP_SM_StatusReportRequest = 18 [default = ""];
+    optional string CAP_SM_UserDataHeaderIndicator = 19 [default = ""];
+    optional string CAP_SM_ReplyPath = 20 [default = ""];
+    optional string CAP_SM_VPFormat = 21 [default = ""];
+    optional string CAP_SM_MessageTypeIndicator = 22 [default = ""];
+    optional string CAP_SM_ProtocolID = 23 [default = ""];
+    optional string CAP_SM_DCS = 24 [default = ""];
+    optional string CAP_SM_ValidityPeriod = 25 [default = ""];
+    optional string CAP_SM_RejectDuplicate = 26 [default = ""];
+    optional string CAP_SCCP_CallingGT = 27 [default = ""];
+    optional string CAP_SCCP_CalledGT = 28 [default = ""];
+    optional string CAP_TCAP_Remote_Transaction_Id = 29 [default = ""];
+    optional string CAP_TCAP_Local_Transaction_Id = 30 [default = ""];
+    optional string CAP_CellID_AreaID_LAI = 31 [default = ""];
+    optional uint32 CAP_Event_Type_SMS = 32 [default = 1000];
+    optional uint32 CAP_TCAP_Error_Cause = 33 [default = 500];
+    optional uint32 CAP_SCCP_Error_Cause = 34 [default = 0];
+    optional string CAP_SMSpecificInfo = 35 [default = ""];
+    optional uint32 m_totalGSUCCService = 36 [default = 0];
+    optional uint32 m_totalUSUCCService = 37 [default = 0];
+    optional SubscriptionIdConfig subscriptionIdInfo = 38;
+};
+
+message IDPToCCRIData {
+    optional uint32 callTypeVal = 1 [default = 0];
+    optional uint32 Service_Key = 2 [default = 0];
+    optional bytes Dialed_Digits = 3 [default = ""];
+    optional uint32 Called_TON = 4 [default = 1000];
+    optional bytes CLI = 5 [default = ""];
+    optional uint32 Calling_Category = 6 [default = 1000];    
+    optional bytes Location_Number = 7 [default = ""];
+    optional bytes Redirecting_Number = 8 [default = ""];
+    optional uint32 Redirecting_Indicator = 9 [default = 1000];
+    optional uint32 Original_Redirecting_Reason = 10 [default = 1000];
+    optional uint32 Redirection_Counter = 11 [default = 1000];
+    optional uint32 Redirecting_Reason = 12 [default = 1000];
+    optional bytes IMSI = 13 [default = ""];
+    optional bytes VLR_Number = 14 [default = ""];
+    optional bytes Call_Reference = 15 [default = ""];
+    optional bytes MSC_Address = 16 [default = ""];
+    optional uint32 Called_NPI = 17 [default = 1000];
+    optional uint32 Calling_NOA = 18 [default = 1000];
+    optional uint32 CLI_NPI = 19 [default = 1000];
+    optional uint32 CLIR = 20 [default = 1000];    
+    optional uint32 Version = 21 [default = 1000];
+    optional bytes SCCP_CallingGT = 22 [default = ""];
+    optional bytes SCCP_CalledGT = 23 [default = ""];
+    optional uint32 GSM_Forwarding_Pending = 24 [default = 1000];
+    optional bytes TCAP_Remote_Transaction_Id = 25 [default = ""];
+    optional bytes TCAP_Local_Transaction_Id = 26 [default = ""];
+    optional bytes CellID_AreaID_LAI = 27 [default = ""];
+    optional uint32 Event_Type_BCSM = 28 [default = 1000];
+    optional uint32 TCAP_Error_Cause = 29 [default = 500];
+    optional uint32 SCCP_Error_Cause = 30 [default = 0];   
+    optional bytes GMSC = 31 [default = ""];
+    optional bytes Ext_Basic_Service_Code = 32 [default = ""];
+    optional bytes Bearer_Capability = 33 [default = ""];
+    optional bytes Bearer_Capability_Transfer = 34 [default = ""];
+    optional bytes Bearer_Capability_Transfer_Rate = 35 [default = ""];
+    optional bytes Bearer_Capability_Transfer_Mode = 36 [default = ""];
+    optional bytes Bearer_Capability_Cdr = 37 [default = ""];
+    optional bool CAPIsFollowingOn = 38 [default = false];    
+    optional SubscriptionIdConfig subscriptionIdInfo = 39;
+};
+
+message pbERBData {
+    optional uint32 erbRecvEvtType = 1 [default = 0];
+    optional string eventSpecInfo = 2 [default = ""];
+    optional uint32 recvlegId = 3 [default = 0];
+    optional uint32 msgType = 4 [default = 0];
+};
+
+message pbActivityTimerData {
+    optional uint32 atTimer = 1 [default = 0];
+    optional uint32 responseTimeout = 2 [default = 0];
+    optional uint32 retryCount = 3 [default = 0];
+    optional uint32 invokeId = 4 [default = 0];
+};
+message pbIwfDccaSessionCtxt {
+    optional uint32 DccaState = 1 [default = 0];
+    optional string destHost = 2;
+    optional string destRealm = 3;
+    optional uint32 IwfCCFHAction = 4;
+    optional bool isFailoverSupported = 5 [default = true];
+    optional bool isDone = 6 [default = false];
+    optional uint32 retryCount = 7 [default = 0];
+};
+
+//Connect Arg related AVP stored to be used during switchover
+message pbConnectArgData {
+    optional bool hasServiceControl = 1 [default = false]; 
+    optional bool hasCapInfo = 2 [default = false];
+    optional bool hasCapConnectInfo = 3 [default = false];
+    optional string capAnncAccessNo = 4;
+    optional uint32 capConnAnncNoNatrue = 5;
+    optional uint32 capConnAnncNoInn = 6;
+    optional uint32 capConnAnncNoNPI = 7;
+    optional string capConnDestNo = 8;
+    optional uint32 capConnDestNoNature = 9;
+    optional uint32 capConnDestNoNPI = 10;
+    optional uint32 capConnDestINN = 11;
+    optional string genericNo = 12;
+    optional uint32 genericNoNature = 13;
+    optional uint32 genericNoNPI = 14;
+    optional uint32 genericNoNII = 15;
+    optional uint32 genericNoARI = 16;
+    optional uint32 genericNoSCI = 17;
+    optional uint32 genericNoNQI = 18;
+    optional string redirectingNum = 19;
+    optional uint32 redirectNoNOA = 20;
+    optional uint32 redirectNoNPI = 21;
+    optional uint32 redirectNoARI = 22;
+    optional uint32 redirectInd = 23;
+    optional uint32 origRedirectReason = 24;
+    optional uint32 redirectionCount = 25;
+    optional uint32 redirectReason = 26;
+    optional string origCalledPartyId = 27;
+    optional uint32 originalCalledNoNPI = 28;
+    optional uint32 originalCalledNoNOA = 29;
+    optional uint32 originalCalledNoARI = 30;
+    optional uint32 capConnOCSIApplicable = 31;
+    optional uint32 capConnSuppressionOfAnnc = 32;
+    optional uint32 capConnCallingCategory = 33;
+};
+
+//ACH related data to be stored here and used for Transparent Followon Cases
+message pbACHData  {
+    optional uint32 FinalUnitIndication = 1;
+    optional uint32 BeepTone = 2; 
+};
+
+
+//Translator State to be used for replication and starting timers
+enum TransState {
+    INVALID_STATE = 0;
+    RRB_SENT = 1;
+    ACH_SENT = 2;
+    FAKE_ACH_SENT = 3;
+    ERB_RCVD = 4;
+    ACR_RCVD = 5;
+    FOLLOW_ON = 6;
+    IS_FOLLOW_ON = 7;
+    ER_SMS_RCVD = 8;
+    ERB_DISCONNECT = 9;
+    ACR_CALLACT_FALSE = 10;
+    ABORT_RCVD = 11;
+    REJECT_RCVD = 12;
+    ACR_CALLACT_TRUE = 13;
+};
+
+//CAP_Ro_TSL translator specific UserData(Subscriber Data)
+message pbCapRoTsl {
+   optional bool bcsmEventFlag = 1;
+    optional string capCallingPartyNumber = 2;
+    optional uint32 serviceIdentifier = 3;
+    optional bool receivedBasicService = 4;
+    optional string roUserSessionId = 5;
+    optional string imsiChargingIdentifier = 6;
+    optional string roServiceContextId = 7;
+    optional SubscriptionIdConfig SubscriptionId = 8;
+    optional string roCugInformation = 9;
+    optional string capMSCAddress = 10;
+    optional string capGMSCAddress = 11;
+    optional uint32 ccaInitialResultCode = 12;
+    optional uint32 ccaUpdateResultCode = 13;
+    optional uint32 ccaTerminateResultCode = 14;
+    optional bool receivedTcapContinue = 15 [default = false];
+    optional bool receivedASR = 16 [default = false];
+    optional bool receivedIdpSms = 17 [default = false];
+    optional bool receivedIdp = 18 [default = false];
+    optional bool isTimeZoneSeconds = 19 [default = false];
+    optional uint32 timeZoneSeconds = 20;
+    optional uint32 ccaUpdateMsccResultCode = 21;
+    optional bool isccaMsccGrantedCCTimeZero = 22 [default = false];
+    optional bool isReleaseSent = 23;
+    optional uint32 lastSentCCRequestType = 24;
+    optional uint32 ccRequestNumber = 25;
+    optional bool isFirstERBRcvd = 26;
+    optional uint32 CallType = 27;
+    optional uint32 scpAction = 28 [default = 0];
+    optional uint32 orgScpAction = 29 [default = 0];
+    optional int32 capControlMode = 30 [default = -1];
+    optional uint32 terminationCause = 31;
+    optional StoredIDPSMSToCCRIData mappedIDPToCCRIData = 32;
+    optional uint32 recvAppContextName = 33;
+    optional IDPToCCRIData IdpCCRIData = 34;
+    optional uint32 recvGSUCCTime = 35;
+    optional uint32 recvNoAnsTime = 36;
+    optional uint32 currUSUCCTime = 37;
+    optional uint32 cumulativeGSUCCTime = 38;
+    optional uint32 cumulativeUSUCCTime = 39;
+    optional bool isFinalUnitReceived = 40 [default = false];
+    optional pbERBData recvFirstERBData = 41;
+    optional pbERBData recvERBData = 42;
+    optional uint32 callAnswerTimeStamp = 43;
+    optional bool isFollowingOn = 44;
+    optional pbActivityTimerData activityTimerData = 45;
+    optional string strRemoteTransIdForCDR = 46;
+    optional string strLocalTransIdForCDR = 47;
+    optional bool bIsCallContinueSet = 48 [default = false];
+    optional uint32 sessionStartTimeStamp = 49;
+    optional uint32 connectMaxDuration = 50;
+    optional uint32 erbAnswerTimeStamp = 51;
+    optional string erbSpecificInfo = 52; 
+    optional pbIwfDccaSessionCtxt dccaCtxt = 53;
+    optional bool isFailedCDRLogged = 54 [default = false];
+    optional uint32 releaseCause = 55;
+    optional TransState currState = 56;
+    optional pbConnectArgData connectArg = 57;
+    optional pbACHData achdata = 58;
+    optional uint32 disconTriggerTimeStamp = 59;
+    optional fixed32 ccfhFailedoverReason = 60 [default = 0];
+    optional uint32 triggerFollowOnSession = 61 [default = 1];
+    optional uint32 updateTriggerTimeStamp = 62;
+    optional bool IsCCRTBuiltForInvalidCCAI = 63 [default = false];
+};
+
+message pbStoredUserData {
+    optional pbCapRoTsl caprotsl = 1;
+};
+
+message pbIwfTimerData  {
+
+    enum ETimerType {
+        NO_EVENT_TIMER = 1;
+        FAKE_ACH_TIMER = 2;
+        ACTIVITY_TIMER = 3;
+        ACH_DELTA_TIMER = 4;
+        ACR_TIMER = 5;
+        CONNECT_MAX_CALL_DURATION = 6;
+        ACTIVITY_RESPONSE_TIMER = 7;
+        IWF_SUBSCRIBER_AUDIT_TIMER = 8;
+        IWF_DCCA_TX_TIMER = 9;
+        IWF_ISFOLLOWN_TIMER = 10;
+        INVALID_TIMER = -1;
+    };
+
+    enum EKeyType {
+        INVLAID_KEY = -1;
+        SESSION_ID  = 1;
+        DIALOG_ID = 2;
+        };
+    optional ETimerType m_eTimerType = 1;
+    optional EKeyType m_eKeyType = 2;
+    optional fixed32 m_tStartTime = 3;
+    optional uint32 m_uiDuration = 4;
+    optional uint32 m_uiTimerId = 5;
+};
+
+message pbSCCP_ADDR {
+    optional bytes addr = 1;
+    optional uint32 length = 2;
+};
+
+message pbMtp3_Header {
+    optional uint32 sio = 1;
+    optional string label = 2;
+};
+
+message pbTcapTransactionData {
+    optional uint32 lTid = 1;
+    optional uint32 rTid = 2;
+    optional pbSCCP_ADDR oaddr = 3;
+    optional pbSCCP_ADDR daddr = 4;
+    optional pbMtp3_Header label = 5;
+    optional QualityOfService qos = 6;
+};
+
+message pbDiameterSessionData {
+    optional uint32 peerInst = 1;
+    optional uint32 timeout = 2;
+    optional uint32 lifetime = 3;
+    optional uint32 gracePeriod = 4;
+};
+
+message pbIwfFsmInfo {
+    required pbState current = 1;
+    required pbState prevState = 2;
+    optional pbProtocol UpstrmReqProtocol = 3 [default = DIAMETER_S6A];
+    optional pbProtocol DnstrmReqProtocol = 4 [default = MAP_GR];
+    optional uint32 diasessionIdx = 5 [default = 0];
+    required string diaSessionId = 6 [default = ""];
+    required uint32 tcapDialogueId = 7 [default = 0];
+    optional pbDiaMsg currRcvdDiaMsg = 8;
+    optional pbTcapDialogue currRcvdTcapDlg = 9;
+    optional pbTcapComponent currRcvdTcapCpt = 10;
+    optional pbTcapBeginDialogue currTcapBeginDlg = 11;
+    optional bool isCurrSendErr = 12;
+    optional pbStoredUserData userData = 13;
+    optional int32 errCode = 14 [default = 0];
+    optional string username = 15;
+    optional pbSCCPParameters sccpParams = 16;
+    optional string sgsnAddress = 17;
+    optional bool IsDiaRespSent = 18;
+    optional bool isrouteByGT = 19 [default = false];
+    optional pbIwfTranslator translator = 20;
+    optional pbRoutingLabel routingLabel = 21;
+    optional uint32 invokeId = 22 [default = 0];
+    optional pbSccpAddress selfSccpAddr = 23;
+    optional bool isTcapEnd = 24 [default = false];
+    optional bool startNoEventTimer = 25 [default = false];
+    optional bool isFinalUpstrmReqSent = 26;
+    optional bool markForRollback = 27 [default = false];
+    optional bool flowFailure = 28 [default = false];
+    optional bool isCloseState = 29 [default = false];
+    repeated pbIwfTimerData timerInfo = 30;
+    optional pbTcapTransactionData tcapInfo = 31;
+    optional pbDiameterSessionData diameterInfo = 32;
+    optional fixed32 freeListKey = 33;
+    optional string actionRuleName = 34 [default = ""];
+    optional pbSccpAddress callingSccpAddr = 35;
+    optional fixed32 lastSentTcapCptopcode = 36;
+    optional bool isCCFHActionTaken = 37 [default = false];
+    optional bool dontTriggerFollowOnSessionforCCAUError = 38 [default = false];
+};
+
+
+message pbIwfSessionContextData
+{
+    optional string originHost = 1;
+    optional string originRealm = 2;
+    optional string oldHost = 3;
+    optional string oldRealm = 4;
+    optional pbSCCPParameters sccpParameters = 5;
+    optional pbSccpAddress oldcpaitu = 6;
+    optional bool OldCallingPartyAddrpresent = 7;
+    optional fixed32 oldopc = 8;
+};

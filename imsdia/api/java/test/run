@@ -1,0 +1,15 @@
+#
+# A script to start Java test cases
+#
+
+CP=.:../../../val/java/lib/diameter.jar:../lib/diaapi.jar
+
+runall() {
+    find $1 -name '*.class' | sed 's/\.class$//;s/\//./g' | xargs java -classpath $CP diameter.TestRunner
+}
+
+case $# in
+0) runall diameter;;
+1) if [ -r $1 ]; then runall $1; else java -classpath $CP $1; fi;;
+*) java -classpath $CP $*;;
+esac

@@ -1,0 +1,15 @@
+Diameter Command
+
+SYNOPSIS
+    isProxyInfoAvpEnabled
+
+DESCRIPTION
+    Prints Proxy Info AVP Enabled or Not.
+
+PARAMETERS
+    NONE
+
+EXAMPLE
+    >> isProxyInfoAvpEnabled
+
+       Proxy Info AVP Enabled

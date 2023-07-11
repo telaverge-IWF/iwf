@@ -1,0 +1,144 @@
+#!/bin/sh
+########################################################################
+#
+# Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.
+#          Manufactured in the United States of America.
+#   1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.
+#
+########################################################################
+
+
+clear
+more <<EOF
+===================== CollectInfo ==========================
+
+To enable us to keep track of this information, it is important that you
+complete the following questions as much as possible.
+
+At any time you may abort with a ^C
+
+===============================   BEGIN    ===============================
+
+EOF
+
+while [ 1 ]
+do
+    echo "Enter your full name: \c"
+    read usrname
+
+    echo "         Your e-mail: \c"
+    read usremail
+
+    echo "        Your Phone #: \c"
+    read usrphone
+
+    echo "System Serial number: \c"
+    read serialnum
+
+    echo "       Customer Name: \c"
+    read custname
+
+    echo "         Customer ID: \c"
+    read customerid
+
+    echo "         Contract ID: \c"
+    read contractid
+
+    echo "    Address (line 1): \c"
+    read customeraddress1
+
+    echo "    Address (line 2): \c"
+    read customeraddress2
+
+    echo "                City: \c"
+    read city
+
+    echo "      State (eg. CA): \c"
+    read state
+
+    echo "   Country (eg. USA): \c"
+    read country
+
+    echo "            Zip Code: \c"
+    read zipcode
+
+    clear
+    echo "You have entered the following information:"
+    echo "-------------------------------------------"
+
+    echo "   Your name: $usrname"
+    echo " Your e-mail: $usremail"
+    echo "Your Phone #: $usrphone"
+
+    echo "System Serial number: $serialnum"
+    echo "       Customer Name: $custname"
+    echo "         Customer ID: $customerid"
+    echo "         Contract ID: $contractid"
+
+    echo " Address (line 1): $customeraddress1"
+    echo " Address (line 2): $customeraddress2"
+    echo "             City: $city"
+    echo "   State (eg. CA): $state"
+    echo "Country (eg. USA): $country"
+    echo "         Zip Code: $zipcode"
+
+    echo ""
+    echo ""
+    echo "Would you like to re-enter [y/n]: \c"
+    read answer
+    while [ 1 ]
+    do
+        case $answer in
+                y | Y)
+                    clear
+                    break
+                    ;;
+                n | N)
+                    break 2
+                    ;;
+                *) echo "You must enter Y or N [Y/N]: \c"
+                   read answer
+                   ;;
+        esac
+    done
+done
+
+echo
+echo
+echo "List any known problems with this system (up to 3 lines of comment):"
+echo "Line1: \c"
+read comm1
+
+echo "Line2: \c"
+read comm2
+
+echo "Line3: \c"
+read comm3
+
+echo "The following information was listed by the user" >> README
+echo "------------------------------------------------" >> README
+echo "" >> README
+echo "   User Name: $usrname" >> README
+echo " User e-mail: $usremail" >> README
+echo "User Phone #: $usrphone" >> README
+echo "" >> README
+echo "System Serial number: $serialnum" >> README
+echo "Customer Name: $custname" >> README
+echo "  Customer ID: $customerid" >> README
+echo "  Contract ID: $contractid" >> README
+echo " Address (line 1): $customeraddress1" >> README
+echo " Address (line 2): $customeraddress2" >> README
+echo "             City: $city" >> README
+echo "            State: $state" >> README
+echo "          Country: $country" >> README
+echo "         Zip Code: $zipcode" >> README
+echo "" >> README
+echo "Any problems reported to plague the system currently:" >> README
+echo $comm1 >> README
+echo $comm2 >> README
+echo $comm3 >> README
+echo "" >> README
+echo "" >> README
+echo "" >> README
+
+

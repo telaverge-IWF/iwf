@@ -1,0 +1,17 @@
+/init_innodb.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_c_count_not_zero.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_c_stats.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_i_40-44.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_id_3.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_id_900.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_insert_select_2.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_iud_rollback-multi-50.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_replace_7-8.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_s_select-uncommitted.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_sc_select-limit-nolimit_4.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_sc_select-same_2.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_sc_sum_total.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_u_10-19.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_u_10-19_nolimit.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+/rr_u_4.test/1.1.2.1/Fri Oct  5 12:37:35 2012//TB-IWF-HP-0400-00
+D

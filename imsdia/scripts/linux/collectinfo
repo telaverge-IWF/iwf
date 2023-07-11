@@ -1,0 +1,133 @@
+############################################################################
+#                                                                          #
+#     Copyright 2006 IntelliNet Technologies, Inc. All Rights Reserved.    #
+#             Manufactured in the United States of America.                #
+#       1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.       #
+#                                                                          #
+#   This product and related documentation is protected by copyright and   #
+#   distributed under licenses restricting its use, copying, distribution  #
+#   and decompilation.  No part of this product or related documentation   #
+#   may be reproduced in any form by any means without prior written       #
+#   authorization of IntelliNet Technologies and its licensors, if any.    #
+#                                                                          #
+#   RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      #
+#   government is subject to restrictions as set forth in subparagraph     #
+#   (c)(1)(ii) of the Rights in Technical Data and Computer Software       #
+#   clause at DFARS 252.227-7013 and FAR 52.227-19.                        #
+#                                                                          #
+############################################################################
+#                                                                          #
+# CONTRACT: INTERNAL                                                       #
+#                                                                          #
+############################################################################
+#
+# ID: $Id: collectinfo,v 3.1 2008/03/31 10:33:28 nvijikumar Exp $
+#
+# LOG: $Log: collectinfo,v $
+# LOG: Revision 3.1  2008/03/31 10:33:28  nvijikumar
+# LOG: Start GA 3.0
+# LOG:
+# LOG: Revision 2.1  2006/09/13 09:22:43  yranade
+# LOG: Start GA 1.1
+# LOG:
+# LOG: Revision 1.3  2006/07/03 13:34:49  nvijikumar
+# LOG: Chnages to work on all linux platform.
+# LOG:
+# LOG: Revision 1.2  2006/06/21 10:53:26  nvijikumar
+# LOG: Modification for Copyright info.
+# LOG:
+# LOG: Revision 1.1  2006/03/06 13:20:04  nvijikumar
+# LOG: Baseline script to collect the system information
+# LOG:
+#
+############################################################################
+#
+# Include the standard definitions
+#
+#!/bin/bash
+
+umask 022
+
+# Make sure user is root.
+if [ "`id |cut -d ")" -f1 | cut -d "(" -f2`" != "root" ]
+then
+    echo ""
+    echo "You must be root to execute this program"
+    echo ""
+    exit 1
+fi
+#
+# DIRNAME where results will be logged
+DIRNAME="collectinfo.`hostname`-`date '+%Y.%m.%d'`"
+export DIRNAME
+
+# Start with a clean slate in case we had a bad run. This will also
+# eliminate a security hole.
+rm -rf "$DIRNAME"
+rm -f "$DIRNAME"-tar.Z
+
+
+# create working dir and make sure root was able to create it
+mkdir  "$DIRNAME"  2>/dev/null
+STATUS=$?
+if [ $STATUS -ne 0 ]
+then
+    # Exit if directory was not created successfully.
+    echo ""
+    echo "Root must have write permission to the current directory"
+    echo ""
+    exit 1
+fi
+
+cd $DIRNAME
+
+#
+# Create the README header information
+../Info/gen.readme.head
+
+#if [ $INTERACTIVE_MODE = "true" ]
+#then
+    # Gather cutomer name, hostname, etc. and write it into the README
+    # gen.readme.1 is for generic interactive mode.
+    ../Info/gen.readme.1
+#fi
+
+../Info/gen.readme.2
+
+echo ""
+echo ""
+echo "Gathering information, please wait... "
+echo ""
+
+   echo "Getting imsdia information"
+   ../Info/copyinfo 1>/dev/null 2>&1
+   echo "Getting network information"
+   ../Info/netinfo
+
+   echo "Getting rpm information"
+  ../Info/rpminfo
+   echo "Getting messages information"
+   mkdir messages
+   cp -p    /var/log/messages ./messages 1>/dev/null 2>&1
+   cp -rp    /var/log/messages.[0-9] ./messages 1>/dev/null 2>&1
+   dmesg > ./messages/dmesg.out
+
+# Tar and compress the info, and clean up 
+cd ..
+
+tar  -cf "$DIRNAME".tar  "$DIRNAME"
+gzip "$DIRNAME".tar
+rm -rf "$DIRNAME"
+clear
+cat << EOF
+
+#Done gathering system information
+#
+#You can extract the data by:
+#
+## zcat $DIRNAME-tar.gz | tar zxvf -
+#
+#Output file name is:
+#$DIRNAME-tar.gz
+#
+####EOF

@@ -1,0 +1,147 @@
+/**
+ * ETSI TS 183 017 V1.1.1 (2006-03) - Gq' interface --Diameter Based Protocol
+ * Gq' interface between an AF(Application Function) and the SPDF(Service Policy Decission Function)
+ */
+protocol diameter.gqgqprime.gqprimeAVPs < 16777222 13019: "ETSI TS 183 017 V1.1.1 (2006-03)" >;
+
+
+//////////////////
+// Derived AVPs //
+//////////////////
+
+/**
+ * The Globally-Unique-Address AVP (AVP code 300) is of type Grouped (see ES 283 034 [15]).
+ */
+Globally-Unique-Address		                  ::=  300 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The Address-Realm AVP (AVP code 301) is of type Octet String (see ES 283 034 [15]).
+ */
+Address-Realm                                     ::=  301 /*gq'*/    OctetString V  | | | M  |Y;
+
+/**
+ * The Binding-Information AVP (AVP code 450) is of type Grouped and is sent between the AF and the SPDF in order to
+ * convey binding information required for NA(P)T, hosted NA(P)T and NA(P)T-PT control.
+ */
+Binding-Information		                  ::=  450 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The Binding-Input-List AVP (AVP code 451) is of type Grouped and contains a list transport addresses for which a
+ * binding is requested. The AF constructs the Binding-Input-List using SDI information.
+ */
+Binding-Input-List		                  ::=  451 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The Binding-Output-List AVP (AVP code 452) is of type Grouped and contains a list of transport addresses which is
+ * the result of the binding operation performed by the transport plane functions.
+ */
+Binding-Output-List		                  ::=  452 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The V6-Transport-Address AVP (AVP code 453) is of type Grouped and contains a single IPv6 address and a single
+ * port number.
+ */
+V6-Transport-Address		                  ::=  453 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The V4-Transport-Address AVP (AVP code 454) is of type Grouped and contains a single IPv4 address and a single
+ * port number.
+ */
+V4-Transport-Address		                  ::=  454 /*gq'*/    Grouped     V  | | | M  |Y;
+
+/**
+ * The Port-Number AVP (AVP code 455) is of type Unsigned32 and contains the end point port number.
+ */
+Port-Number                                       ::=  455 /*gq'*/    Unsigned32  V  | | | M  |Y;
+
+/**
+ * The Reservation-class AVP (AVP code 456) is of type Unsigned32 and contains an integer used as an index pointing to
+ * the type of transport service class to be applied (e.g. activation/configuration of transport plane functions).
+ */
+Reservation-Class                                 ::=  456 /*gq'*/    Unsigned32  V  | | | M  |Y;
+
+/**
+ * The Latching-Indication AVP (AVP code 457) is of type Enumerated.
+ * <p>
+ * The following values are defined:
+ * <ul>
+ * <li> LATCH (0)
+ * <li> RELATCH (1)
+ * </ul>
+ */
+Latching-Indication                               ::=  457/* gq'*/    Enumerated  V  | | | M  |Y;
+
+/**
+ * The Reservation-Priority AVP (AVP code 458) is of type Enumerated. The following values are specified:
+ * <ul>
+ * <li> DEFAULT (0): This is the lowest level of priority. If no Reservation-Priority AVP is specified in the AA-Request,
+ * this is the priority associated with the reservation.
+ * <li> PRIORITY-ONE (1)
+ * <li> PRIORITY-TWO (2)
+ * <li> PRIORITY-THREE (3)
+ * <li> PRIORITY-FOUR (4)
+ * <li> PRIORITY-FIVE (5)
+ * <li> PRIORITY-SIX (6)
+ * <li> PRIORITY-SEVEN (7)
+ * </ul>
+ */
+Reservation-Priority                              ::=  458/* gq'*/    Enumerated  V  | | | M  |Y;
+
+
+//////////////////
+// Enumerations //
+//////////////////
+
+Latching-Indication  ::= < Enumerated: 457 >
+                LATCH            0
+                RELATCH          1
+                ;
+
+
+Reservation-Priority  ::= < Enumerated: 458 >
+                DEFAULT          0
+                PRIORITY_ONE     1
+                PRIORITY_TWO     2
+		PRIORITY_THREE   3
+		PRIORITY_FOUR    4
+		PRIORITY_FIVE    5
+		PRIORITY_SIX     6
+		PRIORITY_SEVEN   7
+                ;
+
+
+//////////////////
+// Grouped AVPs //
+//////////////////
+
+Globally-Unique-Address  ::= < AVP Header: 300 13019>
+                [Framed-IP-Address]
+                [Framed-IPv6-Prefix]
+		[Address-Realm]
+                ;
+
+Binding-Information  ::= < AVP Header: 450 13019>
+		{Binding-Input-List}
+		[Binding-Output-List]
+		;
+
+Binding-Input-List  ::= < AVP Header: 451 13019>
+                *[V6-Transport-Address]
+                *[V4-Transport-Address]
+                ;
+
+Binding-Output-List  ::= < AVP Header: 452 13019>
+                *[V6-Transport-Address]
+                *[V4-Transport-Address]
+                ;
+
+V6-Transport-Address  ::= < AVP Header: 453 13019>
+                {Framed-IPv6-Prefix}
+                {Port-Number}
+                ;
+
+V4-Transport-Address  ::= < AVP Header: 454 13019>
+                {Framed-IP-Address}
+                {Port-Number}
+                ;
+

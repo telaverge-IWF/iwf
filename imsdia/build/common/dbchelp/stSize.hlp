@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    stSize
+
+DESCRIPTION
+    This command will Print the Session Table Size.
+
+PARAMETERS
+    none.
+
+EXAMPLE
+    >> stSize 
+
+       Diameter Session Table Size = 1200
+

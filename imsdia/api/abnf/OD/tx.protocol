@@ -1,0 +1,535 @@
+/**
+ * 3GPP2 X.S0013-013-0 Version 1.0 - Tx interface --Diameter Based Protocol
+ * Tx interface between an AF(Application Function) and the 
+ *                         PCRF(Policy and Charging Rules Function).
+ */
+protocol diameter.tx < 0 5535: "X.S0013-013-0 " >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+
+/**
+ * The Session-Abort-Cause AVP (AVP code 500) is of type Enumerated, and 
+ * determines the cause of a session abort request or of an RAR indicating a 
+ * bearer context release. 
+ */
+    Abort-Cause                                ::= 500  /* 5.5.1  */ Enumerated    M,V|P| |   |Y;
+
+/**
+ * The Access-Network-Charging-Address AVP (AVP code 501) is of type Address,
+ * and it indicates the IP Address of the network entity within the access 
+ * network performing charging(e.g.PDSN IPaddress). The Access-Network-Charging
+ * -Address AVP should not be forwarded over an inter-operator interface.
+ */
+    Access-Network-Charging-Address            ::= 501  /* 5.5.2  */ Address       M,V|P| |   |Y;
+
+/**
+ * The Access-Network-Charging-Identifier AVP (AVP code 502)is of type Grouped,
+ * and contains a charging identifier within the Access-Network-Charging-
+ * Identifier-Value AVP along with information about the flows transported 
+ * within the corresponding bearer within the Flows AVP. If no Flows AVP is 
+ * provided, the Access-Network-Charging-Identifier-Value applies for all flows
+ * within the AF session.
+ * The Access-Network-Charging-Identifier AVP can be sent from the PCRF to AF. 
+ * The AF may use this information for charging correlation with session layer.
+ */
+    Access-Network-Charging-Identifier         ::= 502  /* 5.5.3  */ Grouped       M,V|P| |   |Y;
+
+/**
+ * The Access-Network-Charging-Identifier-Value AVP (AVP code 503) is of type 
+ * OctetString, and contains a charging identifier.
+ */
+    Access-Network-Charging-Identifier-Value   ::= 503  /* 5.5.4  */ OctetString   M,V|P| |   |Y;
+
+/**
+ * The AF-Application-identifier AVP (AVP code 504) is of type OctetString, and
+ * it contains information that identifies the particular service that the AF 
+ * service session belongs to. This information may be used by the PCRF to 
+ * differentiate QoS for different application services. For example the 
+ * AF-Application-Identifier may be used as additional information together 
+ * with the Media-Type AVP when the QoS class for the bearer authorization at 
+ * the Ty interface is selected. The AF-Application-Identifier may be used also
+ * to complete the QoS authorization with application specific default settings
+ * in the PCRF if the AF does not provide full Session-Component-Description 
+ * information.
+ */
+    AF-Application-Identifier                  ::= 504  /* 5.5.5  */ OctetString  M,V|P| |   |Y;
+
+/**
+ * The AF-Charging-Identifier AVP (AVP code 505)is of type OctetString,contains
+ * the AF Charging Identifier that is sent by the AF. This information may be 
+ * used for charging correlation with bearer layer.
+ */
+    AF-Charging-Identifier                     ::= 505  /* 5.5.6  */ OctetString   M,V|P| |   |Y;
+
+/**
+ * The Authorization-Token AVP (AVP code 506) is of type OctetString, and 
+ * contains the Authorization Token defined in the RFC 3520.
+ */
+    Authorization-Token                        ::= 506  /* 5.5.7  */ OctetString   M,V|P| |   |Y;
+
+/**
+ * The Flow-Description AVP (AVP code 507) is of type IPFilterRule, and defines
+ * a packet filter for an IP flow with the following information:
+ * Direction (in or out).
+ * Source and destination IP address (possibly masked).
+ * Protocol.
+ * Source and destination port (list or ranges).
+ * The IPFilterRule type shall be used with the following restrictions:
+ *  Only the Action "permit" shall be used.
+ *  No "options" shall be used.
+ *  The invert modifier "!" for addresses shall not be used.
+ *  The keyword "assigned" shall not be used.
+ * If any of these restrictions is not observed by the AF,the server shall send
+ * an error response to the AF containing the Experimental-Result-Code AVP with
+ * value FILTER_RESTRICTIONS.
+ * The Flow description AVP shall be used to describe a single IP flow.
+ * The direction "in" refers to uplink IP flows, and the direction "out" refers
+ * to downlink IP flows.
+ */
+    Flow-Description                           ::= 507  /* 5.5.8  */ IPFilterRule M,V|P| |   |Y;
+
+/**
+ * The Flow-Grouping AVP (AVP code 508) is of type Grouped, and it indicates 
+ * that no other IP Flows shall be transported together with the listed IP 
+ * Flows in the same bearer(s).
+ * If Flow-Grouping AVP(s) have been provided in earlier service information, 
+ * but are not provided in subsequent service information, the old flow 
+ * grouping remains valid.
+ * If Flow-Grouping AVP(s) have been provided in earlier service information, 
+ * and new Flow-Grouping AVP(s) are provided, the new flow grouping information
+ * replaces the previous information. Previous flow grouping information is
+ * invalidated even if the new Flow-Grouping AVP(s) affect other IP flows.
+ * A Flow-Grouping AVP containing no Flows AVP may be used to invalidate flow 
+ * grouping information provided in earlier service information.A Flow-Grouping
+ * AVP containing no Flows AVP shall not be supplied together with other
+ * Flow-Grouping AVP(s).
+ * If earlier service information has already been provided, flow grouping 
+ * information in subsequent service information shall not restrict the flow 
+ * grouping further for IP flows already described in the previous service 
+ * information. However, new IP flows described for the first time in the 
+ * subsequent service information may be added to existing flow groups or
+ * in new flow groups.
+ */
+    Flow-Grouping                              ::= 508  /* 5.5.9  */ Grouped      M,V|P| |   |Y;
+
+/**
+ * The Flow-Number AVP (AVP code 509) is of type Unsigned32,and it contains the
+ * ordinal number of the IP flow(s), assigned according to the rules in annex A
+ * of 3GPP2 X.S0013-013-0.
+ */
+    Flow-Number                                ::= 509  /* 5.5.10 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Flows AVP (AVP code 510) is of type Grouped, and it indicates IP flows 
+ * via their flow identifiers.
+ * If no Flow-Number AVP(s) are supplied, the Flows AVP refers to all Flows 
+ * matching the media component number.
+ */
+    Flows                                      ::= 510  /* 5.5.11 */ Grouped      M,V|P| |   |Y;
+
+/**
+ * The Flow-Status AVP (AVP code 511) is of type Enumerated, and describes 
+ * whether the IP flow(s) are enabled or disabled. 
+ */
+    Flow-Status                                ::= 511  /* 5.5.12 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The Flow-Usage AVP (AVP code 512) is of type Enumerated, and provides 
+ * information about the usage of IP Flows.
+ *  NO_INFORMATION is the default value.
+ * NOTE: An AF may choose not to identify RTCP flows, e.g. in order to avoid 
+ * that RTCP flows are always enabled by the server.
+ */
+    Flow-Usage                                 ::= 512  /* 5.5.13 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The Specific-Action AVP (AVP code 513) is of type Enumerated.
+ * Within a PCRF initiated Re-Authorization Request, the Specific-Action AVP 
+ * determines the type of the action.
+ * Within an initial AA request the AF may use the Specific-Action AVP to 
+ * request specific actions from the server at the bearer events and to limit 
+ * the contact to such bearer events where specific action is required. If the 
+ * Specific-Action AVP is omitted within the initial AA request,no notification
+ * of any of the events defined below is requested.
+ */
+    Specific-Action                            ::= 513  /* 5.5.14 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The Max-Requested-Bandwidth-DL AVP (AVP code 515) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for a 
+ * downlink IP flow. The bandwidth contains all the overhead coming from the 
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+    Max-Requested-Bandwidth-DL                 ::= 515  /* 5.5.16 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Max-Requested-Bandwidth-UL AVP (AVP code 516) is of type Unsigned32, and
+ * it indicates the maximum requested bandwidth in bits per second for an 
+ * uplink IP flow. The bandwidth contains all the overhead coming from the 
+ * IP-layer and the layers above, e.g. IP, UDP, RTP and RTP payload.
+ */
+    Max-Requested-Bandwidth-UL                 ::= 516  /* 5.5.17 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Media-Component-Description AVP (AVP code 517) is of type Grouped,and it
+ * contains service information for a single media component within an AF 
+ * session.It may be based on the SDI exchanged between AF and AF client in UE.
+ * The information may be used by the server to determine authorized QoS and IP
+ * flow classifiers for bearer authorization and charging rule selection.
+ * Within one Diameter message, a single IP flow shall not be described by more
+ * than one Media-Component-Description AVP.
+ * Bandwidth information and Flow-Status information provided within the 
+ * Media-Component-Description AVP applies to all those IP flows within the 
+ * media component, for which no corresponding information is being provided 
+ * within Media-Sub-Component AVP(s).
+ * If a Media-Component-Description AVP is not supplied, or if optional AVP(s)
+ * within a Media-Component-Description AVP are omitted, but corresponding 
+ * information has been provided in previous Diameter messages, the previous
+ * information for the corresponding IP flow(s) remains valid.
+ * All IP flows within a Media-Component-Description AVP are permanently 
+ * disabled by supplying a Flow Status AVP with value "REMOVED". The server may
+ * delete corresponding filters and state information.
+ */
+    Media-Component-Description                ::= 517  /* 5.5.18 */ Grouped      M,V|P| |   |Y;
+
+/**
+ * The Media-Component-Number AVP (AVP code 518) is of type Unsigned32, and it
+ * contains the ordinal number of the media component, assigned according to 
+ * the rules in annex A of 3GPP2 X.S0013-013-0.
+ */
+    Media-Component-Number                     ::= 518  /* 5.5.19 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The Media-Sub-Component AVP (AVP code 519) is of type Grouped and contains 
+ * the requested QoS and filters for the set of IP flows identified by their 
+ * common Flow-Identifier. The Flow-Identifier is defined in Annex A.
+ * Possible Bandwidth information and Flow-Status information provided within 
+ * the Media-Sub-Component AVP takes precedence over information within the 
+ * encapsulating Media Component Description AVP. If a Media-Sub-Component AVP 
+ * is not supplied, or if optional AVP(s) within a Media-Sub-Component AVP are 
+ * omitted,but corresponding information has been provided in previous Diameter
+ * messages, the previous information for the corresponding IP flow(s) remains
+ * valid, unless new information is provided within the encapsulating Media-
+ * Component-Description AVP. If Flow-Description AVP(s) are supplied, they 
+ * replace all previous Flow-Description AVP(s), even if a new Flow-Description
+ * AVP has the opposite direction as the previous Flow-Description AVP.
+ * All IP flows within a Media-Sub-Component AVP are permanently disabled by 
+ * supplying a Flow Status AVP with value "REMOVED". The server may delete 
+ * corresponding filters and state information.
+ */
+    Media-Sub-Component                        ::= 519  /* 5.5.20 */ Grouped      M,V|P| |   |Y;
+
+/**
+ * The Media-Type AVP (AVP code 520) is of type Enumerated, and it determines 
+ * the media type of a session component. 
+ */
+    Media-Type                                 ::= 520  /* 5.5.21 */ Enumerated   M,V|P| |   |Y;
+
+/**
+ * The RR-Bandwidth AVP (AVP code 521) is of type Unsigned32, and it indicates 
+ * the maximum required bandwidth in bits per second for RTCP receiver reports 
+ * within the session component, as specified in RFC 3556. The bandwidth 
+ * contains all the overhead coming from the IP-layer and the layers above,
+ * i.e.IP, UDP and RTCP.
+ */
+    RR-Bandwidth                               ::= 521  /* 5.5.22 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The RS-Bandwidth AVP (AVP code 522) is of type Unsigned32, and it indicates 
+ * the maximum required bandwidth in bits per second for RTCP sender reports 
+ * within the session component, as specified in RFC 3556. The bandwidth
+ * contains all the overhead coming from the IP-layer and the layers above, 
+ * i.e. IP, UDP and RTCP.
+ */
+    RS-Bandwidth                               ::= 522  /* 5.5.23 */ Unsigned32   M,V|P| |   |Y;
+
+/**
+ * The SIP_Forking AVP (AVP code 523) is of type Enumerated, and describes if 
+ * several SIP dialogues are related to one Diameter session.
+ */
+    SIP-Forking-Indication                     ::= 523  /* 5.5.24 */ Enumerated   M,V|P| |   |Y;
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+  Abort-Cause ::= < Enumerated: 500 >
+        BEARER_RELEASED                  0
+        INSUFFICIENT_SERVER_RESOURCES    1
+        INSUFFICIENT_BEARER_RESOURCES    2
+        ;
+
+  Specific-Action ::= < Enumerated: 513 >
+        SERVICE_INFORMATION_REQUEST            0
+        CHARGING_CORRELATION_EXCHANGE          1
+        INDICATION_OF_LOSS_OF_BEARER           2
+        INDICATION_OF_RECOVERY_OF_BEARER       3
+        INDICATION_OF_RELEASE_OF_BEARER        4
+        INDICATION_OF_ESTABLISHMENT_OF_BEARER  5
+        ;
+
+  SIP-Forking-Indication  ::= < Enumerated: 523 >
+        SINGLE_DIALOGUE            0
+        SEVERAL_DIALOGUES          1
+        ;
+
+  Flow-Status ::= < Enumerated: 511 >
+        ENABLED_UPLINK            0
+        ENABLED_DOWNLINK          1
+        ENABLED                   2
+        DISABLED                  3
+        REMOVED                   4
+        ;
+
+  Flow-Usage ::= < Enumerated: 512 >
+        NO_INFORMATION            0
+        RTCP                      1
+        ;
+
+  Media-Type ::= < Enumerated: 520 >
+        AUDIO            0
+        VIDEO            1
+        DATA             2
+        APPLICATION      3
+        CONTROL          4
+        TEXT             5
+        MESSAGE          6
+      /*  OTHER            4294967296 */
+        ;
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+  Flows ::= < AVP Header: 510 5535 >
+        { Media-Component-Number}
+        *[ Flow-Number]
+        ;
+
+  Access-Network-Charging-Identifier ::= < AVP Header: 502 5535 >
+        { Access-Network-Charging-Identifier-Value}
+        *[ Flows ]
+        ;
+
+  Flow-Grouping ::= < AVP Header: 508 5535 >
+        *[Flows]
+        ;
+
+  Media-Sub-Component ::= < AVP Header: 519 5535 >
+        { Flow-Number } 
+        0*2[ Flow-Description ]
+        [ Flow-Status ]
+        [ Flow-Usage ]
+        [ Max-Requested-Bandwidth-UL ]
+        [ Max-Requested-Bandwidth-DL ]
+        ;
+
+  Media-Component-Description ::= < AVP Header: 517 5535 >
+        { Media-Component-Number }  
+        *[ Media-Sub-Component ]  
+        [ AF-Application-Identifier ]
+        [ Media-Type ]
+        [ Max-Requested-Bandwidth-UL ]
+        [ Max-Requested-Bandwidth-DL ]
+        [ Flow-Status ]
+        [ RS-Bandwidth ]
+        [ RR-Bandwidth ]
+        ;
+
+
+    //////////////
+    // Commands //
+    //////////////
+
+/*
+ * The AAR command, indicated by the Command-Code field set to 265 and the 'R'
+ * bit set in the Command Flags field, is sent by an AF to the PCRF in order to
+ * request the authorization for the bearer usage for the AF session.
+ */
+
+ AA-Request<AAR> ::= < Diameter Header: 265, REQ, PXY >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        *[ Media-Component-Description ]
+        *[ Flow-Grouping ]
+        [ AF-Charging-Identifier ]
+        [ SIP-Forking-Indication ]
+        *[ Specific-Action ]
+        *[ Subscription-Id ]     
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The AAA command, indicated by the Command-Code field set to 265 and the 'R'
+ * bit cleared in the Command Flags field, is sent by the PCRF to the AF in 
+ * response to the AAR command.
+ */
+
+ AA-Answer<AAA> ::= < Diameter Header: 265, PXY >
+        < Session-Id >
+        { Auth-Application-Id }
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        [ Authorization-Token ]
+        *[ Access-Network-Charging-Identifier ]
+        [ Access-Network-Charging-Address ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        *[ Proxy-Info ]
+        *[ AVP ]
+        ;
+
+/*
+ * The RAR command, indicated by the Command-Code field set to 258 and the 'R'
+ * bit set in the Command Flags field, is sent by the PCRF to the AF in order
+ * to indicate a specific action.
+ * As an option,the AF may send an AAR command to PCRF to update the service 
+ * information when receiving an RAA command. However, application-specific 
+ * authentication and/or authorization messages are not mandated for the Tx
+ * application in response to an RAR command.
+ * The values INDICATION_OF_LOSS_OF_BEARER,INDICATION_OF_RECOVERY_OF_BEARER and
+ * INDICATION_OF_RELEASE_OF_BEARER of the Specific-Action AVP shall not be
+ * combined with each other in an Re-Auth-Request.
+ */
+
+ RA-Request<RAR>  ::= < Diameter Header: 258, REQ, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        { Destination-Host }
+        { Auth-Application-Id }
+        *{ Specific-Action }
+        *[ Access-Network-Charging-Identifier ]
+        [ Access-Network-Charging-Address ]
+        *[ Flows ]
+        *[ Subscription-Id ]
+        [ Abort-Cause ]
+        [ Origin-State-Id ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The RAA command, indicated by the Command-Code field set to 258 and the'R' 
+ * bit cleared in the Command Flags field, is sent by the AF to the PCRF in 
+ * response to the RAR command.
+ */
+
+ RA-Answer<RAA> ::= < Diameter Header: 258, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        *[ Media-Component-Description ]
+        *[ Flow-Grouping ]
+        [ Origin-State-Id ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        *[ Proxy-Info ]
+        *[ AVP ]
+        ;
+
+/*
+ * The STR command, indicated by the Command-Code field set to 275 and the 'R'
+ * bit set in the Command Flags field, is sent by the AF to inform the PCRF 
+ * that an authorized session shall be terminated.
+ */
+
+ ST-Request<STR> ::= < Diameter Header: 275, REQ, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        { Termination-Cause }
+        { Auth-Application-Id }
+        [ Destination-Host ]
+        *[ Class ]
+        [ Origin-State-Id ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        *[ AVP ]
+        ;
+
+/*
+ * The STA command, indicated by the Command-Code field set to 275 and the 'R' 
+ * bit cleared in the Command Flags field, is sent by the PCRF to the AF in
+ * response to the STR command.
+ */
+
+ ST-Answer<STA> ::= < Diameter Header: 275, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        [ Origin-State-Id ]
+        *[ Redirect-Host ]
+        [ Redirect-Host-Usage ]
+        [ Redirect-Max-Cache-Time ]
+        *[ Proxy-Info ]
+        [ AVP ]
+        ;
+
+/*
+ * The ASR command, indicated by the Command-Code field set to 274 and the 'R'
+ * bit set in the Command Flags field,is sent by the PCRF to inform the AF that
+ * all bearer resources for the authorized session have become unavailable.
+ * Abort-Cause AVP is required and is specific to Tx interface
+ */
+
+ AS-Request<ASR> ::= < Diameter Header: 274, REQ, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        { Destination-Realm }
+        { Destination-Host }
+        { Auth-Application-Id }
+        { Abort-Cause }
+        [ Origin-State-Id ]
+        *[ Proxy-Info ]
+        *[ Route-Record ]
+        [ AVP ]
+        ;
+
+/*
+ * The ASA command, indicated by the Command-Code field set to 274 and the 'R' 
+ * bit cleared in the Command Flags field, is sent by the AF to the PCRF in
+ * response to the ASR command.
+ */
+
+ AS-Answer<ASA> ::= < Diameter Header: 274, PXY >
+        < Session-Id >
+        { Origin-Host }
+        { Origin-Realm }
+        [ Result-Code ]
+        [ Experimental-Result ]
+        [ Origin-State-Id ]
+        [ Error-Message ]
+        [ Error-Reporting-Host ]
+        *[ Failed-AVP ]
+        *[ Redirect-Host ]  /* changed from Redirected-Host to Redirect */
+        [ Redirect-Host-Usage ]  /* changed from Redirected to Redirect */
+        [ Redirect-Max-Cache-Time ] /* changed from Redirected to Redirect */
+        *[ Proxy-Info ]
+        *[ AVP ]
+        ;

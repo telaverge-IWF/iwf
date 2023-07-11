@@ -1,0 +1,16 @@
+Diameter Command
+
+SYNOPSIS
+    removeFromPeerDiscovery  <hostname> <realmName>
+
+DESCRIPTION
+    This command is used to delete Peer from Peer Discovery List.
+
+PARAMETERS
+    hostname     Host Name
+    realmName    Realm Name
+
+EXAMPLE
+    >> removeFromPeerDiscovery Alice india.internal.net
+       Removed from Discovery List
+

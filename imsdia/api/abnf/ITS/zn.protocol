@@ -1,0 +1,136 @@
+/**
+ * 3GPP TS 29.109 V8.3.0 (2009-09) -- Zn  Interface --Diameter Based Protocol
+ * The Zn  reference point is between Between BSF and NAF .
+ * RFC 3588 - Diameter Base and Accounting Protocol
+ * RFC 4006 - Diameter Credit Control Application
+ */
+ protocol diameter.zn < 16777220  10415 : "3GPP TS 29.109 V8.3.0 (2009-09)" >;
+
+
+    //////////////////
+    // Derived AVPs //
+    //////////////////
+/**
+ * The GAA-Service-identifier AVP (AVP code 403) is of type OctedString. 
+ * This AVP informs a BSF about the support of a GAA-service by the NAF. 
+ * According this AVP the BSF can select the right service's user security settings.
+*/
+
+ GAA-Service-Identifier ::=403 /* 3GPP TS  29.109 V8.3.0  6.3.1.4 */ OctetString M,V| | | |N;
+
+/**
+ * The Transaction-Identifier AVP (AVP code 401) is of type OctetString. 
+ * This AVP contains the Bootstrapping Transaction Identifier (B-TID).
+*/
+   Transaction-Identifier::=401 /*3GPP TS  29.109 V8.3.0  6.3.1.2 */ OctetString M,V| | | |N;
+
+/**
+ * The NAF-Id AVP (AVP code 402) is of type OctetString. This AVP contains the full 
+ * qualified domain name (FQDN) of the NAF that the UE uses concatenated with the Ua 
+ * security protocol identifier as specified in 3GPP TS 33.220 [5].
+ * The FQDN of the NAF that is part of the NAF_Id may be a different domain name that 
+ * with which the BSF knows the NAF.
+*/
+
+    NAF-Id::=402 /*3GPP TS  29.109 V8.3.0  6.3.1.3*/ OctetString M,V| | | |N;
+/**
+ * The conditional GBA_U-Awareness-Indicator AVP (AVP code 407) is of type Enumerated.
+*/
+   GBA_U-Awareness-Indicator::=407 /*3GPP TS  29.109 V8.3.0  6.3.1.8*/ Enumerated  M,V| | | |N;
+
+/**
+ * The required ME-Key-Material AVP (AVP code 405) is of type OctetString.
+ * The NAF is sharing this key material (Ks_NAF in the case of GBA_ME or Ks_ext_NAF in 
+ * the case of GBA_U) with the Mobile Equipment (ME).
+*/ 
+   ME-Key-Material::=405 /*3GPP TS  29.109 V8.3.0  6.3.1.6*/ OctetString M,V| | | |N;
+
+/**
+ * The condition UICC-Key-Material AVP (AVP code 406) is of type OctetString. The NAF may 
+ * share this key material (Ks_int_NAF in the case of GBA_U) with a security element 
+ * (e.g. USIM, ISIM, etc..) in the UICC. Only some GAA applications use this conditional AVP.
+*/
+   UICC-Key-Material::=406 /*3GPP TS  29.109 V8.3.0  6.3.1.7*/ OctetString M,V| | | |N;
+
+/**
+ * The Key-ExpiryTime AVP (AVP code 404) is of type Time. This AVP informs the NAF about 
+ * the expiry time of the key.
+*/
+   Key-ExpiryTime::=404/*3GPP TS  29.109 V8.3.0  6.3.1.5*/ Time       M,V| | | |N;
+/**
+ * The BootstrapInfoCreationTime AVP (AVP code 408) is of type Time. This AVP informs the 
+ * NAF about the bootstrapinfo cration time of the key.
+*/
+    BootstrapInfoCreationTime::=408/*3GPP TS  29.109 V8.3.0  6.3.1.9*/ Time       M,V| | | |N;
+
+
+/**
+ * The GAA-UserSecSettings AVP (AVP code 400) is of type OctetString. If transmitted on the
+ * Zh interface it contains GBA user security settings (GUSS). If transmitted on the Zn
+ * interface it contains the relevant USSs only. The content of GBA-UserSecSettings AVP is
+ * a XML document whose root element shall be the "guss" element for Zh interface and
+ * the "ussList" element for the Zn interface.
+*/
+
+  GBA-UserSecSettings ::=400 /*  3GPP TS 29.109 V8.3.0   6.3.1.1  */ OctetString  M,V| | | | N  ;
+
+/**
+ * The GBA-Type AVP (AVP code 410) is of type Enumerated. The AVP informs the NAF about 
+ * the authentication type that was used during bootstrapping procedure.
+*/
+  GBA-Type::=410  /*  3GPP TS 29.109 V8.3.0   6.3.1.11  */ Enumerated   M,V| | | | N  ;
+
+
+///////////////
+//Enumearted///
+///////////////
+
+   GBA_U-Awareness-Indicator ::= < Enumerated: 407 >
+                                NO          0
+				YES         1
+				;
+   GBA-Type                 ::= < Enumerated: 410  >
+                                Zn_3G_GBA       0
+                                Zn_2G_GBA       1
+                                ;
+
+
+///////////////
+//commands/////
+///////////////
+
+   Bootstrapping-Info-Request ::=<Diameter Header: 310, REQ, PXY, 16777220 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Origin-Host } 
+				{ Origin-Realm }
+				{ Destination-Realm }
+                                { Transaction-Identifier }
+                                { NAF-Id }
+                                [ Destination-Host ]
+				* [ GAA-Service-Identifier ] 
+				[ GBA_U-Awareness-Indicator ]
+				*[ AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				;
+  
+  Bootstrapping-Info-Answer ::= < Diameter Header: 310, PXY, 16777220 >
+				< Session-Id >
+				{ Vendor-Specific-Application-Id }
+				{ Origin-Host }
+                                { Origin-Realm }
+                                [ Result-Code ]
+				[ Experimental-Result]
+				[ User-Name ]
+				[ ME-Key-Material ] 
+				[ UICC-Key-Material ]
+				[ Key-ExpiryTime ] 
+				[ BootstrapInfoCreationTime ] 
+				[ GBA-UserSecSettings ] 
+				[ GBA-Type ] 
+				*[ AVP ]
+				*[ Proxy-Info ]
+				*[ Route-Record ]
+				;
+

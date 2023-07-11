@@ -1,0 +1,21 @@
+/.cvsignore/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/Makefile/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/ascii.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/asciitab.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/expat.dsp/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/expat.dsw/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/gennmtab.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/gennmtab.dsp/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/iasciitab.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/latin1tab.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/src_exports/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/utf8tab.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmlparse.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmlrole.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmlrole.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmltok.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmltok.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmltok_impl.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmltok_impl.h/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+/xmltok_ns.c/9.1/Wed Mar 23 12:53:25 2005//TB-IWF-HP-0400-00
+D

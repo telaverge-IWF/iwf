@@ -1,0 +1,19 @@
+
+M2UA Command
+
+SYNOPSIS
+    mu_set_asp_dn_tmr
+
+DESCRIPTION
+    This command set asp down Timer.
+
+PARAMETERS
+    Time.
+
+EXAMPLE
+    >> mu_set_asp_dn_tmr 10
+
+********* SET NEW ASP DOWN TIMER *********
+
+ASP_DOWN_TIMER     = 10
+

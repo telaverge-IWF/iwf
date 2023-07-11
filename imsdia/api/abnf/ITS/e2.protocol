@@ -1,0 +1,256 @@
+
+/**
+ *  ETSI ES 283 035 V1.1.1 (2006-07) e2 interface --Diameter Based Protocol
+ * e2 interface between an NASS and the SCS. 
+ * e2 interface between an CLF and the AF.
+ */
+protocol diameter.e2 < 16777231 13019: " ETSI ES 283 035 V1.1.1 (2006-07)" >;
+
+
+//////////////////
+// Derived AVPs //
+//////////////////
+
+/**
+ * The Requested-Information AVP shall be present if specific information is
+ * requested and shall be absent if all available information is requested.
+ * It contains  list of items requested by the AF.The Requested-Information AVP
+ * (AVP code 353 13019) is of type Enumerated.
+ */
+    Requested-Information              ::= 353  /*7.3.4*/            Enumerated    V| | | M| Y;
+
+/**
+ * This information element contains:
+ * (1) The IP address of the user equipment used by the subscriber for which
+ *     profile information is being pushed.( i.e contains a Frame-IP-Address
+ *     or Frame-IPv6-Prefix AVP value, and an Address-Realm AVP).
+ * (2) The addressing domain in which the IP address is significant.(i.e Address-Realm AVP).
+ */
+    Globally-Unique-Address            ::= 300 /*ES283034[7.3.1]*/   Grouped       V| | |  | Y;
+
+/**
+ * The Framed-IP-Address AVP (AVP Code 8) is of type OctetString and contains
+ * an IPv4 address of the type specified in attribute value to be configured
+ * for the user. It MAY be used in an authorization request as a hint to server
+ * that a specific address is desired, but the server is not required to honor
+ * the hint in the corresponding response.
+ * Two values have special significance: 0xFFFFFFFF and 0xFFFFFFFE. The
+ * value 0xFFFFFFFF indicates that the NAS should allow the user to select
+ * an address (i.e:negotiated). The value 0xFFFFFFFE indicates that NAS
+ * should select an address for the user (e.g:assigned from a pool of
+ * addresses kept by NAS).
+ */
+    Framed-IP-Address                  ::= 8   /*RFC 4005 6.11.1*/   OctetString   |M| | V|Y;
+
+/**
+ * The Framed-IPv6-Prefix AVP (AVP Code 97) is of type OctetString and
+ * contains the IPv6 prefix to be configured for the user. One or more AVPs
+ * MAY be used in authorization requests as hint to the server that
+ * specific IPv6 prefixes are desired, but the server is not required to
+ * honor the hint in the corresponding response.
+ */
+    Framed-IPv6-Prefix                 ::= 97  /*RFC 4005 6.11.6*/   OctetString   |M| |  V|Y;
+
+/**
+ * The Address-Realm AVP (AVP code 301 13019) is of type OctetString and 
+ * contains an address realm in the form of a FQDN.
+ */
+    Address-Realm                      ::= 301 /*ES283034[7.3.2]*/   OctetString   M,V| | |  |Y;
+
+
+/**
+ * The AF-Application-identifier AVP (AVP code 504) is of type OctetString, and it contains information that identifies
+ * the particular service that the AF service session belongs to. This information may be used by the PDF to differentiate
+ * QoS for different application services. For example the AF-Application-Identifier may be used as additional
+ * information together with the Media-Type AVP when the QoS class for the bearer authorization at the Go interface is
+ * selected. The AF-Application-Identifier may be used also to complete the QoS authorization with application specific
+ * default settings in the PDF if the AF does not provide full Session-Component-Description information.
+ */
+    AF-Application-Identifier          ::=  703 /*TS129209[6.5.5]*/  OctetString   M,V| | |  |Y;
+
+
+/**
+ * The NAS-Port-Type AVP (AVP Code 61) is of type Enumerated and contains the
+ * type of the port on which the NAS is authenticating the user. This AVP
+ * SHOULD be present if the NAS uses the same NAS-Port number ranges for
+ * different service types concurrently. The supported values are defined in
+ * [RADIUSTypes].
+ */
+    NAS-Port-Type                      ::= 61  /* RFC4005 4.4 */     Enumerated    |M| |  V|Y;
+
+
+/**
+ * The Access-Network-Type AVP (AVP code 306 13019) is of type Grouped,
+ * and it indicates the type of port on which the user equipment is connected
+ * and the type of aggregation network.
+ */
+    Access-Network-Type                ::= 306 /*7.3*/               Grouped       V|M| |  |Y;
+
+
+/**
+ * Location information has AVP code 350 and  in a form that is
+ * suitable for the requesting application.
+ */
+    Location-Information               ::= 350 /*7.3.1*/             Grouped       V|M| |  |Y;
+
+/**
+ * The RACS-Contact-Point AVP (AVP code 351 13019) is of type DiameterIdentity 
+ * and identifies the RACS element to which resource reservation requests shall be sent.
+ * It is FQDN or IP address of the RACS entity where resource request
+ * shall be sent (i.e. SPDF address).
+ */
+    RACS-Contact-Point                 ::= 351 /*7.3.2*/        DiamIdent          V|M| |  |Y;
+
+
+/**
+ * The Terminal-Type AVP (AVP code 352 13019) is of type OctetString and 
+ * contains a value of the User Class DHCP Option. It denotes type of user 
+ * equipment to which the IP address was allocated.
+ */
+    Terminal-Type                      ::= 352 /*7.3.3*/             OctetString   V|M| |  |Y;
+
+/**
+ * The Aggregation-Network-Type AVP (AVP code 307 13019) 
+ * and is of type Enumerated.
+ */
+    Aggregation-Network-Type           ::= 307 /*7.3*/               Enumerated    V|M| |  |Y;
+
+
+/**
+ * The Line-Identifier AVP has AVP code 500 is of type OctetString. This AVP 
+ * contains a fixed broadband access line identifier associated to the user. 
+ * This information element contains the line identifier of the user's network 
+ * termination.
+ */
+    Line-Identifier                    ::= 500 /*TS183033-6.3.1,34*/ OctetString   V|M| |  |Y;
+
+
+    //////////////////
+    // Enumerations //
+    //////////////////
+
+/* ACCESS_NETWORK_TYPE = 7 is repeated hence omitting */
+    Requested-Information    ::= < Enumerated: 353 >
+                                   SUBSCRIBER_ID           0
+                                   LOCATION_INFORMATION    1
+                                   RACS_CONTACT_POINT      2
+                                   ACCESS_NETWORK_TYPE     3
+                                   TERMINAL_TYPE           4
+                                   LOGICAL_ACCESS_ID       5
+                                   PHYSICAL_ACCESS_ID      6
+                                   INITIAL_GATE_SETTING    8
+                                   QOS_PROFILE             9
+                                   IP_CONNECTIVITY_STATUS  10
+                                   ;
+
+
+    NAS-Port-Type ::= < Enumerated: 61 >
+                        ASYNC              0
+                        SYNC               1
+                        ISDN_SYNC          2
+                        ISDN_ASYNC_V_120   3
+                        ISDN_ASYNC_V_110   4
+                        VIRTUAL            5
+                        PIAFS              6
+                        HDLC_CLEAR_CHANNEL 7
+                        X_25               8
+                        X_75               9
+                        G_3_FAX            10
+                        SDSL               11
+                        ADSL_CAP           12
+                        ADSL_DMT           13
+                        IDSL               14
+                        ETHERNET           15
+                        xDSL               16
+                        CABLE              17
+                        WIRELESS           18
+                        IEEE_802_11        19
+                        TOKEN_RING         20
+                        FDDI               21
+                        CDMA2000           22
+                        UMTS               23
+                        CDMA1X_EV          24
+                        IAPP_IEEE_802_11F  25
+                        ;
+
+
+Aggregation-Network-Type ::= < Enumerated: 307 >
+                               UNKNOWN    0
+                               ATM        1
+                               ETHERNET   2
+                               ;  
+
+
+    //////////////////
+    // Grouped AVPs //
+    //////////////////
+
+
+    Globally-Unique-Address ::= < AVP Header: 300 13019 >
+                                [ Framed-IP-Address]
+                                [ Framed-IPv6-Prefix]
+                                [ Address-Realm]
+                                ;
+
+    Access-Network-Type ::= < AVP Header: 306 13019 >
+                            { NAS-Port-Type}
+                            [ Aggregation-Network-Type]
+                            ;
+
+    Location-Information ::= < AVP Header: 350 13019 >
+                             [ Line-Identifier]
+                             *[ AVP]
+                             ;
+
+
+    //////////////////
+    //   Commands   //
+    //////////////////
+
+/**
+ * The User-Data-Request (UDR) command, indicated by the Command-Code field 
+ * set to 306 and the R bit set in the Command Flags field, is sent by a 
+ * Diameter client to a Diameter server in order to request user data.
+ */
+    User-Data-Request ::= < Diameter Header: 306, REQ, PXY, 16777231 >
+            < Session-Id >
+            { Vendor-Specific-Application-Id }
+            { Auth-Session-State }
+            { Origin-Host }
+            { Origin-Realm }
+            { Destination-Realm }
+            [ Destination-Host ]
+            [ Globally-Unique-Address]
+            [ User-Name]
+            [ AF-Application-Identifier]
+            [ Requested-Information]
+            *[ AVP ]
+            *[ Proxy-Info ]
+            *[ Route-Record ]
+            ;
+
+/**
+ * The User-Data-Answer (UDA) command, indicated by the Command-Code field set 
+ * to 306 and the R bit cleared in the Command Flags field, is sent by a 
+ * server in response to the User-Data-Request command. The Experimental-Result
+ * AVP may contain one of the values defined in section 6.2 or in 3GPP TS 29.229 [6].
+ */
+    User-Data-Answer  ::= < Diameter Header: 306, PXY, 16777231 >
+            < Session-Id >
+            { Vendor-Specific-Application-Id }
+            { Auth-Session-State }
+            { Origin-Host }
+            { Origin-Realm }
+            [ Result-Code ]
+            [ Experimental-Result ]
+            [ User-Name]
+            [ Access-Network-Type]
+            [ Location-Information]
+            [ RACS-Contact-Point]
+            [ Terminal-Type]
+            *[ AVP ]
+            *[ Failed-AVP ]
+            *[ Proxy-Info ]
+            *[ Route-Record ]
+            ;
+

@@ -1,0 +1,23 @@
+
+TTC SCCP Module :
+    st_get_gen_cfg        SCCP Get General Config
+    st_set_gen_cfg        SCCP Set General Config
+    st_get_all_ssn        SCCP Get All Subsystem Entries
+    st_set_rssn           SCCP Set Remote Subsystem Entry
+    st_rem_rssn           SCCP Remove Remote Subsystem Entry
+    st_set_lssn           SCCP Set Local Subsystem Entry
+    st_rem_lssn           SCCP Remove Local Subsystem Entry
+    st_get_all_cssn       SCCP Get All Concerned SSN Entry
+    st_set_cssn           SCCP Set Concerned SSN Entry
+    st_rem_cssn           SCCP Remove Concerned SSN Entry
+    st_send_ssa           SCCP Send Sub System Allowed
+    st_send_ssp           SCCP Send Sub System Prohibited
+    st_send_sst           SCCP Send Sub System Test
+    st_get_behavior       SCCP Get Behaviors
+    st_set_behavior       SCCP Set Behaviors
+    st_get_tmr            SCCP Get Timer
+    st_set_tmr            SCCP Set Timer
+    st_get_gen_peg        SCCP Get Pegs
+    st_clr_gen_peg        SCCP Clear Peg
+
+For details about any command use "help <command name>"

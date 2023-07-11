@@ -1,0 +1,144 @@
+%PB{
+option java_package = "com.diametriq.webagent";
+option java_outer_classname = "PeerStatistics";
+
+    import "Common.proto";
+
+message PeerGeneralStats {
+    optional string PeerName = 1;
+    optional string Realm = 2;
+    optional uint64 TotalReqIn = 3;
+    optional uint64 TotalReqout = 4;
+    optional uint64 TotalAnsIn = 5;
+    optional uint64 TotalAnsout = 6;
+    optional uint64 CERIn = 7;
+    optional uint64 CEROut = 8;
+    optional uint64 CEAIn = 9;
+    optional uint64 CEAOut = 10;
+    optional uint64 DWRIn = 11;
+    optional uint64 DWROut = 12;
+    optional uint64 DWAIn = 13;
+    optional uint64 DWAOut = 14;
+    optional uint64 DPRIn = 15;
+    optional uint64 DPROut = 16;
+    optional uint64 DPAIn = 17;
+    optional uint64 DPAOut = 18;
+    optional uint64 TotalMsgsRetransmitted = 19;
+    optional uint64 CURIn = 20;
+    optional uint64 CUROut = 21;
+    optional uint64 CUAIn = 22;
+    optional uint64 CUAOut = 23;
+    optional uint64 NoOfSuccessRespRx = 24;
+    optional uint64 NoOfSuccessRespTx = 25;
+    optional uint64 NoOfErrorRespRx = 26;
+    optional uint64 NoOfErrorRespTx = 27;
+    optional uint64 NoOfReqTimeouts = 28;
+    optional uint64 NoOfBytesRx = 29;
+    optional uint64 NoOfBytesTx = 30;
+    optional uint64 NoOfCESucceeded = 31;
+    optional uint64 NoOfCEFailed = 32;
+}
+
+message PeerTransportStats {
+    optional string PeerName = 1;
+    optional string Realm = 2;
+    optional uint64 ConnectionAttempts= 3;
+    optional uint64 TotalConnectionSuccess = 4;
+    optional uint64 TotalConnectionFailed = 5;
+    optional uint64 TotalConnectionClosureByPeer = 6;
+    optional uint64 TotalConnectionClosureByDRE = 7;
+    optional uint64 SocketBindsSuccess = 8;
+    optional uint64 SocketBindsFailed = 9;
+    optional uint64 TotalTranportDown = 10;
+    optional uint64 MessageRejectedByRateLimitingFilter = 11;
+    optional uint64 TotalDPRRcvdWithCauseDoNotWantToTalkToYou = 12;
+    optional uint64 TotalDPRRcvdWithCauseBusy = 13;
+    optional uint64 TotalDPRSentWithCauseDoNotWantToTalkToYou = 14;
+    optional uint64 TotalDPRSentWithCauseBusy = 15;
+    optional uint64 TotalMsgRetransmittedtoAltPeer = 16;
+    optional uint64 TotalMsgRetransmittedtoSamePeer = 17;
+    optional uint64 TotalDPRRcvdWithCauseReboot = 18;
+    optional uint64 TotalDPRSentWithCauseReboot = 19;
+}
+
+message PeerDREProtocolErrorStats {
+    optional string PeerName = 1;
+    optional string Realm = 2;
+    optional uint64 UnableToDeliver = 3;
+    optional uint64 RealmNotServed = 4;
+    optional uint64 UnknownPeer = 5;
+    optional uint64 UnknownSessionId = 6;
+    optional uint64 InvalidAVPValue = 7;
+    optional uint64 MissingAVP = 8;
+    optional uint64 NoCommonApplication = 9;
+    optional uint64 InvalidAVPLength = 10;
+    optional uint64 InvalidMsgLength = 11;
+    optional uint64 LoopDetected = 12;
+    optional uint64 ApplicationNotSupported = 13;
+    optional uint64 OtherErrors = 14;
+    optional uint64 DiameterTooBusy = 15;
+
+}
+
+message PeerGeneralStatsReq {
+    required fixed32 RequestId = 1;
+    repeated string PeerName   = 2;
+    repeated string Realm      = 3;
+}
+
+message PeerGeneralStatsResp {
+    required fixed32 ResponseId = 1;
+    repeated PeerGeneralStats GenStats = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message PeerTransportStatsReq {
+    required fixed32 RequestId = 1;
+    repeated string PeerName   = 2;
+    repeated string Realm      = 3;
+}
+
+message PeerTransportStatsResp {
+    required fixed32 ResponseId = 1;
+    repeated PeerTransportStats TransportStats = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message PeerDREProtocolErrorStatsReq {
+    required fixed32 RequestId = 1;
+    repeated string PeerName   = 2;
+    repeated string Realm      = 3;
+}
+
+message PeerDREProtocolErrorStatsResp {
+    required fixed32 ResponseId = 1;
+    repeated PeerDREProtocolErrorStats ProtoErrStats = 2;
+    repeated ErrorDetails ErrorDetails = 3;
+}
+
+message ResetPeerStatsReq {
+    required fixed32 RequestId = 1;
+    repeated string PeerName   = 2;
+    repeated string Realm      = 3;
+}
+
+message ResetPeerStatsResp {
+    required fixed32 ResponseId = 1;
+    repeated ErrorDetails ErrorDetails = 2;
+}
+
+
+%PB}
+
+
+interface PeerStats
+{
+    FetchPeerGeneralStats(PeerGeneralStatsReq Req,PeerGeneralStatsResp Resp)uses_PB;
+
+    FetchPeerTransportStats(PeerTransportStatsReq Req, PeerTransportStatsResp Resp)uses_PB;
+
+    FetchPeerDREProtocolErrorStats(PeerDREProtocolErrorStatsReq Req,
+            PeerDREProtocolErrorStatsResp Resp)uses_PB;
+
+    ResetPeerStats(ResetPeerStatsReq Req, ResetPeerStatsResp Resp)uses_PB;
+}

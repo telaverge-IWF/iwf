@@ -1,0 +1,243 @@
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!--      (C) 2000 IntelliNet Technologies Inc. All Rights Reserved.         -->
+<!--             Manufactured in the United States of America.               -->
+<!--     1990 W. New Haven Ste. 312, Melbourne, Florida, 32904 U.S.A.        -->
+<!--                                                                         -->
+<!--  This product and related documentation is protected by copyright and   -->
+<!--  distributed under licenses restricting its use, copying, distribution  -->
+<!--  and decompilation.  No part of this product or related documentation   -->
+<!--  may be reproduced in any form by any means without prior written       -->
+<!--  authorization of IntelliNet Technologies and its licensors, if any.    -->
+<!--                                                                         -->
+<!--  RESTRICTED RIGHTS LEGEND:  Use, duplication, or disclosure by the      -->
+<!--  government is subject to restrictions as set forth in subparagraph     -->
+<!--  (c)(1)(ii) of the Rights in Technical Data and Computer Software       -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- CONTRACT: INTERNAL                                                      -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+<!--                                                                         -->
+<!-- ID: $Id: AsnDecodeError.html,v 9.1 2005/03/23 12:54:08 cvsadmin Exp $ -->
+<!--                                                                         -->
+<!-- /////////////////////////////////////////////////////////////////////// -->
+
+<html>
+
+<head>
+<title>Class Interface AsnDecodeError</title>
+</head>
+
+<body bgcolor="#FFFFFF" text="#000000">
+
+<!-- Header /////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<p>
+  <i>
+    <img border="0" src="AsnModuleLogo.jpg" width="240" height="47" align="right"></img>
+  </i>
+</p>
+
+<p style="margin-bottom: 0">
+  <i>
+    <font size="3">
+      - IntelliSS7 Application Development Environment -  C API -
+    </font>
+  </i>
+</p>
+
+<hr size="4" style="margin-top: 0"></hr>
+
+<p align="left">
+  <u>
+    <font size="6">
+    Class Interface AsnDecodeError
+    </font>
+  </u>
+</p>
+
+<p>
+  The class interface AsnDecodeError is used to indicate an ASN.1 error during the decoding phase of an ASN.1 encoded
+  value (i.e. call to the associated <b>__Decode</b> function). An ASN.1 decode error indicates a misuse of an ASN.1 
+  type in the remote application code (e.g. invalid octet string size, missing mandatory element in a set or a 
+  sequence) or a corrupted ASN.1 encoded value. An instance of (i.e. object) the class interface AsnDecodeError is 
+  returned each time an ASN.1 decode error is detected (returned in association with the return error code 
+  <b>ITS_E_ASN_DECODE_ERROR</b>). The AsnDecodeError object contains a full description and the precise location of the
+  error. The detection of some ASN.1 decode errors can be turned off at runtime using the relevant <b>ASN_Options__</b>
+  functions.
+</p>
+
+
+<!-- Class summary //////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Class interface functions summary
+    </font>
+  </li>
+</ul>
+
+<p>
+  <a href="#Destruct">ASN_DecodeError_Destruct</a>
+  -
+  <a href="#Construct">ASN_DecodeError_Construct</a>
+  -
+  <a href="#GetError">ASN_DecodeError_GetError</a>
+  -
+  <a href="#GetErrorText">ASN_DecodeError_GetErrorText</a>
+  -
+  <a href="#GetExtendedErrorText">ASN_DecodeError_GetExtentedErrorText</a>
+  -
+  <a href="#GetOctets">ASN_DecodeError_GetOctets</a>
+  -
+  <a href="#ToString">ASN_DecodeError_ToString</a>
+  -
+  <a href="#Print">ASN_DecodeError_Print</a>
+</p>
+
+
+<!-- Public member functions ////////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<ul type="square">
+  <li>
+    <font size="4">
+      Public functions
+    </font>
+  </li>
+</ul>
+
+<div align="left">
+  <table border="1" width="100%">
+    <tr>
+      <td valign="middle" align="center" bgcolor="#CCCCFF" width="33%">
+          <b>Function signature</b>
+        </a>
+      </td>
+      <td valign="middle" align="center" bgcolor="#CCCCFF">
+        <b>Function summary</b>
+      </td>
+    </tr>
+    </tr>
+      <tr>
+        <td valign="middle" align="left" width="33%">
+	      <a name="Destruct">
+              <b>void ASN_DecodeError_Destruct(ASN_DecodeError object)</b>
+          </a>
+        </td>
+        <td valign="middle" align="left">
+            The <b>ASN_DecodeError_Destruct</b> destructor function allows destroying an ASN_DecodeError object.
+        </td>
+      </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="Construct">
+          <b>ASN_DecodeError ASN_DecodeError_Construct(ASN_Error error, char* extendedError, const ASN_Octets octets,
+          const char* file, ITS_ULONG line)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_Construct</b> constructor function allows creating an ASN_DecodeError object. It is used
+        internally by the ASN.1 C runtime and must not be used directly by the end-user.
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetError">
+          <b>ASN_Error ASN_DecodeError_GetError(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_GetError</b> function returns one of the error constants of the ASN_Error C enumerated
+        type.
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetErrorText">
+          <b>const char* ASN_DecodeError_GetErrorText(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_GetErrorText</b> function returns a character string (C type const char*) describing one
+        of the error constants of the ASN_Error C enumerated type. The function returns <b>NULL</b> if there is 
+        insufficient memory available. 
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetExtendedErrorText">
+          <b>const char* ASN_DecodeError_GetExtentedErrorText(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_GetExtendedError</b> function returns a character string (C type const char*) indicating
+        the precise location of the ASN.1 encode error including the ASN.1 type name. The function returns <b>NULL</b>
+        if there is insufficient memory available. 
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="GetOctets">
+          <b>const ASN_Octets ASN_DecodeError_GetOctets(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_GetOctets</b> function returns an ASN_Octets object that contains the encoded ASN.1
+        value responsible for the ASN.1 decode error. The function returns <b>NULL</b> if there is insufficient
+        memory available. 
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="Print">
+          <b>void ASN_DecodeError_Print(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_Print</b> function allows printing the contents of an ASN_DecodeError object to the
+        standard output at any time.
+      </td>
+    </tr>
+    <tr>
+      <td valign="middle" align="left" width="33%">
+        <a name="ToString">
+          <b>char* ASN_DecodeError_ToString(const ASN_DecodeError object)</b>
+        </a>
+      </td>
+      <td valign="middle" align="left">
+        The <b>ASN_DecodeError_ToString</b> function allows printing the contents of an ASN_DecodeError object to a
+        character string at any time and returns the character string. The end-user is responsible for freeing the
+        returned character string. The function returns <b>NULL</b> if there is insufficient memory available.
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+<!-- Footer (copyright notice) //////////////////////////////////////////////////////////////////////////////////// -->
+
+<br></br>
+
+<hr size="4"></hr>
+
+<p style="line-height: 100%; margin-left: 0; margin-top: 1; margin-bottom: 0" align="center">
+  <font size="2">
+    © 2000 IntelliNet Technologies, Inc. All rights reserved.
+  </font>
+</p>
+
+<br></br>
+
+</body>
+
+</html>
+
+
+

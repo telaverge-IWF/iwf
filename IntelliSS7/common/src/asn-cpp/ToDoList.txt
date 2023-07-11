@@ -1,0 +1,17 @@
+-------------------------------------------------------------------------------
+                   ASN.1 C++ Runtime TODO List 01/04/2001
+-------------------------------------------------------------------------------
+
+1) Finish implementation of XER encoding and decoding algorithms.
+
+2) Start implementation of PER encoding and decoding algorithms.
+
+3) Test Tag substitution mechanism (required for ANSI 41).
+
+4) (?) Work on converting type descriptions to C footage.
+
+5) Improve performance by overloading new operator for classes like Octets.
+
+6) ...
+
+

@@ -1,0 +1,13 @@
+#!/bin/bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:../lib:/usr/local/lib:/usr/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/common/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/../vendors/IntelliNet/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/MTP3/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ITS_ROOT/GSMMAP/lib
+unset ISS7_CONFIG_DIR
+
+ulimit -c unlimited
+rm core.*
+
+#dbx -c "runargs opc 2057 dpc 4114 send noISD -configFile gsmmapv6_endpoint.xml" ./sampleAppCCITT 
+./sampleAppCCITTD  opc 2057 dpc 4114 send noISD -configFile gsmmapv6_endpoint_ITU.xml

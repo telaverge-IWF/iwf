@@ -1,0 +1,21 @@
+#!/bin/bash
+
+
+OS=`uname`
+if [ $OS = 'SunOS' ]
+then
+   cd $IMS_ROOT
+   cp make.dirs.solCC make.dirs
+fi
+
+$(MAKE) clean
+$(MAKE) APPID_EXCLUSIVE=yes 2> errims
+cd $IMS_ROOT/vendors/IntelliNet/src
+$(MAKE) clean TLS=$(TLS)
+$(MAKE) TLS=$(TLS) 2>> $IMS_ROOT/errims
+cd $IMS_ROOT/aim/server/src
+$(MAKE) clean TLS=$(TLS)
+$(MAKE) TLS=$(TLS) 2>> $IMS_ROOT/errims
+cd $IMS_ROOT/itsdemo/src
+$(MAKE) clean TLS=$(TLS)
+$(MAKE) TLS=$(TLS) 2>> $IMS_ROOT/errims

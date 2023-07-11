@@ -1,0 +1,69 @@
+{
+    "cxdx_v12" : {
+        "UserAuthorizationAnswer" : {
+            "ResultCode" : {
+                "Enabled" :false,
+                    "Value" : 3002
+            }  ,
+                "Experimental-Result": {
+                    "Enabled" :true,
+                    "Value"   :5003
+                } 
+        },
+            "ServerAssignmentAnswer":  {
+                "ResultCode" : {
+                    "Enabled" :true,
+                    "Value" : 2001
+                },
+                "Experimental-Result": {
+                    "Enabled" :false,
+                    "Value"   : 5001
+                },
+                "PriviledgedSenderIndication": {
+                    "Enabled" :true,
+                    "Value" :1
+                }
+            },
+            "MultimediaAuthTestAnswer":  {
+                "ResultCode" : {
+                    "Enabled" :true,
+                    "Value" : 3002
+                },
+                "Experimental-Result": {
+                    "Enabled" : false,
+                    "Value"   : 5001
+                }         
+            },
+            "RegistrationTerminationTestAnswer":  {
+                "ResultCode" : {
+                    "Enabled" :true,
+                    "Value" : 2001
+                } ,
+                "Experimental-Result": {
+                    "Enabled" :false,
+                    "Value"   : 5001
+                } 
+
+            },
+            "LocationInfoTestAnswer":  {
+                "ResultCode" : {
+                    "Enabled" :true,
+                    "Value" : 2001
+                },
+                "Experimental-Result": {
+                    "Enabled" :false,
+                    "Value"   : 5001
+                } 
+            },
+            "PushProfileTestAnswer":  {
+                "ResultCode" : {
+                    "Enabled" :true,
+                    "Value" : 2001
+                },
+                "Experimental-Result": {
+                    "Enabled" :false,
+                    "Value"   : 5001
+                } 
+            }
+    }
+}

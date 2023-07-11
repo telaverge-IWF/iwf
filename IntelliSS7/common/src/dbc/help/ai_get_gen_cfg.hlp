@@ -1,0 +1,28 @@
+
+ITU ALCAP Command
+
+SYNOPSIS
+    ai_get_gen_cfg
+
+DESCRIPTION
+    This command displays ITU ALCAP general configuration. This include ALCAP 
+    Alarm Level and ALCAP Trace Level. Alarm level controls ALCAP alarms sent
+    to Accelero application. Trace level controls generation of ALCAP execution
+    traces.
+
+PARAMETERS
+    None.
+
+EXAMPLE
+    >> ai_get_gen_cfg
+    *********** ALCAP General Config *************
+        Alarm Level = OFF 
+        ALCAP Trace -
+            Debug     =  null 
+            Critical  =  stdout file syslog
+            Warning   =  stdout file syslog
+            Error     =  stdout file syslog
+    *********** End of ALCAP General Config *************
+
+
+

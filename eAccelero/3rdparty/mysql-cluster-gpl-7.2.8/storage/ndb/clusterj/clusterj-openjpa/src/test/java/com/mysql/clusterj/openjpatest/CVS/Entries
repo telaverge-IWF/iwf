@@ -1,0 +1,22 @@
+/BasicTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/BigIntegerTypesTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/BlobTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/ClobTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/CrundTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/DateAsSqlDateTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/DateAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/DatetimeAsSqlTimestampTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/DatetimeAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/DecimalTypesTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/EmbeddedTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/LazyTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/LongIntStringPKOneOneTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/LongLongStringPKOneManyTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/LongLongStringPKTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/OneToManyRelationshipTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/TestBadPersistenceUnitNoConnectString.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/TimeAsSqlTimeTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/TimeAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/TimestampAsSqlTimestampTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+/TimestampAsUtilDateTest.java/1.1.2.1/Fri Oct  5 12:38:21 2012//TB-IWF-HP-0400-00
+D
